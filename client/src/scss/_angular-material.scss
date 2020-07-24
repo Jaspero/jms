@@ -68,24 +68,12 @@ $jms-theme: mat-light-theme($jms-primary, $jms-accent, $jms-warn);
 
 // Typography
 // =============================================================================
-// Define a custom typography config that overrides the font-family as well as
-// the `headlines` and `body-1` levels.
+// Define a custom typography config
 
 $jms-typography: mat-typography-config(
   $font-family: "sans-serif",
-  // $display-4:    mat-typography-level(1.25rem, 1.25, 400),
-  // $display-3:    mat-typography-level(1.25rem, 1.25, 400),
-  // $display-2:    mat-typography-level(1.25rem, 1.25, 400),
-  // $display-1:    mat-typography-level(1.25rem, 1.25, 400),
-  // $headline:     mat-typography-level(1.25rem, 1.25, 400),
-  // $title:        mat-typography-level(1.25rem, 1.25, 400),
-  // $subheading-2: mat-typography-level(.875rem, 1.5, 400),
-  // $subheading-1: mat-typography-level(.875rem, 1.5, 400),
-  // $body-2:       mat-typography-level(.875rem, 1.5, 400),
-  // $body-1:       mat-typography-level(.875rem, 1.5, 400),
-  // $caption:      mat-typography-level(.75rem, 1.5, 400),
-  // $input:        mat-typography-level(.875rem, 1.25, 600),
-  // $button:       mat-typography-level(.875rem, 1, 700),
+  $input: mat-typography-level(.875rem, 1.25, 600),
+  $button: mat-typography-level(.875rem, 1, 700),
 );
 
 @include angular-material-typography($jms-typography);
@@ -130,7 +118,40 @@ $jms-typography: mat-typography-config(
 // Card
 // =============================================================================
 
-// Custom style
+.mat-card-header.mat-card-header.mat-card-header {
+  margin: -16px -16px 16px -16px;
+  padding: 16px;
+  border-bottom: 1px solid var(--panel-c-3);
+}
+
+.mat-card-header-text.mat-card-header-text {
+  margin: 0;
+}
+
+.mat-card-title.mat-card-title.mat-card-title {
+  margin: 0;
+}
+
+.mat-card-subtitle.mat-card-subtitle.mat-card-subtitle {
+  margin-bottom: 0;
+}
+
+.mat-card-actions.mat-card-actions.mat-card-actions.mat-card-actions {
+  margin: 16px -16px -16px;
+  padding: 16px;
+  border-top: 1px solid var(--panel-c-3);
+}
+
+.mat-card-footer {
+  margin: 0 -16px -16px;
+  padding: 16px;
+  border-top: 1px solid var(--panel-c-3);
+}
+
+// Custom class that insets mat-card-content
+.mat-card-content.mat-card-content-inset {
+  margin: -16px;
+}
 
 
 
@@ -270,7 +291,17 @@ $jms-typography: mat-typography-config(
 // Slide toggle
 // =============================================================================
 
-// Custom style
+.mat-slide-toggle.mat-checked.mat-primary .mat-slide-toggle-bar {
+  background: var(--main-light);
+}
+
+.mat-slide-toggle.mat-checked.mat-accent .mat-slide-toggle-bar {
+  background: var(--accent-light);
+}
+
+.mat-slide-toggle.mat-checked.mat-warn .mat-slide-toggle-bar {
+  background: var(--warn-light);
+}
 
 
 
