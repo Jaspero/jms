@@ -1,0 +1,363 @@
+//
+// Utilities
+//
+// A map of utility classes.
+//
+// =============================================================================
+
+
+
+// Reference maps
+// =============================================================================
+// Create your own custom maps that you can use or reuse in the properties map
+
+$overflow: (hidden, auto);
+
+$spacing: (
+  0:  0,
+  p5: .5rem,
+  1:  1rem,
+  2:  2rem,
+  4:  4rem,
+  8:  8rem,
+);
+
+$colors: (
+  inherit:  inherit,
+
+  main: var(--main),
+  main-light: var(--main-light),
+  main-dark: var(--main-dark),
+  main-c-1: var(--main-contrast-primary),
+  main-c-2: var(--main-contrast-secondary),
+  main-c-3: var(--main-contrast-tertiary),
+
+  accent: var(--accent),
+  accent-light: var(--accent-light),
+  accent-dark: var(--accent-dark),
+  accent-c-1: var(--accent-contrast-primary),
+  accent-c-2: var(--accent-contrast-secondary),
+  accent-c-3: var(--accent-contrast-tertiary),
+
+  warn: var(--warn),
+  warn-light: var(--warn-light),
+  warn-dark: var(--warn-dark),
+  warn-c-1: var(--warn-contrast-primary),
+  warn-c-2: var(--warn-contrast-secondary),
+  warn-c-3: var(--warn-contrast-tertiary),
+
+  panel: var(--panel),
+  panel-c-1: var(--panel-contrast-primary),
+  panel-c-2: var(--panel-contrast-secondary),
+  panel-c-3: var(--panel-contrast-tertiary),
+);
+
+$grid-span: (
+  0:  span 0,
+  1:  span 1,
+  2:  span 2,
+  3:  span 3,
+  4:  span 4,
+  5:  span 5,
+  6:  span 6,
+  7:  span 7,
+  8:  span 8,
+  9:  span 9,
+  10: span 10,
+  11: span 11,
+  12: span 12
+);
+
+$position: (
+  0:   0%,
+  100: 100%
+);
+
+
+
+// Breakpoints
+// =============================================================================
+// Don't rename this map, but feel free to change or add new breakpoints
+
+$breakpoints: (
+  md: 1200px,
+  sm: 900px,
+  xs: 600px
+);
+
+
+
+// Properties
+// =============================================================================
+// Syntax for adding/editing properties is the following:
+//
+// property: (
+//   values: [map or list],
+//   short: [string],
+//   media: [boolean],
+//   hover: [boolean],
+//   active: [boolean]
+// )
+
+// Sorted alphabetically for better compression and overview.
+$properties: (
+  align-content: (
+    short: ac,
+    values: (
+      stretch: stretch,
+      center: center,
+      start: flex-start,
+      end: flex-end,
+      base: baseline,
+      between: space-between,
+      around: space-around,
+      evenly: space-evenly
+    )
+  ),
+  align-items: (
+    short: ai,
+    values: (
+      stretch: stretch,
+      center: center,
+      start: flex-start,
+      end: flex-end,
+      base: baseline
+    )
+  ),
+  align-self: (
+    short: as,
+    values: (
+      auto: auto,
+      center: center,
+      start: flex-start,
+      end: flex-end,
+      base: baseline
+    )
+  ),
+  background-color: (
+    short: bgc,
+    values: $colors
+  ),
+  // background-image: (),
+  // background-position: (),
+  // background-size: (),
+  border: (
+    short: b-a,
+    values: ( 1: 1px solid )
+  ),
+  border-top: (
+    short: b-t,
+    values: ( 1: 1px solid )
+  ),
+  border-bottom: (
+    short: b-b,
+    values: ( 1: 1px solid )
+  ),
+  border-left: (
+    short: b-l,
+    values: ( 1: 1px solid )
+  ),
+  border-right: (
+    short: b-r,
+    values: ( 1: 1px solid )
+  ),
+  border-color: (
+    short: bc,
+    values: $colors
+  ),
+  // border-radius: (),
+  bottom: (
+    short: bottom,
+    values: $position
+  ),
+  // box-shadow: (),
+  color: (
+    short: c,
+    values: $colors
+  ),
+  cursor: (
+    values: (pointer, auto)
+  ),
+  display: (
+    short: d,
+    values: (
+      none: none,
+      block: block,
+      flex: flex,
+      iblock: inline-block,
+      iflex: inline-flex,
+      inline: inline,
+      grid: grid
+    ),
+    media: true
+  ),
+  // float: (),
+  // flex-basis: (),
+  flex-direction: (
+    short: fd,
+    values: (
+      row: row,
+      col: column,
+      row-rev: row-reverse,
+      col-rev: column-reverse
+    )
+  ),
+  flex-grow: (
+    short: fg,
+    values: 1
+  ),
+  // flex-shrink: (),
+  flex-wrap: (
+    short: fw,
+    values: (
+      wrap: wrap,
+      nowrap: nowrap,
+      wrap-rev: wrap-reverse
+    )
+  ),
+  // font-family: (),
+  // font-size: (),
+  // font-style: (),
+  font-weight: (
+    short: fw,
+    values: (bold, normal)
+  ),
+  grid-column: (
+    short: gc,
+    values: $grid-span,
+    media: true
+  ),
+  grid-gap: (
+    short: gg,
+    values: $spacing
+  ),
+  grid-row: (
+    short: gr,
+    values: $grid-span,
+    media: true
+  ),
+  grid-template-columns: (
+    short: gtc,
+    values: (12: repeat(12, 1fr))
+  ),
+  // height: (),
+  justify-content: (
+    short: jc,
+    values: (
+      center: center,
+      start: flex-start,
+      end: flex-end,
+      between: space-between
+    )
+  ),
+  left: (
+    short: left,
+    values: $position
+  ),
+  // letter-spacing: (),
+  // line-height: (),
+  // list-style: (),
+  margin: (
+    short: m-a,
+    values: map-merge($spacing, (auto: auto))
+  ),
+  margin-top: (
+    short: m-t,
+    values: map-merge($spacing, (auto: auto))
+  ),
+  margin-bottom: (
+    short: m-b,
+    values: map-merge($spacing, (auto: auto))
+  ),
+  margin-left: (
+    short: m-l,
+    values: map-merge($spacing, (auto: auto))
+  ),
+  margin-right: (
+    short: m-r,
+    values: map-merge($spacing, (auto: auto))
+  ),
+  max-width: (
+    short: mw,
+    values: (
+      40: 40rem,
+      60: 60rem,
+      80: 80rem
+    )
+  ),
+  // opacity: (),
+  // order: (),
+  // outline: (),
+  overflow: (
+    short: of,
+    values: $overflow
+  ),
+  overflow-x: (
+    short: of-x,
+    values: $overflow
+  ),
+  overflow-y: (
+    short: of-y,
+    values: $overflow
+  ),
+  // pointer-events: (),
+  // width: (),
+  padding: (
+    short: p-a,
+    values: $spacing
+  ),
+  padding-top: (
+    short: p-t,
+    values: $spacing
+  ),
+  padding-bottom: (
+    short: p-b,
+    values: $spacing
+  ),
+  padding-left: (
+    short: p-l,
+    values: $spacing
+  ),
+  padding-right: (
+    short: p-r,
+    values: $spacing
+  ),
+  position: (
+    short: pos,
+    values: (
+      rel: relative,
+      abs: absolute,
+      fixed: fixed,
+      sticky: sticky,
+      static: static,
+    )
+  ),
+  right: (
+    short: right,
+    values: $position
+  ),
+  text-align: (
+    short: ta,
+    values: (left, right, center, justify)
+  ),
+  text-decoration: (
+    short: td,
+    hover: true,
+    values: (none, underline)
+  ),
+  // text-shadow: (),
+  // text-transform: (),
+  top: (
+    short: top,
+    values: $position
+  ),
+  // transition: (),
+  // vertical-align: (),
+  // visibility: (),
+  // white-space: (),
+  // word-break: (),
+  z-index: (
+    short: z,
+    values: (1,9,10,99)
+  )
+);

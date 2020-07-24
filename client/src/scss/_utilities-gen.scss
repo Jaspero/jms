@@ -1,0 +1,113 @@
+//
+// Utilities generator
+//
+// Functions that generate utility classes.
+//
+// =============================================================================
+
+
+
+// Helper Functions
+// =============================================================================
+
+@function get-prefix($property, $short) {
+  @if $short == null {
+    @return $property;
+  } @else {
+    @return $short;
+  }
+}
+
+@function get-suffix($key) {
+  @return $key;
+}
+
+@function get-value($key, $value) {
+  @if $value == null {
+    @return $key;
+  } @else {
+    @return $value;
+  }
+}
+
+
+
+// Generate css custom properties
+// =============================================================================
+
+:root {
+  @each $prop-key, $prop-value in $properties {
+    $property: $prop-key;
+    $values: map-get($prop-value, 'values');
+    $short: map-get($prop-value, 'short');
+  }
+}
+
+
+
+// Generate classes
+// =============================================================================
+
+@each $prop-key, $prop-value in $properties {
+  $property: $prop-key;
+  $values: map-get($prop-value, 'values');
+  $short: map-get($prop-value, 'short');
+  $media: map-get($prop-value, 'media');
+  $hover: map-get($prop-value, 'hover');
+  $active: map-get($prop-value, 'active');
+
+  // Generate regular classes
+  @each $value-key, $value-value in $values {
+    $prefix: get-prefix($property, $short);
+    $suffix: get-suffix($value-key);
+    $value: get-value($value-key, $value-value);
+
+    .#{$prefix}-#{$suffix} {
+      #{$property}: #{$value};
+    };
+  }
+
+  // Generate media queries
+  @if $media == true {
+    @each $breakpoint-key, $breakpoint-value in $breakpoints {
+      @media (max-width: $breakpoint-value) {
+        @each $value-key, $value-value in $values {
+          $prefix: get-prefix($property, $short);
+          $suffix: get-suffix($value-key);
+          $value: get-value($value-key, $value-value);
+
+          .#{$prefix}-#{$suffix}-#{$breakpoint-key} {
+            #{$property}: #{$value};
+          };
+        }
+      }
+    }
+  }
+
+  // Generate hover & focus classes
+  @if $hover == true {
+    @each $value-key, $value-value in $values {
+      $prefix: get-prefix($property, $short);
+      $suffix: get-suffix($value-key);
+      $value: get-value($value-key, $value-value);
+
+      .#{$prefix}-#{$suffix}-hover:hover,
+      .#{$prefix}-#{$suffix}-hover:focus {
+        #{$property}: #{$value};
+      };
+    }
+  }
+
+  // Generate active classes
+  @if $active == true {
+    @each $value-key, $value-value in $values {
+      $prefix: get-prefix($property, $short);
+      $suffix: get-suffix($value-key);
+      $value: get-value($value-key, $value-value);
+
+      .#{$prefix}-#{$suffix}.active {
+        #{$property}: #{$value};
+      };
+    }
+  }
+}

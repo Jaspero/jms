@@ -1,0 +1,329 @@
+//
+// Custom Theming for Angular Material
+//
+// For more information: https://material.angular.io/guide/theming
+//
+// =============================================================================
+
+
+
+// Include the common styles for Angular Material
+// =============================================================================
+// We include this here so that you only have to load a single css file for
+// Angular Material in your app. Be sure that you only ever include this mixin
+// once!
+
+@import '~@angular/material/theming';
+@include mat-core();
+
+
+
+// Theme defining
+// =============================================================================
+// Define the palettes for your theme using the Material Design palettes
+// available in palette.scss (imported above). For each palette, you can
+// optionally specify a default, lighter, and darker hue.
+// Available color palettes: https://material.io/design/color/
+
+$primary: (
+  100: var(--primary-light),
+  500: var(--primary),
+  700: var(--primary-dark),
+  contrast: (
+    100: var(--primary-light-c),
+    500: var(--primary-c-1),
+    700: var(--primary-dark-c)
+  )
+);
+$accent: (
+  100: var(--accent-light),
+  500: var(--accent),
+  700: var(--accent-dark),
+  contrast: (
+    100: var(--accent-light-c),
+    500: var(--accent-c-1),
+    700: var(--accent-dark-c)
+  )
+);
+$warn: (
+  100: var(--warn-light),
+  500: var(--warn),
+  700: var(--warn-dark),
+  contrast: (
+    100: var(--warn-light-c),
+    500: var(--warn-c-1),
+    700: var(--warn-dark-c)
+  )
+);
+
+$jms-primary: mat-palette($primary);
+$jms-accent : mat-palette($accent);
+$jms-warn   : mat-palette($warn);
+
+$jms-theme: mat-light-theme($jms-primary, $jms-accent, $jms-warn);
+
+@include angular-material-theme($jms-theme);
+
+
+
+// Typography
+// =============================================================================
+// Define a custom typography config that overrides the font-family as well as
+// the `headlines` and `body-1` levels.
+
+$jms-typography: mat-typography-config(
+  $font-family: "sans-serif",
+  // $display-4:    mat-typography-level(1.25rem, 1.25, 400),
+  // $display-3:    mat-typography-level(1.25rem, 1.25, 400),
+  // $display-2:    mat-typography-level(1.25rem, 1.25, 400),
+  // $display-1:    mat-typography-level(1.25rem, 1.25, 400),
+  // $headline:     mat-typography-level(1.25rem, 1.25, 400),
+  // $title:        mat-typography-level(1.25rem, 1.25, 400),
+  // $subheading-2: mat-typography-level(.875rem, 1.5, 400),
+  // $subheading-1: mat-typography-level(.875rem, 1.5, 400),
+  // $body-2:       mat-typography-level(.875rem, 1.5, 400),
+  // $body-1:       mat-typography-level(.875rem, 1.5, 400),
+  // $caption:      mat-typography-level(.75rem, 1.5, 400),
+  // $input:        mat-typography-level(.875rem, 1.25, 600),
+  // $button:       mat-typography-level(.875rem, 1, 700),
+);
+
+@include angular-material-typography($jms-typography);
+
+
+
+// Autocomplete
+// =============================================================================
+
+// Custom style
+
+
+
+// Badge
+// =============================================================================
+
+// Custom style
+
+
+
+// Bottom Sheet
+// =============================================================================
+
+// Custom style
+
+
+
+// Button
+// =============================================================================
+
+// Custom style
+
+
+
+// Button toggle
+// =============================================================================
+
+// Custom style
+
+
+
+// Card
+// =============================================================================
+
+// Custom style
+
+
+
+// Checkbox
+// =============================================================================
+
+// Custom style
+
+
+
+// Chips
+// =============================================================================
+
+// Custom style
+
+
+
+// Datepicker
+// =============================================================================
+
+// Custom style
+
+
+
+// Dialog
+// =============================================================================
+
+// Custom style
+
+
+
+// Divider
+// =============================================================================
+
+// Custom style
+
+
+
+// Expansion Panel
+// =============================================================================
+
+// Custom style
+
+
+
+// Form field
+// =============================================================================
+
+// Custom style
+
+
+
+// Grid list
+// =============================================================================
+
+// Custom style
+
+
+
+// Icon
+// =============================================================================
+
+// Custom style
+
+
+
+// Input
+// =============================================================================
+
+// Custom style
+
+
+
+// List
+// =============================================================================
+
+// Custom style
+
+
+
+// Menu
+// =============================================================================
+
+// Custom style
+
+
+
+// Paginator
+// =============================================================================
+
+// Custom style
+
+
+
+// Progress bar
+// =============================================================================
+
+// Custom style
+
+
+
+// Progress spinner
+// =============================================================================
+
+// Custom style
+
+
+
+// Radio button
+// =============================================================================
+
+// Custom style
+
+
+
+// Ripples
+// =============================================================================
+
+// Custom style
+
+
+
+// Select
+// =============================================================================
+
+// Custom style
+
+
+
+// Sidenav
+// =============================================================================
+
+// Custom style
+
+
+
+// Slide toggle
+// =============================================================================
+
+// Custom style
+
+
+
+// Slider
+// =============================================================================
+
+// Custom style
+
+
+
+// Snackbar
+// =============================================================================
+
+// Custom style
+
+
+
+// Sort header
+// =============================================================================
+
+// Custom style
+
+
+
+// Stepper
+// =============================================================================
+
+// Custom style
+
+
+
+// Table
+// =============================================================================
+
+// Custom style
+
+
+
+// Tabs
+// =============================================================================
+
+// Custom style
+
+
+
+// Toolbar
+// =============================================================================
+
+// Custom style
+
+
+
+// Tooltip
+// =============================================================================
+
+// Custom style
