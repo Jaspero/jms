@@ -1,4 +1,5 @@
-<div class="global-loader" *ngIf="loading$ | async">
+<div class="p-fixed top-0 left-0 w-100 z-99" *ngIf="loading$ | async">
   <mat-progress-bar color="accent" mode="indeterminate"></mat-progress-bar>
 </div>
+
 <router-outlet></router-outlet>

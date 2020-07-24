@@ -301,7 +301,10 @@ $properties: (
     values: $overflow
   ),
   // pointer-events: (),
-  // width: (),
+  width: (
+    short: w,
+    values: (100: 100%)
+  ),
   padding: (
     short: p-a,
     values: $spacing
