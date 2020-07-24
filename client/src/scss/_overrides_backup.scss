@@ -1,28 +1,3 @@
-@import "../breakpoints";
-
-/**
- * Material Design components for Angular
- *
- * Style overrides for Angular Material. Original elements:
- * https://material.angular.io/
- *
- *============================================================================*/
-
-
-
-/* Buttons
- *============================================================================*/
-
-// Ripple color adjustment
-.mat-flat-button.mat-primary .mat-ripple-element,
-.mat-raised-button.mat-primary .mat-ripple-element,
-.mat-fab.mat-primary .mat-ripple-element,
-.mat-mini-fab.mat-primary .mat-ripple-element {
-  background-color: rgba(255,255,255,.15);
-}
-
-
-
 /* Form field
  *============================================================================*/
 
@@ -95,7 +70,7 @@
 .mat-toolbar-single-row.mat-toolbar-single-row {
   height: 64px;
 
-  @media (max-width: $screen-m) {
+  @media (max-width: 1200px) {
     font-size: 16px;
   }
 
@@ -157,7 +132,7 @@ tr.mat-row.mat-row {
 }
 
 // Mobile layout
-@media (max-width: $screen-s) {
+@media (max-width: 900px) {
   .mat-header-row {
     opacity : 0;
     position: absolute;
@@ -238,23 +213,6 @@ tr.mat-row.mat-row {
   .mat-simple-snackbar-action {
     color: var(--warn-primary);
   }
-}
-
-
-
-/* Progress bar
- *============================================================================*/
-
-.mat-progress-bar[mode="query"] > .mat-progress-bar-background,
-.mat-progress-bar[mode="determinate"] > .mat-progress-bar-background,
-.mat-progress-bar[mode="indeterminate"] > .mat-progress-bar-background {
-  display: none;
-}
-
-.mat-progress-bar.mat-accent {
-  & > .mat-progress-bar-buffer      { background: var(--accent-secondary); }
-  & > .mat-progress-bar-fill::after { background: var(--accent-theme); }
-  & > .mat-progress-bar-background  { fill      : var(--accent-theme); }
 }
 
 
