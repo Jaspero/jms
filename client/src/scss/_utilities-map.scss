@@ -28,28 +28,28 @@ $colors: (
   main: var(--main),
   main-light: var(--main-light),
   main-dark: var(--main-dark),
-  main-c-1: var(--main-contrast-primary),
-  main-c-2: var(--main-contrast-secondary),
-  main-c-3: var(--main-contrast-tertiary),
+  main-c-1: var(--main-c-1),
+  main-c-2: var(--main-c-2),
+  main-c-3: var(--main-c-3),
 
   accent: var(--accent),
   accent-light: var(--accent-light),
   accent-dark: var(--accent-dark),
-  accent-c-1: var(--accent-contrast-primary),
-  accent-c-2: var(--accent-contrast-secondary),
-  accent-c-3: var(--accent-contrast-tertiary),
+  accent-c-1: var(--accent-c-1),
+  accent-c-2: var(--accent-c-2),
+  accent-c-3: var(--accent-c-3),
 
   warn: var(--warn),
   warn-light: var(--warn-light),
   warn-dark: var(--warn-dark),
-  warn-c-1: var(--warn-contrast-primary),
-  warn-c-2: var(--warn-contrast-secondary),
-  warn-c-3: var(--warn-contrast-tertiary),
+  warn-c-1: var(--warn-c-1),
+  warn-c-2: var(--warn-c-2),
+  warn-c-3: var(--warn-c-3),
 
   panel: var(--panel),
-  panel-c-1: var(--panel-contrast-primary),
-  panel-c-2: var(--panel-contrast-secondary),
-  panel-c-3: var(--panel-contrast-tertiary),
+  panel-c-1: var(--panel-c-1),
+  panel-c-2: var(--panel-c-2),
+  panel-c-3: var(--panel-c-3),
 );
 
 $grid-span: (
@@ -216,7 +216,10 @@ $properties: (
     )
   ),
   // font-family: (),
-  // font-size: (),
+  font-size: (
+    short: fs,
+    values: (small: .875em)
+  ),
   // font-style: (),
   font-weight: (
     short: fw,
@@ -280,6 +283,7 @@ $properties: (
   max-width: (
     short: mw,
     values: (
+      30: 30rem,
       40: 40rem,
       60: 60rem,
       80: 80rem
