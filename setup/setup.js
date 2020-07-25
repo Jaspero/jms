@@ -148,7 +148,8 @@ const MODULES = [
             '/id',
             '/name',
             '/email',
-            '/role'
+            '/role',
+            '/profileImage'
           ]
         }]
       },
@@ -220,6 +221,15 @@ const MODULES = [
           type: 'input',
           configuration: {
             type: 'email'
+          }
+        }
+      },
+      profileImage: {
+        label: 'Profile Image',
+        component: {
+          type: 'image',
+          configuration: {
+            maxSize: 10485760
           }
         }
       },
