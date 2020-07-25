@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FormBuilderComponent, FormBuilderData} from '@jaspero/form-builder';
+import {switchMap} from 'rxjs/operators';
 import {FirestoreCollection} from '../../../../../../integrations/firebase/firestore-collection.enum';
 import {DbService} from '../../../../shared/services/db/db.service';
 import {StateService} from '../../../../shared/services/state/state.service';
@@ -56,18 +57,21 @@ export class ProfileInformationComponent {
 
   save(form: FormBuilderComponent) {
     return () =>
-      this.db.setDocument(
-        FirestoreCollection.Users,
-        this.state.user.id,
-        form.form.getRawValue(),
-        {
-          merge: true
-        }
-      )
+      form.save(FirestoreCollection.Users, this.state.user.id)
         .pipe(
-          notify({
-            success: `Information updated successfully`
-          })
+          switchMap(() =>
+            this.db.setDocument(
+              FirestoreCollection.Users,
+              this.state.user.id,
+              form.form.getRawValue(),
+              {
+                merge: true
+              }
+            ),
+            notify({
+              success: `Information updated successfully`
+            })
+          )
         )
   }
 }
