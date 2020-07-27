@@ -41,6 +41,12 @@ const routes: Routes = [
         component: SettingsComponent
       },
       {
+        path: 'profile',
+        loadChildren: () =>
+          import('./modules/profile/profile.module')
+            .then(m => m.ProfileModule)
+      },
+      {
         path: 'module-definition',
         component: ModuleDefinitionComponent,
         children: [
