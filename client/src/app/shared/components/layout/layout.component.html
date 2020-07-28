@@ -1,75 +1,84 @@
-<section class="dashboard-nav" [class.dashboard-nav-expanded]="navigationExpanded">
-  <header class="dashboard-nav-header">
-    <h1 class="dashboard-nav-header-logo">{{staticConfig.displayName}}</h1>
-    <mat-icon class="dashboard-nav-header-menu" role="button" [attr.aria-label]="'LAYOUT.MENU' | transloco" (click)="toggleMenu()">menu</mat-icon>
-  </header>
+<header class="layout-header">
+  <div class="layout-header-title">{{staticConfig.displayName}}</div>
+  <button mat-icon-button [attr.aria-label]="'LAYOUT.MENU' | transloco" (click)="toggleMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
+</header>
 
-  <main class="dashboard-nav-main">
+<nav class="layout-nav" [class.layout-nav-expanded]="navigationExpanded">
+  <div class="layout-nav-title">{{staticConfig.displayName}}</div>
+  <mat-nav-list>
     <ng-container *ngFor="let item of links$ | async" [ngSwitch]="item.type">
-      <a *ngSwitchCase="navigationItemType.Link" class="dashboard-nav-link" [jmsActiveLink]="item" (click)="closeMenu()">
-        <mat-icon *ngIf="item.icon" aria-hidden="true" class="dashboard-nav-link-icon">{{item.icon}}</mat-icon>
-        <span class="dashboard-nav-link-text">{{item.label | transloco}}</span>
-        <span class="dashboard-nav-link-tooltip" [matTooltip]="item.label | transloco" matTooltipPosition="right"></span>
-      </a>
-
-      <div *ngSwitchCase="navigationItemType.Empty" class="dashboard-nav-empty">
-        <mat-icon *ngIf="item.icon" aria-hidden="true" class="dashboard-nav-empty-icon">{{item.icon}}</mat-icon>
-        <span class="dashboard-nav-empty-text">{{item.label | transloco}}</span>
-        <span class="dashboard-nav-empty-tooltip" [matTooltip]="item.label | transloco" matTooltipPosition="right"></span>
-      </div>
-
-      <div *ngSwitchCase="navigationItemType.Expandable" class="dashboard-nav-expandable" [class.active]="item.active">
-        <button class="dashboard-nav-expandable-label" (click)="item.active = !item.active">
-          <mat-icon *ngIf="item.icon" aria-hidden="true" class="dashboard-nav-expandable-label-icon">{{item.icon}}</mat-icon>
-          <span class="dashboard-nav-expandable-label-text">{{item.label | transloco}}</span>
-          <span class="dashboard-nav-expandable-label-tooltip" [matTooltip]="item.label | transloco" matTooltipPosition="right"></span>
-        </button>
-        <a class="dashboard-nav-expandable-item" *ngFor="let child of item.children" [jmsActiveLink]="child" (click)="closeMenu()">
-          <mat-icon *ngIf="child.icon" aria-hidden="true" class="dashboard-nav-expandable-item-icon">{{child.icon}}</mat-icon>
-          <span class="dashboard-nav-expandable-item-text">{{child.label | transloco}}</span>
-          <span class="dashboard-nav-expandable-item-tooltip" [matTooltip]="child.label | transloco" matTooltipPosition="right"></span>
+      <ng-container *ngSwitchCase="navigationItemType.Link">
+        <a mat-list-item [jmsActiveLink]="item" (click)="closeMenu()">
+          <mat-icon *ngIf="item.icon" mat-list-icon>{{item.icon}}</mat-icon>
+          <span mat-line>{{item.label | transloco}}</span>
         </a>
-      </div>
+        <mat-divider></mat-divider>
+      </ng-container>
 
-      <div *ngSwitchCase="navigationItemType.Expanded" class="dashboard-nav-expanded">
-        <a *ngIf="item.value; else empty;" class="dashboard-nav-expanded-label" [jmsActiveLink]="item">
-          <mat-icon *ngIf="item.icon" aria-hidden="true" class="dashboard-nav-expanded-label-icon">{{item.icon}}</mat-icon>
-          <span class="dashboard-nav-expanded-label-text">{{item.label | transloco}}</span>
-          <span class="dashboard-nav-expanded-label-tooltip" [matTooltip]="item.label | transloco" matTooltipPosition="right"></span>
+      <ng-container *ngSwitchCase="navigationItemType.Empty">
+        <mat-list-item>
+          <mat-icon *ngIf="item.icon" mat-list-icon>{{item.icon}}</mat-icon>
+          <span mat-line>{{item.label | transloco}}</span>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="navigationItemType.Expandable">
+        <mat-list-item (click)="item.active = !item.active">
+          <mat-icon *ngIf="item.icon" mat-list-icon>{{item.icon}}</mat-icon>
+          <span mat-line>{{item.label | transloco}}</span>
+          <mat-icon>{{item.active ? 'expand_less' : 'expand_more'}}</mat-icon>
+        </mat-list-item>
+
+        <mat-nav-list *ngIf="item.active" dense>
+          <a *ngFor="let child of item.children" mat-list-item [jmsActiveLink]="child" (click)="closeMenu()">
+            <mat-icon *ngIf="child.icon" mat-list-icon>{{child.icon}}</mat-icon>
+            <span mat-line>{{child.label | transloco}}</span>
+          </a>
+        </mat-nav-list>
+        <mat-divider></mat-divider>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="navigationItemType.Expanded">
+        <a *ngIf="item.value; else empty;" mat-list-item [jmsActiveLink]="item">
+          <mat-icon *ngIf="item.icon" mat-list-icon>{{item.icon}}</mat-icon>
+          <span mat-line>{{item.label | transloco}}</span>
         </a>
 
         <ng-template #empty>
-          <div class="dashboard-nav-expanded-label">
-            <mat-icon *ngIf="item.icon" aria-hidden="true" class="dashboard-nav-expanded-label-icon">{{item.icon}}</mat-icon>
-            <span class="dashboard-nav-expanded-label-text">{{item.label | transloco}}</span>
-            <span class="dashboard-nav-expandable-item-tooltip" [matTooltip]="item.label | transloco" matTooltipPosition="right"></span>
-          </div>
+          <mat-list-item>
+            <mat-icon *ngIf="item.icon" mat-list-icon>{{item.icon}}</mat-icon>
+            <span mat-line>{{item.label | transloco}}</span>
+          </mat-list-item>
         </ng-template>
 
-        <a *ngFor="let child of item.children" class="dashboard-nav-expanded-item" [jmsActiveLink]="child" (click)="closeMenu()">
-          <mat-icon *ngIf="child.icon" aria-hidden="true" class="dashboard-nav-expanded-item-icon">{{child.icon}}</mat-icon>
-          <span class="dashboard-nav-expanded-item-text">{{child.label | transloco}}</span>
-          <span class="dashboard-nav-expanded-item-tooltip" [matTooltip]="child.label | transloco" matTooltipPosition="right"></span>
-        </a>
-      </div>
+        <mat-nav-list dense>
+          <a *ngFor="let child of item.children" mat-list-item [jmsActiveLink]="child" (click)="closeMenu()">
+            <mat-icon *ngIf="child.icon" mat-list-icon>{{child.icon}}</mat-icon>
+            <span mat-line>{{child.label | transloco}}</span>
+          </a>
+        </mat-nav-list>
+      </ng-container>
     </ng-container>
 
-    <a class="dashboard-nav-link" *ngIf="currentUser$ | async as user" routerLink="profile" routerLinkActive="active">
-      <mat-icon aria-hidden="true" class="dashboard-nav-link-icon">account_circle</mat-icon>
-      <span class="dashboard-nav-link-text">Profile</span>
-      <span class="dashboard-nav-link-tooltip" matTooltip="Profile" matTooltipPosition="right"></span>
-    </a>
-  </main>
+    <ng-container *ngIf="currentUser$ | async as user">
+      <a mat-list-item routerLink="profile" routerLinkActive="active">
+        <mat-icon mat-list-icon>account_circle</mat-icon>
+        <span mat-line>Profile</span>
+      </a>
+    </ng-container>
 
-  <footer class="dashboard-nav-footer">
-    <a class="dashboard-nav-link" (click)="logOut()">
-      <mat-icon aria-hidden="true" class="dashboard-nav-link-icon">power_settings_new</mat-icon>
-      <span class="dashboard-nav-link-text">{{'LAYOUT.LOG_OUT' | transloco}}</span>
-      <span class="dashboard-nav-link-tooltip" [matTooltip]="'LAYOUT.LOG_OUT' | transloco" matTooltipPosition="right"></span>
-    </a>
-  </footer>
-</section>
+    <mat-divider></mat-divider>
 
-<main class="dashboard-main">
+    <a mat-list-item (click)="logOut()">
+      <mat-icon mat-list-icon>power_settings_new</mat-icon>
+      <span mat-line>{{'LAYOUT.LOG_OUT' | transloco}}</span>
+    </a>
+  </mat-nav-list>
+</nav>
+
+<main class="layout-main">
   <router-outlet></router-outlet>
 </main>

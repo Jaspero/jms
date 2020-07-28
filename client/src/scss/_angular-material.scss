@@ -72,7 +72,8 @@ $jms-theme: mat-light-theme($jms-primary, $jms-accent, $jms-warn);
 
 $jms-typography: mat-typography-config(
   $font-family: "sans-serif",
-  $input: mat-typography-level(.875rem, 1.25, 600),
+  $body-2: mat-typography-level(.875rem, 1.5px, 700),
+  $input: mat-typography-level(.875rem, 1.25, 700),
   $button: mat-typography-level(.875rem, 1, 700),
 );
 
@@ -228,7 +229,9 @@ $jms-typography: mat-typography-config(
 // List
 // =============================================================================
 
-// Custom style
+.mat-list-base.mat-list-base.mat-list-base {
+  padding-top: 0;
+}
 
 
 

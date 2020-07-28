@@ -1,410 +1,74 @@
-/**
- * Dashboard layout
- *
- * Styles for:
- *   - Dashboard navigation container,
- *   - Various navigation items,
- *   - Dashboard main content container.
- *
- *============================================================================*/
+.layout-header {
+  display: none;
+  position: fixed;
+  z-index: 4;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 64px;
+  align-items: center;
+  padding: 0 16px;
+  background: var(--primary);
+  color: var(--primary-c-1);
+  box-shadow: 0 2px 8px rgba(0,0,0,.32);
 
+  &-title {
+    margin-right: auto;
+    font-weight: bold;
+  }
 
+  @media (max-width: 1200px) {
+    display: flex;
+  }
+}
 
-/* Navigation container
- *============================================================================*/
-
-.dashboard-nav {
+.layout-nav {
   position: fixed;
   z-index: 3;
   left: 0;
   top: 0;
+  bottom: 0;
   width: 256px;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  overflow-y: hidden;
+  overflow-y: auto;
   overflow-x: hidden;
   background: var(--panel);
   color: var(--panel-c-1);
   box-shadow: 2px 0 8px rgba(0,0,0,.32);
 
   @media (max-width: 1200px) {
-    width: 40px;
+    top: 64px;
+    transform: translateX(-256px);
     transition: .4s;
 
-    &.dashboard-nav-expanded {
-      width: 256px;
+    &.layout-nav-expanded {
+      transform: translateX(0);
     }
   }
-}
 
-
-
-/* Navigation header
- *============================================================================*/
-
-.dashboard-nav-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 64px;
-  min-height: 64px;
-  padding-left: 24px;
-  border-bottom: 1px solid var(--panel-c-3);
-
-  @media (max-width: 1200px) {
-    padding-left: 8px;
-  }
-
-  &-logo {
-    font-size: 20px;
+  &-title {
+    display: block;
+    padding: 24px 16px;
     font-weight: bold;
+    font-size: larger;
+    border-bottom: 1px solid var(--panel-c-3);
 
     @media (max-width: 1200px) {
       display: none;
     }
   }
-
-  &-menu {
-    display: none;
-
-    @media (max-width: 1200px) {
-      display: block;
-    }
-  }
 }
 
-
-
-/* Navigation main
- *============================================================================*/
-
-.dashboard-nav-main {
-  height: calc(100vh - 64px - 30px); // - nav header - nav footer
-  overflow-x: hidden;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-
-  @media (max-width: 1200px) {
-    height: calc(100vh - 64px - 30px); // - nav header - nav footer
-  }
-}
-
-
-
-/* Navigation main items
- *============================================================================*/
-
-.dashboard-nav-link {
-  position: relative;
-  cursor: pointer;
-  text-decoration: none;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  height: 48px;
-  min-height: 48px;
-  padding-left: 24px;
-  border-right: 3px solid transparent;
-  border-bottom: 1px solid var(--panel-tertiary);
-  transition: .2s;
-
-  @media (max-width: 1200px) {
-    padding-left: 8px;
-  }
-
-  &.active {
-    background: var(--panel-tertiary);
-    border-right: 3px solid var(--primary);
-  }
-
-  &:hover {
-    background: var(--panel-tertiary);
-  }
-
-  &-icon {
-    min-width: 24px;
-  }
-
-  &-text {
-    margin-left: 16px;
-  }
-
-  &-tooltip {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    @media (max-width: 1200px) {
-      display: block;
-
-      .dashboard-nav-expanded & {
-        display: none;
-      }
-    }
-  }
-}
-
-.dashboard-nav-empty {
-  position: relative;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  height: 48px;
-  min-height: 48px;
-  padding-left: 24px;
-  border-right: 3px solid transparent;
-  border-bottom: 1px solid var(--panel-tertiary);
-  transition: .2s;
-
-  @media (max-width: 1200px) {
-    padding-left: 8px;
-  }
-
-  &-icon {
-    min-width: 24px;
-  }
-
-  &-text {
-    margin-left: 16px;
-  }
-
-  &-tooltip {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    @media (max-width: 1200px) {
-      display: block;
-
-      .dashboard-nav-expanded & {
-        display: none;
-      }
-    }
-  }
-}
-
-.dashboard-nav-expandable {
-  border-bottom: 1px solid var(--panel-tertiary);
-
-  &.active > .dashboard-nav-expandable-item {
-    height: 32px;
-    min-height: 32px;
-    opacity: 1;
-  }
-
-  &.active > .dashboard-nav-expandable-label {
-    color: var(--primary);
-  }
-
-  &-label {
-    position: relative;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 48px;
-    min-height: 48px;
-    padding-left: 24px;
-    border: none;
-    outline: none;
-    background: none;
-    font-size: inherit;
-    border-right: 3px solid transparent;
-    transition: .2s;
-
-    @media (max-width: 1200px) {
-      padding-left: 8px;
-    }
-
-    &-icon {
-      min-width: 24px;
-    }
-
-    &-text {
-      margin-left: 16px;
-    }
-
-    &-tooltip {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-
-      @media (max-width: 1200px) {
-        display: block;
-
-        .dashboard-nav-expanded & {
-          display: none;
-        }
-      }
-    }
-  }
-
-  &-item {
-    position: relative;
-    cursor: pointer;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    padding-left: 24px;
-    border-right: 3px solid transparent;
-    overflow: hidden;
-    transition: .2s;
-    height: 0;
-    min-height: 0;
-    opacity: 0;
-
-    @media (max-width: 1200px) {
-      padding-left: 8px;
-    }
-
-    &.active {
-      background: var(--panel-tertiary);
-      border-right: 3px solid var(--primary);
-    }
-
-    &:hover {
-      background: var(--panel-tertiary);
-    }
-
-    &-icon {
-      min-width: 24px;
-    }
-
-    &-text {
-      margin-left: 16px;
-    }
-
-    &-tooltip {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-
-      @media (max-width: 1200px) {
-        display: block;
-
-        .dashboard-nav-expanded & {
-          display: none;
-        }
-      }
-    }
-  }
-}
-
-.dashboard-nav-expanded {
-  border-bottom: 1px solid var(--panel-tertiary);
-
-  &-label {
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    height: 48px;
-    min-height: 48px;
-    padding-left: 24px;
-    border-right: 3px solid transparent;
-    transition: .2s;
-
-    &.active {
-      background: var(--panel-tertiary);
-      border-right: 3px solid var(--primary);
-    }
-
-    @media (max-width: 1200px) {
-      padding-left: 8px;
-    }
-
-    &-icon {
-      min-width: 24px;
-    }
-
-    &-text {
-      margin-left: 16px;
-    }
-  }
-
-  &-item {
-    position: relative;
-    cursor: pointer;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    height: 32px;
-    min-height: 32px;
-    padding-left: 24px;
-    border-right: 3px solid transparent;
-    transition: .2s;
-
-    @media (max-width: 1200px) {
-      padding-left: 8px;
-    }
-
-    &.active {
-      background: var(--panel-tertiary);
-      border-right: 3px solid var(--primary);
-    }
-
-    &:hover {
-      background: var(--panel-tertiary);
-    }
-
-    &-icon {
-      min-width: 24px;
-    }
-
-    &-text {
-      margin-left: 16px;
-    }
-
-    &-tooltip {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-
-      @media (max-width: 1200px) {
-        display: block;
-
-        .dashboard-nav-expanded & {
-          display: none;
-        }
-      }
-    }
-  }
-}
-
-
-
-/* Navigation footer
- *============================================================================*/
-
-.dashboard-nav-footer {
-  border-top: 1px solid var(--panel-c-3);
-}
-
-
-
-/* Dashboard main content container
- *============================================================================*/
-
-.dashboard-main {
+.layout-main {
   padding-left: 256px;
 
   @media (max-width: 1200px) {
-    padding-left: 40px;
+    padding-left: 0;
+    padding-top: 64px;
   }
+}
+
+.mat-list-item.active {
+  background-image: linear-gradient(to right, transparent, transparent calc(100% - 4px), var(--primary) calc(100% - 4px))
 }
