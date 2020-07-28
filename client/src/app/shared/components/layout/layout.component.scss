@@ -24,9 +24,9 @@
   flex-direction: column;
   overflow-y: hidden;
   overflow-x: hidden;
-  background: var(--sidebar-theme);
-  color: var(--sidebar-primary);
-  box-shadow: 0 0 0 1px var(--sidebar-tertiary);
+  background: var(--panel);
+  color: var(--panel-c-1);
+  box-shadow: 2px 0 8px rgba(0,0,0,.32);
 
   @media (max-width: 1200px) {
     width: 40px;
@@ -40,27 +40,26 @@
 
 
 
-/* Navigation welcome section
+/* Navigation header
  *============================================================================*/
 
-.dashboard-nav-welcome {
-  background: var(--light-theme);
+.dashboard-nav-header {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 128px;
-  min-height: 128px;
+  height: 64px;
+  min-height: 64px;
   padding-left: 24px;
-  box-shadow: 0 0 0 1px var(--sidebar-tertiary);
+  border-bottom: 1px solid var(--panel-c-3);
 
   @media (max-width: 1200px) {
-    height: 64px;
-    min-height: 64px;
     padding-left: 8px;
   }
 
   &-logo {
-    font-size: 28px;
+    font-size: 20px;
+    font-weight: bold;
+
     @media (max-width: 1200px) {
       display: none;
     }
@@ -68,7 +67,6 @@
 
   &-menu {
     display: none;
-    cursor: pointer;
 
     @media (max-width: 1200px) {
       display: block;
@@ -78,13 +76,15 @@
 
 
 
-/* Navigation scroll area
+/* Navigation main
  *============================================================================*/
 
-.dashboard-nav-scrollable {
-  height: calc(100vh - 128px - 30px); // - nav header - nav footer
+.dashboard-nav-main {
+  height: calc(100vh - 64px - 30px); // - nav header - nav footer
   overflow-x: hidden;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 
   @media (max-width: 1200px) {
     height: calc(100vh - 64px - 30px); // - nav header - nav footer
@@ -99,6 +99,7 @@
 .dashboard-nav-link {
   position: relative;
   cursor: pointer;
+  text-decoration: none;
   white-space: nowrap;
   display: flex;
   align-items: center;
@@ -106,7 +107,7 @@
   min-height: 48px;
   padding-left: 24px;
   border-right: 3px solid transparent;
-  border-bottom: 1px solid var(--sidebar-tertiary);
+  border-bottom: 1px solid var(--panel-tertiary);
   transition: .2s;
 
   @media (max-width: 1200px) {
@@ -114,12 +115,12 @@
   }
 
   &.active {
-    background: var(--sidebar-tertiary);
-    border-right: 3px solid var(--primary-theme);
+    background: var(--panel-tertiary);
+    border-right: 3px solid var(--primary);
   }
 
   &:hover {
-    background: var(--sidebar-tertiary);
+    background: var(--panel-tertiary);
   }
 
   &-icon {
@@ -157,7 +158,7 @@
   min-height: 48px;
   padding-left: 24px;
   border-right: 3px solid transparent;
-  border-bottom: 1px solid var(--sidebar-tertiary);
+  border-bottom: 1px solid var(--panel-tertiary);
   transition: .2s;
 
   @media (max-width: 1200px) {
@@ -191,7 +192,7 @@
 }
 
 .dashboard-nav-expandable {
-  border-bottom: 1px solid var(--sidebar-tertiary);
+  border-bottom: 1px solid var(--panel-tertiary);
 
   &.active > .dashboard-nav-expandable-item {
     height: 32px;
@@ -200,7 +201,7 @@
   }
 
   &.active > .dashboard-nav-expandable-label {
-    color: var(--primary-theme);
+    color: var(--primary);
   }
 
   &-label {
@@ -268,12 +269,12 @@
     }
 
     &.active {
-      background: var(--sidebar-tertiary);
-      border-right: 3px solid var(--primary-theme);
+      background: var(--panel-tertiary);
+      border-right: 3px solid var(--primary);
     }
 
     &:hover {
-      background: var(--sidebar-tertiary);
+      background: var(--panel-tertiary);
     }
 
     &-icon {
@@ -304,7 +305,7 @@
 }
 
 .dashboard-nav-expanded {
-  border-bottom: 1px solid var(--sidebar-tertiary);
+  border-bottom: 1px solid var(--panel-tertiary);
 
   &-label {
     white-space: nowrap;
@@ -317,8 +318,8 @@
     transition: .2s;
 
     &.active {
-      background: var(--sidebar-tertiary);
-      border-right: 3px solid var(--primary-theme);
+      background: var(--panel-tertiary);
+      border-right: 3px solid var(--primary);
     }
 
     @media (max-width: 1200px) {
@@ -351,12 +352,12 @@
     }
 
     &.active {
-      background: var(--sidebar-tertiary);
-      border-right: 3px solid var(--primary-theme);
+      background: var(--panel-tertiary);
+      border-right: 3px solid var(--primary);
     }
 
     &:hover {
-      background: var(--sidebar-tertiary);
+      background: var(--panel-tertiary);
     }
 
     &-icon {
@@ -388,66 +389,11 @@
 
 
 
-/* Navigation footer items
+/* Navigation footer
  *============================================================================*/
 
 .dashboard-nav-footer {
-  position: relative;
-  cursor: pointer;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  height: 30px;
-  min-height: 30px;
-  padding-left: 24px;
-  box-shadow: 0 0 0 1px var(--sidebar-tertiary);
-  background: var(--sidebar-theme);
-  color: var(--sidebar-secondary);
-  transition: .2s;
-
-  &.inactive {
-    pointer-events: none;
-  }
-
-  @media (max-width: 1200px) {
-    padding-left: 8px;
-  }
-
-  &:hover {
-    background: var(--sidebar-tertiary);
-  }
-
-  &-icon {
-    min-width: 24px;
-    width: 16px;
-    height: 16px;
-    font-size: 16px;
-    text-align: center;
-  }
-
-  &-text {
-    font-size: .85em;
-    margin-left: 16px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  &-tooltip {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    @media (max-width: 1200px) {
-      display: block;
-
-      .dashboard-nav-expanded & {
-        display: none;
-      }
-    }
-  }
+  border-top: 1px solid var(--panel-c-3);
 }
 
 

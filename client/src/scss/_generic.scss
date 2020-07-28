@@ -89,7 +89,7 @@ body {
 // Elements
 // =============================================================================
 
-button, a {
+button, a, [role="button"] {
   cursor: pointer;
 }
 
