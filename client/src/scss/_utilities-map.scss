@@ -239,6 +239,11 @@ $properties: (
     values: $grid-span,
     media: true
   ),
+  grid-row-start: (
+    short: grs,
+    values: (1),
+    media: true
+  ),
   grid-template-columns: (
     short: gtc,
     values: (12: repeat(12, 1fr))
