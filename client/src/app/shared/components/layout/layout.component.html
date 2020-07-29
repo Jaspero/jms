@@ -64,10 +64,20 @@
     </ng-container>
 
     <ng-container *ngIf="currentUser$ | async as user">
-      <a mat-list-item routerLink="profile" routerLinkActive="active">
+      <a mat-list-item routerLink="profile/information">
         <mat-icon mat-list-icon>account_circle</mat-icon>
         <span mat-line>Profile</span>
       </a>
+      <mat-nav-list dense>
+        <a mat-list-item routerLink="profile/information" routerLinkActive="active">
+          <mat-icon mat-list-icon>info</mat-icon>
+          <span mat-line>Information</span>
+        </a>
+        <a mat-list-item routerLink="profile/security" routerLinkActive="active">
+          <mat-icon mat-list-icon>security</mat-icon>
+          <span mat-line>Security</span>
+        </a>
+      </mat-nav-list>
     </ng-container>
 
     <mat-divider></mat-divider>
