@@ -1,14 +1,14 @@
-<mat-toolbar role="heading" color="primary" class="sticky-header">
-  <span>Modules</span>
-  <div class="flex-1"></div>
-  <button mat-flat-button (click)="openModuleSelection()">{{'MODULES.ADD_MODULE' | transloco}}</button>
-</mat-toolbar>
+<section class="mw-60 m-l-auto m-r-auto p-a-1">
+  <header class="d-flex ai-center m-b-1 fs-small c-panel-c-2">
+    <span>/ Modules</span>
+    <div class="fg-1"></div>
+    <button mat-flat-button color="primary" (click)="openModuleSelection()">{{'MODULES.ADD_MODULE' | transloco}}</button>
+  </header>
 
-<section class="grid">
-  <div class="col-12">
+  <main>
     <mat-card>
       <mat-card-header>
-        <div class="flex jc-between ai-center w-full">
+        <div class="d-flex jc-between ai-center w-100">
           <form [formGroup]="filters">
             <jms-search-input formControlName="search"></jms-search-input>
           </form>
@@ -19,7 +19,7 @@
       </mat-card-header>
 
       <mat-card-content class="mat-card-content-inset">
-        <mat-toolbar class="b-b">
+        <mat-toolbar>
           <ng-container *ngIf="allChecked$ | async as ac">
             <mat-checkbox
               (change)="$event ? masterToggle() : null"
@@ -55,6 +55,8 @@
           </button>
         </mat-toolbar>
 
+        <mat-divider></mat-divider>
+
         <table
           mat-table
           matSort
@@ -79,7 +81,7 @@
             <td mat-cell *matCellDef="let element" [attr.data-label]="'MODULES.NAME_ID' | transloco">
               <a [routerLink]="['..', 'single', element.id]">
                 {{element.name}}<br>
-              <span class="fs-small fg-secondary">{{element.id}}</span>
+                <span class="fs-small fg-secondary">{{element.id}}</span>
               </a>
             </td>
           </ng-container>
@@ -128,40 +130,37 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
+
+        <!--Loading-->
+        <div class="d-flex jc-center p-a-2" *ngIf="dataLoading$ | async">
+          <mat-spinner [diameter]="40"></mat-spinner>
+        </div>
+
+        <!--Empty state-->
+        <div class="ta-center p-a-2" *ngIf="emptyState$ | async">
+          <div>{{'MODULES.NO_MODULES' | transloco}}</div>
+          <button mat-button color="primary" routerLink="../single/new">{{'MODULES.ADD_MODULE' | transloco}}</button>
+        </div>
       </mat-card-content>
-
-      <!--Loading-->
-      <div class="flex jc-center p-y-l" *ngIf="dataLoading$ | async">
-        <mat-spinner [diameter]="40"></mat-spinner>
-      </div>
-
-      <!--Empty state-->
-      <p class="ta-center p-y-l" *ngIf="emptyState$ | async">
-        {{'MODULES.NO_MODULES' | transloco}} <button mat-button color="primary" routerLink="../single/new">{{'MODULES.ADD_MODULE' | transloco}}</button>
-      </p>
     </mat-card>
-  </div>
+  </main>
 </section>
 
 <ng-template #modal>
-  <h4 mat-dialog-title>{{'MODULES.SELECT_TEMPLATE' | transloco}}</h4>
+  <h1 mat-dialog-title>{{'MODULES.SELECT_TEMPLATE' | transloco}}</h1>
 
   <mat-dialog-content>
-    <div class="mat-elevation-z2">
-      <table mat-table [dataSource]="moduleExamples$ | async">
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>{{'MODULES.NAME' | transloco}}</th>
-          <td mat-cell *matCellDef="let element">{{element.name | titlecase}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef>{{'MODULES.DESCRIPTION' | transloco}}</th>
-          <td mat-cell *matCellDef="let element">{{element.json?.description || '-'}}</td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="exampleColumns"></tr>
-        <tr class="pointer" mat-row *matRowDef="let row; columns: exampleColumns;" (click)="selectModuleExample(row)"></tr>
-      </table>
-    </div>
+    <ng-container *ngIf="moduleExamples$ | async as moduleExamples">
+      <mat-action-list>
+        <button mat-list-item *ngFor="let module of moduleExamples" (click)="selectModuleExample(module)">
+          <span mat-line>{{module.name | titlecase}}</span>
+          <span mat-line *ngIf="module.json?.description">{{module.json?.description}}</span>
+        </button>
+      </mat-action-list>
+    </ng-container>
   </mat-dialog-content>
+
+  <mat-dialog-actions class="jc-end">
+    <button mat-button mat-dialog-close>{{'GENERAL.CANCEL' | transloco}}</button>
+  </mat-dialog-actions>
 </ng-template>

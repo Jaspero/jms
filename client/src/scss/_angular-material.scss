@@ -181,7 +181,27 @@ $jms-typography: mat-typography-config(
 // Dialog
 // =============================================================================
 
-// Custom style
+.cdk-overlay-pane {
+  max-width: calc(100vw - 2rem) !important;
+}
+
+.mat-dialog-title.mat-dialog-title {
+  padding: 24px;
+  margin: -24px -24px 0;
+  border-bottom: 1px solid var(--panel-c-3);
+}
+
+.mat-dialog-content.mat-dialog-content {
+  padding: 16px 24px;
+}
+
+.mat-dialog-actions.mat-dialog-actions {
+  padding: 16px 24px;
+  margin: 0 -24px -24px;
+  border-top: 1px solid var(--panel-c-3);
+}
+
+
 
 
 
@@ -202,7 +222,9 @@ $jms-typography: mat-typography-config(
 // Form field
 // =============================================================================
 
-// Custom style
+.mat-form-field-no-hint .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
 
 
 
