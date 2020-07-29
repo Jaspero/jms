@@ -1,18 +1,20 @@
-<ng-container>
-  <mat-toolbar role="heading" color="primary" class="sticky-header">
+<section class="mw-70 m-l-auto m-r-auto p-a-1">
+  <div class="d-flex ai-center p-t-1 p-b-1 fs-small">
     <span>Settings</span>
-    <div class="flex-1"></div>
-    <span class="m-r-s">{{'SETTINGS.LATEST_RELEASE' | transloco}}:</span>
+
+    <div class="fg-1"></div>
+
+    <span class="m-r-p5 d-none-xs">{{'SETTINGS.LATEST_RELEASE' | transloco}}:</span>
     <mat-chip-list>
       <mat-chip>{{timeStamp}}</mat-chip>
     </mat-chip-list>
-  </mat-toolbar>
+  </div>
 
-  <section class="grid fw-rev">
-    <div class="col-8 col-s-10 col-xs-12">
+  <section class="d-grid gtc-12 gg-1">
+    <div class="gc-8">
       <mat-card>
         <mat-card-header>
-          <h1>{{'SETTINGS.MEMBERS' | transloco}}</h1>
+          <mat-card-title>{{'SETTINGS.MEMBERS' | transloco}}</mat-card-title>
         </mat-card-header>
 
         <mat-card-content class="mat-card-content-inset">
@@ -59,20 +61,21 @@
         </mat-card-content>
       </mat-card>
     </div>
-    <div class="col-4 col-s-10 col-xs-12">
+
+    <div class="gc-4">
       <mat-card>
         <mat-card-header>
-          <h1>{{'SETTINGS.ADD_MEMBERS' | transloco}}</h1>
+          <mat-card-title>{{'SETTINGS.ADD_MEMBERS' | transloco}}</mat-card-title>
         </mat-card-header>
 
         <form [formGroup]="form" #nForm="ngForm" autocomplete="off">
           <mat-card-content>
-            <mat-form-field appearance="outline" class="w-full">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'GENERAL.EMAIL' | transloco}}</mat-label>
               <input type="email" formControlName="email" matInput>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="w-full">
+            <mat-form-field appearance="outline" class="w-100 m-b-1">
               <mat-label>{{'GENERAL.PASSWORD' | transloco}}</mat-label>
               <input type="password" formControlName="password" matInput>
               <mat-icon class="pointer" matSuffix matTooltip="Generate Random Password" (click)="generateRandomPassword()">cached</mat-icon>
@@ -80,7 +83,7 @@
               <mat-error>{{'SETTINGS.PASSWORD_RULES' | transloco}}</mat-error>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="w-full m-t-m">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'SETTINGS.ROLE' | transloco}}</mat-label>
               <mat-select formControlName="role">
                 <mat-option *ngFor="let role of roles$ | async" [value]="role.id">{{role.name}}</mat-option>
@@ -97,4 +100,4 @@
       </mat-card>
     </div>
   </section>
-</ng-container>
+</section>
