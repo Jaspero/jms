@@ -1,4 +1,10 @@
 <section class="mw-30 m-l-auto m-r-auto p-a-1">
-  <fb-form-builder #form [data]="formData"></fb-form-builder>
-  <button mat-button [jpLoadClick]="save(form)">{{'GENERAL.SAVE' | transloco}}</button>
+  <header class="d-flex ai-center m-b-1 fs-small c-panel-c-2">
+    <span>/ Profile / Information</span>
+  </header>
+
+  <main>
+    <fb-form-builder #form [data]="formData"></fb-form-builder>
+    <button mat-button [jpLoadClick]="save(form)">{{'GENERAL.SAVE' | transloco}}</button>
+  </main>
 </section>
