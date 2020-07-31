@@ -1,8 +1,10 @@
 <h1 mat-dialog-title>{{options.header | transloco:options.variables}}</h1>
-<div *ngIf="options.description" mat-dialog-content>
+
+<mat-dialog-content *ngIf="options.description">
   <p>{{options.description | transloco:options.variables}}</p>
-</div>
-<div mat-dialog-actions class="jc-end">
+</mat-dialog-content>
+
+<mat-dialog-actions class="jc-end">
   <button
     mat-button
     [attr.aria-label]="options.negate | transloco:options.variables"
@@ -10,11 +12,11 @@
     {{options.negate | transloco:options.variables}}
   </button>
   <button
-    mat-raised-button
+    mat-flat-button
     tabindex="-1"
     [color]="options.color"
     [attr.aria-label]="options.confirm | transloco:options.variables"
     [mat-dialog-close]="true">
     {{options.confirm | transloco:options.variables}}
   </button>
-</div>
+</mat-dialog-actions>
