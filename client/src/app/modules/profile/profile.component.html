@@ -1,9 +1,13 @@
-<div>
-  <a routerLink="information" routerLinkActive="active">
-    Information
-  </a>
-  <a routerLink="security" routerLinkActive="active">
-    Security
-  </a>
-</div>
+<mat-toolbar role="heading" color="primary" class="sticky-header">
+  <span>Profile</span>
+  <div class="flex-1"></div>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <a mat-menu-item routerLink="information" routerLinkActive="active">Information</a>
+    <a mat-menu-item routerLink="security" routerLinkActive="active">Security</a>
+  </mat-menu>
+</mat-toolbar>
+
 <router-outlet></router-outlet>
