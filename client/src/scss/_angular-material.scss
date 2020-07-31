@@ -371,7 +371,7 @@ $jms-typography: mat-typography-config(
 .mat-footer-cell.mat-footer-cell,
 .mat-header-cell.mat-header-cell {
   padding: 8px;
-  background: var(--panel-theme);
+  background: var(--panel);
   font-size: 12px;
   overflow: hidden;
 
@@ -393,7 +393,7 @@ $jms-typography: mat-typography-config(
   }
 }
 
-// Mobile layout
+// Smaller screens layout
 @media (max-width: 900px) {
   .mat-header-row {
     opacity : 0;
@@ -412,11 +412,20 @@ $jms-typography: mat-typography-config(
   .mat-footer-cell.mat-footer-cell,
   .mat-header-cell.mat-header-cell {
     display: flex;
-    flex-direction: row-reverse;
     align-items: baseline;
     border: none;
     padding: 8px;
+    border-bottom: 1px dashed var(--panel-c-3);
     text-align: right;
+
+    &.mat-column-check,
+    &.mat-column-actions {
+      padding: 8px;
+      width: unset;
+      min-width: unset;
+      text-align: unset;
+      box-shadow: none;
+    }
 
     &:last-of-type {
       border-bottom: none;
@@ -424,32 +433,9 @@ $jms-typography: mat-typography-config(
 
     &:before {
       content: attr(data-label);
+      margin-right: auto;
+      padding-right: 8px;
       text-align: left;
-      order: 2;
-    }
-
-    &:after {
-      content: "";
-      flex: 1;
-      order: 1;
-      border-top: 1px dashed var(--panel-c-3);
-      margin: 0 16px;
-      height: .35em;
-      opacity: .75;
-    }
-
-    // row checkbox
-    &:first-of-type {
-      width: 100%;
-      padding: 8px;
-      box-shadow: none;
-    }
-
-    // row actions
-    &:last-of-type {
-      width: 100%;
-      padding: 8px 0 8px 8px;
-      box-shadow: none;
     }
   }
 }
