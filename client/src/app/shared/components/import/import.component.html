@@ -1,10 +1,10 @@
-<span class="hide-xs">
+<span class="d-none-xs">
   <button mat-button (click)="openDialog()">
     <mat-icon>vertical_align_bottom</mat-icon>
     <span>{{'GENERAL.IMPORT' | transloco}}</span>
   </button>
 </span>
-<span class="show-xs">
+<span class="d-none d-block-xs">
   <button mat-icon-button (click)="openDialog()" [matTooltip]="'GENERAL.IMPORT' | transloco">
     <mat-icon>vertical_align_bottom</mat-icon>
   </button>
@@ -13,45 +13,58 @@
 <input type="file" hidden #file (change)="selectFile($event)">
 
 <ng-template #overview>
-  <div *ngIf="data">
-    <div *ngIf="data.created">
-      <h4 mat-dialog-title>{{'GENERAL.SUCCESS' | transloco}}</h4>
-      <p mat-dialog-content>{{'IMPORT.SUCCESS_MESSAGE' | transloco:{value: data.created} }}</p>
-    </div>
-    <div *ngIf="data.errors && data.errors.length">
-      <h4 mat-dialog-title>{{'GENERAL.ERROR' | transloco}}</h4>
-      <div mat-dialog-content>
-        <div class="m-b-xs" *ngFor="let error of data.errors">
-          <b>{{'IMPORT.PROBLEM_UPLOADING' | transloco}}: {{error.index}}</b>
+  <ng-container *ngIf="data">
+    <ng-container *ngIf="data.created">
+      <h1 mat-dialog-title>{{'GENERAL.SUCCESS' | transloco}}</h1>
+
+      <mat-dialog-content>
+        <p>{{'IMPORT.SUCCESS_MESSAGE' | transloco:{value: data.created} }}</p>
+      </mat-dialog-content>
+    </ng-container>
+
+    <ng-container *ngIf="data.errors && data.errors.length">
+      <h1 mat-dialog-title>{{'GENERAL.ERROR' | transloco}}</h1>
+
+      <mat-dialog-content>
+        <div class="m-b-1" *ngFor="let error of data.errors">
+          <p><b>{{'IMPORT.PROBLEM_UPLOADING' | transloco}}: {{error.index}}</b></p>
+          <br>
           <pre>{{error.errors | json}}</pre>
+          <br>
         </div>
-      </div>
-    </div>
-    <div mat-dialog-actions class="jc-end">
+      </mat-dialog-content>
+    </ng-container>
+
+    <mat-dialog-actions class="jc-end">
       <button mat-button mat-dialog-close>{{'GENERAL.OK' | transloco}}</button>
-    </div>
-  </div>
+    </mat-dialog-actions>
+  </ng-container>
 </ng-template>
 
 <ng-template #dialog>
   <form [formGroup]="form" (ngSubmit)="file.click()">
-    <mat-form-field class="w-full" appearance="outline">
-      <mat-label>{{'IMPORT.TYPE' | transloco}}</mat-label>
-      <mat-select formControlName="type">
-        <mat-option *ngFor="let option of importType | keyvalue" [value]="option.value">{{option.key}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <h1 mat-dialog-title>Import</h1>
 
-    <mat-form-field class="w-full" appearance="outline" *ngIf="form.get('type').value === importType.CSV">
-      <mat-label>{{'IMPORT.DELIMITER' | transloco}}</mat-label>
-      <input matInput formControlName="delimiter">
-    </mat-form-field>
+    <mat-dialog-content>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>{{'IMPORT.TYPE' | transloco}}</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let option of importType | keyvalue" [value]="option.value">{{option.key}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="outline" *ngIf="form.get('type').value === importType.CSV">
+        <mat-label>{{'IMPORT.DELIMITER' | transloco}}</mat-label>
+        <input matInput formControlName="delimiter">
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit">
+        <span>Select file</span>
+      </button>
+    </mat-dialog-content>
 
     <mat-dialog-actions class="jc-end">
-      <button mat-button type="submit">
-        <mat-icon>vertical_align_bottom</mat-icon>
-        <span>{{'GENERAL.IMPORT' | transloco}}</span>
-      </button>
+      <button mat-button mat-dialog-close>{{'GENERAL.CANCEL' | transloco}}</button>
     </mat-dialog-actions>
   </form>
 </ng-template>

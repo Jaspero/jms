@@ -151,7 +151,7 @@ $jms-typography: mat-typography-config(
 }
 
 // Custom class that insets mat-card-content
-.mat-card-content.mat-card-content-inset {
+.mat-card-content.mat-card-content-inset.mat-card-content-inset.mat-card-content-inset {
   margin: -16px;
 }
 
@@ -208,7 +208,9 @@ $jms-typography: mat-typography-config(
 // Divider
 // =============================================================================
 
-// Custom style
+.mat-card .mat-divider-horizontal.mat-divider-horizontal {
+  position: static;
+}
 
 
 
@@ -222,7 +224,8 @@ $jms-typography: mat-typography-config(
 // Form field
 // =============================================================================
 
-.mat-form-field-no-hint .mat-form-field-wrapper {
+.mat-form-field-no-hint .mat-form-field-wrapper,
+.mat-table .mat-form-field-wrapper {
   padding-bottom: 0;
 }
 

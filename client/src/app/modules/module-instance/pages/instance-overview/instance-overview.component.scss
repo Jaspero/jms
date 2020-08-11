@@ -1,11 +1,3 @@
-// TODO: custom styles for elements inside table
-
-.jms-instance-overview-table::ng-deep {
-  .mat-form-field-wrapper {
-    padding-bottom: 0;
-  }
-}
-
 .column-inner {
   // Don't let text grow out of control
   overflow: hidden;
