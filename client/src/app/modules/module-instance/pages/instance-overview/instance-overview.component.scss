@@ -7,15 +7,13 @@
 }
 
 .column-inner {
+  // Don't let text grow out of control
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
-}
 
-// TODO: add this to the table above
-// Don't let images grow out of control
-.column-inner {
+  // Don't let images grow out of control
   ::ng-deep svg,
   ::ng-deep img {
     max-width: 50px;
