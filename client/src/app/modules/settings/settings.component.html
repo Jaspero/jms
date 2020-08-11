@@ -44,14 +44,15 @@
             <ng-container matColumnDef="actions">
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let element" [attr.data-label]="'GENERAL.REMOVE' | transloco">
+                <div class="d-flex">
+                  <button mat-icon-button type="button" [attr.aria-label]="'GENERAL.EDIT' | transloco" [matTooltip]="'GENERAL.EDIT' | transloco" [disabled]="!element.id" (click)="edit(element)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
 
-                <button mat-icon-button type="button" [attr.aria-label]="'GENERAL.EDIT' | transloco" [matTooltip]="'GENERAL.EDIT' | transloco" [disabled]="!element.id" (click)="edit(element)">
-                  <mat-icon>edit</mat-icon>
-                </button>
-
-                <button mat-icon-button color="warn" type="button" [attr.aria-label]="'GENERAL.REMOVE' | transloco" [matTooltip]="'GENERAL.REMOVE' | transloco" [jpLoadClick]="remove(element)">
-                  <mat-icon>delete</mat-icon>
-                </button>
+                  <button mat-icon-button color="warn" type="button" [attr.aria-label]="'GENERAL.REMOVE' | transloco" [matTooltip]="'GENERAL.REMOVE' | transloco" [jpLoadClick]="remove(element)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
               </td>
             </ng-container>
 
@@ -99,12 +100,15 @@
         </form>
       </mat-card>
 
-      <mat-card class="m-t-m">
+      <div class="m-t-1"></div>
+
+      <mat-card>
         <mat-card-header>
-          <h1>{{'SETTINGS.LANGUAGE' | transloco}}</h1>
+          <mat-card-title>{{'SETTINGS.LANGUAGE' | transloco}}</mat-card-title>
         </mat-card-header>
+
         <mat-card-content>
-          <mat-form-field appearance="outline" class="w-full">
+          <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'SETTINGS.LANGUAGE' | transloco}}</mat-label>
             <mat-select [formControl]="languageControl">
               <mat-option *ngFor="let language of availableLanguages" [value]="language.id">{{language.label}}</mat-option>

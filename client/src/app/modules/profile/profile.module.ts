@@ -12,6 +12,9 @@ import {TranslocoModule} from '@ngneat/transloco';
 import {ProfileInformationComponent} from './pages/profile-information/profile-information.component';
 import {ProfileSecurityComponent} from './pages/profile-security/profile-security.component';
 import {ProfileComponent} from './profile.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
 
 const routes: Routes = [
   {
@@ -57,6 +60,9 @@ const routes: Routes = [
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatIconModule,
 
     /**
      * External
