@@ -17,22 +17,26 @@
   </header>
 
   <main>
-    <div class="d-flex ai-center fd-row-rev jc-between p-a-1" *ngIf="views && views.length">
-      <div class="m-r-1">
-        <button
-          *ngFor="let view of views"
-          [matTooltip]="view.title"
-          [color]="activeView === view.selector ? 'primary' : 'default'"
-          (click)="changeCurrentView(view.selector)"
-          mat-icon-button>
-          <mat-icon>{{view.icon}}</mat-icon>
-        </button>
-      </div>
+    <ng-container *ngIf="views && views.length">
+      <div class="d-flex ai-center jc-between m-b-1">
+        <ng-container *ngIf="ioc.subHeaderTemplate$ | async as subHeaderTemplate">
+          <ng-container *ngTemplateOutlet="subHeaderTemplate"></ng-container>
+        </ng-container>
 
-      <ng-container *ngIf="ioc.subHeaderTemplate$ | async as subHeaderTemplate">
-        <ng-container *ngTemplateOutlet="subHeaderTemplate"></ng-container>
-      </ng-container>
-    </div>
+        <div class="fg-1"></div>
+
+        <div class="m-l-1">
+          <button
+            *ngFor="let view of views"
+            [matTooltip]="view.title"
+            [color]="activeView === view.selector ? 'primary' : 'default'"
+            (click)="changeCurrentView(view.selector)"
+            mat-icon-button>
+            <mat-icon>{{view.icon}}</mat-icon>
+          </button>
+        </div>
+      </div>
+    </ng-container>
 
     <div [innerHtml]="currentView | jpSanitize"></div>
   </main>
