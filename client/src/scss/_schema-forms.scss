@@ -49,10 +49,6 @@
   margin: 0 auto;
 }
 
-[class*="col-"] {
-  padding: 10px;
-}
-
 .col-0 { display: none; }
 @for $i from 1 through 12 {
   .col-#{$i} {
