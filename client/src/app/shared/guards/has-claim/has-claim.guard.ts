@@ -30,6 +30,7 @@ export class HasClaimGuard implements CanActivate {
         take(1),
         switchMap(({claims}) => {
           this.state.role = claims.role;
+          this.state.hierarchy = claims.hierarchy;
           return this.afs
             .collection(FirestoreCollection.Users)
             .doc(claims.user_id)

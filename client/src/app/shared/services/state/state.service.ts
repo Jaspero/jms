@@ -43,6 +43,7 @@ export class StateService {
   }
 
   role: string;
+  hierarchy: number;
   user: User;
   loadingQue$ = new Subject<Array<string | boolean>>();
   modules$: Observable<Module[]>;

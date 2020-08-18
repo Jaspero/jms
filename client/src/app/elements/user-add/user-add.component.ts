@@ -9,6 +9,8 @@ import {Role} from '../../shared/interfaces/role.interface';
 import {DbService} from '../../shared/services/db/db.service';
 import {notify} from '../../shared/utils/notify.operator';
 import {randomPassword} from '../../shared/utils/random-password';
+import {StateService} from '../../shared/services/state/state.service';
+import {FilterMethod} from '../../shared/enums/filter-method.enum';
 
 @Component({
   selector: 'jms-user-add',
@@ -20,7 +22,8 @@ export class UserAddComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private dbService: DbService
+    private dbService: DbService,
+    private state: StateService
   ) { }
 
   @ViewChild('addDialog', {static: true})
@@ -29,7 +32,11 @@ export class UserAddComponent implements OnInit {
   form: FormGroup;
 
   ngOnInit() {
-    this.roles$ = this.dbService.getDocumentsSimple(FirestoreCollection.Roles)
+    this.roles$ = this.dbService.getDocumentsSimple(FirestoreCollection.Roles, undefined, {
+      key: 'hierarchy',
+      operator: FilterMethod.GreaterThenOrEqual,
+      value: this.state.hierarchy
+    })
       .pipe(
         shareReplay(1)
       );

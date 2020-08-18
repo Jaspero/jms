@@ -83,13 +83,15 @@ const COLLECTIONS = [
         id: 'admin',
         name: 'Admin',
         description: 'A user with access to all collections',
-        createdOn: Date.now()
+        createdOn: Date.now(),
+        hierarchy: 0
       },
       {
         id: 'user',
         name: 'User',
         description: 'A user with limited application access',
-        createdOn: Date.now()
+        createdOn: Date.now(),
+        hierarchy: 1
       }
     ]
   },
@@ -124,7 +126,9 @@ const MODULES = [
               type: 'select',
               configuration: {
                 populate: {
-                  collection: 'roles'
+                  collection: 'roles',
+                  // dynamicFilter: hyer
+                //   todo: add filter by hierarchy
                 }
               }
             }
