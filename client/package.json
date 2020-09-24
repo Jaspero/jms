@@ -1,10 +1,10 @@
 {
-  "name": "cms",
+  "name": "client",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "node timestamp.js && ng build --prod",
+    "build": "node timestamp.js && ng build --prod --client",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

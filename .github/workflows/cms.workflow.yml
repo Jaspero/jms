@@ -2,7 +2,7 @@ name: Deploy CMS
 on:
   push:
     paths:
-      - 'client/**/*'
+      - 'client/projects/cms/**/*'
       - '.github/workflows/cms.workflow.yml'
 jobs:
   deploy:

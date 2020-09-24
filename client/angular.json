@@ -11,21 +11,22 @@
           "changeDetection": "OnPush"
         }
       },
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/cms",
+      "sourceRoot": "projects/cms/src",
       "prefix": "jms",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "../public/cms",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
+            "outputPath": "../../public/cms",
+            "index": "projects/cms/src/index.html",
+            "main": "projects/cms/src/main.ts",
+            "polyfills": "projects/cms/src/polyfills.ts",
+            "tsConfig": "projects/cms/tsconfig.app.json",
+            "aot": true,
             "assets": [
-              "src/favicon.ico",
-              "src/assets",
+              "projects/cms/src/favicon.ico",
+              "projects/cms/src/assets",
               {
                 "glob": "**/*",
                 "input": "node_modules/tinymce/themes/silver",
@@ -42,10 +43,9 @@
                 "output": "/skins/content/default"
               }
             ],
-            "showCircularDependencies": false,
             "styles": [
               "node_modules/jsoneditor/dist/jsoneditor.min.css",
-              "src/styles.scss"
+              "projects/cms/src/styles.scss"
             ],
             "scripts": [
               "./node_modules/tinymce/tinymce.min.js",
@@ -84,24 +84,28 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "projects/cms/src/environments/environment.ts",
+                  "with": "projects/cms/src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": false,
+              "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": false,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": false,
+              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
                   "maximumWarning": "10mb",
                   "maximumError": "20mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ]
             }
@@ -127,14 +131,16 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "main": "projects/cms/src/test.ts",
+            "polyfills": "projects/cms/src/polyfills.ts",
+            "tsConfig": "projects/cms/tsconfig.spec.json",
+            "karmaConfig": "projects/cms/karma.conf.js",
+            "assets": [
+              "projects/cms/src/favicon.ico",
+              "projects/cms/src/assets"
+            ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
+              "projects/cms/src/styles.scss"
             ],
             "scripts": []
           }
@@ -143,17 +149,19 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
+              "projects/cms/tsconfig.app.json",
+              "projects/cms/tsconfig.spec.json",
+              "projects/cms/e2e/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
+            "protractorConfig": "projects/cms/e2e/protractor.conf.js",
             "devServerTarget": "cms:serve"
           },
           "configurations": {
@@ -163,10 +171,6 @@
           }
         }
       }
-    }
-  },
-  "defaultProject": "cms",
-  "cli": {
-    "analytics": false
-  }
+    }},
+  "defaultProject": "cms"
 }
