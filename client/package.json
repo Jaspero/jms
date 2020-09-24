@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start:cms": "ng serve --project=cms",
     "build": "node timestamp.js && ng build --prod --client",
     "test": "ng test",
     "lint": "ng lint",
