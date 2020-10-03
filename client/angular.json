@@ -18,7 +18,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "../../public/cms",
+            "outputPath": "../public/cms",
             "index": "projects/cms/src/index.html",
             "main": "projects/cms/src/main.ts",
             "polyfills": "projects/cms/src/polyfills.ts",
