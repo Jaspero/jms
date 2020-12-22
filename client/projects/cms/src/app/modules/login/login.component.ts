@@ -1,10 +1,20 @@
-import {ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  NgZone,
+  OnInit,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {auth} from 'firebase/app';
 import {from, throwError} from 'rxjs';
-import {catchError, filter} from 'rxjs/operators';
+import {catchError, filter, tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../environments/static-config';
 import {StateService} from '../../shared/services/state/state.service';
 import {notify} from '../../shared/utils/notify.operator';
@@ -20,13 +30,33 @@ export class LoginComponent implements OnInit {
     public router: Router,
     public afAuth: AngularFireAuth,
     public fb: FormBuilder,
-    private state: StateService
-  ) {}
+    private state: StateService,
+    private dialog: MatDialog,
+    private cdr: ChangeDetectorRef,
+    private zone: NgZone
+  ) {
+  }
 
-  @ViewChild('password', {static: true}) passwordField: ElementRef;
+  @ViewChild('password', {static: true})
+  passwordField: ElementRef;
+
+  @ViewChild('mfaVerification', {static: true})
+  mfaVerificationTemp: TemplateRef<any>;
 
   loginForm: FormGroup;
   staticConfig = STATIC_CONFIG;
+  codeForm: FormGroup;
+  resolver: auth.MultiFactorResolver;
+  verifier: auth.RecaptchaVerifier;
+  verificationState: string;
+  verificationId: string;
+  deviceForm: FormGroup;
+
+  errorMap = {
+    'auth/wrong-password': 'LOGIN.ERROR_MESSAGE',
+    'auth/too-many-requests': 'LOGIN.TOO_MANY_ATTEMPTS_TRY_LATER',
+    'auth/user-not-found': 'LOGIN.USER_NOT_FOUND'
+  };
 
   ngOnInit() {
 
@@ -48,11 +78,21 @@ export class LoginComponent implements OnInit {
   }
 
   loginGoogle() {
-    auth().signInWithPopup(new auth.GoogleAuthProvider());
+    this.afAuth.signInWithPopup(new auth.GoogleAuthProvider())
+      .catch(e => {
+        if (e.code === 'auth/multi-factor-auth-required') {
+          this.openMfa(e.resolver);
+        }
+      });
   }
 
   loginFacebook() {
-    auth().signInWithPopup(new auth.FacebookAuthProvider());
+    this.afAuth.signInWithPopup(new auth.FacebookAuthProvider())
+      .catch(e => {
+        if (e.code === 'auth/multi-factor-auth-required') {
+          this.openMfa(e.resolver);
+        }
+      });
   }
 
   loginEmail() {
@@ -60,21 +100,45 @@ export class LoginComponent implements OnInit {
       const data = this.loginForm.getRawValue();
 
       return from(
-        auth().signInWithEmailAndPassword(
+        this.afAuth.signInWithEmailAndPassword(
           data.emailLogin,
           data.passwordLogin
         )
       ).pipe(
-        notify({
-          success: null,
-          error: 'LOGIN.ERROR_MESSAGE'
-        }),
         catchError(error => {
           this.loginForm.get('passwordLogin').reset();
           this.passwordField.nativeElement.focus();
-          return throwError(error);
-        })
+
+          return throwError({
+            message: this.errorMap[error.code] || 'LOGIN.ERROR_MESSAGE'
+          });
+        }),
+        notify()
       );
+    };
+  }
+
+  verifyMfa() {
+    return () => {
+
+      const {code} = this.codeForm.getRawValue();
+
+      return from(
+        this.resolver.resolveSignIn(
+          auth.PhoneMultiFactorGenerator.assertion(
+            auth.PhoneAuthProvider.credential(this.verificationId, code)
+          )
+        )
+      )
+        .pipe(
+          tap(() => {
+            this.dialog.closeAll();
+          }),
+          notify({
+            success: false,
+            showThrownError: true
+          })
+        );
     };
   }
 
@@ -83,5 +147,63 @@ export class LoginComponent implements OnInit {
       emailLogin: ['', [Validators.required, Validators.email]],
       passwordLogin: ['', Validators.required]
     });
+  }
+
+  private openMfa(resolver: auth.MultiFactorResolver) {
+
+    this.resolver = resolver;
+    this.verificationState = 'select';
+
+    this.deviceForm = this.fb.group({
+      device: resolver.hints[resolver.hints.length - 1].uid
+    });
+
+    this.dialog.open(
+      this.mfaVerificationTemp,
+      {
+        width: '400px'
+      }
+    )
+      .afterOpened()
+      .subscribe(() => {
+        this.verifier = new auth.RecaptchaVerifier('mfa-submit', {
+          size: 'invisible',
+          callback: () => {
+            this.codeForm = this.fb.group({
+              code: ['', Validators.required]
+            });
+
+            const {device} = this.deviceForm.getRawValue();
+
+            const verify = () => from(
+              new auth.PhoneAuthProvider()
+                .verifyPhoneNumber(
+                  {
+                    multiFactorHint: this.resolver.hints.find(hint => hint.uid === device),
+                    session: this.resolver.session
+                  },
+                  this.verifier
+                )
+            );
+
+            verify()
+              .pipe(
+                catchError(e => {
+                  this.verifier.clear();
+                  return verify();
+                })
+              )
+              .subscribe(vId => {
+                this.zone.run(() => {
+                  this.verificationId = vId;
+                  this.verificationState = 'submit';
+                  this.cdr.markForCheck();
+                });
+              });
+          }
+        });
+
+        this.verifier.render();
+      });
   }
 }

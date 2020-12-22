@@ -51,6 +51,12 @@ const routes: Routes = [
         .then(m => m.ResetPasswordModule)
   },
   {
+    path: 'mfa',
+    loadChildren: () =>
+      import('./modules/mfa/mfa.module')
+        .then(m => m.MfaModule)
+  },
+  {
     path: '**',
     redirectTo: 'dashboard',
     pathMatch: 'full'
@@ -60,8 +66,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      scrollPositionRestoration: 'top'
-    })
+    scrollPositionRestoration: 'top'
+})
   ],
   exports: [RouterModule]
 })

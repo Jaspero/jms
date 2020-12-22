@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {AngularFireAuth} from '@angular/fire/auth';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {auth} from 'firebase/app';
 import {from} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../environments/static-config';
@@ -18,8 +18,10 @@ export class ResetPasswordComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) { }
+    private activatedRoute: ActivatedRoute,
+    private afAuth: AngularFireAuth
+  ) {
+  }
 
   form: FormGroup;
   staticConfig = STATIC_CONFIG;
@@ -43,7 +45,7 @@ export class ResetPasswordComponent implements OnInit {
   reset() {
     return () =>
       from(
-        auth().confirmPasswordReset(
+        this.afAuth.confirmPasswordReset(
           this.code,
           this.form.get('password').value
         )
@@ -55,6 +57,6 @@ export class ResetPasswordComponent implements OnInit {
           tap(() =>
             this.router.navigate(['/login'])
           )
-        )
+        );
   }
 }

@@ -5,8 +5,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {auth} from 'firebase/app';
 import {from} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
-import {environment} from '../../../../../../../environments/environment';
 import {ImportModule} from '../../../../../../shared/interfaces/import-module.interface';
+import {DbService} from '../../../../../../shared/services/db/db.service';
 import {notify} from '../../../../../../shared/utils/notify.operator';
 import {queue} from '../../../../../../shared/utils/queue.operator';
 
@@ -30,8 +30,10 @@ export class ImportComponent {
   constructor(
     public dialog: MatDialog,
     private http: HttpClient,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private db: DbService
+  ) {
+  }
 
   @ViewChild('file', {static: true})
   fileEl: ElementRef<HTMLInputElement>;
@@ -71,7 +73,7 @@ export class ImportComponent {
     if (this.importModule) {
       for (const key in this.importModule) {
         if (this.importModule.hasOwnProperty(key)) {
-          formData.append('importModule-' + key, this.importModule[key])
+          formData.append('importModule-' + key, this.importModule[key]);
         }
       }
     }
@@ -93,7 +95,7 @@ export class ImportComponent {
         switchMap(token =>
           this.http
             .post(
-              `${environment.restApi}/cms-importData`,
+              this.db.url('cms-importData/' + this.collection),
               formData,
               {
                 headers: {

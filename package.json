@@ -4,6 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start:cms": "npm --prefix client run start:cms",
+    "start:functions": "npm --prefix functions run serve",
+    "start:setup": "npm --prefix setup start",
     "build:cms": "npm --prefix client run build",
     "build:functions": "npm --prefix functions run build",
     "build": "npm run build:cms && npm run build:functions",
@@ -56,17 +58,23 @@
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/git": "9.0.0",
-    "husky": "3.0.9",
-    "lint-staged": "10.0.0-0",
-    "prettier": "1.18.2",
-    "semantic-release": "17.1.1"
+    "@semantic-release/npm": "7.0.6",
+    "husky": "4.3.0",
+    "lint-staged": "10.4.0",
+    "prettier": "2.1.2",
+    "semantic-release": "17.2.3"
   },
   "release": {
-    "pkgRoot": "/",
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false
+        }
+      ],
       "@semantic-release/git"
     ]
   }

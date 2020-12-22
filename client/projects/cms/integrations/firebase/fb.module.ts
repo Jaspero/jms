@@ -3,12 +3,12 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireAuthGuardModule} from '@angular/fire/auth-guard';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireFunctionsModule, ORIGIN, REGION} from '@angular/fire/functions';
 import {AngularFirePerformanceModule} from '@angular/fire/performance';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
 import {FbDatabaseService} from './fb-database.service';
-import 'firebase/functions';
 
 @NgModule({
   imports: [
@@ -17,7 +17,8 @@ import 'firebase/functions';
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFireAuthGuardModule,
-    AngularFirePerformanceModule
+    AngularFirePerformanceModule,
+    AngularFireFunctionsModule
   ]
 })
 export class FirebaseModule {
@@ -32,7 +33,20 @@ export class FirebaseModule {
   static forRoot(): ModuleWithProviders<FirebaseModule> {
     return {
       ngModule: FirebaseModule,
-      providers: [{provide: DbService, useClass: FbDatabaseService}]
+      providers: [
+        {
+          provide: DbService,
+          useClass: FbDatabaseService
+        },
+        {
+          provide: REGION,
+          useValue: 'us-central1'
+        },
+        {
+          provide: ORIGIN,
+          useValue: environment.origin
+        }
+      ]
     };
   }
 }

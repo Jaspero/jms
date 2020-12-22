@@ -1,25 +1,33 @@
 <button mat-flat-button (click)="open()">{{'GENERAL.ADD' | transloco}} User</button>
 
 <ng-template #addDialog>
-  <h4 mat-dialog-title>Add User</h4>
+  <h4 mat-dialog-title>{{'USERS.ADD' | transloco}}</h4>
 
   <form [formGroup]="form" autocomplete="off">
     <mat-dialog-content>
-      <mat-form-field appearance="outline" class="w-full">
+      <mat-form-field class="w-full">
         <mat-label>{{'GENERAL.EMAIL' | transloco}}</mat-label>
         <input type="email" formControlName="email" matInput>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="w-full">
+      <mat-form-field class="w-full">
         <mat-label>{{'GENERAL.PASSWORD' | transloco}}</mat-label>
-        <input type="password" formControlName="password" matInput>
-        <mat-icon class="pointer" matSuffix matTooltip="Generate Random Password" (click)="generateRandomPassword()">cached</mat-icon>
-        <mat-hint>{{'SETTINGS.PASSWORD_INSTRUCTIONS' | transloco}}</mat-hint>
-        <mat-error>{{'SETTINGS.PASSWORD_RULES' | transloco}}</mat-error>
+        <input [type]="type" formControlName="password" autocomplete="new-password" name="pwd" matInput>
+        <div class="flex" matSuffix>
+          <button type="button" tabindex="-1" mat-icon-button (click)="toggleType()">
+            <mat-icon>{{type === 'password' ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </button>
+          &nbsp;
+          <button type="button" tabindex="-1" mat-icon-button matTooltip="Generate Random Password" (click)="generateRandomPassword()">
+            <mat-icon>cached</mat-icon>
+          </button>
+        </div>
+        <mat-hint>{{'USERS.PASSWORD_INSTRUCTIONS' | transloco}}</mat-hint>
+        <mat-error>{{'USERS.PASSWORD_RULES' | transloco}}</mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="w-full m-t-m">
-        <mat-label>{{'SETTINGS.ROLE' | transloco}}</mat-label>
+      <mat-form-field class="w-full m-t-m">
+        <mat-label>{{'USERS.ROLE' | transloco}}</mat-label>
         <mat-select formControlName="role">
           <mat-option *ngFor="let role of roles$ | async" [value]="role.id">{{role.name}}</mat-option>
         </mat-select>

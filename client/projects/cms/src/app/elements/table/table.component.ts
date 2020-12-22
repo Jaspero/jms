@@ -2,6 +2,7 @@ import {TemplatePortal} from '@angular/cdk/portal';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Injector,
   OnDestroy,
@@ -12,13 +13,15 @@ import {
   ViewChildren,
   ViewContainerRef
 } from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
-import {Parser, safeEval, State} from '@jaspero/form-builder';
+import {Parser, parseTemplate, safeEval, State} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
 import {filter, map, shareReplay, startWith, switchMap} from 'rxjs/operators';
+import {ColumnOrganizationComponent} from '../../modules/dashboard/modules/module-instance/components/column-organization/column-organization.component';
 import {InstanceOverviewContextService} from '../../modules/dashboard/modules/module-instance/services/instance-overview-context.service';
 import {FilterModule} from '../../shared/interfaces/filter-module.interface';
 import {ImportModule} from '../../shared/interfaces/import-module.interface';
@@ -39,6 +42,7 @@ interface TableData {
   displayColumns: string[];
   definitions: ModuleDefinitions;
   tableColumns: ModuleLayoutTableColumn[];
+  originalColumns: ModuleLayoutTableColumn[];
   schema: JSONSchema7;
   stickyHeader: boolean;
   sort?: InstanceSort;
@@ -71,8 +75,11 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     private state: StateService,
     private injector: Injector,
     private viewContainerRef: ViewContainerRef,
-    private dbService: DbService
-  ) {}
+    private dbService: DbService,
+    private dialog: MatDialog,
+    private cdr: ChangeDetectorRef
+  ) {
+  }
 
   /**
    * Using view children so we can listen for changes
@@ -89,9 +96,13 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('populateColumn', {static: true})
   populateColumnTemplate: TemplateRef<any>;
 
-  data$: Observable<TableData>;
-  items$: Observable<any>;
+  @ViewChild('columnOrganization', {static: true})
+  columnOrganizationTemplate: TemplateRef<any>;
 
+  items$: Observable<any>;
+  columnsSorted$ = new BehaviorSubject(false);
+
+  data: TableData;
   parserCache: {[key: string]: Parser} = {};
   populateCache: {[key: string]: Observable<any>} = {};
 
@@ -105,10 +116,14 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ioc.subHeaderTemplate$.next(this.subHeaderTemplate);
     }, 100);
 
-    this.data$ = this.ioc.module$.pipe(
-      map(data => {
+    this.ioc.module$
+      .pipe(
+        untilDestroyed(this)
+      )
+      .subscribe(data => {
         let displayColumns: string[];
         let tableColumns: ModuleLayoutTableColumn[];
+        let pColumns: ModuleLayoutTableColumn[];
         let sort: InstanceSort;
         let hide: any = {
           hideCheckbox: false,
@@ -116,7 +131,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           hideEdit: false,
           hideDelete: false,
           hideExport: false,
-          hideImport: false,
+          hideImport: false
         };
 
         if (
@@ -128,37 +143,13 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           /**
            * Filter authorized columns
            */
-          const pColumns = data.layout.table.tableColumns.filter(column =>
+          pColumns = data.layout.table.tableColumns.filter(column =>
             column.authorization ? column.authorization.includes(this.state.role) : true
           );
 
-          displayColumns = pColumns.reduce(
-            (acc, column) => {
-              let key =
-                typeof column.key === 'string' ? column.key : column.key[0];
-
-              if (acc.includes(key)) {
-                key = this.dbService.createId();
-              }
-
-              acc.push(key);
-
-              return acc;
-            },
-            []
-          );
-          tableColumns = pColumns.map(column => {
-
-            const tooltip = column.tooltip ? safeEval(column.tooltip as string) : column.tooltip;
-
-            return {
-              ...column,
-              ...tooltip && {
-                tooltip,
-                tooltipFunction: typeof tooltip === 'function'
-              }
-            };
-          });
+          const columns = this.constructColumns(pColumns);
+          displayColumns = columns.displayColumns;
+          tableColumns = columns.tableColumns;
         } else {
           const topLevelProperties = Object.keys(data.schema.properties || {});
 
@@ -209,7 +200,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
 
                 return acc;
-              }, [])
+              }, []);
             }
 
             if (data.layout.table.hideAdd) {
@@ -228,7 +219,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           displayColumns.push('actions');
         }
 
-        return {
+        this.data = {
           moduleId: data.id,
           moduleAuthorization: data.authorization,
           name: data.name,
@@ -236,6 +227,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           displayColumns,
           tableColumns,
           sort,
+          originalColumns: pColumns,
           definitions: data.definitions,
           ...(
             data.layout ? {
@@ -250,26 +242,24 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           )
         };
-      }),
-      shareReplay(1)
-    );
 
-    this.items$ = this.data$
-      .pipe(
-        switchMap(data =>
-          this.ioc.items$
-            .pipe(
-              map(items =>
-                items
-                  .map(item => this.mapRow(
-                    data,
-                    item
+        this.items$ = combineLatest([
+          this.ioc.items$,
+          this.columnsSorted$
+        ])
+          .pipe(
+            map(([items]) =>
+              items
+                .map(item => this.mapRow(
+                  this.data,
+                  item
                   )
                 )
-              )
             )
-        )
-      );
+          );
+
+        this.cdr.markForCheck();
+      });
   }
 
   ngAfterViewInit() {
@@ -288,6 +278,34 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ioc.subHeaderTemplate$.next(null);
   }
 
+  openColumnOrganization() {
+    this.dialog.open(
+      this.columnOrganizationTemplate,
+      {
+        width: '400px'
+      }
+    );
+  }
+
+  updateColumns(columnOrganization: ColumnOrganizationComponent) {
+    this.data.originalColumns = columnOrganization.save();
+    const columns = this.constructColumns(this.data.originalColumns);
+
+    if (!this.data.hideCheckbox) {
+      columns.displayColumns.unshift('check');
+    }
+
+    if (!this.data.hideDelete || !this.data.hideEdit) {
+      columns.displayColumns.push('actions');
+    }
+
+    this.data.displayColumns = columns.displayColumns;
+    this.data.tableColumns = columns.tableColumns;
+
+    this.dialog.closeAll();
+    this.columnsSorted$.next(true);
+  }
+
   private mapRow(
     overview: TableData,
     rowData: any
@@ -298,6 +316,35 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       data,
       id,
       parsed: this.parseColumns(overview, {...data, id})
+    };
+  }
+
+  private constructColumns(columns: ModuleLayoutTableColumn[]) {
+
+    const displayColumns = [];
+    const tableColumns = [];
+
+    for (const column of columns) {
+
+      if (column.disabled) {
+        continue;
+      }
+
+      const tooltip = column.tooltip ? safeEval(column.tooltip as string) : column.tooltip;
+
+      displayColumns.push(this.dbService.createId());
+      tableColumns.push({
+        ...column,
+        ...tooltip && {
+          tooltip,
+          tooltipFunction: typeof tooltip === 'function'
+        }
+      });
+    }
+
+    return {
+      displayColumns,
+      tableColumns
     };
   }
 
@@ -387,11 +434,14 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       if (nested) {
         return value;
       } else if (column.populate) {
-        let id;
+        let id = column.populate.id;
 
-        try {
-          id = get(rowData, column.key as string);
-        } catch (e) {}
+        if (!id) {
+          try {
+            id = get(rowData, column.key as string);
+          } catch (e) {
+          }
+        }
 
 
         if (!id) {
@@ -402,7 +452,13 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           );
         }
 
-        const popKey = `${column.populate.collection}-${
+        const parsedCollection = parseTemplate(
+          column.populate.collection,
+          rowData,
+          (key, entry) => get(entry, key),
+          true
+        );
+        const popKey = `${parsedCollection}-${
           column.populate.lookUp ?
             [column.populate.lookUp.key, column.populate.lookUp.operator, id].join('-') :
             id
@@ -411,7 +467,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!this.populateCache[popKey]) {
           if (column.populate.lookUp) {
             this.populateCache[popKey] = this.dbService.getDocuments(
-              column.populate.collection,
+              parsedCollection,
               1,
               undefined,
               undefined,
@@ -432,7 +488,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
                         column.pipe,
                         column.pipeArguments,
                         {rowData, populated}
-                      )
+                      );
                     } else {
                       return column.populate.fallback || '-';
                     }
@@ -441,10 +497,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
                   }
                 }),
                 shareReplay(1)
-              )
+              );
           } else {
             this.populateCache[popKey] = this.dbService.getDocument(
-              column.populate.collection,
+              parsedCollection,
               id
             )
               .pipe(
@@ -455,13 +511,13 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
                       column.pipe,
                       column.pipeArguments,
                       {rowData, populated}
-                    )
+                    );
                   } else {
                     return column.populate.fallback || '-';
                   }
                 }),
                 shareReplay(1)
-              )
+              );
           }
         }
 
@@ -469,7 +525,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           this.populateColumnTemplate,
           this.viewContainerRef,
           {value: this.populateCache[popKey]}
-        )
+        );
       } else {
         return new TemplatePortal(
           this.simpleColumnTemplate,

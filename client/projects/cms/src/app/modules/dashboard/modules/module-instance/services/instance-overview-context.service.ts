@@ -7,10 +7,10 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {MaybeArray, TRANSLOCO_LANG, TRANSLOCO_SCOPE, TranslocoScope, TranslocoService} from '@ngneat/transloco';
 import {BehaviorSubject, combineLatest, forkJoin, Observable, Subject} from 'rxjs';
 import {filter, map, switchMap, take, tap} from 'rxjs/operators';
-import {ExportComponent} from '../components/export/export.component';
 import {PAGE_SIZES} from '../../../../../shared/consts/page-sizes.const';
 import {FilterModule} from '../../../../../shared/interfaces/filter-module.interface';
 import {InstanceSort} from '../../../../../shared/interfaces/instance-sort.interface';
+import {ModuleLayoutTableColumn} from '../../../../../shared/interfaces/module-layout-table.interface';
 import {Module} from '../../../../../shared/interfaces/module.interface';
 import {SortModule} from '../../../../../shared/interfaces/sort-module.interface';
 import {WhereFilter} from '../../../../../shared/interfaces/where-filter.interface';
@@ -18,6 +18,7 @@ import {DbService} from '../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../shared/services/state/state.service';
 import {confirmation} from '../../../../../shared/utils/confirmation';
 import {notify} from '../../../../../shared/utils/notify.operator';
+import {ExportComponent} from '../components/export/export.component';
 import {FilterDialogComponent} from '../components/filter-dialog/filter-dialog.component';
 import {SortDialogComponent} from '../components/sort-dialog/sort-dialog.component';
 import {ColumnPipe} from '../pipes/column/column.pipe';
@@ -37,7 +38,8 @@ export class InstanceOverviewContextService {
     @Optional()
     @Inject(TRANSLOCO_LANG)
     private providerLang: string | null
-  ) {}
+  ) {
+  }
 
   module$: Observable<Module>;
   items$: Observable<any[]>;
@@ -161,13 +163,28 @@ export class InstanceOverviewContextService {
       });
   }
 
-  export(collection: string) {
-    this.bottomSheet.open(ExportComponent, {
-      data: {
-        collection,
-        ids: this.selection.selected
-      }
-    });
+  export(columns?: ModuleLayoutTableColumn[]) {
+
+    combineLatest([
+      this.module$,
+      this.filterChange$,
+      this.sortChange$
+    ])
+      .pipe(
+        take(1)
+      )
+      .subscribe(([module, filterValue, sort]) => {
+        this.bottomSheet.open(ExportComponent, {
+          data: {
+            ids: this.selection.selected,
+            filterValue,
+            columns,
+            sort,
+            collection: module.id,
+            filterModule: module.layout?.filterModule
+          }
+        });
+      });
   }
 
   trackById(index, item) {
@@ -183,6 +200,6 @@ export class InstanceOverviewContextService {
       cdr,
       this.providerScope,
       this.providerLang
-    )
+    );
   }
 }

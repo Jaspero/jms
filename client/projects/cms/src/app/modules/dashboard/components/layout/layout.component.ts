@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Router} from '@angular/router';
 import {safeEval} from '@jaspero/form-builder';
-import {auth} from 'firebase/app';
 import {combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../../../environments/static-config';
@@ -45,6 +44,14 @@ export class LayoutComponent implements OnInit {
                 !item.authorized ||
                 item.authorized.includes(this.state.role)
               ) {
+
+                if (item.function) {
+                  const value = safeEval(item.value);
+                  if (value) {
+                    item.value = value(this.state.user, this.state.role);
+                  }
+                }
+
                 acc.push({
                   ...item,
                   ...item.children ?
@@ -157,6 +164,6 @@ export class LayoutComponent implements OnInit {
 
   logOut() {
     this.router.navigate(['/login']);
-    auth().signOut();
+    this.afAuth.signOut();
   }
 }

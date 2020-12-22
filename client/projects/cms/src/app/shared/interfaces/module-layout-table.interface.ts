@@ -20,11 +20,18 @@ export interface ModuleLayoutTableColumn {
   tooltipFunction?: boolean;
   nestedColumns?: ModuleLayoutTableNestedColumn[];
   authorization?: string[];
+  disabled?: boolean;
   /**
    * Either ID or lookup need to be specified
    */
   populate?: {
     collection: string;
+
+    /**
+     * If no id is provided the value of column.key
+     * is used instead
+     */
+    id?: string;
 
     /**
      * If a lookup is provided then the id isn't used
@@ -45,7 +52,7 @@ export interface ModuleLayoutTableColumn {
      * defaults to '-'
      */
     fallback?: string;
-  }
+  };
 }
 
 export interface ModuleLayoutTableNestedColumn extends ModuleLayoutTableColumn {

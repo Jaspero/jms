@@ -28,13 +28,28 @@
     "OPERATION_COMPLETED": "Operation completed",
     "OPERATION_FAILED": "Operation failed",
     "USERS": "Users",
-    "ROLES": "Roles"
+    "USER": "User",
+    "ROLES": "Roles",
+    "LABEL": "Label",
+    "SUBMIT": "Submit",
+    "DISABLED": "Disabled",
+    "ENABLED": "Enabled",
+
+    "COUNTRY": "Country",
+    "CREATED_ON": "Created On",
+    "DATE": "Date",
+    "HOURS": "Hours",
+    "MINUTES": "Minutes"
   },
   "LOGIN": {
     "LOGIN": "Login",
     "LOGIN_WITH": "Log in with {{value}}",
     "FORGOT_PASSWORD": "Forgot password?",
-    "ERROR_MESSAGE": "The email and password you entered did not match our records. Please double-check and try again."
+    "ERROR_MESSAGE": "The email and password you entered did not match our records. Please double-check and try again.",
+    "MFA_AUTHENTICATION": "Authenticate",
+    "MFA_SELECT_DEVICE": "Device",
+    "TOO_MANY_ATTEMPTS_TRY_LATER": "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.",
+    "USER_NOT_FOUND": "There is no user record corresponding to this identifier."
   },
   "RESET_PASSWORD": {
     "REPEAT_PASSWORD": "Repeat Password",
@@ -46,6 +61,14 @@
     "ERROR_MESSAGE": "Email is invalid",
     "RESET_SUCCESSFUL": "Your password has been reset successfully. You can now log in.",
     "INVALID_OOB_CODE": "Your code has expired. Please restart the process of resetting your password."
+  },
+  "MFA": {
+    "CONNECT": "Connect Multi-Factor Authentication",
+    "PHONE": "Phone number",
+    "VERIFICATION": "Verification",
+    "DESCRIPTION": "A code has been sent to you",
+    "AUTHENTICATE": "Authenticate",
+    "VERIFICATION_CODE": "Code"
   },
   "LAYOUT": {
     "MENU": "Menu",
@@ -81,7 +104,10 @@
     "NO_ITEMS": "No {{value}} yet.",
     "LOAD_MORE": "More...",
     "APPLY": "Apply",
-    "UPDATE_ORDER": "Update Order"
+    "UPDATE_ORDER": "Update Order",
+    "TABLE": {
+      "COLUMNS": "Kolumne"
+    }
   },
   "INSTANCE_SINGLE": {
     "EDITING": "Editing",
@@ -122,6 +148,11 @@
     "ERROR": "There was an error while importing data."
   },
   "EXPORT": {
+    "TITLE": "Export Options",
+    "USE_FILTERS": "Use filters",
+    "ROWS_TO_SKIP": "Rows to skip",
+    "ADJUST_COLUMNS": "Adjust columns",
+    "LIMIT": "Limit",
     "ERROR": "Unknown export error"
   },
   "CONFIRMATION": {
@@ -137,5 +168,47 @@
     "PASSWORD_INSTRUCTIONS": "A user will only be automatically created if a password is provided",
     "PASSWORD_RULES": "Must be at least 6 characters",
     "LANGUAGE": "Language"
+  },
+  "PROFILE": {
+    "TITLE": "Profile",
+    "INFORMATION": "Information",
+    "SECURITY": "Security",
+    "CHANGE_PASSWORD": "Change Password",
+    "CHANGE_PASSWORD_DESCRIPTION": "You don't have password authentication on this account. However, you can still use this form and an additional password authentication will be attached to your account.",
+    "NEW_PASSWORD": "New Password",
+    "REPEAT_PASSWORD": "Repeat Password",
+    "CHANGE_EMAIL": "Change Email",
+    "REMOVE_MFA_TRIGGER": "Remove MFA",
+    "CONNECT_MFA_TRIGGER": "Connect MFA",
+    "REMOVE_PASSWORD_AUTHENTICATION": "Remove Password Authentication",
+    "REMOVE_GOOGLE_AUTHENTICATION": "Remove Google Authentication",
+    "REMOVE_ACCOUNT": "Remove Account",
+    "OTHER": "Other",
+    "NAME": "Name",
+    "IMAGE": "Profile Image",
+    "CONNECT_MFA": "An email with the verification link has been sent to your account.",
+    "REMOVE_MFA": "Your MFA connection has been removed successfully."
+  },
+  "USERS": {
+    "ADD": "Add User",
+    "ROLE": "Role",
+    "PASSWORD_INSTRUCTIONS": "A user will only be automatically created if a password is provided",
+    "PASSWORD_RULES": "Must be at least 6 characters"
+  },
+  "ELEMENTS": {
+    "CHANGE_PASSWORD": {
+      "TITLE": "Change Password",
+      "DIALOG_TITLE": "Change Users Password"
+    },
+    "USER_STATUS": {
+      "LOADING": "Loading Status..."
+    },
+    "TRIGGER_PASSWORD_RESET": {
+      "TITLE": "Send password reset email"
+    }
+  },
+
+  "ERRORS": {
+    "DASHBOARD_ACCESS": "You don't have access to the dashboard."
   }
 }

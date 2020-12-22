@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {CanActivate, Router} from '@angular/router';
-import {Observable, of} from 'rxjs';
-import {catchError, map, switchMap, take} from 'rxjs/operators';
-import {StateService} from '../../services/state/state.service';
 import {AngularFirestore} from '@angular/fire/firestore';
+import {CanActivate, Router} from '@angular/router';
+import {TranslocoService} from '@ngneat/transloco';
+import {Observable, of, throwError} from 'rxjs';
+import {catchError, map, switchMap, take} from 'rxjs/operators';
 import {FirestoreCollection} from '../../../../../integrations/firebase/firestore-collection.enum';
-import {auth} from 'firebase/app';
+import {StateService} from '../../services/state/state.service';
+import {notify} from '../../utils/notify.operator';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,10 @@ export class HasClaimGuard implements CanActivate {
     private afAuth: AngularFireAuth,
     private state: StateService,
     private router: Router,
-    private afs: AngularFirestore
-  ) {}
+    private afs: AngularFirestore,
+    private transloco: TranslocoService
+  ) {
+  }
 
   canActivate(): Observable<boolean> {
 
@@ -28,11 +31,24 @@ export class HasClaimGuard implements CanActivate {
     return this.afAuth.idTokenResult
       .pipe(
         take(1),
-        switchMap(({claims}) => {
-          this.state.role = claims.role;
+        switchMap((data) => {
+
+          /**
+           * It's assumed that any user with a role claim
+           * is allowed to access tha dashboard
+           */
+          if (!data || !data.claims.role) {
+            return throwError(
+              () =>
+                this.transloco.translate('ERRORS.DASHBOARD_ACCESS')
+            );
+          }
+
+          this.state.role = data.claims.role;
+
           return this.afs
             .collection(FirestoreCollection.Users)
-            .doc(claims.user_id)
+            .doc(data.claims.user_id)
             .get({
               source: 'server'
             })
@@ -47,20 +63,24 @@ export class HasClaimGuard implements CanActivate {
           this.state.user = user;
           return true;
         }),
-        catchError((e) => {
-          return this.signOut();
+        catchError((e) =>
+          this.signOut(e)
+        ),
+        notify({
+          showThrownError: true,
+          success: false
         })
       );
   }
 
-  signOut() {
-    auth().signOut()
+  signOut(error: Error) {
+    this.afAuth.signOut()
       .then()
       .catch()
       .finally(() => {
         this.router.navigate(['/login']);
       });
 
-    return of(false);
+    return throwError(() => error);
   }
 }

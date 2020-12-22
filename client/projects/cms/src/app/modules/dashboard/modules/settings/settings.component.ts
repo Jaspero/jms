@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {AvailableLangs, TranslocoService} from '@ngneat/transloco';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {forkJoin, Observable, of} from 'rxjs';
 import {switchMap, tap} from 'rxjs/operators';
@@ -9,12 +10,11 @@ import {environment} from '../../../../../environments/environment';
 import {FilterMethod} from '../../../../shared/enums/filter-method.enum';
 import {Role} from '../../../../shared/interfaces/role.interface';
 import {Settings} from '../../../../shared/interfaces/settings.interface';
+import {User} from '../../../../shared/interfaces/user.interface';
 import {DbService} from '../../../../shared/services/db/db.service';
+import {StateService} from '../../../../shared/services/state/state.service';
 import {notify} from '../../../../shared/utils/notify.operator';
 import {randomPassword} from '../../../../shared/utils/random-password';
-import {User} from '../../../../shared/interfaces/user.interface';
-import {AvailableLangs, TranslocoService} from '@ngneat/transloco';
-import {StateService} from '../../../../shared/services/state/state.service';
 
 @UntilDestroy()
 @Component({
@@ -31,7 +31,8 @@ export class SettingsComponent implements OnInit {
     private router: Router,
     private transloco: TranslocoService,
     private state: StateService
-  ) {}
+  ) {
+  }
 
   form: FormGroup;
   settings: Settings;
@@ -157,10 +158,10 @@ export class SettingsComponent implements OnInit {
             return this.dbService
               .createUserAccount(data.email, data.password)
               .pipe(
-                tap((dt: any) => {
+                tap(dt => {
                   newUser = {
                     ...newUser,
-                    id: dt.data.id
+                    id: dt.id
                   };
                 })
               );

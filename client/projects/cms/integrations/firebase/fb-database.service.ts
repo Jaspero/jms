@@ -1,6 +1,6 @@
-import {Inject, Injectable} from '@angular/core';
+import {Inject, Injectable, Optional} from '@angular/core';
 import {AngularFirestore, CollectionReference} from '@angular/fire/firestore';
-import {app} from 'firebase/app';
+import {AngularFireFunctions, ORIGIN, REGION} from '@angular/fire/functions';
 import {from, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {ExampleType} from '../../src/app/shared/enums/example-type.enum';
@@ -10,33 +10,52 @@ import {Module} from '../../src/app/shared/interfaces/module.interface';
 import {Settings} from '../../src/app/shared/interfaces/settings.interface';
 import {WhereFilter} from '../../src/app/shared/interfaces/where-filter.interface';
 import {DbService} from '../../src/app/shared/services/db/db.service';
+import {environment} from '../../src/environments/environment';
 import {FirestoreCollection} from './firestore-collection.enum';
-import {FUNCTIONS_REGION} from './functions-region.token';
 
 type FilterFunction = (ref: CollectionReference) => CollectionReference;
 
 @Injectable()
 export class FbDatabaseService extends DbService {
   constructor(
-    @Inject(FUNCTIONS_REGION)
+    public afs: AngularFirestore,
+    public aff: AngularFireFunctions,
+    @Inject(REGION)
     private region: string,
-    private afs: AngularFirestore
+    @Optional()
+    @Inject(ORIGIN)
+    private origin: string
   ) {
     super();
   }
 
+  url(url: string) {
+
+    if (environment.origin) {
+      return [
+        environment.origin,
+        environment.firebase.projectId,
+        this.region,
+        url
+      ]
+        .join('/');
+    } else {
+      return `https://${this.region}-${environment.firebase.projectId}.cloudfunctions.net/${url}`;
+    }
+  }
+
   getModules() {
     return this.afs
-      .collection(FirestoreCollection.Modules, ref =>
-        ref.orderBy('layout.order', 'asc')
-      )
+      .collection(FirestoreCollection.Modules)
       .snapshotChanges()
       .pipe(
         map(actions =>
-          actions.map(action => ({
-            id: action.payload.doc.id,
-            ...(action.payload.doc.data() as Module)
-          }))
+          actions
+            .map(action => ({
+              id: action.payload.doc.id,
+              ...(action.payload.doc.data() as Module)
+            }))
+            .sort((a, b) => b.layout?.order - a.layout?.order)
         )
       );
   }
@@ -73,7 +92,7 @@ export class FbDatabaseService extends DbService {
           id: it.id,
           ...it.data() as Settings
         }))
-      )
+      );
   }
 
   updateUserSettings(settings: Partial<Settings>) {
@@ -109,7 +128,7 @@ export class FbDatabaseService extends DbService {
     pageSize?,
     sort?,
     cursor?,
-    filters?: WhereFilter[],
+    filters?: WhereFilter[]
   ) {
     return this.collection(
       moduleId,
@@ -216,8 +235,7 @@ export class FbDatabaseService extends DbService {
   }
 
   callFunction(name: string, data) {
-    const func = app().functions(this.region).httpsCallable(name);
-    return from(func(data));
+    return this.aff.httpsCallable(name)(data);
   }
 
   createId() {

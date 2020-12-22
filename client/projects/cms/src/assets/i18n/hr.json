@@ -28,16 +28,29 @@
     "OPERATION_COMPLETED": "Operacija završena",
     "OPERATION_FAILED": "Operacija neuspješna",
     "USERS": "Korisnici",
-    "ROLES": "Uloge"
+    "USER": "Korisnik",
+    "ROLES": "Uloge",
+    "LABEL": "Labela",
+    "SUBMIT": "Pošali",
+    "DISABLED": "Blokiran",
+    "ENABLED": "Aktivan",
+
+    "CREATED_ON": "Datum kreiranja",
+    "DATE": "Datum",
+    "HOURS": "Sati",
+    "MINUTES": "Minute"
   },
   "LOGIN": {
     "LOGIN": "Prijava",
     "LOGIN_WITH": "Prijava koristeći {{value}}",
     "FORGOT_PASSWORD": "Zaboravljena lozinka?",
-    "ERROR_MESSAGE": "Uneseni Email i Lozinka nisu pronađeni. Molim vas pokušajte ponovo."
+    "ERROR_MESSAGE": "Uneseni Email i Lozinka nisu pronađeni. Molim vas pokušajte ponovo.",
+    "TOO_MANY_ATTEMPTS_TRY_LATER": "Pristup ovom računu je tretnuo onemogućen zbog učestalnosti netočnih pokušaja prijave. Možete odmah zatražiti novu lozinku pomoći \"Zaboravili ste lozinku?\" ili pokušati se kasnije prijaviti.",
+    "USER_NOT_FOUND": "Email ne postoji u sustavu."
   },
   "RESET_PASSWORD": {
-    "PASSWORD_RESET": "Resetiraj Lozinku",
+    "REPEAT_PASSWORD": "Ponovite lozinku",
+    "PASSWORD_RESET": "Resetiraj lozinku",
     "EMAIL_DOESNT_EXIST": "Email ne postoji",
     "GO_BACK": "Nazad",
     "RESET_MY_PASSWORD": "Resetiraj lozinku",
@@ -78,7 +91,10 @@
     "NO_ITEMS": "{{value}} još ne postoji.",
     "LOAD_MORE": "Učitaj još...",
     "APPLY": "Primjeni",
-    "UPDATE_ORDER": "Ažuriraj poredak"
+    "UPDATE_ORDER": "Ažuriraj poredak",
+    "TABLE": {
+      "COLUMNS": "Kolumne"
+    }
   },
   "INSTANCE_SINGLE": {
     "EDITING": "Uređivanje",
@@ -131,5 +147,44 @@
     "PASSWORD_INSTRUCTIONS": "Korisnik će se automatski kreirati jedino ako je šifra unesena",
     "PASSWORD_RULES": "Najmanje 6 znamenki",
     "LANGUAGE": "Jezik"
+  },
+  "PROFILE": {
+    "TITLE": "Profil",
+    "INFORMATION": "Informacije",
+    "SECURITY": "Sigurnost",
+    "CHANGE_PASSWORD": "Promijeni Lozinku",
+    "CHANGE_PASSWORD_DESCRIPTION": "Nemate autentikaciju sa lozinkom na ovom računu. Idalje možete iskoristiti ovaj formular za postaviti lozinku.",
+    "NEW_PASSWORD": "Nova Lozinka",
+    "REPEAT_PASSWORD": "Ponovi Lozinku",
+    "CHANGE_EMAIL": "Promijeni Email",
+    "REMOVE_MFA_TRIGGER": "Obriši MFA",
+    "CONNECT_MFA_TRIGGER": "Poveži MFA",
+    "REMOVE_PASSWORD_AUTHENTICATION": "Obriši autentikaciju sa lozinkom",
+    "REMOVE_GOOGLE_AUTHENTICATION": "Obriši google autentikaciju",
+    "REMOVE_ACCOUNT": "Obriši Račun",
+    "OTHER": "Ostalo",
+    "NAME": "Ime",
+    "IMAGE": "Profil",
+    "CONNECT_MFA": "Email sa linkom za verifikaciju je poslan na vašu adresu.",
+    "REMOVE_MFA": "Vaš MFA je obrisan uspješno."
+  },
+
+  "USERS": {
+    "ADD": "Dodaj Korisnika",
+    "ROLE": "Uloga",
+    "PASSWORD_INSTRUCTIONS": "Korisnik će se automatski kreirati ako je dodana lozinka",
+    "PASSWORD_RULES": "Lozinka mora imati barem 6 znakova"
+  },
+  "ELEMENTS": {
+    "CHANGE_PASSWORD": {
+      "TITLE": "Promijeni lozinku",
+      "DIALOG_TITLE": "Promijeni korisnikovu lozinku"
+    },
+    "USER_STATUS": {
+      "LOADING": "Učitavanje statusa..."
+    },
+    "TRIGGER_PASSWORD_RESET": {
+      "TITLE": "Pošalji email za resetiranje lozinke"
+    }
   }
 }
