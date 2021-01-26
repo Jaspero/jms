@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
+import {ExampleType} from '../../enums/example-type.enum';
+import {DbGetDocuments} from '../../interfaces/db-get-documents.interface';
+import {Example} from '../../interfaces/example.interface';
 import {Module} from '../../interfaces/module.interface';
 import {Settings} from '../../interfaces/settings.interface';
-import {ExampleType} from '../../enums/example-type.enum';
-import {Example} from '../../interfaces/example.interface';
 import {WhereFilter} from '../../interfaces/where-filter.interface';
 
 @Injectable({providedIn: 'root'})
@@ -40,17 +41,7 @@ export abstract class DbService {
     return of();
   }
 
-  getDocuments(
-    moduleId: string,
-    pageSize?: number,
-    sort?: {
-      active: string;
-      direction: string;
-    },
-    cursor?: any,
-    filters?: WhereFilter[],
-    source?: string
-  ): Observable<any[]> {
+  getDocuments(...args: [DbGetDocuments] | Array<keyof DbGetDocuments>) {
     return of([]);
   }
 
@@ -70,7 +61,7 @@ export abstract class DbService {
       direction: string;
     },
     cursor?: any,
-    filters?: WhereFilter[],
+    filters?: WhereFilter[]
   ): Observable<any[]> {
     return of([]);
   }

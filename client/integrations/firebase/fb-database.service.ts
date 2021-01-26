@@ -5,11 +5,13 @@ import {from, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {ExampleType} from '../../src/app/shared/enums/example-type.enum';
 import {FilterMethod} from '../../src/app/shared/enums/filter-method.enum';
+import {DbGetDocuments} from '../../src/app/shared/interfaces/db-get-documents.interface';
 import {Example} from '../../src/app/shared/interfaces/example.interface';
 import {Module} from '../../src/app/shared/interfaces/module.interface';
 import {Settings} from '../../src/app/shared/interfaces/settings.interface';
 import {WhereFilter} from '../../src/app/shared/interfaces/where-filter.interface';
 import {DbService} from '../../src/app/shared/services/db/db.service';
+import {arrayToObject} from '../../src/app/shared/utils/array-to-object';
 import {environment} from '../../src/environments/environment';
 import {FirestoreCollection} from './firestore-collection.enum';
 
@@ -96,7 +98,7 @@ export class FbDatabaseService extends DbService {
           id: it.id,
           ...it.data() as Settings
         }))
-      )
+      );
   }
 
   updateUserSettings(settings: Partial<Settings>) {
@@ -108,23 +110,22 @@ export class FbDatabaseService extends DbService {
     );
   }
 
-  getDocuments(
-    moduleId,
-    pageSize,
-    sort?,
-    cursor?,
-    filters?,
-    source?
-  ) {
-    return this.collection(moduleId, pageSize, sort, cursor, this.filterMethod(filters))
+  getDocuments(...args: [DbGetDocuments] | Array<keyof DbGetDocuments>) {
+    const data: DbGetDocuments = typeof args[0] === 'object'
+      ? args[0]
+      : arrayToObject(['moduleId', 'pageSize', 'sort', 'cursor', 'filters', 'source'], args);
+
+    return this.collection(
+      data.moduleId,
+      data.pageSize,
+      data.sort,
+      data.cursor,
+      this.filterMethod(data.filters)
+    )
       .get({
-        source: source || 'default'
+        source: data.source || 'default'
       })
-      .pipe(
-        map(res =>
-          res.docs
-        )
-      );
+      .pipe(map(res => res.docs));
   }
 
   getStateChanges(
@@ -132,7 +133,7 @@ export class FbDatabaseService extends DbService {
     pageSize?,
     sort?,
     cursor?,
-    filters?: WhereFilter[],
+    filters?: WhereFilter[]
   ) {
     return this.collection(
       moduleId,
@@ -239,7 +240,7 @@ export class FbDatabaseService extends DbService {
   }
 
   callFunction(name: string, data) {
-    return this.aff.httpsCallable(name)(data)
+    return this.aff.httpsCallable(name)(data);
   }
 
   createId() {
