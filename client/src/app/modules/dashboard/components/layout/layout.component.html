@@ -67,6 +67,8 @@
     <span class="dashboard-nav-footer-tooltip" [matTooltip]="user.email" matTooltipPosition="right"></span>
   </a>
 
+  <jmsp-help-toggle></jmsp-help-toggle>
+
   <a class="dashboard-nav-footer" (click)="logOut()">
     <mat-icon aria-hidden="true" class="dashboard-nav-footer-icon">power_settings_new</mat-icon>
     <span class="dashboard-nav-footer-text">{{'LAYOUT.LOG_OUT' | transloco}}</span>

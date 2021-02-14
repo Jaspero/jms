@@ -219,5 +219,11 @@
   },
   "ERRORS": {
     "DASHBOARD_ACCESS": "You don't have access to the dashboard."
+  },
+  "HELP_PLUGIN": {
+    "TITLE": "Help",
+    "NO_MODULE_ARTICLES": "There aren't any articles available for this module.",
+    "GENERAL_ARTICLES": "General",
+    "READ_MORE": "Read More"
   }
 }

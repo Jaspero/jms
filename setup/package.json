@@ -6,6 +6,7 @@
     "start:prod": "ts-node setup.ts p"
   },
   "dependencies": {
+    "@jaspero/jmsp-modules": "0.0.4",
     "firebase-admin": "9.4.1"
   },
   "devDependencies": {

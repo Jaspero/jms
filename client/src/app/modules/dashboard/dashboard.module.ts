@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {RouterModule, Routes} from '@angular/router';
+import {JMSPHelpModule} from '@jaspero/jmsp-help';
 import {TranslocoModule} from '@ngneat/transloco';
 import {DbService} from '../../shared/services/db/db.service';
 import {StateService} from '../../shared/services/state/state.service';
@@ -67,6 +68,11 @@ const DIRECTIVES = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+
+    JMSPHelpModule.forRoot({
+      top: 50,
+      left: 50
+    }),
 
     /**
      * Material

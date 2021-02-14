@@ -25,6 +25,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {RouterModule, Routes} from '@angular/router';
+import {TinymceModule} from '@jaspero/fb-tinymce';
 import {JMSPNotesModule} from '@jaspero/jmsp-notes';
 import {LoadClickModule, SanitizeModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
@@ -136,7 +137,9 @@ const routes: Routes = [
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+
     JMSPNotesModule,
+    TinymceModule,
 
     /**
      * Local
