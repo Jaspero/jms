@@ -1,6 +1,8 @@
 import {STATIC_CONFIG} from '../../environments/static-config';
+import {ChangeEmailComponent} from './change-email/change-email.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
 import {LinkComponent} from './link/link.component';
+import {NewPrepopulateComponent} from './new-prepopulate/new-prepopulate.component';
 import {TableComponent} from './table/table.component';
 import {ToggleUserStatusComponent} from './toggle-user-status/toggle-user-status.component';
 import {TriggerPasswordResetComponent} from './trigger-password-reset/trigger-password-reset.component';
@@ -12,7 +14,9 @@ export const ELEMENTS = [
   TriggerPasswordResetComponent,
   UserAddComponent,
   ChangePasswordComponent,
-  ToggleUserStatusComponent
+  ToggleUserStatusComponent,
+  ChangeEmailComponent,
+  NewPrepopulateComponent
 ];
 
 export const ELEMENT_SELECTOR = [
@@ -39,5 +43,13 @@ export const ELEMENT_SELECTOR = [
   {
     selector: STATIC_CONFIG.elementSelectorPrefix + 'tus',
     component: ToggleUserStatusComponent
+  },
+  {
+    selector: STATIC_CONFIG.elementSelectorPrefix + 'ce',
+    component: ChangeEmailComponent
+  },
+  {
+    selector: STATIC_CONFIG.elementSelectorPrefix + 'new-prepopulate',
+    component: NewPrepopulateComponent
   }
 ];

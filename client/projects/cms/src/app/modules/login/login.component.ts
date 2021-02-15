@@ -12,8 +12,8 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
-import {auth} from 'firebase/app';
-import {from, throwError} from 'rxjs';
+import firebase from 'firebase/app';
+import {from, of, throwError} from 'rxjs';
 import {catchError, filter, tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../environments/static-config';
 import {StateService} from '../../shared/services/state/state.service';
@@ -46,8 +46,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   staticConfig = STATIC_CONFIG;
   codeForm: FormGroup;
-  resolver: auth.MultiFactorResolver;
-  verifier: auth.RecaptchaVerifier;
+  resolver: firebase.auth.MultiFactorResolver;
+  verifier: firebase.auth.RecaptchaVerifier;
   verificationState: string;
   verificationId: string;
   deviceForm: FormGroup;
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginGoogle() {
-    this.afAuth.signInWithPopup(new auth.GoogleAuthProvider())
+    this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .catch(e => {
         if (e.code === 'auth/multi-factor-auth-required') {
           this.openMfa(e.resolver);
@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginFacebook() {
-    this.afAuth.signInWithPopup(new auth.FacebookAuthProvider())
+    this.afAuth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
       .catch(e => {
         if (e.code === 'auth/multi-factor-auth-required') {
           this.openMfa(e.resolver);
@@ -106,14 +106,21 @@ export class LoginComponent implements OnInit {
         )
       ).pipe(
         catchError(error => {
-          this.loginForm.get('passwordLogin').reset();
-          this.passwordField.nativeElement.focus();
+          if (error.code === 'auth/multi-factor-auth-required') {
+            this.openMfa(error.resolver);
+            return of(true);
+          } else {
+            this.loginForm.get('passwordLogin').reset();
+            this.passwordField.nativeElement.focus();
+          }
 
           return throwError({
             message: this.errorMap[error.code] || 'LOGIN.ERROR_MESSAGE'
-          });
+          })
+            .pipe(
+              notify()
+            );
         }),
-        notify()
       );
     };
   }
@@ -125,8 +132,8 @@ export class LoginComponent implements OnInit {
 
       return from(
         this.resolver.resolveSignIn(
-          auth.PhoneMultiFactorGenerator.assertion(
-            auth.PhoneAuthProvider.credential(this.verificationId, code)
+          firebase.auth.PhoneMultiFactorGenerator.assertion(
+            firebase.auth.PhoneAuthProvider.credential(this.verificationId, code)
           )
         )
       )
@@ -149,7 +156,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  private openMfa(resolver: auth.MultiFactorResolver) {
+  private openMfa(resolver: firebase.auth.MultiFactorResolver) {
 
     this.resolver = resolver;
     this.verificationState = 'select';
@@ -166,7 +173,7 @@ export class LoginComponent implements OnInit {
     )
       .afterOpened()
       .subscribe(() => {
-        this.verifier = new auth.RecaptchaVerifier('mfa-submit', {
+        this.verifier = new firebase.auth.RecaptchaVerifier('mfa-submit', {
           size: 'invisible',
           callback: () => {
             this.codeForm = this.fb.group({
@@ -176,7 +183,7 @@ export class LoginComponent implements OnInit {
             const {device} = this.deviceForm.getRawValue();
 
             const verify = () => from(
-              new auth.PhoneAuthProvider()
+              new firebase.auth.PhoneAuthProvider()
                 .verifyPhoneNumber(
                   {
                     multiFactorHint: this.resolver.hints.find(hint => hint.uid === device),

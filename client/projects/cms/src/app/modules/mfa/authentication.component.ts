@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {auth, User} from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/auth';
 import {from, Subscription, throwError} from 'rxjs';
 import {catchError, switchMap, tap} from 'rxjs/operators';
@@ -36,8 +36,8 @@ export class AuthenticationComponent implements OnInit {
   oobCode: string;
   countries = COUNTRIES;
 
-  recaptcha: auth.RecaptchaVerifier;
-  mfa: User.MultiFactorUser;
+  recaptcha: firebase.auth.RecaptchaVerifier;
+  mfa: firebase.User.MultiFactorUser;
   codeForm: FormGroup;
   prefix: string;
   confirmationResult: string;
@@ -64,10 +64,10 @@ export class AuthenticationComponent implements OnInit {
       .subscribe(code => {
         this.prefix = COUNTRIES.find(country => country.code === code).phonePrefix;
 
-        auth().languageCode = code;
+        firebase.auth().languageCode = code;
 
         if (!this.recaptcha) {
-          this.recaptcha = new auth.RecaptchaVerifier('mfa-submit', {
+          this.recaptcha = new firebase.auth.RecaptchaVerifier('mfa-submit', {
             size: 'invisible',
             callback: () => this.submit()
           });
@@ -80,7 +80,6 @@ export class AuthenticationComponent implements OnInit {
   }
 
   submit() {
-    console.log('here');
     this.subscription = from(
       this.afAuth.checkActionCode(this.oobCode)
     )
@@ -99,7 +98,7 @@ export class AuthenticationComponent implements OnInit {
 
           const {phone} = this.form.getRawValue();
 
-          const phoneAuthProvider = new auth.PhoneAuthProvider();
+          const phoneAuthProvider = new firebase.auth.PhoneAuthProvider();
           return phoneAuthProvider.verifyPhoneNumber({phoneNumber: this.prefix + phone, session}, this.recaptcha);
         }),
         catchError(e => {
@@ -136,13 +135,9 @@ export class AuthenticationComponent implements OnInit {
 
   verify() {
     return () => {
-
-      console.log('in here');
-
       const {code} = this.codeForm.getRawValue();
-
-      const cred = auth.PhoneAuthProvider.credential(this.confirmationResult, code);
-      const multiFactorAssertion = auth.PhoneMultiFactorGenerator.assertion(cred);
+      const cred = firebase.auth.PhoneAuthProvider.credential(this.confirmationResult, code);
+      const multiFactorAssertion = firebase.auth.PhoneMultiFactorGenerator.assertion(cred);
 
       return from(
         this.mfa.enroll(multiFactorAssertion, 'Phone Number')

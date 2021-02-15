@@ -187,6 +187,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
             if (data.layout.table.actions) {
               hide.actions = data.layout.table.actions.reduce((acc, cur) => {
                 if (!cur.authorization || cur.authorization.includes(this.state.role)) {
+                  const interpolations = (cur.value.match(/{{\s*[\w.]+\s*}}/g) || []).filter(it => it);
+                  for (const param of interpolations) {
+                    cur.value = cur.value.replace(param, `' + ${param.slice(2, -2)} + '`);
+                  }
 
                   const criteria = cur.criteria && safeEval(cur.criteria);
                   const parsed = safeEval(cur.value);
@@ -204,9 +208,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
             }
 
             if (data.layout.table.hideAdd) {
-              hide.hideAdd = typeof data.layout.table.hideAdd === 'boolean' ?
-                true :
-                data.layout.table.hideAdd.includes(this.state.role);
+              hide.hideAdd = data?.layout?.table?.hideAdd?.constructor === Boolean
+                ? data.layout.table.hideAdd
+                : (data.layout.table.hideAdd as string[]).includes(this.state.role);
             }
           }
         }

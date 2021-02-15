@@ -201,5 +201,7 @@ export class InstanceOverviewContextService {
       this.providerScope,
       this.providerLang
     );
+
+    this.columnPipe.ioc = this;
   }
 }

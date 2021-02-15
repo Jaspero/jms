@@ -22,6 +22,7 @@ import {
 } from '@ngneat/transloco';
 import {PipeType} from '../../../../../../shared/enums/pipe-type.enum';
 import {MathPipe} from '../../../../../../shared/pipes/math/math-pipe.';
+import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
 
 @Pipe({
   name: 'column'
@@ -61,6 +62,7 @@ export class ColumnPipe implements PipeTransform {
   }
 
   pipes: {[key: string]: any};
+  ioc: InstanceOverviewContextService;
 
   transform(
     value: any,
@@ -122,7 +124,11 @@ export class ColumnPipe implements PipeTransform {
         let response = '';
 
         try {
-          response = method(val, row);
+          response = method(
+            val,
+            row,
+            this.ioc
+          );
         } catch (e) {}
 
         return response;

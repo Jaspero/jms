@@ -37,6 +37,7 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
   name: string;
   views: ModuleOverviewView[];
   toolbar: string[];
+  hideAdd = false;
 
   ngOnInit() {
     this.ioc.module$
@@ -104,6 +105,23 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
 
             if (this.showViewSelector) {
               this.views = module.layout.overview.views || [];
+            }
+          }
+
+          switch (module?.layout?.table?.hideAdd?.constructor) {
+            case Boolean: {
+              this.hideAdd = module.layout.table.hideAdd as boolean;
+              break;
+            }
+            case Array: {
+              this.hideAdd = (module.layout.table.hideAdd as string[]).includes(
+                this.state.role
+              );
+              break;
+            }
+            default: {
+              this.hideAdd = false;
+              break;
             }
           }
         }
@@ -303,6 +321,6 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
         operator: module.layout.searchModule.simple ? FilterMethod.Equal : FilterMethod.ArrayContains,
         value: search.trim().toLowerCase()
       }] :
-      filter
+      filter;
   }
 }

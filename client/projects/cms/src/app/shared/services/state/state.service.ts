@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Observable, Subject} from 'rxjs';
+import {TranslocoService} from '@ngneat/transloco';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
 import {FirestoreCollection} from '../../../../../integrations/firebase/firestore-collection.enum';
 import {Layout} from '../../interfaces/layout.interface';
 import {Module} from '../../interfaces/module.interface';
 import {User} from '../../interfaces/user.interface';
 import {DbService} from '../db/db.service';
-import {TranslocoService} from '@ngneat/transloco';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +48,8 @@ export class StateService {
   modules$: Observable<Module[]>;
   layout$: Observable<Layout>;
   language: string;
+
+  page$ = new BehaviorSubject<{module?: {id: string, name: string}}>({});
 
   /**
    * Holds state information for all

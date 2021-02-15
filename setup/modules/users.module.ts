@@ -32,24 +32,20 @@ export const USERS_MODULE = {
           }
         }
       },
-      segments: [{
-        type: 'empty',
-        fields: [
-          '/role'
-        ]
-      }]
+      segments: [
+        {
+          type: 'empty',
+          fields: ['/role']
+        }
+      ]
     },
     sort: CREATED_ON.sort,
     instance: {
-      segments: [{
-        fields: [
-          '/createdOn',
-          '/id',
-          '/name',
-          '/email',
-          '/role'
-        ]
-      }]
+      segments: [
+        {
+          fields: ['/createdOn', '/id', '/name', '/email', '/role']
+        }
+      ]
     },
     table: {
       hideImport: true,
@@ -71,6 +67,9 @@ export const USERS_MODULE = {
       ],
       actions: [
         {
+          value: `it => '<jms-e-notes data-id="' + it.id + '"></jms-e-notes>'`
+        },
+        {
           value: `it => '<jms-e-tpr data-email="' + it.data.email + '"></jms-e-tpr>'`
         },
         {
@@ -80,7 +79,7 @@ export const USERS_MODULE = {
           value: `it => '<jms-e-tus data-id="' + it.id + '"></jms-e-tus>'`
         },
         {
-          value: `it => '<jms-e-notes data-id="' + it.id + '"></jms-e-notes>'`
+          value: `it => '<jms-e-ce data-id="' + it.id + '"></jms-e-ce>'`
         }
       ]
     },
@@ -94,7 +93,7 @@ export const USERS_MODULE = {
         type: 'string'
       },
       name: {
-        type: 'string',
+        type: 'string'
       },
       email: {
         type: 'number'

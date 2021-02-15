@@ -52,7 +52,11 @@ export class FbDatabaseService extends DbService {
         map(actions =>
           actions
             .map(action => ({
-              id: action.payload.doc.id,
+
+              /**
+               * We use '~' instead of '/' for sub-collections
+               */
+              id: action.payload.doc.id.replace(/~/g, '/'),
               ...(action.payload.doc.data() as Module)
             }))
             .sort((a, b) => b.layout?.order - a.layout?.order)
@@ -200,7 +204,7 @@ export class FbDatabaseService extends DbService {
       .get()
       .pipe(
         map(data =>
-          data.docs.map(it => ({
+          data.docs.map((it: any) => ({
             id: it.id,
             ...it.data()
           }))

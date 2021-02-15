@@ -2,7 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {ChangeDetectionStrategy, Component, ElementRef, Input, TemplateRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
-import {auth} from 'firebase/app';
+import firebase from 'firebase/app';
 import {from} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {ImportModule} from '../../../../../../shared/interfaces/import-module.interface';
@@ -89,7 +89,7 @@ export class ImportComponent {
     this.dialog.closeAll();
 
     from(
-      auth().currentUser.getIdToken()
+      firebase.auth().currentUser.getIdToken()
     )
       .pipe(
         switchMap(token =>

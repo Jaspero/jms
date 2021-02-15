@@ -34,6 +34,7 @@
     "SUBMIT": "Submit",
     "DISABLED": "Disabled",
     "ENABLED": "Enabled",
+    "BACK": "Back",
 
     "COUNTRY": "Country",
     "CREATED_ON": "Created On",
@@ -46,6 +47,7 @@
     "LOGIN_WITH": "Log in with {{value}}",
     "FORGOT_PASSWORD": "Forgot password?",
     "ERROR_MESSAGE": "The email and password you entered did not match our records. Please double-check and try again.",
+    "MFA_VERIFICATION": "Multi-factor Verification",
     "MFA_AUTHENTICATION": "Authenticate",
     "MFA_SELECT_DEVICE": "Device",
     "TOO_MANY_ATTEMPTS_TRY_LATER": "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.",
@@ -106,7 +108,7 @@
     "APPLY": "Apply",
     "UPDATE_ORDER": "Update Order",
     "TABLE": {
-      "COLUMNS": "Kolumne"
+      "COLUMNS": "Columns"
     }
   },
   "INSTANCE_SINGLE": {
@@ -205,9 +207,16 @@
     },
     "TRIGGER_PASSWORD_RESET": {
       "TITLE": "Send password reset email"
+    },
+    "CHANGE_EMAIL": {
+      "TITLE": "Change Email",
+      "DIALOG_TITLE": "Change Users Email"
     }
   },
-
+  "NOTES": {
+    "TITLE": "Notes",
+    "LABEL": "Note"
+  },
   "ERRORS": {
     "DASHBOARD_ACCESS": "You don't have access to the dashboard."
   }
