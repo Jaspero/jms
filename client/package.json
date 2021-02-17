@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start:cms": "ng serve --project=cms",
-    "build": "node timestamp.js && ng build --prod --client",
+    "build": "node timestamp.js && ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
