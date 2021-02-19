@@ -1,3 +1,31 @@
+## [3.23.2](https://github.com/jaspero/jms/compare/v3.23.1...v3.23.2) (2021-02-18)
+
+
+### Bug Fixes
+
+* **client:** initialValue not being saved on instance-single ([d4b4d68](https://github.com/jaspero/jms/commit/d4b4d68e6fb30ba9d9d5cab200ffdf0518a5c7f9))
+
+## [3.23.1](https://github.com/jaspero/jms/compare/v3.23.0...v3.23.1) (2021-02-18)
+
+
+### Bug Fixes
+
+* **client:** missing untilDestroyed on auto-save interval ([8dd8236](https://github.com/jaspero/jms/commit/8dd82369e019389f61566745599caca6bdc39587))
+
+# [3.23.0](https://github.com/jaspero/jms/compare/v3.22.1...v3.23.0) (2021-02-18)
+
+
+### Features
+
+* **client:** connected autosave option ([e3e97e9](https://github.com/jaspero/jms/commit/e3e97e99fa6e8348186109915afe53157c9b50ba))
+
+## [3.22.1](https://github.com/jaspero/jms/compare/v3.22.0...v3.22.1) (2021-02-16)
+
+
+### Bug Fixes
+
+* nav & children should overlay main content ([cd24e76](https://github.com/jaspero/jms/commit/cd24e76de3eaf2894fe6bb2e453945166f87fa71))
+
 # [3.22.0](https://github.com/jaspero/jms/compare/v3.21.1...v3.22.0) (2021-02-14)
 
 
