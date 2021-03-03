@@ -1,0 +1,15 @@
+.item {
+  &-bar {
+    transition: all .1s;
+    padding-left: 16px;
+    height: 50px;
+    &:hover {
+      cursor: pointer;
+      background-color: #cccccc;
+    }
+  }
+
+  &-name {
+    padding-left: 16px;
+  }
+}

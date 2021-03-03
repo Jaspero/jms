@@ -35,6 +35,12 @@ export const SETTINGS_COLLECTION = {
             value: '/dashboard'
           },
           {
+            icon: 'pets',
+            label: 'Dogs',
+            type: 'link',
+            value: '/m/dogs/overview'
+          },
+          {
             children: [
               {
                 icon: 'supervised_user_circle',

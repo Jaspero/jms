@@ -44,6 +44,12 @@ const routes: Routes = [{
           .then(m => m.ModuleInstanceModule)
     },
     {
+      path: 'storage',
+      loadChildren: () =>
+        import('../../modules/storage/storage.module')
+          .then(m => m.StorageModule)
+    },
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full'

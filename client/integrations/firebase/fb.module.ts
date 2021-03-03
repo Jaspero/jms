@@ -6,9 +6,11 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireFunctionsModule, ORIGIN, REGION} from '@angular/fire/functions';
 import {AngularFirePerformanceModule} from '@angular/fire/performance';
 import {AngularFireStorageModule} from '@angular/fire/storage';
+import {StorageService} from '@jaspero/form-builder';
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
 import {FbDatabaseService} from './fb-database.service';
+import {FbStorageService} from './fb-storage.service';
 
 @NgModule({
   imports: [
@@ -37,6 +39,10 @@ export class FirebaseModule {
         {
           provide: DbService,
           useClass: FbDatabaseService
+        },
+        {
+          provide: StorageService,
+          useClass: FbStorageService
         },
         {
           provide: REGION,

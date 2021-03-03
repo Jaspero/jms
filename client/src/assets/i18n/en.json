@@ -219,5 +219,11 @@
   },
   "ERRORS": {
     "DASHBOARD_ACCESS": "You don't have access to the dashboard."
+  },
+  "STORAGE": {
+    "DELETE_FILE": {
+      "DESCRIPTION": "File '{{name}}' will be deleted!",
+      "CONFIRM": "Delete"
+    }
   }
 }
