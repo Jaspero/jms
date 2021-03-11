@@ -25,7 +25,12 @@ export class ModuleInstanceComponent implements OnInit {
           map(modules => {
             const module = findModule(modules, params);
 
+            if (module.subCollectionPath) {
+              module.id = module.subCollectionPath;
+            }
+
             if (module && module.id.includes('{docId}')) {
+              module.subCollectionPath = module.id;
               module.id = module.id.replace('{docId}', params.documentId);
             }
 
