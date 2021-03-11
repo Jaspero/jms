@@ -1,3 +1,10 @@
+## [3.26.1](https://github.com/jaspero/jms/compare/v3.26.0...v3.26.1) (2021-03-11)
+
+
+### Bug Fixes
+
+* stops loading data after first navigation to subcollection overview ([c0f7fd0](https://github.com/jaspero/jms/commit/c0f7fd09342a8aabb27abb8b82818cd0cdc541ce))
+
 # [3.26.0](https://github.com/jaspero/jms/compare/v3.25.1...v3.26.0) (2021-03-05)
 
 
