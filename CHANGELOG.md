@@ -1,3 +1,10 @@
+## [3.26.2](https://github.com/jaspero/jms/compare/v3.26.1...v3.26.2) (2021-03-11)
+
+
+### Bug Fixes
+
+* action criteria check ([08a364d](https://github.com/jaspero/jms/commit/08a364d3141ae04fdba46b1c91da2227715f5898))
+
 ## [3.26.1](https://github.com/jaspero/jms/compare/v3.26.0...v3.26.1) (2021-03-11)
 
 
