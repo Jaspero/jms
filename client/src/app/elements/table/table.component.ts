@@ -121,6 +121,11 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   parserCache: {[key: string]: Parser} = {};
   populateCache: {[key: string]: Observable<any>} = {};
 
+  permission = {
+    write: false,
+    read: false
+  };
+
   ngOnInit() {
     /**
      * Component isn't necessarily destroyed
@@ -239,6 +244,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       if (!hide.hideDelete || !hide.hideEdit) {
         displayColumns.push('actions');
       }
+
+      this.permission.write = !data.authorization?.write || data.authorization.write.includes(this.state.role);
+      this.permission.read = !data.authorization?.read || data.authorization.read.includes(this.state.role);
 
       this.data = {
         moduleId: data.id,
