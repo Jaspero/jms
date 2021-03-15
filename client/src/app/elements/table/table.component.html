@@ -197,10 +197,10 @@
                     </ng-container>
 
                     <a *ngIf="!data.hideEdit" mat-menu-item routerLink="/m/{{data.moduleId}}/single/{{element.id}}">
-                      <mat-icon>edit</mat-icon>
-                      <span>{{'GENERAL.EDIT' | transloco}}</span>
+                      <mat-icon>{{permission.write ? 'edit' : 'visibility'}}</mat-icon>
+                      <span>{{(permission.write ? 'GENERAL.EDIT' : 'GENERAL.VIEW') | transloco}}</span>
                     </a>
-                    <button *ngIf="!data.hideDelete" mat-menu-item [fDisable]="data.authorization" (click)="ioc.deleteOne(data.moduleId, element)">
+                    <button *ngIf="!data.hideDelete && permission.write" mat-menu-item [fDisable]="data.authorization" (click)="ioc.deleteOne(data.moduleId, element)">
                       <mat-icon>delete_forever</mat-icon>
                       <span>{{'GENERAL.DELETE' | transloco}}</span>
                     </button>
