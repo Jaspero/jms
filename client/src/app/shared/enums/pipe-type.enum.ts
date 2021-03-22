@@ -21,6 +21,7 @@ export enum PipeType {
    * So users don't have to type jpSanitize
    */
   SanitizeFb = 'sanitize',
+  Ellipsis = 'ellipsis',
   Custom = 'custom',
   GetModule = 'getModule',
 
