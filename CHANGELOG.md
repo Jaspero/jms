@@ -1,3 +1,10 @@
+# [3.27.0](https://github.com/jaspero/jms/compare/v3.26.2...v3.27.0) (2021-03-22)
+
+
+### Features
+
+* **client:** added ellipsis pipe ([ea8d361](https://github.com/jaspero/jms/commit/ea8d3613fc7a3b55921e964b9a906e2ee6231d78))
+
 ## [3.26.2](https://github.com/jaspero/jms/compare/v3.26.1...v3.26.2) (2021-03-11)
 
 
