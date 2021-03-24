@@ -1,3 +1,10 @@
+# [3.28.0](https://github.com/jaspero/jms/compare/v3.27.0...v3.28.0) (2021-03-24)
+
+
+### Features
+
+* **client:** updated versions ([0959e5d](https://github.com/jaspero/jms/commit/0959e5d44dfe8dbd14c8c643650ede29f7edbe39))
+
 # [3.27.0](https://github.com/jaspero/jms/compare/v3.26.2...v3.27.0) (2021-03-22)
 
 
