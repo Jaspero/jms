@@ -1,3 +1,24 @@
+# [3.27.0](https://github.com/jaspero/jms/compare/v3.26.2...v3.27.0) (2021-03-22)
+
+
+### Features
+
+* **client:** added ellipsis pipe ([ea8d361](https://github.com/jaspero/jms/commit/ea8d3613fc7a3b55921e964b9a906e2ee6231d78))
+
+## [3.26.2](https://github.com/jaspero/jms/compare/v3.26.1...v3.26.2) (2021-03-11)
+
+
+### Bug Fixes
+
+* action criteria check ([08a364d](https://github.com/jaspero/jms/commit/08a364d3141ae04fdba46b1c91da2227715f5898))
+
+## [3.26.1](https://github.com/jaspero/jms/compare/v3.26.0...v3.26.1) (2021-03-11)
+
+
+### Bug Fixes
+
+* stops loading data after first navigation to subcollection overview ([c0f7fd0](https://github.com/jaspero/jms/commit/c0f7fd09342a8aabb27abb8b82818cd0cdc541ce))
+
 # [3.26.0](https://github.com/jaspero/jms/compare/v3.25.1...v3.26.0) (2021-03-05)
 
 

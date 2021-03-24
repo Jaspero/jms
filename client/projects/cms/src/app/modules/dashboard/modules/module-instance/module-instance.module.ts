@@ -46,6 +46,7 @@ import {ModuleInstanceComponent} from './module-instance.component';
 import {InstanceOverviewComponent} from './pages/instance-overview/instance-overview.component';
 import {InstanceSingleComponent} from './pages/instance-single/instance-single.component';
 import {ColumnPipe} from './pipes/column/column.pipe';
+import {EllipsisPipe} from './pipes/ellipsis/ellipsis.pipe';
 import {ParseTemplatePipe} from './pipes/parse-template/parse-template.pipe';
 import {InstanceOverviewContextService} from './services/instance-overview-context.service';
 
@@ -104,6 +105,7 @@ const routes: Routes = [
      */
     ColumnPipe,
     ParseTemplatePipe,
+    EllipsisPipe,
 
     /**
      * Directives

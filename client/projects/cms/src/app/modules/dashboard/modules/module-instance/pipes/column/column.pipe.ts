@@ -30,6 +30,7 @@ import {PipeType} from '../../../../../../shared/enums/pipe-type.enum';
 import {MathPipe} from '../../../../../../shared/pipes/math/math-pipe.';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
+import {EllipsisPipe} from '../ellipsis/ellipsis.pipe';
 
 @Pipe({
   name: 'column'
@@ -59,6 +60,7 @@ export class ColumnPipe implements PipeTransform {
       [PipeType.Titlecase]: new TitleCasePipe(),
       [PipeType.Sanitize]: new SanitizePipe(this.sanitizer),
       [PipeType.SanitizeFb]: new SanitizePipe(this.sanitizer),
+      [PipeType.Ellipsis]: new EllipsisPipe(),
       [PipeType.Transloco]: new TranslocoPipe(
         this.transloco,
         this.providerScope,

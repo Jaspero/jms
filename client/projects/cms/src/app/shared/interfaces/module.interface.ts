@@ -67,4 +67,5 @@ export interface Module {
   definitions?: ModuleDefinitions;
   authorization?: ModuleAuthorization;
   metadata?: ModuleMetadata;
+  subCollectionPath?: string;
 }
