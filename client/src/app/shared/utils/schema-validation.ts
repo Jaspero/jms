@@ -1,11 +1,12 @@
-import * as Ajv from 'ajv';
+import Ajv from 'ajv';
+
 
 export class SchemaValidation {
   constructor() {
     this.schema = new Ajv();
   }
 
-  schema: Ajv.Ajv;
+  schema: Ajv;
 
   validate(schema) {
     let value;
