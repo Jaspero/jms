@@ -134,7 +134,12 @@
     "ERROR": "Došlo je do pogreške pri importu podataka"
   },
   "EXPORT": {
-    "ERROR": "Nepoznata pogreška pri izvozu"
+    "ERROR": "Nepoznata pogreška pri izvozu",
+    "TITLE": "Izvoz",
+    "USE_FILTERS": "Koristi filtere",
+    "ROWS_TO_SKIP": "Redova za preskočiti",
+    "LIMIT": "Limit",
+    "ADJUST_COLUMNS": "Uredi kolumne"
   },
   "CONFIRMATION": {
     "TITLE": "Jeste li sigurni?"
