@@ -181,7 +181,8 @@ export class InstanceOverviewContextService {
             columns,
             sort,
             collection: module.id,
-            filterModule: module.layout?.filterModule
+            filterModule: module.layout?.filterModule,
+            subCollection: module.subCollectionPath
           }
         });
       });
