@@ -8,13 +8,7 @@ import {
   TitleCasePipe,
   UpperCasePipe
 } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Inject,
-  Optional,
-  Pipe,
-  PipeTransform
-} from '@angular/core';
+import {ChangeDetectorRef, Inject, Optional, Pipe, PipeTransform} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {safeEval} from '@jaspero/form-builder';
 import {SanitizePipe} from '@jaspero/ng-helpers';
@@ -83,6 +77,23 @@ export class ColumnPipe implements PipeTransform {
   ): any {
     if (!pipeTypes) {
       return value;
+    }
+
+    if (allArgs) {
+      for (const index of Object.keys(allArgs)) {
+        let pipeArgumentValue = allArgs[index] || '';
+        const interpolations = (
+          pipeArgumentValue.match(/{{\s*[\w.]+\s*}}/g) || []
+        ).filter(it => it);
+        for (const param of interpolations) {
+          pipeArgumentValue = pipeArgumentValue.replace(
+            param,
+            `' + ${param.slice(2, -2)} + '`
+          );
+        }
+
+        allArgs[index] = pipeArgumentValue;
+      }
     }
 
     if (Array.isArray(pipeTypes)) {
@@ -155,7 +166,8 @@ export class ColumnPipe implements PipeTransform {
 
         try {
           response = method(val, row);
-        } catch (e) {}
+        } catch (e) {
+        }
 
         return response;
     }
