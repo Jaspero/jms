@@ -1,3 +1,10 @@
+# [3.29.0](https://github.com/jaspero/jms/compare/v3.28.0...v3.29.0) (2021-03-29)
+
+
+### Features
+
+* **cms:** added angular string interpolation to pipeArguments ([03d9758](https://github.com/jaspero/jms/commit/03d9758ebb00927bfac4bc065216a549f78b2edc))
+
 # [3.28.0](https://github.com/jaspero/jms/compare/v3.27.0...v3.28.0) (2021-03-24)
 
 
