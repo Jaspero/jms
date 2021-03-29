@@ -1,3 +1,10 @@
+## [3.29.2](https://github.com/jaspero/jms/compare/v3.29.1...v3.29.2) (2021-03-29)
+
+
+### Bug Fixes
+
+* console cleanup ([e8bf671](https://github.com/jaspero/jms/commit/e8bf6715aefe077b6491db63bc462e23982645b8))
+
 ## [3.29.1](https://github.com/jaspero/jms/compare/v3.29.0...v3.29.1) (2021-03-29)
 
 
