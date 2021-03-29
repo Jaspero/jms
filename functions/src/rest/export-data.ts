@@ -54,12 +54,13 @@ app.post('/:module', authenticated(), (req, res) => {
       sort,
       skip,
       limit,
-      columns
+      columns,
+      collectionRef
     } = req.body;
 
     let col: any = admin
       .firestore()
-      .collection(module);
+      .collection(collectionRef || module);
 
     if (filters && filters.length) {
       for (const item of filters) {

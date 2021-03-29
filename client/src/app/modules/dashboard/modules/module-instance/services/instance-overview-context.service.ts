@@ -181,6 +181,7 @@ export class InstanceOverviewContextService {
             sort,
             collection: module.id,
             filterModule: module.layout?.filterModule,
+            subCollection: module.subCollectionPath
           }
         });
       })
