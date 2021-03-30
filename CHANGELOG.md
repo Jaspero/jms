@@ -1,3 +1,17 @@
+## [3.29.2](https://github.com/jaspero/jms/compare/v3.29.1...v3.29.2) (2021-03-29)
+
+
+### Bug Fixes
+
+* console cleanup ([e8bf671](https://github.com/jaspero/jms/commit/e8bf6715aefe077b6491db63bc462e23982645b8))
+
+## [3.29.1](https://github.com/jaspero/jms/compare/v3.29.0...v3.29.1) (2021-03-29)
+
+
+### Bug Fixes
+
+* export for sub collections closes [#221](https://github.com/jaspero/jms/issues/221) ([aece8ed](https://github.com/jaspero/jms/commit/aece8ed13fd8f0efab11ddc9ad9568efbaf11823))
+
 # [3.29.0](https://github.com/jaspero/jms/compare/v3.28.0...v3.29.0) (2021-03-29)
 
 

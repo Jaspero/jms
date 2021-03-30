@@ -26,6 +26,10 @@ import {DbService} from '../../../../../../shared/services/db/db.service';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
 import {EllipsisPipe} from '../ellipsis/ellipsis.pipe';
 
+interface Args {
+  [key: string]: any;
+}
+
 @Pipe({
   name: 'column'
 })
@@ -72,7 +76,7 @@ export class ColumnPipe implements PipeTransform {
   transform(
     value: any,
     pipeTypes: PipeType | PipeType[],
-    allArgs: any[] | {[key: string]: any},
+    allArgs: Args,
     row: any
   ): any {
     if (!pipeTypes) {
@@ -80,20 +84,7 @@ export class ColumnPipe implements PipeTransform {
     }
 
     if (allArgs) {
-      for (const index of Object.keys(allArgs)) {
-        let pipeArgumentValue = allArgs[index] || '';
-        const interpolations = (
-          pipeArgumentValue.match(/{{\s*[\w.]+\s*}}/g) || []
-        ).filter(it => it);
-        for (const param of interpolations) {
-          pipeArgumentValue = pipeArgumentValue.replace(
-            param,
-            `' + ${param.slice(2, -2)} + '`
-          );
-        }
-
-        allArgs[index] = pipeArgumentValue;
-      }
+      allArgs = this.formatArguments(allArgs);
     }
 
     if (Array.isArray(pipeTypes)) {
@@ -105,6 +96,36 @@ export class ColumnPipe implements PipeTransform {
     } else {
       return this.executePipeTransform(pipeTypes, value, allArgs, row);
     }
+  }
+
+  private formatArguments(args: Args) {
+
+    const final = {};
+
+    for (const index of Object.keys(args)) {
+      const value = args[index] || '';
+
+      if (Array.isArray(value)) {
+        args[index] = value.forEach(arg => this.formatArgument(arg));
+      } else {
+        args[index] = this.formatArgument(value);
+      }
+    }
+
+    return final;
+  }
+
+  private formatArgument(value: any) {
+
+    if (typeof value !== 'string') {
+      return value;
+    }
+
+    return (value.match(/{{\s*[\w.]+\s*}}/g) || [])
+      .reduce((acc, cur) =>
+        cur ? acc.replace(cur, `' + ${cur.slice(2, -2)} + '`) : acc,
+        value
+      );
   }
 
   private executePipeTransform(type, val, args, row) {

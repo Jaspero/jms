@@ -102,8 +102,6 @@ export class ExportComponent {
         }));
       }
 
-      console.log(222, this.data.collection);
-
       return from(
         firebase.auth().currentUser.getIdToken()
       )
