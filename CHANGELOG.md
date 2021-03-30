@@ -1,3 +1,10 @@
+## [3.29.4](https://github.com/jaspero/jms/compare/v3.29.3...v3.29.4) (2021-03-30)
+
+
+### Bug Fixes
+
+* pipe interpolation properly escapes non strings and supports arrays ([f98f561](https://github.com/jaspero/jms/commit/f98f5616f6f34cd5afa53bb2b82c28cc248851bb))
+
 ## [3.29.3](https://github.com/jaspero/jms/compare/v3.29.2...v3.29.3) (2021-03-30)
 
 
