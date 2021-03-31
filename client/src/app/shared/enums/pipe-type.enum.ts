@@ -24,6 +24,7 @@ export enum PipeType {
   Ellipsis = 'ellipsis',
   Custom = 'custom',
   GetModule = 'getModule',
+  GetDocuments = 'getDocuments',
 
   /**
    * External

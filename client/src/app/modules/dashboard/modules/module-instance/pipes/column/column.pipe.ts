@@ -20,6 +20,7 @@ import {
   TranslocoScope,
   TranslocoService
 } from '@ngneat/transloco';
+import {forkJoin} from 'rxjs';
 import {PipeType} from '../../../../../../shared/enums/pipe-type.enum';
 import {MathPipe} from '../../../../../../shared/pipes/math/math-pipe.';
 import {DbService} from '../../../../../../shared/services/db/db.service';
@@ -66,7 +67,8 @@ export class ColumnPipe implements PipeTransform {
         this.cdr
       ),
       [PipeType.Custom]: '',
-      [PipeType.GetModule]: ''
+      [PipeType.GetModule]: '',
+      [PipeType.GetDocuments]: ''
     };
   }
 
@@ -99,23 +101,14 @@ export class ColumnPipe implements PipeTransform {
   }
 
   private formatArguments(args: Args) {
-
-    const final = {};
-
-    for (const index of Object.keys(args)) {
-      const value = args[index] || '';
-      if (Array.isArray(value)) {
-        final[index] = value.map(arg => this.formatArgument(arg));
-      } else {
-        final[index] = this.formatArgument(value);
-      }
+    if (Array.isArray(args)) {
+      return args.map(arg => this.formatArgument(arg));
+    } else {
+      return this.formatArgument(args);
     }
-
-    return final;
   }
 
   private formatArgument(value: any) {
-
     if (typeof value !== 'string') {
       return value;
     }
@@ -159,7 +152,7 @@ export class ColumnPipe implements PipeTransform {
         const getModuleMethod = safeEval(args);
 
         if (!getModuleMethod || typeof getModuleMethod !== 'function') {
-          return [];
+          return;
         }
 
         let getModuleResponse = '';
@@ -167,10 +160,31 @@ export class ColumnPipe implements PipeTransform {
         try {
           getModuleResponse = getModuleMethod(val, row);
         } catch (e) {
-          return [];
+          console.log('Error GetModule', e);
+          return;
         }
 
         return this.db.getDocumentsSimple(getModuleResponse);
+      case PipeType.GetDocuments:
+        const getDocumentsMethod = safeEval(args);
+
+        if (!getDocumentsMethod || typeof getDocumentsMethod !== 'function') {
+          return;
+        }
+
+        let getDocumentsResponse = [];
+
+        try {
+          getDocumentsResponse = getDocumentsMethod(val, row) || [];
+        } catch (e) {
+          console.log('Error GetDocuments', e);
+          return;
+        }
+
+        return forkJoin(getDocumentsResponse.map(path => {
+          const [module, document] = path.split('/');
+          return this.db.getDocument(module, document);
+        }));
       case PipeType.Custom:
         if (!args) {
           return '';
