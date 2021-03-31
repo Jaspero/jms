@@ -1,3 +1,10 @@
+# [3.30.0](https://github.com/jaspero/jms/compare/v3.29.4...v3.30.0) (2021-03-31)
+
+
+### Features
+
+* added pipe getDocuments to tableColumns ([eaa552d](https://github.com/jaspero/jms/commit/eaa552d3392b9dcfae86e44e8fc6e7e3d1347a4e))
+
 ## [3.29.4](https://github.com/jaspero/jms/compare/v3.29.3...v3.29.4) (2021-03-30)
 
 
