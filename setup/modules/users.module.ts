@@ -57,7 +57,11 @@ export const USERS_MODULE = {
         },
         {
           key: '/email',
-          label: 'Email'
+          label: 'Email',
+          pipe: ['custom'],
+          pipeArguments: {
+            0: `(val) => val + '123'`
+          }
         },
         {
           key: '/role',

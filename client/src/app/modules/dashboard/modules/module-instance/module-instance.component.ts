@@ -1,9 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {of} from 'rxjs';
 import {map, shareReplay, switchMap, take, tap} from 'rxjs/operators';
-import {MODULES} from '../../../../../../../setup/modules/modules';
-import {environment} from '../../../../../environments/environment';
 import {StateService} from '../../../../shared/services/state/state.service';
 import {InstanceOverviewContextService} from './services/instance-overview-context.service';
 import {findModule} from './utils/find-module';
@@ -19,12 +16,13 @@ export class ModuleInstanceComponent implements OnInit {
     private state: StateService,
     private activatedRoute: ActivatedRoute,
     private ioc: InstanceOverviewContextService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.ioc.module$ = this.activatedRoute.params.pipe(
       switchMap(params =>
-        (environment.production ? this.state.modules$ : of(MODULES as any)).pipe(
+        this.state.modules$.pipe(
           map(modules => {
             const module = findModule(modules, params);
 

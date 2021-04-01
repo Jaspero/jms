@@ -34,7 +34,7 @@ const PIPES = [
   declarations: [
     AppComponent,
     ...ENTRY_COMPONENTS,
-    ...PIPES,
+    ...PIPES
   ],
   imports: [
     /**
@@ -60,6 +60,14 @@ const PIPES = [
     TranslocoRootModule
   ],
   providers: [
+    /**
+     * Uncomment provider for loading local setup
+     *
+     * {
+     *  provide: SchemaService,
+     *  useClass: LocalSchemaService
+     * }
+     */
     {
       provide: MAT_DATE_LOCALE,
       useValue: 'en-US'
@@ -79,4 +87,5 @@ const PIPES = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

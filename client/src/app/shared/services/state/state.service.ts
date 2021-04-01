@@ -1,15 +1,13 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslocoService} from '@ngneat/transloco';
-import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
-import {SETTINGS_COLLECTION} from '../../../../../../setup/collections/settings.collection';
-import {FirestoreCollection} from '../../../../../integrations/firebase/firestore-collection.enum';
-import {environment} from '../../../../environments/environment';
 import {Layout} from '../../interfaces/layout.interface';
 import {Module} from '../../interfaces/module.interface';
 import {User} from '../../interfaces/user.interface';
 import {DbService} from '../db/db.service';
+import {SchemaService} from '../schema/schema.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +17,8 @@ export class StateService {
     private dbService: DbService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private transloco: TranslocoService
+    private transloco: TranslocoService,
+    private schemaService: SchemaService
   ) {
     this.language = localStorage.getItem('language');
 
@@ -29,21 +28,14 @@ export class StateService {
       this.language = this.transloco.getActiveLang();
     }
 
-    this.modules$ = this.dbService.getModules().pipe(shareReplay(1));
-    this.layout$ = (environment.production
-        ? this.dbService.getDocument(
-          FirestoreCollection.Settings,
-          'layout',
-          true
-        )
-        : of(SETTINGS_COLLECTION.documents.find(document => document.id === 'layout'))
-    ).pipe(
-        map(value => {
-          delete value.id;
-          return value;
-        }),
-        shareReplay(1)
-      );
+    this.modules$ = this.schemaService.modules$;
+    this.layout$ = this.schemaService.layout$.pipe(
+      map(value => {
+        delete value.id;
+        return value;
+      }),
+      shareReplay(1)
+    );
   }
 
   role: string;
