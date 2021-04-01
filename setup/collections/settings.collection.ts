@@ -29,7 +29,7 @@ export const SETTINGS_COLLECTION = {
       navigation: {
         items: [
           {
-            icon: 'add',
+            icon: 'dashboard',
             label: 'LAYOUT.DASHBOARD',
             type: 'link',
             value: '/dashboard'
