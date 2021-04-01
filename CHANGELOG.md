@@ -1,3 +1,10 @@
+# [3.31.0](https://github.com/jaspero/jms/compare/v3.30.0...v3.31.0) (2021-04-01)
+
+
+### Features
+
+* **functions:** removed nanoid dependency ([39064e9](https://github.com/jaspero/jms/commit/39064e9d0bc0bf33add0591983b36ee2a29b86d8))
+
 # [3.30.0](https://github.com/jaspero/jms/compare/v3.29.4...v3.30.0) (2021-03-31)
 
 
