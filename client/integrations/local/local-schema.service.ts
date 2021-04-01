@@ -12,7 +12,7 @@ export class LocalSchemaService extends SchemaService {
     super();
   }
 
-  modules$ = of(MODULES);
+  modules$ = of(MODULES as any);
 
   layout$ = of(SETTINGS_COLLECTION.documents.find(document => document.id === 'layout') as (Layout & {id: string}));
 }
