@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslocoService} from '@ngneat/transloco';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
+import {SETTINGS_COLLECTION} from '../../../../../../setup/collections/settings.collection';
 import {FirestoreCollection} from '../../../../../integrations/firebase/firestore-collection.enum';
+import {environment} from '../../../../environments/environment';
 import {Layout} from '../../interfaces/layout.interface';
 import {Module} from '../../interfaces/module.interface';
 import {User} from '../../interfaces/user.interface';
@@ -28,12 +30,14 @@ export class StateService {
     }
 
     this.modules$ = this.dbService.getModules().pipe(shareReplay(1));
-    this.layout$ = this.dbService.getDocument(
-      FirestoreCollection.Settings,
-      'layout',
-      true
-    )
-      .pipe(
+    this.layout$ = (environment.production
+        ? this.dbService.getDocument(
+          FirestoreCollection.Settings,
+          'layout',
+          true
+        )
+        : of(SETTINGS_COLLECTION.documents.find(document => document.id === 'layout'))
+    ).pipe(
         map(value => {
           delete value.id;
           return value;
