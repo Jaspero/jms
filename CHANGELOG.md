@@ -1,3 +1,10 @@
+# [3.32.0](https://github.com/jaspero/jms/compare/v3.31.0...v3.32.0) (2021-04-01)
+
+
+### Features
+
+* allow typescript consts as source for modules closes [#228](https://github.com/jaspero/jms/issues/228) ([cd883a1](https://github.com/jaspero/jms/commit/cd883a11f69a70382809d1508354fecfcd268f99)), closes [#225](https://github.com/jaspero/jms/issues/225) [#225](https://github.com/jaspero/jms/issues/225) [#225](https://github.com/jaspero/jms/issues/225) [#225](https://github.com/jaspero/jms/issues/225) [#225](https://github.com/jaspero/jms/issues/225)
+
 # [3.31.0](https://github.com/jaspero/jms/compare/v3.30.0...v3.31.0) (2021-04-01)
 
 
