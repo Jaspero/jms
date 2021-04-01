@@ -27,7 +27,6 @@
     "json-pointer": "0.6.1",
     "json-schema-to-typescript": "9.1.0",
     "json2csv": "5.0.1",
-    "nanoid": "3.1.10",
     "sharp": "0.25.4",
     "xlsx": "0.16.3"
   },
@@ -40,7 +39,6 @@
     "@types/fs-extra": "9.0.1",
     "@types/json-pointer": "1.0.30",
     "@types/json2csv": "5.0.1",
-    "@types/nanoid": "2.1.0",
     "@types/sharp": "0.25.0",
     "tslint": "6.1.2",
     "typescript": "3.9.6"
