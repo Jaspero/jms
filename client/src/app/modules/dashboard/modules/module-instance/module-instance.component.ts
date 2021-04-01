@@ -16,7 +16,8 @@ export class ModuleInstanceComponent implements OnInit {
     private state: StateService,
     private activatedRoute: ActivatedRoute,
     private ioc: InstanceOverviewContextService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.ioc.module$ = this.activatedRoute.params.pipe(
