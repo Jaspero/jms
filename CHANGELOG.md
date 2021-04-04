@@ -1,3 +1,10 @@
+# [3.33.0](https://github.com/jaspero/jms/compare/v3.32.0...v3.33.0) (2021-04-04)
+
+
+### Features
+
+* **cms:** module-instance redirect to overview closes [#212](https://github.com/jaspero/jms/issues/212) ([69f000c](https://github.com/jaspero/jms/commit/69f000c2cccba900c662f5517dc7154588e0f0e4))
+
 # [3.32.0](https://github.com/jaspero/jms/compare/v3.31.0...v3.32.0) (2021-04-01)
 
 

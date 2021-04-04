@@ -1,6 +1,6 @@
 {
   "name": "@jaspero/jms",
-  "version": "3.32.0",
+  "version": "3.33.0",
   "license": "MIT",
   "scripts": {
     "start:cms": "npm --prefix client run start",
