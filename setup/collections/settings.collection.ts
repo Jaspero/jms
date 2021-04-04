@@ -40,13 +40,13 @@ export const SETTINGS_COLLECTION = {
                 icon: 'supervised_user_circle',
                 label: 'GENERAL.USERS',
                 type: 'link',
-                value: '/m/users/overview'
+                value: '/m/users'
               },
               {
                 icon: 'vpn_key',
                 label: 'GENERAL.ROLES',
                 type: 'link',
-                value: '/m/roles/overview'
+                value: '/m/roles'
               }
             ],
             icon: 'account_box',
