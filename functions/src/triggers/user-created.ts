@@ -8,45 +8,47 @@ export const userCreated = functions
   .auth
   .user()
   .onCreate(async user => {
-    const documentRef = await firestore()
-      .doc('settings/user')
+    const inviteRef = await firestore()
+      .collection('user-invites')
+      .doc(user.email)
       .get();
-    const roles: Array<{role: string; email: string}> =
-      (documentRef.data() || {}).roles || [];
-    const role = roles.find(ro => ro.email === user.email);
+
+    const role: {
+      role: string;
+      email: string;
+      requireReset: boolean;
+      sendInvite: boolean;
+    } = inviteRef.exists ? inviteRef.data() as any : null;
 
     if (role) {
-      const customClaims = {
-        role: role.role
-      };
+      await Promise.all([
+        auth().setCustomUserClaims(
+          user.uid,
+          {role: role.role}
+        ),
+        inviteRef.ref.update({
+          accepted: true,
+          acceptedOn: Date.now()
+        })
+      ]);
 
-      auth().setCustomUserClaims(user.uid, customClaims)
-        .catch(error => {
-          console.error('Setting custom claims', error);
-        });
+      if (role.sendInvite) {
+
+      }
     }
 
-    firestore()
+    await firestore()
       .collection(FirestoreCollection.Users)
       .doc(user.uid)
       .set({
         createdOn: Date.now(),
         email: user.email,
-
-        /**
-         * Assign providerData if it's an admin
-         * for easier reference
-         */
         ...role ? {
-          providerData: user.providerData.map((it: any) => it.providerId),
-          role: role.role
+          role: role.role,
+          requireReset: role.requireReset || false
         } : {
-          role: ''
+          role: '',
+          requireReset: false
         }
-      })
-      .catch(error => {
-        console.error('Creating user', error);
       });
-
-    return true;
   });

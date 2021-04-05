@@ -2,29 +2,6 @@ export const SETTINGS_COLLECTION = {
   name: 'settings',
   documents: [
     {
-      id: 'user',
-      roles: [
-
-        /**
-         * List all users that should be created initially.
-         * Initially created users can only login through
-         * third party provides (google, facebook...).
-         * If you want to create a user with email/password
-         * add an account for him in Authentication in the
-         * firebase dashboard.
-         */
-        {
-          email: 'test@test.com',
-          role: 'user'
-        },
-
-        {
-          email: 'info@jaspero.co',
-          role: 'admin'
-        }
-      ]
-    },
-    {
       id: 'layout',
       navigation: {
         items: [
@@ -62,10 +39,10 @@ export const SETTINGS_COLLECTION = {
                 value: '/module-definition/overview'
               },
               {
-                icon: 'settings',
-                label: 'LAYOUT.SETTINGS',
+                icon: 'send',
+                label: 'LAYOUT.INVITES',
                 type: 'link',
-                value: '/settings'
+                value: '/m/user-invites'
               }
             ],
             icon: 'dns',

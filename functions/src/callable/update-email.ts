@@ -15,13 +15,8 @@ export const updateEmail = functions
     const id = data.id;
     const email = data.email;
 
-    return auth().updateUser(id, {email})
-      .then(() => {
-        return firestore().collection('users').doc(id).update({
-          email
-        });
-      }).catch(error => {
-        console.log({error});
-        return error;
-      });
+    await auth().updateUser(id, {email});
+    await firestore().collection('users').doc(id).update({
+      email
+    });
   });

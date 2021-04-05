@@ -77,7 +77,7 @@
     "MENU": "Menu",
     "DASHBOARD": "Dashboard",
     "MODULES": "Modules",
-    "SETTINGS": "Settings",
+    "INVITES": "Invites",
     "LOG_OUT": "Log out",
     "MANAGEMENT": "Management",
     "SYSTEM": "System"
@@ -161,17 +161,6 @@
   "CONFIRMATION": {
     "TITLE": "Are you sure?"
   },
-  "SETTINGS": {
-    "LATEST_RELEASE": "Latest release",
-    "MEMBERS": "Members",
-    "EXISTS": "Exists",
-    "ROLE": "Role",
-    "PROVIDER": "Provider",
-    "ADD_MEMBERS": "Add members",
-    "PASSWORD_INSTRUCTIONS": "A user will only be automatically created if a password is provided",
-    "PASSWORD_RULES": "Must be at least 6 characters",
-    "LANGUAGE": "Language"
-  },
   "PROFILE": {
     "TITLE": "Profile",
     "INFORMATION": "Information",
@@ -194,8 +183,8 @@
   },
   "USERS": {
     "ADD": "Add User",
+    "METHOD": "Method",
     "ROLE": "Role",
-    "PASSWORD_INSTRUCTIONS": "A user will only be automatically created if a password is provided",
     "PASSWORD_RULES": "Must be at least 6 characters"
   },
   "ELEMENTS": {

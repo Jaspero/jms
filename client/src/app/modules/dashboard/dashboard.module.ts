@@ -14,12 +14,6 @@ const routes: Routes = [{
   component: LayoutComponent,
   children: [
     {
-      path: 'settings',
-      loadChildren: () =>
-        import('./modules/settings/settings.module')
-          .then(m => m.SettingsModule)
-    },
-    {
       path: 'dashboard',
       loadChildren: () =>
         import('./modules/overview/overview.module')

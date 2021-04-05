@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
-import firebase from 'firebase/app';
+import {UntilDestroy} from '@ngneat/until-destroy';
 import {Observable, of} from 'rxjs';
 import {shareReplay, switchMap, tap} from 'rxjs/operators';
 import {FirestoreCollection} from '../../../../integrations/firebase/firestore-collection.enum';
@@ -10,6 +10,7 @@ import {DbService} from '../../shared/services/db/db.service';
 import {notify} from '../../shared/utils/notify.operator';
 import {randomPassword} from '../../shared/utils/random-password';
 
+@UntilDestroy({checkProperties: true})
 @Component({
   selector: 'jms-user-add',
   templateUrl: './user-add.component.html',
@@ -29,12 +30,24 @@ export class UserAddComponent implements OnInit {
   roles$: Observable<Role[]>;
   form: FormGroup;
   type = 'password';
+  accountTypes = [
+    {value: 'manual', label: 'Manually set password'},
+    {value: 'invite', label: 'Send an invite'},
+    {value: 'third-party', label: 'Third Party'}
+  ];
+  accountType = new FormControl('invite');
 
   ngOnInit() {
     this.roles$ = this.dbService.getDocumentsSimple(FirestoreCollection.Roles)
       .pipe(
         shareReplay(1)
       );
+
+    this.accountType.valueChanges
+      .subscribe(() => {
+        this.form.get('password').setValue('');
+        this.form.get('requireReset').setValue(false);
+      });
   }
 
   toggleType() {
@@ -51,7 +64,8 @@ export class UserAddComponent implements OnInit {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.minLength(6)],
-      role: ''
+      role: '',
+      requireReset: false
     });
 
     this.dialog.open(
@@ -65,35 +79,43 @@ export class UserAddComponent implements OnInit {
   add() {
     return () => {
       const data = this.form.getRawValue();
+      const type = this.accountType.value;
+
+      data.email = data.email.toLowerCase().trim();
+
+      if (type === 'invite') {
+        data.password = this.generateRandomPassword();
+      } else if (data.password) {
+        data.password = data.password.trim();
+      }
 
       return this.dbService.setDocument(
-        'settings',
-        'user',
+        'user-invites',
+        data.email,
         {
-          roles: firebase.firestore.FieldValue.arrayUnion({
-            email: data.email,
-            role: data.role
-          })
+          createdOn: Date.now(),
+          role: data.role,
+          requireReset: data.requireReset,
+          sendInvite: type === 'invite',
         },
-        {
-          merge: true
-        }
-      ).pipe(
-        switchMap(() => {
-          if (data.password) {
-            return this.dbService
-              .createUserAccount(data.email, data.password);
-          }
+        {merge: true}
+      )
+        .pipe(
+          switchMap(() => {
+            if (data.password) {
+              return this.dbService
+                .createUserAccount(data.email, data.password);
+            }
 
-          return of(true);
-        }),
-        notify({
-          showThrownError: true
-        }),
-        tap(() => {
-          this.dialog.closeAll();
-        })
-      );
+            return of(true);
+          }),
+          notify({
+            showThrownError: true
+          }),
+          tap(() => {
+            this.dialog.closeAll();
+          })
+        );
     };
   }
 }
