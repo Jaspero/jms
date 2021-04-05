@@ -1,3 +1,12 @@
+# [3.34.0](https://github.com/jaspero/jms/compare/v3.33.0...v3.34.0) (2021-04-05)
+
+
+### Features
+
+* added finish-sign-up [#130](https://github.com/jaspero/jms/issues/130) ([f83cd57](https://github.com/jaspero/jms/commit/f83cd57c065d405c005a246c5ee6b844e20867b8))
+* prompt for reset password closes [#130](https://github.com/jaspero/jms/issues/130) ([5c091a2](https://github.com/jaspero/jms/commit/5c091a2b4392df66ccd040eef8adb040852ad508))
+* using user-invites instead of settings/users, removed settings module, updated methods in user-add [#130](https://github.com/jaspero/jms/issues/130) ([65f02c2](https://github.com/jaspero/jms/commit/65f02c21c1cd4b2044c1c97d675c1a074d57274e))
+
 # [3.33.0](https://github.com/jaspero/jms/compare/v3.32.0...v3.33.0) (2021-04-04)
 
 
