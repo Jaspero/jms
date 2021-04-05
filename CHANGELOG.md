@@ -1,3 +1,10 @@
+## [3.34.1](https://github.com/jaspero/jms/compare/v3.34.0...v3.34.1) (2021-04-05)
+
+
+### Bug Fixes
+
+* **functions:** accounting for cases where email doesn't exist [#130](https://github.com/jaspero/jms/issues/130) ([179071f](https://github.com/jaspero/jms/commit/179071f4ac9a2d1fb37af25c108ce7d3b220db51))
+
 # [3.34.0](https://github.com/jaspero/jms/compare/v3.33.0...v3.34.0) (2021-04-05)
 
 
