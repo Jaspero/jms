@@ -65,9 +65,9 @@
     "MODULES": "Moduli",
     "INVITES": "Pozivi",
     "LOG_OUT": "Odjavi se",
-
     "MANAGEMENT": "Upravljanje",
-    "SYSTEM": "Sustav"
+    "SYSTEM": "Sustav",
+    "RESET_PASSWORD": "Molim vas resetirajte lozinku"
   },
   "MODULES": {
     "ADD_MODULE": "Dodaj Modul",

@@ -3,5 +3,6 @@ export interface User {
   email: string;
   role: string;
   providerData: any;
+  requireReset?: boolean;
 }
 

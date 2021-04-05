@@ -3,12 +3,12 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFireFunctions} from '@angular/fire/functions';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UntilDestroy} from '@ngneat/until-destroy';
-import {filter, switchMap, take} from 'rxjs/operators';
+import firebase from 'firebase/app';
+import {from, throwError} from 'rxjs';
+import {catchError, switchMap, take, tap} from 'rxjs/operators';
 import {notify} from '../../shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '../../shared/validators/repeat-password.validator';
 
-@UntilDestroy({checkProperties: true})
 @Component({
   selector: 'jms-finish-sign-up',
   templateUrl: './finish-sign-up.component.html',
@@ -36,14 +36,6 @@ export class FinishSignUpComponent implements OnInit {
         validator: RepeatPasswordValidator('')
       }
     );
-
-    this.afAuth.user
-      .pipe(
-        filter(user => !!user)
-      )
-      .subscribe(() => {
-        this.router.navigate(['/dashboard']);
-      });
   }
 
   save() {
@@ -54,14 +46,39 @@ export class FinishSignUpComponent implements OnInit {
         .pipe(
           take(1),
           switchMap(({token}) =>
-            this.aff.httpsCallable('cms-finishSignUp')({token, password})
+            this.afAuth.signInWithCustomToken(token)
           ),
-          switchMap(data =>
-            this.afAuth.signInWithEmailAndPassword(data.email, password)
+          switchMap(() =>
+            from(
+              firebase.auth()
+                .currentUser
+                .updatePassword(password)
+            )
           ),
+          catchError(err => {
+            let message;
+
+            if (err.code === 'auth/requires-recent-login') {
+              message = 'For security reasons please login to your account again before changing your password.';
+              firebase.auth()
+                .signOut()
+                .then(() =>
+                  this.router.navigate(['/login'])
+                );
+            }
+
+            return throwError({
+              error: {
+                message
+              }
+            });
+          }),
           notify({
             success: 'FINISH_SIGN_UP.SIGN_UP_SUCCESSFUL'
-          })
+          }),
+          tap(() =>
+            this.router.navigate(['/dashboard'])
+          ),
         )
     }
   }

@@ -84,7 +84,8 @@
     "INVITES": "Invites",
     "LOG_OUT": "Log out",
     "MANAGEMENT": "Management",
-    "SYSTEM": "System"
+    "SYSTEM": "System",
+    "RESET_PASSWORD": "Please reset your password"
   },
   "MODULES": {
     "ADD_MODULE": "Add module",

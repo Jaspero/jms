@@ -1,8 +1,15 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {RouterModule, Routes} from '@angular/router';
+import {LoadClickModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
 import {DbService} from '../../shared/services/db/db.service';
 import {StateService} from '../../shared/services/state/state.service';
@@ -61,17 +68,28 @@ const DIRECTIVES = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    ReactiveFormsModule,
 
     /**
      * Material
      */
     MatIconModule,
     MatTooltipModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+
+    /**
+     * Ng helpers
+     */
+    LoadClickModule,
 
     /**
      * External
      */
-    TranslocoModule
+    TranslocoModule,
   ],
   providers: [
     /**
