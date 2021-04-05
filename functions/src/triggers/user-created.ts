@@ -9,9 +9,14 @@ export const userCreated = functions
   .auth
   .user()
   .onCreate(async user => {
+
+    if (!user.email) {
+      return;
+    }
+
     const inviteRef = await firestore()
       .collection('user-invites')
-      .doc(user.email)
+      .doc(user.email as string)
       .get();
 
     const role: {
