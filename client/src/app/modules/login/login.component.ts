@@ -12,6 +12,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
+import {UntilDestroy} from '@ngneat/until-destroy';
 import firebase from 'firebase/app';
 import {from, of, throwError} from 'rxjs';
 import {catchError, filter, tap} from 'rxjs/operators';
@@ -19,6 +20,7 @@ import {STATIC_CONFIG} from '../../../environments/static-config';
 import {StateService} from '../../shared/services/state/state.service';
 import {notify} from '../../shared/utils/notify.operator';
 
+@UntilDestroy({checkProperties: true})
 @Component({
   selector: 'jms-login',
   templateUrl: './login.component.html',

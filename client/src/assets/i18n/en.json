@@ -65,6 +65,10 @@
     "RESET_SUCCESSFUL": "Your password has been reset successfully. You can now log in.",
     "INVALID_OOB_CODE": "Your code has expired. Please restart the process of resetting your password."
   },
+  "FINISH_SIGN_UP": {
+    "TITLE": "Finish Sign Up",
+    "SIGN_UP_SUCCESSFUL": "Password reset successful"
+  },
   "MFA": {
     "CONNECT": "Connect Multi-Factor Authentication",
     "PHONE": "Phone number",

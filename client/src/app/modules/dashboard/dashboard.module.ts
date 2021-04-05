@@ -75,7 +75,7 @@ const DIRECTIVES = [
   ],
   providers: [
     /**
-     * We provide it with a string referenc here
+     * We provide it with a string reference here
      * so that it can be used in plugins
      */
     {
