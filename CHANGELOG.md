@@ -1,3 +1,10 @@
+# [3.35.0](https://github.com/jaspero/jms/compare/v3.34.1...v3.35.0) (2021-04-06)
+
+
+### Features
+
+* added collectionGroup as a module option ([0a68e85](https://github.com/jaspero/jms/commit/0a68e8537c770566048501e8c7717c8b2a9bf212))
+
 ## [3.34.1](https://github.com/jaspero/jms/compare/v3.34.0...v3.34.1) (2021-04-05)
 
 
