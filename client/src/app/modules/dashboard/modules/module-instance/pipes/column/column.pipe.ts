@@ -182,7 +182,7 @@ export class ColumnPipe implements PipeTransform {
         }
 
         return forkJoin(getDocumentsResponse.map(path => {
-          const [module, document] = path.split('/');
+          const [module, document] = (path.startsWith('/') ? path.slice(1) : path).split('/');
           return this.db.getDocument(module, document);
         }));
       case PipeType.Custom:

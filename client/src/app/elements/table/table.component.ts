@@ -437,6 +437,11 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         const pipes: any[] = [];
+
+        pipes.push(
+          map(() => get(rowData, column.key as string))
+        );
+
         for (const [i, item] of (column.pipe as Array<PipeType>).entries()) {
           pipes.push(
             switchMap(data => {
