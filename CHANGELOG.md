@@ -1,3 +1,10 @@
+## [3.35.1](https://github.com/jaspero/jms/compare/v3.35.0...v3.35.1) (2021-04-06)
+
+
+### Bug Fixes
+
+* resolveObservables fix primitive values ([a3ddec4](https://github.com/jaspero/jms/commit/a3ddec4898d6087e7a97c2ad136ff9e22f599c2c))
+
 # [3.35.0](https://github.com/jaspero/jms/compare/v3.34.1...v3.35.0) (2021-04-06)
 
 
