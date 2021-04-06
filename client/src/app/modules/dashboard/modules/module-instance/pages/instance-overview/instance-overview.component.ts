@@ -239,7 +239,9 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
                           this.ioc.routeData.pageSize,
                           this.ioc.routeData.sort,
                           cursor,
-                          this.generateFilters(module)
+                          this.generateFilters(module),
+                          null,
+                          module.collectionGroup
                         )
                         .pipe(
                           queue(),
