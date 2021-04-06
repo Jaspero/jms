@@ -114,9 +114,10 @@ export class FbDatabaseService extends DbService {
     sort?,
     cursor?,
     filters?,
-    source?
+    source?,
+    collectionGroup?
   ) {
-    return this.collection(moduleId, pageSize, sort, cursor, this.filterMethod(filters))
+    return this.collection(moduleId, pageSize, sort, cursor, this.filterMethod(filters), collectionGroup)
       .get({
         source: source || 'default'
       })
@@ -133,13 +134,15 @@ export class FbDatabaseService extends DbService {
     sort?,
     cursor?,
     filters?: WhereFilter[],
+    collectionGroup?
   ) {
     return this.collection(
       moduleId,
       pageSize,
       sort,
       cursor,
-      this.filterMethod(filters)
+      this.filterMethod(filters),
+      collectionGroup
     )
       .stateChanges();
   }
@@ -275,9 +278,10 @@ export class FbDatabaseService extends DbService {
     pageSize,
     sort,
     cursor,
-    filter?: (ref: CollectionReference) => CollectionReference
+    filter?: (ref: CollectionReference) => CollectionReference,
+    collectionGroup?
   ) {
-    return this.afs.collection(moduleId, ref => {
+    const refFunction = ref => {
       let final = ref;
 
       if (sort) {
@@ -300,7 +304,13 @@ export class FbDatabaseService extends DbService {
       }
 
       return final;
-    });
+    };
+
+    if (collectionGroup) {
+      return this.afs.collectionGroup(moduleId, refFunction);
+    }
+
+    return this.afs.collection(moduleId, refFunction);
   }
 
   private filterMethod(
