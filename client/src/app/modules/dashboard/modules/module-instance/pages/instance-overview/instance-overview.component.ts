@@ -170,7 +170,9 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
                 module,
                 search,
                 filter
-              )
+              ),
+              null,
+              module.collectionGroup
             )
               .pipe(
                 queue()
@@ -194,7 +196,8 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
                 this.ioc.routeData.pageSize,
                 this.ioc.routeData.sort,
                 cu,
-                this.generateFilters(module)
+                this.generateFilters(module),
+                module.collectionGroup
               ).pipe(
                 skip(1),
                 tap(snaps => {

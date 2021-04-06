@@ -49,7 +49,8 @@ export abstract class DbService {
     },
     cursor?: any,
     filters?: WhereFilter[],
-    source?: string
+    source?: string,
+    collectionGroup?: boolean
   ): Observable<any[]> {
     return of([]);
   }
@@ -79,6 +80,7 @@ export abstract class DbService {
     },
     cursor?: any,
     filters?: WhereFilter[],
+    collectionGroup?: boolean
   ): Observable<any[]> {
     return of([]);
   }
