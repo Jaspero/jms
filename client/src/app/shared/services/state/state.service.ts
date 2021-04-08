@@ -28,7 +28,10 @@ export class StateService {
       this.language = this.transloco.getActiveLang();
     }
 
-    this.modules$ = this.schemaService.modules$;
+    this.modules$ = this.schemaService.modules$
+      .pipe(
+        shareReplay(1)
+      );
     this.layout$ = this.schemaService.layout$.pipe(
       map(value => {
         delete value.id;

@@ -7,10 +7,8 @@ import {AngularFireFunctionsModule, ORIGIN, REGION} from '@angular/fire/function
 import {AngularFirePerformanceModule} from '@angular/fire/performance';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {DbService} from '../../src/app/shared/services/db/db.service';
-import {SchemaService} from '../../src/app/shared/services/schema/schema.service';
 import {environment} from '../../src/environments/environment';
 import {FbDatabaseService} from './fb-database.service';
-import {FbSchemaService} from './fb-schema.service';
 
 @NgModule({
   imports: [
@@ -40,10 +38,6 @@ export class FirebaseModule {
         {
           provide: DbService,
           useClass: FbDatabaseService
-        },
-        {
-          provide: SchemaService,
-          useClass: FbSchemaService
         },
         {
           provide: REGION,

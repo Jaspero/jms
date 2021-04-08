@@ -47,17 +47,17 @@ export class FbDatabaseService extends DbService {
   getModules() {
     return this.afs
       .collection(FirestoreCollection.Modules)
-      .snapshotChanges()
+      .get()
       .pipe(
-        map(actions =>
-          actions
-            .map(action => ({
+        map(res =>
+          res.docs
+            .map(doc => ({
 
               /**
                * We use '~' instead of '/' for sub-collections
                */
-              id: action.payload.doc.id.replace(/~/g, '/'),
-              ...(action.payload.doc.data() as Module)
+              id: doc.id.replace(/~/g, '/'),
+              ...(doc.data() as Module)
             }))
             .sort((a, b) => b.layout?.order - a.layout?.order)
         )

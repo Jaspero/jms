@@ -8,11 +8,13 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FbSchemaService} from '../../integrations/firebase/fb-schema.service';
 import {FirebaseModule} from '../../integrations/firebase/fb.module';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ConfirmationComponent} from './shared/components/confirmation/confirmation.component';
 import {MathPipe} from './shared/pipes/math/math-pipe.';
+import {SchemaService} from './shared/services/schema/schema.service';
 import {appInit} from './shared/utils/app-init';
 import {TranslocoRootModule} from './transloco-root.module';
 
@@ -60,14 +62,14 @@ const PIPES = [
     TranslocoRootModule
   ],
   providers: [
-    /**
-     * Uncomment provider for loading local setup
-     *
-     * {
-     *  provide: SchemaService,
-     *  useClass: LocalSchemaService
-     * }
-     */
+    {
+      provide: SchemaService,
+      useClass: FbSchemaService,
+      /**
+       * Uncomment provider for loading local setup
+       * useClass: LocalSchemaService
+       */
+    },
     {
       provide: MAT_DATE_LOCALE,
       useValue: 'en-US'
