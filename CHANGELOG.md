@@ -1,3 +1,10 @@
+# [3.37.0](https://github.com/jaspero/jms/compare/v3.36.0...v3.37.0) (2021-04-08)
+
+
+### Features
+
+* retrieving modules and layout only once ([1c5d614](https://github.com/jaspero/jms/commit/1c5d6143771db6d7fc6014061396cd277458d7e9))
+
 # [3.36.0](https://github.com/jaspero/jms/compare/v3.35.1...v3.36.0) (2021-04-06)
 
 
