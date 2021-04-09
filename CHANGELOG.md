@@ -1,3 +1,10 @@
+## [3.37.1](https://github.com/jaspero/jms/compare/v3.37.0...v3.37.1) (2021-04-09)
+
+
+### Bug Fixes
+
+* **cms:** check for key existence in resolveObservable ([885e741](https://github.com/jaspero/jms/commit/885e7414b7ce862e02ede050ccd38a7926e5cc31))
+
 # [3.37.0](https://github.com/jaspero/jms/compare/v3.36.0...v3.37.0) (2021-04-08)
 
 
