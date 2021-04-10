@@ -1,3 +1,15 @@
+# [3.38.0](https://github.com/jaspero/jms/compare/v3.37.1...v3.38.0) (2021-04-10)
+
+
+### Bug Fixes
+
+* **cms:** parsing pipe arguments properly when it's an array ([2cc005c](https://github.com/jaspero/jms/commit/2cc005c2362e7a92c898790d637281f768bc5d1b))
+
+
+### Features
+
+* **cms:** added fallback when value doesn't exist in column ([3fe043b](https://github.com/jaspero/jms/commit/3fe043b0c00e01f0f901dc2c853c30fa3b70b701))
+
 ## [3.37.1](https://github.com/jaspero/jms/compare/v3.37.0...v3.37.1) (2021-04-09)
 
 
