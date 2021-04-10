@@ -85,18 +85,19 @@ export class ColumnPipe implements PipeTransform {
       return value;
     }
 
-    if (allArgs) {
-      allArgs = this.formatArguments(allArgs);
-    }
-
     if (Array.isArray(pipeTypes)) {
       return pipeTypes.reduce(
         (acc, type, index) =>
-          this.executePipeTransform(type, acc, (allArgs || {})[index], row),
+          this.executePipeTransform(type, acc, this.formatArguments((allArgs || {})[index]), row),
         value
       );
     } else {
-      return this.executePipeTransform(pipeTypes, value, allArgs, row);
+      return this.executePipeTransform(
+        pipeTypes,
+        value,
+        this.formatArguments(allArgs),
+        row
+      );
     }
   }
 
