@@ -1,3 +1,10 @@
+## [3.38.1](https://github.com/jaspero/jms/compare/v3.38.0...v3.38.1) (2021-04-10)
+
+
+### Bug Fixes
+
+* **cms:** proper token argument in finish sign up ([a7ebe67](https://github.com/jaspero/jms/commit/a7ebe67f6861ab3f6c10e561f39c7be68ddbb620))
+
 # [3.38.0](https://github.com/jaspero/jms/compare/v3.37.1...v3.38.0) (2021-04-10)
 
 
