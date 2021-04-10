@@ -21,6 +21,12 @@ export interface ModuleLayoutTableColumn {
   nestedColumns?: ModuleLayoutTableNestedColumn[];
   authorization?: string[];
   disabled?: boolean;
+
+  /**
+   * This value is shown when the key doesn't
+   * exist in the row
+   */
+  fallback?: string;
   /**
    * Either ID or lookup need to be specified
    */

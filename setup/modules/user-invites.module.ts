@@ -40,7 +40,8 @@ export const USER_INVITES_MODULE = {
         {
           key: '/acceptedOn',
           label: 'Accepted',
-          pipe: ['date']
+          pipe: ['date'],
+          fallback: 'No'
         }
       ]
     },

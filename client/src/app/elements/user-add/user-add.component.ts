@@ -78,14 +78,18 @@ export class UserAddComponent implements OnInit {
 
   add() {
     return () => {
-      const data = this.form.getRawValue();
+
       const type = this.accountType.value;
+
+      if (type === 'invite') {
+        this.generateRandomPassword();
+      }
+
+      const data = this.form.getRawValue();
 
       data.email = data.email.toLowerCase().trim();
 
-      if (type === 'invite') {
-        data.password = this.generateRandomPassword();
-      } else if (data.password) {
+      if (data.password) {
         data.password = data.password.trim();
       }
 

@@ -496,7 +496,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
             rowData
           );
         } else {
-          value = '';
+          value = column.fallback || '';
         }
       }
 
