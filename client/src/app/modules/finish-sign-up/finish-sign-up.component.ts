@@ -45,8 +45,8 @@ export class FinishSignUpComponent implements OnInit {
       return this.activatedRoute.queryParams
         .pipe(
           take(1),
-          switchMap(({token}) =>
-            this.afAuth.signInWithCustomToken(token)
+          switchMap(({t}) =>
+            this.afAuth.signInWithCustomToken(t)
           ),
           switchMap(() =>
             from(

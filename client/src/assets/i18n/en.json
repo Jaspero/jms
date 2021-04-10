@@ -67,7 +67,7 @@
   },
   "FINISH_SIGN_UP": {
     "TITLE": "Finish Sign Up",
-    "SIGN_UP_SUCCESSFUL": "Password reset successful"
+    "SIGN_UP_SUCCESSFUL": "Account created successfully"
   },
   "MFA": {
     "CONNECT": "Connect Multi-Factor Authentication",
