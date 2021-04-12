@@ -1,3 +1,10 @@
+## [3.38.2](https://github.com/jaspero/jms/compare/v3.38.1...v3.38.2) (2021-04-12)
+
+
+### Bug Fixes
+
+* **client:** redirecting to overview ([9b3d307](https://github.com/jaspero/jms/commit/9b3d307a65456f605555c08c5208c1ab49cb6dae))
+
 ## [3.38.1](https://github.com/jaspero/jms/compare/v3.38.0...v3.38.1) (2021-04-10)
 
 
