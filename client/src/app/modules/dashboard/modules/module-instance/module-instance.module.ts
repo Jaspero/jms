@@ -68,7 +68,7 @@ const innerRoutes = {
       component: InstanceSingleComponent
     },
     {
-      path: '**',
+      path: '',
       redirectTo: 'overview'
     }
   ]
