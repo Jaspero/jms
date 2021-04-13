@@ -1,3 +1,10 @@
+# [3.40.0](https://github.com/jaspero/jms/compare/v3.39.0...v3.40.0) (2021-04-13)
+
+
+### Features
+
+* **client:** connected value formatting for filter module closes [#230](https://github.com/jaspero/jms/issues/230) ([53b71fc](https://github.com/jaspero/jms/commit/53b71fce06a843d35ab313d759b3e3f5f54b282a))
+
 # [3.39.0](https://github.com/jaspero/jms/compare/v3.38.3...v3.39.0) (2021-04-13)
 
 
