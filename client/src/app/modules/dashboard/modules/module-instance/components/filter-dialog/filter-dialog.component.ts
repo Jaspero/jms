@@ -5,6 +5,7 @@ import {State, Parser, safeEval} from '@jaspero/form-builder';
 import {FilterMethod} from '../../../../../../shared/enums/filter-method.enum';
 import {FilterModule, FilterModuleDefinition} from '../../../../../../shared/interfaces/filter-module.interface';
 import {WhereFilter} from '../../../../../../shared/interfaces/where-filter.interface';
+import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
 
 @Component({
   selector: 'jms-filter-dialog',
@@ -15,7 +16,10 @@ import {WhereFilter} from '../../../../../../shared/interfaces/where-filter.inte
 export class FilterDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public data: FilterModule,
+    public data: {
+      module: FilterModule,
+      ioc: InstanceOverviewContextService
+    },
     private dialogRef: MatDialogRef<FilterDialogComponent>
   ) {}
 
@@ -32,20 +36,32 @@ export class FilterDialogComponent {
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
 
-        const definition = ((this.data.definitions || {})[key] || {}) as FilterModuleDefinition;
+        const definition = ((this.data.module.definitions || {})[key] || {}) as FilterModuleDefinition;
+
+        let displayValue: any = data[key];
+
+        if (definition.filterValuePipe) {
+          displayValue = this.data.ioc.columnPipe.transform(
+            displayValue,
+            definition.filterValuePipe,
+            definition.filterValuePipeArguments,
+            {[definition.filterKey || key]: displayValue}
+          )
+        }
 
         toSend.push({
           key: definition.filterKey || key,
           value: data[key],
+          displayValue,
           operator: definition.filterMethod || FilterMethod.Equal,
           ...definition.filterLabel && {label: definition.filterLabel},
-          ...this.data.persist && {persist: this.data.persist}
+          ...this.data.module.persist && {persist: this.data.module.persist}
         });
       }
     }
 
-    if (this.data.formatOnSubmit) {
-      const formatOnSubmit = safeEval(this.data.formatOnSubmit);
+    if (this.data.module.formatOnSubmit) {
+      const formatOnSubmit = safeEval(this.data.module.formatOnSubmit);
 
       if (formatOnSubmit) {
         toSend = formatOnSubmit(toSend);

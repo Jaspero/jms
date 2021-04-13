@@ -2,12 +2,15 @@ import {MatDialogConfig} from '@angular/material/dialog';
 import {Segment} from '@jaspero/form-builder';
 import {JSONSchema7} from 'json-schema';
 import {FilterMethod} from '../enums/filter-method.enum';
+import {PipeType} from '../enums/pipe-type.enum';
 import {ModuleDefinition} from './module.interface';
 
 export interface FilterModuleDefinition extends ModuleDefinition {
   filterMethod?: FilterMethod;
   filterLabel?: string;
   filterKey?: string;
+  filterValuePipe?: PipeType | PipeType[];
+  filterValuePipeArguments?: any | {[key: string]: any};
 }
 
 export interface FilterModuleDefinitions {
