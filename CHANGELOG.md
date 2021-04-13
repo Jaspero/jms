@@ -1,3 +1,10 @@
+## [3.38.3](https://github.com/jaspero/jms/compare/v3.38.2...v3.38.3) (2021-04-13)
+
+
+### Bug Fixes
+
+* **client:** translate columns before export ([edb1102](https://github.com/jaspero/jms/commit/edb1102d5bd050fe1e0a162947af7cc0def68c95))
+
 ## [3.38.2](https://github.com/jaspero/jms/compare/v3.38.1...v3.38.2) (2021-04-12)
 
 
