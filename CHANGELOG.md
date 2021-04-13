@@ -1,3 +1,10 @@
+# [3.39.0](https://github.com/jaspero/jms/compare/v3.38.3...v3.39.0) (2021-04-13)
+
+
+### Features
+
+* **client:** added filterKey option on filter module ([6e1be41](https://github.com/jaspero/jms/commit/6e1be41ce6c1b5e325a72e6b9ccf666f90cf4317))
+
 ## [3.38.3](https://github.com/jaspero/jms/compare/v3.38.2...v3.38.3) (2021-04-13)
 
 
