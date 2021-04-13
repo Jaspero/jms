@@ -35,7 +35,7 @@ export class FilterDialogComponent {
         const definition = ((this.data.definitions || {})[key] || {}) as FilterModuleDefinition;
 
         toSend.push({
-          key,
+          key: definition.filterKey || key,
           value: data[key],
           operator: definition.filterMethod || FilterMethod.Equal,
           ...definition.filterLabel && {label: definition.filterLabel},
