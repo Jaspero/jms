@@ -1,3 +1,10 @@
+## [3.40.1](https://github.com/jaspero/jms/compare/v3.40.0...v3.40.1) (2021-04-14)
+
+
+### Bug Fixes
+
+* **functions:** import rowFunction not forwarding options ([70c6d1e](https://github.com/jaspero/jms/commit/70c6d1e2199fca0a1560b691334fde8cb3a46425))
+
 # [3.40.0](https://github.com/jaspero/jms/compare/v3.39.0...v3.40.0) (2021-04-13)
 
 
