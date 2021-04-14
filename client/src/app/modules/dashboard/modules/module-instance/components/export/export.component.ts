@@ -102,8 +102,6 @@ export class ExportComponent {
         disabled: it.disabled
       }));
 
-      console.log(columns, columnOrganization);
-
       return from(
         firebase.auth().currentUser.getIdToken()
       )

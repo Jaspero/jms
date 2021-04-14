@@ -71,7 +71,7 @@ app.post('/', authenticated(['admin']), (req, res) => {
 
             if (rowFunction) {
               acc.created.push(async () => {
-                const sd = await rowFunction(saveData, afs);
+                const sd = await rowFunction(saveData, afs, req.query);
                 return id ? col.doc(id).set(sd) : col.add(sd)
               });
             } else {
