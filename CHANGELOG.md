@@ -1,3 +1,10 @@
+## [3.41.2](https://github.com/jaspero/jms/compare/v3.41.1...v3.41.2) (2021-04-20)
+
+
+### Bug Fixes
+
+* **client:** isNaN comparison ([e13e6d0](https://github.com/jaspero/jms/commit/e13e6d02d3a4fc71912c7704b7f185bee4cb1023))
+
 ## [3.41.1](https://github.com/jaspero/jms/compare/v3.41.0...v3.41.1) (2021-04-20)
 
 
