@@ -1,3 +1,10 @@
+## [3.41.3](https://github.com/jaspero/jms/compare/v3.41.2...v3.41.3) (2021-04-20)
+
+
+### Bug Fixes
+
+* **client:** column pipe properly replaces all instances of {{ }} ([1bd9783](https://github.com/jaspero/jms/commit/1bd9783d38ae14ee5d9dc9b29e7f4258f1436090))
+
 ## [3.41.2](https://github.com/jaspero/jms/compare/v3.41.1...v3.41.2) (2021-04-20)
 
 
