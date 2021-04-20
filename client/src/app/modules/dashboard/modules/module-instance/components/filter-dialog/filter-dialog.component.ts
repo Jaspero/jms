@@ -37,26 +37,33 @@ export class FilterDialogComponent {
       if (data.hasOwnProperty(key)) {
 
         const definition = ((this.data.module.definitions || {})[key] || {}) as FilterModuleDefinition;
+        const value = data[key];
 
-        let displayValue: any = data[key];
+        let displayValue: any = value;
 
-        if (definition.filterValuePipe) {
-          displayValue = this.data.ioc.columnPipe.transform(
+        if (
+          value !== undefined &&
+          value !== null &&
+          value !== ''
+        ) {
+          if (definition.filterValuePipe) {
+            displayValue = this.data.ioc.columnPipe.transform(
+              displayValue,
+              definition.filterValuePipe,
+              definition.filterValuePipeArguments,
+              {[definition.filterKey || key]: displayValue}
+            )
+          }
+
+          toSend.push({
+            value,
             displayValue,
-            definition.filterValuePipe,
-            definition.filterValuePipeArguments,
-            {[definition.filterKey || key]: displayValue}
-          )
+            key: definition.filterKey || key,
+            operator: definition.filterMethod || FilterMethod.Equal,
+            ...definition.filterLabel && {label: definition.filterLabel},
+            ...this.data.module.persist && {persist: this.data.module.persist}
+          });
         }
-
-        toSend.push({
-          key: definition.filterKey || key,
-          value: data[key],
-          displayValue,
-          operator: definition.filterMethod || FilterMethod.Equal,
-          ...definition.filterLabel && {label: definition.filterLabel},
-          ...this.data.module.persist && {persist: this.data.module.persist}
-        });
       }
     }
 
