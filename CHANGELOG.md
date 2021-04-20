@@ -1,3 +1,10 @@
+# [3.41.0](https://github.com/jaspero/jms/compare/v3.40.1...v3.41.0) (2021-04-20)
+
+
+### Features
+
+* **client:** filtering dialog fields ([17da1be](https://github.com/jaspero/jms/commit/17da1be3e86de43ee81a430814e0aee9c1654d2f))
+
 ## [3.40.1](https://github.com/jaspero/jms/compare/v3.40.0...v3.40.1) (2021-04-14)
 
 
