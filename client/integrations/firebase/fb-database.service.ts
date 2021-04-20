@@ -325,6 +325,8 @@ export class FbDatabaseService extends DbService {
           if (
             item.value !== undefined &&
             item.value !== null &&
+            // tslint:disable-next-line:use-isnan
+            item.value !== NaN &&
             item.value !== '' &&
             (
               (

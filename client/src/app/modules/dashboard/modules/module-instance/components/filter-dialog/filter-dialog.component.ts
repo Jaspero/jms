@@ -44,6 +44,8 @@ export class FilterDialogComponent {
         if (
           value !== undefined &&
           value !== null &&
+          // tslint:disable-next-line:use-isnan
+          value !== NaN &&
           value !== ''
         ) {
           if (definition.filterValuePipe) {
