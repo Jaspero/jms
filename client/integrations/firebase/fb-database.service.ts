@@ -325,6 +325,7 @@ export class FbDatabaseService extends DbService {
           if (
             item.value !== undefined &&
             item.value !== null &&
+            !Number.isNaN(item.value) &&
             item.value !== '' &&
             (
               (

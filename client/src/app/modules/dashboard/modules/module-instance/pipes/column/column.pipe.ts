@@ -114,11 +114,17 @@ export class ColumnPipe implements PipeTransform {
       return value;
     }
 
-    return (value.match(/{{\s*[\w.]+\s*}}/g) || [])
-      .reduce((acc, cur) =>
-          cur ? acc.replace(cur, `' + ${cur.slice(2, -2)} + '`) : acc,
-        value
-      );
+    const regEx = /{{(.*?)}}/;
+
+    let match = regEx.test(value);
+
+    while (match) {
+      const target = value.match(regEx)[0];
+      value = value.replace(target, `' + ${target.slice(2, -2)} + '`);
+      match = regEx.test(value);
+    }
+
+    return value
   }
 
   private executePipeTransform(type, val, args, row) {

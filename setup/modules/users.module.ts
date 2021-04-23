@@ -14,12 +14,40 @@ export const USERS_MODULE = {
       persist: true,
       schema: {
         properties: {
-          role: {
-            type: 'string'
-          }
+          role: {type: 'string'},
+          start: {type: 'string'},
+          end: {type: 'string'}
         }
       },
       definitions: {
+        start: {
+          label: 'Start Date',
+          columnsDesktop: 6,
+          filterKey: 'createdOn',
+          filterMethod: '>',
+          filterValuePipe: ['date'],
+          filterLabel: 'Start Date',
+          component: {
+            type: 'date',
+            configuration: {
+              format: 'number'
+            }
+          }
+        },
+        end: {
+          label: 'End Date',
+          columnsDesktop: 6,
+          filterMethod: '<',
+          filterKey: 'createdOn',
+          filterValuePipe: ['date'],
+          filterLabel: 'End Date',
+          component: {
+            type: 'date',
+            configuration: {
+              format: 'number'
+            }
+          }
+        },
         role: {
           label: 'Role',
           component: {
@@ -35,7 +63,7 @@ export const USERS_MODULE = {
       segments: [
         {
           type: 'empty',
-          fields: ['/role']
+          fields: ['/start', '/end', '/role']
         }
       ]
     },

@@ -3,6 +3,7 @@ import {ChangeDetectionStrategy, Component, Inject, TemplateRef, ViewChild} from
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef} from '@angular/material/bottom-sheet';
 import {MatDialog} from '@angular/material/dialog';
+import {TranslocoService} from '@ngneat/transloco';
 import {saveAs} from 'file-saver';
 import firebase from 'firebase/app';
 import {from} from 'rxjs';
@@ -44,14 +45,12 @@ export class ExportComponent {
     private sheetRef: MatBottomSheetRef<ExportComponent>,
     private dialog: MatDialog,
     private db: DbService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private transloco: TranslocoService
   ) {}
 
   @ViewChild('options', {static: true})
   optionsTemplate: TemplateRef<any>;
-
-  @ViewChild(ColumnOrganizationComponent, {static: false})
-  columnOrganization: ColumnOrganizationComponent;
 
   types = ExportType;
   type: ExportType;
@@ -76,7 +75,7 @@ export class ExportComponent {
     )
   }
 
-  export() {
+  export(columnOrganization: ColumnOrganizationComponent) {
     return () => {
       const {useFilters, skip, limit} = this.form.getRawValue();
       const type = this.type;
@@ -91,15 +90,17 @@ export class ExportComponent {
         }
       };
 
-      let columns;
+      let columns = this.data.columns;
 
-      if (this.columnOrganization) {
-        columns = this.columnOrganization.save().map(it => ({
-          key: it.key,
-          label: it.label,
-          disabled: it.disabled
-        }));
+      if (columnOrganization) {
+        columns = columnOrganization.save();
       }
+
+      columns = columns.map(it => ({
+        key: it.key,
+        label: this.transloco.translate(it.label),
+        disabled: it.disabled
+      }));
 
       return from(
         firebase.auth().currentUser.getIdToken()

@@ -1,3 +1,73 @@
+## [3.41.3](https://github.com/jaspero/jms/compare/v3.41.2...v3.41.3) (2021-04-20)
+
+
+### Bug Fixes
+
+* **client:** column pipe properly replaces all instances of {{ }} ([1bd9783](https://github.com/jaspero/jms/commit/1bd9783d38ae14ee5d9dc9b29e7f4258f1436090))
+
+## [3.41.2](https://github.com/jaspero/jms/compare/v3.41.1...v3.41.2) (2021-04-20)
+
+
+### Bug Fixes
+
+* **client:** isNaN comparison ([e13e6d0](https://github.com/jaspero/jms/commit/e13e6d02d3a4fc71912c7704b7f185bee4cb1023))
+
+## [3.41.1](https://github.com/jaspero/jms/compare/v3.41.0...v3.41.1) (2021-04-20)
+
+
+### Bug Fixes
+
+* **client:** included NaN in filter dialog ([d48ad29](https://github.com/jaspero/jms/commit/d48ad29c6434ce241bac621d4c3cb4b006960c28))
+
+# [3.41.0](https://github.com/jaspero/jms/compare/v3.40.1...v3.41.0) (2021-04-20)
+
+
+### Features
+
+* **client:** filtering dialog fields ([17da1be](https://github.com/jaspero/jms/commit/17da1be3e86de43ee81a430814e0aee9c1654d2f))
+
+## [3.40.1](https://github.com/jaspero/jms/compare/v3.40.0...v3.40.1) (2021-04-14)
+
+
+### Bug Fixes
+
+* **functions:** import rowFunction not forwarding options ([70c6d1e](https://github.com/jaspero/jms/commit/70c6d1e2199fca0a1560b691334fde8cb3a46425))
+
+# [3.40.0](https://github.com/jaspero/jms/compare/v3.39.0...v3.40.0) (2021-04-13)
+
+
+### Features
+
+* **client:** connected value formatting for filter module closes [#230](https://github.com/jaspero/jms/issues/230) ([53b71fc](https://github.com/jaspero/jms/commit/53b71fce06a843d35ab313d759b3e3f5f54b282a))
+
+# [3.39.0](https://github.com/jaspero/jms/compare/v3.38.3...v3.39.0) (2021-04-13)
+
+
+### Features
+
+* **client:** added filterKey option on filter module ([6e1be41](https://github.com/jaspero/jms/commit/6e1be41ce6c1b5e325a72e6b9ccf666f90cf4317))
+
+## [3.38.3](https://github.com/jaspero/jms/compare/v3.38.2...v3.38.3) (2021-04-13)
+
+
+### Bug Fixes
+
+* **client:** translate columns before export ([edb1102](https://github.com/jaspero/jms/commit/edb1102d5bd050fe1e0a162947af7cc0def68c95))
+
+## [3.38.2](https://github.com/jaspero/jms/compare/v3.38.1...v3.38.2) (2021-04-12)
+
+
+### Bug Fixes
+
+* **client:** redirecting to overview ([9b3d307](https://github.com/jaspero/jms/commit/9b3d307a65456f605555c08c5208c1ab49cb6dae))
+
+## [3.38.1](https://github.com/jaspero/jms/compare/v3.38.0...v3.38.1) (2021-04-10)
+
+
+### Bug Fixes
+
+* **cms:** proper token argument in finish sign up ([a7ebe67](https://github.com/jaspero/jms/commit/a7ebe67f6861ab3f6c10e561f39c7be68ddbb620))
+
 # [3.38.0](https://github.com/jaspero/jms/compare/v3.37.1...v3.38.0) (2021-04-10)
 
 

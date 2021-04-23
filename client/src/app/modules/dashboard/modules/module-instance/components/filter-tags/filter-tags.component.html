@@ -3,7 +3,7 @@
 
     <ng-container *ngFor="let item of items; index as index">
       <mat-chip *ngIf="showTag(item.value)" [removable]="true" (removed)="removeItem(items, index)">
-        {{item.label || item.key}}: {{displayValue(item.value)}}
+        {{item.label || item.key}}: {{displayValue(item.displayValue || item.value)}}
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
     </ng-container>

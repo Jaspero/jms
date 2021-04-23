@@ -73,13 +73,16 @@ export class InstanceOverviewContextService {
             ...data.dialogOptions || {},
             width: '800px',
             data: {
-              ...data,
-              value: filterValue ?
-                filterValue.reduce((acc, cur) => {
-                  acc[cur.key] = cur.value;
-                  return acc;
-                }, {}) :
-                data.value
+              module: {
+                ...data,
+                value: filterValue ?
+                  filterValue.reduce((acc, cur) => {
+                    acc[cur.key] = cur.value;
+                    return acc;
+                  }, {}) :
+                  data.value
+              },
+              ioc: this
             }
           })
             .afterClosed()
