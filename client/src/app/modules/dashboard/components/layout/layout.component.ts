@@ -49,20 +49,22 @@ export class LayoutComponent implements OnInit {
     if (this.state.user.requireReset) {
 
       this.resetPassword = this.fb.group({
-          password: ['', Validators.required],
-          repeatPassword: ['', Validators.required]
-        },
-        {
-          validator: RepeatPasswordValidator(`Passwords don't match`)
-        });
+        password: ['', Validators.required],
+        repeatPassword: ['', Validators.required]
+      },
+      {
+        validator: RepeatPasswordValidator(`Passwords don't match`)
+      });
 
-      this.dialog.open(
-        this.resetDialog,
-        {
-          width: '600px',
-          disableClose: true
-        }
-      )
+      setTimeout(() => {
+        this.dialog.open(
+          this.resetDialog,
+          {
+            width: '600px',
+            disableClose: true
+          }
+        )
+      }, 1000);
     }
 
     /**
