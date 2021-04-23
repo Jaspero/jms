@@ -1,3 +1,10 @@
+## [3.41.4](https://github.com/jaspero/jms/compare/v3.41.3...v3.41.4) (2021-04-23)
+
+
+### Bug Fixes
+
+* **cms:** initiate reset-password on login with delay (loading it instantly causes problems) ([76a1e4a](https://github.com/jaspero/jms/commit/76a1e4a220c6d819646fd3d6488f0a233d242b3a))
+
 ## [3.41.3](https://github.com/jaspero/jms/compare/v3.41.2...v3.41.3) (2021-04-20)
 
 
