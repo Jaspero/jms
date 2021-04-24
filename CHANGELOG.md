@@ -1,3 +1,10 @@
+## [3.41.6](https://github.com/jaspero/jms/compare/v3.41.5...v3.41.6) (2021-04-24)
+
+
+### Bug Fixes
+
+* **functions:** lint ([b4c261e](https://github.com/jaspero/jms/commit/b4c261e6eedc4a85bb8713af8292ac0657fa864f))
+
 ## [3.41.5](https://github.com/jaspero/jms/compare/v3.41.4...v3.41.5) (2021-04-24)
 
 
