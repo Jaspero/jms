@@ -1,3 +1,10 @@
+## [3.41.5](https://github.com/jaspero/jms/compare/v3.41.4...v3.41.5) (2021-04-24)
+
+
+### Bug Fixes
+
+* **functions:** don't format json export ([d03ee50](https://github.com/jaspero/jms/commit/d03ee5024815d14fe0a4dcb79d8537f718941c59))
+
 ## [3.41.4](https://github.com/jaspero/jms/compare/v3.41.3...v3.41.4) (2021-04-23)
 
 
