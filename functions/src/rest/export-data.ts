@@ -150,20 +150,22 @@ app.post('/:module', authenticated(), (req, res) => {
       }
     };
 
-    docs = docs.map((doc: any) =>
-      appliedColumns.reduce((acc, cur) => {
+    if (type !== Type.json) {
+      docs = docs.map((doc: any) =>
+        appliedColumns.reduce((acc, cur) => {
 
-        if (Array.isArray(cur.key)) {
-          acc[cur.label] = cur.key
-            .map((key: string) => getValue(key, doc))
-            .join(cur.hasOwnProperty('join') ? cur.join : ', ')
-        } else {
-          acc[cur.label] = getValue(cur.key, doc);
-        }
+          if (Array.isArray(cur.key)) {
+            acc[cur.label] = cur.key
+              .map((key: string) => getValue(key, doc))
+              .join(cur.hasOwnProperty('join') ? cur.join : ', ')
+          } else {
+            acc[cur.label] = getValue(cur.key, doc);
+          }
 
-        return acc;
-      }, [])
-    );
+          return acc;
+        }, [])
+      );
+    }
 
     switch (type) {
       case Type.json:
