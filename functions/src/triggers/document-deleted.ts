@@ -32,7 +32,7 @@ export const documentDeleted = functions
               .then(resolve)
               .catch(error => {
                 console.error(error);
-                resolve();
+                resolve(false);
               })
           )
       );
