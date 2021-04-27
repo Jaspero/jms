@@ -63,11 +63,11 @@
     "MENU": "Izbornik",
     "DASHBOARD": "Nadzorna ploča",
     "MODULES": "Moduli",
-    "SETTINGS": "Postavke",
+    "INVITES": "Pozivi",
     "LOG_OUT": "Odjavi se",
-
     "MANAGEMENT": "Upravljanje",
-    "SYSTEM": "Sustav"
+    "SYSTEM": "Sustav",
+    "RESET_PASSWORD": "Molim vas resetirajte lozinku"
   },
   "MODULES": {
     "ADD_MODULE": "Dodaj Modul",
@@ -144,17 +144,6 @@
   "CONFIRMATION": {
     "TITLE": "Jeste li sigurni?"
   },
-  "SETTINGS": {
-    "LATEST_RELEASE": "Najnovija Verzija",
-    "MEMBERS": "Korisnici",
-    "EXISTS": "Postoji",
-    "ROLE": "Uloga",
-    "PROVIDER": "Pružatelj usluge",
-    "ADD_MEMBERS": "Dodaj korisnike",
-    "PASSWORD_INSTRUCTIONS": "Korisnik će se automatski kreirati jedino ako je šifra unesena",
-    "PASSWORD_RULES": "Najmanje 6 znamenki",
-    "LANGUAGE": "Jezik"
-  },
   "PROFILE": {
     "TITLE": "Profil",
     "INFORMATION": "Informacije",
@@ -178,8 +167,8 @@
 
   "USERS": {
     "ADD": "Dodaj Korisnika",
+    "METHOD": "Metoda",
     "ROLE": "Uloga",
-    "PASSWORD_INSTRUCTIONS": "Korisnik će se automatski kreirati ako je dodana lozinka",
     "PASSWORD_RULES": "Lozinka mora imati barem 6 znakova"
   },
   "ELEMENTS": {

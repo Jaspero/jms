@@ -2,6 +2,7 @@ import {ModuleSubCollection} from './module-sub-collection.interface';
 
 export interface ModuleMetadata {
   subCollections?: ModuleSubCollection[];
+  deletedAuthUser?: boolean;
 
   /**
    * If autoSave is defined the page automatically saves every x milliseconds

@@ -66,6 +66,10 @@ const innerRoutes = {
     {
       path: 'single/:id',
       component: InstanceSingleComponent
+    },
+    {
+      path: '',
+      redirectTo: 'overview'
     }
   ]
 };

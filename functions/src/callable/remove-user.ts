@@ -9,7 +9,7 @@ export const removeUser = functions
     if (!context.auth || !context.auth.token.role) {
       throw new functions.https.HttpsError(
         'failed-precondition',
-        'The function must be called ' + 'while authenticated.'
+        'The function must be called while authenticated.'
       );
     }
 

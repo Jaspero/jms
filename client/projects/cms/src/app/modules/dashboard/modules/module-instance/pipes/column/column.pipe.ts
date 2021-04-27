@@ -20,6 +20,7 @@ import {
   TranslocoScope,
   TranslocoService
 } from '@ngneat/transloco';
+import {forkJoin} from 'rxjs';
 import {PipeType} from '../../../../../../shared/enums/pipe-type.enum';
 import {MathPipe} from '../../../../../../shared/pipes/math/math-pipe.';
 import {DbService} from '../../../../../../shared/services/db/db.service';
@@ -66,7 +67,8 @@ export class ColumnPipe implements PipeTransform {
         this.cdr
       ),
       [PipeType.Custom]: '',
-      [PipeType.GetModule]: ''
+      [PipeType.GetModule]: '',
+      [PipeType.GetDocuments]: ''
     };
   }
 
@@ -83,49 +85,46 @@ export class ColumnPipe implements PipeTransform {
       return value;
     }
 
-    if (allArgs) {
-      allArgs = this.formatArguments(allArgs);
-    }
-
     if (Array.isArray(pipeTypes)) {
       return pipeTypes.reduce(
         (acc, type, index) =>
-          this.executePipeTransform(type, acc, (allArgs || {})[index], row),
+          this.executePipeTransform(type, acc, this.formatArguments((allArgs || {})[index]), row),
         value
       );
     } else {
-      return this.executePipeTransform(pipeTypes, value, allArgs, row);
+      return this.executePipeTransform(
+        pipeTypes,
+        value,
+        this.formatArguments(allArgs),
+        row
+      );
     }
   }
 
   private formatArguments(args: Args) {
-
-    const final = {};
-
-    for (const index of Object.keys(args)) {
-      const value = args[index] || '';
-
-      if (Array.isArray(value)) {
-        args[index] = value.forEach(arg => this.formatArgument(arg));
-      } else {
-        args[index] = this.formatArgument(value);
-      }
+    if (Array.isArray(args)) {
+      return args.map(arg => this.formatArgument(arg));
+    } else {
+      return this.formatArgument(args);
     }
-
-    return final;
   }
 
   private formatArgument(value: any) {
-
     if (typeof value !== 'string') {
       return value;
     }
 
-    return (value.match(/{{\s*[\w.]+\s*}}/g) || [])
-      .reduce((acc, cur) =>
-        cur ? acc.replace(cur, `' + ${cur.slice(2, -2)} + '`) : acc,
-        value
-      );
+    const regEx = /{{(.*?)}}/;
+
+    let match = regEx.test(value);
+
+    while (match) {
+      const target = value.match(regEx)[0];
+      value = value.replace(target, `' + ${target.slice(2, -2)} + '`);
+      match = regEx.test(value);
+    }
+
+    return value;
   }
 
   private executePipeTransform(type, val, args, row) {
@@ -160,7 +159,7 @@ export class ColumnPipe implements PipeTransform {
         const getModuleMethod = safeEval(args);
 
         if (!getModuleMethod || typeof getModuleMethod !== 'function') {
-          return [];
+          return;
         }
 
         let getModuleResponse = '';
@@ -168,10 +167,31 @@ export class ColumnPipe implements PipeTransform {
         try {
           getModuleResponse = getModuleMethod(val, row);
         } catch (e) {
-          return [];
+          console.log('Error GetModule', e);
+          return;
         }
 
         return this.db.getDocumentsSimple(getModuleResponse);
+      case PipeType.GetDocuments:
+        const getDocumentsMethod = safeEval(args);
+
+        if (!getDocumentsMethod || typeof getDocumentsMethod !== 'function') {
+          return;
+        }
+
+        let getDocumentsResponse = [];
+
+        try {
+          getDocumentsResponse = getDocumentsMethod(val, row) || [];
+        } catch (e) {
+          console.log('Error GetDocuments', e);
+          return;
+        }
+
+        return forkJoin(getDocumentsResponse.map(path => {
+          const [module, document] = (path.startsWith('/') ? path.slice(1) : path).split('/');
+          return this.db.getDocument(module, document);
+        }));
       case PipeType.Custom:
         if (!args) {
           return '';

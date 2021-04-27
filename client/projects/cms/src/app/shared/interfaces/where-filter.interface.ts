@@ -4,6 +4,7 @@ export interface WhereFilter {
   key: string;
   operator: FilterMethod;
   value: any;
+  displayValue?: any;
   label?: string;
 
   /**

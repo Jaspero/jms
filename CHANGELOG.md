@@ -1,3 +1,199 @@
+## [3.41.6](https://github.com/jaspero/jms/compare/v3.41.5...v3.41.6) (2021-04-24)
+
+
+### Bug Fixes
+
+* **functions:** lint ([b4c261e](https://github.com/jaspero/jms/commit/b4c261e6eedc4a85bb8713af8292ac0657fa864f))
+
+## [3.41.5](https://github.com/jaspero/jms/compare/v3.41.4...v3.41.5) (2021-04-24)
+
+
+### Bug Fixes
+
+* **functions:** don't format json export ([d03ee50](https://github.com/jaspero/jms/commit/d03ee5024815d14fe0a4dcb79d8537f718941c59))
+
+## [3.41.4](https://github.com/jaspero/jms/compare/v3.41.3...v3.41.4) (2021-04-23)
+
+
+### Bug Fixes
+
+* **cms:** initiate reset-password on login with delay (loading it instantly causes problems) ([76a1e4a](https://github.com/jaspero/jms/commit/76a1e4a220c6d819646fd3d6488f0a233d242b3a))
+
+## [3.41.3](https://github.com/jaspero/jms/compare/v3.41.2...v3.41.3) (2021-04-20)
+
+
+### Bug Fixes
+
+* **client:** column pipe properly replaces all instances of {{ }} ([1bd9783](https://github.com/jaspero/jms/commit/1bd9783d38ae14ee5d9dc9b29e7f4258f1436090))
+
+## [3.41.2](https://github.com/jaspero/jms/compare/v3.41.1...v3.41.2) (2021-04-20)
+
+
+### Bug Fixes
+
+* **client:** isNaN comparison ([e13e6d0](https://github.com/jaspero/jms/commit/e13e6d02d3a4fc71912c7704b7f185bee4cb1023))
+
+## [3.41.1](https://github.com/jaspero/jms/compare/v3.41.0...v3.41.1) (2021-04-20)
+
+
+### Bug Fixes
+
+* **client:** included NaN in filter dialog ([d48ad29](https://github.com/jaspero/jms/commit/d48ad29c6434ce241bac621d4c3cb4b006960c28))
+
+# [3.41.0](https://github.com/jaspero/jms/compare/v3.40.1...v3.41.0) (2021-04-20)
+
+
+### Features
+
+* **client:** filtering dialog fields ([17da1be](https://github.com/jaspero/jms/commit/17da1be3e86de43ee81a430814e0aee9c1654d2f))
+
+## [3.40.1](https://github.com/jaspero/jms/compare/v3.40.0...v3.40.1) (2021-04-14)
+
+
+### Bug Fixes
+
+* **functions:** import rowFunction not forwarding options ([70c6d1e](https://github.com/jaspero/jms/commit/70c6d1e2199fca0a1560b691334fde8cb3a46425))
+
+# [3.40.0](https://github.com/jaspero/jms/compare/v3.39.0...v3.40.0) (2021-04-13)
+
+
+### Features
+
+* **client:** connected value formatting for filter module closes [#230](https://github.com/jaspero/jms/issues/230) ([53b71fc](https://github.com/jaspero/jms/commit/53b71fce06a843d35ab313d759b3e3f5f54b282a))
+
+# [3.39.0](https://github.com/jaspero/jms/compare/v3.38.3...v3.39.0) (2021-04-13)
+
+
+### Features
+
+* **client:** added filterKey option on filter module ([6e1be41](https://github.com/jaspero/jms/commit/6e1be41ce6c1b5e325a72e6b9ccf666f90cf4317))
+
+## [3.38.3](https://github.com/jaspero/jms/compare/v3.38.2...v3.38.3) (2021-04-13)
+
+
+### Bug Fixes
+
+* **client:** translate columns before export ([edb1102](https://github.com/jaspero/jms/commit/edb1102d5bd050fe1e0a162947af7cc0def68c95))
+
+## [3.38.2](https://github.com/jaspero/jms/compare/v3.38.1...v3.38.2) (2021-04-12)
+
+
+### Bug Fixes
+
+* **client:** redirecting to overview ([9b3d307](https://github.com/jaspero/jms/commit/9b3d307a65456f605555c08c5208c1ab49cb6dae))
+
+## [3.38.1](https://github.com/jaspero/jms/compare/v3.38.0...v3.38.1) (2021-04-10)
+
+
+### Bug Fixes
+
+* **cms:** proper token argument in finish sign up ([a7ebe67](https://github.com/jaspero/jms/commit/a7ebe67f6861ab3f6c10e561f39c7be68ddbb620))
+
+# [3.38.0](https://github.com/jaspero/jms/compare/v3.37.1...v3.38.0) (2021-04-10)
+
+
+### Bug Fixes
+
+* **cms:** parsing pipe arguments properly when it's an array ([2cc005c](https://github.com/jaspero/jms/commit/2cc005c2362e7a92c898790d637281f768bc5d1b))
+
+
+### Features
+
+* **cms:** added fallback when value doesn't exist in column ([3fe043b](https://github.com/jaspero/jms/commit/3fe043b0c00e01f0f901dc2c853c30fa3b70b701))
+
+## [3.37.1](https://github.com/jaspero/jms/compare/v3.37.0...v3.37.1) (2021-04-09)
+
+
+### Bug Fixes
+
+* **cms:** check for key existence in resolveObservable ([885e741](https://github.com/jaspero/jms/commit/885e7414b7ce862e02ede050ccd38a7926e5cc31))
+
+# [3.37.0](https://github.com/jaspero/jms/compare/v3.36.0...v3.37.0) (2021-04-08)
+
+
+### Features
+
+* retrieving modules and layout only once ([1c5d614](https://github.com/jaspero/jms/commit/1c5d6143771db6d7fc6014061396cd277458d7e9))
+
+# [3.36.0](https://github.com/jaspero/jms/compare/v3.35.1...v3.36.0) (2021-04-06)
+
+
+### Features
+
+* added collectionGroup as a module option ([34a4e8a](https://github.com/jaspero/jms/commit/34a4e8a0bc4036423f0a80e7c5f9367776b886de))
+
+## [3.35.1](https://github.com/jaspero/jms/compare/v3.35.0...v3.35.1) (2021-04-06)
+
+
+### Bug Fixes
+
+* resolveObservables fix primitive values ([a3ddec4](https://github.com/jaspero/jms/commit/a3ddec4898d6087e7a97c2ad136ff9e22f599c2c))
+
+# [3.35.0](https://github.com/jaspero/jms/compare/v3.34.1...v3.35.0) (2021-04-06)
+
+
+### Features
+
+* added collectionGroup as a module option ([0a68e85](https://github.com/jaspero/jms/commit/0a68e8537c770566048501e8c7717c8b2a9bf212))
+
+## [3.34.1](https://github.com/jaspero/jms/compare/v3.34.0...v3.34.1) (2021-04-05)
+
+
+### Bug Fixes
+
+* **functions:** accounting for cases where email doesn't exist [#130](https://github.com/jaspero/jms/issues/130) ([179071f](https://github.com/jaspero/jms/commit/179071f4ac9a2d1fb37af25c108ce7d3b220db51))
+
+# [3.34.0](https://github.com/jaspero/jms/compare/v3.33.0...v3.34.0) (2021-04-05)
+
+
+### Features
+
+* added finish-sign-up [#130](https://github.com/jaspero/jms/issues/130) ([f83cd57](https://github.com/jaspero/jms/commit/f83cd57c065d405c005a246c5ee6b844e20867b8))
+* prompt for reset password closes [#130](https://github.com/jaspero/jms/issues/130) ([5c091a2](https://github.com/jaspero/jms/commit/5c091a2b4392df66ccd040eef8adb040852ad508))
+* using user-invites instead of settings/users, removed settings module, updated methods in user-add [#130](https://github.com/jaspero/jms/issues/130) ([65f02c2](https://github.com/jaspero/jms/commit/65f02c21c1cd4b2044c1c97d675c1a074d57274e))
+
+# [3.33.0](https://github.com/jaspero/jms/compare/v3.32.0...v3.33.0) (2021-04-04)
+
+
+### Features
+
+* **cms:** module-instance redirect to overview closes [#212](https://github.com/jaspero/jms/issues/212) ([69f000c](https://github.com/jaspero/jms/commit/69f000c2cccba900c662f5517dc7154588e0f0e4))
+
+# [3.32.0](https://github.com/jaspero/jms/compare/v3.31.0...v3.32.0) (2021-04-01)
+
+
+### Features
+
+* allow typescript consts as source for modules closes [#228](https://github.com/jaspero/jms/issues/228) ([cd883a1](https://github.com/jaspero/jms/commit/cd883a11f69a70382809d1508354fecfcd268f99)), closes [#225](https://github.com/jaspero/jms/issues/225) [#225](https://github.com/jaspero/jms/issues/225) [#225](https://github.com/jaspero/jms/issues/225) [#225](https://github.com/jaspero/jms/issues/225) [#225](https://github.com/jaspero/jms/issues/225)
+
+# [3.31.0](https://github.com/jaspero/jms/compare/v3.30.0...v3.31.0) (2021-04-01)
+
+
+### Features
+
+* **functions:** removed nanoid dependency ([39064e9](https://github.com/jaspero/jms/commit/39064e9d0bc0bf33add0591983b36ee2a29b86d8))
+
+# [3.30.0](https://github.com/jaspero/jms/compare/v3.29.4...v3.30.0) (2021-03-31)
+
+
+### Features
+
+* added pipe getDocuments to tableColumns ([eaa552d](https://github.com/jaspero/jms/commit/eaa552d3392b9dcfae86e44e8fc6e7e3d1347a4e))
+
+## [3.29.4](https://github.com/jaspero/jms/compare/v3.29.3...v3.29.4) (2021-03-30)
+
+
+### Bug Fixes
+
+* pipe interpolation properly escapes non strings and supports arrays ([f98f561](https://github.com/jaspero/jms/commit/f98f5616f6f34cd5afa53bb2b82c28cc248851bb))
+
+## [3.29.3](https://github.com/jaspero/jms/compare/v3.29.2...v3.29.3) (2021-03-30)
+
+
+### Bug Fixes
+
+* pipe interpolation properly escapes non strings and supports arrays ([46644dd](https://github.com/jaspero/jms/commit/46644dd973f1b809eed6e226bcba4c93b98bf674))
+
 ## [3.29.2](https://github.com/jaspero/jms/compare/v3.29.1...v3.29.2) (2021-03-29)
 
 

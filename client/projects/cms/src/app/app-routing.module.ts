@@ -33,6 +33,18 @@ const routes: Routes = [
     },
   },
   {
+    path: 'finish-sign-up',
+    loadChildren: () =>
+      import('./modules/finish-sign-up/finish-sign-up.module')
+        .then(m => m.FinishSignUpModule),
+    canActivate: [
+      AngularFireAuthGuard
+    ],
+    data: {
+      authGuardPipe: redirectLoggedInToDashboard
+    },
+  },
+  {
     path: 'trigger-password-reset',
     loadChildren: () =>
       import('./modules/trigger-password-reset/trigger-password-reset.module')

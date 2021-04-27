@@ -68,4 +68,5 @@ export interface Module {
   authorization?: ModuleAuthorization;
   metadata?: ModuleMetadata;
   subCollectionPath?: string;
+  collectionGroup?: boolean;
 }

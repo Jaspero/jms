@@ -3,11 +3,11 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {TranslocoService} from '@ngneat/transloco';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
-import {FirestoreCollection} from '../../../../../integrations/firebase/firestore-collection.enum';
 import {Layout} from '../../interfaces/layout.interface';
 import {Module} from '../../interfaces/module.interface';
 import {User} from '../../interfaces/user.interface';
 import {DbService} from '../db/db.service';
+import {SchemaService} from '../schema/schema.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,8 @@ export class StateService {
     private dbService: DbService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private transloco: TranslocoService
+    private transloco: TranslocoService,
+    private schemaService: SchemaService
   ) {
     this.language = localStorage.getItem('language');
 
@@ -27,19 +28,17 @@ export class StateService {
       this.language = this.transloco.getActiveLang();
     }
 
-    this.modules$ = this.dbService.getModules().pipe(shareReplay(1));
-    this.layout$ = this.dbService.getDocument(
-      FirestoreCollection.Settings,
-      'layout',
-      true
-    )
+    this.modules$ = this.schemaService.modules$
       .pipe(
-        map(value => {
-          delete value.id;
-          return value;
-        }),
         shareReplay(1)
       );
+    this.layout$ = this.schemaService.layout$.pipe(
+      map(value => {
+        delete value.id;
+        return value;
+      }),
+      shareReplay(1)
+    );
   }
 
   role: string;

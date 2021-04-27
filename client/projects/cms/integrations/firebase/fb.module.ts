@@ -34,6 +34,7 @@ export class FirebaseModule {
     return {
       ngModule: FirebaseModule,
       providers: [
+        FbDatabaseService,
         {
           provide: DbService,
           useClass: FbDatabaseService

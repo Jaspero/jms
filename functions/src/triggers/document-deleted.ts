@@ -32,7 +32,7 @@ export const documentDeleted = functions
               .then(resolve)
               .catch(error => {
                 console.error(error);
-                resolve();
+                resolve(false);
               })
           )
       );
@@ -40,18 +40,27 @@ export const documentDeleted = functions
     if (module.exists) {
       const moduleData = module.data() as any;
 
-      if (moduleData.metadata && moduleData.metadata.subCollections) {
-        moduleData.metadata.subCollections.forEach(
-          ({name, batch}: {name: string; batch?: number}) => {
-            toExec.push(
-              deleteCollection(
-                firestore,
-                `${moduleId}/${documentId}/${name}`,
-                batch || 100
-              )
-            );
-          }
-        );
+      if (moduleData.metadata) {
+
+        if (moduleData.metadata.deletedAuthUser) {
+          toExec.push(
+            admin.auth().deleteUser(documentId)
+          )
+        }
+
+        if (moduleData.metadata.subCollections) {
+          moduleData.metadata.subCollections.forEach(
+            ({name, batch}: {name: string; batch?: number}) => {
+              toExec.push(
+                deleteCollection(
+                  firestore,
+                  `${moduleId}/${documentId}/${name}`,
+                  batch || 100
+                )
+              );
+            }
+          );
+        }
       }
     }
 

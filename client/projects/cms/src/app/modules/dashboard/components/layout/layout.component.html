@@ -77,3 +77,31 @@
 <main class="dashboard-main">
   <router-outlet></router-outlet>
 </main>
+
+
+<ng-template #reset>
+  <h4 mat-dialog-title>{{'LAYOUT.RESET_PASSWORD' | transloco}}</h4>
+
+  <form [formGroup]="resetPassword">
+    <mat-card-content>
+      <mat-form-field class="w-full">
+        <mat-label>{{'PROFILE.NEW_PASSWORD' | transloco}}</mat-label>
+        <input type="password" matInput formControlName="password">
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>{{'PROFILE.REPEAT_PASSWORD' | transloco}}</mat-label>
+        <input type="password" matInput formControlName="repeatPassword">
+      </mat-form-field>
+    </mat-card-content>
+
+    <mat-card-actions class="ta-right">
+      <button
+        mat-button
+        type="submit"
+        [disabled]="resetPassword.invalid"
+        [jpLoadClick]="changePassword()">
+        {{'GENERAL.SAVE' | transloco}}
+      </button>
+    </mat-card-actions>
+  </form>
+</ng-template>

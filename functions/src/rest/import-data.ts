@@ -4,7 +4,6 @@ import * as csv from 'csvtojson';
 import * as functions from 'firebase-functions';
 import * as ajv from 'ajv';
 import * as admin from 'firebase-admin';
-import nanoid = require('nanoid');
 import {constants} from 'http2';
 import {CORS} from '../consts/cors-whitelist.const';
 import {STATIC_CONFIG} from '../consts/static-config.const';
@@ -66,28 +65,18 @@ app.post('/', authenticated(['admin']), (req, res) => {
           if (validator.errors) {
             acc.errors.push({index, errors: validator.errors});
           } else {
-            // tslint:disable-next-line:prefer-const
-            let {id, ...saveData} = cur;
-
-            if (!id) {
-              id = nanoid.nanoid();
-            }
+            const {id, ...saveData} = cur;
+            const col = afs
+              .collection(parsedData.collection);
 
             if (rowFunction) {
               acc.created.push(async () => {
-                const sd = await rowFunction(saveData, afs);
-
-                return afs
-                  .collection(parsedData.collection)
-                  .doc(id)
-                  .set(sd);
+                const sd = await rowFunction(saveData, afs, req.query);
+                return id ? col.doc(id).set(sd) : col.add(sd)
               });
             } else {
               acc.created.push(() =>
-                afs
-                  .collection(parsedData.collection)
-                  .doc(id)
-                  .set(saveData)
+                id ? col.doc(id).set(saveData) : col.add(saveData)
               );
             }
           }

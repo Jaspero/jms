@@ -1,13 +1,19 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {safeEval} from '@jaspero/form-builder';
-import {combineLatest, Observable, of} from 'rxjs';
-import {map, switchMap} from 'rxjs/operators';
+import firebase from 'firebase/app';
+import {combineLatest, from, Observable, of, throwError} from 'rxjs';
+import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../../../environments/static-config';
 import {NavigationItemType} from '../../../../shared/enums/navigation-item-type.enum';
 import {NavigationItemWithActive} from '../../../../shared/interfaces/navigation-item-with-active.interface';
+import {DbService} from '../../../../shared/services/db/db.service';
 import {StateService} from '../../../../shared/services/state/state.service';
+import {notify} from '../../../../shared/utils/notify.operator';
+import {RepeatPasswordValidator} from '../../../../shared/validators/repeat-password.validator';
 
 @Component({
   selector: 'jms-layout',
@@ -19,8 +25,14 @@ export class LayoutComponent implements OnInit {
   constructor(
     public state: StateService,
     private afAuth: AngularFireAuth,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
+    private fb: FormBuilder,
+    private dbService: DbService
   ) {}
+
+  @ViewChild('reset')
+  resetDialog: TemplateRef<any>;
 
   currentUser$: Observable<any>;
   links$: Observable<NavigationItemWithActive[]>;
@@ -29,8 +41,31 @@ export class LayoutComponent implements OnInit {
 
   navigationItemType = NavigationItemType;
 
+  resetPassword: FormGroup;
+
   ngOnInit() {
     this.currentUser$ = this.afAuth.user;
+
+    if (this.state.user.requireReset) {
+
+      this.resetPassword = this.fb.group({
+        password: ['', Validators.required],
+        repeatPassword: ['', Validators.required]
+      },
+      {
+        validator: RepeatPasswordValidator(`Passwords don't match`)
+      });
+
+      setTimeout(() => {
+        this.dialog.open(
+          this.resetDialog,
+          {
+            width: '600px',
+            disableClose: true
+          }
+        );
+      }, 1000);
+    }
 
     /**
      * There is a slight delay between when logout happens
@@ -159,7 +194,7 @@ export class LayoutComponent implements OnInit {
                     return links;
                   }
                 })
-              )
+              );
           }
 
           return of([]);
@@ -182,5 +217,48 @@ export class LayoutComponent implements OnInit {
       .then(() =>
         this.router.navigate(['/login'])
       );
+  }
+
+  changePassword() {
+    return () =>
+      from(
+        firebase.auth()
+          .currentUser
+          .updatePassword(this.resetPassword.get('password').value)
+      )
+        .pipe(
+          catchError(err => {
+            let message;
+
+            if (err.code === 'auth/requires-recent-login') {
+              message = 'For security reasons please login to your account again before changing your password.';
+              firebase.auth()
+                .signOut()
+                .then(() =>
+                  this.router.navigate(['/login'])
+                );
+            }
+
+            return throwError({
+              error: {
+                message
+              }
+            });
+          }),
+          switchMap(() =>
+            this.dbService.setDocument(
+              'users',
+              this.state.user.id,
+              {requireReset: false},
+              {merge: true}
+              )
+          ),
+          notify({
+            success: 'Your password has been updated successfully'
+          }),
+          tap(() => {
+            this.dialog.closeAll();
+          })
+        );
   }
 }

@@ -94,7 +94,7 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
             if (module.layout.overview.toolbar) {
               this.toolbar = module.layout.overview.toolbar.reduce((acc, cur: any) => {
                 if (typeof cur === 'string' || !cur.roles || cur.roles.includes(this.state.role)) {
-                  acc.push((cur as any).item || cur)
+                  acc.push((cur as any).item || cur);
                 }
 
                 return acc;
@@ -170,7 +170,9 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
                 module,
                 search,
                 filter
-              )
+              ),
+              null,
+              module.collectionGroup
             )
               .pipe(
                 queue()
@@ -194,7 +196,8 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
                 this.ioc.routeData.pageSize,
                 this.ioc.routeData.sort,
                 cu,
-                this.generateFilters(module)
+                this.generateFilters(module),
+                module.collectionGroup
               ).pipe(
                 skip(1),
                 tap(snaps => {
@@ -236,7 +239,9 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
                           this.ioc.routeData.pageSize,
                           this.ioc.routeData.sort,
                           cursor,
-                          this.generateFilters(module)
+                          this.generateFilters(module),
+                          null,
+                          module.collectionGroup
                         )
                         .pipe(
                           queue(),

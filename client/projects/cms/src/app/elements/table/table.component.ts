@@ -437,6 +437,17 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         const pipes: any[] = [];
+
+        pipes.push(map(() => {
+          const key = column.key as string;
+
+          if (has(rowData, key)) {
+            return get(rowData, key);
+          }
+
+          return [];
+        }));
+
         for (const [i, item] of (column.pipe as Array<PipeType>).entries()) {
           pipes.push(
             switchMap(data => {
@@ -485,7 +496,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
             rowData
           );
         } else {
-          value = '';
+          value = column.fallback || '';
         }
       }
 
