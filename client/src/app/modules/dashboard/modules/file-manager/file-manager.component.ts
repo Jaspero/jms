@@ -1,11 +1,20 @@
-import {Component, OnInit, ChangeDetectionStrategy, OnDestroy, ElementRef, ViewChild, TemplateRef} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {formatFileName} from '@jaspero/form-builder';
-import {BehaviorSubject, combineLatest, Observable, Subscription} from 'rxjs';
-import {map, scan, shareReplay, startWith, switchMap, tap} from 'rxjs/operators';
 import firebase from 'firebase/app';
 import 'firebase/storage';
+import {BehaviorSubject, combineLatest, Observable, Subscription} from 'rxjs';
+import {map, scan, shareReplay, startWith, switchMap, tap} from 'rxjs/operators';
 import {Color} from '../../../../shared/enums/color.enum';
 import {confirmation} from '../../../../shared/utils/confirmation';
 
@@ -20,7 +29,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder
-  ) { }
+  ) {}
 
   routeControl: FormControl;
   displayMode$ = new BehaviorSubject<'list' | 'grid'>('list');
@@ -31,6 +40,12 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   filteredFolders$: Observable<string[]>;
   loading$ = new BehaviorSubject(false);
   uploadProgress$ = new BehaviorSubject(0);
+
+  @Input()
+  uploadMode = false;
+
+  @Input()
+  dialogRef: MatDialogRef<any>;
 
   @ViewChild('file')
   fileElement: ElementRef<HTMLInputElement>;
@@ -55,6 +70,8 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:variable-name
   _subscriptions: Subscription[] = [];
 
+  activeFile$ = new BehaviorSubject<number>(-1);
+
   ngOnInit(): void {
     this.routeControl = new FormControl('/', {
       updateOn: 'blur'
@@ -64,12 +81,13 @@ export class FileManagerComponent implements OnInit, OnDestroy {
       startWith(this.routeControl.value),
       switchMap(route => {
         this.loading$.next(true);
+        this.activeFile$.next(-1);
         const ref = firebase.storage().ref();
 
         // return ref.child(route).listAll();
         return ref.child(route).list({
           maxResults: 100,
-          pageToken: this.nextPageToken,
+          pageToken: this.nextPageToken
         });
       }),
       switchMap(response => {
@@ -407,4 +425,18 @@ export class FileManagerComponent implements OnInit, OnDestroy {
     });
   }
 
+  setFileActive(index) {
+    this.activeFile$.next(index);
+  }
+
+  selectFile(file) {
+    if (!this.uploadMode) {
+      return;
+    }
+
+    this.dialogRef.close({
+      type: 'url',
+      url: file.downloadLink
+    });
+  }
 }

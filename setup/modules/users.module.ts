@@ -71,7 +71,7 @@ export const USERS_MODULE = {
     instance: {
       segments: [
         {
-          fields: ['/createdOn', '/id', '/name', '/email', '/role']
+          fields: ['/createdOn', '/id', '/name', '/email', '/role', '/photo']
         }
       ]
     },
@@ -129,6 +129,9 @@ export const USERS_MODULE = {
       role: {
         type: 'string'
       },
+      photo: {
+        type: 'string'
+      },
       ...CREATED_ON.property
     }
   },
@@ -157,6 +160,20 @@ export const USERS_MODULE = {
             collection: 'roles',
             orderBy: 'name'
           }
+        }
+      }
+    },
+    photo: {
+      label: 'Profile Photo',
+      component: {
+        type: 'image',
+        configuration: {
+          uploadMethods: [
+            {
+              label: 'File Manager',
+              component: '<jms-e-file-manager-select></jms-e-file-manager-select>'
+            }
+          ]
         }
       }
     },

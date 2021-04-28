@@ -127,7 +127,9 @@
       "PREVIEW": "Image preview"
     },
     "FILE": {
-      "EMPTY": "No file selected"
+      "EMPTY": "No file selected",
+      "ADD": "Add File",
+      "URL": "File URL"
     },
     "GALLERY": {
       "ENTER_URL": "Enter URL",

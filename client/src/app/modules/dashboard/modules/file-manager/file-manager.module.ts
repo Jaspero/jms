@@ -33,6 +33,9 @@ const routes: Routes = [
     FileManagerComponent,
     FileSizePipe
   ],
+  exports: [
+    FileManagerComponent
+  ],
   imports: [
     /**
      * Angular

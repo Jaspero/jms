@@ -7,6 +7,10 @@
       cursor: pointer;
       background-color: #cccccc;
     }
+
+    &.active {
+      background-color: rgba(100, 100, 200, 0.3);
+    }
   }
 
   &-name {

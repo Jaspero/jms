@@ -1,6 +1,7 @@
 import {STATIC_CONFIG} from '../../environments/static-config';
 import {ChangeEmailComponent} from './change-email/change-email.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
+import {FileManagerSelectComponent} from './file-manager-select/file-manager-select.component';
 import {LinkComponent} from './link/link.component';
 import {NewPrepopulateComponent} from './new-prepopulate/new-prepopulate.component';
 import {TableComponent} from './table/table.component';
@@ -16,7 +17,8 @@ export const ELEMENTS = [
   ChangePasswordComponent,
   ToggleUserStatusComponent,
   ChangeEmailComponent,
-  NewPrepopulateComponent
+  NewPrepopulateComponent,
+  FileManagerSelectComponent
 ];
 
 export const ELEMENT_SELECTOR = [
@@ -51,5 +53,9 @@ export const ELEMENT_SELECTOR = [
   {
     selector: STATIC_CONFIG.elementSelectorPrefix + 'new-prepopulate',
     component: NewPrepopulateComponent
+  },
+  {
+    selector: STATIC_CONFIG.elementSelectorPrefix + 'file-manager-select',
+    component: FileManagerSelectComponent
   }
 ];

@@ -1,4 +1,4 @@
-<mat-toolbar role="heading" color="primary" class="sticky-header">
+<mat-toolbar role="heading" color="primary" class="sticky-header" *ngIf="!uploadMode">
   <span>Storage</span>
   <div class="flex-1"></div>
   <ng-container *ngIf="loading$ | async">
@@ -17,7 +17,7 @@
   <!--  </button>-->
 </mat-toolbar>
 
-<section class="p-a-m">
+<section class="p-a-m w-full">
   <div class="flex ai-base">
     <div class="m-x-s">
       <button mat-icon-button (click)="navigateBack()">
@@ -50,8 +50,8 @@
             </div>
           </mat-list-item>
           <div mat-subheader *ngIf="data.files.length > 0">Files</div>
-          <mat-list-item *ngFor="let file of data.files" class="flex no-select">
-            <div class="flex-1 flex ai-center h-full item-bar">
+          <mat-list-item *ngFor="let file of data.files; index as i" class="flex no-select" (click)="setFileActive(i)" (dblclick)="selectFile(file)">
+            <div class="flex-1 flex ai-center h-full item-bar" [class.active]="i === (activeFile$ | async)">
 
               <div class="fb-image-suffix-preview" (mouseenter)="loadImage($event, file.downloadLink)">
                 <button class="fb-image-suffix-preview-button" mat-icon-button>
