@@ -1,3 +1,10 @@
+## [3.41.7](https://github.com/jaspero/jms/compare/v3.41.6...v3.41.7) (2021-04-28)
+
+
+### Bug Fixes
+
+* **functions:** force exact thumb dimensions and keep image orientation while resizing ([989317f](https://github.com/jaspero/jms/commit/989317f72c517fa2bee62df63bb9e28475f62929))
+
 ## [3.41.6](https://github.com/jaspero/jms/compare/v3.41.5...v3.41.6) (2021-04-24)
 
 
