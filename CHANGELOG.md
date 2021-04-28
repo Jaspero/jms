@@ -1,3 +1,10 @@
+# [3.42.0](https://github.com/jaspero/jms/compare/v3.41.7...v3.42.0) (2021-04-28)
+
+
+### Features
+
+* integrated file-manager plugin into core ([751c907](https://github.com/jaspero/jms/commit/751c907ede58f402724d50d3a56a06fb8917fe31))
+
 ## [3.41.7](https://github.com/jaspero/jms/compare/v3.41.6...v3.41.7) (2021-04-28)
 
 
