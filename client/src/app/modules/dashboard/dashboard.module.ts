@@ -45,6 +45,11 @@ const routes: Routes = [{
           .then(m => m.ModuleInstanceModule)
     },
     {
+      path: 'file-manager',
+      loadChildren: () => import('./modules/file-manager/file-manager.module')
+        .then(m => m.FileManagerModule)
+    },
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full'
@@ -89,7 +94,7 @@ const DIRECTIVES = [
     /**
      * External
      */
-    TranslocoModule,
+    TranslocoModule
   ],
   providers: [
     /**
@@ -103,7 +108,8 @@ const DIRECTIVES = [
     {
       provide: 'dbService',
       useExisting: DbService
-    },
+    }
   ]
 })
-export class DashboardModule { }
+export class DashboardModule {
+}

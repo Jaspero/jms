@@ -85,7 +85,8 @@
     "LOG_OUT": "Log out",
     "MANAGEMENT": "Management",
     "SYSTEM": "System",
-    "RESET_PASSWORD": "Please reset your password"
+    "RESET_PASSWORD": "Please reset your password",
+    "FILE_MANAGER": "File Manager"
   },
   "MODULES": {
     "ADD_MODULE": "Add module",
@@ -214,5 +215,11 @@
   },
   "ERRORS": {
     "DASHBOARD_ACCESS": "You don't have access to the dashboard."
+  },
+  "FILE_MANAGER": {
+    "DELETE_FILE": {
+      "DESCRIPTION": "File '{{name}}' will be deleted!",
+      "CONFIRM": "Delete"
+    }
   }
 }
