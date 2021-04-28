@@ -436,7 +436,8 @@ export class FileManagerComponent implements OnInit, OnDestroy {
 
     this.dialogRef.close({
       type: 'url',
-      url: file.downloadLink
+      url: file.downloadLink,
+      direct: true
     });
   }
 }
