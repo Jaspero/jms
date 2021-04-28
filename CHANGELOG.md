@@ -1,3 +1,10 @@
+# [3.43.0](https://github.com/jaspero/jms/compare/v3.42.0...v3.43.0) (2021-04-28)
+
+
+### Features
+
+* added file manager uploader for file and image components ([05519ed](https://github.com/jaspero/jms/commit/05519ed82886aa4bf87aa7805aef8a5185ce910c))
+
 # [3.42.0](https://github.com/jaspero/jms/compare/v3.41.7...v3.42.0) (2021-04-28)
 
 
