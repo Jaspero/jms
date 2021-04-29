@@ -25,27 +25,10 @@ import {confirmation} from '../../../../shared/utils/confirmation';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FileManagerComponent implements OnInit, OnDestroy {
-
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder
   ) {}
-
-  routeControl: FormControl;
-  displayMode$ = new BehaviorSubject<'list' | 'grid'>('list');
-  data$: Observable<{
-    files: any[];
-    folders: any[];
-  }>;
-  filteredFolders$: Observable<string[]>;
-  loading$ = new BehaviorSubject(false);
-  uploadProgress$ = new BehaviorSubject(0);
-
-  @Input()
-  uploadMode = false;
-
-  @Input()
-  dialogRef: MatDialogRef<any>;
 
   @ViewChild('file')
   fileElement: ElementRef<HTMLInputElement>;
@@ -62,15 +45,28 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   newFolderDialogElement: TemplateRef<any>;
   newFolderDialog: MatDialogRef<any>;
 
-  nextPageToken: string | undefined;
+  @Input()
+  uploadMode = false;
 
-  // tslint:disable-next-line:variable-name
-  _loadMore = false;
+  @Input()
+  dialogRef: MatDialogRef<any>;
 
-  // tslint:disable-next-line:variable-name
-  _subscriptions: Subscription[] = [];
+  routeControl: FormControl;
 
+  displayMode$ = new BehaviorSubject<'list' | 'grid'>('list');
+  data$: Observable<{
+    files: any[];
+    folders: any[];
+  }>;
+  filteredFolders$: Observable<string[]>;
+  loading$ = new BehaviorSubject(false);
+  uploadProgress$ = new BehaviorSubject(0);
   activeFile$ = new BehaviorSubject<number>(-1);
+
+  nextPageToken: string | undefined;
+  loadMore = false;
+
+  private subscriptions: Subscription[] = [];
 
   ngOnInit(): void {
     this.routeControl = new FormControl('/', {
@@ -82,10 +78,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
       switchMap(route => {
         this.loading$.next(true);
         this.activeFile$.next(-1);
-        const ref = firebase.storage().ref();
-
-        // return ref.child(route).listAll();
-        return ref.child(route).list({
+        return firebase.storage().ref().child(route).list({
           maxResults: 100,
           pageToken: this.nextPageToken
         });
@@ -94,7 +87,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
         this.nextPageToken = response.nextPageToken;
         return Promise.all([
           Promise.all(
-            response.items.map(async (item) => {
+            response.items.map(async item => {
               const metadata = await item.getMetadata();
               const downloadLink = await item.getDownloadURL();
               return {
@@ -124,18 +117,18 @@ export class FileManagerComponent implements OnInit, OnDestroy {
         };
       }),
       scan((data, item) => {
-        if (this._loadMore) {
+        if (this.loadMore) {
           data.files.push(...item.files);
           data.folders.push(...item.folders);
         } else {
           data = item;
         }
-        this._loadMore = false;
+
+        this.loadMore = false;
+
         return data;
       }, {files: [], folders: []}),
-      tap(() => {
-        this.loading$.next(false);
-      }),
+      tap(() => this.loading$.next(false)),
       shareReplay(1)
     );
   }
@@ -217,12 +210,8 @@ export class FileManagerComponent implements OnInit, OnDestroy {
 
   deleteFile(file) {
     confirmation([
-      switchMap(() => {
-        return firebase.storage().ref(file.fullPath).delete();
-      }),
-      tap(() => {
-        this.reset();
-      })
+      switchMap(() => firebase.storage().ref(file.fullPath).delete()),
+      tap(() => this.reset())
     ], {
       description: 'FILE_MANAGER.DELETE_FILE.DESCRIPTION',
       confirm: 'FILE_MANAGER.DELETE_FILE.CONFIRM',
@@ -257,7 +246,6 @@ export class FileManagerComponent implements OnInit, OnDestroy {
     const form = this.fb.group({
       name: ['', Validators.required]
     });
-    // const nameControl = new FormControl('', Validators.required);
 
     this.newFolderDialog = this.dialog.open(this.newFolderDialogElement, {
       autoFocus: true,
@@ -287,6 +275,9 @@ export class FileManagerComponent implements OnInit, OnDestroy {
       form.controls.route.valueChanges.pipe(startWith(form.controls.route.value))
     ]).pipe(
       map(([data, route]) => {
+        /**
+         * Cool comment
+         */
         return data.folders.filter(folder => {
           return folder.name.toLowerCase().replace(/\//g, '').indexOf((route || '').replace(/\//g, '').toLowerCase()) > -1;
         }).map(folder => '/' + folder.name);
@@ -301,7 +292,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
       }
     });
 
-    this._subscriptions.push(
+    this.subscriptions.push(
       this.uploadDialog.afterClosed().pipe(
         tap(() => {
           this.uploadProgress$.next(0);
@@ -406,8 +397,8 @@ export class FileManagerComponent implements OnInit, OnDestroy {
     this.routeControl.setValue(this.routeControl.value);
   }
 
-  loadMore() {
-    this._loadMore = true;
+  loadMoreFiles() {
+    this.loadMore = true;
     this.routeControl.setValue(this.routeControl.value);
   }
 
@@ -420,7 +411,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._subscriptions.forEach(subscription => {
+    this.subscriptions.forEach(subscription => {
       subscription.unsubscribe();
     });
   }

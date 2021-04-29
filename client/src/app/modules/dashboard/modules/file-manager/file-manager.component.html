@@ -30,11 +30,11 @@
     </mat-form-field>
   </div>
 
-  <div *ngIf="data$ | async as data" [hidden]="(loading$ | async) && !_loadMore">
+  <div *ngIf="data$ | async as data" [hidden]="(loading$ | async) && !loadMore">
     <ng-container *ngIf="(displayMode$ | async) === 'list'; else grid">
       <mat-card>
         <div class="w-full flex jc-end">
-          <button mat-button (click)="loadMore()" [disabled]="!nextPageToken">
+          <button mat-button (click)="loadMoreFiles()" [disabled]="!nextPageToken">
             Load More
           </button>
         </div>
