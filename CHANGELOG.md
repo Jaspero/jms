@@ -1,3 +1,10 @@
+## [3.43.1](https://github.com/jaspero/jms/compare/v3.43.0...v3.43.1) (2021-04-28)
+
+
+### Bug Fixes
+
+* **image-upload:** save storage urls directly to form ([7efffd7](https://github.com/jaspero/jms/commit/7efffd73f398bcea3f283609c5dcd6051db691aa))
+
 # [3.43.0](https://github.com/jaspero/jms/compare/v3.42.0...v3.43.0) (2021-04-28)
 
 
