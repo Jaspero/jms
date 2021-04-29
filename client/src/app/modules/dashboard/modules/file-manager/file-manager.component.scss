@@ -56,3 +56,9 @@
 .m-r-m-i {
   margin-right: 10px !important;
 }
+
+mat-list-item.disabled {
+  cursor: not-allowed !important;
+  opacity: 0.5;
+  text-decoration: none;
+}

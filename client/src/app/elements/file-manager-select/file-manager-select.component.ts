@@ -11,9 +11,14 @@ import {FileManagerComponent} from '../../modules/dashboard/modules/file-manager
 export class FileManagerSelectComponent extends FileManagerComponent implements OnInit {
 
   dialogRef: MatDialogRef<any>;
+  configuration: any;
 
   ngOnInit(): void {
-    this.dialogRef = (window as any).fileSelectDialogRef;
+    this.dialogRef = (window as any).fileSelect?.dialogRef;
+    this.configuration = {
+      ...((window as any).fileSelect?.uploadMethods?.find(method => method.id === 'file-manager')?.configuration || {}),
+      uploadMode: true
+    };
   }
 
 }

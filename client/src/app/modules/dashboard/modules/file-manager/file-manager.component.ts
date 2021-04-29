@@ -46,7 +46,11 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   newFolderDialog: MatDialogRef<any>;
 
   @Input()
-  uploadMode = false;
+  configuration = {
+    uploadMode: false,
+    route: '/',
+    hidePath: false
+  };
 
   @Input()
   dialogRef: MatDialogRef<any>;
@@ -69,7 +73,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   ngOnInit(): void {
-    this.routeControl = new FormControl('/', {
+    this.routeControl = new FormControl(this.configuration.route, {
       updateOn: 'blur'
     });
 
@@ -421,7 +425,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   }
 
   selectFile(file) {
-    if (!this.uploadMode) {
+    if (!this.configuration.uploadMode) {
       return;
     }
 

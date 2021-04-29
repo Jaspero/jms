@@ -170,8 +170,13 @@ export const USERS_MODULE = {
         configuration: {
           uploadMethods: [
             {
+              id: 'file-manager',
               label: 'File Manager',
-              component: '<jms-e-file-manager-select></jms-e-file-manager-select>'
+              component: '<jms-e-file-manager-select></jms-e-file-manager-select>',
+              configuration: {
+                route: '/generated',
+                hidePath: true
+              }
             }
           ]
         }
