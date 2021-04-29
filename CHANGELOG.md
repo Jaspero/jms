@@ -1,3 +1,10 @@
+# [3.45.0](https://github.com/jaspero/jms/compare/v3.44.0...v3.45.0) (2021-04-29)
+
+
+### Features
+
+* **file-manager:** filter files on upload select ([aa6ba45](https://github.com/jaspero/jms/commit/aa6ba45f977f26cbc1553d51e132fda70dfb67bb))
+
 # [3.44.0](https://github.com/jaspero/jms/compare/v3.43.1...v3.44.0) (2021-04-29)
 
 
