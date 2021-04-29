@@ -110,7 +110,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
                   const fn = safeEval(filter.value);
 
                   return fn(file);
-                } catch(error) {}
+                } catch (error) {}
               });
             });
           }),
