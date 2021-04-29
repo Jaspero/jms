@@ -34,6 +34,7 @@ import {CanReadModuleGuard} from '../../../../shared/guards/can-read-module/can-
 import {FormBuilderSharedModule} from '../../../../shared/modules/fb/form-builder-shared.module';
 import {SearchInputModule} from '../../../../shared/modules/search-input/search-input.module';
 import {StateService} from '../../../../shared/services/state/state.service';
+import {FileManagerModule} from '../file-manager/file-manager.module';
 import {ColumnOrganizationComponent} from './components/column-organization/column-organization.component';
 import {ExportComponent} from './components/export/export.component';
 import {FilterDialogComponent} from './components/filter-dialog/filter-dialog.component';
@@ -185,7 +186,8 @@ const routes: Routes = [
     /**
      * External
      */
-    TranslocoModule
+    TranslocoModule,
+    FileManagerModule
   ]
 })
 export class ModuleInstanceModule {

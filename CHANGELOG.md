@@ -1,3 +1,45 @@
+# [3.45.0](https://github.com/jaspero/jms/compare/v3.44.0...v3.45.0) (2021-04-29)
+
+
+### Features
+
+* **file-manager:** filter files on upload select ([aa6ba45](https://github.com/jaspero/jms/commit/aa6ba45f977f26cbc1553d51e132fda70dfb67bb))
+
+# [3.44.0](https://github.com/jaspero/jms/compare/v3.43.1...v3.44.0) (2021-04-29)
+
+
+### Features
+
+* **file-manager:** starting route and hide navigation from module schema ([56af3c8](https://github.com/jaspero/jms/commit/56af3c898522c1cd0023f025093a9c0c96d10d49))
+
+## [3.43.1](https://github.com/jaspero/jms/compare/v3.43.0...v3.43.1) (2021-04-28)
+
+
+### Bug Fixes
+
+* **image-upload:** save storage urls directly to form ([7efffd7](https://github.com/jaspero/jms/commit/7efffd73f398bcea3f283609c5dcd6051db691aa))
+
+# [3.43.0](https://github.com/jaspero/jms/compare/v3.42.0...v3.43.0) (2021-04-28)
+
+
+### Features
+
+* added file manager uploader for file and image components ([05519ed](https://github.com/jaspero/jms/commit/05519ed82886aa4bf87aa7805aef8a5185ce910c))
+
+# [3.42.0](https://github.com/jaspero/jms/compare/v3.41.7...v3.42.0) (2021-04-28)
+
+
+### Features
+
+* integrated file-manager plugin into core ([751c907](https://github.com/jaspero/jms/commit/751c907ede58f402724d50d3a56a06fb8917fe31))
+
+## [3.41.7](https://github.com/jaspero/jms/compare/v3.41.6...v3.41.7) (2021-04-28)
+
+
+### Bug Fixes
+
+* **functions:** force exact thumb dimensions and keep image orientation while resizing ([989317f](https://github.com/jaspero/jms/commit/989317f72c517fa2bee62df63bb9e28475f62929))
+
 ## [3.41.6](https://github.com/jaspero/jms/compare/v3.41.5...v3.41.6) (2021-04-24)
 
 

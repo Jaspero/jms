@@ -64,7 +64,7 @@ const PIPES = [
   providers: [
     {
       provide: SchemaService,
-      useClass: FbSchemaService,
+      useClass: FbSchemaService
       /**
        * Uncomment provider for loading local setup
        * useClass: LocalSchemaService

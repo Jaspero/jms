@@ -1,3 +1,5 @@
+rules_version = '2';
+
 service firebase.storage {
   function admin() {
     return request.auth.token.role == 'admin'

@@ -1,0 +1,64 @@
+.item {
+  &-bar {
+    transition: all .1s;
+    padding-left: 16px;
+    height: 50px;
+    &:hover {
+      cursor: pointer;
+      background-color: #cccccc;
+    }
+
+    &.active {
+      background-color: rgba(100, 100, 200, 0.3);
+    }
+  }
+
+  &-name {
+    padding-left: 16px;
+  }
+}
+
+.fb-image-suffix {
+  display: flex;
+
+  &-preview {
+    display: inline-block;
+    position: relative;
+
+    &-image {
+      position: absolute;
+      z-index: 999;
+      top: 100%;
+      left: 0;
+      width: 300px;
+      height: 300px;
+      max-width: unset;
+      object-fit: contain;
+      background: white;
+      box-shadow: 0 2px 5px 0 rgba(0,0,0,.4);
+      visibility: hidden;
+      opacity: 0;
+      transition: .2s;
+    }
+
+    &-button:hover + &-image {
+      transition-delay: 1s;
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+.no-select {
+  user-select: none;
+}
+
+.m-r-m-i {
+  margin-right: 10px !important;
+}
+
+mat-list-item.disabled {
+  cursor: not-allowed !important;
+  opacity: 0.5;
+  text-decoration: none;
+}

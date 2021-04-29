@@ -87,7 +87,8 @@ export const fileCreated = functions
     await Promise.all(
       toGenerate.map(file =>
         sharp(fileTemp)
-          .resize(file.width || null, file.height || null, {fit: 'inside'})
+          .resize(file.width || null, file.height || null, {fit: 'contain', background: 'white'})
+          .withMetadata()
           .toFile(file.tmpDir)
       )
     );
