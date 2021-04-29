@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {formatFileName} from '@jaspero/form-builder';
+import {formatFileName, safeEval} from '@jaspero/form-builder';
 import firebase from 'firebase/app';
 import 'firebase/storage';
 import {BehaviorSubject, combineLatest, Observable, Subscription} from 'rxjs';
@@ -49,7 +49,8 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   configuration = {
     uploadMode: false,
     route: '/',
-    hidePath: false
+    hidePath: false,
+    filters: []
   };
 
   @Input()
@@ -102,7 +103,17 @@ export class FileManagerComponent implements OnInit, OnDestroy {
                 icon: this.typeToIcon(metadata.contentType)
               };
             })
-          ),
+          ).then(files => {
+            return files.filter(file => {
+              return this.configuration.filters.every(filter => {
+                try {
+                  const fn = safeEval(filter.value);
+
+                  return fn(file);
+                } catch(error) {}
+              });
+            });
+          }),
           Promise.all(
             response.prefixes.map(async (item) => {
               return {

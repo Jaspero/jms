@@ -175,7 +175,12 @@ export const USERS_MODULE = {
               component: '<jms-e-file-manager-select></jms-e-file-manager-select>',
               configuration: {
                 route: '/generated',
-                hidePath: true
+                hidePath: true,
+                filters: [
+                  {
+                    value: `(file) => file.contentType.startsWith('image/')`
+                  }
+                ]
               }
             }
           ]
