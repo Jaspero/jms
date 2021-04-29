@@ -1,3 +1,10 @@
+# [3.44.0](https://github.com/jaspero/jms/compare/v3.43.1...v3.44.0) (2021-04-29)
+
+
+### Features
+
+* **file-manager:** starting route and hide navigation from module schema ([56af3c8](https://github.com/jaspero/jms/commit/56af3c898522c1cd0023f025093a9c0c96d10d49))
+
 ## [3.43.1](https://github.com/jaspero/jms/compare/v3.43.0...v3.43.1) (2021-04-28)
 
 
