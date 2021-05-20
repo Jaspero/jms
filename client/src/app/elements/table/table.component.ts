@@ -15,6 +15,7 @@ import {
 } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
+import {Router} from '@angular/router';
 import {Parser, parseTemplate, safeEval, State} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {get, has} from 'json-pointer';
@@ -65,6 +66,7 @@ interface TableData {
   hideDelete?: boolean;
   hideExport?: boolean;
   hideImport?: boolean;
+  collectionGroup?: boolean;
   actions?: Array<
     (
       it: any
@@ -90,6 +92,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     private viewContainerRef: ViewContainerRef,
     private dbService: DbService,
     private dialog: MatDialog,
+    private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -250,6 +253,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.data = {
         moduleId: data.id,
+        collectionGroup: data.collectionGroup,
         moduleAuthorization: data.authorization,
         name: data.name,
         schema: data.schema,
@@ -608,5 +612,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         );
       }
     }
+  }
+
+  navigateToSingleView(element) {
+    this.router.navigate([`/dashboard/m/${this.data.collectionGroup ? element.data.ref.parent.path : this.data.moduleId}/single/${element.id}`]);
   }
 }

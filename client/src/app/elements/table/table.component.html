@@ -196,7 +196,7 @@
                       <hr>
                     </ng-container>
 
-                    <a *ngIf="!data.hideEdit" mat-menu-item routerLink="/m/{{data.moduleId}}/single/{{element.id}}">
+                    <a *ngIf="!data.hideEdit" mat-menu-item (click)="navigateToSingleView(element)">
                       <mat-icon>{{permission.write ? 'edit' : 'visibility'}}</mat-icon>
                       <span>{{(permission.write ? 'GENERAL.EDIT' : 'GENERAL.VIEW') | transloco}}</span>
                     </a>
