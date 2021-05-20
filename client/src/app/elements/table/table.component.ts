@@ -615,6 +615,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   navigateToSingleView(element) {
-    this.router.navigate([`/dashboard/m/${this.data.collectionGroup ? element.data.ref.parent.path : this.data.moduleId}/single/${element.id}`]);
+    this.router.navigate([`/m/${this.data.collectionGroup ? element.data.ref.parent.path : this.data.moduleId}/single/${element.id}`]);
   }
 }
