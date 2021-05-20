@@ -1,3 +1,10 @@
+## [3.46.1](https://github.com/jaspero/jms/compare/v3.46.0...v3.46.1) (2021-05-20)
+
+
+### Bug Fixes
+
+* navigate to single view correct path ([b27947a](https://github.com/jaspero/jms/commit/b27947a1444a7a68971e438c7d65a8a3d0e139f4))
+
 # [3.46.0](https://github.com/jaspero/jms/compare/v3.45.0...v3.46.0) (2021-05-20)
 
 
