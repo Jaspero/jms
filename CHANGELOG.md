@@ -1,3 +1,10 @@
+# [3.46.0](https://github.com/jaspero/jms/compare/v3.45.0...v3.46.0) (2021-05-20)
+
+
+### Features
+
+* collectionGroup single page ([ea2e346](https://github.com/jaspero/jms/commit/ea2e3460b15368acacee27102ebfd9586362cd8b))
+
 # [3.45.0](https://github.com/jaspero/jms/compare/v3.44.0...v3.45.0) (2021-04-29)
 
 
