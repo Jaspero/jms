@@ -1,3 +1,10 @@
+## [3.46.3](https://github.com/jaspero/jms/compare/v3.46.2...v3.46.3) (2021-05-31)
+
+
+### Bug Fixes
+
+* **cms:** provide custom fields by default ([7102635](https://github.com/jaspero/jms/commit/7102635374b8dea352c4e6d0acdaf3ecc8ad0870))
+
 ## [3.46.2](https://github.com/jaspero/jms/compare/v3.46.1...v3.46.2) (2021-05-31)
 
 
