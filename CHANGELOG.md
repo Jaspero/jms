@@ -1,3 +1,10 @@
+## [3.46.2](https://github.com/jaspero/jms/compare/v3.46.1...v3.46.2) (2021-05-31)
+
+
+### Bug Fixes
+
+* **cms:** inject custom fields into form builder parser. get documents pipe check for document validity ([a0d180d](https://github.com/jaspero/jms/commit/a0d180d96f3e152caba101a581b71dcbe6254bc9))
+
 ## [3.46.1](https://github.com/jaspero/jms/compare/v3.46.0...v3.46.1) (2021-05-20)
 
 
