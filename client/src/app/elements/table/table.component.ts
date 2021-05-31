@@ -3,7 +3,7 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
+  Component, Inject,
   Injector,
   OnDestroy,
   OnInit,
@@ -16,7 +16,7 @@ import {
 import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
 import {Router} from '@angular/router';
-import {Parser, parseTemplate, safeEval, State} from '@jaspero/form-builder';
+import {CUSTOM_FIELDS, CustomFields, Parser, parseTemplate, safeEval, State} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';
@@ -93,7 +93,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     private dbService: DbService,
     private dialog: MatDialog,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    @Inject(CUSTOM_FIELDS)
+    private customFields: CustomFields
   ) {}
 
   /**
@@ -281,7 +283,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       };
 
       this.items$ = combineLatest([this.ioc.items$, this.columnsSorted$]).pipe(
-        map(([items]) => items.map(item => this.mapRow(this.data, item)))
+        map(([items]: any) => items.map(item => this.mapRow(this.data, item)))
       );
 
       this.cdr.markForCheck();
@@ -400,7 +402,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           overview.schema,
           this.injector,
           State.Edit,
-          this.state.role
+          this.state.role,
+          {},
+          this.customFields
         );
         this.parserCache[rowData.id].buildForm(rowData);
       }
