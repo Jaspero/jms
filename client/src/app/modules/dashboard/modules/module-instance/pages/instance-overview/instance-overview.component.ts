@@ -139,7 +139,7 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
             ),
           this.ioc.sortChange$
         ]).pipe(
-          switchMap(([pageSize, filter, search, sort]) => {
+          switchMap(([pageSize, filter, search, sort]: any) => {
             const routeData = {...this.ioc.routeData};
 
             routeData.pageSize = pageSize as number;

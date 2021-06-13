@@ -69,4 +69,16 @@ export interface Module {
   metadata?: ModuleMetadata;
   subCollectionPath?: string;
   collectionGroup?: boolean;
+  spotlight?: {
+    /**
+     * Hide Module from showing up in Spotlight results
+     */
+    hide?: boolean;
+
+    /**
+     * Query following properties in Module's documents
+     * default ['id', 'name']
+     */
+    queryFields: string[];
+  }
 }
