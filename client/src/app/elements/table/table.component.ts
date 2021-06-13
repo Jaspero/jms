@@ -333,12 +333,13 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private mapRow(overview: TableData, rowData: any) {
-    const {id, ...data} = rowData;
+    const {id, ref, data} = rowData;
 
     return {
       data,
       id,
-      parsed: this.parseColumns(overview, {...data, id})
+      ref,
+      parsed: this.parseColumns(overview, {...data, id, ref})
     };
   }
 
