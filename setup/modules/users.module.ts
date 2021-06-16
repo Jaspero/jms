@@ -154,11 +154,30 @@ export const USERS_MODULE = {
     role: {
       label: 'Role',
       component: {
-        type: 'select',
+        type: 'ref',
         configuration: {
-          populate: {
-            collection: 'roles',
-            orderBy: 'name'
+          collection: 'roles',
+          valueKey: 'id',
+          clearValue: null,
+          searchBy: {
+            key: '/name',
+            label: 'Name'
+          },
+          display: {
+            key: '/name',
+            label: 'Name'
+          },
+          table: {
+            tableColumns: [
+              {
+                key: '/id',
+                label: 'ID'
+              },
+              {
+                key: '/name',
+                label: 'Name'
+              }
+            ]
           }
         }
       }
@@ -172,7 +191,8 @@ export const USERS_MODULE = {
             {
               id: 'file-manager',
               label: 'File Manager',
-              component: '<jms-e-file-manager-select></jms-e-file-manager-select>',
+              component:
+                '<jms-e-file-manager-select></jms-e-file-manager-select>',
               configuration: {
                 route: '/generated',
                 hidePath: true,

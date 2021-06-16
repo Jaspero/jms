@@ -224,7 +224,12 @@ export class InstanceSingleComponent implements OnInit {
   back() {
     this.initialValue = '';
     this.currentValue = '';
-    this.router.navigate(['../..', 'overview'], {relativeTo: this.activatedRoute});
+
+    if (this.activatedRoute.snapshot.queryParams.back) {
+      this.router.navigate([this.activatedRoute.snapshot.queryParams.back]);
+    } else {
+      this.router.navigate(['../..', 'overview'], {relativeTo: this.activatedRoute});
+    }
   }
 
   valueChange(data: any, instance: Instance) {

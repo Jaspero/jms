@@ -1,3 +1,39 @@
+## [3.46.4](https://github.com/jaspero/jms/compare/v3.46.3...v3.46.4) (2021-06-14)
+
+
+### Bug Fixes
+
+* no ref property present in actions object root. closes [#244](https://github.com/jaspero/jms/issues/244) ([9c48dda](https://github.com/jaspero/jms/commit/9c48dda41ad0cd6ad94b297681e1fee4ebc96a8f))
+* replace .data.ref calls [#244](https://github.com/jaspero/jms/issues/244) ([ba522f6](https://github.com/jaspero/jms/commit/ba522f6424b1f173e075cc3e94f5cf1a1f994672))
+
+## [3.46.3](https://github.com/jaspero/jms/compare/v3.46.2...v3.46.3) (2021-05-31)
+
+
+### Bug Fixes
+
+* **cms:** provide custom fields by default ([7102635](https://github.com/jaspero/jms/commit/7102635374b8dea352c4e6d0acdaf3ecc8ad0870))
+
+## [3.46.2](https://github.com/jaspero/jms/compare/v3.46.1...v3.46.2) (2021-05-31)
+
+
+### Bug Fixes
+
+* **cms:** inject custom fields into form builder parser. get documents pipe check for document validity ([a0d180d](https://github.com/jaspero/jms/commit/a0d180d96f3e152caba101a581b71dcbe6254bc9))
+
+## [3.46.1](https://github.com/jaspero/jms/compare/v3.46.0...v3.46.1) (2021-05-20)
+
+
+### Bug Fixes
+
+* navigate to single view correct path ([b27947a](https://github.com/jaspero/jms/commit/b27947a1444a7a68971e438c7d65a8a3d0e139f4))
+
+# [3.46.0](https://github.com/jaspero/jms/compare/v3.45.0...v3.46.0) (2021-05-20)
+
+
+### Features
+
+* collectionGroup single page ([ea2e346](https://github.com/jaspero/jms/commit/ea2e3460b15368acacee27102ebfd9586362cd8b))
+
 # [3.45.0](https://github.com/jaspero/jms/compare/v3.44.0...v3.45.0) (2021-04-29)
 
 

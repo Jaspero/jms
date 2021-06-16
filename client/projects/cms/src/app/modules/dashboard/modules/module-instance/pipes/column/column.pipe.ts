@@ -20,7 +20,7 @@ import {
   TranslocoScope,
   TranslocoService
 } from '@ngneat/transloco';
-import {forkJoin} from 'rxjs';
+import {forkJoin, of} from 'rxjs';
 import {PipeType} from '../../../../../../shared/enums/pipe-type.enum';
 import {MathPipe} from '../../../../../../shared/pipes/math/math-pipe.';
 import {DbService} from '../../../../../../shared/services/db/db.service';
@@ -190,6 +190,11 @@ export class ColumnPipe implements PipeTransform {
 
         return forkJoin(getDocumentsResponse.map(path => {
           const [module, document] = (path.startsWith('/') ? path.slice(1) : path).split('/');
+
+          if (!document) {
+            return of(null);
+          }
+
           return this.db.getDocument(module, document);
         }));
       case PipeType.Custom:

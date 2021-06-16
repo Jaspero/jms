@@ -3,7 +3,7 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
+  Component, Inject,
   Injector,
   OnDestroy,
   OnInit,
@@ -15,7 +15,8 @@ import {
 } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
-import {Parser, parseTemplate, safeEval, State} from '@jaspero/form-builder';
+import {Router} from '@angular/router';
+import {CUSTOM_FIELDS, CustomFields, Parser, parseTemplate, safeEval, State} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';
@@ -65,6 +66,7 @@ interface TableData {
   hideDelete?: boolean;
   hideExport?: boolean;
   hideImport?: boolean;
+  collectionGroup?: boolean;
   actions?: Array<
     (
       it: any
@@ -90,7 +92,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     private viewContainerRef: ViewContainerRef,
     private dbService: DbService,
     private dialog: MatDialog,
-    private cdr: ChangeDetectorRef
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    @Inject(CUSTOM_FIELDS)
+    private customFields: CustomFields
   ) {}
 
   /**
@@ -250,6 +255,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.data = {
         moduleId: data.id,
+        collectionGroup: data.collectionGroup,
         moduleAuthorization: data.authorization,
         name: data.name,
         schema: data.schema,
@@ -277,7 +283,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       };
 
       this.items$ = combineLatest([this.ioc.items$, this.columnsSorted$]).pipe(
-        map(([items]) => items.map(item => this.mapRow(this.data, item)))
+        map(([items]: any) => items.map(item => this.mapRow(this.data, item)))
       );
 
       this.cdr.markForCheck();
@@ -327,12 +333,13 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private mapRow(overview: TableData, rowData: any) {
-    const {id, ...data} = rowData;
+    const {id, ref, data} = rowData;
 
     return {
       data,
       id,
-      parsed: this.parseColumns(overview, {...data, id})
+      ref,
+      parsed: this.parseColumns(overview, {...data, id, ref})
     };
   }
 
@@ -396,7 +403,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           overview.schema,
           this.injector,
           State.Edit,
-          this.state.role
+          this.state.role,
+          {},
+          this.customFields
         );
         this.parserCache[rowData.id].buildForm(rowData);
       }
@@ -608,5 +617,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         );
       }
     }
+  }
+
+  navigateToSingleView(element) {
+    this.router.navigate([`/m/${this.data.collectionGroup ? element.ref.parent.path : this.data.moduleId}/single/${element.id}`]);
   }
 }
