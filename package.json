@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start:cms": "npm --prefix client run start:cms",
+    "start:web": "npm --prefix client run start:web",
     "start:functions": "npm --prefix functions run serve",
     "start:setup": "npm --prefix setup start",
     "start:setup:prod": "npm --prefix setup run start:prod",
