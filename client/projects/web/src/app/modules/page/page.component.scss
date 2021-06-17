@@ -1,0 +1,5 @@
+::ng-deep div > *:nth-child(2) {
+  &::before {
+    display: none !important;
+  }
+}

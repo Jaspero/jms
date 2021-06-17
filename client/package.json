@@ -5,7 +5,8 @@
     "ng": "ng",
     "start:cms": "ng serve --project=cms",
     "start:web": "ng serve --project=web",
-    "build": "node timestamp.js && ng build --prod",
+    "build:cms": "node timestamp.js && ng build --prod --project=cms",
+    "build:web": "ng build --prod --project=web",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

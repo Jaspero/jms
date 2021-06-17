@@ -3,6 +3,9 @@ import {NgModule} from '@angular/core';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {FormUiModule} from '@jaspero/fb-form-ui';
+import {FB_PAGE_BUILDER_OPTIONS, PageBuilderModule} from '@jaspero/fb-page-builder';
+import {TemplateEditorModule, TinymceModule} from '@jaspero/fb-tinymce';
 import {
   CUSTOM_COMPONENTS, CUSTOM_FIELDS,
   DbService as FDbService,
@@ -12,6 +15,7 @@ import {
   StorageService
 } from '@jaspero/form-builder';
 import {TranslocoModule} from '@ngneat/transloco';
+import {BlocksModule} from '@shared/blocks/blocks.module';
 import {environment} from '../../../../environments/environment';
 import {DbService} from '../../services/db/db.service';
 import {StateService} from '../../services/state/state.service';
@@ -24,7 +28,15 @@ export function roleFactory(state: StateService) {
 @NgModule({
   imports: [
     CommonModule,
+
+    /**
+     * Schema Forms
+     */
     FormBuilderModule.forRoot(),
+    TinymceModule,
+    PageBuilderModule,
+    TemplateEditorModule,
+    FormUiModule,
 
     /**
      * Custom fields and component dependencies
@@ -63,7 +75,13 @@ export function roleFactory(state: StateService) {
     {
       provide: CUSTOM_FIELDS,
       useValue: {}
-    }
+    },
+    {
+      provide: FB_PAGE_BUILDER_OPTIONS,
+      useValue: {
+        previewModules: [BlocksModule]
+      }
+    },
   ],
   declarations: [DuplicateComponent]
 })
