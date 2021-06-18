@@ -1,3 +1,10 @@
+# [3.47.0](https://github.com/jaspero/jms/compare/v3.46.4...v3.47.0) (2021-06-18)
+
+
+### Features
+
+* adjusted table height; added missing translations ([8553f7c](https://github.com/jaspero/jms/commit/8553f7cbb70db1b62b85d84d873ecf05cee873c0))
+
 ## [3.46.4](https://github.com/jaspero/jms/compare/v3.46.3...v3.46.4) (2021-06-14)
 
 
