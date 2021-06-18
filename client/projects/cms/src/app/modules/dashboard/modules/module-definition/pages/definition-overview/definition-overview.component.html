@@ -78,7 +78,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'MODULES.NAME_ID' | transloco}}</th>
             <td mat-cell *matCellDef="let element" [attr.data-label]="'MODULES.NAME_ID' | transloco">
               <a [routerLink]="['..', 'single', element.id]">
-                {{element.name}}<br>
+                {{element.name | transloco}}<br>
               <span class="fs-small fg-secondary">{{element.id}}</span>
               </a>
             </td>
@@ -91,7 +91,7 @@
 
           <ng-container matColumnDef="description">
             <th mat-header-cell *matHeaderCellDef>{{'MODULES.DESCRIPTION' | transloco}}</th>
-            <td mat-cell *matCellDef="let element" [attr.data-label]="'MODULES.DESCRIPTION' | transloco">{{element.description}}</td>
+            <td mat-cell *matCellDef="let element" [attr.data-label]="'MODULES.DESCRIPTION' | transloco">{{element.description | transloco}}</td>
           </ng-container>
 
           <ng-container matColumnDef="actions">

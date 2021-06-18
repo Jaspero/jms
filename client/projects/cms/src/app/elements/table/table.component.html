@@ -129,7 +129,7 @@
           </div>
         </mat-toolbar>
 
-        <div class="table-wrapper">
+        <div class="table-wrapper" [style.max-height]="maxHeight$ | async">
           <table
             class="jms-instance-overview-table"
             mat-table

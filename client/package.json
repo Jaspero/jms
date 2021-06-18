@@ -23,7 +23,7 @@
     "@angular/platform-browser": "11.2.7",
     "@angular/platform-browser-dynamic": "11.2.7",
     "@angular/router": "11.2.7",
-    "@jaspero/form-builder": "3.29.0",
+    "@jaspero/form-builder": "3.31.0",
     "@jaspero/jmsp-notes": "1.1.0",
     "@jaspero/ng-helpers": "4.3.0",
     "@ngneat/transloco": "2.20.1",
@@ -41,7 +41,7 @@
     "zone.js": "0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "0.1102.5",
+    "@angular-devkit/build-angular": "12.0.5",
     "@angular/cli": "11.2.5",
     "@angular/compiler-cli": "11.2.7",
     "@angular/language-service": "11.2.7",
