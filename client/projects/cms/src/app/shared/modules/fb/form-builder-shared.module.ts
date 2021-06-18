@@ -4,6 +4,7 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {FormUiModule} from '@jaspero/fb-form-ui';
+import {MonacoEditorModule} from '@jaspero/fb-monaco-editor';
 import {FB_PAGE_BUILDER_OPTIONS, PageBuilderModule} from '@jaspero/fb-page-builder';
 import {TemplateEditorModule, TinymceModule} from '@jaspero/fb-tinymce';
 import {
@@ -37,6 +38,7 @@ export function roleFactory(state: StateService) {
     PageBuilderModule,
     TemplateEditorModule,
     FormUiModule,
+    MonacoEditorModule,
 
     /**
      * Custom fields and component dependencies

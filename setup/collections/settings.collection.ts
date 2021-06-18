@@ -12,6 +12,18 @@ export const SETTINGS_COLLECTION = {
             value: '/dashboard'
           },
           {
+            icon: '',
+            label: 'MODULES.FORMS',
+            type: 'link',
+            value: '/m/forms'
+          },
+          {
+            icon: 'pages',
+            label: 'MODULES.PAGES',
+            type: 'link',
+            value: '/m/pages'
+          },
+          {
             children: [
               {
                 icon: 'supervised_user_circle',

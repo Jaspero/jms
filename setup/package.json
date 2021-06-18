@@ -6,7 +6,8 @@
     "start:prod": "ts-node setup.ts p"
   },
   "dependencies": {
-    "firebase-admin": "9.4.1"
+    "csso": "4.2.0",
+    "firebase-admin": "9.9.0"
   },
   "devDependencies": {
     "ts-node": "9.0.0",

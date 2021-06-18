@@ -1,19 +1,25 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
-import {BlockRendererComponent} from '@shared/blocks/block-renderer/block-renderer.component';
-import {CommonBlockComponent} from '@shared/blocks/blocks/common.block';
-import {ContentComponent} from '@shared/blocks/blocks/content/content.component';
-import {BlockLinkDirective} from '@shared/blocks/directives/block-link/block-link.directive';
+import {InlineEditorModule} from '@jaspero/fb-page-builder';
+import {LoadClickModule, SanitizeModule} from '@jaspero/ng-helpers';
+import {BlockRendererComponent} from './block-renderer/block-renderer.component';
+import {CommonBlockComponent} from './blocks/common.block';
+import {ContentComponent} from './blocks/content/content.component';
+import {FormComponent} from './blocks/form/form.component';
+import {BlockLinkDirective} from './directives/block-link/block-link.directive';
 
 export const BLOCKS = {
   content: ContentComponent,
+  form: FormComponent
 };
 
 const B_COMPONENTS = [
   BlockRendererComponent,
 
-  ContentComponent
+  ContentComponent,
+  FormComponent
 ];
 
 @NgModule({
@@ -28,7 +34,13 @@ const B_COMPONENTS = [
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
+
+    InlineEditorModule,
+
+    SanitizeModule,
+    LoadClickModule
   ]
 })
 export class BlocksModule { }

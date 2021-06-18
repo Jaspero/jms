@@ -104,7 +104,8 @@
     "NAME": "Name",
     "NO_MODULES": "No modules yet.",
     "COPIED_TO_CLIPBOARD": "Copied to clipboard",
-    "LAYOUT_SETTINGS": "Layout Settings"
+    "LAYOUT_SETTINGS": "Layout Settings",
+    "PAGES": "Pages"
   },
   "INSTANCE_OVERVIEW": {
     "REMOVE_ITEMS": "Remove {{value}} items",
@@ -222,6 +223,88 @@
     "DELETE_FILE": {
       "DESCRIPTION": "File '{{name}}' will be deleted!",
       "CONFIRM": "Delete"
+    }
+  },
+  "PB": {
+    "START": "Start",
+    "CLOSE": "Close",
+    "OPEN_ADD": "Add segments",
+    "ADD": "Add",
+    "FORM": {
+      "TITLE": "Title",
+      "ID_HINT": "Created from title if empty",
+      "COMMON": {
+        "CONTENT": "Content"
+      },
+      "BLOCKS": {
+        "SHARED": {
+          "STANDARD_OPTIONS": "Standard Options",
+          "ADVANCED_OPTIONS": "Advanced Options",
+          "BLOCK_OPTIONS": "Segment Options",
+          "SIZE": "Size",
+          "SIZE_SMALL": "Small",
+          "SIZE_REGULAR": "Medium",
+          "SIZE_LARGE": "Big",
+          "SIZE_FULL_SCREEN": "Full Screen",
+          "CONTAINED": "Contained",
+          "VERTICAL_ALIGNMENT": "Vertical Align",
+          "VERTICAL_ALIGNMENT_CENTER": "Center",
+          "VERTICAL_ALIGNMENT_TOP": "Top",
+          "VERTICAL_ALIGNMENT_BOTTOM": "Bottom"
+        },
+        "CONTENT": {
+          "TITLE": "Content"
+        },
+        "FORM": {
+          "TITLE": "Form",
+          "FIELDS": {
+            "ACTION": "Action"
+          }
+        }
+      }
+    }
+  },
+  "FU": {
+    "ID": "ID",
+    "LABEL": "Label",
+    "VALUE": "Value",
+    "HINT": "Hint",
+    "ORGANIZE": "Organize",
+    "PLACEHOLDER": "Placeholder",
+    "ADJUST_SIZE": "Adjust Size",
+    "ADD_FIELD": "Add Field",
+    "REQUIRED": "Required",
+    "CHANGE_TYPE": "Change Type",
+    "EDIT": "Edit",
+    "REMOVE": "Remove",
+    "OPTIONS": "Options",
+    "SETTINGS": "Settings",
+    "DEFAULT_PLACEHOLDER": "There are no fields currently. Add your first field by pressing the button below.",
+    "SIZE": {
+      "DESKTOP": "Desktop",
+      "TABLET": "Tablet",
+      "MOBILE": "Mobile"
+    },
+    "TYPE": {
+      "checkbox": "Checkbox",
+      "email": "Email",
+      "number": "Number",
+      "select": "Select",
+      "text": "Text",
+      "textarea": "Textarea",
+      "content": "Content",
+      "date": "Date"
+    },
+    "CONDITIONS": {
+      "TITLE": "Conditions",
+      "CONDITION": "Condition",
+      "VALUE": "Value",
+      "TYPE": "Type",
+      "EQUAL": "Equal",
+      "NOT_EQUAL": "Not Equal",
+      "LARGER_THEN": "Larger Then",
+      "SMALLER_THEN": "Smaller Then",
+      "FORM": "Form"
     }
   }
 }

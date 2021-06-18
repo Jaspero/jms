@@ -1,0 +1,54 @@
+<form [formGroup]="fg">
+
+  <div *ngIf="data.title" [fbPbSingleLineIE]="{property: 'title', data: data}" [innerHTML]="data.title | jpSanitize"></div>
+  <div *ngIf="data.description" [fbPbSingleLineIE]="{property: 'description', data: data}" [innerHTML]="data.description | jpSanitize"></div>
+
+  <div class="form-fields form-fields-grid" *ngIf="!loading">
+    <ng-container *ngFor="let field of form.fields">
+      <ng-container *ngIf="fieldValid(field)">
+        <ng-container [ngSwitch]="field.type">
+        <label class="field field-col-12-sm" [ngClass]="'field-col-' + (field.columnsDesktop || '12')" *ngSwitchCase="'text'">
+          <span class="field-label" *ngIf="field.label">{{field.label}}</span>
+          <input [placeholder]="field.placeholder || ''" [formControlName]="field.id">
+          <span *ngIf="field.hint" class="field-description">{{field.hint}}</span>
+        </label>
+        <label class="field field-col-12-sm" [ngClass]="'field-col-' + (field.columnsDesktop || '12')" *ngSwitchCase="'email'">
+          <span class="field-label" *ngIf="field.label">{{field.label}}</span>
+          <input type="email" [placeholder]="field.placeholder || ''" [formControlName]="field.id">
+          <span *ngIf="field.hint" class="field-description">{{field.hint}}</span>
+        </label>
+        <label class="field field-col-12-sm" [ngClass]="'field-col-' + (field.columnsDesktop || '12')" *ngSwitchCase="'textarea'">
+          <span class="field-label" *ngIf="field.label">{{field.label}}</span>
+          <textarea [placeholder]="field.placeholder || ''" [formControlName]="field.id"></textarea>
+          <span *ngIf="field.hint" class="field-description">{{field.hint}}</span>
+        </label>
+        <label class="field field-col-12-sm" [ngClass]="'field-col-' + (field.columnsDesktop || '12')" *ngSwitchCase="'select'">
+          <span class="field-label" *ngIf="field.label">{{field.label}}</span>
+          <select [formControlName]="field.id">
+            <option value="" disabled>{{field.placeholder || 'Select'}}</option>
+            <option *ngFor="let value of (field.added?.options || [])" [value]="value.value">
+              {{value.label}}
+            </option>
+          </select>
+          <span *ngIf="field.hint" class="field-description">{{field.hint}}</span>
+        </label>
+        <div class="field field-col-12-sm" [ngClass]="'field-col-' + (field.columnsDesktop || '12')" *ngSwitchCase="'checkbox'">
+          <span class="field-label" *ngIf="field.label">{{field.label}}</span>
+          <label *ngFor="let value of (field.added?.options || [])">
+            <input type="checkbox" [value]="value.value" [checked]="fg.get(field.id).value.includes(value.value)" (change)="onCheckboxChange($event, field.id)">
+            {{value.label}}
+          </label>
+        </div>
+      </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <button class="form-action" type="submit" [disabled]="fg.invalid" [jpLoadClick]="submit()">{{data.action || 'Submit'}}</button>
+</form>
+
+<ng-container *ngIf="notification$ | async as notification">
+  <div class="notification" [class.error]="notification.error">
+    {{notification.message}}
+  </div>
+</ng-container>
