@@ -42,7 +42,6 @@
                 "output": "/skins/content/default"
               }
             ],
-            "showCircularDependencies": false,
             "styles": [
               "node_modules/jsoneditor/dist/jsoneditor.min.css",
               "src/styles.scss"

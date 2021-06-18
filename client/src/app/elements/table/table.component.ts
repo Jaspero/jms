@@ -131,6 +131,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     read: false
   };
 
+  maxHeight$ = new Subject<string>();
+
   ngOnInit() {
     /**
      * Component isn't necessarily destroyed
@@ -301,6 +303,22 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((value: any) => {
         this.ioc.sortChange$.next(value);
       });
+
+    setTimeout(() => {
+
+      /**
+       * Height of table header and footer
+       * plus padding
+       */
+      let maxHeight = 148;
+
+      document.querySelectorAll('[data-include-max-height]').forEach((el: HTMLDivElement) => {
+        console.log(el, el.offsetHeight);
+        maxHeight += el.offsetHeight;
+      });
+
+      this.maxHeight$.next(`calc(100vh - ${maxHeight}px)`);
+    }, 100)
   }
 
   ngOnDestroy() {

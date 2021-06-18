@@ -2,8 +2,8 @@ import {CREATED_ON} from './shared/created-on';
 
 export const USER_INVITES_MODULE = {
   id: 'user-invites',
-  name: 'Invites',
-  description: 'Invites sent to new users',
+  name: 'MODULES.USER_INVITES',
+  description: 'MODULES.USER_INVITES_DESCRIPTION',
   authorization: {
     read: ['admin'],
     write: ['admin']
@@ -18,7 +18,7 @@ export const USER_INVITES_MODULE = {
         CREATED_ON.column(),
         {
           key: '/id',
-          label: 'Email',
+          label: 'GENERAL.EMAIL',
           pipe: ['custom'],
           pipeArguments: {
             0: `id => '<a target="_blank" href="mailto:{{id}}">{{id}}</a>'`
@@ -26,20 +26,20 @@ export const USER_INVITES_MODULE = {
         },
         {
           key: '/role',
-          label: 'Role'
+          label: 'GENERAL.ROLE'
         },
         {
           key: '/requireReset',
-          label: 'Require Reset',
+          label: 'USER_INVITES.FIELDS.REQUIRE_RESET',
           control: true
         },
         {
           key: '/sendInvite',
-          label: 'Send Invite'
+          label: 'USER_INVITES.FIELDS.SEND_INVITE'
         },
         {
           key: '/acceptedOn',
-          label: 'Accepted',
+          label: 'USER_INVITES.FIELDS.ACCEPTED',
           pipe: ['date'],
           fallback: 'No'
         }
