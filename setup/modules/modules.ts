@@ -1,3 +1,5 @@
+import {AUTOMATIC_EMAILS_MODULE} from './emails/automatic-emails.module';
+import {SENT_EMAILS_MODULE} from './emails/sent-emails.module';
 import {FORMS_MODULE} from './forms.module';
 import {PAGES_MODULE} from './pages/pages.module';
 import {ROLES_MODULE} from './roles.module';
@@ -13,5 +15,7 @@ export const MODULES = [
   USER_INVITES_MODULE,
 
   PAGES_MODULE,
-  FORMS_MODULE
+  FORMS_MODULE,
+  AUTOMATIC_EMAILS_MODULE,
+  SENT_EMAILS_MODULE
 ];

@@ -46,7 +46,8 @@
     "NAME": "Name",
     "ROLE": "Role",
     "EMAIL": "Email",
-    "DESCRIPTION": "Description"
+    "DESCRIPTION": "Description",
+    "ACTIVE": "Active"
   },
   "LOGIN": {
     "LOGIN": "Login",
@@ -116,7 +117,10 @@
     "USER_INVITES": "Invites",
     "USER_INVITES_DESCRIPTION": "Invites sent to new users",
     "USERS": "Users",
-    "USERS_DESCRIPTION": "App Users"
+    "USERS_DESCRIPTION": "App Users",
+    "AUTOMATIC_EMAILS": "Automatic Emails",
+    "AUTOMATIC_EMAILS_DESCRIPTION": "Automatic Email configuration",
+    "SENT_EMAILS": "Sent Emails"
   },
   "INSTANCE_OVERVIEW": {
     "REMOVE_ITEMS": "Remove {{value}} items",
@@ -225,6 +229,19 @@
       "SEND_INVITE": "Send Invite",
       "ACCEPTED_ON": "Accepted"
     }
+  },
+  "AUTOMATIC_EMAILS": {
+    "FIELDS": {
+      "RECIPIENT": "Recipient",
+      "SUBJECT": "Subject",
+      "SEND_TO": "Send To"
+    },
+    "TEMPLATES": {
+      "SECTION": "Section"
+    }
+  },
+  "SENT_EMAIL": {
+
   },
   "ELEMENTS": {
     "CHANGE_PASSWORD": {
