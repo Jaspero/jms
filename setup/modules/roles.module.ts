@@ -2,8 +2,8 @@ import {CREATED_ON} from './shared/created-on';
 
 export const ROLES_MODULE = {
   id: 'roles',
-  name: 'Roles',
-  description: 'Collection of roles that can be assigned to users',
+  name: 'MODULES.ROLES',
+  description: 'MODULES.ROLES_DESCRIPTION',
   authorization: {
     read: ['admin'],
     write: ['admin']
@@ -34,11 +34,11 @@ export const ROLES_MODULE = {
         CREATED_ON.column(),
         {
           key: '/name',
-          label: 'Name'
+          label: 'GENERAL.NAME'
         },
         {
           key: '/description',
-          label: 'Description'
+          label: 'GENERAL.DESCRIPTION'
         }
       ],
       actions: [
@@ -50,15 +50,9 @@ export const ROLES_MODULE = {
   },
   schema: {
     properties: {
-      id: {
-        type: 'string'
-      },
-      name: {
-        type: 'string',
-      },
-      description: {
-        type: 'string',
-      },
+      id: {type: 'string'},
+      name: {type: 'string',},
+      description: {type: 'string',},
       ...CREATED_ON.property
     },
     required: [
@@ -67,11 +61,9 @@ export const ROLES_MODULE = {
     ]
   },
   definitions: {
-    name: {
-      label: 'Name'
-    },
+    name: {label: 'GENERAL.NAME'},
     description: {
-      label: 'Description',
+      label: 'GENERAL.DESCRIPTION',
       component: {
         type: 'textarea'
       }
