@@ -313,7 +313,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       let maxHeight = 148;
 
       document.querySelectorAll('[data-include-max-height]').forEach((el: HTMLDivElement) => {
-        console.log(el, el.offsetHeight);
         maxHeight += el.offsetHeight;
       });
 
