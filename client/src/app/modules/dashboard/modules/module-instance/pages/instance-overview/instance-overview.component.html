@@ -1,5 +1,5 @@
 <ng-container>
-  <mat-toolbar role="heading" color="primary" class="sticky-header">
+  <mat-toolbar role="heading" color="primary" class="sticky-header" data-include-max-height>
     <span>{{name | transloco}}</span>
     <div class="flex-1"></div>
     <div>
@@ -18,7 +18,7 @@
     </div>
   </mat-toolbar>
 
-  <div class="flex ai-center jc-between">
+  <div class="flex ai-center jc-between" data-include-max-height>
     <ng-container *ngIf="ioc.subHeaderTemplate$ | async as subHeaderTemplate">
       <ng-container *ngTemplateOutlet="subHeaderTemplate"></ng-container>
     </ng-container>

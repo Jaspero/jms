@@ -1,3 +1,18 @@
+# [3.47.0](https://github.com/jaspero/jms/compare/v3.46.4...v3.47.0) (2021-06-18)
+
+
+### Features
+
+* adjusted table height; added missing translations ([8553f7c](https://github.com/jaspero/jms/commit/8553f7cbb70db1b62b85d84d873ecf05cee873c0))
+
+## [3.46.4](https://github.com/jaspero/jms/compare/v3.46.3...v3.46.4) (2021-06-14)
+
+
+### Bug Fixes
+
+* no ref property present in actions object root. closes [#244](https://github.com/jaspero/jms/issues/244) ([9c48dda](https://github.com/jaspero/jms/commit/9c48dda41ad0cd6ad94b297681e1fee4ebc96a8f))
+* replace .data.ref calls [#244](https://github.com/jaspero/jms/issues/244) ([ba522f6](https://github.com/jaspero/jms/commit/ba522f6424b1f173e075cc3e94f5cf1a1f994672))
+
 ## [3.46.3](https://github.com/jaspero/jms/compare/v3.46.2...v3.46.3) (2021-05-31)
 
 

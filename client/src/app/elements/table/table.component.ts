@@ -131,6 +131,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     read: false
   };
 
+  maxHeight$ = new Subject<string>();
+
   ngOnInit() {
     /**
      * Component isn't necessarily destroyed
@@ -301,6 +303,21 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((value: any) => {
         this.ioc.sortChange$.next(value);
       });
+
+    setTimeout(() => {
+
+      /**
+       * Height of table header and footer
+       * plus padding
+       */
+      let maxHeight = 148;
+
+      document.querySelectorAll('[data-include-max-height]').forEach((el: HTMLDivElement) => {
+        maxHeight += el.offsetHeight;
+      });
+
+      this.maxHeight$.next(`calc(100vh - ${maxHeight}px)`);
+    }, 100)
   }
 
   ngOnDestroy() {
@@ -333,12 +350,13 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private mapRow(overview: TableData, rowData: any) {
-    const {id, ...data} = rowData;
+    const {id, ref, data} = rowData;
 
     return {
       data,
       id,
-      parsed: this.parseColumns(overview, {...data, id})
+      ref,
+      parsed: this.parseColumns(overview, {...data, id, ref})
     };
   }
 
@@ -619,6 +637,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   navigateToSingleView(element) {
-    this.router.navigate([`/m/${this.data.collectionGroup ? element.data.ref.parent.path : this.data.moduleId}/single/${element.id}`]);
+    this.router.navigate([`/m/${this.data.collectionGroup ? element.ref.parent.path : this.data.moduleId}/single/${element.id}`]);
   }
 }

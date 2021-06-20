@@ -2,8 +2,8 @@ import {CREATED_ON} from './shared/created-on';
 
 export const USERS_MODULE = {
   id: 'users',
-  name: 'Users',
-  description: 'App Users',
+  name: 'MODULES.USERS',
+  description: 'MODULES.USERS_DESCRIPTION',
   authorization: {
     read: ['admin'],
     write: ['admin']
@@ -21,7 +21,7 @@ export const USERS_MODULE = {
       },
       definitions: {
         start: {
-          label: 'Start Date',
+          label: 'USERS.FILTERS.START_DATE',
           columnsDesktop: 6,
           filterKey: 'createdOn',
           filterMethod: '>',
@@ -35,7 +35,7 @@ export const USERS_MODULE = {
           }
         },
         end: {
-          label: 'End Date',
+          label: 'USERS.FILTERS.END_DATE',
           columnsDesktop: 6,
           filterMethod: '<',
           filterKey: 'createdOn',
@@ -49,7 +49,7 @@ export const USERS_MODULE = {
           }
         },
         role: {
-          label: 'Role',
+          label: 'GENERAL.ROLE',
           component: {
             type: 'select',
             configuration: {
@@ -81,15 +81,15 @@ export const USERS_MODULE = {
         CREATED_ON.column(),
         {
           key: '/name',
-          label: 'Name'
+          label: 'GENERAL.NAME'
         },
         {
           key: '/email',
-          label: 'Email'
+          label: 'GENERAL.EMAIL'
         },
         {
           key: '/role',
-          label: 'Role',
+          label: 'GENERAL.ROLE',
           control: true
         }
       ],
@@ -117,33 +117,19 @@ export const USERS_MODULE = {
   },
   schema: {
     properties: {
-      id: {
-        type: 'string'
-      },
-      name: {
-        type: 'string'
-      },
-      email: {
-        type: 'number'
-      },
-      role: {
-        type: 'string'
-      },
-      photo: {
-        type: 'string'
-      },
+      id: {type: 'string'},
+      name: {type: 'string'},
+      email: {type: 'number'},
+      role: {type: 'string'},
+      photo: {type: 'string'},
       ...CREATED_ON.property
     }
   },
   definitions: {
-    id: {
-      type: 'ID'
-    },
-    name: {
-      label: 'Name'
-    },
+    id: {label: 'GENERAL.ID'},
+    name: {label: 'GENERAL.NAME'},
     email: {
-      label: 'Email',
+      label: 'GENERAL.EMAIL',
       component: {
         type: 'input',
         configuration: {
@@ -152,27 +138,47 @@ export const USERS_MODULE = {
       }
     },
     role: {
-      label: 'Role',
+      label: 'GENERAL.ROLE',
       component: {
-        type: 'select',
+        type: 'ref',
         configuration: {
-          populate: {
-            collection: 'roles',
-            orderBy: 'name'
+          collection: 'roles',
+          valueKey: 'id',
+          clearValue: null,
+          searchBy: {
+            key: '/name',
+            label: 'Name'
+          },
+          display: {
+            key: '/name',
+            label: 'GENERAL.NAME'
+          },
+          table: {
+            tableColumns: [
+              {
+                key: '/id',
+                label: 'GENERAL.ID'
+              },
+              {
+                key: '/name',
+                label: 'GENERAL.NAME'
+              }
+            ]
           }
         }
       }
     },
     photo: {
-      label: 'Profile Photo',
+      label: 'USERS.FIELDS.PROFILE_PHOTO',
       component: {
         type: 'image',
         configuration: {
           uploadMethods: [
             {
               id: 'file-manager',
-              label: 'File Manager',
-              component: '<jms-e-file-manager-select></jms-e-file-manager-select>',
+              label: 'FILE_MANAGER.TITLE',
+              component:
+                '<jms-e-file-manager-select></jms-e-file-manager-select>',
               configuration: {
                 route: '/generated',
                 hidePath: true,
