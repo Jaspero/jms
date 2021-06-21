@@ -1,3 +1,12 @@
+# [3.48.0](https://github.com/jaspero/jms/compare/v3.47.0...v3.48.0) (2021-06-20)
+
+
+### Features
+
+* angular mat to 12 ([c449a0d](https://github.com/jaspero/jms/commit/c449a0d47e0e638b112037d0043af2957a4d230a))
+* angular to 12 ([dcafa73](https://github.com/jaspero/jms/commit/dcafa73e6bc8817a3c25c11ea89b662b7eacae6a))
+* schema forms version updates ([e28d96c](https://github.com/jaspero/jms/commit/e28d96c1ff430918751881ead9cf306b4e27119b))
+
 # [3.47.0](https://github.com/jaspero/jms/compare/v3.46.4...v3.47.0) (2021-06-18)
 
 
