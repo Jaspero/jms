@@ -1,3 +1,10 @@
+# [3.49.0](https://github.com/jaspero/jms/compare/v3.48.0...v3.49.0) (2021-06-21)
+
+
+### Features
+
+* **cms:** added hiddenChips option to filter module which allows to hide filter list from users ([e202672](https://github.com/jaspero/jms/commit/e2026723816220fc6fe10980b58157be763a863c))
+
 # [3.48.0](https://github.com/jaspero/jms/compare/v3.47.0...v3.48.0) (2021-06-20)
 
 
