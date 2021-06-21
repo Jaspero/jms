@@ -39,6 +39,11 @@ export interface FilterModule {
   hidden?: boolean;
 
   /**
+   * Hides the filter list chips above table if true
+   */
+  hiddenChips?: boolean;
+
+  /**
    * Flags all where filters with the persist value
    */
   persist?: boolean;

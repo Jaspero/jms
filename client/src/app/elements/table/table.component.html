@@ -21,7 +21,7 @@
 </ng-template>
 
 <ng-template #subHeaderTemplate>
-  <div class="p-t-s p-l-s">
+  <div class="p-t-s p-l-s" *ngIf="data.filterModule && !data.filterModule.hiddenChips">
     <jms-filter-tags [items$]="ioc.filterChange$" [search]="ioc.searchControl"></jms-filter-tags>
   </div>
 </ng-template>
