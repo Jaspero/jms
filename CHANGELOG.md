@@ -1,3 +1,10 @@
+## [3.50.1](https://github.com/jaspero/jms/compare/v3.50.0...v3.50.1) (2021-06-22)
+
+
+### Bug Fixes
+
+* **InstanceOverview:** multiple toolbar - alignment ([f806c4e](https://github.com/jaspero/jms/commit/f806c4e31a3b81b15a53142c37cb1ed9fe648e0b))
+
 # [3.50.0](https://github.com/jaspero/jms/compare/v3.49.1...v3.50.0) (2021-06-22)
 
 
