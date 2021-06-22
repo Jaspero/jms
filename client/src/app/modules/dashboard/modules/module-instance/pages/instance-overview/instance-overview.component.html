@@ -2,9 +2,9 @@
   <mat-toolbar role="heading" color="primary" class="sticky-header" data-include-max-height>
     <span>{{name | transloco}}</span>
     <div class="flex-1"></div>
-    <div>
+    <div class="flex">
       <ng-container *ngFor="let item of toolbar">
-        <div *ngIf="item === 'add'; else element;">
+        <div *ngIf="item === 'add'; else element;" class="m-l-xs">
           <a *ngIf="!hideAdd"
              mat-flat-button
              routerLink="../single/new">
@@ -12,7 +12,7 @@
           </a>
         </div>
         <ng-template #element>
-          <div [innerHTML]="item | jpSanitize"></div>
+          <div [innerHTML]="item | jpSanitize" class="m-l-xs"></div>
         </ng-template>
       </ng-container>
     </div>
