@@ -72,6 +72,13 @@ export class LoginComponent implements OnInit {
         filter(user => !!user)
       )
       .subscribe(() => {
+
+        if (this.state.entryPath) {
+          this.router.navigateByUrl(this.state.entryPath);
+          delete this.state.entryPath;
+          return;
+        }
+
         this.router.navigate(['/dashboard']);
       });
 

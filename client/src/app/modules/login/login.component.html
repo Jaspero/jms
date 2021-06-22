@@ -85,7 +85,7 @@
     <form *ngSwitchCase="'submit'" [formGroup]="codeForm">
       <mat-form-field class="w-full">
         <mat-label>{{'MFA.VERIFICATION_CODE' | transloco}}</mat-label>
-        <input matInput formControlName="code" inputmode="numeric">
+        <input autocomplete="off" matInput formControlName="code" inputmode="numeric">
       </mat-form-field>
 
       <button mat-stroked-button color="primary" type="submit" [disabled]="codeForm.invalid" [jpLoadClick]="verifyMfa()">

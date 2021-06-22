@@ -66,6 +66,7 @@
               "jsoneditor",
               "flat",
               "json-pointer",
+              "ajv",
               "tinymce/plugins/autolink",
               "tinymce/plugins/lists",
               "tinymce/plugins/fullscreen",

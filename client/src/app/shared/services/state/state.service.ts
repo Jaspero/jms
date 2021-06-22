@@ -47,6 +47,7 @@ export class StateService {
   modules$: Observable<Module[]>;
   layout$: Observable<Layout>;
   language: string;
+  entryPath: string;
 
   page$ = new BehaviorSubject<{module?: {id: string, name: string}}>({});
 
