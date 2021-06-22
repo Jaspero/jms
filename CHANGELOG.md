@@ -1,3 +1,10 @@
+## [3.49.1](https://github.com/jaspero/jms/compare/v3.49.0...v3.49.1) (2021-06-22)
+
+
+### Bug Fixes
+
+* **client:** translation in translation closes [#249](https://github.com/jaspero/jms/issues/249) ([aa06b4f](https://github.com/jaspero/jms/commit/aa06b4f2e4e6eaf551030172984fb70576806079))
+
 # [3.49.0](https://github.com/jaspero/jms/compare/v3.48.0...v3.49.0) (2021-06-21)
 
 
