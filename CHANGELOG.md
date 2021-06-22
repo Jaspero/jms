@@ -1,3 +1,10 @@
+# [3.50.0](https://github.com/jaspero/jms/compare/v3.49.1...v3.50.0) (2021-06-22)
+
+
+### Features
+
+* **client:** navigate to entry url after login closes [#248](https://github.com/jaspero/jms/issues/248) ([67b7fbe](https://github.com/jaspero/jms/commit/67b7fbea1143101ec24654d5bc54e1c5ef7cfda0))
+
 ## [3.49.1](https://github.com/jaspero/jms/compare/v3.49.0...v3.49.1) (2021-06-22)
 
 
