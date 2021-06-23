@@ -85,21 +85,25 @@ export const fileCreated = functions
     });
 
     await Promise.all(
-      toGenerate.map(file =>
-        sharp(fileTemp)
+      toGenerate.map(async file => {
+        const buffer = await sharp(fileTemp)
           .resize(file.width || null, file.height || null, {fit: 'contain', background: 'white'})
           .withMetadata()
-          .toFile(file.tmpDir)
-      )
+          .toBuffer()
+
+        return sharp(buffer).toFile(file.tmpDir);
+      })
     );
 
     if (webpToGenerate.length) {
       await Promise.all(
-        webpToGenerate.map(file =>
-          sharp(file.source)
-            .webp({lossless: true})
-            .toFile(file.destination)
-        )
+        webpToGenerate.map(async file => {
+         const buffer = await sharp(file.source)
+           .webp({lossless: true})
+           .toBuffer();
+
+         return sharp(buffer).toFile(file.destination);
+        })
       );
     }
 
