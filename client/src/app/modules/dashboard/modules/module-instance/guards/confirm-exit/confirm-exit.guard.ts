@@ -4,9 +4,7 @@ import {tap} from 'rxjs/operators';
 import {confirmation} from '../../../../../../shared/utils/confirmation';
 import {InstanceSingleComponent} from '../../pages/instance-single/instance-single.component';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ConfirmExitGuard implements CanDeactivate<InstanceSingleComponent> {
   canDeactivate(component: InstanceSingleComponent): boolean | Promise<boolean> {
     if (!component.confirmExitOnTouched || !(component.formBuilderComponent.form.dirty && component.formBuilderComponent.form.touched)) {

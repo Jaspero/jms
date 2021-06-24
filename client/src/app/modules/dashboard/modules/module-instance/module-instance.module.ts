@@ -124,6 +124,7 @@ const routes: Routes = [
   providers: [
     InstanceOverviewContextService,
     CustomModuleGuard,
+    ConfirmExitGuard,
 
     /**
      * We register a few general providers for
