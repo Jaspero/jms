@@ -1,3 +1,10 @@
+# [3.51.0](https://github.com/jaspero/jms/compare/v3.50.1...v3.51.0) (2021-06-24)
+
+
+### Features
+
+* **cms:** module - confirm exit on dirty form ([ba5a418](https://github.com/jaspero/jms/commit/ba5a41836e91181d8b8795e34c1fc0e85377185b))
+
 ## [3.50.1](https://github.com/jaspero/jms/compare/v3.50.0...v3.50.1) (2021-06-22)
 
 
