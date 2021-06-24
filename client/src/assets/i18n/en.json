@@ -46,7 +46,9 @@
     "NAME": "Name",
     "ROLE": "Role",
     "EMAIL": "Email",
-    "DESCRIPTION": "Description"
+    "DESCRIPTION": "Description",
+
+    "YES": "Yes"
   },
   "LOGIN": {
     "LOGIN": "Login",
@@ -183,7 +185,8 @@
     "ERROR": "Unknown export error"
   },
   "CONFIRMATION": {
-    "TITLE": "Are you sure?"
+    "TITLE": "Are you sure?",
+    "TOUCHED_DESCRIPTION": "There are unsaved changes in the document which will be disposed!"
   },
   "PROFILE": {
     "TITLE": "Profile",
