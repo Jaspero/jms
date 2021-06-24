@@ -163,7 +163,8 @@
     },
     "REF": {
       "SEARCH_BY": "Search By",
-      "APPLY_VALUE": "Apply Value"
+      "APPLY_VALUE": "Apply Value",
+      "LOAD_MORE": "Load More"
     }
   },
   "IMPORT": {
