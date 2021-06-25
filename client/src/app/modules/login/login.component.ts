@@ -122,9 +122,9 @@ export class LoginComponent implements OnInit {
             this.passwordField.nativeElement.focus();
           }
 
-          return throwError({
+          return throwError(() => ({
             message: this.errorMap[error.code] || 'LOGIN.ERROR_MESSAGE'
-          })
+          }))
             .pipe(
               notify()
             );

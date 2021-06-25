@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFireFunctions} from '@angular/fire/functions';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import firebase from 'firebase/app';
 import {from, throwError} from 'rxjs';
@@ -34,7 +34,7 @@ export class FinishSignUpComponent implements OnInit {
       },
       {
         validator: RepeatPasswordValidator('')
-      }
+      } as AbstractControlOptions
     );
   }
 
@@ -67,11 +67,11 @@ export class FinishSignUpComponent implements OnInit {
                 );
             }
 
-            return throwError({
+            return throwError(() => ({
               error: {
                 message
               }
-            });
+            }));
           }),
           notify({
             success: 'FINISH_SIGN_UP.SIGN_UP_SUCCESSFUL'
