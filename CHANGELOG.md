@@ -1,3 +1,24 @@
+# [3.51.0](https://github.com/jaspero/jms/compare/v3.50.1...v3.51.0) (2021-06-24)
+
+
+### Features
+
+* **cms:** module - confirm exit on dirty form ([ba5a418](https://github.com/jaspero/jms/commit/ba5a41836e91181d8b8795e34c1fc0e85377185b))
+
+## [3.50.1](https://github.com/jaspero/jms/compare/v3.50.0...v3.50.1) (2021-06-22)
+
+
+### Bug Fixes
+
+* **InstanceOverview:** multiple toolbar - alignment ([f806c4e](https://github.com/jaspero/jms/commit/f806c4e31a3b81b15a53142c37cb1ed9fe648e0b))
+
+# [3.50.0](https://github.com/jaspero/jms/compare/v3.49.1...v3.50.0) (2021-06-22)
+
+
+### Features
+
+* **client:** navigate to entry url after login closes [#248](https://github.com/jaspero/jms/issues/248) ([67b7fbe](https://github.com/jaspero/jms/commit/67b7fbea1143101ec24654d5bc54e1c5ef7cfda0))
+
 ## [3.49.1](https://github.com/jaspero/jms/compare/v3.49.0...v3.49.1) (2021-06-22)
 
 
