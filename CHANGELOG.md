@@ -1,3 +1,10 @@
+# [3.52.0](https://github.com/jaspero/jms/compare/v3.51.0...v3.52.0) (2021-06-26)
+
+
+### Features
+
+* added x-frame-options header closes [#250](https://github.com/jaspero/jms/issues/250) ([e7835c4](https://github.com/jaspero/jms/commit/e7835c4ec324faa52761c86871d4046b05d6dd05))
+
 # [3.51.0](https://github.com/jaspero/jms/compare/v3.50.1...v3.51.0) (2021-06-24)
 
 
