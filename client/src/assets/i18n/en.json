@@ -261,6 +261,7 @@
   },
   "SPOTLIGHT": {
     "MODULES": "Modules",
-    "DOCUMENTS": "Documents"
+    "DOCUMENTS": "Documents",
+    "ACTIONS": "Actions"
   }
 }

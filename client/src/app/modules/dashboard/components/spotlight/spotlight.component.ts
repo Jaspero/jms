@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {AngularFireAuth} from '@angular/fire/auth';
 import {FormControl} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
@@ -20,7 +21,8 @@ export class SpotlightComponent implements OnInit {
     private state: StateService,
     private router: Router,
     private dialog: MatDialog,
-    private db: DbService
+    private db: DbService,
+    private afAuth: AngularFireAuth
   ) {
   }
 
@@ -124,6 +126,28 @@ export class SpotlightComponent implements OnInit {
           map((results) => results.filter(item => !!item))
         );
 
+        result['SPOTLIGHT.ACTIONS'] = of([
+          {
+            value: 'Log Out',
+            description: 'Log Out current account',
+            call: () => this.afAuth.signOut().then(() => this.router.navigate(['/login'])),
+            search: 'logout log out signout sign out'
+          },
+          ...(this.state.role === 'admin' ? [{
+            value: 'File Manager',
+            description: 'Manage project storage',
+            href: '/file-manager',
+            search: 'manager file filemanager file manager storage upload download'
+          }] : [])
+        ]).pipe(
+          map(actions => {
+            return actions.filter(action => {
+              return action.search.toLowerCase().includes(search.toLowerCase())
+                || action.value.toLowerCase().includes(search.toLowerCase());
+            })
+          })
+        );
+
         const keys = Object.keys(result);
         return combineLatest(keys.map(key => result[key].pipe(startWith(null)))).pipe(
           map((results: any[]) => {
@@ -143,8 +167,14 @@ export class SpotlightComponent implements OnInit {
 
   selectItem(event) {
     const item = event.option.value;
-    return this.router.navigate([item.href]).then(() => {
+
+    if (item.href) {
+      return this.router.navigate([item.href]).then(() => {
+        this.dialog.closeAll();
+      });
+    } else if (item.call) {
       this.dialog.closeAll();
-    });
+      return item.call();
+    }
   }
 }
