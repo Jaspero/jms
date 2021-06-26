@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {safeEval} from '@jaspero/form-builder';
@@ -30,8 +30,7 @@ export class LayoutComponent implements OnInit {
     private dialog: MatDialog,
     private fb: FormBuilder,
     private dbService: DbService
-  ) {
-  }
+  ) {}
 
   @ViewChild('reset')
   resetDialog: TemplateRef<any>;
@@ -76,12 +75,12 @@ export class LayoutComponent implements OnInit {
     if (this.state.user.requireReset) {
 
       this.resetPassword = this.fb.group({
-          password: ['', Validators.required],
-          repeatPassword: ['', Validators.required]
-        },
-        {
-          validator: RepeatPasswordValidator(`Passwords don't match`)
-        });
+        password: ['', Validators.required],
+        repeatPassword: ['', Validators.required]
+      },
+      {
+        validator: RepeatPasswordValidator(`Passwords don't match`)
+      } as AbstractControlOptions);
 
       setTimeout(() => {
         this.dialog.open(
@@ -266,11 +265,11 @@ export class LayoutComponent implements OnInit {
                 );
             }
 
-            return throwError({
+            return throwError(() => ({
               error: {
                 message
               }
-            });
+            }));
           }),
           switchMap(() =>
             this.dbService.setDocument(

@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 import {RouterModule, Routes} from '@angular/router';
 import {HasClaimGuard} from './shared/guards/has-claim/has-claim.guard';
+import {RedirectGuard} from './shared/guards/redirect/redirect.guard';
 
 const redirectUnauthorized = () => redirectUnauthorizedTo(['/login']);
 const redirectLoggedInToDashboard = () => redirectLoggedInTo(['/dashboard']);
@@ -13,6 +14,7 @@ const routes: Routes = [
       import('./modules/dashboard/dashboard.module')
         .then(m => m.DashboardModule),
     canActivate: [
+      RedirectGuard,
       AngularFireAuthGuard,
       HasClaimGuard
     ],

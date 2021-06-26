@@ -21,7 +21,7 @@
 </ng-template>
 
 <ng-template #subHeaderTemplate>
-  <div class="p-t-s p-l-s">
+  <div class="p-t-s p-l-s" *ngIf="data.filterModule && !data.filterModule.hiddenChips">
     <jms-filter-tags [items$]="ioc.filterChange$" [search]="ioc.searchControl"></jms-filter-tags>
   </div>
 </ng-template>
@@ -129,7 +129,7 @@
           </div>
         </mat-toolbar>
 
-        <div class="table-wrapper">
+        <div class="table-wrapper" [style.max-height]="maxHeight$ | async">
           <table
             class="jms-instance-overview-table"
             mat-table
@@ -216,9 +216,9 @@
 
         <ng-container *ngIf="ioc.emptyState$ | async; else hasContent;">
           <mat-toolbar class="jc-center" *ngIf="!data.hideAdd">
-            <p class="m-r-s">{{'INSTANCE_OVERVIEW.NO_ITEMS' | transloco:{value: data.name} }}</p>
+            <p class="m-r-s">{{'INSTANCE_OVERVIEW.NO_ITEMS' | transloco}}</p>
             <a mat-button color="primary" routerLink="/m/{{data.moduleId}}/single/new">
-              {{'GENERAL.ADD' | transloco}} {{data.name}}
+              {{'GENERAL.ADD' | transloco}} {{data.name | transloco}}
             </a>
           </mat-toolbar>
         </ng-container>

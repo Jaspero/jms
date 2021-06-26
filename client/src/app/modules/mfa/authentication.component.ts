@@ -106,7 +106,7 @@ export class AuthenticationComponent implements OnInit {
             this.afAuth.signOut();
           }
 
-          return throwError(e);
+          return throwError(() => e);
         }),
         notify({
           success: false,

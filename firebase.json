@@ -3,17 +3,30 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
-  "hosting": [{
-    "target": "cms",
-    "public": "public/cms",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  }],
+  "hosting": [
+    {
+      "target": "cms",
+      "public": "public/cms",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "headers": [
+        {
+          "source": "**",
+          "headers": [
+            {
+              "key": "x-frame-options",
+              "value": "DENY"
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "storage": {
     "rules": "storage.rules"
   }

@@ -16,7 +16,6 @@
     "ERROR": "Error",
     "SUCCESS": "Success",
     "OR": "Or",
-    "EMAIL": "Email",
     "PASSWORD": "Password",
     "SEARCH": "Search",
     "DUPLICATE": "Duplicate",
@@ -41,7 +40,15 @@
     "CREATED_ON": "Created On",
     "DATE": "Date",
     "HOURS": "Hours",
-    "MINUTES": "Minutes"
+    "MINUTES": "Minutes",
+
+    "ID": "ID",
+    "NAME": "Name",
+    "ROLE": "Role",
+    "EMAIL": "Email",
+    "DESCRIPTION": "Description",
+
+    "YES": "Yes"
   },
   "LOGIN": {
     "LOGIN": "Login",
@@ -104,13 +111,19 @@
     "NAME": "Name",
     "NO_MODULES": "No modules yet.",
     "COPIED_TO_CLIPBOARD": "Copied to clipboard",
-    "LAYOUT_SETTINGS": "Layout Settings"
+    "LAYOUT_SETTINGS": "Layout Settings",
+    "ROLES": "Roles",
+    "ROLES_DESCRIPTION": "Collection of roles that can be assigned to users",
+    "USER_INVITES": "Invites",
+    "USER_INVITES_DESCRIPTION": "Invites sent to new users",
+    "USERS": "Users",
+    "USERS_DESCRIPTION": "App Users"
   },
   "INSTANCE_OVERVIEW": {
     "REMOVE_ITEMS": "Remove {{value}} items",
     "REMOVE_ONE": "This action will remove {{value}} permanently",
     "REMOVE_ITEMS_WARNING": "This action will remove all of the following documents:",
-    "NO_ITEMS": "No {{value}} yet.",
+    "NO_ITEMS": "No data yet.",
     "LOAD_MORE": "More...",
     "APPLY": "Apply",
     "UPDATE_ORDER": "Update Order",
@@ -149,6 +162,11 @@
       "LEFT": "Left",
       "CENTER": "Center",
       "RIGHT": "Right"
+    },
+    "REF": {
+      "SEARCH_BY": "Search By",
+      "APPLY_VALUE": "Apply Value",
+      "LOAD_MORE": "Load More"
     }
   },
   "IMPORT": {
@@ -167,7 +185,8 @@
     "ERROR": "Unknown export error"
   },
   "CONFIRMATION": {
-    "TITLE": "Are you sure?"
+    "TITLE": "Are you sure?",
+    "TOUCHED_DESCRIPTION": "There are unsaved changes in the document which will be disposed!"
   },
   "PROFILE": {
     "TITLE": "Profile",
@@ -193,7 +212,22 @@
     "ADD": "Add User",
     "METHOD": "Method",
     "ROLE": "Role",
-    "PASSWORD_RULES": "Must be at least 6 characters"
+    "PASSWORD_RULES": "Must be at least 6 characters",
+
+    "FIELDS": {
+      "PROFILE_PHOTO": "Profile Photo"
+    },
+    "FILTERS": {
+      "START_DATE": "Start Date",
+      "END_DATE": "End Date"
+    }
+  },
+  "USER_INVITES": {
+    "FIELDS": {
+      "REQUIRE_RESET": "Require Reset",
+      "SEND_INVITE": "Send Invite",
+      "ACCEPTED_ON": "Accepted"
+    }
   },
   "ELEMENTS": {
     "CHANGE_PASSWORD": {
@@ -219,6 +253,7 @@
     "DASHBOARD_ACCESS": "You don't have access to the dashboard."
   },
   "FILE_MANAGER": {
+    "TITLE": "File Manager",
     "DELETE_FILE": {
       "DESCRIPTION": "File '{{name}}' will be deleted!",
       "CONFIRM": "Delete"

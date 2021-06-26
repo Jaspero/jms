@@ -1,5 +1,5 @@
 import {defer, Observable, throwError} from 'rxjs';
-import {catchError, finalize, tap} from 'rxjs/operators';
+import {catchError, finalize} from 'rxjs/operators';
 import {StateService} from '../services/state/state.service';
 
 const cq = [];
@@ -33,7 +33,7 @@ export function queue(
 
           state.loadingQue$.next(cq);
 
-          return throwError(err);
+          return throwError(() => err);
         })
       );
     });
