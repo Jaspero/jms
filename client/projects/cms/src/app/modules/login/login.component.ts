@@ -73,6 +73,13 @@ export class LoginComponent implements OnInit {
         filter(user => !!user)
       )
       .subscribe(() => {
+
+        if (this.state.entryPath) {
+          this.router.navigateByUrl(this.state.entryPath);
+          delete this.state.entryPath;
+          return;
+        }
+
         this.router.navigate(['/dashboard']);
       });
 
@@ -116,9 +123,9 @@ export class LoginComponent implements OnInit {
             this.passwordField.nativeElement.focus();
           }
 
-          return throwError({
+          return throwError(() => ({
             message: this.errorMap[error.code] || 'LOGIN.ERROR_MESSAGE'
-          })
+          }))
             .pipe(
               notify()
             );

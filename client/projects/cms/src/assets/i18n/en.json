@@ -46,7 +46,9 @@
     "NAME": "Name",
     "ROLE": "Role",
     "EMAIL": "Email",
-    "DESCRIPTION": "Description"
+    "DESCRIPTION": "Description",
+
+    "YES": "Yes"
   },
   "LOGIN": {
     "LOGIN": "Login",
@@ -121,7 +123,7 @@
     "REMOVE_ITEMS": "Remove {{value}} items",
     "REMOVE_ONE": "This action will remove {{value}} permanently",
     "REMOVE_ITEMS_WARNING": "This action will remove all of the following documents:",
-    "NO_ITEMS": "No {{value}} yet.",
+    "NO_ITEMS": "No data yet.",
     "LOAD_MORE": "More...",
     "APPLY": "Apply",
     "UPDATE_ORDER": "Update Order",
@@ -163,7 +165,8 @@
     },
     "REF": {
       "SEARCH_BY": "Search By",
-      "APPLY_VALUE": "Apply Value"
+      "APPLY_VALUE": "Apply Value",
+      "LOAD_MORE": "Load More"
     }
   },
   "IMPORT": {
@@ -182,7 +185,8 @@
     "ERROR": "Unknown export error"
   },
   "CONFIRMATION": {
-    "TITLE": "Are you sure?"
+    "TITLE": "Are you sure?",
+    "TOUCHED_DESCRIPTION": "There are unsaved changes in the document which will be disposed!"
   },
   "PROFILE": {
     "TITLE": "Profile",

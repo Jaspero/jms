@@ -33,7 +33,7 @@ export function queue(
 
           state.loadingQue$.next(cq);
 
-          return throwError(err);
+          return throwError(() => err);
         })
       );
     });

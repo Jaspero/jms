@@ -34,7 +34,7 @@ export class ToggleUserStatusComponent implements OnInit {
           this.loading = false;
           this.cdr.markForCheck();
           console.error(error);
-          return throwError(error);
+          return throwError(() => error);
         })),
         tap(user => {
           this.status = new FormControl(user.disabled);

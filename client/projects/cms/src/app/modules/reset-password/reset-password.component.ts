@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {from} from 'rxjs';
 import {tap} from 'rxjs/operators';
@@ -38,7 +38,7 @@ export class ResetPasswordComponent implements OnInit {
       },
       {
         validator: RepeatPasswordValidator('')
-      }
+      } as AbstractControlOptions
     );
   }
 

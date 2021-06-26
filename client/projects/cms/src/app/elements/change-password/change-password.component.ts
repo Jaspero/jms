@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {tap} from 'rxjs/operators';
 import {DbService} from '../../shared/services/db/db.service';
@@ -33,7 +33,7 @@ export class ChangePasswordComponent implements OnInit {
       },
       {
         validator: RepeatPasswordValidator('Passwords not matching')
-      }
+      } as AbstractControlOptions
     );
   }
 
