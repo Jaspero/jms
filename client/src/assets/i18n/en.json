@@ -258,5 +258,10 @@
       "DESCRIPTION": "File '{{name}}' will be deleted!",
       "CONFIRM": "Delete"
     }
+  },
+  "SPOTLIGHT": {
+    "MODULES": "Modules",
+    "DOCUMENTS": "Documents",
+    "ACTIONS": "Actions"
   }
 }

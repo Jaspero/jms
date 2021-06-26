@@ -194,5 +194,8 @@ export const USERS_MODULE = {
       }
     },
     ...CREATED_ON.definition()
+  },
+  spotlight: {
+    queryFields: ['name', 'email']
   }
 };

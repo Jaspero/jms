@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {safeEval} from '@jaspero/form-builder';
 import firebase from 'firebase/app';
 import {combineLatest, from, Observable, of, throwError} from 'rxjs';
-import {catchError, map, switchMap, tap} from 'rxjs/operators';
+import {catchError, map, switchMap, take, tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../../../environments/static-config';
 import {NavigationItemType} from '../../../../shared/enums/navigation-item-type.enum';
 import {NavigationItemWithActive} from '../../../../shared/interfaces/navigation-item-with-active.interface';
@@ -14,6 +14,7 @@ import {DbService} from '../../../../shared/services/db/db.service';
 import {StateService} from '../../../../shared/services/state/state.service';
 import {notify} from '../../../../shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '../../../../shared/validators/repeat-password.validator';
+import {SpotlightComponent} from '../spotlight/spotlight.component';
 
 @Component({
   selector: 'jms-layout',
@@ -43,7 +44,32 @@ export class LayoutComponent implements OnInit {
 
   resetPassword: FormGroup;
 
+  spotlightDialogRef: MatDialogRef<any>;
+
   ngOnInit() {
+    document.addEventListener('keydown', (event) => {
+      if (event.ctrlKey && event.key === ' ') {
+        if (this.spotlightDialogRef) {
+          return;
+        }
+
+        this.spotlightDialogRef = this.dialog.open(SpotlightComponent, {
+          panelClass: 'spotlight-dialog'
+        });
+
+        this.spotlightDialogRef.updatePosition({
+          top: '15%'
+        });
+
+        this.spotlightDialogRef.afterClosed().pipe(
+          take(1),
+          tap(() => {
+            this.spotlightDialogRef = null;
+          })
+        ).subscribe();
+      }
+    });
+
     this.currentUser$ = this.afAuth.user;
 
     if (this.state.user.requireReset) {
@@ -63,7 +89,7 @@ export class LayoutComponent implements OnInit {
             width: '600px',
             disableClose: true
           }
-        )
+        );
       }, 1000);
     }
 
@@ -194,7 +220,7 @@ export class LayoutComponent implements OnInit {
                     return links;
                   }
                 })
-              )
+              );
           }
 
           return of([]);
@@ -251,13 +277,13 @@ export class LayoutComponent implements OnInit {
               this.state.user.id,
               {requireReset: false},
               {merge: true}
-              )
+            )
           ),
           notify({
             success: 'Your password has been updated successfully'
           }),
           tap(() => {
-            this.dialog.closeAll()
+            this.dialog.closeAll();
           })
         );
   }
