@@ -3,7 +3,7 @@
   "version": "4.0.0",
   "license": "MIT",
   "scripts": {
-    "start:emulator": "firebase emulators:start",
+    "start:emulator": "firebase emulators:start --export-on-exit=.emulator-export --import=.emulator-export",
     "start:cms": "npm --prefix client run start",
     "start:cms:live": "npm --prefix client run start:live",
     "start:functions": "npm --prefix functions run serve",
