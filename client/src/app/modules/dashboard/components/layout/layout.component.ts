@@ -5,7 +5,7 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {safeEval} from '@jaspero/form-builder';
 import firebase from 'firebase/app';
-import {combineLatest, from, Observable, of, throwError} from 'rxjs';
+import {from, Observable, throwError} from 'rxjs';
 import {catchError, map, switchMap, take, tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../../../environments/static-config';
 import {NavigationItemType} from '../../../../shared/enums/navigation-item-type.enum';
@@ -101,129 +101,57 @@ export class LayoutComponent implements OnInit {
      */
     this.links$ = this.currentUser$
       .pipe(
-        switchMap(user => {
+        map(user => {
           if (user) {
-            return combineLatest([
-              this.state.layout$,
-              this.state.modules$
-            ])
-              .pipe(
-                map(([layout, modules]) => {
-                  if (layout.navigation) {
-                    return layout.navigation.items.reduce((acc, item) => {
-                      if (
-                        !item.authorized ||
-                        item.authorized.includes(this.state.role)
-                      ) {
+            return STATIC_CONFIG.navigation.items.reduce((acc, item) => {
+              if (
+                !item.authorized ||
+                item.authorized.includes(this.state.role)
+              ) {
 
-                        if (item.function) {
-                          const value = safeEval(item.value);
-                          if (value) {
-                            item.value = value(this.state.user, this.state.role);
-                          }
-                        }
-
-                        acc.push({
-                          ...item,
-                          ...item.children ?
-                            {
-                              children: item.children
-                                .reduce((a, c) => {
-                                  if (!c.authorized || c.authorized.includes(this.state.role)) {
-                                    if (c.function) {
-                                      const value = safeEval(c.value);
-                                      if (value) {
-                                        c.value = value(this.state.user, this.state.role);
-                                      }
-                                    }
-
-                                    a.push({
-                                      ...c,
-                                      routerOptions: {
-                                        exact: c.matchExact || false
-                                      }
-                                    });
-                                  }
-
-                                  return a;
-                                }, [])
-                            } : {},
-                          routerOptions: {
-                            exact: item.matchExact || false
-                          }
-                        });
-                      }
-
-                      return acc;
-                    }, []);
-                  } else {
-                    const links: NavigationItemWithActive[] = modules.reduce((acc, item) => {
-
-                      if (
-                        !item.authorization ||
-                        !item.authorization.read ||
-                        item.authorization.read.includes(this.state.role)
-                      ) {
-                        acc.push({
-                          icon:
-                            item.layout && item.layout.icon ? item.layout.icon : 'folder_open',
-                          label: item.name,
-                          type: NavigationItemType.Link,
-                          routerOptions: {
-                            exact: false
-                          },
-                          value: [
-                            '/m',
-                            item.id,
-                            ...(item.layout && item.layout.directLink
-                              ? ['single', item.layout.directLink]
-                              : ['overview'])
-                          ]
-                            .join('/')
-                        });
-                      }
-
-                      return acc;
-                    }, []);
-
-                    links.unshift({
-                      label: 'LAYOUT.DASHBOARD',
-                      icon: 'dashboard',
-                      type: NavigationItemType.Link,
-                      value: '/dashboard',
-                      routerOptions: {
-                        exact: false
-                      }
-                    });
-
-                    links.push(
-                      {
-                        label: 'LAYOUT.MODULES',
-                        icon: 'view_module',
-                        type: NavigationItemType.Link,
-                        value: '/module-definition/overview',
-                        routerOptions: {
-                          exact: false
-                        }
-                      },
-                      {
-                        label: 'LAYOUT.SETTINGS',
-                        icon: 'settings',
-                        type: NavigationItemType.Link,
-                        value: '/settings',
-                        routerOptions: {
-                          exact: false
-                        }
-                      }
-                    );
-
-                    return links;
+                if (item.function) {
+                  const value = safeEval(item.value);
+                  if (value) {
+                    item.value = value(this.state.user, this.state.role);
                   }
-                })
-              );
+                }
+
+                acc.push({
+                  ...item,
+                  ...item.children ?
+                    {
+                      children: item.children
+                        .reduce((a, c) => {
+                          if (!c.authorized || c.authorized.includes(this.state.role)) {
+                            if (c.function) {
+                              const value = safeEval(c.value);
+                              if (value) {
+                                c.value = value(this.state.user, this.state.role);
+                              }
+                            }
+
+                            a.push({
+                              ...c,
+                              routerOptions: {
+                                exact: c.matchExact || false
+                              }
+                            });
+                          }
+
+                          return a;
+                        }, [])
+                    } : {},
+                  routerOptions: {
+                    exact: item.matchExact || false
+                  }
+                });
+              }
+
+              return acc;
+            }, []);
           }
 
-          return of([]);
+          return [];
         })
       );
   }

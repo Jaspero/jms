@@ -3,10 +3,7 @@ import {AngularFirestore, CollectionReference} from '@angular/fire/firestore';
 import {AngularFireFunctions, ORIGIN, REGION} from '@angular/fire/functions';
 import {from, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {ExampleType} from '../../src/app/shared/enums/example-type.enum';
 import {FilterMethod} from '../../src/app/shared/enums/filter-method.enum';
-import {Example} from '../../src/app/shared/interfaces/example.interface';
-import {Module} from '../../src/app/shared/interfaces/module.interface';
 import {Settings} from '../../src/app/shared/interfaces/settings.interface';
 import {WhereFilter} from '../../src/app/shared/interfaces/where-filter.interface';
 import {DbService} from '../../src/app/shared/services/db/db.service';
@@ -42,48 +39,6 @@ export class FbDatabaseService extends DbService {
     } else {
       return `https://${this.region}-${environment.firebase.projectId}.cloudfunctions.net/${url}`;
     }
-  }
-
-  getModules() {
-    return this.afs
-      .collection(FirestoreCollection.Modules)
-      .get()
-      .pipe(
-        map(res =>
-          res.docs
-            .map(doc => ({
-
-              /**
-               * We use '~' instead of '/' for sub-collections
-               */
-              id: doc.id.replace(/~/g, '/'),
-              ...(doc.data() as Module)
-            }))
-            .sort((a, b) => b.layout?.order - a.layout?.order)
-        )
-      );
-  }
-
-  setModule(data: Partial<Module>, id?: string) {
-    return from(
-      this.afs
-        .collection(FirestoreCollection.Modules)
-        .doc(id || this.afs.createId())
-        .set(data)
-    );
-  }
-
-  removeModule(id: string) {
-    return from(
-      this.afs
-        .collection(FirestoreCollection.Modules)
-        .doc(id)
-        .delete()
-    );
-  }
-
-  getExamples(type: ExampleType): Observable<{data: Example[]}> {
-    return this.callFunction('cms-getExamples', type);
   }
 
   getUserSettings() {

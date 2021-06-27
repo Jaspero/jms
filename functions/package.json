@@ -2,7 +2,8 @@
   "name": "functions",
   "scripts": {
     "lint": "tslint --project tsconfig.json",
-    "build": "tsc && cp -r ./src/examples ./lib",
+    "build": "tsc",
+    "watch": "tsc -w",
     "serve": "npm run build && firebase serve --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
@@ -27,7 +28,6 @@
     "fs-extra": "9.0.1",
     "handlebars": "4.7.7",
     "json-pointer": "0.6.1",
-    "json-schema-to-typescript": "9.1.0",
     "json2csv": "5.0.1",
     "sharp": "0.28.1",
     "xlsx": "0.16.3"

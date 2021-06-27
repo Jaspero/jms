@@ -35,12 +35,6 @@ const routes: Routes = [{
           .then(m => m.ProfileModule)
     },
     {
-      path: 'module-definition',
-      loadChildren: () =>
-        import('./modules/module-definition/module-definition.module')
-          .then(m => m.ModuleDefinitionModule)
-    },
-    {
       path: 'm',
       loadChildren: () =>
         import('./modules/module-instance/module-instance.module')

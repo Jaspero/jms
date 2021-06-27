@@ -1,8 +1,6 @@
 import {initializeApp} from 'firebase-admin';
 import {createUser} from './callable/create-user';
-import {getExamples} from './callable/get-examples';
 import {getUser} from './callable/get-user';
-import {jsonSchemaToTypescript} from './callable/json-schema-to-typescript';
 import {removeUser} from './callable/remove-user';
 import {triggerPasswordReset} from './callable/trigger-password-reset';
 import {updateEmail} from './callable/update-email';
@@ -33,8 +31,6 @@ export const cms = {
   // Callable
   createUser,
   removeUser,
-  jsonSchemaToTypescript,
-  getExamples,
   updateUser,
   getUser,
   updateEmail,

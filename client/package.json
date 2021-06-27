@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:live": "ng serve --configuration=live",
     "build": "node timestamp.js && ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -33,7 +34,6 @@
     "file-saver": "2.0.5",
     "firebase": "8.3.1",
     "json-pointer": "0.6.1",
-    "jsoneditor": "9.2.0",
     "lodash-es": "4.17.15",
     "rxjs": "7.0.0-beta.13",
     "tinymce": "5.7.1",
@@ -49,7 +49,6 @@
     "@types/jasminewd2": "2.0.8",
     "@types/json-pointer": "1.0.30",
     "@types/json-schema": "7.0.7",
-    "@types/jsoneditor": "8.6.0",
     "@types/node": "14.14.35",
     "codelyzer": "6.0.1",
     "jasmine-core": "3.7.1",

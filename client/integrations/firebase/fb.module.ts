@@ -1,5 +1,8 @@
 import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 import {AngularFireModule} from '@angular/fire';
+import {USE_EMULATOR as USE_AUTH_EMULATOR} from '@angular/fire/auth';
+import {USE_EMULATOR as USE_FIRESTORE_EMULATOR} from '@angular/fire/firestore';
+import {USE_EMULATOR as USE_FUNCTIONS_EMULATOR} from '@angular/fire/functions';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireAuthGuardModule} from '@angular/fire/auth-guard';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
@@ -46,7 +49,20 @@ export class FirebaseModule {
         {
           provide: ORIGIN,
           useValue: environment.origin
-        }
+        },
+
+        {
+          provide: USE_AUTH_EMULATOR,
+          useValue: environment.firebaseEmulators ? ['localhost', 9099] : undefined
+        },
+        {
+          provide: USE_FIRESTORE_EMULATOR,
+          useValue: environment.firebaseEmulators ? ['localhost', 8080] : undefined
+        },
+        {
+          provide: USE_FUNCTIONS_EMULATOR,
+          useValue: environment.firebaseEmulators ? ['localhost', 5000] : undefined
+        },
       ]
     };
   }
