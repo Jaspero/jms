@@ -3,7 +3,7 @@ import {ENV_CONFIG} from '../../env-config';
 export const environment = {
   origin: '',
   production: true,
-  timeStamp: '7/24/2020 - 10:36:27 PM',
+  timeStamp: '6/27/2021 - 8:55:00 PM',
   firebase: ENV_CONFIG.firebase,
   firebaseEmulators: false
 };
