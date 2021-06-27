@@ -1,0 +1,39 @@
+:host {
+  --color: darkgrey;
+}
+
+::placeholder {
+  color: var(--color);
+  opacity: 0.8;
+}
+
+.icon {
+  position: absolute;
+  margin-top: 2px;
+  padding: 10px;
+  min-width: 40px;
+
+  pointer-events: none;
+
+  color: var(--color);
+}
+
+.search {
+  width: 500px;
+  border-radius: 16px;
+
+  color: var(--color);
+
+  height: 40px;
+  font-size: 26px;
+
+  outline: none;
+  border: none;
+  background: rgba(255, 255, 255, .5);
+
+  padding: 5px 5px 5px 45px;
+}
+
+.option-description.option-description.option-description.option-description {
+  font-size: 0.8em;
+}

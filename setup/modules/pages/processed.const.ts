@@ -1,0 +1,3 @@
+export const PROCESSED = {
+  "css": "*,:after,:before{box-sizing:inherit}html{box-sizing:border-box;word-wrap:break-word;overflow-wrap:break-word;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}body,h1,h2,h3,hr,ol,p,ul{margin:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}li>ol,ul{margin-bottom:0}small{font-size:.8em}b,strong{font-weight:700}em,i{font-style:italic}u{text-decoration:underline}a{color:inherit;text-decoration:none}a,button{cursor:pointer}img{max-width:100%;height:auto;vertical-align:middle}"
+};

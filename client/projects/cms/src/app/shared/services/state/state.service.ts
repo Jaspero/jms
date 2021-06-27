@@ -1,24 +1,20 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslocoService} from '@ngneat/transloco';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {map, shareReplay} from 'rxjs/operators';
-import {Layout} from '../../interfaces/layout.interface';
+import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
+import {shareReplay} from 'rxjs/operators';
+import {MODULES} from '../../../../../../../../setup/modules/modules';
 import {Module} from '../../interfaces/module.interface';
 import {User} from '../../interfaces/user.interface';
-import {DbService} from '../db/db.service';
-import {SchemaService} from '../schema/schema.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StateService {
   constructor(
-    private dbService: DbService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private transloco: TranslocoService,
-    private schemaService: SchemaService
+    private transloco: TranslocoService
   ) {
     this.language = localStorage.getItem('language');
 
@@ -28,25 +24,19 @@ export class StateService {
       this.language = this.transloco.getActiveLang();
     }
 
-    this.modules$ = this.schemaService.modules$
+    // @ts-ignore
+    this.modules$ = of(MODULES)
       .pipe(
         shareReplay(1)
       );
-    this.layout$ = this.schemaService.layout$.pipe(
-      map(value => {
-        delete value.id;
-        return value;
-      }),
-      shareReplay(1)
-    );
   }
 
   role: string;
   user: User;
   loadingQue$ = new Subject<Array<string | boolean>>();
   modules$: Observable<Module[]>;
-  layout$: Observable<Layout>;
   language: string;
+  entryPath: string;
 
   page$ = new BehaviorSubject<{module?: {id: string, name: string}}>({});
 

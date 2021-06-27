@@ -1,3 +1,89 @@
+## [4.1.1](https://github.com/jaspero/jms/compare/v4.1.0...v4.1.1) (2021-06-27)
+
+
+### Bug Fixes
+
+* added .gitkeep to public/cms ([146b19e](https://github.com/jaspero/jms/commit/146b19ecd000585c6de6234749bff5a071c59b6b))
+
+# [4.1.0](https://github.com/jaspero/jms/compare/v4.0.0...v4.1.0) (2021-06-27)
+
+
+### Features
+
+* configured import and export for emulator data ([a9d57b9](https://github.com/jaspero/jms/commit/a9d57b9da667e03984774ff5d746df777b4a0728))
+
+# [4.0.0](https://github.com/jaspero/jms/compare/v3.53.0...v4.0.0) (2021-06-27)
+
+
+### Features
+
+* modules loaded from memory, removed module-definitions, removed get-examples and json-schema-to-typescript ([31b2999](https://github.com/jaspero/jms/commit/31b2999f6301bb2d22003f1ee259e4bb150c77b3))
+
+
+### BREAKING CHANGES
+
+* Modules are now loaded from memory and are no longer stored in database. Follow the migration guide for more details
+https://github.com/Jaspero/jms/wiki/Migrating-to-v4
+
+# [3.53.0](https://github.com/jaspero/jms/compare/v3.52.0...v3.53.0) (2021-06-26)
+
+
+### Features
+
+* added spotlight actions, logout and file manager ([88b065a](https://github.com/jaspero/jms/commit/88b065a3719c6c31ba3333c052c7eff814f972d2))
+* spotlight search [#237](https://github.com/jaspero/jms/issues/237) :tada: ([e7f8767](https://github.com/jaspero/jms/commit/e7f8767c4534296555f32b8e3e0bc0e64ab1ce04))
+
+# [3.52.0](https://github.com/jaspero/jms/compare/v3.51.0...v3.52.0) (2021-06-26)
+
+
+### Features
+
+* added x-frame-options header closes [#250](https://github.com/jaspero/jms/issues/250) ([e7835c4](https://github.com/jaspero/jms/commit/e7835c4ec324faa52761c86871d4046b05d6dd05))
+
+# [3.51.0](https://github.com/jaspero/jms/compare/v3.50.1...v3.51.0) (2021-06-24)
+
+
+### Features
+
+* **cms:** module - confirm exit on dirty form ([ba5a418](https://github.com/jaspero/jms/commit/ba5a41836e91181d8b8795e34c1fc0e85377185b))
+
+## [3.50.1](https://github.com/jaspero/jms/compare/v3.50.0...v3.50.1) (2021-06-22)
+
+
+### Bug Fixes
+
+* **InstanceOverview:** multiple toolbar - alignment ([f806c4e](https://github.com/jaspero/jms/commit/f806c4e31a3b81b15a53142c37cb1ed9fe648e0b))
+
+# [3.50.0](https://github.com/jaspero/jms/compare/v3.49.1...v3.50.0) (2021-06-22)
+
+
+### Features
+
+* **client:** navigate to entry url after login closes [#248](https://github.com/jaspero/jms/issues/248) ([67b7fbe](https://github.com/jaspero/jms/commit/67b7fbea1143101ec24654d5bc54e1c5ef7cfda0))
+
+## [3.49.1](https://github.com/jaspero/jms/compare/v3.49.0...v3.49.1) (2021-06-22)
+
+
+### Bug Fixes
+
+* **client:** translation in translation closes [#249](https://github.com/jaspero/jms/issues/249) ([aa06b4f](https://github.com/jaspero/jms/commit/aa06b4f2e4e6eaf551030172984fb70576806079))
+
+# [3.49.0](https://github.com/jaspero/jms/compare/v3.48.0...v3.49.0) (2021-06-21)
+
+
+### Features
+
+* **cms:** added hiddenChips option to filter module which allows to hide filter list from users ([e202672](https://github.com/jaspero/jms/commit/e2026723816220fc6fe10980b58157be763a863c))
+
+# [3.48.0](https://github.com/jaspero/jms/compare/v3.47.0...v3.48.0) (2021-06-20)
+
+
+### Features
+
+* angular mat to 12 ([c449a0d](https://github.com/jaspero/jms/commit/c449a0d47e0e638b112037d0043af2957a4d230a))
+* angular to 12 ([dcafa73](https://github.com/jaspero/jms/commit/dcafa73e6bc8817a3c25c11ea89b662b7eacae6a))
+* schema forms version updates ([e28d96c](https://github.com/jaspero/jms/commit/e28d96c1ff430918751881ead9cf306b4e27119b))
+
 # [3.47.0](https://github.com/jaspero/jms/compare/v3.46.4...v3.47.0) (2021-06-18)
 
 

@@ -1,20 +1,14 @@
-import {minify} from 'csso';
-import {readFileSync} from 'fs';
-import {join} from 'path';
 import {CREATED_ON} from '../shared/created-on';
 import {FORMAT_SEARCH} from '../shared/format-search';
 import {META} from '../shared/meta';
 import {CONTENT_BLOCK} from './blocks/content.block';
 import {FORM_BLOCK} from './blocks/form.block';
+import {PROCESSED} from './processed.const';
 
 const blocks = [
   CONTENT_BLOCK,
   FORM_BLOCK
 ];
-
-const {css: styles} = minify(
-  readFileSync(join(__dirname, 'style.css')).toString()
-);
 
 export const PAGES_MODULE = {
   id: 'pages',
@@ -74,7 +68,7 @@ export const PAGES_MODULE = {
       component: {
         type: 'pb-blocks',
         configuration: {
-          styles,
+          styles: PROCESSED.css,
           blocks,
           styleUrls: []
         }

@@ -12,6 +12,13 @@
 @import "scss/03-utilities/grid";
 @import "scss/03-utilities/utilities";
 
+.spotlight-dialog {
+  > mat-dialog-container {
+    border-radius: 8px;
+    padding: 0;
+  }
+}
+
 /*
 <mat-card>
   <mat-card-header>

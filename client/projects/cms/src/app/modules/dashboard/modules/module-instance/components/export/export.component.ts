@@ -32,7 +32,7 @@ enum ExportType {
 export class ExportComponent {
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA)
-    private data: {
+    public data: {
       filterModule?: FilterModule;
       filterValue?: any;
       sort?: InstanceSort;

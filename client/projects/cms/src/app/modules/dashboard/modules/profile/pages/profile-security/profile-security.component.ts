@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
+import {AbstractControlOptions, FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import firebase from 'firebase/app';
 import {combineLatest, from, Observable, throwError} from 'rxjs';
@@ -77,7 +77,7 @@ export class ProfileSecurityComponent implements OnInit {
       },
       {
         validator: RepeatPasswordValidator(`Passwords don't match`)
-      });
+      } as AbstractControlOptions);
   }
 
   changePassword(form: FormGroupDirective) {
@@ -100,11 +100,11 @@ export class ProfileSecurityComponent implements OnInit {
                 );
             }
 
-            return throwError({
+            return throwError(() => ({
               error: {
                 message
               }
-            });
+            }));
           }),
           notify({
             success: 'Your password has been updated successfully'
@@ -145,11 +145,11 @@ export class ProfileSecurityComponent implements OnInit {
                   );
               }
 
-              return throwError({
+              return throwError(() => ({
                 error: {
                   message
                 }
-              });
+              }));
             })
           )
       ])
@@ -171,12 +171,12 @@ export class ProfileSecurityComponent implements OnInit {
             this.router.navigate(['/login']);
           }
 
-          return throwError({
+          return throwError(() => ({
             error: {
               message:
                 'For security reasons, please login again before removing your account.'
             }
-          });
+          }));
         }),
         notify({
           success: 'Your account and all of your personal information have been removed from our system.'
@@ -239,7 +239,7 @@ export class ProfileSecurityComponent implements OnInit {
                     this.afAuth.signOut();
                   }
 
-                  return throwError(e);
+                  return throwError(() => e);
                 }),
                 notify({
                   success: htf ? 'PROFILE.REMOVE_MFA' : 'PROFILE.CONNECT_MFA',

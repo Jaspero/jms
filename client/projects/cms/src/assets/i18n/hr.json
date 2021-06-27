@@ -62,7 +62,6 @@
   "LAYOUT": {
     "MENU": "Izbornik",
     "DASHBOARD": "Nadzorna ploča",
-    "MODULES": "Moduli",
     "INVITES": "Pozivi",
     "LOG_OUT": "Odjavi se",
     "MANAGEMENT": "Upravljanje",
@@ -70,20 +69,14 @@
     "RESET_PASSWORD": "Molim vas resetirajte lozinku"
   },
   "MODULES": {
-    "ADD_MODULE": "Dodaj Modul",
     "REMOVE_ITEMS": "Ukloni {{value}} predmete",
     "REMOVE_ONE": "Ova akcija će u potpunosti ukloniti {{value}}",
-    "REMOVE_MODULE_SETUP": "Ova akcija će prepraviti trenutnu kofiguraciju modula.",
     "EXPORT_SELECTED_FILES": "Izvezi odabrane dokumente",
-    "CREATE_INTERFACES_FOR_SELECTION": "Kreiraj sučelja za odabir.",
     "NAME_ID": "Ime/ID",
     "CREATED_ON": "Kreirano na",
     "DESCRIPTION": "Opis",
     "GO_TO": "Idi na",
-    "GENERATE_TS_INTERFACE": "Generiraj TS Sučelje",
-    "SELECT_TEMPLATE": "Odaberi predložak",
     "NAME": "Ime",
-    "NO_MODULES": "Nijedan Modul ne postoji.",
     "COPIED_TO_CLIPBOARD": "Kopirano u međuspremnik",
     "LAYOUT_SETTINGS": "Postavke izgleda"
   },

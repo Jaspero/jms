@@ -68,7 +68,6 @@
               }
             ],
             "styles": [
-              "node_modules/jsoneditor/dist/jsoneditor.min.css",
               "projects/cms/src/styles.scss"
             ],
             "scripts": [
@@ -88,9 +87,9 @@
               "@firebase/functions",
               "@firebase/firestore",
               "file-saver",
-              "jsoneditor",
               "flat",
               "json-pointer",
+              "ajv",
               "tinymce/plugins/autolink",
               "tinymce/plugins/lists",
               "tinymce/plugins/fullscreen",
@@ -102,9 +101,23 @@
               "tinymce/plugins/code",
               "tinymce/plugins/table",
               "tinymce/plugins/advlist"
-            ]
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
+            "live": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/cms/src/environments/environment.ts",
+                  "with": "projects/cms/src/environments/environment.live.ts"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -142,6 +155,9 @@
           "configurations": {
             "production": {
               "browserTarget": "cms:build:production"
+            },
+            "live": {
+              "browserTarget": "cms:build:live"
             }
           }
         },
@@ -324,6 +340,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "cms"
+    }
+  },
+  "defaultProject": "cms",
+  "cli": {
+    "analytics": false
+  }
 }

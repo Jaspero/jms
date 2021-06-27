@@ -47,7 +47,9 @@
     "ROLE": "Role",
     "EMAIL": "Email",
     "DESCRIPTION": "Description",
-    "ACTIVE": "Active"
+    "ACTIVE": "Active",
+
+    "YES": "Yes"
   },
   "LOGIN": {
     "LOGIN": "Login",
@@ -86,7 +88,6 @@
   "LAYOUT": {
     "MENU": "Menu",
     "DASHBOARD": "Dashboard",
-    "MODULES": "Modules",
     "INVITES": "Invites",
     "LOG_OUT": "Log out",
     "MANAGEMENT": "Management",
@@ -95,23 +96,14 @@
     "FILE_MANAGER": "File Manager"
   },
   "MODULES": {
-    "ADD_MODULE": "Add module",
     "REMOVE_ITEMS": "Remove {{value}} items",
     "REMOVE_ONE": "This action will remove {{value}} permanently",
-    "REMOVE_MODULE_SETUP": "This action will override your current module setup.",
     "EXPORT_SELECTED_FILES": "Export selected files",
-    "CREATE_INTERFACES_FOR_SELECTION": "Create interfaces for selection",
     "NAME_ID": "Name/ID",
     "CREATED_ON": "Created on",
     "DESCRIPTION": "Description",
     "GO_TO": "Go to",
-    "GENERATE_TS_INTERFACE": "Generate TS Interface",
-    "SELECT_TEMPLATE": "Selecte template",
     "NAME": "Name",
-    "NO_MODULES": "No modules yet.",
-    "COPIED_TO_CLIPBOARD": "Copied to clipboard",
-    "LAYOUT_SETTINGS": "Layout Settings",
-    "PAGES": "Pages",
     "ROLES": "Roles",
     "ROLES_DESCRIPTION": "Collection of roles that can be assigned to users",
     "USER_INVITES": "Invites",
@@ -126,7 +118,7 @@
     "REMOVE_ITEMS": "Remove {{value}} items",
     "REMOVE_ONE": "This action will remove {{value}} permanently",
     "REMOVE_ITEMS_WARNING": "This action will remove all of the following documents:",
-    "NO_ITEMS": "No {{value}} yet.",
+    "NO_ITEMS": "No data yet.",
     "LOAD_MORE": "More...",
     "APPLY": "Apply",
     "UPDATE_ORDER": "Update Order",
@@ -168,7 +160,8 @@
     },
     "REF": {
       "SEARCH_BY": "Search By",
-      "APPLY_VALUE": "Apply Value"
+      "APPLY_VALUE": "Apply Value",
+      "LOAD_MORE": "Load More"
     }
   },
   "IMPORT": {
@@ -187,7 +180,8 @@
     "ERROR": "Unknown export error"
   },
   "CONFIRMATION": {
-    "TITLE": "Are you sure?"
+    "TITLE": "Are you sure?",
+    "TOUCHED_DESCRIPTION": "There are unsaved changes in the document which will be disposed!"
   },
   "PROFILE": {
     "TITLE": "Profile",
@@ -354,5 +348,10 @@
       "SMALLER_THEN": "Smaller Then",
       "FORM": "Form"
     }
+  },
+  "SPOTLIGHT": {
+    "MODULES": "Modules",
+    "DOCUMENTS": "Documents",
+    "ACTIONS": "Actions"
   }
 }

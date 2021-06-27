@@ -13,30 +13,11 @@ export abstract class DbService {
     return url;
   }
 
-  getModules(): Observable<Module[]> {
-    return of([]);
-  }
-
-  /**
-   * Create or update a module
-   */
-  setModule(data: Partial<Module>, id?: string): Observable<void> {
-    return of();
-  }
-
-  removeModule(id: string): Observable<void> {
-    return of();
-  }
-
   getUserSettings(): Observable<Settings> {
     return of(null);
   }
 
   updateUserSettings(settings: Partial<Settings>): Observable<void> {
-    return of();
-  }
-
-  getExamples(type: ExampleType): Observable<{data: Example[]}> {
     return of();
   }
 

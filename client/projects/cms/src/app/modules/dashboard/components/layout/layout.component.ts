@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
+import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {safeEval} from '@jaspero/form-builder';
 import firebase from 'firebase/app';
-import {combineLatest, from, Observable, of, throwError} from 'rxjs';
-import {catchError, map, switchMap, tap} from 'rxjs/operators';
+import {from, Observable, throwError} from 'rxjs';
+import {catchError, map, switchMap, take, tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../../../environments/static-config';
 import {NavigationItemType} from '../../../../shared/enums/navigation-item-type.enum';
 import {NavigationItemWithActive} from '../../../../shared/interfaces/navigation-item-with-active.interface';
@@ -14,6 +14,7 @@ import {DbService} from '../../../../shared/services/db/db.service';
 import {StateService} from '../../../../shared/services/state/state.service';
 import {notify} from '../../../../shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '../../../../shared/validators/repeat-password.validator';
+import {SpotlightComponent} from '../spotlight/spotlight.component';
 
 @Component({
   selector: 'jms-layout',
@@ -43,7 +44,32 @@ export class LayoutComponent implements OnInit {
 
   resetPassword: FormGroup;
 
+  spotlightDialogRef: MatDialogRef<any>;
+
   ngOnInit() {
+    document.addEventListener('keydown', (event) => {
+      if (event.ctrlKey && event.key === ' ') {
+        if (this.spotlightDialogRef) {
+          return;
+        }
+
+        this.spotlightDialogRef = this.dialog.open(SpotlightComponent, {
+          panelClass: 'spotlight-dialog'
+        });
+
+        this.spotlightDialogRef.updatePosition({
+          top: '15%'
+        });
+
+        this.spotlightDialogRef.afterClosed().pipe(
+          take(1),
+          tap(() => {
+            this.spotlightDialogRef = null;
+          })
+        ).subscribe();
+      }
+    });
+
     this.currentUser$ = this.afAuth.user;
 
     if (this.state.user.requireReset) {
@@ -54,7 +80,7 @@ export class LayoutComponent implements OnInit {
       },
       {
         validator: RepeatPasswordValidator(`Passwords don't match`)
-      });
+      } as AbstractControlOptions);
 
       setTimeout(() => {
         this.dialog.open(
@@ -75,129 +101,57 @@ export class LayoutComponent implements OnInit {
      */
     this.links$ = this.currentUser$
       .pipe(
-        switchMap(user => {
+        map(user => {
           if (user) {
-            return combineLatest([
-              this.state.layout$,
-              this.state.modules$
-            ])
-              .pipe(
-                map(([layout, modules]) => {
-                  if (layout.navigation) {
-                    return layout.navigation.items.reduce((acc, item) => {
-                      if (
-                        !item.authorized ||
-                        item.authorized.includes(this.state.role)
-                      ) {
+            return STATIC_CONFIG.navigation.items.reduce((acc, item) => {
+              if (
+                !item.authorized ||
+                item.authorized.includes(this.state.role)
+              ) {
 
-                        if (item.function) {
-                          const value = safeEval(item.value);
-                          if (value) {
-                            item.value = value(this.state.user, this.state.role);
-                          }
-                        }
-
-                        acc.push({
-                          ...item,
-                          ...item.children ?
-                            {
-                              children: item.children
-                                .reduce((a, c) => {
-                                  if (!c.authorized || c.authorized.includes(this.state.role)) {
-                                    if (c.function) {
-                                      const value = safeEval(c.value);
-                                      if (value) {
-                                        c.value = value(this.state.user, this.state.role);
-                                      }
-                                    }
-
-                                    a.push({
-                                      ...c,
-                                      routerOptions: {
-                                        exact: c.matchExact || false
-                                      }
-                                    });
-                                  }
-
-                                  return a;
-                                }, [])
-                            } : {},
-                          routerOptions: {
-                            exact: item.matchExact || false
-                          }
-                        });
-                      }
-
-                      return acc;
-                    }, []);
-                  } else {
-                    const links: NavigationItemWithActive[] = modules.reduce((acc, item) => {
-
-                      if (
-                        !item.authorization ||
-                        !item.authorization.read ||
-                        item.authorization.read.includes(this.state.role)
-                      ) {
-                        acc.push({
-                          icon:
-                            item.layout && item.layout.icon ? item.layout.icon : 'folder_open',
-                          label: item.name,
-                          type: NavigationItemType.Link,
-                          routerOptions: {
-                            exact: false
-                          },
-                          value: [
-                            '/m',
-                            item.id,
-                            ...(item.layout && item.layout.directLink
-                              ? ['single', item.layout.directLink]
-                              : ['overview'])
-                          ]
-                            .join('/')
-                        });
-                      }
-
-                      return acc;
-                    }, []);
-
-                    links.unshift({
-                      label: 'LAYOUT.DASHBOARD',
-                      icon: 'dashboard',
-                      type: NavigationItemType.Link,
-                      value: '/dashboard',
-                      routerOptions: {
-                        exact: false
-                      }
-                    });
-
-                    links.push(
-                      {
-                        label: 'LAYOUT.MODULES',
-                        icon: 'view_module',
-                        type: NavigationItemType.Link,
-                        value: '/module-definition/overview',
-                        routerOptions: {
-                          exact: false
-                        }
-                      },
-                      {
-                        label: 'LAYOUT.SETTINGS',
-                        icon: 'settings',
-                        type: NavigationItemType.Link,
-                        value: '/settings',
-                        routerOptions: {
-                          exact: false
-                        }
-                      }
-                    );
-
-                    return links;
+                if (item.function) {
+                  const value = safeEval(item.value);
+                  if (value) {
+                    item.value = value(this.state.user, this.state.role);
                   }
-                })
-              );
+                }
+
+                acc.push({
+                  ...item,
+                  ...item.children ?
+                    {
+                      children: item.children
+                        .reduce((a, c) => {
+                          if (!c.authorized || c.authorized.includes(this.state.role)) {
+                            if (c.function) {
+                              const value = safeEval(c.value);
+                              if (value) {
+                                c.value = value(this.state.user, this.state.role);
+                              }
+                            }
+
+                            a.push({
+                              ...c,
+                              routerOptions: {
+                                exact: c.matchExact || false
+                              }
+                            });
+                          }
+
+                          return a;
+                        }, [])
+                    } : {},
+                  routerOptions: {
+                    exact: item.matchExact || false
+                  }
+                });
+              }
+
+              return acc;
+            }, []);
           }
 
-          return of([]);
+          return [];
         })
       );
   }
@@ -239,11 +193,11 @@ export class LayoutComponent implements OnInit {
                 );
             }
 
-            return throwError({
+            return throwError(() => ({
               error: {
                 message
               }
-            });
+            }));
           }),
           switchMap(() =>
             this.dbService.setDocument(
@@ -251,7 +205,7 @@ export class LayoutComponent implements OnInit {
               this.state.user.id,
               {requireReset: false},
               {merge: true}
-              )
+            )
           ),
           notify({
             success: 'Your password has been updated successfully'

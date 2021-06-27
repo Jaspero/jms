@@ -67,6 +67,7 @@ export class InstanceSingleComponent implements OnInit {
   saveBuffer$ = new Subject<Instance>();
   first = true;
 
+  confirmExitOnTouched: boolean;
   private autoSaveListener: Subscription;
 
   ngOnInit() {
@@ -100,6 +101,8 @@ export class InstanceSingleComponent implements OnInit {
 
             const formatOn: any = {};
             const autoSave = module.metadata?.hasOwnProperty('autoSave') && this.currentState === ViewState.Edit;
+            this.confirmExitOnTouched = module.metadata?.hasOwnProperty('confirmExitOnTouched')
+              && module.metadata?.confirmExitOnTouched && this.currentState === ViewState.Edit;
 
             if (module.layout) {
               if (module.layout.editTitleKey) {
@@ -214,6 +217,8 @@ export class InstanceSingleComponent implements OnInit {
         }
       }
 
+      this.confirmExitOnTouched = false;
+
       return (this.formBuilderComponent.save(
         instance.module.id,
         id
@@ -245,7 +250,7 @@ export class InstanceSingleComponent implements OnInit {
         if (this.autoSaveListener) {
           this.change = instance;
         } else {
-          this.saveBuffer$.next(instance)
+          this.saveBuffer$.next(instance);
         }
       }
     }
