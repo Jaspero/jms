@@ -1,3 +1,10 @@
+# [4.1.0](https://github.com/jaspero/jms/compare/v4.0.0...v4.1.0) (2021-06-27)
+
+
+### Features
+
+* configured import and export for emulator data ([a9d57b9](https://github.com/jaspero/jms/commit/a9d57b9da667e03984774ff5d746df777b4a0728))
+
 # [4.0.0](https://github.com/jaspero/jms/compare/v3.53.0...v4.0.0) (2021-06-27)
 
 
