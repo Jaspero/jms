@@ -1,3 +1,16 @@
+# [4.0.0](https://github.com/jaspero/jms/compare/v3.53.0...v4.0.0) (2021-06-27)
+
+
+### Features
+
+* modules loaded from memory, removed module-definitions, removed get-examples and json-schema-to-typescript ([31b2999](https://github.com/jaspero/jms/commit/31b2999f6301bb2d22003f1ee259e4bb150c77b3))
+
+
+### BREAKING CHANGES
+
+* Modules are now loaded from memory and are no longer stored in database. Follow the migration guide for more details
+https://github.com/Jaspero/jms/wiki/Migrating-to-v4
+
 # [3.53.0](https://github.com/jaspero/jms/compare/v3.52.0...v3.53.0) (2021-06-26)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@jaspero/jms",
-  "version": "3.53.0",
+  "version": "4.0.0",
   "license": "MIT",
   "scripts": {
     "start:emulator": "firebase emulators:start",
