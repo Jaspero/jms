@@ -1,9 +1,7 @@
 rules_version = '2';
 service cloud.firestore {
-  function access(database, module, operation) {
-    return
-      !get(/databases/$(database)/documents/modules/$(module)).data.authorization.keys().hasAll([operation]) ||
-      request.auth.token.role in get(/databases/$(database)/documents/modules/$(module)).data.authorization[operation]
+  function hasRoles(roles) {
+    return request.auth.token.role in roles
   }
 
   function hasId(resource) {
@@ -20,28 +18,21 @@ service cloud.firestore {
 
   match /databases/{database}/documents {
 
-    match /settings/user {
-      allow read, write: if admin();
+    match /users/{item=**} {
+      allow read, write: if admin() || hasId(resource);
     }
 
-    match /settings/layout {
-      allow read: if authenticated();
-      allow write: if admin();
+    match /roles/{item=**} {
+      allow read, write: if admin() || hasId(resource);
     }
 
-    match /users/{user=**} {
-      allow read: if access(database, 'users', 'read') || hasId(resource);
-      allow write: if access(database, 'users', 'write') || hasId(resource);
-    }
-
-    match /modules/{module=**} {
-      allow read: if authenticated();
-      allow write: if admin();
+    match /user-invites/{item=**} {
+      allow read, write: if admin() || hasId(resource);
     }
 
     match /{module}/{document=**} {
-      allow read: if access(database, module, 'read');
-      allow write: if access(database, module, 'write');
+      allow read: if hasRoles(['user', 'admin']) || hasId(resource);
+      allow write: if hasRoles(['admin']) || hasId(resource);
     }
   }
 }

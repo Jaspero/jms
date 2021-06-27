@@ -15,11 +15,12 @@ jobs:
     name: Lighthouse
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 14.x
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Install Dependencies
         run: |
           npm --prefix client ci
@@ -30,7 +31,7 @@ jobs:
         env:
           PUBLIC_CONFIG: ${{ secrets.PUBLIC_CONFIG }}
       - name: Run Lighthouse CI
-        uses: treosh/lighthouse-ci-action@v3
+        uses: treosh/lighthouse-ci-action@v7
         with:
           uploadArtifacts: true
           configPath: ./client/lighthouserc.js

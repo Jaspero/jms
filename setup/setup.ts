@@ -1,16 +1,20 @@
 import * as admin from 'firebase-admin';
 import {COLLECTIONS} from './collections/collections';
-import {MODULES} from './modules/modules';
 
-const serviceAccount = require('./serviceAccountKey.json');
+let environemnt: any = process.argv[2] || 'd';
 
-/**
- * Add your firebase config
- */
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://jaspero-jms.firebaseio.com'
-});
+if (environemnt === 'd') {
+  environemnt = {
+    projectId: 'jaspero-jms'
+  };
+} else {
+  environemnt = {
+    serviceAccount: require('./serviceAccountKey.json'),
+    databaseURL: 'https://jaspero-jms.firebaseio.com'
+  };
+}
+
+admin.initializeApp(environemnt);
 
 async function exec() {
   const fStore = admin.firestore();
@@ -22,16 +26,6 @@ async function exec() {
 
       await fStore.collection(collection.name).doc(id).set(data);
     }
-  }
-
-  for (const module of MODULES) {
-
-    const {id, ...data} = module;
-
-    await fStore.collection('modules').doc(id).set({
-      ...data,
-      createdOn: Date.now()
-    });
   }
 }
 

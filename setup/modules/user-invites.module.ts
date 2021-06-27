@@ -4,10 +4,6 @@ export const USER_INVITES_MODULE = {
   id: 'user-invites',
   name: 'MODULES.USER_INVITES',
   description: 'MODULES.USER_INVITES_DESCRIPTION',
-  authorization: {
-    read: ['admin'],
-    write: ['admin']
-  },
   layout: {
     sort: CREATED_ON.sort,
     table: {

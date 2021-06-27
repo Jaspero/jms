@@ -1,3 +1,38 @@
+## [4.1.1](https://github.com/jaspero/jms/compare/v4.1.0...v4.1.1) (2021-06-27)
+
+
+### Bug Fixes
+
+* added .gitkeep to public/cms ([146b19e](https://github.com/jaspero/jms/commit/146b19ecd000585c6de6234749bff5a071c59b6b))
+
+# [4.1.0](https://github.com/jaspero/jms/compare/v4.0.0...v4.1.0) (2021-06-27)
+
+
+### Features
+
+* configured import and export for emulator data ([a9d57b9](https://github.com/jaspero/jms/commit/a9d57b9da667e03984774ff5d746df777b4a0728))
+
+# [4.0.0](https://github.com/jaspero/jms/compare/v3.53.0...v4.0.0) (2021-06-27)
+
+
+### Features
+
+* modules loaded from memory, removed module-definitions, removed get-examples and json-schema-to-typescript ([31b2999](https://github.com/jaspero/jms/commit/31b2999f6301bb2d22003f1ee259e4bb150c77b3))
+
+
+### BREAKING CHANGES
+
+* Modules are now loaded from memory and are no longer stored in database. Follow the migration guide for more details
+https://github.com/Jaspero/jms/wiki/Migrating-to-v4
+
+# [3.53.0](https://github.com/jaspero/jms/compare/v3.52.0...v3.53.0) (2021-06-26)
+
+
+### Features
+
+* added spotlight actions, logout and file manager ([88b065a](https://github.com/jaspero/jms/commit/88b065a3719c6c31ba3333c052c7eff814f972d2))
+* spotlight search [#237](https://github.com/jaspero/jms/issues/237) :tada: ([e7f8767](https://github.com/jaspero/jms/commit/e7f8767c4534296555f32b8e3e0bc0e64ab1ce04))
+
 # [3.52.0](https://github.com/jaspero/jms/compare/v3.51.0...v3.52.0) (2021-06-26)
 
 

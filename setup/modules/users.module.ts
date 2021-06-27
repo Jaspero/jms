@@ -4,10 +4,6 @@ export const USERS_MODULE = {
   id: 'users',
   name: 'MODULES.USERS',
   description: 'MODULES.USERS_DESCRIPTION',
-  authorization: {
-    read: ['admin'],
-    write: ['admin']
-  },
   layout: {
     editTitleKey: 'name',
     filterModule: {
@@ -194,5 +190,8 @@ export const USERS_MODULE = {
       }
     },
     ...CREATED_ON.definition()
+  },
+  spotlight: {
+    queryFields: ['name', 'email']
   }
 };

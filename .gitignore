@@ -68,4 +68,4 @@ node_modules/
 # dotenv environment variables file
 .env
 
-# Don't store the service-account.json
+.emulator-export
