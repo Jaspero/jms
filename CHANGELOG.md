@@ -1,564 +1,489 @@
-## [4.1.1](https://github.com/jaspero/jms/compare/v4.1.0...v4.1.1) (2021-06-27)
-
+## [4.1.2](https://github.com/jaspero/jms/compare/v4.1.1...v4.1.2) (2021-06-28)
 
 ### Bug Fixes
 
-* added .gitkeep to public/cms ([146b19e](https://github.com/jaspero/jms/commit/146b19ecd000585c6de6234749bff5a071c59b6b))
+- **UsersModule:** user id definition - disableOn edit ([307e5a2](https://github.com/jaspero/jms/commit/307e5a2b250c132810adbdc2635f54c541318857))
+
+## [4.1.1](https://github.com/jaspero/jms/compare/v4.1.0...v4.1.1) (2021-06-27)
+
+### Bug Fixes
+
+- added .gitkeep to public/cms ([146b19e](https://github.com/jaspero/jms/commit/146b19ecd000585c6de6234749bff5a071c59b6b))
 
 # [4.1.0](https://github.com/jaspero/jms/compare/v4.0.0...v4.1.0) (2021-06-27)
 
-
 ### Features
 
-* configured import and export for emulator data ([a9d57b9](https://github.com/jaspero/jms/commit/a9d57b9da667e03984774ff5d746df777b4a0728))
+- configured import and export for emulator data ([a9d57b9](https://github.com/jaspero/jms/commit/a9d57b9da667e03984774ff5d746df777b4a0728))
 
 # [4.0.0](https://github.com/jaspero/jms/compare/v3.53.0...v4.0.0) (2021-06-27)
 
-
 ### Features
 
-* modules loaded from memory, removed module-definitions, removed get-examples and json-schema-to-typescript ([31b2999](https://github.com/jaspero/jms/commit/31b2999f6301bb2d22003f1ee259e4bb150c77b3))
-
+- modules loaded from memory, removed module-definitions, removed get-examples and json-schema-to-typescript ([31b2999](https://github.com/jaspero/jms/commit/31b2999f6301bb2d22003f1ee259e4bb150c77b3))
 
 ### BREAKING CHANGES
 
-* Modules are now loaded from memory and are no longer stored in database. Follow the migration guide for more details
-https://github.com/Jaspero/jms/wiki/Migrating-to-v4
+- Modules are now loaded from memory and are no longer stored in database. Follow the migration guide for more details
+  https://github.com/Jaspero/jms/wiki/Migrating-to-v4
 
 # [3.53.0](https://github.com/jaspero/jms/compare/v3.52.0...v3.53.0) (2021-06-26)
 
-
 ### Features
 
-* added spotlight actions, logout and file manager ([88b065a](https://github.com/jaspero/jms/commit/88b065a3719c6c31ba3333c052c7eff814f972d2))
-* spotlight search [#237](https://github.com/jaspero/jms/issues/237) :tada: ([e7f8767](https://github.com/jaspero/jms/commit/e7f8767c4534296555f32b8e3e0bc0e64ab1ce04))
+- added spotlight actions, logout and file manager ([88b065a](https://github.com/jaspero/jms/commit/88b065a3719c6c31ba3333c052c7eff814f972d2))
+- spotlight search [#237](https://github.com/jaspero/jms/issues/237) :tada: ([e7f8767](https://github.com/jaspero/jms/commit/e7f8767c4534296555f32b8e3e0bc0e64ab1ce04))
 
 # [3.52.0](https://github.com/jaspero/jms/compare/v3.51.0...v3.52.0) (2021-06-26)
 
-
 ### Features
 
-* added x-frame-options header closes [#250](https://github.com/jaspero/jms/issues/250) ([e7835c4](https://github.com/jaspero/jms/commit/e7835c4ec324faa52761c86871d4046b05d6dd05))
+- added x-frame-options header closes [#250](https://github.com/jaspero/jms/issues/250) ([e7835c4](https://github.com/jaspero/jms/commit/e7835c4ec324faa52761c86871d4046b05d6dd05))
 
 # [3.51.0](https://github.com/jaspero/jms/compare/v3.50.1...v3.51.0) (2021-06-24)
 
-
 ### Features
 
-* **cms:** module - confirm exit on dirty form ([ba5a418](https://github.com/jaspero/jms/commit/ba5a41836e91181d8b8795e34c1fc0e85377185b))
+- **cms:** module - confirm exit on dirty form ([ba5a418](https://github.com/jaspero/jms/commit/ba5a41836e91181d8b8795e34c1fc0e85377185b))
 
 ## [3.50.1](https://github.com/jaspero/jms/compare/v3.50.0...v3.50.1) (2021-06-22)
 
-
 ### Bug Fixes
 
-* **InstanceOverview:** multiple toolbar - alignment ([f806c4e](https://github.com/jaspero/jms/commit/f806c4e31a3b81b15a53142c37cb1ed9fe648e0b))
+- **InstanceOverview:** multiple toolbar - alignment ([f806c4e](https://github.com/jaspero/jms/commit/f806c4e31a3b81b15a53142c37cb1ed9fe648e0b))
 
 # [3.50.0](https://github.com/jaspero/jms/compare/v3.49.1...v3.50.0) (2021-06-22)
 
-
 ### Features
 
-* **client:** navigate to entry url after login closes [#248](https://github.com/jaspero/jms/issues/248) ([67b7fbe](https://github.com/jaspero/jms/commit/67b7fbea1143101ec24654d5bc54e1c5ef7cfda0))
+- **client:** navigate to entry url after login closes [#248](https://github.com/jaspero/jms/issues/248) ([67b7fbe](https://github.com/jaspero/jms/commit/67b7fbea1143101ec24654d5bc54e1c5ef7cfda0))
 
 ## [3.49.1](https://github.com/jaspero/jms/compare/v3.49.0...v3.49.1) (2021-06-22)
 
-
 ### Bug Fixes
 
-* **client:** translation in translation closes [#249](https://github.com/jaspero/jms/issues/249) ([aa06b4f](https://github.com/jaspero/jms/commit/aa06b4f2e4e6eaf551030172984fb70576806079))
+- **client:** translation in translation closes [#249](https://github.com/jaspero/jms/issues/249) ([aa06b4f](https://github.com/jaspero/jms/commit/aa06b4f2e4e6eaf551030172984fb70576806079))
 
 # [3.49.0](https://github.com/jaspero/jms/compare/v3.48.0...v3.49.0) (2021-06-21)
 
-
 ### Features
 
-* **cms:** added hiddenChips option to filter module which allows to hide filter list from users ([e202672](https://github.com/jaspero/jms/commit/e2026723816220fc6fe10980b58157be763a863c))
+- **cms:** added hiddenChips option to filter module which allows to hide filter list from users ([e202672](https://github.com/jaspero/jms/commit/e2026723816220fc6fe10980b58157be763a863c))
 
 # [3.48.0](https://github.com/jaspero/jms/compare/v3.47.0...v3.48.0) (2021-06-20)
 
-
 ### Features
 
-* angular mat to 12 ([c449a0d](https://github.com/jaspero/jms/commit/c449a0d47e0e638b112037d0043af2957a4d230a))
-* angular to 12 ([dcafa73](https://github.com/jaspero/jms/commit/dcafa73e6bc8817a3c25c11ea89b662b7eacae6a))
-* schema forms version updates ([e28d96c](https://github.com/jaspero/jms/commit/e28d96c1ff430918751881ead9cf306b4e27119b))
+- angular mat to 12 ([c449a0d](https://github.com/jaspero/jms/commit/c449a0d47e0e638b112037d0043af2957a4d230a))
+- angular to 12 ([dcafa73](https://github.com/jaspero/jms/commit/dcafa73e6bc8817a3c25c11ea89b662b7eacae6a))
+- schema forms version updates ([e28d96c](https://github.com/jaspero/jms/commit/e28d96c1ff430918751881ead9cf306b4e27119b))
 
 # [3.47.0](https://github.com/jaspero/jms/compare/v3.46.4...v3.47.0) (2021-06-18)
 
-
 ### Features
 
-* adjusted table height; added missing translations ([8553f7c](https://github.com/jaspero/jms/commit/8553f7cbb70db1b62b85d84d873ecf05cee873c0))
+- adjusted table height; added missing translations ([8553f7c](https://github.com/jaspero/jms/commit/8553f7cbb70db1b62b85d84d873ecf05cee873c0))
 
 ## [3.46.4](https://github.com/jaspero/jms/compare/v3.46.3...v3.46.4) (2021-06-14)
 
-
 ### Bug Fixes
 
-* no ref property present in actions object root. closes [#244](https://github.com/jaspero/jms/issues/244) ([9c48dda](https://github.com/jaspero/jms/commit/9c48dda41ad0cd6ad94b297681e1fee4ebc96a8f))
-* replace .data.ref calls [#244](https://github.com/jaspero/jms/issues/244) ([ba522f6](https://github.com/jaspero/jms/commit/ba522f6424b1f173e075cc3e94f5cf1a1f994672))
+- no ref property present in actions object root. closes [#244](https://github.com/jaspero/jms/issues/244) ([9c48dda](https://github.com/jaspero/jms/commit/9c48dda41ad0cd6ad94b297681e1fee4ebc96a8f))
+- replace .data.ref calls [#244](https://github.com/jaspero/jms/issues/244) ([ba522f6](https://github.com/jaspero/jms/commit/ba522f6424b1f173e075cc3e94f5cf1a1f994672))
 
 ## [3.46.3](https://github.com/jaspero/jms/compare/v3.46.2...v3.46.3) (2021-05-31)
 
-
 ### Bug Fixes
 
-* **cms:** provide custom fields by default ([7102635](https://github.com/jaspero/jms/commit/7102635374b8dea352c4e6d0acdaf3ecc8ad0870))
+- **cms:** provide custom fields by default ([7102635](https://github.com/jaspero/jms/commit/7102635374b8dea352c4e6d0acdaf3ecc8ad0870))
 
 ## [3.46.2](https://github.com/jaspero/jms/compare/v3.46.1...v3.46.2) (2021-05-31)
 
-
 ### Bug Fixes
 
-* **cms:** inject custom fields into form builder parser. get documents pipe check for document validity ([a0d180d](https://github.com/jaspero/jms/commit/a0d180d96f3e152caba101a581b71dcbe6254bc9))
+- **cms:** inject custom fields into form builder parser. get documents pipe check for document validity ([a0d180d](https://github.com/jaspero/jms/commit/a0d180d96f3e152caba101a581b71dcbe6254bc9))
 
 ## [3.46.1](https://github.com/jaspero/jms/compare/v3.46.0...v3.46.1) (2021-05-20)
 
-
 ### Bug Fixes
 
-* navigate to single view correct path ([b27947a](https://github.com/jaspero/jms/commit/b27947a1444a7a68971e438c7d65a8a3d0e139f4))
+- navigate to single view correct path ([b27947a](https://github.com/jaspero/jms/commit/b27947a1444a7a68971e438c7d65a8a3d0e139f4))
 
 # [3.46.0](https://github.com/jaspero/jms/compare/v3.45.0...v3.46.0) (2021-05-20)
 
-
 ### Features
 
-* collectionGroup single page ([ea2e346](https://github.com/jaspero/jms/commit/ea2e3460b15368acacee27102ebfd9586362cd8b))
+- collectionGroup single page ([ea2e346](https://github.com/jaspero/jms/commit/ea2e3460b15368acacee27102ebfd9586362cd8b))
 
 # [3.45.0](https://github.com/jaspero/jms/compare/v3.44.0...v3.45.0) (2021-04-29)
 
-
 ### Features
 
-* **file-manager:** filter files on upload select ([aa6ba45](https://github.com/jaspero/jms/commit/aa6ba45f977f26cbc1553d51e132fda70dfb67bb))
+- **file-manager:** filter files on upload select ([aa6ba45](https://github.com/jaspero/jms/commit/aa6ba45f977f26cbc1553d51e132fda70dfb67bb))
 
 # [3.44.0](https://github.com/jaspero/jms/compare/v3.43.1...v3.44.0) (2021-04-29)
 
-
 ### Features
 
-* **file-manager:** starting route and hide navigation from module schema ([56af3c8](https://github.com/jaspero/jms/commit/56af3c898522c1cd0023f025093a9c0c96d10d49))
+- **file-manager:** starting route and hide navigation from module schema ([56af3c8](https://github.com/jaspero/jms/commit/56af3c898522c1cd0023f025093a9c0c96d10d49))
 
 ## [3.43.1](https://github.com/jaspero/jms/compare/v3.43.0...v3.43.1) (2021-04-28)
 
-
 ### Bug Fixes
 
-* **image-upload:** save storage urls directly to form ([7efffd7](https://github.com/jaspero/jms/commit/7efffd73f398bcea3f283609c5dcd6051db691aa))
+- **image-upload:** save storage urls directly to form ([7efffd7](https://github.com/jaspero/jms/commit/7efffd73f398bcea3f283609c5dcd6051db691aa))
 
 # [3.43.0](https://github.com/jaspero/jms/compare/v3.42.0...v3.43.0) (2021-04-28)
 
-
 ### Features
 
-* added file manager uploader for file and image components ([05519ed](https://github.com/jaspero/jms/commit/05519ed82886aa4bf87aa7805aef8a5185ce910c))
+- added file manager uploader for file and image components ([05519ed](https://github.com/jaspero/jms/commit/05519ed82886aa4bf87aa7805aef8a5185ce910c))
 
 # [3.42.0](https://github.com/jaspero/jms/compare/v3.41.7...v3.42.0) (2021-04-28)
 
-
 ### Features
 
-* integrated file-manager plugin into core ([751c907](https://github.com/jaspero/jms/commit/751c907ede58f402724d50d3a56a06fb8917fe31))
+- integrated file-manager plugin into core ([751c907](https://github.com/jaspero/jms/commit/751c907ede58f402724d50d3a56a06fb8917fe31))
 
 ## [3.41.7](https://github.com/jaspero/jms/compare/v3.41.6...v3.41.7) (2021-04-28)
 
-
 ### Bug Fixes
 
-* **functions:** force exact thumb dimensions and keep image orientation while resizing ([989317f](https://github.com/jaspero/jms/commit/989317f72c517fa2bee62df63bb9e28475f62929))
+- **functions:** force exact thumb dimensions and keep image orientation while resizing ([989317f](https://github.com/jaspero/jms/commit/989317f72c517fa2bee62df63bb9e28475f62929))
 
 ## [3.41.6](https://github.com/jaspero/jms/compare/v3.41.5...v3.41.6) (2021-04-24)
 
-
 ### Bug Fixes
 
-* **functions:** lint ([b4c261e](https://github.com/jaspero/jms/commit/b4c261e6eedc4a85bb8713af8292ac0657fa864f))
+- **functions:** lint ([b4c261e](https://github.com/jaspero/jms/commit/b4c261e6eedc4a85bb8713af8292ac0657fa864f))
 
 ## [3.41.5](https://github.com/jaspero/jms/compare/v3.41.4...v3.41.5) (2021-04-24)
 
-
 ### Bug Fixes
 
-* **functions:** don't format json export ([d03ee50](https://github.com/jaspero/jms/commit/d03ee5024815d14fe0a4dcb79d8537f718941c59))
+- **functions:** don't format json export ([d03ee50](https://github.com/jaspero/jms/commit/d03ee5024815d14fe0a4dcb79d8537f718941c59))
 
 ## [3.41.4](https://github.com/jaspero/jms/compare/v3.41.3...v3.41.4) (2021-04-23)
 
-
 ### Bug Fixes
 
-* **cms:** initiate reset-password on login with delay (loading it instantly causes problems) ([76a1e4a](https://github.com/jaspero/jms/commit/76a1e4a220c6d819646fd3d6488f0a233d242b3a))
+- **cms:** initiate reset-password on login with delay (loading it instantly causes problems) ([76a1e4a](https://github.com/jaspero/jms/commit/76a1e4a220c6d819646fd3d6488f0a233d242b3a))
 
 ## [3.41.3](https://github.com/jaspero/jms/compare/v3.41.2...v3.41.3) (2021-04-20)
 
-
 ### Bug Fixes
 
-* **client:** column pipe properly replaces all instances of {{ }} ([1bd9783](https://github.com/jaspero/jms/commit/1bd9783d38ae14ee5d9dc9b29e7f4258f1436090))
+- **client:** column pipe properly replaces all instances of {{ }} ([1bd9783](https://github.com/jaspero/jms/commit/1bd9783d38ae14ee5d9dc9b29e7f4258f1436090))
 
 ## [3.41.2](https://github.com/jaspero/jms/compare/v3.41.1...v3.41.2) (2021-04-20)
 
-
 ### Bug Fixes
 
-* **client:** isNaN comparison ([e13e6d0](https://github.com/jaspero/jms/commit/e13e6d02d3a4fc71912c7704b7f185bee4cb1023))
+- **client:** isNaN comparison ([e13e6d0](https://github.com/jaspero/jms/commit/e13e6d02d3a4fc71912c7704b7f185bee4cb1023))
 
 ## [3.41.1](https://github.com/jaspero/jms/compare/v3.41.0...v3.41.1) (2021-04-20)
 
-
 ### Bug Fixes
 
-* **client:** included NaN in filter dialog ([d48ad29](https://github.com/jaspero/jms/commit/d48ad29c6434ce241bac621d4c3cb4b006960c28))
+- **client:** included NaN in filter dialog ([d48ad29](https://github.com/jaspero/jms/commit/d48ad29c6434ce241bac621d4c3cb4b006960c28))
 
 # [3.41.0](https://github.com/jaspero/jms/compare/v3.40.1...v3.41.0) (2021-04-20)
 
-
 ### Features
 
-* **client:** filtering dialog fields ([17da1be](https://github.com/jaspero/jms/commit/17da1be3e86de43ee81a430814e0aee9c1654d2f))
+- **client:** filtering dialog fields ([17da1be](https://github.com/jaspero/jms/commit/17da1be3e86de43ee81a430814e0aee9c1654d2f))
 
 ## [3.40.1](https://github.com/jaspero/jms/compare/v3.40.0...v3.40.1) (2021-04-14)
 
-
 ### Bug Fixes
 
-* **functions:** import rowFunction not forwarding options ([70c6d1e](https://github.com/jaspero/jms/commit/70c6d1e2199fca0a1560b691334fde8cb3a46425))
+- **functions:** import rowFunction not forwarding options ([70c6d1e](https://github.com/jaspero/jms/commit/70c6d1e2199fca0a1560b691334fde8cb3a46425))
 
 # [3.40.0](https://github.com/jaspero/jms/compare/v3.39.0...v3.40.0) (2021-04-13)
 
-
 ### Features
 
-* **client:** connected value formatting for filter module closes [#230](https://github.com/jaspero/jms/issues/230) ([53b71fc](https://github.com/jaspero/jms/commit/53b71fce06a843d35ab313d759b3e3f5f54b282a))
+- **client:** connected value formatting for filter module closes [#230](https://github.com/jaspero/jms/issues/230) ([53b71fc](https://github.com/jaspero/jms/commit/53b71fce06a843d35ab313d759b3e3f5f54b282a))
 
 # [3.39.0](https://github.com/jaspero/jms/compare/v3.38.3...v3.39.0) (2021-04-13)
 
-
 ### Features
 
-* **client:** added filterKey option on filter module ([6e1be41](https://github.com/jaspero/jms/commit/6e1be41ce6c1b5e325a72e6b9ccf666f90cf4317))
+- **client:** added filterKey option on filter module ([6e1be41](https://github.com/jaspero/jms/commit/6e1be41ce6c1b5e325a72e6b9ccf666f90cf4317))
 
 ## [3.38.3](https://github.com/jaspero/jms/compare/v3.38.2...v3.38.3) (2021-04-13)
 
-
 ### Bug Fixes
 
-* **client:** translate columns before export ([edb1102](https://github.com/jaspero/jms/commit/edb1102d5bd050fe1e0a162947af7cc0def68c95))
+- **client:** translate columns before export ([edb1102](https://github.com/jaspero/jms/commit/edb1102d5bd050fe1e0a162947af7cc0def68c95))
 
 ## [3.38.2](https://github.com/jaspero/jms/compare/v3.38.1...v3.38.2) (2021-04-12)
 
-
 ### Bug Fixes
 
-* **client:** redirecting to overview ([9b3d307](https://github.com/jaspero/jms/commit/9b3d307a65456f605555c08c5208c1ab49cb6dae))
+- **client:** redirecting to overview ([9b3d307](https://github.com/jaspero/jms/commit/9b3d307a65456f605555c08c5208c1ab49cb6dae))
 
 ## [3.38.1](https://github.com/jaspero/jms/compare/v3.38.0...v3.38.1) (2021-04-10)
 
-
 ### Bug Fixes
 
-* **cms:** proper token argument in finish sign up ([a7ebe67](https://github.com/jaspero/jms/commit/a7ebe67f6861ab3f6c10e561f39c7be68ddbb620))
+- **cms:** proper token argument in finish sign up ([a7ebe67](https://github.com/jaspero/jms/commit/a7ebe67f6861ab3f6c10e561f39c7be68ddbb620))
 
 # [3.38.0](https://github.com/jaspero/jms/compare/v3.37.1...v3.38.0) (2021-04-10)
 
-
 ### Bug Fixes
 
-* **cms:** parsing pipe arguments properly when it's an array ([2cc005c](https://github.com/jaspero/jms/commit/2cc005c2362e7a92c898790d637281f768bc5d1b))
-
+- **cms:** parsing pipe arguments properly when it's an array ([2cc005c](https://github.com/jaspero/jms/commit/2cc005c2362e7a92c898790d637281f768bc5d1b))
 
 ### Features
 
-* **cms:** added fallback when value doesn't exist in column ([3fe043b](https://github.com/jaspero/jms/commit/3fe043b0c00e01f0f901dc2c853c30fa3b70b701))
+- **cms:** added fallback when value doesn't exist in column ([3fe043b](https://github.com/jaspero/jms/commit/3fe043b0c00e01f0f901dc2c853c30fa3b70b701))
 
 ## [3.37.1](https://github.com/jaspero/jms/compare/v3.37.0...v3.37.1) (2021-04-09)
 
-
 ### Bug Fixes
 
-* **cms:** check for key existence in resolveObservable ([885e741](https://github.com/jaspero/jms/commit/885e7414b7ce862e02ede050ccd38a7926e5cc31))
+- **cms:** check for key existence in resolveObservable ([885e741](https://github.com/jaspero/jms/commit/885e7414b7ce862e02ede050ccd38a7926e5cc31))
 
 # [3.37.0](https://github.com/jaspero/jms/compare/v3.36.0...v3.37.0) (2021-04-08)
 
-
 ### Features
 
-* retrieving modules and layout only once ([1c5d614](https://github.com/jaspero/jms/commit/1c5d6143771db6d7fc6014061396cd277458d7e9))
+- retrieving modules and layout only once ([1c5d614](https://github.com/jaspero/jms/commit/1c5d6143771db6d7fc6014061396cd277458d7e9))
 
 # [3.36.0](https://github.com/jaspero/jms/compare/v3.35.1...v3.36.0) (2021-04-06)
 
-
 ### Features
 
-* added collectionGroup as a module option ([34a4e8a](https://github.com/jaspero/jms/commit/34a4e8a0bc4036423f0a80e7c5f9367776b886de))
+- added collectionGroup as a module option ([34a4e8a](https://github.com/jaspero/jms/commit/34a4e8a0bc4036423f0a80e7c5f9367776b886de))
 
 ## [3.35.1](https://github.com/jaspero/jms/compare/v3.35.0...v3.35.1) (2021-04-06)
 
-
 ### Bug Fixes
 
-* resolveObservables fix primitive values ([a3ddec4](https://github.com/jaspero/jms/commit/a3ddec4898d6087e7a97c2ad136ff9e22f599c2c))
+- resolveObservables fix primitive values ([a3ddec4](https://github.com/jaspero/jms/commit/a3ddec4898d6087e7a97c2ad136ff9e22f599c2c))
 
 # [3.35.0](https://github.com/jaspero/jms/compare/v3.34.1...v3.35.0) (2021-04-06)
 
-
 ### Features
 
-* added collectionGroup as a module option ([0a68e85](https://github.com/jaspero/jms/commit/0a68e8537c770566048501e8c7717c8b2a9bf212))
+- added collectionGroup as a module option ([0a68e85](https://github.com/jaspero/jms/commit/0a68e8537c770566048501e8c7717c8b2a9bf212))
 
 ## [3.34.1](https://github.com/jaspero/jms/compare/v3.34.0...v3.34.1) (2021-04-05)
 
-
 ### Bug Fixes
 
-* **functions:** accounting for cases where email doesn't exist [#130](https://github.com/jaspero/jms/issues/130) ([179071f](https://github.com/jaspero/jms/commit/179071f4ac9a2d1fb37af25c108ce7d3b220db51))
+- **functions:** accounting for cases where email doesn't exist [#130](https://github.com/jaspero/jms/issues/130) ([179071f](https://github.com/jaspero/jms/commit/179071f4ac9a2d1fb37af25c108ce7d3b220db51))
 
 # [3.34.0](https://github.com/jaspero/jms/compare/v3.33.0...v3.34.0) (2021-04-05)
 
-
 ### Features
 
-* added finish-sign-up [#130](https://github.com/jaspero/jms/issues/130) ([f83cd57](https://github.com/jaspero/jms/commit/f83cd57c065d405c005a246c5ee6b844e20867b8))
-* prompt for reset password closes [#130](https://github.com/jaspero/jms/issues/130) ([5c091a2](https://github.com/jaspero/jms/commit/5c091a2b4392df66ccd040eef8adb040852ad508))
-* using user-invites instead of settings/users, removed settings module, updated methods in user-add [#130](https://github.com/jaspero/jms/issues/130) ([65f02c2](https://github.com/jaspero/jms/commit/65f02c21c1cd4b2044c1c97d675c1a074d57274e))
+- added finish-sign-up [#130](https://github.com/jaspero/jms/issues/130) ([f83cd57](https://github.com/jaspero/jms/commit/f83cd57c065d405c005a246c5ee6b844e20867b8))
+- prompt for reset password closes [#130](https://github.com/jaspero/jms/issues/130) ([5c091a2](https://github.com/jaspero/jms/commit/5c091a2b4392df66ccd040eef8adb040852ad508))
+- using user-invites instead of settings/users, removed settings module, updated methods in user-add [#130](https://github.com/jaspero/jms/issues/130) ([65f02c2](https://github.com/jaspero/jms/commit/65f02c21c1cd4b2044c1c97d675c1a074d57274e))
 
 # [3.33.0](https://github.com/jaspero/jms/compare/v3.32.0...v3.33.0) (2021-04-04)
 
-
 ### Features
 
-* **cms:** module-instance redirect to overview closes [#212](https://github.com/jaspero/jms/issues/212) ([69f000c](https://github.com/jaspero/jms/commit/69f000c2cccba900c662f5517dc7154588e0f0e4))
+- **cms:** module-instance redirect to overview closes [#212](https://github.com/jaspero/jms/issues/212) ([69f000c](https://github.com/jaspero/jms/commit/69f000c2cccba900c662f5517dc7154588e0f0e4))
 
 # [3.32.0](https://github.com/jaspero/jms/compare/v3.31.0...v3.32.0) (2021-04-01)
 
-
 ### Features
 
-* allow typescript consts as source for modules closes [#228](https://github.com/jaspero/jms/issues/228) ([cd883a1](https://github.com/jaspero/jms/commit/cd883a11f69a70382809d1508354fecfcd268f99)), closes [#225](https://github.com/jaspero/jms/issues/225) [#225](https://github.com/jaspero/jms/issues/225) [#225](https://github.com/jaspero/jms/issues/225) [#225](https://github.com/jaspero/jms/issues/225) [#225](https://github.com/jaspero/jms/issues/225)
+- allow typescript consts as source for modules closes [#228](https://github.com/jaspero/jms/issues/228) ([cd883a1](https://github.com/jaspero/jms/commit/cd883a11f69a70382809d1508354fecfcd268f99)), closes [#225](https://github.com/jaspero/jms/issues/225) [#225](https://github.com/jaspero/jms/issues/225) [#225](https://github.com/jaspero/jms/issues/225) [#225](https://github.com/jaspero/jms/issues/225) [#225](https://github.com/jaspero/jms/issues/225)
 
 # [3.31.0](https://github.com/jaspero/jms/compare/v3.30.0...v3.31.0) (2021-04-01)
 
-
 ### Features
 
-* **functions:** removed nanoid dependency ([39064e9](https://github.com/jaspero/jms/commit/39064e9d0bc0bf33add0591983b36ee2a29b86d8))
+- **functions:** removed nanoid dependency ([39064e9](https://github.com/jaspero/jms/commit/39064e9d0bc0bf33add0591983b36ee2a29b86d8))
 
 # [3.30.0](https://github.com/jaspero/jms/compare/v3.29.4...v3.30.0) (2021-03-31)
 
-
 ### Features
 
-* added pipe getDocuments to tableColumns ([eaa552d](https://github.com/jaspero/jms/commit/eaa552d3392b9dcfae86e44e8fc6e7e3d1347a4e))
+- added pipe getDocuments to tableColumns ([eaa552d](https://github.com/jaspero/jms/commit/eaa552d3392b9dcfae86e44e8fc6e7e3d1347a4e))
 
 ## [3.29.4](https://github.com/jaspero/jms/compare/v3.29.3...v3.29.4) (2021-03-30)
 
-
 ### Bug Fixes
 
-* pipe interpolation properly escapes non strings and supports arrays ([f98f561](https://github.com/jaspero/jms/commit/f98f5616f6f34cd5afa53bb2b82c28cc248851bb))
+- pipe interpolation properly escapes non strings and supports arrays ([f98f561](https://github.com/jaspero/jms/commit/f98f5616f6f34cd5afa53bb2b82c28cc248851bb))
 
 ## [3.29.3](https://github.com/jaspero/jms/compare/v3.29.2...v3.29.3) (2021-03-30)
 
-
 ### Bug Fixes
 
-* pipe interpolation properly escapes non strings and supports arrays ([46644dd](https://github.com/jaspero/jms/commit/46644dd973f1b809eed6e226bcba4c93b98bf674))
+- pipe interpolation properly escapes non strings and supports arrays ([46644dd](https://github.com/jaspero/jms/commit/46644dd973f1b809eed6e226bcba4c93b98bf674))
 
 ## [3.29.2](https://github.com/jaspero/jms/compare/v3.29.1...v3.29.2) (2021-03-29)
 
-
 ### Bug Fixes
 
-* console cleanup ([e8bf671](https://github.com/jaspero/jms/commit/e8bf6715aefe077b6491db63bc462e23982645b8))
+- console cleanup ([e8bf671](https://github.com/jaspero/jms/commit/e8bf6715aefe077b6491db63bc462e23982645b8))
 
 ## [3.29.1](https://github.com/jaspero/jms/compare/v3.29.0...v3.29.1) (2021-03-29)
 
-
 ### Bug Fixes
 
-* export for sub collections closes [#221](https://github.com/jaspero/jms/issues/221) ([aece8ed](https://github.com/jaspero/jms/commit/aece8ed13fd8f0efab11ddc9ad9568efbaf11823))
+- export for sub collections closes [#221](https://github.com/jaspero/jms/issues/221) ([aece8ed](https://github.com/jaspero/jms/commit/aece8ed13fd8f0efab11ddc9ad9568efbaf11823))
 
 # [3.29.0](https://github.com/jaspero/jms/compare/v3.28.0...v3.29.0) (2021-03-29)
 
-
 ### Features
 
-* **cms:** added angular string interpolation to pipeArguments ([03d9758](https://github.com/jaspero/jms/commit/03d9758ebb00927bfac4bc065216a549f78b2edc))
+- **cms:** added angular string interpolation to pipeArguments ([03d9758](https://github.com/jaspero/jms/commit/03d9758ebb00927bfac4bc065216a549f78b2edc))
 
 # [3.28.0](https://github.com/jaspero/jms/compare/v3.27.0...v3.28.0) (2021-03-24)
 
-
 ### Features
 
-* **client:** updated versions ([0959e5d](https://github.com/jaspero/jms/commit/0959e5d44dfe8dbd14c8c643650ede29f7edbe39))
+- **client:** updated versions ([0959e5d](https://github.com/jaspero/jms/commit/0959e5d44dfe8dbd14c8c643650ede29f7edbe39))
 
 # [3.27.0](https://github.com/jaspero/jms/compare/v3.26.2...v3.27.0) (2021-03-22)
 
-
 ### Features
 
-* **client:** added ellipsis pipe ([ea8d361](https://github.com/jaspero/jms/commit/ea8d3613fc7a3b55921e964b9a906e2ee6231d78))
+- **client:** added ellipsis pipe ([ea8d361](https://github.com/jaspero/jms/commit/ea8d3613fc7a3b55921e964b9a906e2ee6231d78))
 
 ## [3.26.2](https://github.com/jaspero/jms/compare/v3.26.1...v3.26.2) (2021-03-11)
 
-
 ### Bug Fixes
 
-* action criteria check ([08a364d](https://github.com/jaspero/jms/commit/08a364d3141ae04fdba46b1c91da2227715f5898))
+- action criteria check ([08a364d](https://github.com/jaspero/jms/commit/08a364d3141ae04fdba46b1c91da2227715f5898))
 
 ## [3.26.1](https://github.com/jaspero/jms/compare/v3.26.0...v3.26.1) (2021-03-11)
 
-
 ### Bug Fixes
 
-* stops loading data after first navigation to subcollection overview ([c0f7fd0](https://github.com/jaspero/jms/commit/c0f7fd09342a8aabb27abb8b82818cd0cdc541ce))
+- stops loading data after first navigation to subcollection overview ([c0f7fd0](https://github.com/jaspero/jms/commit/c0f7fd09342a8aabb27abb8b82818cd0cdc541ce))
 
 # [3.26.0](https://github.com/jaspero/jms/compare/v3.25.1...v3.26.0) (2021-03-05)
 
-
 ### Bug Fixes
 
-* stop error on reading constructor property of undefined ([ec66597](https://github.com/jaspero/jms/commit/ec665976e7134375ffe4c0db6614e96edc6a154e))
-
+- stop error on reading constructor property of undefined ([ec66597](https://github.com/jaspero/jms/commit/ec665976e7134375ffe4c0db6614e96edc6a154e))
 
 ### Features
 
-* **tableColumns:** pass resolveObservables flag to the column object which resolves Observable-like objects before passing value to next pipe ([edfad39](https://github.com/jaspero/jms/commit/edfad39bc0cd5e825ac907e167052217d8e80fc9))
-
+- **tableColumns:** pass resolveObservables flag to the column object which resolves Observable-like objects before passing value to next pipe ([edfad39](https://github.com/jaspero/jms/commit/edfad39bc0cd5e825ac907e167052217d8e80fc9))
 
 ### Performance Improvements
 
-* type checking of constructor ([6d428d8](https://github.com/jaspero/jms/commit/6d428d8cd97183da3a5bd2abf42cee42341bcb67))
+- type checking of constructor ([6d428d8](https://github.com/jaspero/jms/commit/6d428d8cd97183da3a5bd2abf42cee42341bcb67))
 
 ## [3.25.1](https://github.com/jaspero/jms/compare/v3.25.0...v3.25.1) (2021-03-04)
 
-
 ### Bug Fixes
 
-* **client:** only redirecting to login after logout is successful. ([7945b13](https://github.com/jaspero/jms/commit/7945b13bceb04e1bd5b298b5ce82d534b690b916))
+- **client:** only redirecting to login after logout is successful. ([7945b13](https://github.com/jaspero/jms/commit/7945b13bceb04e1bd5b298b5ce82d534b690b916))
 
 # [3.25.0](https://github.com/jaspero/jms/compare/v3.24.0...v3.25.0) (2021-02-25)
 
-
 ### Features
 
-* added getSubdocumentsSimple collectionGroup query ([b374477](https://github.com/jaspero/jms/commit/b37447703e8a1a4b33f7c628312f603727bccdc7))
+- added getSubdocumentsSimple collectionGroup query ([b374477](https://github.com/jaspero/jms/commit/b37447703e8a1a4b33f7c628312f603727bccdc7))
 
 # [3.24.0](https://github.com/jaspero/jms/compare/v3.23.2...v3.24.0) (2021-02-21)
 
-
 ### Bug Fixes
 
-* **client:** filter tags not showing if there aren't any views on the module ([22ee8b9](https://github.com/jaspero/jms/commit/22ee8b97eba420254367afe5114bc8d4544c01af))
-
+- **client:** filter tags not showing if there aren't any views on the module ([22ee8b9](https://github.com/jaspero/jms/commit/22ee8b97eba420254367afe5114bc8d4544c01af))
 
 ### Features
 
-* **rules:** added hasId method ([9cbcd71](https://github.com/jaspero/jms/commit/9cbcd717c2258ae95091785ed578ac04c20ea63b))
+- **rules:** added hasId method ([9cbcd71](https://github.com/jaspero/jms/commit/9cbcd717c2258ae95091785ed578ac04c20ea63b))
 
 ## [3.23.2](https://github.com/jaspero/jms/compare/v3.23.1...v3.23.2) (2021-02-18)
 
-
 ### Bug Fixes
 
-* **client:** initialValue not being saved on instance-single ([d4b4d68](https://github.com/jaspero/jms/commit/d4b4d68e6fb30ba9d9d5cab200ffdf0518a5c7f9))
+- **client:** initialValue not being saved on instance-single ([d4b4d68](https://github.com/jaspero/jms/commit/d4b4d68e6fb30ba9d9d5cab200ffdf0518a5c7f9))
 
 ## [3.23.1](https://github.com/jaspero/jms/compare/v3.23.0...v3.23.1) (2021-02-18)
 
-
 ### Bug Fixes
 
-* **client:** missing untilDestroyed on auto-save interval ([8dd8236](https://github.com/jaspero/jms/commit/8dd82369e019389f61566745599caca6bdc39587))
+- **client:** missing untilDestroyed on auto-save interval ([8dd8236](https://github.com/jaspero/jms/commit/8dd82369e019389f61566745599caca6bdc39587))
 
 # [3.23.0](https://github.com/jaspero/jms/compare/v3.22.1...v3.23.0) (2021-02-18)
 
-
 ### Features
 
-* **client:** connected autosave option ([e3e97e9](https://github.com/jaspero/jms/commit/e3e97e99fa6e8348186109915afe53157c9b50ba))
+- **client:** connected autosave option ([e3e97e9](https://github.com/jaspero/jms/commit/e3e97e99fa6e8348186109915afe53157c9b50ba))
 
 ## [3.22.1](https://github.com/jaspero/jms/compare/v3.22.0...v3.22.1) (2021-02-16)
 
-
 ### Bug Fixes
 
-* nav & children should overlay main content ([cd24e76](https://github.com/jaspero/jms/commit/cd24e76de3eaf2894fe6bb2e453945166f87fa71))
+- nav & children should overlay main content ([cd24e76](https://github.com/jaspero/jms/commit/cd24e76de3eaf2894fe6bb2e453945166f87fa71))
 
 # [3.22.0](https://github.com/jaspero/jms/compare/v3.21.1...v3.22.0) (2021-02-14)
 
-
 ### Features
 
-* **client:** moved dbService and stateService providers to dashboard. Added page$ observable to state. ([3e71851](https://github.com/jaspero/jms/commit/3e71851e00f6fdcf7276721369f3955e3bca20a5))
+- **client:** moved dbService and stateService providers to dashboard. Added page\$ observable to state. ([3e71851](https://github.com/jaspero/jms/commit/3e71851e00f6fdcf7276721369f3955e3bca20a5))
 
 ## [3.21.1](https://github.com/jaspero/jms/compare/v3.21.0...v3.21.1) (2021-02-13)
 
-
 ### Bug Fixes
 
-* **client:** translate labels of fields in column sort closes [#209](https://github.com/jaspero/jms/issues/209) ([0975d72](https://github.com/jaspero/jms/commit/0975d72c9dd1a6458d53bd74380cd285fa522dee))
+- **client:** translate labels of fields in column sort closes [#209](https://github.com/jaspero/jms/issues/209) ([0975d72](https://github.com/jaspero/jms/commit/0975d72c9dd1a6458d53bd74380cd285fa522dee))
 
 # [3.21.0](https://github.com/jaspero/jms/compare/v3.20.0...v3.21.0) (2021-02-12)
 
-
 ### Features
 
-* added workflow_dispatch to all workflows ([992c83f](https://github.com/jaspero/jms/commit/992c83f06e38a8b3fcc74d846efac4d2e0c0eefd))
+- added workflow_dispatch to all workflows ([992c83f](https://github.com/jaspero/jms/commit/992c83f06e38a8b3fcc74d846efac4d2e0c0eefd))
 
 # [3.20.0](https://github.com/jaspero/jms/compare/v3.19.2...v3.20.0) (2021-02-07)
 
-
 ### Features
 
-* **functions:** added support for overriding original image with generated version. ([121cdd3](https://github.com/jaspero/jms/commit/121cdd314b17d9f9aea115688da3b72b243b4614))
+- **functions:** added support for overriding original image with generated version. ([121cdd3](https://github.com/jaspero/jms/commit/121cdd314b17d9f9aea115688da3b72b243b4614))
 
 ## [3.19.2](https://github.com/jaspero/jms/compare/v3.19.1...v3.19.2) (2021-02-03)
 
-
 ### Bug Fixes
 
-* hideAdd would always return true if any bool is assigned. hideAdd was overridden on init. improved double braces regex ([670224a](https://github.com/jaspero/jms/commit/670224aa070f46783f2cdde4302c454cd6bb6da9))
+- hideAdd would always return true if any bool is assigned. hideAdd was overridden on init. improved double braces regex ([670224a](https://github.com/jaspero/jms/commit/670224aa070f46783f2cdde4302c454cd6bb6da9))
 
 ## [3.19.1](https://github.com/jaspero/jms/compare/v3.19.0...v3.19.1) (2021-01-31)
 
-
 ### Bug Fixes
 
-* **client:** ColumnPipe set up working ([b3df354](https://github.com/jaspero/jms/commit/b3df354961ef98252cb29ac911fdecfa956ec449))
+- **client:** ColumnPipe set up working ([b3df354](https://github.com/jaspero/jms/commit/b3df354961ef98252cb29ac911fdecfa956ec449))
 
 # [3.19.0](https://github.com/jaspero/jms/compare/v3.18.2...v3.19.0) (2021-01-28)
 
-
 ### Features
 
-* **client:** added InstanceOverviewContextService as an argument to the custom pipe ([0731ad6](https://github.com/jaspero/jms/commit/0731ad6c3849fe982ea2c6c1c08ca3db113481cf))
+- **client:** added InstanceOverviewContextService as an argument to the custom pipe ([0731ad6](https://github.com/jaspero/jms/commit/0731ad6c3849fe982ea2c6c1c08ca3db113481cf))
 
 ## [3.18.2](https://github.com/jaspero/jms/compare/v3.18.1...v3.18.2) (2021-01-27)
 
-
 ### Bug Fixes
 
-* **client:** collection names not being translated ([8fc931e](https://github.com/jaspero/jms/commit/8fc931edea481672ed5fe9dd1a1910f2785386bb))
+- **client:** collection names not being translated ([8fc931e](https://github.com/jaspero/jms/commit/8fc931edea481672ed5fe9dd1a1910f2785386bb))
 
 ## [3.18.1](https://github.com/jaspero/jms/compare/v3.18.0...v3.18.1) (2021-01-24)
 
-
 ### Bug Fixes
 
-* **client:** lock file update ([d582ea8](https://github.com/jaspero/jms/commit/d582ea828ebdad720e631ac41911cb27413a0238))
+- **client:** lock file update ([d582ea8](https://github.com/jaspero/jms/commit/d582ea828ebdad720e631ac41911cb27413a0238))
 
 # [3.18.0](https://github.com/jaspero/jms/compare/v3.17.0...v3.18.0) (2021-01-23)
 
-
 ### Bug Fixes
 
-* data attribute converts uppercase characters to lowercase, so use kebab-case which will be converted to camelCase ([e110f6e](https://github.com/jaspero/jms/commit/e110f6ecc8f1c00a3b42861a1182e2b7473714fe))
-
+- data attribute converts uppercase characters to lowercase, so use kebab-case which will be converted to camelCase ([e110f6e](https://github.com/jaspero/jms/commit/e110f6ecc8f1c00a3b42861a1182e2b7473714fe))
 
 ### Features
 
-* prefill collection/subcollection document directly from table actions. added string interpolation in modules ([3555b96](https://github.com/jaspero/jms/commit/3555b9678519c03f30cfbc37545a64270e99ccce))
+- prefill collection/subcollection document directly from table actions. added string interpolation in modules ([3555b96](https://github.com/jaspero/jms/commit/3555b9678519c03f30cfbc37545a64270e99ccce))
 
 # [3.17.0](https://github.com/jaspero/jms/compare/v3.16.0...v3.17.0) (2021-01-22)
 
