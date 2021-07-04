@@ -1,3 +1,10 @@
+## [4.1.2](https://github.com/jaspero/jms/compare/v4.1.1...v4.1.2) (2021-06-28)
+
+
+### Bug Fixes
+
+* **UsersModule:** user id definition - disableOn edit ([307e5a2](https://github.com/jaspero/jms/commit/307e5a2b250c132810adbdc2635f54c541318857))
+
 ## [4.1.1](https://github.com/jaspero/jms/compare/v4.1.0...v4.1.1) (2021-06-27)
 
 

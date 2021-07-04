@@ -122,7 +122,10 @@ export const USERS_MODULE = {
     }
   },
   definitions: {
-    id: {label: 'GENERAL.ID'},
+    id: {
+      label: 'GENERAL.ID',
+      disableOn: 'edit'
+    },
     name: {label: 'GENERAL.NAME'},
     email: {
       label: 'GENERAL.EMAIL',
