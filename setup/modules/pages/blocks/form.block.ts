@@ -6,23 +6,17 @@ export const FORM_BLOCK = {
   icon: 'contact_mail',
   previewTemplate: `<jms-form [data]="data"></jms-form>`,
   previewValue: {
-    title: 'Form Title',
-    description: 'Form description',
+    title: '<h2>Form Title</h2>',
+    description: '<h3>Form description</h3>',
+    fields: []
   },
   form: {
     segments: [
       {
-        title: 'Content',
+        type: 'empty',
         fields: [
-          '/action',
-          '/form'
-        ]
-      },
-      {
-        title: 'Options',
-        fields: [
-          '/email',
-          '/size'
+          '/form',
+          '/email'
         ]
       },
       ...COMMON_OPTIONS.segment
@@ -31,22 +25,39 @@ export const FORM_BLOCK = {
       properties: {
         title: {type: 'string'},
         description: {type: 'string'},
-        action: {type: 'string'},
         form: {type: 'string'},
-        size: {type: 'string'},
         email: {type: 'string'},
         ...COMMON_OPTIONS.properties
       }
     },
     definitions: {
-      action: {label: 'PB.FORM.BLOCKS.FORM.FIELDS.ACTION'},
       form: {
-        label: 'PB.FORM.BLOCKS.FORM.TITLE',
         component: {
-          type: 'select',
+          type: 'ref',
           configuration: {
-            populate: {
-              collection: 'forms'
+            collection: 'forms',
+            searchBy: {key: '/name', label: 'GENERAL.NAME'},
+            display: {key: '/name', label: 'PB.FORM.BLOCKS.FORM.FIELDS.FORM'},
+            table: {
+              tableColumns: [
+                {key: '/name', label: 'GENERAL.NAME'}
+              ]
+            }
+          }
+        }
+      },
+      email: {
+        component: {
+          type: 'ref',
+          configuration: {
+            collection: 'automatic-emails',
+            searchBy: {key: '/name', label: 'GENERAL.NAME'},
+            display: {key: '/name', label: 'GENERAL.EMAIL'},
+            table: {
+              tableColumns: [
+                {key: '/name', label: 'GENERAL.NAME'},
+                {key: '/description', label: 'GENERAL.DESCRIPTION'},
+              ]
             }
           }
         }

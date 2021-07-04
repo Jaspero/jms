@@ -3,10 +3,6 @@ import {PROCESSED} from './processed.const';
 export const AUTOMATIC_EMAILS_MODULE = {
   id: 'automatic-emails',
   name: 'MODULES.AUTOMATIC_EMAILS',
-  description: 'MODULES.AUTOMATIC_EMAILS_DESCRIPTION',
-  authorization: {
-    write: ['admin']
-  },
   layout: {
     editTitleKey: 'name',
     instance: {
@@ -20,7 +16,18 @@ export const AUTOMATIC_EMAILS_MODULE = {
           ]
         },
         {
-          fields: ['/sendTo', '/subject', '/content']
+          title: 'GENERAL.GENERAL',
+          fields: [
+            '/name',
+            '/description',
+            '/recipient',
+            '/sendTo',
+            '/subject'
+          ]
+        },
+        {
+          type: 'empty',
+          fields: ['/content']
         }
       ]
     },
@@ -28,31 +35,12 @@ export const AUTOMATIC_EMAILS_MODULE = {
       hideImport: true,
       hideExport: true,
       tableColumns: [
-        {
-          key: '/name',
-          label: 'GENERAL.EMAIL'
-        },
-        {
-          key: '/recipient',
-          label: 'AUTOMATIC_EMAILS.FIELDS.RECIPIENT'
-        },
-        {
-          key: '/description',
-          label: 'GENERAL.DESCRIPTION'
-        },
-        {
-          key: '/subject',
-          label: 'AUTOMATIC_EMAILS.FIELDS.SUBJECT'
-        },
-        {
-          key: '/active',
-          label: 'GENERAL.ACTIVE',
-          control: true
-        }
+        {key: '/name', label: 'GENERAL.NAME'},
+        {key: '/recipient', label: 'AUTOMATIC_EMAILS.FIELDS.RECIPIENT'},
+        {key: '/description', label: 'GENERAL.DESCRIPTION'},
+        {key: '/subject', label: 'AUTOMATIC_EMAILS.FIELDS.SUBJECT'},
+        {key: '/active', label: 'GENERAL.ACTIVE', control: true}
       ]
-    },
-    overview: {
-      toolbar: []
     },
     filterModule: {
       persist: true,
@@ -97,18 +85,29 @@ export const AUTOMATIC_EMAILS_MODULE = {
       description: {type: 'string'},
       active: {type: 'boolean'},
       dynamicValues: {type: 'string'},
-      recipient: {type: 'string'},
+      recipient: {type: 'string', default: 'Admin'},
       sendTo: {type: 'string'}
     }
   },
   definitions: {
-    sendTo: {
-      label: 'AUTOMATIC_EMAILS.FIELDS.SEND_TO'
-    },
+    sendTo: {label: 'AUTOMATIC_EMAILS.FIELDS.SEND_TO'},
+    description: {label: 'GENERAL.DESCRIPTION'},
     subject: {
       label: 'AUTOMATIC_EMAILS.FIELDS.SUBJECT',
       component: {
         type: 'textarea'
+      }
+    },
+    recipient: {
+      label: 'AUTOMATIC_EMAILS.FIELDS.RECIPIENT',
+      component: {
+        type: 'select',
+        configuration: {
+          dataSet: [
+            {name: 'Admin', value: 'Admin'},
+            {name: 'Client', value: 'Client'}
+          ]
+        }
       }
     },
     content: {

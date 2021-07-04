@@ -22,20 +22,21 @@ export const PAGES_MODULE = {
     instance: {
       segments: [
         {
+          title: 'GENERAL.GENERAL',
           type: 'card',
           fields: [
-            '/id',
-            '/createdOn',
-            '/title'
-          ]
+            '/title',
+            '/id'
+          ],
+          columnsDesktop: 6
         },
+        META.segment({columnsDesktop: 6}),
         {
           type: 'empty',
           fields: [
             '/blocks'
           ]
-        },
-        META.segment()
+        }
       ]
     },
     table: {
@@ -56,7 +57,6 @@ export const PAGES_MODULE = {
     }
   },
   definitions: {
-    ...CREATED_ON.definition(),
     id: {
       label: 'URL',
       disableOn: 'edit',
@@ -74,6 +74,7 @@ export const PAGES_MODULE = {
         }
       }
     },
+    ...CREATED_ON.definition(),
     ...META.definitions()
   }
 };

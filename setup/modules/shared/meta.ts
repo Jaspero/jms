@@ -1,5 +1,5 @@
 export const META = {
-  segment: () => {
+  segment: (options: any = {}) => {
     return {
       type: 'card',
       title: 'Meta Data',
@@ -9,7 +9,8 @@ export const META = {
         '/meta/keywords',
         '/meta/structured',
         '/meta/image'
-      ]
+      ],
+      ...options
     }
   },
   property: () => {
@@ -29,20 +30,12 @@ export const META = {
   definitions: () => {
     return {
       'meta/structured': {
-        component: {
-          type: 'textarea'
-        },
+        component: {type: 'textarea'},
         label: 'Structured'
       },
-      'meta/title': {
-        label: 'Title'
-      },
-      'meta/description': {
-        label: 'Description'
-      },
-      'meta/keywords': {
-        label: 'Keywords'
-      },
+      'meta/title': {label: 'Title'},
+      'meta/description': {label: 'Description'},
+      'meta/keywords': {label: 'Keywords'},
       'meta/image': {
         label: 'Image',
         component: {

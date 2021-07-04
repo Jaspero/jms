@@ -1,4 +1,5 @@
 import {CREATED_ON} from './shared/created-on';
+import {FORMAT_SEARCH} from './shared/format-search';
 
 export const FORMS_MODULE = {
   id: 'forms',
@@ -12,21 +13,12 @@ export const FORMS_MODULE = {
     instance: {
       segments: [
         {
-          columnsDesktop: 6,
-          columnsMobile: 12,
-          title: 'General',
+          title: 'GENERAL.GENERAL',
           fields: [
-            '/id',
-            '/createdOn',
             '/name',
-            '/notify'
+            '/success',
+            '/error'
           ]
-        },
-        {
-          columnsDesktop: 6,
-          columnsMobile: 12,
-          title: 'Content',
-          fields: ['/success', '/error']
         },
         {
           type: 'empty',
@@ -38,14 +30,8 @@ export const FORMS_MODULE = {
       hideImport: true,
       tableColumns: [
         CREATED_ON.column(),
-        {
-          key: '/id',
-          label: 'ID'
-        },
-        {
-          key: '/name',
-          label: 'Name'
-        },
+        {key: '/id', label: 'GENERAL.ID'},
+        {key: '/name', label: 'GENERAL.NAME'},
         {
           key: '/id',
           label: 'Submission',
@@ -60,7 +46,6 @@ export const FORMS_MODULE = {
   schema: {
     properties: {
       id: {type: 'string'},
-      notify: {type: 'string'},
       name: {type: 'string'},
       success: {type: 'string'},
       error: {type: 'string'},
@@ -69,21 +54,8 @@ export const FORMS_MODULE = {
     }
   },
   definitions: {
-    id: {
-      label: 'ID',
-      hint: 'Populated automatically if left empty',
-      disableOn: 'edit'
-    },
-    notify: {
-      label: 'Send email notifications to:',
-      component: {
-        type: 'input',
-        configuration: {
-          type: 'email'
-        }
-      }
-    },
-    ...CREATED_ON.definition(),
+    id: {formatOnSave: FORMAT_SEARCH('name')},
+    name: {label: 'GENERAL.NAME'},
     success: {
       label: 'Success message',
       placeholder: 'Application submitted successfully. Thank you!'
@@ -93,13 +65,11 @@ export const FORMS_MODULE = {
       placeholder:
         'There was an error submitting your form, please try again later.'
     },
-    name: {
-      label: 'Name'
-    },
     fields: {
       component: {
         type: 'fu-fields'
       }
-    }
+    },
+    ...CREATED_ON.definition(),
   }
 };

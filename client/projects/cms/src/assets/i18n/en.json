@@ -49,7 +49,8 @@
     "DESCRIPTION": "Description",
     "ACTIVE": "Active",
 
-    "YES": "Yes"
+    "YES": "Yes",
+    "GENERAL": "General"
   },
   "LOGIN": {
     "LOGIN": "Login",
@@ -111,8 +112,9 @@
     "USERS": "Users",
     "USERS_DESCRIPTION": "App Users",
     "AUTOMATIC_EMAILS": "Automatic Emails",
-    "AUTOMATIC_EMAILS_DESCRIPTION": "Automatic Email configuration",
-    "SENT_EMAILS": "Sent Emails"
+    "SENT_EMAILS": "Sent Emails",
+    "FORMS": "Forms",
+    "PAGES": "Pages"
   },
   "INSTANCE_OVERVIEW": {
     "REMOVE_ITEMS": "Remove {{value}} items",
@@ -292,7 +294,8 @@
           "VERTICAL_ALIGNMENT": "Vertical Align",
           "VERTICAL_ALIGNMENT_CENTER": "Center",
           "VERTICAL_ALIGNMENT_TOP": "Top",
-          "VERTICAL_ALIGNMENT_BOTTOM": "Bottom"
+          "VERTICAL_ALIGNMENT_BOTTOM": "Bottom",
+          "ADDITIONAL_STYLE": "Custom Style"
         },
         "CONTENT": {
           "TITLE": "Content"
@@ -300,7 +303,7 @@
         "FORM": {
           "TITLE": "Form",
           "FIELDS": {
-            "ACTION": "Action"
+            "FORM": "Form"
           }
         }
       }
@@ -353,5 +356,8 @@
     "MODULES": "Modules",
     "DOCUMENTS": "Documents",
     "ACTIONS": "Actions"
+  },
+  "TEMPLATE_EDITOR": {
+    "ADD_SEGMENT": "Add Segment"
   }
 }

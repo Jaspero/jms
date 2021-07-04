@@ -30,6 +30,19 @@ service cloud.firestore {
       allow read, write: if admin() || hasId(resource);
     }
 
+    match /automatic-emails/{item=**} {
+      allow read, write: if admin();
+    }
+
+    match /sent-emails/{item=**} {
+      allow read, write: if admin();
+    }
+
+    match /pages/{item=**} {
+      allow read: if true;
+      allow write: if admin();
+    }
+
     match /{module}/{document=**} {
       allow read: if hasRoles(['user', 'admin']) || hasId(resource);
       allow write: if hasRoles(['admin']) || hasId(resource);

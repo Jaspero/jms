@@ -12,6 +12,7 @@ import {importData} from './rest/import-data';
 import {documentDeleted} from './triggers/document-deleted';
 import {fileCreated} from './triggers/file-created';
 import {fileDeleted} from './triggers/file-deleted';
+import {formSubmissionCreated} from './triggers/form-submission-created';
 import {userCreated} from './triggers/user-created';
 import {userDeleted} from './triggers/user-deleted';
 import {userDocumentUpdated} from './triggers/user-document-updated';
@@ -27,6 +28,7 @@ export const cms = {
   fileDeleted,
   documentDeleted,
   triggerPasswordReset,
+  formSubmissionCreated,
 
   // Callable
   createUser,

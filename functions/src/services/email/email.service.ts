@@ -52,8 +52,13 @@ export class EmailService {
       html
     });
 
+    let sentEmail;
+
     try {
-      await firestore().collection('sent-emails').doc().create({
+
+      const emailDoc = firestore().collection('sent-emails').doc();
+
+      await emailDoc.create({
         createdOn: Date.now(),
         to,
         html,
@@ -61,9 +66,13 @@ export class EmailService {
         templateId,
         ...res === true ? {status: true} : {status: false, error: res}
       });
+
+      sentEmail = emailDoc.id
     } catch (e) {
       console.error(e);
     }
+
+    return sentEmail;
   }
 
   async sendEmail(data: Partial<sgMail.MailDataRequired>) {

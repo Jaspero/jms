@@ -44,6 +44,7 @@ import {SortDialogComponent} from './components/sort-dialog/sort-dialog.componen
 import {ForceDisableDirective} from './directives/force-disable/force-disable.directive';
 import {ConfirmExitGuard} from './guards/confirm-exit/confirm-exit.guard';
 import {CustomModuleGuard} from './guards/custom-module/custom-module.guard';
+import {FormSubmissionGuard} from './guards/form-submission/form-submission.guard';
 import {ModuleInstanceComponent} from './module-instance.component';
 import {InstanceOverviewComponent} from './pages/instance-overview/instance-overview.component';
 import {InstanceSingleComponent} from './pages/instance-single/instance-single.component';
@@ -82,6 +83,11 @@ const routes: Routes = [
     path: ':id',
     component: ModuleInstanceComponent,
     ...innerRoutes
+  },
+  {
+    path: 'forms/:id/submissions',
+    component: InstanceOverviewComponent,
+    canActivate: [FormSubmissionGuard]
   },
   {
     path: ':collectionId/:documentId/:subCollectionId',
@@ -125,6 +131,7 @@ const routes: Routes = [
     InstanceOverviewContextService,
     CustomModuleGuard,
     ConfirmExitGuard,
+    FormSubmissionGuard,
 
     /**
      * We register a few general providers for

@@ -13,6 +13,7 @@ interface FormOptions extends CommonOptions {
   description?: string;
   action?: string;
   form?: string;
+  email?: string;
 }
 
 @Component({
@@ -84,11 +85,11 @@ export class FormComponent extends CommonBlockComponent {
     return () => {
       return from(
         this.afs
-          .collection(`forms/${this.form.id}/applications`)
+          .collection(`forms/${this.form.id}/submissions`)
           .doc(this.afs.createId())
           .set({
-            notify: this.form.notify || '',
             createdOn: Date.now(),
+            ...this.data.email && {emailId: this.data.email},
             ...this.fg.getRawValue()
           })
       ).pipe(

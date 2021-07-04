@@ -35,9 +35,6 @@ const TEMPLATE_ID_DEFINITION = {
 export const SENT_EMAILS_MODULE = {
   id: 'sent-emails',
   name: 'MODULES.SENT_EMAILS',
-  authorization: {
-    write: ['admin']
-  },
   layout: {
     editTitleKey: 'subject',
     sort: CREATED_ON.sort,
@@ -92,14 +89,8 @@ export const SENT_EMAILS_MODULE = {
       hideAdd: true,
       hideImport: true,
       tableColumns: [
-        {
-          key: '/to',
-          label: 'Receiver'
-        },
-        {
-          key: '/subject',
-          label: 'Subject'
-        },
+        {key: '/to', label: 'Receiver'},
+        {key: '/subject', label: 'Subject'},
         CREATED_ON.column(true, 'YYYY/MM/dd hh:mm'),
         {
           key: '/status',
@@ -125,9 +116,7 @@ export const SENT_EMAILS_MODULE = {
     }
   },
   definitions: {
-    to: {
-      label: 'Receiver'
-    },
+    to: {label: 'Receiver'},
     status: STATUS_DEFINITION,
     html: {
       label: 'Content',
@@ -136,14 +125,7 @@ export const SENT_EMAILS_MODULE = {
       }
     },
     templateId: TEMPLATE_ID_DEFINITION,
-    subject: {
-      label: 'Subject'
-    },
-    error: {
-      label: 'Error'
-    },
-    createdOn: {
-      label: 'Created On'
-    }
+    subject: {label: 'Subject'},
+    error: {label: 'Error'}
   }
 };
