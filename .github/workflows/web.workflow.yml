@@ -1,0 +1,70 @@
+name: Deploy Web
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'client/projects/web/**/*'
+      - '.github/workflows/web.workflow.yml'
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+  steps:
+    - name: Checkout Repo
+      uses: actions/checkout@master
+      with:
+        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of the personal token
+        fetch-depth: 0 # otherwise, it fails to push refs to dest repo
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - name: Install Dependencies
+        run: |
+          npm --prefix client ci
+      - name: Build
+        run: npm run build:web
+      - name: Build.js
+        if: contains(github.ref, 'master')
+        run: |
+          cd build
+          echo $SERVICE_ACCOUNT > account.json
+          npm ci
+          node build.js $DATABASE_URL
+          cd ..
+        env:
+          SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting:web
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_ID: 'jaspero-jms'
+      - name: Commit
+        if: contains(github.ref, 'master')
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -f --all dist/
+          git commit -m "BOT - Connected build branch"
+      - name: Update current shopper version
+        if: contains(github.ref, 'master')
+        run: |
+          cd build
+          echo $SERVICE_ACCOUNT > account.json
+          node update-current-version.js $DATABASE_URL
+        env:
+          SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      - name: Push
+        if: contains(github.ref, 'master')
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: 'build'
+          force: true
+

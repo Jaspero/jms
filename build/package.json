@@ -1,0 +1,17 @@
+{
+  "name": "build",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "domino": "2.1.5",
+    "firebase-admin": "8.12.1",
+    "fs-extra": "9.0.1",
+    "html-minifier": "4.0.0"
+  }
+}
