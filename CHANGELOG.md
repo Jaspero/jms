@@ -1,16 +1,20 @@
-# [4.3.0](https://github.com/jaspero/jms/compare/v4.2.0...v4.3.0) (2021-07-17)
-
+# [4.4.0](https://github.com/jaspero/jms/compare/v4.3.0...v4.4.0) (2021-07-20)
 
 ### Features
 
-* **setup:** added shared/order.ts ([e47c464](https://github.com/jaspero/jms/commit/e47c464fe583b437fb210e3aebdb469345ab43b6))
+- added build:web to build script ([c7e98e6](https://github.com/jaspero/jms/commit/c7e98e6170ad3e324304bd3900aba69b82a836f7))
+
+# [4.3.0](https://github.com/jaspero/jms/compare/v4.2.0...v4.3.0) (2021-07-17)
+
+### Features
+
+- **setup:** added shared/order.ts ([e47c464](https://github.com/jaspero/jms/commit/e47c464fe583b437fb210e3aebdb469345ab43b6))
 
 # [4.2.0](https://github.com/jaspero/jms/compare/v4.1.2...v4.2.0) (2021-07-15)
 
-
 ### Features
 
-* connect ctrl click for opening in new tab ([42d9616](https://github.com/jaspero/jms/commit/42d9616fa3ce6e84f7926e53666972e3d92e00b8))
+- connect ctrl click for opening in new tab ([42d9616](https://github.com/jaspero/jms/commit/42d9616fa3ce6e84f7926e53666972e3d92e00b8))
 
 ## [4.1.2](https://github.com/jaspero/jms/compare/v4.1.1...v4.1.2) (2021-06-28)
 
