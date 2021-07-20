@@ -35,7 +35,7 @@ export const USER_INVITES_MODULE = {
         },
         {
           key: '/acceptedOn',
-          label: 'USER_INVITES.FIELDS.ACCEPTED',
+          label: 'USER_INVITES.FIELDS.ACCEPTED_ON',
           pipe: ['date'],
           fallback: 'No'
         }
@@ -52,7 +52,7 @@ export const USER_INVITES_MODULE = {
       requireReset: {type: 'boolean'},
       sendInvite: {type: 'boolean'},
       accepted: {type: 'boolean'},
-      acceptedOn: {type: 'number'},
+      acceptedOn: {type: 'number'}
     }
   }
 };

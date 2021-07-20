@@ -1,3 +1,9 @@
+## [4.4.1](https://github.com/jaspero/jms/compare/v4.4.0...v4.4.1) (2021-07-20)
+
+### Bug Fixes
+
+- added setup script ([7b61143](https://github.com/jaspero/jms/commit/7b61143fece0d5c34d85a709ff58f25199fc42da))
+
 # [4.4.0](https://github.com/jaspero/jms/compare/v4.3.0...v4.4.0) (2021-07-20)
 
 ### Features
