@@ -15,7 +15,7 @@
     "build:cms": "npm --prefix client run build:cms",
     "build:web": "npm --prefix client run build:web",
     "build:functions": "npm --prefix functions run build",
-    "build": "npm run build:cms && npm run build:functions",
+    "build": "npm run build:cms && npm run build:web && npm run build:functions",
     "lint:client": "npm --prefix client run lint",
     "lint:functions": "npm --prefix functions run lint",
     "lint": "npm run lint:client && npm run lint:functions",
