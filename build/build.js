@@ -196,8 +196,7 @@ async function createPages(collection, id) {
 
   const index = readFileSync(join(BASE_PATH, 'index.html')).toString();
   admin.initializeApp({
-    credential: admin.credential.cert(require('./account.json')),
-    databaseURL: process.argv[2]
+    credential: admin.credential.cert(require('./account.json'))
   });
 
   const fStore = admin.firestore();

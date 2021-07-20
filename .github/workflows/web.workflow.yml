@@ -32,11 +32,10 @@ jobs:
           cd build
           echo $SERVICE_ACCOUNT > account.json
           npm ci
-          node build.js $DATABASE_URL
+          node build.js
           cd ..
         env:
           SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
@@ -51,15 +50,14 @@ jobs:
           git config --local user.name "GitHub Action"
           git add -f --all dist/
           git commit -m "BOT - Connected build branch"
-      - name: Update current shopper version
+      - name: Update current app version
         if: contains(github.ref, 'master')
         run: |
           cd build
           echo $SERVICE_ACCOUNT > account.json
-          node update-current-version.js $DATABASE_URL
+          node update-current-version.js
         env:
           SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
       - name: Push
         if: contains(github.ref, 'master')
         uses: ad-m/github-push-action@master

@@ -7,7 +7,7 @@
     "start:cms": "npm --prefix client run start:cms",
     "start:cms:live": "npm --prefix client run start:cms:live",
     "start:web": "npm --prefix client run start:web",
-    "start:web:live": "npm --prefix client run start:web",
+    "start:web:live": "npm --prefix client run start:web:live",
     "start:functions": "npm --prefix functions run serve",
     "start:functions:watch": "npm --prefix functions run watch",
     "start:setup": "npm --prefix setup start",

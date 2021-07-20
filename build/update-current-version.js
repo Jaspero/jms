@@ -1,8 +1,7 @@
 const admin = require('firebase-admin');
 
 admin.initializeApp({
-  credential: admin.credential.cert(require('./account.json')),
-  databaseURL: process.argv[2]
+  credential: admin.credential.cert(require('./account.json'))
 });
 
 async function exec() {
