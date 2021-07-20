@@ -1,3 +1,10 @@
+# [4.4.0](https://github.com/jaspero/jms/compare/v4.3.0...v4.4.0) (2021-07-20)
+
+
+### Features
+
+* added build:web to build script ([c7e98e6](https://github.com/jaspero/jms/commit/c7e98e6170ad3e324304bd3900aba69b82a836f7))
+
 # [4.3.0](https://github.com/jaspero/jms/compare/v4.2.0...v4.3.0) (2021-07-17)
 
 
