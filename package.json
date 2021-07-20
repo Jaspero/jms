@@ -1,6 +1,6 @@
 {
   "name": "@jaspero/jms",
-  "version": "4.4.0",
+  "version": "4.4.1",
   "license": "MIT",
   "scripts": {
     "start:emulator": "firebase emulators:start --export-on-exit=.emulator-export --import=.emulator-export",
@@ -21,7 +21,8 @@
     "semantic-release": "semantic-release",
     "config:set": "firebase functions:config:set",
     "dev": "concurrently \"npm run start:emulator\" \"npm run start:functions:watch\" \"npm run start:cms\" ",
-    "setup": "npm ci && npm --prefix setup ci && npm --prefix functions ci && npm --prefix client ci && npm --prefix .github/utils ci"
+    "setup": "npm ci && npm --prefix setup ci && npm --prefix functions ci && npm --prefix client ci && npm --prefix .github/utils ci",
+    "write:indexes": "firebase firestore:indexes > firestore.indexes.json"
   },
   "author": {
     "name": "Jaspero Ltd",
