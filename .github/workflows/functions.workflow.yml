@@ -18,6 +18,9 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
+      - name: Install GitHub Utils Dependencies
+        run: |
+          npm ci --prefix .github/utils
       - id: file_changes
         uses: trilom/file-changes-action@v1.2.4
       - name: Detect file changes

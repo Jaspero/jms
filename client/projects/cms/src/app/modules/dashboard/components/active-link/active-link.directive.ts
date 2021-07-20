@@ -36,8 +36,14 @@ export class ActiveLinkDirective implements OnInit {
     });
   }
 
-  @HostListener('click')
-  click() {
+  @HostListener('click', ['$event'])
+  click(e: MouseEvent) {
+
+    if (e.ctrlKey || e.metaKey) {
+      window.open(this.options.value, '_blank');
+      return;
+    }
+
     this.router.navigate([this.options.value])
   }
 
