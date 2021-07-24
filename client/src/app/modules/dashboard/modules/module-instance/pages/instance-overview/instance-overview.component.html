@@ -8,7 +8,7 @@
           <a *ngIf="!hideAdd"
              mat-flat-button
              routerLink="../single/new">
-            {{'GENERAL.ADD' | transloco}} {{name}}
+            {{'GENERAL.ADD' | transloco}} {{name | transloco}}
           </a>
         </div>
         <ng-template #element>
