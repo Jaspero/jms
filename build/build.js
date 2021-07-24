@@ -179,6 +179,7 @@ async function renderDocument(index, pg, doc) {
   const meta = pg.meta(data);
   const metaProperties = await pg.metaProperties(data);
   const title = pg.title(data);
+  const id = pg.id(doc).toLowerCase();
 
   await renderMeta(
     index,
@@ -188,7 +189,7 @@ async function renderDocument(index, pg, doc) {
       metaProperties,
       title
     },
-    join(BASE_PATH, pg.url, pg.id(doc), 'index.html')
+    join(BASE_PATH, pg.url, id === 'home' ? '/' : id, 'index.html')
   )
 }
 
@@ -218,14 +219,14 @@ async function createPages(collection, id) {
         await Promise.all(
           docs.docs.map(async doc => {
             sitemapPages.push({
-              url: `${URL}/${pg.url}/${pg.id(doc)}`
+              url: `${URL}${pg.url.replace(/^\//, '')}/${pg.id(doc)}`
             });
             await renderDocument(index, pg, doc);
           })
         )
       } else {
         sitemapPages.push({
-          url: `${URL}/${pg.url}`
+          url: `${URL}${pg.url.replace(/^\//, '')}`
         });
         await renderMeta(
           index,
@@ -234,7 +235,7 @@ async function createPages(collection, id) {
         )
       }
     })
-  )
+  );
 
   await siteMap(sitemapPages);
 }
