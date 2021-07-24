@@ -48,7 +48,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add -f --all dist/
+          git add -f --all public/
           git commit -m "BOT - Connected build branch"
       - name: Update current app version
         if: contains(github.ref, 'master')
