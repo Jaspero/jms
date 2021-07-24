@@ -14,7 +14,7 @@ const minifyOptions = {
 };
 
 const URL = 'https://jaspero-jms.web.app/';
-const BASE_PATH = join(__dirname, '..', 'dist/wev');
+const BASE_PATH = join(__dirname, '..', 'public/web');
 const BASE_TITLE = 'JMS';
 const DELIMITER = '-';
 const BASE_URL = 'https://firebasestorage.googleapis.com/v0/b/jaspero-automated-tests.appspot.com/o/';
