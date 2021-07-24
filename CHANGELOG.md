@@ -1,3 +1,17 @@
+## [4.4.3](https://github.com/jaspero/jms/compare/v4.4.2...v4.4.3) (2021-07-24)
+
+
+### Bug Fixes
+
+* **client:** missing translation on name instance overview ([cea707d](https://github.com/jaspero/jms/commit/cea707d6adf6b4bd041a2dad7d124635ea60f41f))
+
+## [4.4.2](https://github.com/jaspero/jms/compare/v4.4.1...v4.4.2) (2021-07-20)
+
+
+### Bug Fixes
+
+* translation missmatch for user-invites ([17c4254](https://github.com/jaspero/jms/commit/17c4254003aee3452adca8a2dea93c47a23fc8df))
+
 ## [4.4.1](https://github.com/jaspero/jms/compare/v4.4.0...v4.4.1) (2021-07-20)
 
 ### Bug Fixes
