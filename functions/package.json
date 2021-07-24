@@ -30,7 +30,7 @@
     "json-pointer": "0.6.1",
     "json2csv": "5.0.1",
     "sharp": "0.28.1",
-    "xlsx": "0.16.3"
+    "xlsx": "0.17.0"
   },
   "devDependencies": {
     "@types/ajv": "1.0.0",
