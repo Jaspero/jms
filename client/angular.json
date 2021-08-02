@@ -278,6 +278,14 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "live": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/web/src/environments/environment.ts",
+                  "with": "projects/web/src/environments/environment.live.ts"
+                }
+              ]
             }
           }
         },
@@ -289,6 +297,9 @@
           "configurations": {
             "production": {
               "browserTarget": "web:build:production"
+            },
+            "live": {
+              "browserTarget": "web:build:live"
             }
           }
         },

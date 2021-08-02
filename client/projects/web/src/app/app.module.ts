@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {AngularFireModule} from '@angular/fire';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {USE_EMULATOR as USE_FIRESTORE_EMULATOR} from '@angular/fire/firestore/firestore';
+import {AngularFirestoreModule, USE_EMULATOR as USE_FIRESTORE_EMULATOR} from '@angular/fire/firestore'
 import {BrowserModule} from '@angular/platform-browser';
 import {environment} from '../../../cms/src/environments/environment';
 import {AppRoutingModule} from './app-routing.module';
