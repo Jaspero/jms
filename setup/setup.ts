@@ -1,27 +1,26 @@
 import * as admin from 'firebase-admin';
 import {COLLECTIONS} from './collections/collections';
 
-let environemnt: any = process.argv[2] || 'd';
+let environment: any = process.argv[2] || 'd';
 
-if (environemnt === 'd') {
-  environemnt = {
+if (environment === 'd') {
+  environment = {
     projectId: 'jaspero-jms'
   };
 } else {
-  environemnt = {
-    serviceAccount: require('./serviceAccountKey.json'),
+  environment = {
+    credential: admin.credential.cert('./serviceAccountKey.json'),
     databaseURL: 'https://jaspero-jms.firebaseio.com'
   };
 }
 
-admin.initializeApp(environemnt);
+admin.initializeApp(environment);
 
 async function exec() {
   const fStore = admin.firestore();
 
   for (const collection of COLLECTIONS) {
     for (const document of collection.documents) {
-
       const {id, ...data} = document;
 
       await fStore.collection(collection.name).doc(id).set(data);
@@ -38,5 +37,3 @@ exec()
     console.error(error);
     process.exit(1);
   });
-
-
