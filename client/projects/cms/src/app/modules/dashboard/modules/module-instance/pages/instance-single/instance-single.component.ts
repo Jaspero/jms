@@ -1,7 +1,14 @@
 import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Definitions, FormBuilderComponent, safeEval, Segment, State} from '@jaspero/form-builder';
+import {
+  Definitions,
+  FormBuilderComponent,
+  FormBuilderContextService,
+  safeEval,
+  Segment,
+  State
+} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {JSONSchema7} from 'json-schema';
 import {interval, Observable, of, Subject, Subscription} from 'rxjs';
@@ -48,7 +55,8 @@ export class InstanceSingleComponent implements OnInit {
     private state: StateService,
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
-    private ioc: InstanceOverviewContextService
+    private ioc: InstanceOverviewContextService,
+    private formCtx: FormBuilderContextService
   ) {
   }
 
@@ -72,8 +80,12 @@ export class InstanceSingleComponent implements OnInit {
 
   ngOnInit() {
     this.data$ = this.ioc.module$.pipe(
-      switchMap(module =>
-        this.activatedRoute.params.pipe(
+      switchMap(module => {
+
+        // @ts-ignore
+        this.formCtx.module = module.id;
+
+        return this.activatedRoute.params.pipe(
           switchMap(params => {
             if (params.id === 'new') {
               this.currentState = ViewState.New;
@@ -144,7 +156,7 @@ export class InstanceSingleComponent implements OnInit {
                     this.saveBuffer$.next(this.change);
                     this.change = null;
                   }
-                })
+                });
             }
 
             return {
@@ -167,8 +179,8 @@ export class InstanceSingleComponent implements OnInit {
               ...autoSave && {autoSave: true}
             };
           })
-        )
-      )
+        );
+      })
     );
 
     this.saveBuffer$
@@ -179,7 +191,7 @@ export class InstanceSingleComponent implements OnInit {
         ),
         untilDestroyed(this)
       )
-      .subscribe()
+      .subscribe();
   }
 
   save(instance: Instance, navigate = true) {

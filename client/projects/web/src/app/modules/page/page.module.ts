@@ -7,6 +7,17 @@ import {PageResolver} from './page.resolver';
 
 const routes: Routes = [
   {
+    path: '',
+    component: PageComponent,
+    resolve: {
+      page: PageResolver
+    },
+    data: {
+      collection: 'pages',
+      id: 'home'
+    }
+  },
+  {
     path: ':id',
     component: PageComponent,
     resolve: {

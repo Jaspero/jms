@@ -1,14 +1,7 @@
 import {CREATED_ON} from '../shared/created-on';
 import {FORMAT_SEARCH} from '../shared/format-search';
 import {META} from '../shared/meta';
-import {CONTENT_BLOCK} from './blocks/content.block';
-import {FORM_BLOCK} from './blocks/form.block';
 import {PROCESSED} from './processed.const';
-
-const blocks = [
-  CONTENT_BLOCK,
-  FORM_BLOCK
-];
 
 export const PAGES_MODULE = {
   id: 'pages',
@@ -69,7 +62,6 @@ export const PAGES_MODULE = {
         type: 'pb-blocks',
         configuration: {
           styles: PROCESSED.css,
-          blocks,
           styleUrls: []
         }
       }

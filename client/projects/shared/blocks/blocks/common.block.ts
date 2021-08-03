@@ -22,7 +22,9 @@ export class CommonBlockComponent {
   ) {
   }
 
-  @OnChange(function() {this.triggerChange()})
+  @OnChange(function() {
+    this.triggerChange();
+  })
   @Input()
   data: CommonOptions;
 

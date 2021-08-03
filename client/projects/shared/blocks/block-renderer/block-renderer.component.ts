@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, ComponentFactoryResolver, Input, ViewContainerRef} from '@angular/core';
-import {BLOCKS} from '../blocks.module';
+import {STATE} from '@jaspero/fb-page-builder';
 
 @Component({
   selector: 'jms-block-renderer',
@@ -14,13 +14,19 @@ export class BlockRendererComponent {
   ) {}
 
   @Input()
+  module: string;
+
+  @Input()
   set blocks(blocks: any[]) {
     this.vcr.clear();
 
+    const bDefs = Object.values(STATE.blocks[this.module]);
+
     for (const block of (blocks || [])) {
-      if (BLOCKS[block.type]) {
+      const def = bDefs.find(it => it.id === block.type);
+      if (def) {
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-          BLOCKS[block.type]
+          def.component
         );
         const componentRef = this.vcr.createComponent(componentFactory);
         (componentRef.instance as any).data = block.value;

@@ -1,11 +1,13 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Block} from '@jaspero/fb-page-builder';
 import {OnChange} from '@jaspero/ng-helpers';
 import {from, Subject, Subscription, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {FormField} from '../../interfaces/form-field.interface';
 import {Form} from '../../interfaces/form.interface';
+import {COMMON_OPTIONS} from '../common-options.const';
 import {CommonBlockComponent, CommonOptions} from '../common.block';
 
 interface FormOptions extends CommonOptions {
@@ -16,6 +18,71 @@ interface FormOptions extends CommonOptions {
   email?: string;
 }
 
+@Block({
+  id: 'form',
+  label: 'PB.FORM.BLOCKS.FORM.TITLE',
+  icon: 'contact_mail',
+  previewValue: {
+    title: '<h2>Form Title</h2>',
+    description: '<h3>Form description</h3>',
+    fields: []
+  },
+  form: {
+    segments: [
+      {
+        type: 'empty',
+        fields: [
+          '/form',
+          '/email'
+        ]
+      },
+      ...COMMON_OPTIONS.segment
+    ],
+    schema: {
+      properties: {
+        title: {type: 'string'},
+        description: {type: 'string'},
+        form: {type: 'string'},
+        email: {type: 'string'},
+        ...COMMON_OPTIONS.properties
+      }
+    },
+    definitions: {
+      form: {
+        component: {
+          type: 'ref',
+          configuration: {
+            collection: 'forms',
+            searchBy: {key: '/name', label: 'GENERAL.NAME'},
+            display: {key: '/name', label: 'PB.FORM.BLOCKS.FORM.FIELDS.FORM'},
+            table: {
+              tableColumns: [
+                {key: '/name', label: 'GENERAL.NAME'}
+              ]
+            }
+          }
+        }
+      },
+      email: {
+        component: {
+          type: 'ref',
+          configuration: {
+            collection: 'automatic-emails',
+            searchBy: {key: '/name', label: 'GENERAL.NAME'},
+            display: {key: '/name', label: 'GENERAL.EMAIL'},
+            table: {
+              tableColumns: [
+                {key: '/name', label: 'GENERAL.NAME'},
+                {key: '/description', label: 'GENERAL.DESCRIPTION'},
+              ]
+            }
+          }
+        }
+      },
+      ...COMMON_OPTIONS.definitions
+    }
+  }
+})
 @Component({
   selector: 'jms-form',
   templateUrl: './form.component.html',
@@ -32,7 +99,9 @@ export class FormComponent extends CommonBlockComponent {
     super(el);
   }
 
-  @OnChange(function() {this.onChange()})
+  @OnChange(function() {
+    this.onChange();
+  })
   @Input()
   data: FormOptions;
 

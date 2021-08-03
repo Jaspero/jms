@@ -1,4 +1,12 @@
-export const COMMON_OPTIONS = {
+import {SegmentType} from '@jaspero/form-builder';
+
+export const COMMON_OPTIONS: {
+  properties: {
+    [key: string]: {
+      type: string
+    }
+  }
+} & any = {
   properties: {
     size: {type: 'string'},
     contained: {type: 'boolean'},
@@ -10,7 +18,7 @@ export const COMMON_OPTIONS = {
   },
   segment: [
     {
-      type: 'accordion',
+      type: SegmentType.Accordion,
       configuration: [
         {
           title: 'PB.FORM.BLOCKS.SHARED.STANDARD_OPTIONS',

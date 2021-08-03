@@ -10,11 +10,6 @@ import {ContentComponent} from './blocks/content/content.component';
 import {FormComponent} from './blocks/form/form.component';
 import {BlockLinkDirective} from './directives/block-link/block-link.directive';
 
-export const BLOCKS = {
-  content: ContentComponent,
-  form: FormComponent
-};
-
 const B_COMPONENTS = [
   BlockRendererComponent,
 
@@ -26,7 +21,6 @@ const B_COMPONENTS = [
   declarations: [
     CommonBlockComponent,
     BlockLinkDirective,
-
     ...B_COMPONENTS
   ],
   exports: [
