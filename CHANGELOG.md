@@ -1,3 +1,10 @@
+## [4.4.5](https://github.com/jaspero/jms/compare/v4.4.4...v4.4.5) (2021-08-26)
+
+
+### Bug Fixes
+
+* **cms:** long file names overlap issue closes [#258](https://github.com/jaspero/jms/issues/258) ([9ab7bb5](https://github.com/jaspero/jms/commit/9ab7bb5041d1e732098c92ebe345cc68516090bc))
+
 ## [4.4.4](https://github.com/jaspero/jms/compare/v4.4.3...v4.4.4) (2021-08-02)
 
 
