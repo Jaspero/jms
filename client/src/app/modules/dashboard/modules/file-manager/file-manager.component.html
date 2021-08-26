@@ -41,7 +41,7 @@
         <mat-list>
           <div mat-subheader *ngIf="data.folders.length > 0">Folders</div>
           <mat-list-item *ngFor="let folder of data.folders" class="flex no-select" [class.disabled]="configuration.hidePath">
-            <div class="flex-1 flex ai-center h-full item-bar" (dblclick)="appendFolder(folder.name)">
+            <div class="flex-1 flex ai-center h-full item-bar" [title]="folder.name"  (dblclick)="appendFolder(folder.name)">
               <mat-icon mat-list-icon>{{folder.icon}}</mat-icon>
               <div class="item-name">
                 <div mat-line>{{folder.name}}</div>
@@ -51,7 +51,7 @@
           </mat-list-item>
           <div mat-subheader *ngIf="data.files.length > 0">Files</div>
           <mat-list-item *ngFor="let file of data.files; index as i" class="flex no-select" (click)="setFileActive(i)" (dblclick)="selectFile(file)">
-            <div class="flex-1 flex ai-center h-full item-bar" [class.active]="i === (activeFile$ | async)">
+            <div class="flex-1 flex ai-center h-full item-bar" [title]="file.name" [class.active]="i === (activeFile$ | async)">
 
               <div class="fb-image-suffix-preview" (mouseenter)="loadImage($event, file.downloadLink)">
                 <button class="fb-image-suffix-preview-button" mat-icon-button>
