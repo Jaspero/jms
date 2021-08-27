@@ -115,7 +115,12 @@ export const COMMON_OPTIONS: {
   },
   defaults: {
     size: 'regular',
+    margin: 'none',
     contained: true,
-    verticalAlignment: 'center'
+    backgroundRepeat: false,
+    verticalAlignment: 'center',
+    backgroundSize: 'contain',
+    background: '',
+    additionalStyle: ''
   }
 };
