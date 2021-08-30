@@ -11,22 +11,31 @@ export class BlockLinkDirective implements OnInit {
     private renderer: Renderer2
   ) {}
 
-  @Input('etBlockLink')
+  @Input('jmsBlockLink')
   link: string;
 
   @HostListener('click')
   click() {
-
     if (!this.link) {
       return;
     }
 
     if (this.link.startsWith('/')) {
 
-      const path = this.link.split('?')[0];
+      const split = this.link.split('?');
+      const path = split[0];
 
       if (path && path !== '/') {
         this.router.navigateByUrl(this.link);
+      } else {
+
+        const queryParams: any = {};
+
+        new URLSearchParams('?' + split[1]).forEach((value, key) => {
+          queryParams[key] = value;
+        });
+
+        this.router.navigate([], {queryParams});
       }
     } else {
       window.location.href = this.link;
@@ -39,7 +48,7 @@ export class BlockLinkDirective implements OnInit {
         this.el.nativeElement,
         'cursor',
         'pointer'
-      )
+      );
     }
   }
 }
