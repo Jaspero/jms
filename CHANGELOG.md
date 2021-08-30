@@ -1,3 +1,15 @@
+# [4.5.0](https://github.com/jaspero/jms/compare/v4.4.5...v4.5.0) (2021-08-30)
+
+
+### Bug Fixes
+
+* missing translations on mobile table ([2dc5648](https://github.com/jaspero/jms/commit/2dc56487953f40028017b0aa01f102211f508871))
+
+
+### Features
+
+* Added hotfix pull-request ci ([a996db5](https://github.com/jaspero/jms/commit/a996db54537d13560fa93d7ffab76b2cc93e294a))
+
 ## [4.4.5](https://github.com/jaspero/jms/compare/v4.4.4...v4.4.5) (2021-08-26)
 
 
