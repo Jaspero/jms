@@ -636,7 +636,12 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  navigateToSingleView(element) {
-    this.router.navigate([`/m/${this.data.collectionGroup ? element.ref.parent.path : this.data.moduleId}/single/${element.id}`]);
+  navigateToSingleView(element, e: MouseEvent) {
+    const link = `/m/${this.data.collectionGroup ? element.ref.parent.path : this.data.moduleId}/single/${element.id}`;
+    if (e.ctrlKey || e.metaKey) {
+      window.open(link, '_blank');
+    } else {
+      this.router.navigate([link]);
+    }
   }
 }
