@@ -14,11 +14,13 @@ export class BlockLinkDirective implements OnInit {
   @Input('jmsBlockLink')
   link: string;
 
-  @HostListener('click')
-  click() {
+  @HostListener('click', ['$event'])
+  click(e: MouseEvent) {
     if (!this.link) {
       return;
     }
+
+    const newTab = e.ctrlKey || e.metaKey;
 
     if (this.link.startsWith('/')) {
 
@@ -26,7 +28,11 @@ export class BlockLinkDirective implements OnInit {
       const path = split[0];
 
       if (path && path !== '/') {
-        this.router.navigateByUrl(this.link);
+        if (newTab) {
+          window.open(this.link, '_blank');
+        } else {
+          this.router.navigateByUrl(this.link);
+        }
       } else {
 
         const queryParams: any = {};
@@ -38,7 +44,11 @@ export class BlockLinkDirective implements OnInit {
         this.router.navigate([], {queryParams});
       }
     } else {
-      window.location.href = this.link;
+      if (newTab) {
+        window.open(this.link, '_blank');
+      } else {
+        window.location.href = this.link;
+      }
     }
   }
 
