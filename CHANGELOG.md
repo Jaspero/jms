@@ -1,3 +1,10 @@
+# [4.6.0](https://github.com/jaspero/jms/compare/v4.5.0...v4.6.0) (2021-09-10)
+
+
+### Features
+
+* **cms:** ctrl support for navigation in hamburger menu in table ([230a08f](https://github.com/jaspero/jms/commit/230a08f91bace8665ff50df20c74e48605d880e6))
+
 # [4.5.0](https://github.com/jaspero/jms/compare/v4.4.5...v4.5.0) (2021-08-30)
 
 
