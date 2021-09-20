@@ -1,3 +1,10 @@
+## [4.6.1](https://github.com/jaspero/jms/compare/v4.6.0...v4.6.1) (2021-09-20)
+
+
+### Bug Fixes
+
+* **cms:** missing translation on sort-dialog ([c414aa8](https://github.com/jaspero/jms/commit/c414aa82de02cb50bbeee8fb185ff3c95064766f))
+
 # [4.6.0](https://github.com/jaspero/jms/compare/v4.5.0...v4.6.0) (2021-09-10)
 
 
