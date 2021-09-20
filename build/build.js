@@ -39,6 +39,20 @@ const PAGES = [
         ['twitter:image']: thumb
       }
     }
+  },
+  {
+    url: '404',
+    title: '404',
+    meta: {
+      description: '',
+      keywords: ''
+    },
+    metaProperties: {
+      ['og:title']: '',
+      ['og:description']: '',
+      ['twitter:title']: '',
+      ['twitter:description']: '',
+    }
   }
 ];
 
@@ -78,6 +92,8 @@ async function createPages(collection, id) {
           url: `${URL}${pg.url.replace(/^\//, '')}`
         });
         await renderMeta(
+          DELIMITER,
+          BASE_TITLE,
           index,
           pg,
           join(BASE_PATH, pg.url + '.html')
