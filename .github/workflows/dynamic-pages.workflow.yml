@@ -43,7 +43,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add -f --all dist/
+          git add -f --all public/
           git commit -m "BOT - Updated build branch for ${{ github.event.inputs.collection }} and ${{ github.event.inputs.doc }}, operation ${{ github.event.inputs.operation }}"
       - name: Push
         uses: ad-m/github-push-action@master
