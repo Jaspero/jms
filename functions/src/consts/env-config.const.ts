@@ -8,5 +8,7 @@ export const ENV_CONFIG = functions.config()[process.env.NODE_ENV === 'productio
     name: string;
     email: string;
   };
-  ghtoken?: string;
+  gh?: {
+    token: string;
+  }
 };

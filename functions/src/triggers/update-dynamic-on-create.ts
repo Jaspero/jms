@@ -5,13 +5,18 @@ import {ENV_CONFIG} from '../consts/env-config.const';
 import {STATIC_CONFIG} from '../consts/static-config.const';
 
 export async function updateBuildBranch(collection: string, doc: string) {
+
+  if (!ENV_CONFIG.gh?.token) {
+    return;
+  }
+
   const res = await fetch(
     DYNAMIC_COLLECTIONS.deploymentUrl,
     {
       method: 'POST',
       headers: {
         accept: 'application/vnd.github.v3+json',
-        authorization: `bearer ${ENV_CONFIG.ghtoken}`
+        authorization: `bearer ${ENV_CONFIG.gh?.token}`
       },
       body: JSON.stringify({
         ref: 'build',
@@ -33,7 +38,7 @@ export const updateDynamicOnCreate = functions
     const {moduleId, documentId} = context.params;
     const data = snap.data() as any;
 
-    if (DYNAMIC_COLLECTIONS.collections.hasOwnProperty(moduleId) && ENV_CONFIG.ghtoken) {
+    if (DYNAMIC_COLLECTIONS.collections.hasOwnProperty(moduleId)) {
       // @ts-ignore
       const collection = DYNAMIC_COLLECTIONS.collections[moduleId];
 
