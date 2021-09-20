@@ -1,7 +1,8 @@
 const {outputFile} = require('fs-extra');
+const {join} = require('path');
 const toW3CString = require('./w3');
 
-module.exports = function (parsed) {
+module.exports = function (basePath, parsed) {
   const lastMod = toW3CString();
   let final = `<?xml version="1.0" encoding="utf-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
 
@@ -17,7 +18,7 @@ module.exports = function (parsed) {
   final += '</urlset>';
 
   return outputFile(
-    join(BASE_PATH, 'sitemap.xml'),
+    join(basePath, 'sitemap.xml'),
     final
   )
 }

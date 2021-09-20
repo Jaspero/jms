@@ -85,7 +85,7 @@ async function createPages(collection, id) {
     })
   );
 
-  await siteMap(sitemapPages);
+  await siteMap(BASE_PATH, sitemapPages);
 }
 
 createPages(process.argv[3] || '', process.argv[4] || '')
