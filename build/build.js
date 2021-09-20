@@ -2,6 +2,7 @@ const {join} = require('path');
 const {readFileSync} = require('fs');
 const admin = require('firebase-admin');
 const renderDocument = require('./src/render-document');
+const renderMeta = require('./src/render-meta');
 const siteMap = require('./src/site-map');
 const URL = 'https://jaspero-jms.web.app/';
 const BASE_PATH = join(__dirname, '..', 'public/web');
