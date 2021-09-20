@@ -1,0 +1,53 @@
+name: Dynamic Pages
+on:
+  workflow_dispatch:
+    inputs:
+      collection:
+        description: 'Collection to fetch'
+        required: true
+      doc:
+        description: 'ID of the document to fetch'
+        required: true
+      operation:
+        description: 'Type of operation to perform'
+        default: 'create'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+        with:
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of the personal token
+          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+      - name: Install Dependencies
+        run: |
+          cd build
+          npm ci
+      - name: Build
+        run: |
+          cd build
+          echo $SERVICE_ACCOUNT > account.json
+          node build.js ${{ github.event.inputs.collection }} ${{ github.event.inputs.doc }}
+        env:
+          SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
+      - name: Deploy
+        run: |
+          npm install firebase-tools
+          npm run firebase -- use $FIREBASE_PROJECT --token $FIREBASE_TOKEN
+          npm run firebase -- deploy --only hosting:web -m "${{ github.run_id }}" --token $FIREBASE_TOKEN
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_PROJECT: 'jaspero-jms'
+      - name: Commit
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -f --all dist/
+          git commit -m "BOT - Updated build branch for ${{ github.event.inputs.collection }} and ${{ github.event.inputs.doc }}, operation ${{ github.event.inputs.operation }}"
+      - name: Push
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: 'build'
+          force: true

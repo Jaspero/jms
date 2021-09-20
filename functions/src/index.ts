@@ -13,6 +13,8 @@ import {documentDeleted} from './triggers/document-deleted';
 import {fileCreated} from './triggers/file-created';
 import {fileDeleted} from './triggers/file-deleted';
 import {formSubmissionCreated} from './triggers/form-submission-created';
+import {updateDynamicOnCreate} from './triggers/update-dynamic-on-create';
+import {updateDynamicOnUpdate} from './triggers/update-dynamic-on-update';
 import {userCreated} from './triggers/user-created';
 import {userDeleted} from './triggers/user-deleted';
 import {userDocumentUpdated} from './triggers/user-document-updated';
@@ -29,6 +31,9 @@ export const cms = {
   documentDeleted,
   triggerPasswordReset,
   formSubmissionCreated,
+
+  updateDynamicOnCreate,
+  updateDynamicOnUpdate,
 
   // Callable
   createUser,
