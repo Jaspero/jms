@@ -12,7 +12,7 @@ import {FilterModule} from '../../../../../../shared/interfaces/filter-module.in
 import {InstanceSort} from '../../../../../../shared/interfaces/instance-sort.interface';
 import {ModuleLayoutTableColumn} from '../../../../../../shared/interfaces/module-layout-table.interface';
 import {DbService} from '../../../../../../shared/services/db/db.service';
-import {notify} from '../../../../../../shared/utils/notify.operator';
+import {notify} from '@shared/utils/notify.operator';
 import {queue} from '../../../../../../shared/utils/queue.operator';
 import {ColumnOrganizationComponent} from '../column-organization/column-organization.component';
 

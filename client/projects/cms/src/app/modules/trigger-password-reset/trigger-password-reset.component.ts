@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {from} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../environments/static-config';
-import {notify} from '../../shared/utils/notify.operator';
+import {notify} from '@shared/utils/notify.operator';
 
 @Component({
   selector: 'jms-trigger-password-reset',

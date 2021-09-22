@@ -12,7 +12,7 @@ import {NavigationItemType} from '../../../../shared/enums/navigation-item-type.
 import {NavigationItemWithActive} from '../../../../shared/interfaces/navigation-item-with-active.interface';
 import {DbService} from '../../../../shared/services/db/db.service';
 import {StateService} from '../../../../shared/services/state/state.service';
-import {notify} from '../../../../shared/utils/notify.operator';
+import {notify} from '@shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '../../../../shared/validators/repeat-password.validator';
 import {SpotlightComponent} from '../spotlight/spotlight.component';
 

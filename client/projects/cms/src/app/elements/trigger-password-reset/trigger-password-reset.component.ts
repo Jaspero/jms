@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, ElementRef} from '@angular/core';
 import {DbService} from '../../shared/services/db/db.service';
-import {notify} from '../../shared/utils/notify.operator';
+import {notify} from '@shared/utils/notify.operator';
 
 @Component({
   selector: 'jms-e-tpr',

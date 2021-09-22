@@ -9,7 +9,7 @@ import 'firebase/auth';
 import {from, Subscription, throwError} from 'rxjs';
 import {catchError, switchMap, tap} from 'rxjs/operators';
 import {COUNTRIES} from '../../shared/consts/countries.const';
-import {notify} from '../../shared/utils/notify.operator';
+import {notify} from '@shared/utils/notify.operator';
 
 @UntilDestroy()
 @Component({

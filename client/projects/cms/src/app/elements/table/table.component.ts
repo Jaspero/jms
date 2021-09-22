@@ -43,7 +43,7 @@ import {SearchModule} from '../../shared/interfaces/search-module.interface';
 import {SortModule} from '../../shared/interfaces/sort-module.interface';
 import {DbService} from '../../shared/services/db/db.service';
 import {StateService} from '../../shared/services/state/state.service';
-import {notify} from '../../shared/utils/notify.operator';
+import {notify} from '@shared/utils/notify.operator';
 
 interface TableData {
   moduleId: string;

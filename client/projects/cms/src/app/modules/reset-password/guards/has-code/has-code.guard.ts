@@ -3,7 +3,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {ActivatedRouteSnapshot, CanActivate, Router} from '@angular/router';
 import {from, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import {notify} from '../../../../shared/utils/notify.operator';
+import {notify} from '@shared/utils/notify.operator';
 
 @Injectable()
 export class HasCodeGuard implements CanActivate {

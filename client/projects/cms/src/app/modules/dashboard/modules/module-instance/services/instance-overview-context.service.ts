@@ -17,7 +17,7 @@ import {WhereFilter} from '../../../../../shared/interfaces/where-filter.interfa
 import {DbService} from '../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../shared/services/state/state.service';
 import {confirmation} from '../../../../../shared/utils/confirmation';
-import {notify} from '../../../../../shared/utils/notify.operator';
+import {notify} from '@shared/utils/notify.operator';
 import {ExportComponent} from '../components/export/export.component';
 import {FilterDialogComponent} from '../components/filter-dialog/filter-dialog.component';
 import {SortDialogComponent} from '../components/sort-dialog/sort-dialog.component';

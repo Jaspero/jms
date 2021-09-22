@@ -10,7 +10,7 @@ import {ViewState} from '../../../../../../shared/enums/view-state.enum';
 import {ModuleAuthorization} from '../../../../../../shared/interfaces/module-authorization.interface';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
-import {notify} from '../../../../../../shared/utils/notify.operator';
+import {notify} from '@shared/utils/notify.operator';
 import {queue} from '../../../../../../shared/utils/queue.operator';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
 
