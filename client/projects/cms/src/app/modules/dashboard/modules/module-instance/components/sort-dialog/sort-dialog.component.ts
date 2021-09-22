@@ -11,7 +11,7 @@ import {forkJoin, from, Observable, of} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {SortModule} from '../../../../../../shared/interfaces/sort-module.interface';
 import {DbService} from '../../../../../../shared/services/db/db.service';
-import {notify} from '../../../../../../shared/utils/notify.operator';
+import {notify} from '@shared/utils/notify.operator';
 
 @Component({
   selector: 'jms-sort-dialog',

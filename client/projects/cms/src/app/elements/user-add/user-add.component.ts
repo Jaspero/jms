@@ -7,7 +7,7 @@ import {shareReplay, switchMap, tap} from 'rxjs/operators';
 import {FirestoreCollection} from '../../../../integrations/firebase/firestore-collection.enum';
 import {Role} from '../../shared/interfaces/role.interface';
 import {DbService} from '../../shared/services/db/db.service';
-import {notify} from '../../shared/utils/notify.operator';
+import {notify} from '@shared/utils/notify.operator';
 import {randomPassword} from '../../shared/utils/random-password';
 
 @UntilDestroy({checkProperties: true})

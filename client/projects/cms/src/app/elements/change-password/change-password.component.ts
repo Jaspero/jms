@@ -3,7 +3,7 @@ import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angul
 import {MatDialog} from '@angular/material/dialog';
 import {tap} from 'rxjs/operators';
 import {DbService} from '../../shared/services/db/db.service';
-import {notify} from '../../shared/utils/notify.operator';
+import {notify} from '@shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '../../shared/validators/repeat-password.validator';
 
 @Component({

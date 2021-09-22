@@ -7,7 +7,7 @@ import {Observable, of, throwError} from 'rxjs';
 import {catchError, map, switchMap, take} from 'rxjs/operators';
 import {FirestoreCollection} from '../../../../../integrations/firebase/firestore-collection.enum';
 import {StateService} from '../../services/state/state.service';
-import {notify} from '../../utils/notify.operator';
+import {notify} from '@shared/utils/notify.operator';
 
 @Injectable({
   providedIn: 'root'

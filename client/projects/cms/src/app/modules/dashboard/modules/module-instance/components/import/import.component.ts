@@ -7,7 +7,7 @@ import {from} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {ImportModule} from '../../../../../../shared/interfaces/import-module.interface';
 import {DbService} from '../../../../../../shared/services/db/db.service';
-import {notify} from '../../../../../../shared/utils/notify.operator';
+import {notify} from '@shared/utils/notify.operator';
 import {queue} from '../../../../../../shared/utils/queue.operator';
 
 interface ImportResponse {
