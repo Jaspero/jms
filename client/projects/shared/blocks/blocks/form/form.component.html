@@ -46,9 +46,3 @@
 
   <button class="form-action" type="submit" [disabled]="fg.invalid" [jpLoadClick]="submit()">{{data.action || 'Submit'}}</button>
 </form>
-
-<ng-container *ngIf="notification$ | async as notification">
-  <div class="notification" [class.error]="notification.error">
-    {{notification.message}}
-  </div>
-</ng-container>

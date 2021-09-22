@@ -38,6 +38,16 @@ service cloud.firestore {
       allow read, write: if admin();
     }
 
+    match /forms/{item} {
+      allow write: if admin();
+      allow read: if true;
+
+      match /submissions/{sub} {
+        allow read: if admin();
+        allow write: if true;
+      }
+    }
+
     match /pages/{item=**} {
       allow read: if true;
       allow write: if admin();

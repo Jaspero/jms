@@ -3,8 +3,9 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Block} from '@jaspero/fb-page-builder';
 import {OnChange} from '@jaspero/ng-helpers';
-import {from, Subject, Subscription, throwError} from 'rxjs';
-import {catchError, tap} from 'rxjs/operators';
+import {notify} from '@shared/utils/notify.operator';
+import {from, Subject, Subscription} from 'rxjs';
+import {tap} from 'rxjs/operators';
 import {FormField} from '../../interfaces/form-field.interface';
 import {Form} from '../../interfaces/form.interface';
 import {COMMON_OPTIONS} from '../common-options.const';
@@ -162,24 +163,10 @@ export class FormComponent extends CommonBlockComponent {
             ...this.fg.getRawValue()
           })
       ).pipe(
-        tap(() => {
-          this.fg.reset();
-          this.notification$.next({
-            message:
-              this.form.success ||
-              'Application submitted successfully. Thank you!'
-          });
-        }),
-        catchError(err => {
-          this.notification$.next({
-            error: true,
-            message:
-              this.form.error ||
-              'There was an error submitting your form, please try again later.'
-          });
-
-          console.error(err);
-          return throwError(err);
+        tap(() => this.fg.reset()),
+        notify({
+          success: this.form.success,
+          error: this.form.error
         })
       );
     };

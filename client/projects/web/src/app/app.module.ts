@@ -1,3 +1,4 @@
+import {HttpClientModule} from '@angular/common/http';
 import {APP_INITIALIZER, Injector, NgModule} from '@angular/core';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule, USE_EMULATOR as USE_FIRESTORE_EMULATOR} from '@angular/fire/firestore';
@@ -21,6 +22,7 @@ export function init(injector: Injector) {
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
 
     AngularFireModule.initializeApp(environment.firebase),
