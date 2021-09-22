@@ -1,10 +1,12 @@
 import {APP_INITIALIZER, Injector, NgModule} from '@angular/core';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule, USE_EMULATOR as USE_FIRESTORE_EMULATOR} from '@angular/fire/firestore';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserModule} from '@angular/platform-browser';
 import {environment} from '../environments/environment';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
+import {TranslocoRootModule} from './transloco-root.module';
 import {appInit} from './utils/app-init';
 
 export function init(injector: Injector) {
@@ -23,6 +25,13 @@ export function init(injector: Injector) {
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
+
+    MatSnackBarModule,
+
+    /**
+     * External
+     */
+    TranslocoRootModule
   ],
   providers: [
     {
