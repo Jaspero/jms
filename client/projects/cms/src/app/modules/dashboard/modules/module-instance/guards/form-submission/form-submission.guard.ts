@@ -28,7 +28,7 @@ export class FormSubmissionGuard implements CanActivate {
         map(doc => {
 
           this.ioc.module$ = of({
-            id: `forms/${doc.id}/applications`,
+            id: `forms/${doc.id}/submissions`,
             name: `Forms - ${doc.name}`,
             layout: {
               table: {
