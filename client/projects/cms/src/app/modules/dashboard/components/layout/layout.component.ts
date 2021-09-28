@@ -13,7 +13,7 @@ import {NavigationItemWithActive} from '../../../../shared/interfaces/navigation
 import {DbService} from '../../../../shared/services/db/db.service';
 import {StateService} from '../../../../shared/services/state/state.service';
 import {notify} from '@shared/utils/notify.operator';
-import {RepeatPasswordValidator} from '../../../../shared/validators/repeat-password.validator';
+import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
 import {SpotlightComponent} from '../spotlight/spotlight.component';
 
 @Component({
