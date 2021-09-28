@@ -1,3 +1,10 @@
+## [4.4.4](https://github.com/jaspero/jms/compare/v4.4.3...v4.4.4) (2021-08-02)
+
+
+### Bug Fixes
+
+* setup.ts deploy using local certificate ([1ffffa8](https://github.com/jaspero/jms/commit/1ffffa892fed19238cf9ef7d7c7e74fd37aaeaed))
+
 ## [4.4.3](https://github.com/jaspero/jms/compare/v4.4.2...v4.4.3) (2021-07-24)
 
 ### Bug Fixes
