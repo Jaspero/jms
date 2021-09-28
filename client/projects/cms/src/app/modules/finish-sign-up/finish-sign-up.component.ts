@@ -7,7 +7,7 @@ import firebase from 'firebase/app';
 import {from, throwError} from 'rxjs';
 import {catchError, switchMap, take, tap} from 'rxjs/operators';
 import {notify} from '@shared/utils/notify.operator';
-import {RepeatPasswordValidator} from '../../shared/validators/repeat-password.validator';
+import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
 
 @Component({
   selector: 'jms-finish-sign-up',
