@@ -48,6 +48,17 @@
                 <div mat-line>{{folder.updated | date}}</div>
               </div>
             </div>
+            <div class="flex jc-center m-l-m">
+              <button mat-icon-button [matMenuTriggerFor]="folderMenu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </div>
+            <mat-menu #folderMenu="matMenu">
+              <button mat-menu-item (click)="deleteFolder(folder)">
+                <mat-icon color="warn">delete</mat-icon>
+                Delete
+              </button>
+            </mat-menu>
           </mat-list-item>
           <div mat-subheader *ngIf="data.files.length > 0">Files</div>
           <mat-list-item *ngFor="let file of data.files; index as i" class="flex no-select" (click)="setFileActive(i)" (dblclick)="selectFile(file)">
@@ -77,6 +88,10 @@
               <button mat-menu-item (click)="downloadFile(file)">
                 <mat-icon>file_download</mat-icon>
                 Download
+              </button>
+              <button mat-menu-item [jpLoadClick]="copyURL(file)">
+                <mat-icon>content_copy</mat-icon>
+                Copy URL
               </button>
               <button mat-menu-item (click)="editFileMetadata(file)">
                 <mat-icon>create</mat-icon>

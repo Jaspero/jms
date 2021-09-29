@@ -248,6 +248,14 @@
     "DELETE_FILE": {
       "DESCRIPTION": "File '{{name}}' will be deleted!",
       "CONFIRM": "Delete"
+    },
+    "DELETE_FOLDER": {
+      "DESCRIPTION": "Folder '{{name}}' will be deleted!",
+      "CONFIRM": "Delete"
+    },
+    "COPY": {
+      "SUCCESS": "Copied successfully",
+      "ERROR": "Could not copy"
     }
   },
   "SPOTLIGHT": {
