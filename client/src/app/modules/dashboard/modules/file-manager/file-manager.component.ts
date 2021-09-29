@@ -13,10 +13,11 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {formatFileName, safeEval} from '@jaspero/form-builder';
 import firebase from 'firebase/app';
 import 'firebase/storage';
-import {BehaviorSubject, combineLatest, Observable, Subscription} from 'rxjs';
+import {BehaviorSubject, combineLatest, from, Observable, Subscription} from 'rxjs';
 import {map, scan, shareReplay, startWith, switchMap, tap} from 'rxjs/operators';
 import {Color} from '../../../../shared/enums/color.enum';
 import {confirmation} from '../../../../shared/utils/confirmation';
+import {notify} from '../../../../shared/utils/notify.operator';
 
 @Component({
   selector: 'jms-file-manager',
@@ -28,7 +29,8 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder
-  ) {}
+  ) {
+  }
 
   @ViewChild('file')
   fileElement: ElementRef<HTMLInputElement>;
@@ -110,7 +112,8 @@ export class FileManagerComponent implements OnInit, OnDestroy {
                   const fn = safeEval(filter.value);
 
                   return fn(file);
-                } catch(error) {}
+                } catch (error) {
+                }
               });
             });
           }),
@@ -119,7 +122,8 @@ export class FileManagerComponent implements OnInit, OnDestroy {
               return {
                 name: item.name,
                 type: 'folder',
-                icon: 'folder'
+                icon: 'folder',
+                fullPath: item.fullPath
               };
             })
           )
@@ -212,6 +216,40 @@ export class FileManagerComponent implements OnInit, OnDestroy {
     this.routeControl.setValue(route);
   }
 
+  deleteFolder(folder) {
+    let pageToken = null;
+    const deleteSubFiles = () => {
+      return firebase.storage().ref().child(folder.fullPath).list({
+        maxResults: 100,
+        pageToken
+      }).then(response => {
+        pageToken = response.nextPageToken;
+
+        if (response.items.length) {
+          return Promise.all(response.items.map(item => item.delete()))
+            .then(() => {
+              return deleteSubFiles();
+            });
+        } else {
+          return Promise.resolve(null);
+        }
+      });
+    };
+    confirmation([
+      switchMap(() => from(deleteSubFiles()).pipe(
+        notify()
+      )),
+      tap(() => this.reset())
+    ], {
+      description: 'FILE_MANAGER.DELETE_FOLDER.DESCRIPTION',
+      confirm: 'FILE_MANAGER.DELETE_FOLDER.CONFIRM',
+      color: Color.Warn,
+      variables: {
+        name: folder.name
+      }
+    });
+  }
+
   downloadFile(file) {
     const link = document.createElement('a');
     link.setAttribute('download', file.name);
@@ -223,9 +261,21 @@ export class FileManagerComponent implements OnInit, OnDestroy {
     link.remove();
   }
 
+  copyURL(file) {
+    return () => {
+      return from(navigator.clipboard.writeText(file.downloadLink))
+        .pipe(
+          notify({
+            success: 'FILE_MANAGER.COPY.SUCCESS',
+            error: 'FILE_MANAGER.COPY.ERROR'
+          })
+        );
+    };
+  }
+
   deleteFile(file) {
     confirmation([
-      switchMap(() => firebase.storage().ref(file.fullPath).delete()),
+      switchMap(() => firebase.storage().ref().child(file.fullPath).delete()),
       tap(() => this.reset())
     ], {
       description: 'FILE_MANAGER.DELETE_FILE.DESCRIPTION',
