@@ -49,11 +49,11 @@
               </div>
             </div>
             <div class="flex jc-center m-l-m">
-              <button mat-icon-button [matMenuTriggerFor]="menu1">
+              <button mat-icon-button [matMenuTriggerFor]="folderMenu">
                 <mat-icon>more_vert</mat-icon>
               </button>
             </div>
-            <mat-menu #menu1="matMenu">
+            <mat-menu #folderMenu="matMenu">
               <button mat-menu-item (click)="deleteFolder(folder)">
                 <mat-icon color="warn">delete</mat-icon>
                 Delete
