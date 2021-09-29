@@ -1,3 +1,10 @@
+# [4.7.0](https://github.com/jaspero/jms/compare/v4.6.1...v4.7.0) (2021-09-29)
+
+
+### Features
+
+* **file-manager:** added delete folder and copy url options. closes [#259](https://github.com/jaspero/jms/issues/259) [#262](https://github.com/jaspero/jms/issues/262) ([7c86bb1](https://github.com/jaspero/jms/commit/7c86bb14f69a5e1ddadceb7c0273c6554a6444de))
+
 ## [4.6.1](https://github.com/jaspero/jms/compare/v4.6.0...v4.6.1) (2021-09-20)
 
 
