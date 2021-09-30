@@ -13,11 +13,12 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {formatFileName, safeEval} from '@jaspero/form-builder';
 import firebase from 'firebase/app';
 import 'firebase/storage';
-import {BehaviorSubject, combineLatest, from, Observable, Subscription} from 'rxjs';
+import {BehaviorSubject, combineLatest, from, Observable, of, Subscription, throwError} from 'rxjs';
 import {map, scan, shareReplay, startWith, switchMap, tap} from 'rxjs/operators';
 import {Color} from '../../../../shared/enums/color.enum';
 import {confirmation} from '../../../../shared/utils/confirmation';
 import {notify} from '../../../../shared/utils/notify.operator';
+import {Clipboard} from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'jms-file-manager',
@@ -28,7 +29,8 @@ import {notify} from '../../../../shared/utils/notify.operator';
 export class FileManagerComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private clipboard: Clipboard
   ) {
   }
 
@@ -263,7 +265,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
 
   copyURL(file) {
     return () => {
-      return from(navigator.clipboard.writeText(file.downloadLink))
+      return of(this.clipboard.copy(file.downloadLink) || throwError(''))
         .pipe(
           notify({
             success: 'FILE_MANAGER.COPY.SUCCESS',
