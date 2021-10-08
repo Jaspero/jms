@@ -1,3 +1,10 @@
+# [4.8.0](https://github.com/jaspero/jms/compare/v4.7.0...v4.8.0) (2021-10-08)
+
+
+### Features
+
+* added nogutter class in grid.scss ([486f797](https://github.com/jaspero/jms/commit/486f797eabb3b720fbc0ad57d5079655babbee4f))
+
 # [4.7.0](https://github.com/jaspero/jms/compare/v4.6.1...v4.7.0) (2021-09-29)
 
 
