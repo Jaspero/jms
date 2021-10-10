@@ -17,6 +17,16 @@
           <input type="email" [placeholder]="field.placeholder || ''" [formControlName]="field.id">
           <span *ngIf="field.hint" class="field-description">{{field.hint}}</span>
         </label>
+        <label class="field field-col-12-sm" [ngClass]="'field-col-' + (field.columnsDesktop || '12')" *ngSwitchCase="'tel'">
+          <span class="field-label" *ngIf="field.label">{{field.label}}</span>
+          <input type="tel" [placeholder]="field.placeholder || ''" [formControlName]="field.id">
+          <span *ngIf="field.hint" class="field-description">{{field.hint}}</span>
+        </label>
+        <label class="field field-col-12-sm" [ngClass]="'field-col-' + (field.columnsDesktop || '12')" *ngSwitchCase="'number'">
+          <span class="field-label" *ngIf="field.label">{{field.label}}</span>
+          <input type="number" [placeholder]="field.placeholder || ''" [formControlName]="field.id">
+          <span *ngIf="field.hint" class="field-description">{{field.hint}}</span>
+        </label>
         <label class="field field-col-12-sm" [ngClass]="'field-col-' + (field.columnsDesktop || '12')" *ngSwitchCase="'textarea'">
           <span class="field-label" *ngIf="field.label">{{field.label}}</span>
           <textarea [placeholder]="field.placeholder || ''" [formControlName]="field.id"></textarea>
