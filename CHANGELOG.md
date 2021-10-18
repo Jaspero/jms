@@ -1,3 +1,11 @@
+## [4.8.1](https://github.com/jaspero/jms/compare/v4.8.0...v4.8.1) (2021-10-18)
+
+
+### Bug Fixes
+
+* **cms:** filter-tags label not translated ([7ef7822](https://github.com/jaspero/jms/commit/7ef78226685a0428849f1fd97f84ebab90665920))
+* **cms:** showLabel not working on nested columns closes [#281](https://github.com/jaspero/jms/issues/281) ([dfcb247](https://github.com/jaspero/jms/commit/dfcb247c654b9f3643c34a3aef207b9fdf8a2774))
+
 # [4.8.0](https://github.com/jaspero/jms/compare/v4.7.0...v4.8.0) (2021-10-08)
 
 
