@@ -78,8 +78,8 @@ export class ColumnPipe implements PipeTransform {
   transform(
     value: any,
     pipeTypes: PipeType | PipeType[],
-    allArgs: Args,
-    row: any
+    allArgs?: Args,
+    row?: any
   ): any {
     if (!pipeTypes) {
       return value;

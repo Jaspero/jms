@@ -389,15 +389,26 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     };
   }
 
-  private parseColumns(overview: TableData, rowData: any) {
+  private parseColumns(overview: TableData, rowData: any, nested = false) {
     return overview.tableColumns.reduce((acc, column, index) => {
+
+      const value = this.getColumnValue(
+        column,
+        overview,
+        rowData,
+        false,
+        // @ts-ignore
+        nested && column.showLabel
+      );
+
       acc[index] = {
-        value: this.getColumnValue(column, overview, rowData),
+        value,
         ...(column.nestedColumns
           ? {
               nested: this.parseColumns(
                 {...overview, tableColumns: column.nestedColumns},
-                rowData
+                rowData,
+                true
               )
             }
           : {})
@@ -410,7 +421,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     column: ModuleLayoutTableColumn,
     overview: TableData,
     rowData: any,
-    nested = false
+    nested = false,
+    showLabel = false
   ) {
     if (column.control) {
       const key = column.key as string;
@@ -621,12 +633,23 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }
 
+        value = this.populateCache[popKey];
+
+        if (showLabel) {
+          value = this.ioc.columnPipe.transform(column.label, PipeType.Transloco) + ': ' + value;
+        }
+
         return new TemplatePortal(
           this.populateColumnTemplate,
           this.viewContainerRef,
-          {value: this.populateCache[popKey]}
+          {value}
         );
       } else {
+
+        if (showLabel) {
+          value = this.ioc.columnPipe.transform(column.label, PipeType.Transloco) + ': ' + value;
+        }
+
         return new TemplatePortal(
           this.simpleColumnTemplate,
           this.viewContainerRef,
