@@ -4,6 +4,7 @@ import {ChangePasswordComponent} from './change-password/change-password.compone
 import {FileManagerSelectComponent} from './file-manager-select/file-manager-select.component';
 import {LinkComponent} from './link/link.component';
 import {NewPrepopulateComponent} from './new-prepopulate/new-prepopulate.component';
+import {SampleEmailComponent} from './sample-email/sample-email.component';
 import {TableComponent} from './table/table.component';
 import {ToggleUserStatusComponent} from './toggle-user-status/toggle-user-status.component';
 import {TriggerPasswordResetComponent} from './trigger-password-reset/trigger-password-reset.component';
@@ -18,7 +19,8 @@ export const ELEMENTS = [
   ToggleUserStatusComponent,
   ChangeEmailComponent,
   NewPrepopulateComponent,
-  FileManagerSelectComponent
+  FileManagerSelectComponent,
+  SampleEmailComponent
 ];
 
 export const ELEMENT_SELECTOR = [
@@ -57,5 +59,9 @@ export const ELEMENT_SELECTOR = [
   {
     selector: STATIC_CONFIG.elementSelectorPrefix + 'file-manager-select',
     component: FileManagerSelectComponent
+  },
+  {
+    selector: STATIC_CONFIG.elementSelectorPrefix + 'sample-email',
+    component: SampleEmailComponent
   }
 ];

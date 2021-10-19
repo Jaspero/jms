@@ -40,6 +40,11 @@ export const AUTOMATIC_EMAILS_MODULE = {
         {key: '/description', label: 'GENERAL.DESCRIPTION'},
         {key: '/subject', label: 'AUTOMATIC_EMAILS.FIELDS.SUBJECT'},
         {key: '/active', label: 'GENERAL.ACTIVE', control: true}
+      ],
+      actions: [
+        {
+          value: `it => '<jms-e-sample-email id="' + it.id + '"></jms-e-sample-email>'`
+        }
       ]
     },
     filterModule: {

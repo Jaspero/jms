@@ -253,6 +253,9 @@
     "CHANGE_EMAIL": {
       "TITLE": "Change Email",
       "DIALOG_TITLE": "Change Users Email"
+    },
+    "SAMPLE_EMAIL": {
+      "BUTTON": "Send sample email"
     }
   },
   "NOTES": {
