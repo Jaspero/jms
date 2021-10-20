@@ -1,3 +1,10 @@
+# [4.9.0](https://github.com/jaspero/jms/compare/v4.8.1...v4.9.0) (2021-10-20)
+
+
+### Features
+
+* **cms:** connected change-password show/hide functionality ([c57b614](https://github.com/jaspero/jms/commit/c57b614ab7315750ba0048cc6797aeb54a6abebc))
+
 ## [4.8.1](https://github.com/jaspero/jms/compare/v4.8.0...v4.8.1) (2021-10-18)
 
 
