@@ -1,0 +1,22 @@
+:host {
+  grid-column: span 12;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 1rem;
+
+  td, th {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+}
+
+iframe {
+  width: 100%;
+  display: block;
+  border: none;
+  height: 550px;
+}

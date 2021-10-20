@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {FormUiModule} from '@jaspero/fb-form-ui';
 import {MonacoEditorModule} from '@jaspero/fb-monaco-editor';
 import {FB_PAGE_BUILDER_OPTIONS, PageBuilderModule} from '@jaspero/fb-page-builder';
@@ -21,6 +22,7 @@ import {environment} from '../../../../environments/environment';
 import {DbService} from '../../services/db/db.service';
 import {StateService} from '../../services/state/state.service';
 import {DuplicateComponent} from './custom-components/duplicate/duplicate.component';
+import {EmailTemplateDescriptionComponent} from './custom-components/email-template-description/email-template-description.component';
 
 export function roleFactory(state: StateService) {
   return state.role;
@@ -45,6 +47,8 @@ export function roleFactory(state: StateService) {
      */
     MatButtonModule,
     MatIconModule,
+    MatTooltipModule,
+
     TranslocoModule
   ],
   exports: [
@@ -71,7 +75,8 @@ export function roleFactory(state: StateService) {
     {
       provide: CUSTOM_COMPONENTS,
       useValue: {
-        duplicate: DuplicateComponent
+        duplicate: DuplicateComponent,
+        'email-template-description': EmailTemplateDescriptionComponent
       }
     },
     {
@@ -85,6 +90,9 @@ export function roleFactory(state: StateService) {
       }
     },
   ],
-  declarations: [DuplicateComponent]
+  declarations: [
+    DuplicateComponent,
+    EmailTemplateDescriptionComponent
+  ]
 })
 export class FormBuilderSharedModule {}

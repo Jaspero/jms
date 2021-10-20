@@ -47,6 +47,7 @@
     "ROLE": "Role",
     "EMAIL": "Email",
     "DESCRIPTION": "Description",
+    "KEY": "Key",
     "ACTIVE": "Active",
 
     "YES": "Yes",
@@ -255,7 +256,16 @@
       "DIALOG_TITLE": "Change Users Email"
     },
     "SAMPLE_EMAIL": {
-      "BUTTON": "Send sample email"
+      "BUTTON": "Send sample email",
+      "DIALOG_TITLE": "Sample email",
+      "DIALOG_BUTTON": "Send",
+      "RECEIVER_EMAIL": "Receiver email",
+      "DYNAMIC_DATA": "Dynamic data"
+    }
+  },
+  "COMPONENTS": {
+    "EMAIL_TEMPLATE": {
+      "COPY_KEY": "Copy Key"
     }
   },
   "NOTES": {
