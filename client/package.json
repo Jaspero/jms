@@ -36,7 +36,7 @@
     "json-pointer": "0.6.1",
     "lodash-es": "4.17.15",
     "rxjs": "6.5.3",
-    "tinymce": "5.7.1",
+    "tinymce": "5.9.0",
     "tslib": "2.1.0",
     "zone.js": "0.11.4"
   },
