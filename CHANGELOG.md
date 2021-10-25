@@ -1,3 +1,10 @@
+## [4.9.1](https://github.com/jaspero/jms/compare/v4.9.0...v4.9.1) (2021-10-25)
+
+
+### Bug Fixes
+
+* **cms:** disable select all checkbox from moving when clicking on it closes [#283](https://github.com/jaspero/jms/issues/283) ([f9a7a87](https://github.com/jaspero/jms/commit/f9a7a87c6db1a148ca58cace08478994376f2c26))
+
 # [4.9.0](https://github.com/jaspero/jms/compare/v4.8.1...v4.9.0) (2021-10-20)
 
 
