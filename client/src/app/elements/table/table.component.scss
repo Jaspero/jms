@@ -1,3 +1,8 @@
 .table-wrapper {
   overflow-x: auto;
 }
+
+/* The .select-all class was added to fix the 'select all' checkbox in place */
+::ng-deep .select-all > .mat-checkbox-layout > .mat-checkbox-inner-container {
+  overflow: unset;
+}
