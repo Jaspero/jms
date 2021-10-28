@@ -1,3 +1,10 @@
+# [4.10.0](https://github.com/jaspero/jms/compare/v4.9.1...v4.10.0) (2021-10-28)
+
+
+### Features
+
+* **cms:** implemented @jaspero/utils ([932a255](https://github.com/jaspero/jms/commit/932a255ec895ee50a3c09195f261d3e4e25395c2))
+
 ## [4.9.1](https://github.com/jaspero/jms/compare/v4.9.0...v4.9.1) (2021-10-25)
 
 
