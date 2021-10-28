@@ -3,7 +3,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Router} from '@angular/router';
-import {safeEval} from '@jaspero/form-builder';
+import {safeEval} from '@jaspero/utils';
 import firebase from 'firebase/app';
 import {from, Observable, throwError} from 'rxjs';
 import {catchError, map, switchMap, take, tap} from 'rxjs/operators';

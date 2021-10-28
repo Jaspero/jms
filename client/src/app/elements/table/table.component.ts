@@ -3,7 +3,8 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component, Inject,
+  Component,
+  Inject,
   Injector,
   OnDestroy,
   OnInit,
@@ -16,19 +17,12 @@ import {
 import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
 import {Router} from '@angular/router';
-import {CUSTOM_FIELDS, CustomFields, Parser, parseTemplate, safeEval, State} from '@jaspero/form-builder';
+import {CUSTOM_FIELDS, CustomFields, Parser, parseTemplate, State} from '@jaspero/form-builder';
+import {safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';
-import {
-  AsyncSubject,
-  BehaviorSubject,
-  combineLatest,
-  Observable,
-  of,
-  ReplaySubject,
-  Subject
-} from 'rxjs';
+import {AsyncSubject, BehaviorSubject, combineLatest, Observable, of, ReplaySubject, Subject} from 'rxjs';
 import {filter, map, shareReplay, startWith, switchMap} from 'rxjs/operators';
 import {ColumnOrganizationComponent} from '../../modules/dashboard/modules/module-instance/components/column-organization/column-organization.component';
 import {InstanceOverviewContextService} from '../../modules/dashboard/modules/module-instance/services/instance-overview-context.service';

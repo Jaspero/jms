@@ -1,7 +1,8 @@
 import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Definitions, FormBuilderComponent, safeEval, Segment, State} from '@jaspero/form-builder';
+import {Definitions, FormBuilderComponent, Segment, State} from '@jaspero/form-builder';
+import {safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {JSONSchema7} from 'json-schema';
 import {interval, Observable, of, Subject, Subscription} from 'rxjs';

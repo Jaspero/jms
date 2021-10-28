@@ -1,7 +1,8 @@
 import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {State, Parser, safeEval} from '@jaspero/form-builder';
+import {Parser, State} from '@jaspero/form-builder';
+import {safeEval} from '@jaspero/utils';
 import {FilterMethod} from '../../../../../../shared/enums/filter-method.enum';
 import {FilterModule, FilterModuleDefinition} from '../../../../../../shared/interfaces/filter-module.interface';
 import {WhereFilter} from '../../../../../../shared/interfaces/where-filter.interface';
