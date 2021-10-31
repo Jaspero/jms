@@ -20,9 +20,13 @@ function automaticEmails() {
       return acc;
     }, {});
 
+  const {css} = minify(
+    readFileSync(join(__dirname, 'modules/emails/style.css')).toString()
+  );
+
   writeFileSync(
     join(__dirname, 'modules/emails/processed.const.ts'),
-    `export const PROCESSED = ${JSON.stringify({layout, segments}, null, 2)};`
+    `export const PROCESSED = ${JSON.stringify({layout, segments, css}, null, 2)};`
   )
 }
 

@@ -21,7 +21,7 @@ export class EmailService {
   async parseEmail(
     templateId: string,
     context?: any,
-    receiver?: string
+    receiver?: string | string[]
   ) {
 
     const fs = firestore();

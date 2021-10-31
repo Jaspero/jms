@@ -31,6 +31,7 @@ export class FormSubmissionGuard implements CanActivate {
             id: `forms/${doc.id}/submissions`,
             name: `Forms - ${doc.name}`,
             layout: {
+              sort: {active: 'createdOn', direction: 'desc'},
               table: {
                 tableColumns: [
                   {
