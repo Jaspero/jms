@@ -76,6 +76,11 @@ export class EmailService {
   }
 
   async sendEmail(data: Partial<sgMail.MailDataRequired>) {
+
+    if (!this.token) {
+      return 'No email token provided.';
+    }
+
     if (!data.to) {
       console.error('No receiving email provided.');
       return 'No receiver email provided.'

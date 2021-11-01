@@ -18,6 +18,7 @@ export const AUTOMATIC_EMAILS_MODULE = {
         {
           title: 'GENERAL.GENERAL',
           fields: [
+            '/id',
             '/name',
             '/description',
             '/recipient',
@@ -95,6 +96,7 @@ export const AUTOMATIC_EMAILS_MODULE = {
     }
   },
   definitions: {
+    id: {label: 'ID', disableOn: 'edit'},
     sendTo: {label: 'AUTOMATIC_EMAILS.FIELDS.SEND_TO', component: {type: 'chips'}},
     description: {label: 'GENERAL.DESCRIPTION'},
     subject: {
