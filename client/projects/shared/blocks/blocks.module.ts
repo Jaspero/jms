@@ -4,6 +4,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {InlineEditorModule} from '@jaspero/fb-page-builder';
 import {LoadClickModule, SanitizeModule} from '@jaspero/ng-helpers';
+import {FormUiRendererModule} from '@shared/modules/form-ui-renderer/form-ui-renderer.module';
 import {BlockRendererComponent} from './block-renderer/block-renderer.component';
 import {CommonBlockComponent} from './blocks/common.block';
 import {ContentComponent} from './blocks/content/content.component';
@@ -30,6 +31,8 @@ const B_COMPONENTS = [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
+
+    FormUiRendererModule,
 
     InlineEditorModule,
 

@@ -321,7 +321,9 @@
           "VERTICAL_ALIGNMENT_CENTER": "Center",
           "VERTICAL_ALIGNMENT_TOP": "Top",
           "VERTICAL_ALIGNMENT_BOTTOM": "Bottom",
-          "ADDITIONAL_STYLE": "Custom Style"
+          "ADDITIONAL_STYLE": "Custom Style",
+          "CUSTOM_CLASS": "Custom Class",
+          "ELEMENT_ID": "Element ID"
         },
         "CONTENT": {
           "TITLE": "Content"
@@ -364,7 +366,9 @@
       "text": "Text",
       "textarea": "Textarea",
       "content": "Content",
-      "date": "Date"
+      "date": "Date",
+      "tel": "Tel",
+      "color": "Color"
     },
     "CONDITIONS": {
       "TITLE": "Conditions",

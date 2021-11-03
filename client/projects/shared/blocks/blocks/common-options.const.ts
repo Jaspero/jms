@@ -15,10 +15,14 @@ export const COMMON_OPTIONS: {
     additionalStyle: {type: 'string'},
     backgroundRepeat: {type: 'boolean'},
     backgroundSize: {type: 'string'},
+    customClass: {type: 'string'},
+    elementId: {type: 'string'}
   },
   segment: [
     {
       type: SegmentType.Accordion,
+      title: 'Settings',
+      icon: 'settings',
       configuration: [
         {
           title: 'PB.FORM.BLOCKS.SHARED.STANDARD_OPTIONS',
@@ -35,7 +39,11 @@ export const COMMON_OPTIONS: {
         },
         {
           title: 'PB.FORM.BLOCKS.SHARED.ADVANCED_OPTIONS',
-          fields: ['/additionalStyle']
+          fields: [
+            '/customClass',
+            '/elementId',
+            '/additionalStyle'
+          ]
         },
       ]
     }
@@ -55,15 +63,11 @@ export const COMMON_OPTIONS: {
         }
       }
     },
-    contained: {
-      label: 'PB.FORM.BLOCKS.SHARED.CONTAINED'
-    },
-    background: {
-      label: 'PB.FORM.BLOCKS.SHARED.BACKGROUND'
-    },
-    backgroundRepeat: {
-      label: 'PB.FORM.BLOCKS.SHARED.BACKGROUND_REPEAT'
-    },
+    contained: {label: 'PB.FORM.BLOCKS.SHARED.CONTAINED'},
+    background: {label: 'PB.FORM.BLOCKS.SHARED.BACKGROUND'},
+    backgroundRepeat: {label: 'PB.FORM.BLOCKS.SHARED.BACKGROUND_REPEAT'},
+    customClass: {label: 'PB.FORM.BLOCKS.SHARED.CUSTOM_CLASS'},
+    elementId: {label: 'PB.FORM.BLOCKS.SHARED.ELEMENT_ID'},
     backgroundSize: {
       label: 'PB.FORM.BLOCKS.SHARED.BACKGROUND_SIZE',
       component: {

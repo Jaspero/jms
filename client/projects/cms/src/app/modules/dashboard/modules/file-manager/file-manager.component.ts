@@ -13,13 +13,13 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {formatFileName} from '@jaspero/form-builder';
 import {safeEval} from '@jaspero/utils';
+import {notify} from '@shared/utils/notify.operator';
 import firebase from 'firebase/app';
 import 'firebase/storage';
 import {BehaviorSubject, combineLatest, from, Observable, of, Subscription, throwError} from 'rxjs';
 import {map, scan, shareReplay, startWith, switchMap, tap} from 'rxjs/operators';
 import {Color} from '../../../../shared/enums/color.enum';
 import {confirmation} from '../../../../shared/utils/confirmation';
-import {notify} from '../../../../shared/utils/notify.operator';
 
 @Component({
   selector: 'jms-file-manager',

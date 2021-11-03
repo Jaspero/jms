@@ -1,0 +1,114 @@
+.form-container {
+  margin: auto;
+  padding: 0 2rem;
+  text-align: center;
+
+  &.s-small {max-width: 40ch;}
+  &.s-medium {max-width: 60ch;}
+  &.s-large {max-width: 80ch;}
+}
+.form-title {
+  font-size: 1.5rem;
+  font-family: var(--font-secondary);
+  font-weight: bold;
+  margin: 0 0 1rem;
+}
+.form-description {
+  margin: 0 0 1.5rem;
+}
+.form-fields {
+  margin: 0 0 1.5rem;
+
+  &.form-fields-grid {
+    display: grid;
+    grid-gap: 0 1rem;
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+.form-action {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 1.125rem;
+  font-weight: bold;
+  font-family: var(--font-secondary);
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 1rem;
+  text-align: left;
+  max-width: 100%;
+
+  &.field-col-0 { display: none; }
+  @for $i from 1 through 12 {
+    &.field-col-#{$i} {
+      grid-column: span #{$i};
+    }
+  }
+
+  @media (max-width: 1200px) {
+    &.field-col-0-md { display: none; }
+    @for $i from 1 through 12 {
+      &.field-col-#{$i}-md {
+        grid-column: span #{$i};
+      }
+    }
+  }
+
+  @media (max-width: 900px) {
+    &.field-col-0-sm { display: none; }
+    @for $i from 1 through 12 {
+      &.field-col-#{$i}-sm {
+        grid-column: span #{$i};
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    &.field-col-0-xs { display: none; }
+    @for $i from 1 through 12 {
+      &.field-col-#{$i}-xs {
+        grid-column: span #{$i};
+      }
+    }
+  }
+}
+.field-label {
+  font-weight: bold;
+  font-family: var(--font-secondary);
+  padding: .125rem 0;
+}
+.field-description {
+  font-size: .875rem;
+  color: var(--foreground-secondary);
+}
+.field {
+  select, input, textarea {
+    padding: .625rem .5rem;
+    border: .25rem solid var(--foreground-tertiary);
+    font-size: 1.125rem;
+    font-family: var(--font-primary);
+  }
+}
+.field select {
+  padding: .625rem 3rem .625rem .5rem;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url('/assets/images/chevron-down.svg');
+  background-position: calc(100% - 1rem) calc(100% - .75rem);
+  background-repeat: no-repeat;
+  background-size: 1rem;
+}
+.field textarea {
+  resize: vertical;
+}
+
+@media (max-width: 600px) {
+  .form-container {
+    padding: 0 1rem;
+  }
+}
