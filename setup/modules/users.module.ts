@@ -1,4 +1,5 @@
 import {CREATED_ON} from './shared/created-on';
+import {EMAIL_PIPE} from './shared/email-pipe';
 
 export const USERS_MODULE = {
   id: 'users',
@@ -77,11 +78,10 @@ export const USERS_MODULE = {
         CREATED_ON.column(),
         {
           key: '/name',
-          label: 'GENERAL.NAME'
-        },
-        {
-          key: '/email',
-          label: 'GENERAL.EMAIL'
+          label: 'GENERAL.NAME',
+          nestedColumns: [
+            {key: '/email', label: 'GENERAL.EMAIL', ...EMAIL_PIPE},
+          ]
         },
         {
           key: '/role',

@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{'GENERAL.SORT' | transloco}} {{data.collectionName}}</h1>
+<h1 mat-dialog-title>{{'GENERAL.SORT' | transloco}} {{data.collectionName | transloco}}</h1>
 
 <mat-dialog-content *ngIf="items$ | async as items" cdkDropList (cdkDropListDropped)="drop(items, $event)">
   <div *ngFor="let item of items; index as index; first as first; last as last;" cdkDrag>

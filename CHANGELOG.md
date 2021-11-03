@@ -1,3 +1,79 @@
+# [4.10.0](https://github.com/jaspero/jms/compare/v4.9.1...v4.10.0) (2021-10-28)
+
+
+### Features
+
+* **cms:** implemented @jaspero/utils ([932a255](https://github.com/jaspero/jms/commit/932a255ec895ee50a3c09195f261d3e4e25395c2))
+
+## [4.9.1](https://github.com/jaspero/jms/compare/v4.9.0...v4.9.1) (2021-10-25)
+
+
+### Bug Fixes
+
+* **cms:** disable select all checkbox from moving when clicking on it closes [#283](https://github.com/jaspero/jms/issues/283) ([f9a7a87](https://github.com/jaspero/jms/commit/f9a7a87c6db1a148ca58cace08478994376f2c26))
+
+# [4.9.0](https://github.com/jaspero/jms/compare/v4.8.1...v4.9.0) (2021-10-20)
+
+
+### Features
+
+* **cms:** connected change-password show/hide functionality ([c57b614](https://github.com/jaspero/jms/commit/c57b614ab7315750ba0048cc6797aeb54a6abebc))
+
+## [4.8.1](https://github.com/jaspero/jms/compare/v4.8.0...v4.8.1) (2021-10-18)
+
+
+### Bug Fixes
+
+* **cms:** filter-tags label not translated ([7ef7822](https://github.com/jaspero/jms/commit/7ef78226685a0428849f1fd97f84ebab90665920))
+* **cms:** showLabel not working on nested columns closes [#281](https://github.com/jaspero/jms/issues/281) ([dfcb247](https://github.com/jaspero/jms/commit/dfcb247c654b9f3643c34a3aef207b9fdf8a2774))
+
+# [4.8.0](https://github.com/jaspero/jms/compare/v4.7.0...v4.8.0) (2021-10-08)
+
+
+### Features
+
+* added nogutter class in grid.scss ([486f797](https://github.com/jaspero/jms/commit/486f797eabb3b720fbc0ad57d5079655babbee4f))
+
+# [4.7.0](https://github.com/jaspero/jms/compare/v4.6.1...v4.7.0) (2021-09-29)
+
+
+### Features
+
+* **file-manager:** added delete folder and copy url options. closes [#259](https://github.com/jaspero/jms/issues/259) [#262](https://github.com/jaspero/jms/issues/262) ([7c86bb1](https://github.com/jaspero/jms/commit/7c86bb14f69a5e1ddadceb7c0273c6554a6444de))
+
+## [4.6.1](https://github.com/jaspero/jms/compare/v4.6.0...v4.6.1) (2021-09-20)
+
+
+### Bug Fixes
+
+* **cms:** missing translation on sort-dialog ([c414aa8](https://github.com/jaspero/jms/commit/c414aa82de02cb50bbeee8fb185ff3c95064766f))
+
+# [4.6.0](https://github.com/jaspero/jms/compare/v4.5.0...v4.6.0) (2021-09-10)
+
+
+### Features
+
+* **cms:** ctrl support for navigation in hamburger menu in table ([230a08f](https://github.com/jaspero/jms/commit/230a08f91bace8665ff50df20c74e48605d880e6))
+
+# [4.5.0](https://github.com/jaspero/jms/compare/v4.4.5...v4.5.0) (2021-08-30)
+
+
+### Bug Fixes
+
+* missing translations on mobile table ([2dc5648](https://github.com/jaspero/jms/commit/2dc56487953f40028017b0aa01f102211f508871))
+
+
+### Features
+
+* Added hotfix pull-request ci ([a996db5](https://github.com/jaspero/jms/commit/a996db54537d13560fa93d7ffab76b2cc93e294a))
+
+## [4.4.5](https://github.com/jaspero/jms/compare/v4.4.4...v4.4.5) (2021-08-26)
+
+
+### Bug Fixes
+
+* **cms:** long file names overlap issue closes [#258](https://github.com/jaspero/jms/issues/258) ([9ab7bb5](https://github.com/jaspero/jms/commit/9ab7bb5041d1e732098c92ebe345cc68516090bc))
+
 ## [4.4.4](https://github.com/jaspero/jms/compare/v4.4.3...v4.4.4) (2021-08-02)
 
 

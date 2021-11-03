@@ -1,12 +1,7 @@
 import {CdkDragDrop} from '@angular/cdk/drag-drop';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {switchItemLocations} from '@jaspero/form-builder';
+import {swapItems} from '@jaspero/utils';
 import {forkJoin, from, Observable, of} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {SortModule} from '../../../../../../shared/interfaces/sort-module.interface';
@@ -44,14 +39,14 @@ export class SortDialogComponent implements OnInit {
   drop(items: any[], event: CdkDragDrop<string[]>) {
     this.updateMap[items[event.previousIndex].id] = event.currentIndex;
     this.updateMap[items[event.currentIndex].id] = event.previousIndex;
-    switchItemLocations(items, event.previousIndex, event.currentIndex);
+    swapItems(items, event.previousIndex, event.currentIndex);
   }
 
   move(up = false, items: any[], index: number) {
     const currentIndex = up ? index - 1 : index + 1;
     this.updateMap[items[index].id] = currentIndex;
     this.updateMap[items[currentIndex].id] = index;
-    switchItemLocations(items, index, currentIndex);
+    swapItems(items, index, currentIndex);
   }
 
   update() {
