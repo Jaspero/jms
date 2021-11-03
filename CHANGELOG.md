@@ -1,3 +1,10 @@
+# [4.11.0](https://github.com/jaspero/jms/compare/v4.10.0...v4.11.0) (2021-11-03)
+
+
+### Features
+
+* **client:** package updates ([6728d28](https://github.com/jaspero/jms/commit/6728d28095447b0472de89d3918c4cfdfc77f58c))
+
 # [4.10.0](https://github.com/jaspero/jms/compare/v4.9.1...v4.10.0) (2021-10-28)
 
 
