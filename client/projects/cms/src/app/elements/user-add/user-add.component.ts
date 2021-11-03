@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
+import {random} from '@jaspero/utils';
 import {UntilDestroy} from '@ngneat/until-destroy';
 import {Observable, of} from 'rxjs';
 import {shareReplay, switchMap, tap} from 'rxjs/operators';
@@ -8,7 +9,6 @@ import {FirestoreCollection} from '../../../../integrations/firebase/firestore-c
 import {Role} from '../../shared/interfaces/role.interface';
 import {DbService} from '../../shared/services/db/db.service';
 import {notify} from '@shared/utils/notify.operator';
-import {randomPassword} from '../../shared/utils/random-password';
 
 @UntilDestroy({checkProperties: true})
 @Component({
@@ -23,8 +23,7 @@ export class UserAddComponent implements OnInit {
     private fb: FormBuilder,
     private dbService: DbService,
     private cdr: ChangeDetectorRef
-  ) {
-  }
+  ) { }
 
   @ViewChild('addDialog', {static: true})
   addDialogTemplate: TemplateRef<any>;
@@ -57,7 +56,7 @@ export class UserAddComponent implements OnInit {
   }
 
   generateRandomPassword() {
-    this.form.get('password').setValue(randomPassword());
+    this.form.get('password').setValue(random.string());
   }
 
   open() {

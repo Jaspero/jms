@@ -5,10 +5,10 @@ import {
   Definitions,
   FormBuilderComponent,
   FormBuilderContextService,
-  safeEval,
   Segment,
   State
 } from '@jaspero/form-builder';
+import {safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {JSONSchema7} from 'json-schema';
 import {interval, Observable, of, Subject, Subscription} from 'rxjs';

@@ -20,6 +20,7 @@ import {TranslocoModule} from '@ngneat/transloco';
 import {FormBuilderSharedModule} from '../../../../shared/modules/fb/form-builder-shared.module';
 import {FileSizePipe} from '../../../../shared/pipes/file-size/file-size.pipe';
 import {FileManagerComponent} from './file-manager.component';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 
 const routes: Routes = [
   {
@@ -59,7 +60,7 @@ const routes: Routes = [
     MatDialogModule,
     MatProgressBarModule,
     MatAutocompleteModule,
-
+    ClipboardModule,
     /**
      * External
      */

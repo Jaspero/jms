@@ -3,7 +3,8 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component, Inject,
+  Component,
+  Inject,
   Injector,
   OnDestroy,
   OnInit,
@@ -16,19 +17,12 @@ import {
 import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
 import {Router} from '@angular/router';
-import {CUSTOM_FIELDS, CustomFields, Parser, parseTemplate, safeEval, State} from '@jaspero/form-builder';
+import {CUSTOM_FIELDS, CustomFields, Parser, parseTemplate, State} from '@jaspero/form-builder';
+import {safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';
-import {
-  AsyncSubject,
-  BehaviorSubject,
-  combineLatest,
-  Observable,
-  of,
-  ReplaySubject,
-  Subject
-} from 'rxjs';
+import {AsyncSubject, BehaviorSubject, combineLatest, Observable, of, ReplaySubject, Subject} from 'rxjs';
 import {filter, map, shareReplay, startWith, switchMap} from 'rxjs/operators';
 import {ColumnOrganizationComponent} from '../../modules/dashboard/modules/module-instance/components/column-organization/column-organization.component';
 import {InstanceOverviewContextService} from '../../modules/dashboard/modules/module-instance/services/instance-overview-context.service';
@@ -389,15 +383,26 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     };
   }
 
-  private parseColumns(overview: TableData, rowData: any) {
+  private parseColumns(overview: TableData, rowData: any, nested = false) {
     return overview.tableColumns.reduce((acc, column, index) => {
+
+      const value = this.getColumnValue(
+        column,
+        overview,
+        rowData,
+        false,
+        // @ts-ignore
+        nested && column.showLabel
+      );
+
       acc[index] = {
-        value: this.getColumnValue(column, overview, rowData),
+        value,
         ...(column.nestedColumns
           ? {
               nested: this.parseColumns(
                 {...overview, tableColumns: column.nestedColumns},
-                rowData
+                rowData,
+                true
               )
             }
           : {})
@@ -410,7 +415,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     column: ModuleLayoutTableColumn,
     overview: TableData,
     rowData: any,
-    nested = false
+    nested = false,
+    showLabel = false
   ) {
     if (column.control) {
       const key = column.key as string;
@@ -621,12 +627,23 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }
 
+        value = this.populateCache[popKey];
+
+        if (showLabel) {
+          value = this.ioc.columnPipe.transform(column.label, PipeType.Transloco) + ': ' + value;
+        }
+
         return new TemplatePortal(
           this.populateColumnTemplate,
           this.viewContainerRef,
-          {value: this.populateCache[popKey]}
+          {value}
         );
       } else {
+
+        if (showLabel) {
+          value = this.ioc.columnPipe.transform(column.label, PipeType.Transloco) + ': ' + value;
+        }
+
         return new TemplatePortal(
           this.simpleColumnTemplate,
           this.viewContainerRef,
@@ -636,7 +653,12 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  navigateToSingleView(element) {
-    this.router.navigate([`/m/${this.data.collectionGroup ? element.ref.parent.path : this.data.moduleId}/single/${element.id}`]);
+  navigateToSingleView(element, e: MouseEvent) {
+    const link = `/m/${this.data.collectionGroup ? element.ref.parent.path : this.data.moduleId}/single/${element.id}`;
+    if (e.ctrlKey || e.metaKey) {
+      window.open(link, '_blank');
+    } else {
+      this.router.navigate([link]);
+    }
   }
 }

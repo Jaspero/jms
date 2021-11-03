@@ -10,8 +10,8 @@ import {
 } from '@angular/common';
 import {ChangeDetectorRef, Inject, Optional, Pipe, PipeTransform} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
-import {safeEval} from '@jaspero/form-builder';
 import {SanitizePipe} from '@jaspero/ng-helpers';
+import {safeEval} from '@jaspero/utils';
 import {
   MaybeArray,
   TRANSLOCO_LANG,
@@ -78,8 +78,8 @@ export class ColumnPipe implements PipeTransform {
   transform(
     value: any,
     pipeTypes: PipeType | PipeType[],
-    allArgs: Args,
-    row: any
+    allArgs?: Args,
+    row?: any
   ): any {
     if (!pipeTypes) {
       return value;

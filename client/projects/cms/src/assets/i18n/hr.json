@@ -164,6 +164,21 @@
     "ROLE": "Uloga",
     "PASSWORD_RULES": "Lozinka mora imati barem 6 znakova"
   },
+  "FILE_MANAGER": {
+    "TITLE": "Upravitelj datotekama",
+    "DELETE_FILE": {
+      "DESCRIPTION": "Datoteka '{{name}}' će biti obrisana!",
+      "CONFIRM": "Obriši"
+    },
+    "DELETE_FOLDER": {
+      "DESCRIPTION": "Mapa '{{name}}' će biti obrisana!",
+      "CONFIRM": "Obriši"
+    },
+    "COPY": {
+      "SUCCESS": "Kopiranje uspješno",
+      "ERROR": "Neuspjelo kopiranje"
+    }
+  },
   "ELEMENTS": {
     "CHANGE_PASSWORD": {
       "TITLE": "Promijeni lozinku",

@@ -18,6 +18,7 @@ import {updateDynamicOnCreate} from './triggers/update-dynamic-on-create';
 import {updateDynamicOnUpdate} from './triggers/update-dynamic-on-update';
 import {userCreated} from './triggers/user-created';
 import {userDeleted} from './triggers/user-deleted';
+import {userDocumentDeleted} from './triggers/user-document-deleted';
 import {userDocumentUpdated} from './triggers/user-document-updated';
 
 initializeApp();
@@ -27,6 +28,7 @@ export const cms = {
   userCreated,
   userDeleted,
   userDocumentUpdated,
+  userDocumentDeleted,
   fileCreated,
   fileDeleted,
   documentDeleted,

@@ -24,6 +24,7 @@ export class ChangePasswordComponent implements OnInit {
   passwordDialog: TemplateRef<any>;
 
   form: FormGroup;
+  type = 'password';
 
   ngOnInit() {
     this.form = this.fb.group(
@@ -44,6 +45,10 @@ export class ChangePasswordComponent implements OnInit {
         width: '600px'
       }
     )
+  }
+
+  showPassword() {
+    this.type = this.type === 'password' ? 'text' : 'password';
   }
 
   change() {

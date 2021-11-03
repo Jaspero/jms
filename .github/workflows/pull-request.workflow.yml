@@ -30,3 +30,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_PREFIX: 'chore/'
           PULL_REQUEST_BRANCH: 'dev'
+
+      - name: Pull Request - hotfix/
+        uses: vsoch/pull-request-action@1.0.12
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_PREFIX: 'hotfix/'
+          PULL_REQUEST_BRANCH: 'main'
