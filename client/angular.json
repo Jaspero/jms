@@ -116,7 +116,13 @@
                   "replace": "projects/cms/src/environments/environment.ts",
                   "with": "projects/cms/src/environments/environment.live.ts"
                 }
-              ]
+              ],
+              "optimization": false,
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": false,
+              "vendorChunk": false,
+              "buildOptimizer": false
             },
             "production": {
               "fileReplacements": [
@@ -285,7 +291,13 @@
                   "replace": "projects/web/src/environments/environment.ts",
                   "with": "projects/web/src/environments/environment.live.ts"
                 }
-              ]
+              ],
+              "optimization": false,
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": false,
+              "vendorChunk": false,
+              "buildOptimizer": false
             }
           }
         },
