@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {FormBuilderComponent, FormBuilderData, SegmentType} from '@jaspero/form-builder';
+import {FormBuilderComponent, FormBuilderData} from '@jaspero/form-builder';
 import {switchMap} from 'rxjs/operators';
 import {FirestoreCollection} from '../../../../../../../../integrations/firebase/firestore-collection.enum';
 import {DbService} from '../../../../../../shared/services/db/db.service';
@@ -48,7 +48,7 @@ export class ProfileInformationComponent {
     },
     segments: [
       {
-        type: SegmentType.Empty,
+        type: 'empty',
         fields: [
           '/name',
           '/profileImage'

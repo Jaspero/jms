@@ -17,8 +17,8 @@ import {
 import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
 import {Router} from '@angular/router';
-import {CUSTOM_FIELDS, CustomFields, Parser, parseTemplate, State} from '@jaspero/form-builder';
-import {safeEval} from '@jaspero/utils';
+import {CUSTOM_FIELDS, CustomFields, Parser, State} from '@jaspero/form-builder';
+import {safeEval, parseTemplate} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';

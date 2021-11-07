@@ -1,4 +1,4 @@
-import {ComponentType, State} from '@jaspero/form-builder';
+import {State} from '@jaspero/form-builder';
 import {JSONSchema7} from 'json-schema';
 import {FilterModule} from './filter-module.interface';
 import {ImportModule} from './import-module.interface';
@@ -34,7 +34,7 @@ export interface ModuleLayout {
 }
 
 export interface ComponentDefinition {
-  type: ComponentType;
+  type: string;
   configuration?: any;
 }
 
