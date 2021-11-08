@@ -1,3 +1,11 @@
+# [4.12.0](https://github.com/jaspero/jms/compare/v4.11.1...v4.12.0) (2021-11-08)
+
+
+### Features
+
+* updates for parser ([264184f](https://github.com/jaspero/jms/commit/264184fd7bc6b7412cbf1c9a41fa5b8ad142d6b9))
+* updating to new schema forms :construction: ([96567b8](https://github.com/jaspero/jms/commit/96567b850c381a008ec50be443ca423ab9f9ef3f))
+
 ## [4.11.1](https://github.com/jaspero/jms/compare/v4.11.0...v4.11.1) (2021-11-08)
 
 
