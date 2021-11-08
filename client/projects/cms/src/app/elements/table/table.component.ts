@@ -4,7 +4,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Inject,
   Injector,
   OnDestroy,
   OnInit,
@@ -17,8 +16,8 @@ import {
 import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
 import {Router} from '@angular/router';
-import {CUSTOM_FIELDS, CustomFields, Parser, parseTemplate, State} from '@jaspero/form-builder';
-import {safeEval} from '@jaspero/utils';
+import {Parser, State} from '@jaspero/form-builder';
+import {parseTemplate, safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';
@@ -87,9 +86,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     private dbService: DbService,
     private dialog: MatDialog,
     private router: Router,
-    private cdr: ChangeDetectorRef,
-    @Inject(CUSTOM_FIELDS)
-    private customFields: CustomFields
+    private cdr: ChangeDetectorRef
   ) {}
 
   /**
@@ -426,9 +423,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           overview.schema,
           this.injector,
           State.Edit,
-          this.state.role,
-          {},
-          this.customFields
+          this.state.role
         );
         this.parserCache[rowData.id].buildForm(rowData);
       }

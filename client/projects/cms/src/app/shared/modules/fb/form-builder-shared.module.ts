@@ -3,6 +3,8 @@ import {NgModule} from '@angular/core';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {FbFieldsMatModule} from '@jaspero/fb-fields-mat';
+import {FbSegmentsMatModule} from '@jaspero/fb-segments-mat';
 import {
   CUSTOM_COMPONENTS, CUSTOM_FIELDS,
   DbService as FDbService,
@@ -25,6 +27,8 @@ export function roleFactory(state: StateService) {
   imports: [
     CommonModule,
     FormBuilderModule.forRoot(),
+    FbFieldsMatModule.forRoot({prefix: ''}),
+    FbSegmentsMatModule.forRoot({prefix: ''}),
 
     /**
      * Custom fields and component dependencies

@@ -1,3 +1,25 @@
+# [4.12.0](https://github.com/jaspero/jms/compare/v4.11.1...v4.12.0) (2021-11-08)
+
+
+### Features
+
+* updates for parser ([264184f](https://github.com/jaspero/jms/commit/264184fd7bc6b7412cbf1c9a41fa5b8ad142d6b9))
+* updating to new schema forms :construction: ([96567b8](https://github.com/jaspero/jms/commit/96567b850c381a008ec50be443ca423ab9f9ef3f))
+
+## [4.11.1](https://github.com/jaspero/jms/compare/v4.11.0...v4.11.1) (2021-11-08)
+
+
+### Bug Fixes
+
+* **table:** collectionGroup correct path deleteOne ([8a34295](https://github.com/jaspero/jms/commit/8a342950897e205566d8a44963c1d5c9ee549c91))
+
+# [4.11.0](https://github.com/jaspero/jms/compare/v4.10.0...v4.11.0) (2021-11-03)
+
+
+### Features
+
+* **client:** package updates ([6728d28](https://github.com/jaspero/jms/commit/6728d28095447b0472de89d3918c4cfdfc77f58c))
+
 # [4.10.0](https://github.com/jaspero/jms/compare/v4.9.1...v4.10.0) (2021-10-28)
 
 
