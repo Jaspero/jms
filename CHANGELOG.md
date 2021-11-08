@@ -1,3 +1,10 @@
+## [4.11.1](https://github.com/jaspero/jms/compare/v4.11.0...v4.11.1) (2021-11-08)
+
+
+### Bug Fixes
+
+* **table:** collectionGroup correct path deleteOne ([8a34295](https://github.com/jaspero/jms/commit/8a342950897e205566d8a44963c1d5c9ee549c91))
+
 # [4.11.0](https://github.com/jaspero/jms/compare/v4.10.0...v4.11.0) (2021-11-03)
 
 
