@@ -201,7 +201,7 @@
                       <mat-icon>{{permission.write ? 'edit' : 'visibility'}}</mat-icon>
                       <span>{{(permission.write ? 'GENERAL.EDIT' : 'GENERAL.VIEW') | transloco}}</span>
                     </a>
-                    <button *ngIf="!data.hideDelete && permission.write" mat-menu-item [fDisable]="data.authorization" (click)="ioc.deleteOne(data.moduleId, element)">
+                    <button *ngIf="!data.hideDelete && permission.write" mat-menu-item [fDisable]="data.authorization" (click)="ioc.deleteOne(this.data.collectionGroup ? element.ref.parent.path : data.moduleId, element)">
                       <mat-icon>delete_forever</mat-icon>
                       <span>{{'GENERAL.DELETE' | transloco}}</span>
                     </button>

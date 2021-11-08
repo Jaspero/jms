@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {Block} from '@jaspero/fb-page-builder';
-import {SegmentType} from '@jaspero/form-builder';
 import {COMMON_OPTIONS} from '../common-options.const';
 import {CommonBlockComponent, CommonOptions} from '../common.block';
 
@@ -19,7 +18,7 @@ interface ContentOptions extends CommonOptions {
   form: {
     segments: [
       {
-        type: SegmentType.Empty,
+        type: 'empty',
         fields: [
           '/content'
         ],

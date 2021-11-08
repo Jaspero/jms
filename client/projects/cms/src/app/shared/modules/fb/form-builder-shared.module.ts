@@ -3,6 +3,8 @@ import {NgModule} from '@angular/core';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {FbFieldsMatModule} from '@jaspero/fb-fields-mat';
+import {FbSegmentsMatModule} from '@jaspero/fb-segments-mat';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {FormUiModule} from '@jaspero/fb-form-ui';
 import {MonacoEditorModule} from '@jaspero/fb-monaco-editor';
@@ -36,6 +38,8 @@ export function roleFactory(state: StateService) {
      * Schema Forms
      */
     FormBuilderModule.forRoot(),
+    FbFieldsMatModule.forRoot({prefix: ''}),
+    FbSegmentsMatModule.forRoot({prefix: ''}),
     TinymceModule,
     PageBuilderModule,
     TemplateEditorModule,

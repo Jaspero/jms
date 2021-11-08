@@ -1,5 +1,3 @@
-import {SegmentType} from '@jaspero/form-builder';
-
 export const COMMON_OPTIONS: {
   properties: {
     [key: string]: {
@@ -20,7 +18,7 @@ export const COMMON_OPTIONS: {
   },
   segment: [
     {
-      type: SegmentType.Accordion,
+      type: 'accordion',
       title: 'Settings',
       icon: 'settings',
       configuration: [
