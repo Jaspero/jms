@@ -295,6 +295,7 @@
     "CLOSE": "Close",
     "OPEN_ADD": "Add segments",
     "ADD": "Add",
+    "SEGMENT": "Segment",
     "FORM": {
       "TITLE": "Title",
       "ID_HINT": "Created from title if empty",
