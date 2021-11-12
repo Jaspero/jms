@@ -32,8 +32,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private fb: FormBuilder,
     private clipboard: Clipboard
-  ) {
-  }
+  ) {}
 
   @ViewChild('file')
   fileElement: ElementRef<HTMLInputElement>;
@@ -53,6 +52,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   @Input()
   configuration = {
     uploadMode: false,
+    allowUpload: true,
     route: '/',
     hidePath: false,
     filters: []
@@ -115,8 +115,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
                   const fn = safeEval(filter.value);
 
                   return fn(file);
-                } catch (error) {
-                }
+                } catch (error) {}
               });
             });
           }),
