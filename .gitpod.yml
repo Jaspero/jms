@@ -1,0 +1,12 @@
+tasks:
+  - name: Setup
+    init: >
+      npm install &&
+      npm --prefix client install &&
+      gp sync-done setup
+  - name: Website
+    init: gp sync-await bundle
+    command: npm run start:web:live
+  - name: CMS
+    init: gp sync-await bundle
+    command: npm run start:cms:live
