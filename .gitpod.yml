@@ -6,7 +6,16 @@ tasks:
       gp sync-done setup
   - name: Website
     init: gp sync-await bundle
-    command: npm run start:web:live
+    command: |
+      gp await-port 4200
+      npm run start:web:live
   - name: CMS
     init: gp sync-await bundle
-    command: npm run start:cms:live
+    command: |
+      gp await-port 5000
+      npm run start:cms:live
+ports:
+  - port: 4200
+    onOpen: open-browser
+  - port: 5000
+    onOpen: open-browser
