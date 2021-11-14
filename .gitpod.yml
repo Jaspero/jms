@@ -13,3 +13,12 @@ tasks:
   - name: CMS
     init: gp sync-await setup
     command: npm run start:cms:live
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: true
+    addComment: true
+    addBadge: true
+    addLabel: prebuilt-in-gitpod
