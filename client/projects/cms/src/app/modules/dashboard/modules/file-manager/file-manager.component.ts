@@ -19,7 +19,7 @@ import {BehaviorSubject, combineLatest, from, Observable, of, Subscription, thro
 import {map, scan, shareReplay, startWith, switchMap, tap} from 'rxjs/operators';
 import {Color} from '../../../../shared/enums/color.enum';
 import {confirmation} from '../../../../shared/utils/confirmation';
-import {notify} from '../../../../shared/utils/notify.operator';
+import {notify} from '@shared/utils/notify.operator';
 
 @Component({
   selector: 'jms-file-manager',
@@ -32,8 +32,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private fb: FormBuilder,
     private clipboard: Clipboard
-  ) {
-  }
+  ) {}
 
   @ViewChild('file')
   fileElement: ElementRef<HTMLInputElement>;
@@ -53,6 +52,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   @Input()
   configuration = {
     uploadMode: false,
+    allowUpload: true,
     route: '/',
     hidePath: false,
     filters: []

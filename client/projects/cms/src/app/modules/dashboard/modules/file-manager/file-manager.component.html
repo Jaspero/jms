@@ -1,5 +1,5 @@
-<mat-toolbar role="heading" color="primary" class="sticky-header" *ngIf="!configuration.uploadMode">
-  <span>Storage</span>
+<mat-toolbar role="heading" color="primary" class="sticky-header" *ngIf="!configuration.uploadMode || configuration.allowUpload">
+  <span>File Manager</span>
   <div class="flex-1"></div>
   <ng-container *ngIf="loading$ | async">
     <mat-spinner diameter="30" color="accent" class="m-r-m"></mat-spinner>
@@ -24,7 +24,7 @@
         <mat-icon>arrow_back</mat-icon>
       </button>
     </div>
-    <mat-form-field appearance="fill" class="w-full">
+    <mat-form-field class="w-full path">
       <mat-label>Path</mat-label>
       <input matInput [formControl]="routeControl" />
     </mat-form-field>
@@ -79,7 +79,7 @@
                 <div>{{file.size | fileSize}}</div>
               </div>
             </div>
-            <div class="flex jc-center m-l-m">
+            <div class="flex jc-center m-l-m" *ngIf="!configuration.uploadMode">
               <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>more_vert</mat-icon>
               </button>

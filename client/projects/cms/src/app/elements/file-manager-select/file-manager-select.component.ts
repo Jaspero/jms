@@ -16,9 +16,9 @@ export class FileManagerSelectComponent extends FileManagerComponent implements 
   ngOnInit(): void {
     this.dialogRef = (window as any).fileSelect?.dialogRef;
     this.configuration = {
-      ...((window as any).fileSelect?.uploadMethods?.find(method => method.id === 'file-manager')?.configuration || {}),
-      uploadMode: true
+      allowUpload: false,
+      uploadMode: true,
+      ...((window as any).fileSelect?.uploadMethods?.find(method => method.id === 'file-manager')?.configuration || {})
     };
   }
-
 }

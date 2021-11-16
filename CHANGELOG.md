@@ -1,3 +1,10 @@
+# [4.13.0](https://github.com/jaspero/jms/compare/v4.12.0...v4.13.0) (2021-11-12)
+
+
+### Features
+
+* **file-manager:** allow upload during file-manager-select state ([33bbe5c](https://github.com/jaspero/jms/commit/33bbe5ca73efb304f7fa54721d9694b27e901bca))
+
 # [4.12.0](https://github.com/jaspero/jms/compare/v4.11.1...v4.12.0) (2021-11-08)
 
 
