@@ -1,0 +1,24 @@
+ports:
+  - port: 4200
+  - port: 5000
+tasks:
+  - name: Setup
+    init: >
+      npm install &&
+      npm --prefix client install &&
+      gp sync-done setup
+  - name: Website
+    init: gp sync-await setup
+    command: npm run start:web:live
+  - name: CMS
+    init: gp sync-await setup
+    command: npm run start:cms:live
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: true
+    addComment: true
+    addBadge: true
+    addLabel: prebuilt-in-gitpod
