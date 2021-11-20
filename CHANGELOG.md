@@ -1,3 +1,15 @@
+# [4.14.0](https://github.com/jaspero/jms/compare/v4.13.0...v4.14.0) (2021-11-20)
+
+
+### Bug Fixes
+
+* moved gitpod config to root ([aa91a35](https://github.com/jaspero/jms/commit/aa91a35cf265c397e0551529e8309ac56f1dd57e))
+
+
+### Features
+
+* added gitpod vscode extensions ([2ba2ef8](https://github.com/jaspero/jms/commit/2ba2ef86d1e83fab22a1f0ddd8c312e44ec0ba2e))
+
 # [4.13.0](https://github.com/jaspero/jms/compare/v4.12.0...v4.13.0) (2021-11-12)
 
 
