@@ -21,9 +21,9 @@ github:
 vscode:
   extensions:
     - johnpapa.Angular2
-    - infinity1207.angular2-switcher
-    - alexiv.vscode-angular2-files
+    - https://marketplace.visualstudio.com/_apis/public/gallery/publishers/infinity1207/vsextensions/angular2-switcher/0.3.4/vspackage
+    - https://marketplace.visualstudio.com/_apis/public/gallery/publishers/alexiv/vsextensions/vscode-angular2-files/1.6.4/vspackage
     - humao.rest-client
-    - MariusAlchimavicius.json-to-ts
+    - https://marketplace.visualstudio.com/_apis/public/gallery/publishers/MariusAlchimavicius/vsextensions/json-to-ts/1.7.5/vspackage
     - Angular.ng-template
-    - natewallace.angular2-inline
+    - https://marketplace.visualstudio.com/_apis/public/gallery/publishers/natewallace/vsextensions/angular2-inline/0.0.17/vspackage
