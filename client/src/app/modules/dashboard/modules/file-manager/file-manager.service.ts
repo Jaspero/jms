@@ -63,7 +63,7 @@ export class FileManagerService {
     return from(this.ref.child(path).delete())
       .pipe(
         tap(() => 
-          delete this.cache[path]
+          this.cache = {}
         )
       )
   }
@@ -93,7 +93,7 @@ export class FileManagerService {
     return from(deleteSubFiles())
       .pipe(
         tap(() => 
-          delete this.cache[path]
+          this.cache = {}
         )
       );
   }
