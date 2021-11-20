@@ -1,3 +1,10 @@
+# [4.15.0](https://github.com/jaspero/jms/compare/v4.14.0...v4.15.0) (2021-11-20)
+
+
+### Features
+
+* allow for uploading multiple files ([833d800](https://github.com/jaspero/jms/commit/833d8000ca3ddc221c4f0454f4d2ef696478fce1))
+
 # [4.14.0](https://github.com/jaspero/jms/compare/v4.13.0...v4.14.0) (2021-11-20)
 
 
