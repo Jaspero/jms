@@ -1,0 +1,30 @@
+ports:
+  - port: 4200
+  - port: 5000
+tasks:
+  - name: Setup
+    init: >
+      npm install &&
+      npm --prefix client install &&
+      gp sync-done setup
+  - name: CMS
+    init: gp sync-await setup
+    command: npm run start:live
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: true
+    addComment: true
+    addBadge: true
+    addLabel: prebuilt-in-gitpod
+vscode:
+  extensions:
+    - johnpapa.Angular2
+    - infinity1207.angular2-switcher
+    - alexiv.vscode-angular2-files
+    - humao.rest-client
+    - MariusAlchimavicius.json-to-ts
+    - Angular.ng-template
+    - natewallace.angular2-inline
