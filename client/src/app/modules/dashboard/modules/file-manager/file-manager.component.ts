@@ -340,16 +340,15 @@ export class FileManagerComponent implements OnInit, OnDestroy {
     this.filteredFolders$ = combineLatest([
       this.data$,
       form.controls.route.valueChanges.pipe(startWith(form.controls.route.value))
-    ]).pipe(
-      map(([data, route]) => {
-        /**
-         * Cool comment
-         */
-        return data.folders.filter(folder => {
-          return folder.name.toLowerCase().replace(/\//g, '').indexOf((route || '').replace(/\//g, '').toLowerCase()) > -1;
-        }).map(folder => '/' + folder.name);
-      })
-    );
+    ])
+      .pipe(
+        map(([data, route]) => 
+          data.folders.filter(folder => 
+            folder.name.toLowerCase().replace(/\//g, '').indexOf((route || '').replace(/\//g, '').toLowerCase()) > -1
+          )
+            .map(folder => '/' + folder.name)
+        )
+      );
 
     this.uploadDialog = this.dialog.open(this.uploadDialogElement, {
       autoFocus: false,
