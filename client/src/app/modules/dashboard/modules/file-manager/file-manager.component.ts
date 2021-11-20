@@ -14,8 +14,6 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {formatFileName} from '@jaspero/form-builder';
 import {safeEval} from '@jaspero/utils';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import firebase from 'firebase/app';
-import 'firebase/storage';
 import {BehaviorSubject, combineLatest, from, Observable, of, Subscription, throwError} from 'rxjs';
 import {map, scan, shareReplay, startWith, switchMap, tap} from 'rxjs/operators';
 import {Color} from '../../../../shared/enums/color.enum';
@@ -153,6 +151,12 @@ export class FileManagerComponent implements OnInit, OnDestroy {
       tap(() => this.loading$.next(false)),
       shareReplay(1)
     );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => {
+      subscription.unsubscribe();
+    });
   }
 
   toggleDisplayMode() {
@@ -448,12 +452,6 @@ export class FileManagerComponent implements OnInit, OnDestroy {
     if (image) {
       image.src = src;
     }
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => {
-      subscription.unsubscribe();
-    });
   }
 
   setFileActive(index) {
