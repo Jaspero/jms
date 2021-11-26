@@ -27,6 +27,12 @@ export const STATIC_CONFIG = {
         value: '/m/pages'
       },
       {
+        icon: 'inventory_2',
+        label: 'Products',
+        type: 'link',
+        value: '/m/products'
+      },
+      {
         children: [
           {
             icon: 'supervised_user_circle',

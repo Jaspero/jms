@@ -307,11 +307,22 @@
           "STANDARD_OPTIONS": "Standard Options",
           "ADVANCED_OPTIONS": "Advanced Options",
           "BLOCK_OPTIONS": "Segment Options",
+          "WHITE_TEXT": "White Text",
           "SIZE": "Size",
           "SIZE_SMALL": "Small",
           "SIZE_REGULAR": "Medium",
           "SIZE_LARGE": "Big",
           "SIZE_FULL_SCREEN": "Full Screen",
+          "PADDING_TOP": "Padding Top",
+          "PADDING_BOTTOM": "Padding Bottom",
+          "MARGIN_TOP": "Margin Top",
+          "MARGIN_BOTTOM": "Margin Bottom",
+          "SPACING_NONE": "None",
+          "SPACING_EXTRA_SMALL": "Extra Small",
+          "SPACING_SMALL": "Small",
+          "SPACING_MEDIUM": "Medium",
+          "SPACING_LARGE": "Large",
+          "SPACING_EXTRA_LARGE": "Extra Large",
           "CONTAINED": "Contained",
           "BACKGROUND": "Background",
           "BACKGROUND_REPEAT": "Background Repeat",
@@ -334,6 +345,12 @@
           "FIELDS": {
             "FORM": "Form"
           }
+        },
+        "TEXT-IMAGE": {
+          "TITLE": "Text & Image"
+        },
+        "HERO": {
+          "TITLE": "Hero"
         }
       }
     }

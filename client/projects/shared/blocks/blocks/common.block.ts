@@ -5,10 +5,15 @@ import {background} from '../utils/background';
 export interface CommonOptions {
   size?: 'small' | 'regular' | 'large' | 'full-screen';
   verticalAlignment?: 'top' | 'center' | 'bottom';
+  paddingT?: '0' | 'xs' | 's' | 'm' | 'l' | 'xl';
+  paddingB?: '0' | 'xs' | 's' | 'm' | 'l' | 'xl';
+  marginT?: '0' | 'xs' | 's' | 'm' | 'l' | 'xl';
+  marginB?: '0' | 'xs' | 's' | 'm' | 'l' | 'xl';
   backgroundRepeat?: boolean;
   backgroundSize?: 'cover' | 'contain';
   background?: string;
   contained?: boolean;
+  whiteText?: boolean;
   additionalStyle?: string;
 }
 
@@ -41,14 +46,18 @@ export class CommonBlockComponent {
       'block',
       `b-size-${this.data.size || 'regular'}`,
       `b-va-${this.data.verticalAlignment || 'center'}`,
+      `p-t-${this.data.paddingT}`,
+      `p-b-${this.data.paddingB}`,
+      `m-t-${this.data.marginT}`,
+      `m-b-${this.data.marginB}`,
       ...this.data.contained ? ['contained'] : [],
+      ...this.data.whiteText ? ['white-text'] : [],
       ...this.addedClasses
     ];
   }
 
   @HostBinding('style')
   get style() {
-
     const styles: {[key: string]: string} = background(this.data);
 
     let final = '';

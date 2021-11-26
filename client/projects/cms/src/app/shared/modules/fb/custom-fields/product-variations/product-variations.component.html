@@ -1,0 +1,37 @@
+<div class="m-t-s">
+  <mat-checkbox [formControl]="advanced">Use Advanced Attributes</mat-checkbox>
+</div>
+
+<div class="m-t-s m-b-s" *ngIf="advanced.value && permutations" [formGroup]="permutations">
+
+  <table class="w-full">
+    <tr>
+      <th class="ta-left">Key</th>
+      <th class="ta-left">SKU</th>
+      <th class="ta-left">Price</th>
+      <th class="ta-left">Sale Price</th>
+    </tr>
+    <tr *ngFor="let key of keys" [formGroupName]="key">
+      <td>
+        <mat-form-field>
+          <input matInput [value]="key" disabled />
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput formControlName="sku" />
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput type="number" formControlName="price" />
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput type="number" formControlName="salePrice" />
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+</div>

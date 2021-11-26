@@ -1,0 +1,15 @@
+<div class="grid">
+  <div class="col-4 col-m-6 col-s-8 col-xs-10">
+    <div class="ta-center">
+      <img [src]="data.image" [alt]="data.imageAlt">
+    </div>
+  </div>
+
+  <div class="col-4 col-m-6 col-s-8 col-xs-10">
+    <div class="flex fd-col jc-center h-full">
+      <div class="m-b-s" *ngIf="data.title" [fbPbSingleLineIE]="{pointer: '/title'}" [innerHTML]="data.title | jpSanitize"></div>
+      <div class="m-b-m" *ngIf="data.subtitle" [fbPbSingleLineIE]="{pointer: '/subtitle'}" [innerHTML]="data.subtitle | jpSanitize"></div>
+      <div *ngIf="data.description" [fbPbSingleLineIE]="{pointer: '/description'}" [innerHTML]="data.description | jpSanitize"></div>
+    </div>
+  </div>
+</div>

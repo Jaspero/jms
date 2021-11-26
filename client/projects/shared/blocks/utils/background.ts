@@ -9,7 +9,6 @@ export function background(
 
   if (data.background) {
     if (data.background.startsWith('http')) {
-
       if (data.backgroundSize) {
         styles['background-size'] = data.backgroundSize;
       }

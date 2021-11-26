@@ -1,3 +1,30 @@
+:root {
+    --primary-theme     : #3f51b5;
+    --primary-primary   : rgba(255,255,255,1);
+    --primary-secondary : rgba(255,255,255,.8);
+    --primary-tertiary  : rgba(255,255,255,.15);
+    --accent-theme      : #ff4081;
+    --accent-primary    : rgba(255,255,255,1);
+    --accent-secondary  : rgba(255,255,255,.8);
+    --accent-tertiary   : rgba(255,255,255,.15);
+    --warn-theme        : #dc143c;
+    --warn-primary      : rgba(255,255,255,1);
+    --warn-secondary    : rgba(255,255,255,.8);
+    --warn-tertiary     : rgba(255,255,255,.15);
+    --backdrop-theme    : #f1f2f4;
+    --backdrop-primary  : rgba(0,0,0,.9);
+    --backdrop-secondary: rgba(0,0,0,.7);
+    --backdrop-tertiary : rgba(0,0,0,.15);
+    --panel-theme       : #fff;
+    --panel-primary     : rgba(0,0,0,.9);
+    --panel-secondary   : rgba(0,0,0,.7);
+    --panel-tertiary    : rgba(0,0,0,.15);
+    --sidebar-theme     : #fff;
+    --sidebar-primary   : rgba(0,0,0,.9);
+    --sidebar-secondary : rgba(0,0,0,.7);
+    --sidebar-tertiary  : rgba(0,0,0,.1);
+}
+
 *, *:before, *:after {
     box-sizing: inherit;
 }

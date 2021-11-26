@@ -1,0 +1,16 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{product.title}}</mat-card-title>
+    <mat-card-subtitle *ngIf="product.category">{{product.category}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <img mat-card-image *ngIf="product.gallery[0]" [src]="product.gallery[0]">
+
+  <mat-card-content>
+    ${{product.price}}
+  </mat-card-content>
+</mat-card>
+
+(click)="navigate(product, $event)" <!--go to single-->
+
+(click)="qv(product)" <!--quick view-->

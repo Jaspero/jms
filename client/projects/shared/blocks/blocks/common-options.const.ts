@@ -6,9 +6,14 @@ export const COMMON_OPTIONS: {
   }
 } & any = {
   properties: {
+    whiteText: {type: 'boolean'},
     size: {type: 'string'},
     contained: {type: 'boolean'},
     background: {type: 'string'},
+    paddingT: {type: 'string'},
+    paddingB: {type: 'string'},
+    marginT: {type: 'string'},
+    marginB: {type: 'string'},
     verticalAlignment: {type: 'string'},
     additionalStyle: {type: 'string'},
     backgroundRepeat: {type: 'boolean'},
@@ -26,8 +31,13 @@ export const COMMON_OPTIONS: {
           title: 'PB.FORM.BLOCKS.SHARED.STANDARD_OPTIONS',
           fields: [
             '/size',
+            '/paddingT',
+            '/paddingB',
+            '/marginT',
+            '/marginB',
             '/verticalAlignment',
             '/background',
+            '/whiteText',
 
             // TODO: Show only when background is url
             '/backgroundRepeat',
@@ -61,6 +71,71 @@ export const COMMON_OPTIONS: {
         }
       }
     },
+    paddingT: {
+      label: 'PB.FORM.BLOCKS.SHARED.PADDING_TOP',
+      component: {
+        type: 'select',
+        configuration: {
+          dataSet: [
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_NONE', value: '0'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_EXTRA_SMALL', value: 'xs'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_SMALL', value: 's'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_MEDIUM', value: 'm'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_LARGE', value: 'l'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_EXTRA_LARGE', value: 'xl'},
+          ]
+        }
+      }
+    },
+    paddingB: {
+      label: 'PB.FORM.BLOCKS.SHARED.PADDING_BOTTOM',
+      component: {
+        type: 'select',
+        configuration: {
+          dataSet: [
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_NONE', value: '0'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_EXTRA_SMALL', value: 'xs'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_SMALL', value: 's'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_MEDIUM', value: 'm'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_LARGE', value: 'l'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_EXTRA_LARGE', value: 'xl'},
+          ]
+        }
+      }
+    },
+    marginT: {
+      label: 'PB.FORM.BLOCKS.SHARED.MARGIN_TOP',
+      component: {
+        type: 'select',
+        configuration: {
+          dataSet: [
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_NONE', value: '0'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_EXTRA_SMALL', value: 'xs'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_SMALL', value: 's'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_MEDIUM', value: 'm'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_LARGE', value: 'l'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_EXTRA_LARGE', value: 'xl'},
+          ]
+        }
+      }
+    },
+    marginB: {
+      label: 'PB.FORM.BLOCKS.SHARED.MARGIN_BOTTOM',
+      component: {
+        type: 'select',
+        configuration: {
+          dataSet: [
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_NONE', value: '0'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_EXTRA_SMALL', value: 'xs'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_SMALL', value: 's'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_MEDIUM', value: 'm'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_LARGE', value: 'l'},
+            {name: 'PB.FORM.BLOCKS.SHARED.SPACING_EXTRA_LARGE', value: 'xl'},
+          ]
+        }
+      }
+    },
+    whiteText: {label: 'PB.FORM.BLOCKS.SHARED.WHITE_TEXT'},
     contained: {label: 'PB.FORM.BLOCKS.SHARED.CONTAINED'},
     background: {label: 'PB.FORM.BLOCKS.SHARED.BACKGROUND'},
     backgroundRepeat: {label: 'PB.FORM.BLOCKS.SHARED.BACKGROUND_REPEAT'},
@@ -120,6 +195,11 @@ export const COMMON_OPTIONS: {
     margin: 'none',
     contained: true,
     backgroundRepeat: false,
+    whiteText: false,
+    paddingT: '0',
+    paddingB: '0',
+    marginT: '0',
+    marginB: '0',
     verticalAlignment: 'center',
     backgroundSize: 'contain',
     background: '',

@@ -25,7 +25,11 @@ import {DbService} from '../../services/db/db.service';
 import {StateService} from '../../services/state/state.service';
 import {DuplicateComponent} from './custom-components/duplicate/duplicate.component';
 import {EmailTemplateDescriptionComponent} from './custom-components/email-template-description/email-template-description.component';
-
+import {ProductVariationsComponent} from './custom-fields/product-variations/product-variations.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 export function roleFactory(state: StateService) {
   return state.role;
 }
@@ -53,7 +57,11 @@ export function roleFactory(state: StateService) {
     MatIconModule,
     MatTooltipModule,
 
-    TranslocoModule
+    TranslocoModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule
   ],
   exports: [
     FormBuilderModule
@@ -85,7 +93,9 @@ export function roleFactory(state: StateService) {
     },
     {
       provide: CUSTOM_FIELDS,
-      useValue: {}
+      useValue: {
+        'product-variations': ProductVariationsComponent
+      }
     },
     {
       provide: FB_PAGE_BUILDER_OPTIONS,
@@ -96,7 +106,8 @@ export function roleFactory(state: StateService) {
   ],
   declarations: [
     DuplicateComponent,
-    EmailTemplateDescriptionComponent
+    EmailTemplateDescriptionComponent,
+    ProductVariationsComponent,
   ]
 })
 export class FormBuilderSharedModule {}
