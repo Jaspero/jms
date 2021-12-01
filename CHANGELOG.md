@@ -1,3 +1,10 @@
+## [4.15.1](https://github.com/jaspero/jms/compare/v4.15.0...v4.15.1) (2021-11-20)
+
+
+### Bug Fixes
+
+* clear full cache on delete ([0793989](https://github.com/jaspero/jms/commit/07939893051613a25b26247f459c1251a16b809b))
+
 # [4.15.0](https://github.com/jaspero/jms/compare/v4.14.0...v4.15.0) (2021-11-20)
 
 
