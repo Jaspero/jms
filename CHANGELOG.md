@@ -1,3 +1,10 @@
+# [4.16.0](https://github.com/jaspero/jms/compare/v4.15.1...v4.16.0) (2021-12-01)
+
+
+### Features
+
+* added dockerfile for gitpod ([7c3414b](https://github.com/jaspero/jms/commit/7c3414b12daf7bdfef729a4becbddca85e1d93cc))
+
 ## [4.15.1](https://github.com/jaspero/jms/compare/v4.15.0...v4.15.1) (2021-11-20)
 
 
