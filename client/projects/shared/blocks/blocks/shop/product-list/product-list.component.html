@@ -1,3 +1,5 @@
-<div *ngFor="let product of products$ | async" class="col-4 col-m-6 col-xs-12" [ngClass]="size">
-  <jms-product-card [product]="product"></jms-product-card>
+<div class="grid">
+  <div *ngFor="let product of products$ | async" class="col-4 col-m-6 col-xs-12" [ngClass]="size">
+    <jms-product-card [product]="product"></jms-product-card>
+  </div>
 </div>

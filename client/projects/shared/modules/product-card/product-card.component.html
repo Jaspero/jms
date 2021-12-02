@@ -7,10 +7,14 @@
   <img mat-card-image *ngIf="product.gallery[0]" [src]="product.gallery[0]">
 
   <mat-card-content>
-    ${{product.price}}
+    <div class="flex ai-center">
+      <div class="price m-r-s" [class.active]="product.sale">${{product.price}}</div>
+      <div class="price-sale" *ngIf="product.sale">${{product.salePrice}}</div>
+      <div class="flex-1"></div>
+      <button mat-stroked-button color="primary" (click)="qv(product)">Quick View</button>
+      <div class="m-l-s">
+        <button mat-flat-button color="primary" (click)="navigate(product, $event)">Product</button>
+      </div>
+    </div>
   </mat-card-content>
 </mat-card>
-
-(click)="navigate(product, $event)" <!--go to single-->
-
-(click)="qv(product)" <!--quick view-->

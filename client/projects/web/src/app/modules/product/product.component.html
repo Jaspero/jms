@@ -1,0 +1,15 @@
+<jms-w-product-details [product]="product"></jms-w-product-details>
+
+<ng-container *ngIf="similar$ | async as sp">
+  <div class="m-t-xl" *ngIf="sp.length">
+    <div class="similar-products-title">
+      <h2 class="deskew-s">RELATED PRODUCTS</h2>
+    </div>
+
+    <div class="similar-products p-x-m p-b-xl m-t-l">
+      <div class="col-4 col-m-6 col-xs-12" *ngFor="let prod of sp">
+        <jms-product-card [product]="prod"></jms-product-card>
+      </div>
+    </div>
+  </div>
+</ng-container>

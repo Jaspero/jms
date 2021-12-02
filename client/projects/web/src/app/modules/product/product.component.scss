@@ -1,0 +1,31 @@
+.similar-products {
+  max-width: 1920px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.similar-products-title {
+  width: 75%;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 800;
+  -ms-transform: skewX(-5deg) translateX(-20px);
+  -webkit-transform: skewX(-5deg) translateX(-20px);
+  transform: skewX(-5deg) translateX(-20px);
+  color: #202020;
+  padding: 30px 0;
+  border: 5px solid #085da2;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    padding: 30px 15px;
+
+    h2 {
+      font-size: 2em;
+    }
+  }
+}

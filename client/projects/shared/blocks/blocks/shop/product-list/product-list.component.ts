@@ -78,7 +78,10 @@ interface ProductListOptions extends CommonOptions {
 @Component({
   selector: 'jms-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss'],
+  styleUrls: [
+    '../../common-styles.scss',
+    './product-list.component.scss'
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductListComponent extends CommonBlockComponent {

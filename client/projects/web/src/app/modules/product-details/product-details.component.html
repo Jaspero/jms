@@ -1,0 +1,66 @@
+<div class="backdrop"></div>
+
+<div class="col-5 col-m-6 col-s-12 m-b-l">
+  <div class="product-image-container">
+    <img class="product-image" *ngIf="product.gallery[0]" [src]="product.gallery[0]">
+
+    <button class="icon-button skew previous"> <!--TODO: filip--> <!--TODO: if gallery-->
+      <mat-icon class="deskew">navigate_before</mat-icon>
+    </button>
+
+    <button class="icon-button skew next"> <!--TODO: filip--> <!--TODO: if gallery-->
+      <mat-icon class="deskew">navigate_next</mat-icon>
+    </button>
+
+    <button class="icon-button skew fullscreen"> <!--TODO: filip--> <!--TODO: if gallery-->
+      <mat-icon class="deskew">open_in_full</mat-icon>
+    </button>
+  </div>
+  <div class="grid jc-start"> <!--TODO: filip--> <!--TODO: if gallery-->
+    <div class="col-2 col-xs-3"> <!--TODO: filip-->
+      <div class="gallery-product-image-container pointer active"> <!--TODO: filip--> <!--TODO: active class-->
+        <img class="gallery-product-image" *ngIf="product.gallery[0]" [src]="product.gallery[0]"> <!--TODO: filip-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-7 col-m-6 col-s-12">
+  <h1 class="tt-uc">{{product.title}}</h1>
+  <div class="flex m-t-m">
+    <h3 class="product-price" [class.active]="product.sale">${{product.price}}</h3>
+    <h3 class="product-price-sale m-l-m" *ngIf="product.sale">${{product.salePrice}} Sale</h3>
+  </div>
+
+  <form class="flex m-t-l">
+    <label class="container skew"> <!--TODO: filip--> <!--TODO: add sizes to interface and *ngFor them-->
+      <input type="radio" name="radio">
+      <span class="checkmark">
+        <span class="size deskew">S</span>
+      </span>
+    </label>
+  </form>
+
+  <div class="flex m-t-m">
+    <div class="button button-border">
+      <div class="button-content">{{product.stock === 0 ? 'Sold out' : 'Add to cart'}}</div>
+    </div>
+
+    <button class="icon-button skew m-l-m"> <!--TODO: filip add [class.active]="product.favorite"-->
+      <mat-icon class="deskew">favorite_border</mat-icon> <!--TODO: filip--> <!--TODO: add favorite to interface and add -> {{product.favorite ? 'favorite' : 'favorite_border'}}-->
+    </button>
+  </div>
+
+  <div class="m-t-l"> <!--TODO: filip-->
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias aliquam consectetur deserunt doloremque dolores ea enim exercitationem expedita, ipsam laborum perspiciatis provident, quidem quod, sed sint ut vel voluptate.
+  </div>
+
+  <div class="m-t-l">
+    <button class="toggle-button active">SHIPPING</button> <!--TODO: filip active class and toggle-->
+    <button class="toggle-button m-l-m">WARRANTY</button> <!--TODO: filip same-->
+
+    <p class="m-t-m"> <!--TODO: filip-->
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias aliquam consectetur deserunt doloremque dolores ea enim exercitationem expedita, ipsam laborum perspiciatis provident, quidem quod, sed sint ut vel voluptate.
+    </p>
+  </div>
+</div>

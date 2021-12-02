@@ -15,3 +15,13 @@ mat-card-header.mat-card-header {
 .mat-card-image {
   max-width: unset;
 }
+
+.price {
+  &.active {
+    color: var(--panel-secondary);
+    text-decoration: line-through;
+  }
+  &-sale {
+    color: var(--warn-theme);
+  }
+}

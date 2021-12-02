@@ -1,14 +1,48 @@
-<div class="flex fw-wrap">
-  <div class="col-4 col-m-6 col-s-8 col-xs-10">
-    <div class="flex fd-col jc-center h-full">
-      <div class="m-b-s" *ngIf="data.title" [fbPbSingleLineIE]="{pointer: '/title'}" [innerHTML]="data.title | jpSanitize"></div>
-      <div class="m-b-m" *ngIf="data.subtitle" [fbPbSingleLineIE]="{pointer: '/subtitle'}" [innerHTML]="data.subtitle | jpSanitize"></div>
-      <div *ngIf="data.description" [fbPbSingleLineIE]="{pointer: '/description'}" [innerHTML]="data.description | jpSanitize"></div>
-    </div>
-  </div>
-  <div class="col-4 col-m-6 col-s-8 col-xs-10">
-    <div class="ta-center">
-      <img [src]="data.image" [alt]="data.imageAlt">
+<iframe
+  class="banner-video hide-s"
+  *ngIf="data.iframe; else image;"
+  frameBorder="0"
+  height="100%"
+  allow="autoplay; fullscreen; picture-in-picture"
+  allowfullscreen
+  [src]="data.iframe | jpSanitize:'resourceUrl'">
+</iframe>
+
+<ng-template #image>
+  <img *ngIf="data.image" class="banner-image hide-s" [src]="data.image" [alt]="data.imageAlt">
+</ng-template>
+
+<div *ngIf="data.darkBackground" [style.background]="'rgba(0,0,0,' + (data.darkBackground / 100) + ')'" class="banner-overlay"></div>
+
+<div class="mobile-bg" [ngStyle]="mobileStyle"></div>
+
+<div *ngIf="data.overlay" class="banner-overlay"></div>
+
+<div class="banner-content-container" [ngStyle]="containerWidth" [ngClass]="class">
+  <div class="banner-content" [ngStyle]="contentWidth">
+    <div *ngIf="data.title" [fbPbSingleLineIE]="{pointer: '/title'}" class="banner-title" [innerHTML]="data.title | jpSanitize"></div>
+    <div *ngIf="data.subtitle" [fbPbSingleLineIE]="{pointer: '/subtitle'}" class="banner-subtitle" [innerHTML]="data.subtitle | jpSanitize"></div>
+
+    <ul *ngIf="data.list?.length" class="banner-list">
+      <li *ngFor="let it of data.list" class="banner-list-item">{{it}}</li>
+    </ul>
+
+    <div class="col-12" *ngFor="let link of data.links">
+      <button class="button button-hero" *ngIf="link.script; else regular;" (click)="loadScript(link.linkHref)" [ngClass]="link.linkStyle">
+         <span class="button-content ai-center">
+          <p>{{link.link}}</p>
+          <span class="material-icons m-l-s" *ngIf="link.icon">{{link.icon}}</span>
+        </span>
+      </button>
+
+      <ng-template #regular>
+        <a class="button button-hero" [jmsBlockLink]="link.linkHref" [ngClass]="link.linkStyle">
+          <span class="button-content ai-center">
+            <p>{{link.link}}</p>
+            <span class="material-icons m-l-s" *ngIf="link.icon">{{link.icon}}</span>
+          </span>
+        </a>
+      </ng-template>
     </div>
   </div>
 </div>

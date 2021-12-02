@@ -1,3 +1,1 @@
-<div class="p-y-l">
-    <jms-block-renderer *ngIf="page$ | async as pg" module="pages" [blocks]="pg.blocks"></jms-block-renderer>
-</div>
+<jms-block-renderer *ngIf="page$ | async as pg" module="pages" [blocks]="pg.blocks"></jms-block-renderer>
