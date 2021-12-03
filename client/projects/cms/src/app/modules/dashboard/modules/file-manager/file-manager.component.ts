@@ -13,8 +13,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {formatFileName} from '@jaspero/form-builder';
 import {safeEval} from '@jaspero/utils';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import {BehaviorSubject, combineLatest, from, Observable, of, Subscription, throwError} from 'rxjs';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {BehaviorSubject, combineLatest, Observable, of, Subscription, throwError} from 'rxjs';
 import {map, scan, shareReplay, startWith, switchMap, tap} from 'rxjs/operators';
 import {Color} from '../../../../shared/enums/color.enum';
 import {confirmation} from '../../../../shared/utils/confirmation';
@@ -29,28 +29,17 @@ import {FileManagerService} from './file-manager.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FileManagerComponent implements OnInit, OnDestroy {
-  constructor(
-    private dialog: MatDialog,
-    private fb: FormBuilder,
-    private clipboard: Clipboard,
-    private fileManager: FileManagerService
-  ) {}
-
   @ViewChild('file')
   fileElement: ElementRef<HTMLInputElement>;
-
   @ViewChild('metadata')
   metadataDialogElement: TemplateRef<any>;
   metadataDialog: MatDialogRef<any>;
-
   @ViewChild('upload')
   uploadDialogElement: TemplateRef<any>;
   uploadDialog: MatDialogRef<any>;
-
   @ViewChild('newFolder')
   newFolderDialogElement: TemplateRef<any>;
   newFolderDialog: MatDialogRef<any>;
-
   @Input()
   configuration = {
     uploadMode: false,
@@ -59,12 +48,9 @@ export class FileManagerComponent implements OnInit, OnDestroy {
     hidePath: false,
     filters: []
   };
-
   @Input()
   dialogRef: MatDialogRef<any>;
-
   routeControl: FormControl;
-
   displayMode$ = new BehaviorSubject<'list' | 'grid'>('list');
   data$: Observable<{
     files: any[];
@@ -74,11 +60,17 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   loading$ = new BehaviorSubject(false);
   uploadProgress$ = new BehaviorSubject(0);
   activeFile$ = new BehaviorSubject<number>(-1);
-
   nextPageToken: string | undefined;
   loadMore = false;
-
   private subscriptions: Subscription[] = [];
+
+  constructor(
+    private dialog: MatDialog,
+    private fb: FormBuilder,
+    private clipboard: Clipboard,
+    private fileManager: FileManagerService
+  ) {
+  }
 
   ngOnInit() {
     this.routeControl = new FormControl(this.configuration.route, {
@@ -114,7 +106,8 @@ export class FileManagerComponent implements OnInit, OnDestroy {
                   const fn = safeEval(filter.value);
 
                   return fn(file);
-                } catch (error) {}
+                } catch (error) {
+                }
               });
             });
           }),
@@ -349,9 +342,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
           const uploadTask = form.get('uploadTask').value;
 
           if (uploadTask) {
-            uploadTask.forEach(it =>
-              it.cancel()
-            )
+            uploadTask.forEach(it => it.cancel());
           }
         })
       ).subscribe()
