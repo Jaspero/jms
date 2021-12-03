@@ -8,7 +8,7 @@ import {tap} from 'rxjs/operators';
 export class FileManagerService {
 
   cache: {[key: string]: any} = {};
-  
+
   get ref() {
     return firebase.storage().ref();
   }
@@ -42,7 +42,7 @@ export class FileManagerService {
     const uploadTask = firebase.storage().ref(route).put(file);
 
     delete this.cache[route];
-    
+
     return {
       progress: new Observable<{complete?: boolean, status: string, progress: number}>(obs => {
         uploadTask.on('state_changed',
@@ -62,10 +62,10 @@ export class FileManagerService {
   deleteFile(path: string) {
     return from(this.ref.child(path).delete())
       .pipe(
-        tap(() => 
+        tap(() =>
           this.cache = {}
         )
-      )
+      );
   }
 
   deleteFolder(path: string) {
@@ -88,11 +88,11 @@ export class FileManagerService {
 
           return Promise.resolve(null);
         });
-    }
+    };
 
     return from(deleteSubFiles())
       .pipe(
-        tap(() => 
+        tap(() =>
           this.cache = {}
         )
       );
