@@ -33,11 +33,6 @@
   <div *ngIf="data$ | async as data" [hidden]="(loading$ | async) && !loadMore">
     <ng-container *ngIf="(displayMode$ | async) === 'list'; else grid">
       <mat-card>
-        <div class="w-full flex jc-end">
-          <button mat-button (click)="loadMoreFiles()" [disabled]="!nextPageToken">
-            Load More
-          </button>
-        </div>
         <mat-list>
           <div mat-subheader *ngIf="data.folders.length > 0">Folders</div>
           <mat-list-item *ngFor="let folder of data.folders" class="flex no-select" [class.disabled]="configuration.hidePath">
@@ -123,6 +118,12 @@
       </div>
     </ng-template>
   </div>
+
+  <div class="ta-center m-t-s" *ngIf="nextPageToken">
+    <button mat-raised-button (click)="loadMoreFiles()">
+      Load More
+    </button>
+  </div>
 </section>
 
 <ng-template #metadata let-data>
@@ -151,7 +152,7 @@
 <ng-template #upload let-data>
   <h1>Upload File</h1>
 
-  <input #file type="file" hidden (change)="fileChange(data.form)">
+  <input #file type="file" multiple hidden (change)="fileChange(data.form)">
 
   <form [formGroup]="data.form" class="m-t-m">
     <mat-form-field appearance="outline" class="w-full">
@@ -165,7 +166,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="w-full">
-      <mat-label>File</mat-label>
+      <mat-label>Files</mat-label>
       <input matInput type="url" readonly formControlName="file" />
       <div matSuffix>
         <button mat-icon-button>
@@ -174,7 +175,6 @@
       </div>
     </mat-form-field>
   </form>
-
   <div *ngIf="uploadProgress$ | async as progress" class="w-full flex ai-center">
     <mat-progress-bar class="flex-1" mode="determinate" color="accent" [value]="progress"></mat-progress-bar>
     <b>{{progress}} %</b>

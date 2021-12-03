@@ -1,3 +1,36 @@
+# [4.16.0](https://github.com/jaspero/jms/compare/v4.15.1...v4.16.0) (2021-12-01)
+
+
+### Features
+
+* added dockerfile for gitpod ([7c3414b](https://github.com/jaspero/jms/commit/7c3414b12daf7bdfef729a4becbddca85e1d93cc))
+
+## [4.15.1](https://github.com/jaspero/jms/compare/v4.15.0...v4.15.1) (2021-11-20)
+
+
+### Bug Fixes
+
+* clear full cache on delete ([0793989](https://github.com/jaspero/jms/commit/07939893051613a25b26247f459c1251a16b809b))
+
+# [4.15.0](https://github.com/jaspero/jms/compare/v4.14.0...v4.15.0) (2021-11-20)
+
+
+### Features
+
+* allow for uploading multiple files ([833d800](https://github.com/jaspero/jms/commit/833d8000ca3ddc221c4f0454f4d2ef696478fce1))
+
+# [4.14.0](https://github.com/jaspero/jms/compare/v4.13.0...v4.14.0) (2021-11-20)
+
+
+### Bug Fixes
+
+* moved gitpod config to root ([aa91a35](https://github.com/jaspero/jms/commit/aa91a35cf265c397e0551529e8309ac56f1dd57e))
+
+
+### Features
+
+* added gitpod vscode extensions ([2ba2ef8](https://github.com/jaspero/jms/commit/2ba2ef86d1e83fab22a1f0ddd8c312e44ec0ba2e))
+
 # [4.13.0](https://github.com/jaspero/jms/compare/v4.12.0...v4.13.0) (2021-11-12)
 
 
