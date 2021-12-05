@@ -1,3 +1,10 @@
+# [4.17.0](https://github.com/jaspero/jms/compare/v4.16.0...v4.17.0) (2021-12-05)
+
+
+### Features
+
+* added "table.columns" along with "table.tableColumns" ([d580925](https://github.com/jaspero/jms/commit/d580925c5081378f8fc160fb4149d27b4b77455c))
+
 # [4.16.0](https://github.com/jaspero/jms/compare/v4.15.1...v4.16.0) (2021-12-01)
 
 
