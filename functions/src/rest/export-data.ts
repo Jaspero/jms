@@ -114,12 +114,16 @@ app.post('/:module', authenticated(), (req, res) => {
 
     let baseColumns: any[];
 
-    if (moduleDoc.layout?.table?.tableColumns) {
+    /**
+     * TODO:
+     * The tableColumns part can be removed when we completedly depriciate it
+     */
+    if (moduleDoc.layout?.table?.columns || moduleDoc.layout?.table?.tableColumns) {
 
       /**
        * Filter authorized columns
        */
-      baseColumns = moduleDoc.layout.table.tableColumns.filter((column: any) =>
+      baseColumns = (moduleDoc.layout.table.columns || moduleDoc.layout.table.tableColumns).filter((column: any) =>
         column.authorization ? column.authorization.includes(role) : true
       );
     } else {

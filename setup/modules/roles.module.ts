@@ -30,7 +30,7 @@ export const ROLES_MODULE = {
       ]
     },
     table: {
-      tableColumns: [
+      columns: [
         CREATED_ON.column(),
         {
           key: '/name',

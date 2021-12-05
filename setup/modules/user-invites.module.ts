@@ -10,7 +10,7 @@ export const USER_INVITES_MODULE = {
       hideImport: true,
       hideEdit: true,
       hideAdd: true,
-      tableColumns: [
+      columns: [
         CREATED_ON.column(),
         {
           key: '/id',

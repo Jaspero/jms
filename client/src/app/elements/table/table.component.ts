@@ -147,11 +147,22 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         hideImport: false
       };
 
-      if (data.layout && data.layout.table && data.layout.table.tableColumns) {
+      if (
+        data.layout &&
+        data.layout.table &&
+        (
+          data.layout.table.columns ||
+          /**
+           * TODO:
+           * This can be removed when we fully depriciate "tableColumns"
+           */
+          data.layout.table.tableColumns
+        )
+      ) {
         /**
          * Filter authorized columns
          */
-        pColumns = data.layout.table.tableColumns.filter(column =>
+        pColumns = (data.layout.table.columns || data.layout.table.tableColumns).filter(column =>
           column.authorization
             ? column.authorization.includes(this.state.role)
             : true

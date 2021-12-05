@@ -74,7 +74,7 @@ export const USERS_MODULE = {
     },
     table: {
       hideImport: true,
-      tableColumns: [
+      columns: [
         CREATED_ON.column(),
         {
           key: '/name',
@@ -153,7 +153,7 @@ export const USERS_MODULE = {
             label: 'GENERAL.NAME'
           },
           table: {
-            tableColumns: [
+            columns: [
               {
                 key: '/id',
                 label: 'GENERAL.ID'

@@ -85,7 +85,11 @@ export interface ModuleLayoutTableAction {
 }
 
 export interface ModuleLayoutTable {
+  /**
+   * @depriciated Use "columns" insted. tableColumns will be removed in a future release.
+   */
   tableColumns?: ModuleLayoutTableColumn[];
+  columns?: ModuleLayoutTableColumn[];
   hideAdd?: string[] | boolean;
   hideCheckbox?: string[] | boolean;
   hideEdit?: string[] | boolean;

@@ -31,5 +31,3 @@ vscode:
     - https://marketplace.visualstudio.com/_apis/public/gallery/publishers/MariusAlchimavicius/vsextensions/json-to-ts/1.7.5/vspackage
     - Angular.ng-template
     - https://marketplace.visualstudio.com/_apis/public/gallery/publishers/natewallace/vsextensions/angular2-inline/0.0.17/vspackage
-    - ms-azuretools.vscode-docker
-    - https://marketplace.visualstudio.com/_apis/public/gallery/publishers/toba/vsextensions/vsfire/1.4.1/vspackage
