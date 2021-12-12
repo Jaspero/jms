@@ -36,7 +36,7 @@ jobs:
           npm --prefix functions run build
       - name: Set project
         if: ${{ steps.changes.outputs.CHANGES }}
-        run: npm run firebase -- use jaspero-jms --token $FIREBASE_TOKEN
+        run: npm run firebase -- use zavo-jms --token $FIREBASE_TOKEN
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Deploy
