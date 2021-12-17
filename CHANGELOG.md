@@ -1,3 +1,10 @@
+# [4.17.0](https://github.com/jaspero/jms/compare/v4.16.0...v4.17.0) (2021-12-17)
+
+
+### Features
+
+* **functions:** using custom jwt to generate invite tokens ([692ff44](https://github.com/jaspero/jms/commit/692ff440841b152f5c91044912ef08c0ee396c79))
+
 # [4.16.0](https://github.com/jaspero/jms/compare/v4.15.1...v4.16.0) (2021-12-01)
 
 
