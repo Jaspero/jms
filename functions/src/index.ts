@@ -1,5 +1,6 @@
 import {initializeApp} from 'firebase-admin';
 import {createUser} from './callable/create-user';
+import {exchangeToken} from './callable/exchange-token';
 import {getUser} from './callable/get-user';
 import {removeUser} from './callable/remove-user';
 import {triggerPasswordReset} from './callable/trigger-password-reset';
@@ -36,6 +37,7 @@ export const cms = {
   updateUser,
   getUser,
   updateEmail,
+  exchangeToken,
 
   // Rest
   exportData,

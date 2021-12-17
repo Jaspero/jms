@@ -46,7 +46,10 @@ export class FinishSignUpComponent implements OnInit {
         .pipe(
           take(1),
           switchMap(({t}) =>
-            this.afAuth.signInWithCustomToken(t)
+            this.aff.httpsCallable('cms-exchangeToken')({token: t, pullUser: false})
+          ),
+          switchMap(({token}) =>
+            this.afAuth.signInWithCustomToken(token)
           ),
           switchMap(() =>
             from(
