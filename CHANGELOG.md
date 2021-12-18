@@ -1,3 +1,11 @@
+# [4.17.0](https://github.com/jaspero/jms/compare/v4.16.0...v4.17.0) (2021-12-18)
+
+
+### Features
+
+* **functions:** simplified auth for callable functions ([136d3e2](https://github.com/jaspero/jms/commit/136d3e2673524e050aa03a306acba65e61772861))
+* **functions:** using custom jwt to generate invite tokens ([692ff44](https://github.com/jaspero/jms/commit/692ff440841b152f5c91044912ef08c0ee396c79))
+
 # [4.17.0](https://github.com/jaspero/jms/compare/v4.16.0...v4.17.0) (2021-12-17)
 
 
