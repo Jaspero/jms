@@ -20,7 +20,7 @@
 <section class="p-a-m w-full">
   <div class="flex ai-base" *ngIf="!configuration.hidePath">
     <div class="m-x-s">
-      <button mat-icon-button (click)="navigateBack()">
+      <button mat-icon-button [disabled]="routeControl.value === '/'" (click)="navigateBack()">
         <mat-icon>arrow_back</mat-icon>
       </button>
     </div>
