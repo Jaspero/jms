@@ -15,7 +15,7 @@ import {Router} from '@angular/router';
 import {UntilDestroy} from '@ngneat/until-destroy';
 import firebase from 'firebase/app';
 import {from, of, throwError} from 'rxjs';
-import {catchError, filter, tap} from 'rxjs/operators';
+import {catchError, filter, switchMap, tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../environments/static-config';
 import {StateService} from '../../shared/services/state/state.service';
 import {notify} from '../../shared/utils/notify.operator';
@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
   verificationState: string;
   verificationId: string;
   deviceForm: FormGroup;
+  auth: firebase.auth.Auth;
 
   errorMap = {
     'auth/wrong-password': 'LOGIN.ERROR_MESSAGE',
@@ -60,6 +61,8 @@ export class LoginComponent implements OnInit {
   };
 
   ngOnInit() {
+
+    this.auth = firebase.auth();
 
     /**
      * Makes sure roles aren't preserved
@@ -86,33 +89,54 @@ export class LoginComponent implements OnInit {
   }
 
   loginGoogle() {
-    this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .catch(e => {
-        if (e.code === 'auth/multi-factor-auth-required') {
-          this.openMfa(e.resolver);
+
+    this.setPersistance()
+      .pipe(
+        switchMap(() =>
+          this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+        )
+      )
+      .subscribe(
+        () => {},
+        e => {
+          if (e.code === 'auth/multi-factor-auth-required') {
+            this.openMfa(e.resolver);
+          }
         }
-      });
+      )
   }
 
   loginFacebook() {
-    this.afAuth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
-      .catch(e => {
-        if (e.code === 'auth/multi-factor-auth-required') {
-          this.openMfa(e.resolver);
+
+    this.setPersistance()
+      .pipe(
+        switchMap(() =>
+          this.afAuth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
+        )
+      )
+      .subscribe(
+        () => {},
+        e => {
+          if (e.code === 'auth/multi-factor-auth-required') {
+            this.openMfa(e.resolver);
+          }
         }
-      });
+      )
   }
 
   loginEmail() {
     return () => {
       const data = this.loginForm.getRawValue();
 
-      return from(
-        this.afAuth.signInWithEmailAndPassword(
-          data.emailLogin,
-          data.passwordLogin
-        )
-      ).pipe(
+      return this.setPersistance().pipe(
+        switchMap(() =>
+          from(
+            this.afAuth.signInWithEmailAndPassword(
+              data.emailLogin,
+              data.passwordLogin
+            )
+          )
+        ),
         catchError(error => {
           if (error.code === 'auth/multi-factor-auth-required') {
             this.openMfa(error.resolver);
@@ -160,8 +184,15 @@ export class LoginComponent implements OnInit {
   private buildForm() {
     this.loginForm = this.fb.group({
       emailLogin: ['', [Validators.required, Validators.email]],
-      passwordLogin: ['', Validators.required]
+      passwordLogin: ['', Validators.required],
+      remember: true
     });
+  }
+
+  private setPersistance() {
+    return from(this.auth.setPersistence(
+      firebase.auth.Auth.Persistence[this.loginForm.get('remember').value ? 'LOCAL' : 'SESSION']
+    ))
   }
 
   private openMfa(resolver: firebase.auth.MultiFactorResolver) {
