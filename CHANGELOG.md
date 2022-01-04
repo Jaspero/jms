@@ -1,3 +1,10 @@
+# [4.18.0](https://github.com/jaspero/jms/compare/v4.17.0...v4.18.0) (2022-01-04)
+
+
+### Features
+
+* connected remember me checkbox on login ([aec1579](https://github.com/jaspero/jms/commit/aec1579cf5c8f27cb99abc1fea14bbac896bda38))
+
 # [4.17.0](https://github.com/jaspero/jms/compare/v4.16.0...v4.17.0) (2021-12-28)
 
 
