@@ -104,6 +104,9 @@ export const USERS_MODULE = {
         },
         {
           value: `it => '<jms-e-ce data-id="' + it.id + '"></jms-e-ce>'`
+        },
+        {
+          value: it => `<jms-e-impersonate id=${it.id}></jms-e-impersonate>`
         }
       ]
     },

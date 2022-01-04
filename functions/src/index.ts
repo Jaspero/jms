@@ -15,6 +15,7 @@ import {fileCreated} from './triggers/file-created';
 import {fileDeleted} from './triggers/file-deleted';
 import {userCreated} from './triggers/user-created';
 import {userDeleted} from './triggers/user-deleted';
+import {impersonate} from './callable/impersonate';
 import {userDocumentDeleted} from './triggers/user-document-deleted';
 import {userDocumentUpdated} from './triggers/user-document-updated';
 
@@ -38,6 +39,7 @@ export const cms = {
   getUser,
   updateEmail,
   exchangeToken,
+  impersonate,
 
   // Rest
   exportData,

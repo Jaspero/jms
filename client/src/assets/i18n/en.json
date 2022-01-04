@@ -235,7 +235,8 @@
     "CHANGE_EMAIL": {
       "TITLE": "Change Email",
       "DIALOG_TITLE": "Change Users Email"
-    }
+    },
+    "IMPERSONATE": "Impersonate"
   },
   "NOTES": {
     "TITLE": "Notes",
