@@ -5,6 +5,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {BehaviorSubject, combineLatest, forkJoin, Observable, of} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, map, startWith, switchMap, take, tap} from 'rxjs/operators';
+import {STATIC_CONFIG} from 'src/environments/static-config';
 import {Module} from '../../../../shared/interfaces/module.interface';
 import {DbService} from '../../../../shared/services/db/db.service';
 import {StateService} from '../../../../shared/services/state/state.service';
@@ -130,7 +131,7 @@ export class SpotlightComponent implements OnInit {
           {
             value: 'Log Out',
             description: 'Log Out current account',
-            call: () => this.afAuth.signOut().then(() => this.router.navigate(['/login'])),
+            call: () => this.afAuth.signOut().then(() => this.router.navigate(STATIC_CONFIG.loginRoute)),
             search: 'logout log out signout sign out'
           },
           ...(this.state.role === 'admin' ? [{

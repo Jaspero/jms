@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import firebase from 'firebase/app';
 import {combineLatest, from, Observable, throwError} from 'rxjs';
 import {catchError, map, switchMap, take, tap} from 'rxjs/operators';
+import {STATIC_CONFIG} from 'src/environments/static-config';
 import {FirestoreCollection} from '../../../../../../../../integrations/firebase/firestore-collection.enum';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
@@ -95,7 +96,7 @@ export class ProfileSecurityComponent implements OnInit {
               firebase.auth()
                 .signOut()
                 .then(() =>
-                  this.router.navigate(['/login'])
+                  this.router.navigate(STATIC_CONFIG.loginRoute)
                 );
             }
 
@@ -140,7 +141,7 @@ export class ProfileSecurityComponent implements OnInit {
                 firebase.auth()
                   .signOut()
                   .then(() =>
-                    this.router.navigate(['/login'])
+                    this.router.navigate(STATIC_CONFIG.loginRoute)
                   );
               }
 
@@ -167,7 +168,7 @@ export class ProfileSecurityComponent implements OnInit {
         catchError(error => {
           if (error.code === 'auth/requires-recent-login') {
             firebase.auth().signOut();
-            this.router.navigate(['/login']);
+            this.router.navigate(STATIC_CONFIG.loginRoute);
           }
 
           return throwError(() => ({
@@ -181,7 +182,7 @@ export class ProfileSecurityComponent implements OnInit {
           success: 'Your account and all of your personal information have been removed from our system.'
         }),
         tap(() => {
-          this.router.navigate(['/login']);
+          this.router.navigate(STATIC_CONFIG.loginRoute);
         })
       ],
       {
@@ -234,7 +235,7 @@ export class ProfileSecurityComponent implements OnInit {
                 ),
                 catchError(e => {
                   if (e.code === 'auth/requires-recent-login') {
-                    this.router.navigate(['/login']);
+                    this.router.navigate(STATIC_CONFIG.loginRoute);
                     this.afAuth.signOut();
                   }
 

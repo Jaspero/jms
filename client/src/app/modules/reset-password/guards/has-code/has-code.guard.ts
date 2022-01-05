@@ -3,6 +3,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {ActivatedRouteSnapshot, CanActivate, Router} from '@angular/router';
 import {from, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
+import {STATIC_CONFIG} from 'src/environments/static-config';
 import {notify} from '../../../../shared/utils/notify.operator';
 
 @Injectable()
@@ -24,13 +25,13 @@ export class HasCodeGuard implements CanActivate {
             error: 'RESET_PASSWORD.INVALID_OOB_CODE'
           }),
           catchError(() => {
-            this.router.navigate(['/login']);
+            this.router.navigate(STATIC_CONFIG.loginRoute);
             return of(false)
           })
         )
     }
 
-    this.router.navigate(['/login']);
+    this.router.navigate(STATIC_CONFIG.loginRoute);
     return of(false)
   }
 }

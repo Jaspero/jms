@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import firebase from 'firebase/app';
 import {from, throwError} from 'rxjs';
 import {catchError, switchMap, take, tap} from 'rxjs/operators';
+import {STATIC_CONFIG} from 'src/environments/static-config';
 import {notify} from '../../shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '../../shared/validators/repeat-password.validator';
 
@@ -66,7 +67,7 @@ export class FinishSignUpComponent implements OnInit {
               firebase.auth()
                 .signOut()
                 .then(() =>
-                  this.router.navigate(['/login'])
+                  this.router.navigate(STATIC_CONFIG.loginRoute)
                 );
             }
 
@@ -80,7 +81,7 @@ export class FinishSignUpComponent implements OnInit {
             success: 'FINISH_SIGN_UP.SIGN_UP_SUCCESSFUL'
           }),
           tap(() =>
-            this.router.navigate(['/dashboard'])
+            this.router.navigate(STATIC_CONFIG.dashboardRoute)
           ),
         )
     }
