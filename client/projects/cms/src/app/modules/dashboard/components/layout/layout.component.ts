@@ -169,7 +169,7 @@ export class LayoutComponent implements OnInit {
   logOut() {
     this.afAuth.signOut()
       .then(() =>
-        this.router.navigate(['/login'])
+        this.router.navigate(STATIC_CONFIG.loginRoute)
       );
   }
 
@@ -189,7 +189,7 @@ export class LayoutComponent implements OnInit {
               firebase.auth()
                 .signOut()
                 .then(() =>
-                  this.router.navigate(['/login'])
+                  this.router.navigate(STATIC_CONFIG.loginRoute)
                 );
             }
 

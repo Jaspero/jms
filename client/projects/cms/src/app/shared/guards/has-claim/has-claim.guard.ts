@@ -8,6 +8,7 @@ import {catchError, map, switchMap, take} from 'rxjs/operators';
 import {FirestoreCollection} from '../../../../../integrations/firebase/firestore-collection.enum';
 import {StateService} from '../../services/state/state.service';
 import {notify} from '@shared/utils/notify.operator';
+import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 
 @Injectable({
   providedIn: 'root'
@@ -78,7 +79,7 @@ export class HasClaimGuard implements CanActivate {
       .then()
       .catch()
       .finally(() => {
-        this.router.navigate(['/login']);
+        this.router.navigate(STATIC_CONFIG.loginRoute);
       });
 
     return throwError(() => error);

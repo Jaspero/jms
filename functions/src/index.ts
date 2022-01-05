@@ -1,5 +1,6 @@
 import {initializeApp} from 'firebase-admin';
 import {createUser} from './callable/create-user';
+import {exchangeToken} from './callable/exchange-token';
 import {getUser} from './callable/get-user';
 import {removeUser} from './callable/remove-user';
 import {triggerPasswordReset} from './callable/trigger-password-reset';
@@ -14,6 +15,7 @@ import {fileCreated} from './triggers/file-created';
 import {fileDeleted} from './triggers/file-deleted';
 import {userCreated} from './triggers/user-created';
 import {userDeleted} from './triggers/user-deleted';
+import {impersonate} from './callable/impersonate';
 import {userDocumentDeleted} from './triggers/user-document-deleted';
 import {userDocumentUpdated} from './triggers/user-document-updated';
 
@@ -36,6 +38,8 @@ export const cms = {
   updateUser,
   getUser,
   updateEmail,
+  exchangeToken,
+  impersonate,
 
   // Rest
   exportData,

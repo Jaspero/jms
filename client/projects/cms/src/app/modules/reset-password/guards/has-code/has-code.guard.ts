@@ -4,6 +4,7 @@ import {ActivatedRouteSnapshot, CanActivate, Router} from '@angular/router';
 import {from, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {notify} from '@shared/utils/notify.operator';
+import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 
 @Injectable()
 export class HasCodeGuard implements CanActivate {
@@ -24,13 +25,13 @@ export class HasCodeGuard implements CanActivate {
             error: 'RESET_PASSWORD.INVALID_OOB_CODE'
           }),
           catchError(() => {
-            this.router.navigate(['/login']);
-            return of(false);
+            this.router.navigate(STATIC_CONFIG.loginRoute);
+            return of(false)
           })
         );
     }
 
-    this.router.navigate(['/login']);
-    return of(false);
+    this.router.navigate(STATIC_CONFIG.loginRoute);
+    return of(false)
   }
 }

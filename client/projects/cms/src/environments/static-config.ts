@@ -6,6 +6,15 @@ import {NavigationItemWithActive} from '../app/shared/interfaces/navigation-item
 export const STATIC_CONFIG = {
   displayName: 'JMS',
   elementSelectorPrefix: 'jms-e-',
+  /**
+   * We use this to redirect all unauthenticated users
+   */
+  loginRoute: ['/login'],
+  /**
+   * Used for redirecting all authenticated users
+   * visiting pages for unauthenticated users
+   */
+  dashboardRoute: ['/dashboard'],
   navigation: {
     items: [
       {

@@ -36,8 +36,7 @@ export class LoginComponent implements OnInit {
     private dialog: MatDialog,
     private cdr: ChangeDetectorRef,
     private zone: NgZone
-  ) {
-  }
+  ) {}
 
   @ViewChild('password', {static: true})
   passwordField: ElementRef;
@@ -178,8 +177,8 @@ export class LoginComponent implements OnInit {
             success: false,
             showThrownError: true
           })
-        );
-    };
+        )
+    }
   }
 
   private buildForm() {
@@ -245,12 +244,12 @@ export class LoginComponent implements OnInit {
                   this.verificationId = vId;
                   this.verificationState = 'submit';
                   this.cdr.markForCheck();
-                });
+                })
               });
           }
         });
 
         this.verifier.render();
-      });
+      })
   }
 }

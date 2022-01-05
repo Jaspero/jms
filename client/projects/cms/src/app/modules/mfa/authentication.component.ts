@@ -10,6 +10,7 @@ import {from, Subscription, throwError} from 'rxjs';
 import {catchError, switchMap, tap} from 'rxjs/operators';
 import {COUNTRIES} from '../../shared/consts/countries.const';
 import {notify} from '@shared/utils/notify.operator';
+import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 
 @UntilDestroy()
 @Component({
@@ -48,7 +49,7 @@ export class AuthenticationComponent implements OnInit {
     this.oobCode = this.activatedRoute.snapshot.queryParams.oobCode;
 
     if (!this.oobCode) {
-      this.router.navigate(['/login']);
+      this.router.navigate(STATIC_CONFIG.loginRoute);
     }
 
     this.form = this.fb.group({
@@ -103,7 +104,7 @@ export class AuthenticationComponent implements OnInit {
         }),
         catchError(e => {
           if (e.code === 'auth/requires-recent-login') {
-            this.router.navigate(['/login']);
+            this.router.navigate(STATIC_CONFIG.loginRoute);
             this.afAuth.signOut();
           }
 
@@ -146,7 +147,7 @@ export class AuthenticationComponent implements OnInit {
           notify(),
           tap(() => {
             this.dialog.closeAll();
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(STATIC_CONFIG.dashboardRoute);
           })
         );
     };

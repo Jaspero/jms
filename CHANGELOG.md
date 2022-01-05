@@ -1,3 +1,48 @@
+## [4.19.1](https://github.com/jaspero/jms/compare/v4.19.0...v4.19.1) (2022-01-05)
+
+
+### Bug Fixes
+
+* functions as actions in table.actions ([541de29](https://github.com/jaspero/jms/commit/541de29ec34c37735892b4dea7935a0a3920ebf8))
+
+# [4.19.0](https://github.com/jaspero/jms/compare/v4.18.0...v4.19.0) (2022-01-05)
+
+
+### Features
+
+* added loginRoute and dashboardRoute to static config; connected impersonation; ([b6ceb54](https://github.com/jaspero/jms/commit/b6ceb54bb2f185aaabdcd38875bfdede660fc281))
+* implementing impersonation :construction: ([ea2d29b](https://github.com/jaspero/jms/commit/ea2d29bb3abd471e35b3d6a239466036efdec336))
+
+# [4.18.0](https://github.com/jaspero/jms/compare/v4.17.0...v4.18.0) (2022-01-04)
+
+
+### Features
+
+* connected remember me checkbox on login ([aec1579](https://github.com/jaspero/jms/commit/aec1579cf5c8f27cb99abc1fea14bbac896bda38))
+
+# [4.17.0](https://github.com/jaspero/jms/compare/v4.16.0...v4.17.0) (2021-12-28)
+
+
+### Features
+
+* **functions:** simplified auth for callable functions ([136d3e2](https://github.com/jaspero/jms/commit/136d3e2673524e050aa03a306acba65e61772861))
+* **functions:** using custom jwt to generate invite tokens ([692ff44](https://github.com/jaspero/jms/commit/692ff440841b152f5c91044912ef08c0ee396c79))
+
+# [4.17.0](https://github.com/jaspero/jms/compare/v4.16.0...v4.17.0) (2021-12-18)
+
+
+### Features
+
+* **functions:** simplified auth for callable functions ([136d3e2](https://github.com/jaspero/jms/commit/136d3e2673524e050aa03a306acba65e61772861))
+* **functions:** using custom jwt to generate invite tokens ([692ff44](https://github.com/jaspero/jms/commit/692ff440841b152f5c91044912ef08c0ee396c79))
+
+# [4.17.0](https://github.com/jaspero/jms/compare/v4.16.0...v4.17.0) (2021-12-17)
+
+
+### Features
+
+* **functions:** using custom jwt to generate invite tokens ([692ff44](https://github.com/jaspero/jms/commit/692ff440841b152f5c91044912ef08c0ee396c79))
+
 # [4.16.0](https://github.com/jaspero/jms/compare/v4.15.1...v4.16.0) (2021-12-01)
 
 

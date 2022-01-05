@@ -7,5 +7,10 @@ export const ENV_CONFIG = functions.config()[process.env.NODE_ENV === 'productio
   email?: {
     name: string;
     email: string;
-  }
+  },
+
+  /**
+   * Secret for email token HMAC
+   */
+  esecret: string;
 };
