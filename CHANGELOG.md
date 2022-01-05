@@ -1,3 +1,10 @@
+## [4.19.1](https://github.com/jaspero/jms/compare/v4.19.0...v4.19.1) (2022-01-05)
+
+
+### Bug Fixes
+
+* functions as actions in table.actions ([541de29](https://github.com/jaspero/jms/commit/541de29ec34c37735892b4dea7935a0a3920ebf8))
+
 # [4.19.0](https://github.com/jaspero/jms/compare/v4.18.0...v4.19.0) (2022-01-05)
 
 
