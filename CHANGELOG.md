@@ -1,3 +1,11 @@
+# [4.19.0](https://github.com/jaspero/jms/compare/v4.18.0...v4.19.0) (2022-01-05)
+
+
+### Features
+
+* added loginRoute and dashboardRoute to static config; connected impersonation; ([b6ceb54](https://github.com/jaspero/jms/commit/b6ceb54bb2f185aaabdcd38875bfdede660fc281))
+* implementing impersonation :construction: ([ea2d29b](https://github.com/jaspero/jms/commit/ea2d29bb3abd471e35b3d6a239466036efdec336))
+
 # [4.18.0](https://github.com/jaspero/jms/compare/v4.17.0...v4.18.0) (2022-01-04)
 
 
