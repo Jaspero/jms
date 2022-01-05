@@ -1,3 +1,10 @@
+## [4.19.2](https://github.com/jaspero/jms/compare/v4.19.1...v4.19.2) (2022-01-05)
+
+
+### Bug Fixes
+
+* added auth import for impersonation ([266241d](https://github.com/jaspero/jms/commit/266241d9d19137167525e209907bcc38e6d7f07a))
+
 ## [4.19.1](https://github.com/jaspero/jms/compare/v4.19.0...v4.19.1) (2022-01-05)
 
 
