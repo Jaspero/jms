@@ -91,22 +91,27 @@ export const USERS_MODULE = {
       ],
       actions: [
         {
-          value: `it => '<jms-e-notes data-id="' + it.id + '"></jms-e-notes>'`
+          value: it => `<jms-e-notes data-id="${it.id}"></jms-e-notes>`,
         },
         {
-          value: `it => '<jms-e-tpr data-email="' + it.data.email + '"></jms-e-tpr>'`
+          value: it => `<jms-e-tpr data-email="${it.data.email}"></jms-e-tpr>`,
+          authorization: ['admin']
         },
         {
-          value: `it => '<jms-e-cp data-id="' + it.id + '"></jms-e-cp>'`
+          value: it => `<jms-e-cp data-id="${it.id}"></jms-e-cp>`,
+          authorization: ['admin']
         },
         {
-          value: `it => '<jms-e-tus data-id="' + it.id + '"></jms-e-tus>'`
+          value: it => `<jms-e-tus data-id="${it.id}"></jms-e-tus>`,
+          authorization: ['admin']
         },
         {
-          value: `it => '<jms-e-ce data-id="' + it.id + '"></jms-e-ce>'`
+          value: it => `<jms-e-ce data-id="${it.id}"></jms-e-ce>`,
+          authorization: ['admin']
         },
         {
-          value: it => `<jms-e-impersonate id=${it.id}></jms-e-impersonate>`
+          value: it => `<jms-e-impersonate id="${it.id}"></jms-e-impersonate>`,
+          authorization: ['admin']
         }
       ]
     },
