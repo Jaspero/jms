@@ -3,6 +3,7 @@ import {ActivatedRouteSnapshot, CanActivate, Router} from '@angular/router';
 import {findModule} from '../../../modules/dashboard/modules/module-instance/utils/find-module';
 import {StateService} from '../../services/state/state.service';
 import {map, take} from 'rxjs/operators';
+import {STATIC_CONFIG} from 'src/environments/static-config';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class CanReadModuleGuard implements CanActivate {
           module.authorization.read &&
           !module.authorization.read.includes(this.state.role)
         ) {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(STATIC_CONFIG.dashboardRoute);
           return false;
         }
 

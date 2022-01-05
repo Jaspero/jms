@@ -7,6 +7,7 @@ tasks:
   - name: Setup
     init: >
       npm run setup &&
+      npm i -g @angular/cli &&
       gp sync-done setup
   - name: CMS
     init: gp sync-await setup

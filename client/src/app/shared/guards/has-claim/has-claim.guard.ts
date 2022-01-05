@@ -5,6 +5,7 @@ import {CanActivate, Router} from '@angular/router';
 import {TranslocoService} from '@ngneat/transloco';
 import {Observable, of, throwError} from 'rxjs';
 import {catchError, map, switchMap, take} from 'rxjs/operators';
+import {STATIC_CONFIG} from 'src/environments/static-config';
 import {FirestoreCollection} from '../../../../../integrations/firebase/firestore-collection.enum';
 import {StateService} from '../../services/state/state.service';
 import {notify} from '../../utils/notify.operator';
@@ -77,7 +78,7 @@ export class HasClaimGuard implements CanActivate {
       .then()
       .catch()
       .finally(() => {
-        this.router.navigate(['/login']);
+        this.router.navigate(STATIC_CONFIG.loginRoute);
       });
 
     return throwError(() => error);
