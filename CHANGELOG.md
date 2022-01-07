@@ -1,3 +1,10 @@
+# [4.20.0](https://github.com/jaspero/jms/compare/v4.19.2...v4.20.0) (2022-01-07)
+
+
+### Features
+
+* moved action-controller in to root functions ([1d43378](https://github.com/jaspero/jms/commit/1d43378b28cf2dbc639b584a28b6116d470c0af0))
+
 ## [4.19.2](https://github.com/jaspero/jms/compare/v4.19.1...v4.19.2) (2022-01-05)
 
 
