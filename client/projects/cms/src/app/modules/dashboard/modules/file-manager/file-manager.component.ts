@@ -13,13 +13,12 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {formatFileName} from '@jaspero/form-builder';
 import {safeEval} from '@jaspero/utils';
-import {notify} from '@shared/utils/notify.operator';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {notify} from '@shared/utils/notify.operator';
 import {BehaviorSubject, combineLatest, Observable, of, Subscription, throwError} from 'rxjs';
 import {map, scan, shareReplay, startWith, switchMap, tap} from 'rxjs/operators';
-import {Color} from '@shared/enums/color.enum';
-import {confirmation} from '@shared/utils/confirmation';
-import {notify} from '@shared/utils/notify.operator';
+import {Color} from '../../../../shared/enums/color.enum';
+import {confirmation} from '../../../../shared/utils/confirmation';
 import {FileManagerService} from './file-manager.service';
 
 @UntilDestroy()
