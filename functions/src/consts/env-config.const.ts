@@ -13,7 +13,6 @@ export const ENV_CONFIG = functions.config()[process.env.NODE_ENV === 'productio
    * Secret for email token HMAC
    */
   esecret: string;
-  };
   gh?: {
     token: string;
   }
