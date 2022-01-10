@@ -1,11 +1,11 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {ActivatedRoute, Router} from '@angular/router';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import {from} from 'rxjs';
 import {switchMap, tap} from 'rxjs/operators';
-import {STATIC_CONFIG} from 'src/environments/static-config';
+import {STATIC_CONFIG} from '../../../environments/static-config';
 
 @Component({
   selector: 'jms-impersonate',
@@ -24,7 +24,7 @@ export class ImpersonateComponent implements OnInit {
     const {token} = this.activatedRoute.snapshot.queryParams;
 
     if (!token) {
-      // this.router.navigate(STATIC_CONFIG.loginRoute);
+      this.router.navigate(STATIC_CONFIG.loginRoute);
     }
 
     from(
