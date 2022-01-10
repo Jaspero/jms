@@ -1,18 +1,19 @@
+image:
+  file: .gitpod.Dockerfile
 ports:
   - port: 4200
   - port: 5000
 tasks:
   - name: Setup
     init: >
-      npm install &&
-      npm --prefix client install &&
+      npm run setup &&
+      npm i -g @angular/cli &&
       gp sync-done setup
-  - name: Website
-    init: gp sync-await setup
-    command: npm run start:web:live
   - name: CMS
     init: gp sync-await setup
     command: npm run start:cms:live
+  - name: Login To Firebase
+    command: firebase login:ci --no-localhost
 github:
   prebuilds:
     master: true
@@ -22,3 +23,14 @@ github:
     addComment: true
     addBadge: true
     addLabel: prebuilt-in-gitpod
+vscode:
+  extensions:
+    - johnpapa.Angular2
+    - https://marketplace.visualstudio.com/_apis/public/gallery/publishers/infinity1207/vsextensions/angular2-switcher/0.3.4/vspackage
+    - https://marketplace.visualstudio.com/_apis/public/gallery/publishers/alexiv/vsextensions/vscode-angular2-files/1.6.4/vspackage
+    - humao.rest-client
+    - https://marketplace.visualstudio.com/_apis/public/gallery/publishers/MariusAlchimavicius/vsextensions/json-to-ts/1.7.5/vspackage
+    - Angular.ng-template
+    - https://marketplace.visualstudio.com/_apis/public/gallery/publishers/natewallace/vsextensions/angular2-inline/0.0.17/vspackage
+    - ms-azuretools.vscode-docker
+    - https://marketplace.visualstudio.com/_apis/public/gallery/publishers/toba/vsextensions/vsfire/1.4.1/vspackage

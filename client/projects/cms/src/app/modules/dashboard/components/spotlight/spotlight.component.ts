@@ -3,6 +3,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {FormControl} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
+import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 import {BehaviorSubject, combineLatest, forkJoin, Observable, of} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, map, startWith, switchMap, take, tap} from 'rxjs/operators';
 import {Module} from '../../../../shared/interfaces/module.interface';
@@ -130,7 +131,7 @@ export class SpotlightComponent implements OnInit {
           {
             value: 'Log Out',
             description: 'Log Out current account',
-            call: () => this.afAuth.signOut().then(() => this.router.navigate(['/login'])),
+            call: () => this.afAuth.signOut().then(() => this.router.navigate(STATIC_CONFIG.loginRoute)),
             search: 'logout log out signout sign out'
           },
           ...(this.state.role === 'admin' ? [{

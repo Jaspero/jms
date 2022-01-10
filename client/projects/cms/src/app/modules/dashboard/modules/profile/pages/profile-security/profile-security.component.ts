@@ -11,6 +11,7 @@ import {StateService} from '../../../../../../shared/services/state/state.servic
 import {confirmation} from '../../../../../../shared/utils/confirmation';
 import {notify} from '@shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
+import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 
 @Component({
   selector: 'jms-profile-security',
@@ -96,7 +97,7 @@ export class ProfileSecurityComponent implements OnInit {
               firebase.auth()
                 .signOut()
                 .then(() =>
-                  this.router.navigate(['/login'])
+                  this.router.navigate(STATIC_CONFIG.loginRoute)
                 );
             }
 
@@ -141,7 +142,7 @@ export class ProfileSecurityComponent implements OnInit {
                 firebase.auth()
                   .signOut()
                   .then(() =>
-                    this.router.navigate(['/login'])
+                    this.router.navigate(STATIC_CONFIG.loginRoute)
                   );
               }
 
@@ -168,7 +169,7 @@ export class ProfileSecurityComponent implements OnInit {
         catchError(error => {
           if (error.code === 'auth/requires-recent-login') {
             firebase.auth().signOut();
-            this.router.navigate(['/login']);
+            this.router.navigate(STATIC_CONFIG.loginRoute);
           }
 
           return throwError(() => ({
@@ -182,7 +183,7 @@ export class ProfileSecurityComponent implements OnInit {
           success: 'Your account and all of your personal information have been removed from our system.'
         }),
         tap(() => {
-          this.router.navigate(['/login']);
+          this.router.navigate(STATIC_CONFIG.loginRoute);
         })
       ],
       {
@@ -235,7 +236,7 @@ export class ProfileSecurityComponent implements OnInit {
                 ),
                 catchError(e => {
                   if (e.code === 'auth/requires-recent-login') {
-                    this.router.navigate(['/login']);
+                    this.router.navigate(STATIC_CONFIG.loginRoute);
                     this.afAuth.signOut();
                   }
 

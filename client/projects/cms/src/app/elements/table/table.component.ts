@@ -199,9 +199,11 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
                 !cur.authorization ||
                 cur.authorization.includes(this.state.role)
               ) {
-                const interpolations = (
+                
+                const interpolations = typeof cur.value === 'string' ? (
                   cur.value.match(/{{\s*[\w.]+\s*}}/g) || []
-                ).filter(it => it);
+                ).filter(it => it) : [];
+
                 for (const param of interpolations) {
                   cur.value = cur.value.replace(
                     param,

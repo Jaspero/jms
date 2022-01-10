@@ -8,6 +8,7 @@ import {from, throwError} from 'rxjs';
 import {catchError, switchMap, take, tap} from 'rxjs/operators';
 import {notify} from '@shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
+import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 
 @Component({
   selector: 'jms-finish-sign-up',
@@ -46,7 +47,10 @@ export class FinishSignUpComponent implements OnInit {
         .pipe(
           take(1),
           switchMap(({t}) =>
-            this.afAuth.signInWithCustomToken(t)
+            this.aff.httpsCallable('cms-exchangeToken')({token: t, pullUser: false})
+          ),
+          switchMap(({token}) =>
+            this.afAuth.signInWithCustomToken(token)
           ),
           switchMap(() =>
             from(
@@ -63,7 +67,7 @@ export class FinishSignUpComponent implements OnInit {
               firebase.auth()
                 .signOut()
                 .then(() =>
-                  this.router.navigate(['/login'])
+                  this.router.navigate(STATIC_CONFIG.loginRoute)
                 );
             }
 
@@ -77,7 +81,7 @@ export class FinishSignUpComponent implements OnInit {
             success: 'FINISH_SIGN_UP.SIGN_UP_SUCCESSFUL'
           }),
           tap(() =>
-            this.router.navigate(['/dashboard'])
+            this.router.navigate(STATIC_CONFIG.dashboardRoute)
           ),
         );
     };

@@ -2,6 +2,7 @@ import {STATIC_CONFIG} from '../../environments/static-config';
 import {ChangeEmailComponent} from './change-email/change-email.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
 import {FileManagerSelectComponent} from './file-manager-select/file-manager-select.component';
+import {ImpersonateComponent} from './impersonate/impersonate.component';
 import {LinkComponent} from './link/link.component';
 import {NewPrepopulateComponent} from './new-prepopulate/new-prepopulate.component';
 import {SampleEmailComponent} from './sample-email/sample-email.component';
@@ -20,7 +21,8 @@ export const ELEMENTS = [
   ChangeEmailComponent,
   NewPrepopulateComponent,
   FileManagerSelectComponent,
-  SampleEmailComponent
+  SampleEmailComponent,
+  ImpersonateComponent
 ];
 
 export const ELEMENT_SELECTOR = [
@@ -63,5 +65,9 @@ export const ELEMENT_SELECTOR = [
   {
     selector: STATIC_CONFIG.elementSelectorPrefix + 'sample-email',
     component: SampleEmailComponent
+  },
+  {
+    selector: STATIC_CONFIG.elementSelectorPrefix + 'impersonate',
+    component: ImpersonateComponent
   }
 ];

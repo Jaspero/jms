@@ -62,7 +62,8 @@
     "MFA_AUTHENTICATION": "Authenticate",
     "MFA_SELECT_DEVICE": "Device",
     "TOO_MANY_ATTEMPTS_TRY_LATER": "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.",
-    "USER_NOT_FOUND": "There is no user record corresponding to this identifier."
+    "USER_NOT_FOUND": "There is no user record corresponding to this identifier.",
+    "REMEMBER": "Stay logged in?"
   },
   "RESET_PASSWORD": {
     "REPEAT_PASSWORD": "Repeat Password",
@@ -261,7 +262,8 @@
       "DIALOG_BUTTON": "Send",
       "RECEIVER_EMAIL": "Receiver email",
       "DYNAMIC_DATA": "Dynamic data"
-    }
+    },
+    "IMPERSONATE": "Impersonate"
   },
   "COMPONENTS": {
     "EMAIL_TEMPLATE": {

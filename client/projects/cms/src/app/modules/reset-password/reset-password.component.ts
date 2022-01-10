@@ -26,6 +26,7 @@ export class ResetPasswordComponent implements OnInit {
   form: FormGroup;
   staticConfig = STATIC_CONFIG;
   code: string;
+  loginUrl = STATIC_CONFIG.loginRoute;
 
   ngOnInit() {
 
@@ -55,7 +56,7 @@ export class ResetPasswordComponent implements OnInit {
             success: 'RESET_PASSWORD.RESET_SUCCESSFUL'
           }),
           tap(() =>
-            this.router.navigate(['/login'])
+            this.router.navigate(STATIC_CONFIG.loginRoute)
           )
         );
   }

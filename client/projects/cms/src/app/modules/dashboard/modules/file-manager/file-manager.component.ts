@@ -14,13 +14,15 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {formatFileName} from '@jaspero/form-builder';
 import {safeEval} from '@jaspero/utils';
 import {notify} from '@shared/utils/notify.operator';
-import firebase from 'firebase/app';
-import 'firebase/storage';
-import {BehaviorSubject, combineLatest, from, Observable, of, Subscription, throwError} from 'rxjs';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {BehaviorSubject, combineLatest, Observable, of, Subscription, throwError} from 'rxjs';
 import {map, scan, shareReplay, startWith, switchMap, tap} from 'rxjs/operators';
-import {Color} from '../../../../shared/enums/color.enum';
-import {confirmation} from '../../../../shared/utils/confirmation';
+import {Color} from '@shared/enums/color.enum';
+import {confirmation} from '@shared/utils/confirmation';
+import {notify} from '@shared/utils/notify.operator';
+import {FileManagerService} from './file-manager.service';
 
+@UntilDestroy()
 @Component({
   selector: 'jms-file-manager',
   templateUrl: './file-manager.component.html',
@@ -28,41 +30,28 @@ import {confirmation} from '../../../../shared/utils/confirmation';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FileManagerComponent implements OnInit, OnDestroy {
-  constructor(
-    private dialog: MatDialog,
-    private fb: FormBuilder,
-    private clipboard: Clipboard
-  ) {
-  }
-
   @ViewChild('file')
   fileElement: ElementRef<HTMLInputElement>;
-
   @ViewChild('metadata')
   metadataDialogElement: TemplateRef<any>;
   metadataDialog: MatDialogRef<any>;
-
   @ViewChild('upload')
   uploadDialogElement: TemplateRef<any>;
   uploadDialog: MatDialogRef<any>;
-
   @ViewChild('newFolder')
   newFolderDialogElement: TemplateRef<any>;
   newFolderDialog: MatDialogRef<any>;
-
   @Input()
   configuration = {
     uploadMode: false,
+    allowUpload: true,
     route: '/',
     hidePath: false,
     filters: []
   };
-
   @Input()
   dialogRef: MatDialogRef<any>;
-
   routeControl: FormControl;
-
   displayMode$ = new BehaviorSubject<'list' | 'grid'>('list');
   data$: Observable<{
     files: any[];
@@ -72,13 +61,19 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   loading$ = new BehaviorSubject(false);
   uploadProgress$ = new BehaviorSubject(0);
   activeFile$ = new BehaviorSubject<number>(-1);
-
   nextPageToken: string | undefined;
   loadMore = false;
-
   private subscriptions: Subscription[] = [];
 
-  ngOnInit(): void {
+  constructor(
+    private dialog: MatDialog,
+    private fb: FormBuilder,
+    private clipboard: Clipboard,
+    private fileManager: FileManagerService
+  ) {
+  }
+
+  ngOnInit() {
     this.routeControl = new FormControl(this.configuration.route, {
       updateOn: 'blur'
     });
@@ -88,10 +83,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
       switchMap(route => {
         this.loading$.next(true);
         this.activeFile$.next(-1);
-        return firebase.storage().ref().child(route).list({
-          maxResults: 100,
-          pageToken: this.nextPageToken
-        });
+        return this.fileManager.list(route, this.nextPageToken);
       }),
       switchMap(response => {
         this.nextPageToken = response.nextPageToken;
@@ -115,7 +107,8 @@ export class FileManagerComponent implements OnInit, OnDestroy {
                   const fn = safeEval(filter.value);
 
                   return fn(file);
-                } catch (error) {}
+                } catch (error) {
+                }
               });
             });
           }),
@@ -152,6 +145,12 @@ export class FileManagerComponent implements OnInit, OnDestroy {
       tap(() => this.loading$.next(false)),
       shareReplay(1)
     );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => {
+      subscription.unsubscribe();
+    });
   }
 
   toggleDisplayMode() {
@@ -219,28 +218,9 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   }
 
   deleteFolder(folder) {
-    let pageToken = null;
-    const deleteSubFiles = () => {
-      return firebase.storage().ref().child(folder.fullPath).list({
-        maxResults: 100,
-        pageToken
-      }).then(response => {
-        pageToken = response.nextPageToken;
-
-        if (response.items.length) {
-          return Promise.all(response.items.map(item => item.delete()))
-            .then(() => {
-              return deleteSubFiles();
-            });
-        } else {
-          return Promise.resolve(null);
-        }
-      });
-    };
     confirmation([
-      switchMap(() => from(deleteSubFiles()).pipe(
-        notify()
-      )),
+      switchMap(() => this.fileManager.deleteFolder(folder.fullPath)
+        .pipe(notify())),
       tap(() => this.reset())
     ], {
       description: 'FILE_MANAGER.DELETE_FOLDER.DESCRIPTION',
@@ -277,7 +257,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
 
   deleteFile(file) {
     confirmation([
-      switchMap(() => firebase.storage().ref().child(file.fullPath).delete()),
+      switchMap(() => this.fileManager.deleteFile(file.fullPath)),
       tap(() => this.reset())
     ], {
       description: 'FILE_MANAGER.DELETE_FILE.DESCRIPTION',
@@ -340,23 +320,20 @@ export class FileManagerComponent implements OnInit, OnDestroy {
     this.filteredFolders$ = combineLatest([
       this.data$,
       form.controls.route.valueChanges.pipe(startWith(form.controls.route.value))
-    ]).pipe(
-      map(([data, route]) => {
-        /**
-         * Cool comment
-         */
-        return data.folders.filter(folder => {
-          return folder.name.toLowerCase().replace(/\//g, '').indexOf((route || '').replace(/\//g, '').toLowerCase()) > -1;
-        }).map(folder => '/' + folder.name);
-      })
-    );
+    ])
+      .pipe(
+        map(([data, route]) =>
+          data.folders.filter(folder =>
+            folder.name.toLowerCase().replace(/\//g, '').indexOf((route || '').replace(/\//g, '').toLowerCase()) > -1
+          )
+            .map(folder => '/' + folder.name)
+        )
+      );
 
     this.uploadDialog = this.dialog.open(this.uploadDialogElement, {
       autoFocus: false,
       width: '600px',
-      data: {
-        form
-      }
+      data: {form}
     });
 
     this.subscriptions.push(
@@ -365,7 +342,9 @@ export class FileManagerComponent implements OnInit, OnDestroy {
           this.uploadProgress$.next(0);
           const uploadTask = form.get('uploadTask').value;
 
-          uploadTask?.cancel();
+          if (uploadTask) {
+            uploadTask.forEach(it => it.cancel());
+          }
         })
       ).subscribe()
     );
@@ -377,26 +356,23 @@ export class FileManagerComponent implements OnInit, OnDestroy {
 
   fileChange(form: FormGroup) {
     const el = this.fileElement.nativeElement as HTMLInputElement;
-    const file = Array.from(el.files as FileList)[0] as File;
-
-    Object.defineProperty(file, 'name', {
-      writable: true,
-      value: formatFileName(file.name)
-    });
-
-    form.get('file').setValue(file.name);
+    const files = el.files as FileList;
+    const {length} = files;
+    form.get('file').setValue(
+      length ?
+        length > 1 ?
+          `Selected ${length} files.` :
+          Array.from(files)[0].name :
+        ''
+    );
   }
 
   async startUpload(form: FormGroup) {
     const el = this.fileElement.nativeElement as HTMLInputElement;
-    const file = Array.from(el.files as FileList)[0] as File;
+    const files = Array.from(el.files as FileList) as File[];
+    const uploads = [];
 
-    Object.defineProperty(file, 'name', {
-      writable: true,
-      value: formatFileName(file.name)
-    });
-
-    form.get('file').setValue(file.name);
+    form.get('uploadTask').setValue([]);
 
     let route = form.get('route').value;
 
@@ -404,59 +380,52 @@ export class FileManagerComponent implements OnInit, OnDestroy {
       route += '/';
     }
 
-    try {
-      const ref = firebase.storage().ref(route + file.name);
-      await ref.getDownloadURL();
+    for (const file of files) {
+      Object.defineProperty(file, 'name', {
+        writable: true,
+        value: formatFileName(file.name)
+      });
 
-      const [extension, ...name] = file.name.split('.').reverse();
-
-      const copyFile = name.reverse().join('.') + ' (' + (Date.now() + '').slice(-4) + ')' + '.' + extension;
-      route += copyFile;
-    } catch (error) {
-      route += file.name;
+      uploads.push(await this.fileManager.upload(route, file));
     }
 
-    const uploadTask = firebase.storage().ref(route).put(file);
-    form.get('uploadTask').setValue(uploadTask);
+    combineLatest(uploads.map(it => it.progress))
+      .pipe(
+        untilDestroyed(this)
+      )
+      .subscribe((statuses: Array<{complete?: boolean, status: string, progress: number}>) => {
+        if (!statuses.some(it => !it.complete)) {
+          this.uploadProgress$.next(0);
+          el.value = '';
+          this.uploadDialog.close();
+          this.reset();
 
-    uploadTask.on('state_changed',
-      (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          return;
+        }
+
+        const progress = statuses.reduce((acc, cur) =>
+          acc + (cur.complete ? 100 : cur.progress), 0) / files.length;
 
         this.uploadProgress$.next(Number(progress.toFixed(2)));
-        switch (snapshot.state) {
-          case firebase.storage.TaskState.PAUSED: // or 'paused'
-            break;
-          case firebase.storage.TaskState.RUNNING: // or 'running'
-            break;
-        }
-      },
-      (error) => {
-        console.log({error});
-      },
-      () => {
-        el.value = '';
-        this.uploadDialog.close();
-        this.reset();
-        this.uploadProgress$.next(0);
-      }
-    );
+      });
+
+    form.get('uploadTask').setValue(uploads.map(it => it.uploadTask));
   }
 
   cancelDownload(form: FormGroup) {
     form.get('paused').setValue(false);
-    form.get('uploadTask').value.cancel();
+    form.get('uploadTask').value.forEach(it => it.cancel());
     this.uploadDialog.close();
   }
 
   pauseDownload(form: FormGroup) {
     form.get('paused').setValue(true);
-    form.get('uploadTask').value.pause();
+    form.get('uploadTask').value.forEach(it => it.pause());
   }
 
   resumeDownload(form: FormGroup) {
     form.get('paused').setValue(false);
-    form.get('uploadTask').value.resume();
+    form.get('uploadTask').value.forEach(it => it.resume());
   }
 
   reset() {
@@ -475,12 +444,6 @@ export class FileManagerComponent implements OnInit, OnDestroy {
     if (image) {
       image.src = src;
     }
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => {
-      subscription.unsubscribe();
-    });
   }
 
   setFileActive(index) {

@@ -1,11 +1,12 @@
 import {NgModule} from '@angular/core';
 import {AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 import {RouterModule, Routes} from '@angular/router';
+import {STATIC_CONFIG} from '../environments/static-config';
 import {HasClaimGuard} from './shared/guards/has-claim/has-claim.guard';
 import {RedirectGuard} from './shared/guards/redirect/redirect.guard';
 
-const redirectUnauthorized = () => redirectUnauthorizedTo(['/login']);
-const redirectLoggedInToDashboard = () => redirectLoggedInTo(['/dashboard']);
+const redirectUnauthorized = () => redirectUnauthorizedTo(STATIC_CONFIG.loginRoute);
+const redirectLoggedInToDashboard = () => redirectLoggedInTo(STATIC_CONFIG.dashboardRoute);
 
 const routes: Routes = [
   {
@@ -69,6 +70,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/mfa/mfa.module')
         .then(m => m.MfaModule)
+  },
+  {
+    path: 'impersonate',
+    loadChildren: () =>
+      import('./modules/impersonate/impersonate.module')
+        .then(m => m.ImpersonateModule)
   },
   {
     path: '**',

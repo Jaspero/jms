@@ -1,3 +1,88 @@
+## [4.19.1](https://github.com/jaspero/jms/compare/v4.19.0...v4.19.1) (2022-01-05)
+
+
+### Bug Fixes
+
+* functions as actions in table.actions ([541de29](https://github.com/jaspero/jms/commit/541de29ec34c37735892b4dea7935a0a3920ebf8))
+
+# [4.19.0](https://github.com/jaspero/jms/compare/v4.18.0...v4.19.0) (2022-01-05)
+
+
+### Features
+
+* added loginRoute and dashboardRoute to static config; connected impersonation; ([b6ceb54](https://github.com/jaspero/jms/commit/b6ceb54bb2f185aaabdcd38875bfdede660fc281))
+* implementing impersonation :construction: ([ea2d29b](https://github.com/jaspero/jms/commit/ea2d29bb3abd471e35b3d6a239466036efdec336))
+
+# [4.18.0](https://github.com/jaspero/jms/compare/v4.17.0...v4.18.0) (2022-01-04)
+
+
+### Features
+
+* connected remember me checkbox on login ([aec1579](https://github.com/jaspero/jms/commit/aec1579cf5c8f27cb99abc1fea14bbac896bda38))
+
+# [4.17.0](https://github.com/jaspero/jms/compare/v4.16.0...v4.17.0) (2021-12-28)
+
+
+### Features
+
+* **functions:** simplified auth for callable functions ([136d3e2](https://github.com/jaspero/jms/commit/136d3e2673524e050aa03a306acba65e61772861))
+* **functions:** using custom jwt to generate invite tokens ([692ff44](https://github.com/jaspero/jms/commit/692ff440841b152f5c91044912ef08c0ee396c79))
+
+# [4.17.0](https://github.com/jaspero/jms/compare/v4.16.0...v4.17.0) (2021-12-18)
+
+
+### Features
+
+* **functions:** simplified auth for callable functions ([136d3e2](https://github.com/jaspero/jms/commit/136d3e2673524e050aa03a306acba65e61772861))
+* **functions:** using custom jwt to generate invite tokens ([692ff44](https://github.com/jaspero/jms/commit/692ff440841b152f5c91044912ef08c0ee396c79))
+
+# [4.17.0](https://github.com/jaspero/jms/compare/v4.16.0...v4.17.0) (2021-12-17)
+
+
+### Features
+
+* **functions:** using custom jwt to generate invite tokens ([692ff44](https://github.com/jaspero/jms/commit/692ff440841b152f5c91044912ef08c0ee396c79))
+
+# [4.16.0](https://github.com/jaspero/jms/compare/v4.15.1...v4.16.0) (2021-12-01)
+
+
+### Features
+
+* added dockerfile for gitpod ([7c3414b](https://github.com/jaspero/jms/commit/7c3414b12daf7bdfef729a4becbddca85e1d93cc))
+
+## [4.15.1](https://github.com/jaspero/jms/compare/v4.15.0...v4.15.1) (2021-11-20)
+
+
+### Bug Fixes
+
+* clear full cache on delete ([0793989](https://github.com/jaspero/jms/commit/07939893051613a25b26247f459c1251a16b809b))
+
+# [4.15.0](https://github.com/jaspero/jms/compare/v4.14.0...v4.15.0) (2021-11-20)
+
+
+### Features
+
+* allow for uploading multiple files ([833d800](https://github.com/jaspero/jms/commit/833d8000ca3ddc221c4f0454f4d2ef696478fce1))
+
+# [4.14.0](https://github.com/jaspero/jms/compare/v4.13.0...v4.14.0) (2021-11-20)
+
+
+### Bug Fixes
+
+* moved gitpod config to root ([aa91a35](https://github.com/jaspero/jms/commit/aa91a35cf265c397e0551529e8309ac56f1dd57e))
+
+
+### Features
+
+* added gitpod vscode extensions ([2ba2ef8](https://github.com/jaspero/jms/commit/2ba2ef86d1e83fab22a1f0ddd8c312e44ec0ba2e))
+
+# [4.13.0](https://github.com/jaspero/jms/compare/v4.12.0...v4.13.0) (2021-11-12)
+
+
+### Features
+
+* **file-manager:** allow upload during file-manager-select state ([33bbe5c](https://github.com/jaspero/jms/commit/33bbe5ca73efb304f7fa54721d9694b27e901bca))
+
 # [4.12.0](https://github.com/jaspero/jms/compare/v4.11.1...v4.12.0) (2021-11-08)
 
 

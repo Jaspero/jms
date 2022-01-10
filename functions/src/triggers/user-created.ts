@@ -3,6 +3,7 @@ import * as functions from 'firebase-functions';
 import {STATIC_CONFIG} from '../consts/static-config.const';
 import {FirestoreCollection} from '../enums/firestore-collections.enum';
 import {EmailService} from '../services/email/email.service';
+import {createJwt} from '../utils/create-jwt';
 
 export const userCreated = functions
   .region(STATIC_CONFIG.cloudRegion)
@@ -39,18 +40,17 @@ export const userCreated = functions
       ]);
 
       if (role.sendInvite) {
-         const token = await auth()
-          .createCustomToken(user.uid);
-         const link = `${STATIC_CONFIG.url}finish-sign-up?t=${token}`;
+        const token = await createJwt({id: user.uid});
+        const link = `${STATIC_CONFIG.url}finish-sign-up?t=${token}`;
 
-         await new EmailService().sendEmail({
-           to: user.email,
-           subject: `Application Invite`,
-           html: `
+        await new EmailService().sendEmail({
+          to: user.email,
+          subject: `Application Invite`,
+          html: `
             <p>Please follow the link below to create your account</p>
             <a target="_blank" href="${link}">${link}</a>
            `
-         })
+        });
       }
     }
 

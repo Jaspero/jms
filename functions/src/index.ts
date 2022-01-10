@@ -1,5 +1,6 @@
 import {initializeApp} from 'firebase-admin';
 import {createUser} from './callable/create-user';
+import {exchangeToken} from './callable/exchange-token';
 import {getUser} from './callable/get-user';
 import {removeUser} from './callable/remove-user';
 import {sampleEmail} from './callable/sample-email';
@@ -18,6 +19,7 @@ import {updateDynamicOnCreate} from './triggers/update-dynamic-on-create';
 import {updateDynamicOnUpdate} from './triggers/update-dynamic-on-update';
 import {userCreated} from './triggers/user-created';
 import {userDeleted} from './triggers/user-deleted';
+import {impersonate} from './callable/impersonate';
 import {userDocumentDeleted} from './triggers/user-document-deleted';
 import {userDocumentUpdated} from './triggers/user-document-updated';
 
@@ -45,6 +47,8 @@ export const cms = {
   getUser,
   updateEmail,
   sampleEmail,
+  exchangeToken,
+  impersonate,
 
   // Rest
   exportData,
