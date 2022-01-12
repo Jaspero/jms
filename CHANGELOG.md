@@ -1,3 +1,10 @@
+# [4.21.0](https://github.com/jaspero/jms/compare/v4.20.0...v4.21.0) (2022-01-12)
+
+
+### Features
+
+* connected selection actions closes [#296](https://github.com/jaspero/jms/issues/296) ([b647c9a](https://github.com/jaspero/jms/commit/b647c9aac2b6505eac4239405238ecc51e1f20df))
+
 # [4.20.0](https://github.com/jaspero/jms/compare/v4.19.2...v4.20.0) (2022-01-07)
 
 
