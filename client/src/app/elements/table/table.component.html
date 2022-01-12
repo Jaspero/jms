@@ -59,13 +59,21 @@
               </mat-checkbox>&nbsp;&nbsp;&nbsp;
             </ng-container>
           </ng-container>
-          <button
-            mat-icon-button
-            [matTooltip]="'INSTANCE_OVERVIEW.REMOVE_ITEMS' | transloco:{value: ioc.selection.selected.length} "
-            *ngIf="ioc.selection.hasValue()"
-            (click)="ioc.deleteSelection(data.moduleId)">
-            <mat-icon>delete_forever</mat-icon>
-          </button>
+          <ng-container *ngIf="ioc.selection.hasValue()">
+            <button
+              *ngIf="!data.hideDelete"
+              mat-icon-button
+              [matTooltip]="'INSTANCE_OVERVIEW.REMOVE_ITEMS' | transloco:{value: ioc.selection.selected.length}"
+              (click)="ioc.deleteSelection(data.moduleId)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+
+            <ng-container *ngIf="data.selectionActions && data.selectionActions.length">
+              <ng-container *ngFor="let action of data.selectionActions">
+                <div *ngIf="!action.criteria || action.criteria(ioc.selection)" [innerHTML]="action.value(ioc.selection) | jpSanitize"></div>
+              </ng-container>
+            </ng-container>
+          </ng-container>
 
           <div class="flex-1"></div>
 
