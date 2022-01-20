@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - main
       - dev
     paths:
       - 'client/**/*'
@@ -25,11 +25,7 @@ jobs:
         run: |
           npm --prefix client ci
       - name: Build
-        run: |
-          echo export const ENV_CONFIG=$PUBLIC_CONFIG > client/src/env-config.ts
-          npm run build:cms
-        env:
-          PUBLIC_CONFIG: ${{ secrets.PUBLIC_CONFIG }}
+        run: npm run build:cms
       - name: Run Lighthouse CI
         uses: treosh/lighthouse-ci-action@v7
         with:

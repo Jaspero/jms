@@ -3,37 +3,18 @@ on:
   push:
     branches-ignore:
       - dev
-      - master
       - main
 jobs:
   auto-pull-request:
     name: PullRequestAction
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        prefix: ['feat', 'fix', 'chore', 'hotfix']
     steps:
-      - name: Pull Request - feat/
+      - name: Pull Request - ${{ matrix.prefix }}/
         uses: vsoch/pull-request-action@1.0.12
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH_PREFIX: 'feat/'
-          PULL_REQUEST_BRANCH: 'dev'
-
-      - name: Pull Request - fix/
-        uses: vsoch/pull-request-action@1.0.12
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH_PREFIX: 'fix/'
-          PULL_REQUEST_BRANCH: 'dev'
-
-      - name: Pull Request - chore/
-        uses: vsoch/pull-request-action@1.0.12
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH_PREFIX: 'chore/'
-          PULL_REQUEST_BRANCH: 'dev'
-
-      - name: Pull Request - hotfix/
-        uses: vsoch/pull-request-action@1.0.12
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH_PREFIX: 'hotfix/'
+          BRANCH_PREFIX: '${{ matrix.prefix }}/'
           PULL_REQUEST_BRANCH: 'main'

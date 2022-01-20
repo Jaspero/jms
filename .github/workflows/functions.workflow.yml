@@ -3,21 +3,23 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - main
     paths:
       - 'functions/**/*'
       - '.github/workflows/functions.workflow.yml'
 jobs:
+  env: 
+    project: 'jaspero-jms'
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
       - name: Install GitHub Utils Dependencies
         run: |
           npm ci --prefix .github/utils
@@ -36,7 +38,7 @@ jobs:
           npm --prefix functions run build
       - name: Set project
         if: ${{ steps.changes.outputs.CHANGES }}
-        run: npm run firebase -- use jaspero-jms --token $FIREBASE_TOKEN
+        run: npm run firebase -- use ${{ env.project }} --token $FIREBASE_TOKEN
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Deploy
