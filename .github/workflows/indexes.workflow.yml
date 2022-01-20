@@ -9,9 +9,9 @@ on:
       - '.github/workflows/indexes.workflow.yml'
 
 jobs:
-  env: 
-    project: 'jaspero-jms'
   deploy:
+    env: 
+      project: 'jaspero-jms'
     name: Deploy
     runs-on: ubuntu-latest
     steps:
