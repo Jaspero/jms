@@ -8,11 +8,11 @@ on:
       - 'functions/**/*'
       - '.github/workflows/functions.workflow.yml'
 jobs:
-  env: 
-    project: 'jaspero-jms'
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    env: 
+      project: 'jaspero-jms'
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
