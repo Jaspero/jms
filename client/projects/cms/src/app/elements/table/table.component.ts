@@ -1,3 +1,4 @@
+import {SelectionModel} from '@angular/cdk/collections';
 import {TemplatePortal} from '@angular/cdk/portal';
 import {
   AfterViewInit,
@@ -26,6 +27,7 @@ import {filter, map, shareReplay, startWith, switchMap} from 'rxjs/operators';
 import {ColumnOrganizationComponent} from '../../modules/dashboard/modules/module-instance/components/column-organization/column-organization.component';
 import {InstanceOverviewContextService} from '../../modules/dashboard/modules/module-instance/services/instance-overview-context.service';
 import {PipeType} from '../../shared/enums/pipe-type.enum';
+import {Action} from '../../shared/interfaces/action.interface';
 import {FilterModule} from '../../shared/interfaces/filter-module.interface';
 import {ImportModule} from '../../shared/interfaces/import-module.interface';
 import {InstanceSort} from '../../shared/interfaces/instance-sort.interface';
@@ -37,6 +39,7 @@ import {SortModule} from '../../shared/interfaces/sort-module.interface';
 import {DbService} from '../../shared/services/db/db.service';
 import {StateService} from '../../shared/services/state/state.service';
 import {notify} from '@shared/utils/notify.operator';
+import {processActions} from '../../shared/utils/process-actions';
 
 interface TableData {
   moduleId: string;
@@ -60,14 +63,8 @@ interface TableData {
   hideExport?: boolean;
   hideImport?: boolean;
   collectionGroup?: boolean;
-  actions?: Array<
-    (
-      it: any
-    ) => {
-      criteria?: (d: any) => boolean;
-      value: (d: any) => string;
-    }
-  >;
+  actions?: Action[];
+  selectionActions?: Action<SelectionModel<string>>[];
 }
 
 @UntilDestroy()
@@ -138,7 +135,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       let tableColumns: ModuleLayoutTableColumn[];
       let pColumns: ModuleLayoutTableColumn[];
       let sort: InstanceSort;
-      let hide: any = {
+      let addedData: any = {
         hideCheckbox: false,
         hideAdd: false,
         hideEdit: false,
@@ -178,7 +175,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         sort = data.layout.sort;
 
         if (data.layout.table) {
-          hide = [
+          addedData = [
             'hideCheckbox',
             'hideEdit',
             'hideDelete',
@@ -194,40 +191,15 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           }, {});
 
           if (data.layout.table.actions) {
-            hide.actions = data.layout.table.actions.reduce((acc, cur) => {
-              if (
-                !cur.authorization ||
-                cur.authorization.includes(this.state.role)
-              ) {
-                
-                const interpolations = typeof cur.value === 'string' ? (
-                  cur.value.match(/{{\s*[\w.]+\s*}}/g) || []
-                ).filter(it => it) : [];
+            addedData.actions = processActions(this.state.role, data.layout.table.actions);
+          }
 
-                for (const param of interpolations) {
-                  cur.value = cur.value.replace(
-                    param,
-                    `' + ${param.slice(2, -2)} + '`
-                  );
-                }
-
-                const criteria = cur.criteria && safeEval(cur.criteria);
-                const parsed = safeEval(cur.value);
-
-                if (parsed) {
-                  acc.push({
-                    value: parsed,
-                    ...(criteria && {criteria})
-                  });
-                }
-              }
-
-              return acc;
-            }, []);
+          if (data.layout.table.selectionActions) {
+            addedData.selectionActions = processActions(this.state.role, data.layout.table.selectionActions);
           }
 
           if (data.layout.table.hideAdd) {
-            hide.hideAdd =
+            addedData.hideAdd =
               data?.layout?.table?.hideAdd?.constructor === Boolean
                 ? data.layout.table.hideAdd
                 : (data.layout.table.hideAdd as string[]).includes(
@@ -237,11 +209,11 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
 
-      if (!hide.hideCheckbox) {
+      if (!addedData.hideCheckbox) {
         displayColumns.unshift('check');
       }
 
-      if (!hide.hideDelete || !hide.hideEdit) {
+      if (!addedData.hideDelete || !addedData.hideEdit) {
         displayColumns.push('actions');
       }
 
@@ -270,7 +242,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
               filterModule: data.layout.filterModule,
               searchModule: data.layout.searchModule,
               importModule: data.layout.importModule,
-              ...hide
+              ...addedData
             }
           : {
               stickyHeader: true

@@ -1,3 +1,24 @@
+# [4.21.0](https://github.com/jaspero/jms/compare/v4.20.0...v4.21.0) (2022-01-12)
+
+
+### Features
+
+* connected selection actions closes [#296](https://github.com/jaspero/jms/issues/296) ([b647c9a](https://github.com/jaspero/jms/commit/b647c9aac2b6505eac4239405238ecc51e1f20df))
+
+# [4.20.0](https://github.com/jaspero/jms/compare/v4.19.2...v4.20.0) (2022-01-07)
+
+
+### Features
+
+* moved action-controller in to root functions ([1d43378](https://github.com/jaspero/jms/commit/1d43378b28cf2dbc639b584a28b6116d470c0af0))
+
+## [4.19.2](https://github.com/jaspero/jms/compare/v4.19.1...v4.19.2) (2022-01-05)
+
+
+### Bug Fixes
+
+* added auth import for impersonation ([266241d](https://github.com/jaspero/jms/commit/266241d9d19137167525e209907bcc38e6d7f07a))
+
 ## [4.19.1](https://github.com/jaspero/jms/compare/v4.19.0...v4.19.1) (2022-01-05)
 
 
