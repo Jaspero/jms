@@ -1,5 +1,6 @@
 import {CREATED_ON} from './shared/created-on';
 import {EMAIL_PIPE} from './shared/email-pipe';
+// import {Module} from './shared/module.type';
 
 export const USERS_MODULE = {
   id: 'users',

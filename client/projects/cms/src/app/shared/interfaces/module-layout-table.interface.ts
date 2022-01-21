@@ -93,7 +93,7 @@ export interface ModuleLayoutTable {
   hideExport?: string[] | boolean;
   hideImport?: string[] | boolean;
   actions?: ModuleLayoutTableAction[];
-  selectionActions: ModuleLayoutTableAction[];
+  selectionActions?: ModuleLayoutTableAction[];
 
   /**
    * True by default
