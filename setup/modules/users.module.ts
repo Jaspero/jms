@@ -153,7 +153,7 @@ export const USERS_MODULE: Module = {
           collection: 'roles',
           valueKey: 'id',
           clearValue: null,
-          searchBy: {
+          search: {
             key: '/name',
             label: 'Name'
           },

@@ -14,7 +14,7 @@ export function processActions(
       ).filter(it => it) : [];
 
       for (const param of interpolations) {
-        cur.value = cur.value.replace(
+        cur.value = (cur.value as string).replace(
           param,
           `' + ${param.slice(2, -2)} + '`
         );

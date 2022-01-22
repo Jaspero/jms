@@ -17,7 +17,7 @@ import {
 import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
 import {Router} from '@angular/router';
-import {Parser, State} from '@jaspero/form-builder';
+import {Definitions, Parser, State} from '@jaspero/form-builder';
 import {parseTemplate, safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {get, has} from 'json-pointer';
@@ -405,7 +405,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       const field = this.parserCache[rowData.id].field(
         key,
         this.parserCache[rowData.id].pointers[key],
-        overview.definitions,
+        overview.definitions as Definitions,
         false
       );
 
