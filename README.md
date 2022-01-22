@@ -6,8 +6,6 @@
 ![Deploy Rules](https://github.com/Jaspero/jms/workflows/Deploy%20Rules/badge.svg)
 ![Lighthouse CI](https://github.com/Jaspero/jms/workflows/Lighthouse%20CI/badge.svg)
 
-[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/jaspero-co/JMS)
-
 # JMS
 
 JMS is a CMS based on Angular that is fully configurable through JSON schema-s. JMS is very

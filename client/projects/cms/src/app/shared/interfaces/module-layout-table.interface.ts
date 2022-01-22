@@ -74,7 +74,7 @@ export interface ModuleLayoutTableAction {
   /**
    * item => web element
    */
-  value: string;
+  value: string | Function;
   authorization?: string[];
 
   /**

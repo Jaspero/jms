@@ -48,8 +48,11 @@ export interface ModuleDefinition {
   hint?: string;
   defaultValue?: any;
   placeholder?: string;
-  onlyOn?: State;
-  disableOn?: State;
+  onlyOn?: State | string;
+  disableOn?: State | string;
+
+  columnsDesktop?: number;
+  columnsMobile?: number;
 }
 
 export interface ModuleDefinitions {

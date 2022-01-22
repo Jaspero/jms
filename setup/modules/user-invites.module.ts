@@ -1,7 +1,7 @@
 import {CREATED_ON} from './shared/created-on';
-// import {Module} from './shared/module.type';
+import {Module, PipeType} from './shared/module.type';
 
-export const USER_INVITES_MODULE = {
+export const USER_INVITES_MODULE: Module = {
   id: 'user-invites',
   name: 'MODULES.USER_INVITES',
   description: 'MODULES.USER_INVITES_DESCRIPTION',
@@ -16,7 +16,7 @@ export const USER_INVITES_MODULE = {
         {
           key: '/id',
           label: 'GENERAL.EMAIL',
-          pipe: ['custom'],
+          pipe: [PipeType.Custom],
           pipeArguments: {
             0: `id => '<a target="_blank" href="mailto:{{id}}">{{id}}</a>'`
           }
@@ -37,7 +37,7 @@ export const USER_INVITES_MODULE = {
         {
           key: '/acceptedOn',
           label: 'USER_INVITES.FIELDS.ACCEPTED_ON',
-          pipe: ['date'],
+          pipe: [PipeType.Date],
           fallback: 'No'
         }
       ]
