@@ -1,16 +1,14 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
+import {applyActionCode, Auth, checkActionCode, multiFactor, MultiFactorUser, PhoneAuthProvider, PhoneMultiFactorGenerator, RecaptchaVerifier, signOut} from '@angular/fire/auth';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import {notify} from '@shared/utils/notify.operator';
+import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 import {from, Subscription, throwError} from 'rxjs';
 import {catchError, switchMap, tap} from 'rxjs/operators';
 import {COUNTRIES} from '../../shared/consts/countries.const';
-import {notify} from '@shared/utils/notify.operator';
-import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 
 @UntilDestroy()
 @Component({
@@ -25,7 +23,7 @@ export class AuthenticationComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private afAuth: AngularFireAuth,
+    private auth: Auth,
     private dialog: MatDialog
   ) {
   }
@@ -37,8 +35,8 @@ export class AuthenticationComponent implements OnInit {
   oobCode: string;
   countries = COUNTRIES;
 
-  recaptcha: firebase.auth.RecaptchaVerifier;
-  mfa: firebase.User.MultiFactorUser;
+  recaptcha: RecaptchaVerifier;
+  mfa: MultiFactorUser;
   codeForm: FormGroup;
   prefix: string;
   confirmationResult: string;
@@ -65,13 +63,13 @@ export class AuthenticationComponent implements OnInit {
       .subscribe(code => {
         this.prefix = COUNTRIES.find(country => country.code === code).phonePrefix;
 
-        firebase.auth().languageCode = code;
+        this.auth.languageCode = code;
 
         if (!this.recaptcha) {
-          this.recaptcha = new firebase.auth.RecaptchaVerifier('mfa-submit', {
+          this.recaptcha = new RecaptchaVerifier('mfa-submit', {
             size: 'invisible',
             callback: () => this.submit()
-          });
+          }, this.auth);
 
           this.recaptcha.render();
         }
@@ -82,30 +80,27 @@ export class AuthenticationComponent implements OnInit {
 
   submit() {
     this.subscription = from(
-      this.afAuth.checkActionCode(this.oobCode)
+      checkActionCode(this.auth, this.oobCode)
     )
       .pipe(
         switchMap(() =>
-          this.afAuth.applyActionCode(this.oobCode)
-        ),
-        switchMap(() =>
-          this.afAuth.user
+          applyActionCode(this.auth, this.oobCode)
         ),
         switchMap(user => {
-          this.mfa = user.multiFactor;
+          this.mfa = multiFactor(this.auth.currentUser)
           return this.mfa.getSession();
         }),
         switchMap(session => {
 
           const {phone} = this.form.getRawValue();
 
-          const phoneAuthProvider = new firebase.auth.PhoneAuthProvider();
+          const phoneAuthProvider = new PhoneAuthProvider(this.auth);
           return phoneAuthProvider.verifyPhoneNumber({phoneNumber: this.prefix + phone, session}, this.recaptcha);
         }),
         catchError(e => {
           if (e.code === 'auth/requires-recent-login') {
             this.router.navigate(STATIC_CONFIG.loginRoute);
-            this.afAuth.signOut();
+            signOut(this.auth);
           }
 
           return throwError(() => e);
@@ -137,8 +132,8 @@ export class AuthenticationComponent implements OnInit {
   verify() {
     return () => {
       const {code} = this.codeForm.getRawValue();
-      const cred = firebase.auth.PhoneAuthProvider.credential(this.confirmationResult, code);
-      const multiFactorAssertion = firebase.auth.PhoneMultiFactorGenerator.assertion(cred);
+      const cred = PhoneAuthProvider.credential(this.confirmationResult, code);
+      const multiFactorAssertion = PhoneMultiFactorGenerator.assertion(cred);
 
       return from(
         this.mfa.enroll(multiFactorAssertion, 'Phone Number')

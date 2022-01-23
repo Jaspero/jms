@@ -1,22 +1,23 @@
 import {Injectable} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
+import {Auth} from '@angular/fire/auth';
 import {ActivatedRouteSnapshot, CanActivate, Router} from '@angular/router';
+import {notify} from '@shared/utils/notify.operator';
+import {verifyPasswordResetCode} from 'firebase/auth';
+import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 import {from, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import {notify} from '@shared/utils/notify.operator';
-import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 
 @Injectable()
 export class HasCodeGuard implements CanActivate {
   constructor(
     private router: Router,
-    private afAuth: AngularFireAuth
+    private auth: Auth
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot) {
     if (route.queryParams.oobCode) {
       return from(
-        this.afAuth.verifyPasswordResetCode(route.queryParams.oobCode)
+        verifyPasswordResetCode(this.auth, route.queryParams.oobCode)
       )
         .pipe(
           map(() => true),
