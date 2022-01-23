@@ -74,7 +74,7 @@ export interface ModuleLayoutTableAction {
   /**
    * item => web element
    */
-  value: string;
+  value: string | Function;
   authorization?: string[];
 
   /**
@@ -93,6 +93,7 @@ export interface ModuleLayoutTable {
   hideExport?: string[] | boolean;
   hideImport?: string[] | boolean;
   actions?: ModuleLayoutTableAction[];
+  selectionActions?: ModuleLayoutTableAction[];
 
   /**
    * True by default

@@ -1,7 +1,8 @@
 import {CREATED_ON} from './shared/created-on';
 import {EMAIL_PIPE} from './shared/email-pipe';
+import {FilterMethod, Module, PipeType} from './shared/module.type';
 
-export const USERS_MODULE = {
+export const USERS_MODULE: Module = {
   id: 'users',
   name: 'MODULES.USERS',
   description: 'MODULES.USERS_DESCRIPTION',
@@ -21,8 +22,8 @@ export const USERS_MODULE = {
           label: 'USERS.FILTERS.START_DATE',
           columnsDesktop: 6,
           filterKey: 'createdOn',
-          filterMethod: '>',
-          filterValuePipe: ['date'],
+          filterMethod: FilterMethod.GreaterThen,
+          filterValuePipe: [PipeType.Date],
           filterLabel: 'Start Date',
           component: {
             type: 'date',
@@ -34,9 +35,9 @@ export const USERS_MODULE = {
         end: {
           label: 'USERS.FILTERS.END_DATE',
           columnsDesktop: 6,
-          filterMethod: '<',
+          filterMethod: FilterMethod.LessThen,
           filterKey: 'createdOn',
-          filterValuePipe: ['date'],
+          filterValuePipe: [PipeType.Date],
           filterLabel: 'End Date',
           component: {
             type: 'date',
@@ -152,7 +153,7 @@ export const USERS_MODULE = {
           collection: 'roles',
           valueKey: 'id',
           clearValue: null,
-          searchBy: {
+          search: {
             key: '/name',
             label: 'Name'
           },

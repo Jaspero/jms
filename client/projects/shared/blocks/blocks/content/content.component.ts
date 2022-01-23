@@ -8,7 +8,6 @@ interface ContentOptions extends CommonOptions {
 }
 
 @Block({
-  id: 'content',
   label: 'PB.FORM.BLOCKS.CONTENT.TITLE',
   icon: 'subject',
   previewValue: {

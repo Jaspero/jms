@@ -1,12 +1,14 @@
+import {InstanceSort, PipeType} from './module.type';
+
 export const CREATED_ON = {
   sort: {
     active: 'createdOn',
     direction: 'desc'
-  },
+  } as InstanceSort,
   column: (sortable = true, format?: string) => ({
     key: '/createdOn',
     label: 'GENERAL.DATE',
-    pipe: ['date'],
+    pipe: [PipeType.Date],
     ...sortable && {sortable: true},
     ...format && {
       pipeArguments: {
@@ -16,7 +18,7 @@ export const CREATED_ON = {
   }),
   property: {
     createdOn: {type: 'number'}
-  },
+  } as any,
   definition: (
     id = 'createdOn',
     label = 'GENERAL.CREATED_ON',

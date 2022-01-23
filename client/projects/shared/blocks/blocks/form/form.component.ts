@@ -12,7 +12,6 @@ interface FormOptions extends CommonOptions {
 }
 
 @Block({
-  id: 'form',
   label: 'PB.FORM.BLOCKS.FORM.TITLE',
   icon: 'contact_mail',
   previewValue: {

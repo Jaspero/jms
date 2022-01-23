@@ -1,6 +1,16 @@
 import * as functions from 'firebase-functions';
 
-export const ENV_CONFIG = functions.config()[process.env.NODE_ENV === 'production' ? 'prod' : 'dev'] as {
+let config: any = functions.config();
+
+config = {
+  ...config,
+  ...config[process.env.NODE_ENV === 'production' ? 'prod' : 'dev']
+};
+
+delete config['prod'];
+delete config['dev'];
+
+export const ENV_CONFIG = config as {
   sendgrid?: {
     key: string;
   };

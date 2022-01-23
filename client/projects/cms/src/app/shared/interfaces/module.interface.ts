@@ -1,3 +1,8 @@
+import {FieldDefinitions as MatFieldDefinitions} from '@jaspero/fb-fields-mat';
+import {FieldsDefinition} from '@jaspero/fb-form-ui';
+import {MonacoDefinition} from '@jaspero/fb-monaco-editor';
+import {FieldDefinitions as PbFieldDefinitions} from '@jaspero/fb-page-builder';
+import {TinymceDefinition} from '@jaspero/fb-tinymce';
 import {State} from '@jaspero/form-builder';
 import {JSONSchema7} from 'json-schema';
 import {FilterModule} from './filter-module.interface';
@@ -39,7 +44,11 @@ export interface ComponentDefinition {
 }
 
 export interface ModuleDefinition {
-  component?: ComponentDefinition;
+  /**
+   * Any newly registered field modules
+   * need to be included here
+   */
+  component?: MatFieldDefinitions<''> | MonacoDefinition | TinymceDefinition | FieldsDefinition | PbFieldDefinitions;
   formatOnSave?: string;
   formatOnCreate?: string;
   formatOnEdit?: string;
@@ -48,8 +57,11 @@ export interface ModuleDefinition {
   hint?: string;
   defaultValue?: any;
   placeholder?: string;
-  onlyOn?: State;
-  disableOn?: State;
+  onlyOn?: State | string;
+  disableOn?: State | string;
+
+  columnsDesktop?: number;
+  columnsMobile?: number;
 }
 
 export interface ModuleDefinitions {
@@ -58,10 +70,10 @@ export interface ModuleDefinitions {
 
 export interface Module {
   id: string;
-  createdOn: number;
+  createdOn?: number;
   name: string;
-  order: number;
-  description: string;
+  order?: number;
+  description?: string;
   schema: JSONSchema7;
   layout?: ModuleLayout;
   definitions?: ModuleDefinitions;

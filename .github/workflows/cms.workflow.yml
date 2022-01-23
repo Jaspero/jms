@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - main
     paths:
       - 'client/projects/cms/**/*'
       - '.github/workflows/cms.workflow.yml'
@@ -11,6 +11,8 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    env: 
+      project: 'jaspero-jms'
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -29,4 +31,4 @@ jobs:
           args: deploy --only hosting:cms
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_ID: 'jaspero-jms'
+          PROJECT_ID: ${{ env.project }}

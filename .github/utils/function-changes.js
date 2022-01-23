@@ -6,7 +6,8 @@ const madge = require('madge');
 const includedFolders = [
   {f: 'callable', p: 'cms'},
   {f: 'triggers', p: 'cms'},
-  {f: 'rest', p: 'cms'}
+  {f: 'rest', p: 'cms'},
+  {f: 'standalone', p: ''}
 ];
 
 const camelize = s => s.replace(/-./g, x => x.toUpperCase()[1]);
