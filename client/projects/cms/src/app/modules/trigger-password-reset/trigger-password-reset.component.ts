@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
+import {Auth, sendPasswordResetEmail} from '@angular/fire/auth';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {notify} from '@shared/utils/notify.operator';
 import {from} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../environments/static-config';
-import {notify} from '@shared/utils/notify.operator';
 
 @Component({
   selector: 'jms-trigger-password-reset',
@@ -17,7 +17,7 @@ export class TriggerPasswordResetComponent implements OnInit {
   constructor(
     public router: Router,
     private fb: FormBuilder,
-    private afAuth: AngularFireAuth
+    private auth: Auth
   ) {
   }
 
@@ -38,7 +38,8 @@ export class TriggerPasswordResetComponent implements OnInit {
   reset() {
     return () =>
       from(
-        this.afAuth.sendPasswordResetEmail(
+        sendPasswordResetEmail(
+          this.auth,
           this.form.get('email').value,
           {
             url: `${location.origin}/reset-password`

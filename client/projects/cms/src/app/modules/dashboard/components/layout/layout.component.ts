@@ -1,9 +1,11 @@
 import {ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
+import {Auth, authState, signOut, updatePassword} from '@angular/fire/auth';
 import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {safeEval} from '@jaspero/utils';
+import {notify} from '@shared/utils/notify.operator';
+import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
 import firebase from 'firebase/app';
 import {from, Observable, throwError} from 'rxjs';
 import {catchError, map, switchMap, take, tap} from 'rxjs/operators';
@@ -12,8 +14,6 @@ import {NavigationItemType} from '../../../../shared/enums/navigation-item-type.
 import {NavigationItemWithActive} from '../../../../shared/interfaces/navigation-item-with-active.interface';
 import {DbService} from '../../../../shared/services/db/db.service';
 import {StateService} from '../../../../shared/services/state/state.service';
-import {notify} from '@shared/utils/notify.operator';
-import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
 import {SpotlightComponent} from '../spotlight/spotlight.component';
 
 @Component({
@@ -25,7 +25,7 @@ import {SpotlightComponent} from '../spotlight/spotlight.component';
 export class LayoutComponent implements OnInit {
   constructor(
     public state: StateService,
-    private afAuth: AngularFireAuth,
+    private auth: Auth,
     private router: Router,
     private dialog: MatDialog,
     private fb: FormBuilder,
@@ -70,7 +70,7 @@ export class LayoutComponent implements OnInit {
       }
     });
 
-    this.currentUser$ = this.afAuth.user;
+    this.currentUser$ = authState(this.auth);
 
     if (this.state.user.requireReset) {
 
@@ -167,7 +167,7 @@ export class LayoutComponent implements OnInit {
   }
 
   logOut() {
-    this.afAuth.signOut()
+    signOut(this.auth)
       .then(() =>
         this.router.navigate(STATIC_CONFIG.loginRoute)
       );
@@ -176,9 +176,7 @@ export class LayoutComponent implements OnInit {
   changePassword() {
     return () =>
       from(
-        firebase.auth()
-          .currentUser
-          .updatePassword(this.resetPassword.get('password').value)
+        updatePassword(this.auth.currentUser, this.resetPassword.get('password').value)
       )
         .pipe(
           catchError(err => {
@@ -186,11 +184,7 @@ export class LayoutComponent implements OnInit {
 
             if (err.code === 'auth/requires-recent-login') {
               message = 'For security reasons please login to your account again before changing your password.';
-              firebase.auth()
-                .signOut()
-                .then(() =>
-                  this.router.navigate(STATIC_CONFIG.loginRoute)
-                );
+              this.logOut();
             }
 
             return throwError(() => ({

@@ -18,8 +18,9 @@ import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
 import {Router} from '@angular/router';
 import {Definitions, Parser, State} from '@jaspero/form-builder';
-import {parseTemplate, safeEval} from '@jaspero/utils';
+import {parseTemplate, random, safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {notify} from '@shared/utils/notify.operator';
 import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';
 import {AsyncSubject, BehaviorSubject, combineLatest, Observable, of, ReplaySubject, Subject} from 'rxjs';
@@ -38,7 +39,6 @@ import {SearchModule} from '../../shared/interfaces/search-module.interface';
 import {SortModule} from '../../shared/interfaces/sort-module.interface';
 import {DbService} from '../../shared/services/db/db.service';
 import {StateService} from '../../shared/services/state/state.service';
-import {notify} from '@shared/utils/notify.operator';
 import {processActions} from '../../shared/utils/process-actions';
 
 interface TableData {
@@ -161,7 +161,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         const topLevelProperties = Object.keys(data.schema.properties || {});
 
         displayColumns = topLevelProperties.reduce((acc, key) => {
-          acc.push(key || this.dbService.createId());
+          acc.push(key || random.string(12));
           return acc;
         }, []);
         tableColumns = topLevelProperties.map(key => ({
@@ -338,7 +338,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         ? safeEval(column.tooltip as string)
         : column.tooltip;
 
-      displayColumns.push(this.dbService.createId());
+      displayColumns.push(random.string(12));
       tableColumns.push({
         ...column,
         ...(tooltip && {

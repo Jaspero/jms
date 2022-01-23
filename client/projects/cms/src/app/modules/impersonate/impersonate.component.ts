@@ -1,8 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
+import {Auth, setPersistence, signInWithCustomToken} from '@angular/fire/auth';
 import {ActivatedRoute, Router} from '@angular/router';
-import firebase from 'firebase/app';
-import 'firebase/auth';
 import {from} from 'rxjs';
 import {switchMap, tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../environments/static-config';
@@ -16,7 +14,7 @@ import {STATIC_CONFIG} from '../../../environments/static-config';
 export class ImpersonateComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
-    private afAuth: AngularFireAuth,
+    private auth: Auth,
     private router: Router
   ) { }
 
@@ -28,11 +26,11 @@ export class ImpersonateComponent implements OnInit {
     }
 
     from(
-      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+      setPersistence(this.auth, 'SESSION' as any)
     )
       .pipe(
         switchMap(() =>
-          this.afAuth.signInWithCustomToken(token)
+          signInWithCustomToken(this.auth, token)
         ),
         tap(() =>
           this.router.navigate(STATIC_CONFIG.dashboardRoute)

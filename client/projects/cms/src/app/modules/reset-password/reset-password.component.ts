@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
+import {Auth, confirmPasswordReset} from '@angular/fire/auth';
 import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
+import {notify} from '@shared/utils/notify.operator';
+import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
 import {from} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../environments/static-config';
-import {notify} from '@shared/utils/notify.operator';
-import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
 
 @Component({
   selector: 'jms-reset-password',
@@ -19,7 +19,7 @@ export class ResetPasswordComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private afAuth: AngularFireAuth
+    private auth: Auth
   ) {
   }
 
@@ -46,7 +46,8 @@ export class ResetPasswordComponent implements OnInit {
   reset() {
     return () =>
       from(
-        this.afAuth.confirmPasswordReset(
+        confirmPasswordReset(
+          this.auth,
           this.code,
           this.form.get('password').value
         )

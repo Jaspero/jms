@@ -8,17 +8,16 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
+import {Auth, authState, FacebookAuthProvider, GoogleAuthProvider, MultiFactorResolver, PhoneAuthProvider, PhoneMultiFactorGenerator, RecaptchaVerifier, setPersistence, signInWithEmailAndPassword, signInWithPopup} from '@angular/fire/auth';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {UntilDestroy} from '@ngneat/until-destroy';
-import firebase from 'firebase/app';
+import {notify} from '@shared/utils/notify.operator';
 import {from, of, throwError} from 'rxjs';
 import {catchError, filter, switchMap, tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../environments/static-config';
 import {StateService} from '../../shared/services/state/state.service';
-import {notify} from '@shared/utils/notify.operator';
 
 @UntilDestroy({checkProperties: true})
 @Component({
@@ -30,7 +29,7 @@ import {notify} from '@shared/utils/notify.operator';
 export class LoginComponent implements OnInit {
   constructor(
     public router: Router,
-    public afAuth: AngularFireAuth,
+    public auth: Auth,
     public fb: FormBuilder,
     private state: StateService,
     private dialog: MatDialog,
@@ -48,12 +47,11 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   staticConfig = STATIC_CONFIG;
   codeForm: FormGroup;
-  resolver: firebase.auth.MultiFactorResolver;
-  verifier: firebase.auth.RecaptchaVerifier;
+  resolver: MultiFactorResolver;
+  verifier: RecaptchaVerifier;
   verificationState: string;
   verificationId: string;
   deviceForm: FormGroup;
-  auth: firebase.auth.Auth;
 
   errorMap = {
     'auth/wrong-password': 'LOGIN.ERROR_MESSAGE',
@@ -62,16 +60,13 @@ export class LoginComponent implements OnInit {
   };
 
   ngOnInit() {
-
-    this.auth = firebase.auth();
-
     /**
      * Makes sure roles aren't preserved
      * between logout/login
      */
     this.state.role = null;
 
-    this.afAuth.user
+    authState(this.auth)
       .pipe(
         filter(user => !!user)
       )
@@ -94,7 +89,7 @@ export class LoginComponent implements OnInit {
     this.setPersistance()
       .pipe(
         switchMap(() =>
-          this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+          signInWithPopup(this.auth, new GoogleAuthProvider())
         )
       )
       .subscribe(
@@ -112,7 +107,7 @@ export class LoginComponent implements OnInit {
     this.setPersistance()
       .pipe(
         switchMap(() =>
-          this.afAuth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
+          signInWithPopup(this.auth, new FacebookAuthProvider())
         )
       )
       .subscribe(
@@ -132,7 +127,8 @@ export class LoginComponent implements OnInit {
       return this.setPersistance().pipe(
         switchMap(() =>
           from(
-            this.afAuth.signInWithEmailAndPassword(
+            signInWithEmailAndPassword(
+              this.auth,
               data.emailLogin,
               data.passwordLogin
             )
@@ -165,8 +161,8 @@ export class LoginComponent implements OnInit {
 
       return from(
         this.resolver.resolveSignIn(
-          firebase.auth.PhoneMultiFactorGenerator.assertion(
-            firebase.auth.PhoneAuthProvider.credential(this.verificationId, code)
+          PhoneMultiFactorGenerator.assertion(
+            PhoneAuthProvider.credential(this.verificationId, code)
           )
         )
       )
@@ -191,12 +187,13 @@ export class LoginComponent implements OnInit {
   }
 
   private setPersistance() {
-    return from(this.auth.setPersistence(
-      firebase.auth.Auth.Persistence[this.loginForm.get('remember').value ? 'LOCAL' : 'SESSION']
+    return from(setPersistence(
+      this.auth,
+      this.loginForm.get('remember').value ? 'LOCAL' : 'SESSION' as any
     ))
   }
 
-  private openMfa(resolver: firebase.auth.MultiFactorResolver) {
+  private openMfa(resolver: MultiFactorResolver) {
 
     this.resolver = resolver;
     this.verificationState = 'select';
@@ -213,7 +210,7 @@ export class LoginComponent implements OnInit {
     )
       .afterOpened()
       .subscribe(() => {
-        this.verifier = new firebase.auth.RecaptchaVerifier('mfa-submit', {
+        this.verifier = new RecaptchaVerifier('mfa-submit', {
           size: 'invisible',
           callback: () => {
             this.codeForm = this.fb.group({
@@ -223,7 +220,7 @@ export class LoginComponent implements OnInit {
             const {device} = this.deviceForm.getRawValue();
 
             const verify = () => from(
-              new firebase.auth.PhoneAuthProvider()
+              new PhoneAuthProvider(this.auth)
                 .verifyPhoneNumber(
                   {
                     multiFactorHint: this.resolver.hints.find(hint => hint.uid === device),
@@ -248,7 +245,7 @@ export class LoginComponent implements OnInit {
                 });
               });
           }
-        });
+        }, this.auth);
 
         this.verifier.render();
       });
