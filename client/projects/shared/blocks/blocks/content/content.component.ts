@@ -50,7 +50,4 @@ interface ContentOptions extends CommonOptions {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContentComponent extends CommonBlockComponent {
-  @Input()
-  data: ContentOptions;
-}
+export class ContentComponent extends CommonBlockComponent<ContentOptions> {}

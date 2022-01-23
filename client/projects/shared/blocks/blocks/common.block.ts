@@ -1,83 +1,42 @@
-import {Component, ElementRef, HostBinding, Input} from '@angular/core';
-import {OnChange} from '@jaspero/ng-helpers';
-import {background} from '../utils/background';
+import {ChangeDetectorRef, Component, ElementRef, HostBinding} from '@angular/core';
+import {BlockData, BlockDataOptions} from '@jaspero/fb-page-builder';
 
-export interface CommonOptions {
+export interface CommonOptions extends BlockDataOptions {
+  elementId?: string;
   size?: 'small' | 'regular' | 'large' | 'full-screen';
   verticalAlignment?: 'top' | 'center' | 'bottom';
-  backgroundRepeat?: boolean;
-  backgroundSize?: 'cover' | 'contain';
-  background?: string;
   contained?: boolean;
-  additionalStyle?: string;
+  addedClasses?: string[];
 }
 
 @Component({
   selector: 'jms-common-block',
   template: ''
 })
-export class CommonBlockComponent {
+export class CommonBlockComponent<T extends CommonOptions> extends BlockData<T> {
   constructor(
+    public cdr: ChangeDetectorRef,
     public el: ElementRef
   ) {
+    super(cdr, el);
   }
 
-  @OnChange(function() {
-    this.triggerChange();
-  })
-  @Input()
-  data: CommonOptions;
-
-  styleEl: HTMLStyleElement;
-  additionalStyle: string;
+  @HostBinding('id')
+  get elementId() {
+    return this.data.elementId || '';
+  }
 
   get addedClasses() {
-    return [];
+    return this.data.addedClasses || [];
   }
 
   @HostBinding('class')
   get classes() {
     return [
-      'block',
-      `b-size-${this.data.size || 'regular'}`,
       `b-va-${this.data.verticalAlignment || 'center'}`,
+      `b-size-${this.data.size || 'regular'}`,
       ...this.data.contained ? ['contained'] : [],
-      ...this.addedClasses
+      ...super.classes
     ];
-  }
-
-  @HostBinding('style')
-  get style() {
-
-    const styles: {[key: string]: string} = background(this.data);
-
-    let final = '';
-
-    // tslint:disable-next-line:forin
-    for (const key in styles) {
-      final += `${key}:${styles[key]};`;
-    }
-
-    return final;
-  }
-
-  triggerChange() {
-    if (
-      this.styleEl &&
-      (
-        !this.data.additionalStyle ||
-        (this.additionalStyle !== this.data.additionalStyle)
-      )
-    ) {
-      this.additionalStyle = '';
-      this.el.nativeElement.removeChild(this.styleEl);
-    }
-
-    if (this.data.additionalStyle) {
-      this.styleEl = document.createElement('style');
-      this.additionalStyle = this.data.additionalStyle;
-      this.styleEl.innerHTML = this.additionalStyle;
-      this.el.nativeElement.appendChild(this.styleEl);
-    }
   }
 }

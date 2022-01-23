@@ -29,7 +29,7 @@
     "@angular/router": "12.1.0",
     "@jaspero/fb-form-ui": "2.5.1",
     "@jaspero/fb-monaco-editor": "2.5.0",
-    "@jaspero/fb-page-builder": "3.18.0",
+    "@jaspero/fb-page-builder": "3.19.1",
     "@jaspero/fb-tinymce": "2.5.0",
     "@monaco-editor/loader": "1.1.0",
     "@jaspero/form-builder": "5.2.1",

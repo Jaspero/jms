@@ -7,14 +7,15 @@ export const COMMON_OPTIONS: {
 } & any = {
   properties: {
     size: {type: 'string'},
+    elementId: {type: 'string'},
     contained: {type: 'boolean'},
-    background: {type: 'string'},
     verticalAlignment: {type: 'string'},
-    additionalStyle: {type: 'string'},
-    backgroundRepeat: {type: 'boolean'},
+    addedClasses: {type: 'array'},
+    box: {type: 'object'},
+    background: {type: 'string'},
     backgroundSize: {type: 'string'},
-    customClass: {type: 'string'},
-    elementId: {type: 'string'}
+    backgroundRepeat: {type: 'boolean'},
+    backgroundPosition: {type: 'string'}
   },
   segment: [
     {
@@ -25,20 +26,17 @@ export const COMMON_OPTIONS: {
         {
           title: 'PB.FORM.BLOCKS.SHARED.STANDARD_OPTIONS',
           fields: [
+            '/box',
             '/size',
             '/verticalAlignment',
             '/background',
-
-            // TODO: Show only when background is url
-            '/backgroundRepeat',
-            '/backgroundSize',
             '/contained'
           ]
         },
         {
           title: 'PB.FORM.BLOCKS.SHARED.ADVANCED_OPTIONS',
           fields: [
-            '/customClass',
+            '/addedClasses',
             '/elementId',
             '/additionalStyle'
           ]
@@ -62,22 +60,52 @@ export const COMMON_OPTIONS: {
       }
     },
     contained: {label: 'PB.FORM.BLOCKS.SHARED.CONTAINED'},
-    background: {label: 'PB.FORM.BLOCKS.SHARED.BACKGROUND'},
-    backgroundRepeat: {label: 'PB.FORM.BLOCKS.SHARED.BACKGROUND_REPEAT'},
-    customClass: {label: 'PB.FORM.BLOCKS.SHARED.CUSTOM_CLASS'},
-    elementId: {label: 'PB.FORM.BLOCKS.SHARED.ELEMENT_ID'},
-    backgroundSize: {
-      label: 'PB.FORM.BLOCKS.SHARED.BACKGROUND_SIZE',
+    box: {
       component: {
-        type: 'select',
+        type: 'pb-mbp',
         configuration: {
-          dataSet: [
-            {name: 'PB.FORM.BLOCKS.SHARED.BACKGROUND_SIZE_COVER', value: 'cover'},
-            {name: 'PB.FORM.BLOCKS.SHARED.BACKGROUND_SIZE_CONTAIN', value: 'regular'},
-          ]
+          presets: {
+            margin: [
+              {
+                name: 'Small',
+                sides: {
+                  top: {size: 10, unit: 'px'},
+                  right: {size: 10, unit: 'px'},
+                  left: {size: 10, unit: 'px'},
+                  bottom: {size: 10, unit: 'px'},
+                }
+              },
+              {
+                name: 'Medium',
+                sides: {
+                  top: {size: 20, unit: 'px'},
+                  right: {size: 20, unit: 'px'},
+                  left: {size: 20, unit: 'px'},
+                  bottom: {size: 20, unit: 'px'},
+                }
+              },
+              {
+                name: 'Large',
+                sides: {
+                  top: {size: 30, unit: 'px'},
+                  right: {size: 30, unit: 'px'},
+                  left: {size: 30, unit: 'px'},
+                  bottom: {size: 30, unit: 'px'},
+                }
+              }
+            ]
+          }
         }
       }
     },
+    background: {
+      label: 'PB.FORM.BLOCKS.SHARED.BACKGROUND',
+      component: {
+        type: 'pb-background'
+      }
+    },
+    addedClasses: {label: 'PB.FORM.BLOCKS.SHARED.CUSTOM_CLASS'},
+    elementId: {label: 'PB.FORM.BLOCKS.SHARED.ELEMENT_ID'},
     verticalAlignment: {
       label: 'PB.FORM.BLOCKS.SHARED.VERTICAL_ALIGNMENT',
       component: {
@@ -117,12 +145,12 @@ export const COMMON_OPTIONS: {
   },
   defaults: {
     size: 'regular',
-    margin: 'none',
     contained: true,
-    backgroundRepeat: false,
     verticalAlignment: 'center',
-    backgroundSize: 'contain',
+    additionalStyle: '',
     background: '',
-    additionalStyle: ''
+    backgroundRepeat: false,
+    backgroundSize: 'contain',
+    backgroundPosition: 'center'
   }
 };

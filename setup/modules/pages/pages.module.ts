@@ -1,9 +1,10 @@
 import {CREATED_ON} from '../shared/created-on';
 import {FORMAT_SEARCH} from '../shared/format-search';
 import {META} from '../shared/meta';
+import {Module} from '../shared/module.type';
 import {PROCESSED} from './processed.const';
 
-export const PAGES_MODULE = {
+export const PAGES_MODULE: Module = {
   id: 'pages',
   name: 'MODULES.PAGES',
   authorization: {
