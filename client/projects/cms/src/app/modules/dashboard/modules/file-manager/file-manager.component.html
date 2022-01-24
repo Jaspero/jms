@@ -127,79 +127,94 @@
 </section>
 
 <ng-template #metadata let-data>
-  <h1>{{data.name}}</h1>
+  <h4 mat-dialog-title>{{data.name}}</h4>
 
-  <fb-form-builder [data]="data.fb"></fb-form-builder>
+  <form>
+    <mat-dialog-content>
+      <fb-form-builder #fB [data]="data.fb"></fb-form-builder>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="jc-end">
+      <button mat-raised-button color="primary" [disabled]="fB.form.invalid">
+        Update
+      </button>
+    </mat-dialog-actions>
+  </form>
 </ng-template>
 
 <ng-template #newFolder let-data>
-  <h1>Create a New Folder</h1>
+  <h4 mat-dialog-title>Create a New Folder</h4>
 
   <form [formGroup]="data.form">
-    <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Name</mat-label>
-      <input matInput formControlName="name">
-    </mat-form-field>
-  </form>
+    <mat-dialog-content>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+    </mat-dialog-content>
 
-  <div class="w-full flex jc-end m-t-m">
-    <button mat-raised-button color="primary" (click)="createNewFolder(data.form)" [disabled]="data.form.invalid">
-      Create
-    </button>
-  </div>
+    <mat-dialog-actions class="jc-end">
+      <button mat-raised-button color="primary" (click)="createNewFolder(data.form)" [disabled]="data.form.invalid">
+        Create
+      </button>
+    </mat-dialog-actions>
+  </form>
 </ng-template>
 
 <ng-template #upload let-data>
-  <h1>Upload File</h1>
+  <h4 mat-dialog-title>Upload File</h4>
 
   <input #file type="file" multiple hidden (change)="fileChange(data.form)">
 
   <form [formGroup]="data.form" class="m-t-m">
-    <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Folder</mat-label>
-      <input matInput formControlName="route" [readOnly]="data.form.get('uploadTask').value" [matAutocomplete]="auto" />
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let folder of filteredFolders$ | async" [value]="folder">
-          {{folder}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+    <mat-dialog-content>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Folder</mat-label>
+        <input matInput formControlName="route" [readOnly]="data.form.get('uploadTask').value" [matAutocomplete]="auto" />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let folder of filteredFolders$ | async" [value]="folder">
+            {{folder}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Files</mat-label>
+        <input matInput type="url" readonly formControlName="file" />
+        <div matSuffix>
+          <button mat-icon-button>
+            <mat-icon (click)="openFileUpload()">attach_file</mat-icon>
+          </button>
+        </div>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Files</mat-label>
-      <input matInput type="url" readonly formControlName="file" />
-      <div matSuffix>
-        <button mat-icon-button>
-          <mat-icon (click)="openFileUpload()">attach_file</mat-icon>
+      <div *ngIf="uploadProgress$ | async as progress" class="w-full flex ai-center">
+        <mat-progress-bar class="flex-1" mode="determinate" color="accent" [value]="progress"></mat-progress-bar>
+        <b>{{progress}} %</b>
+      </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="jc-end">
+      <div class="m-r-m" *ngIf="data.form.get('uploadTask').value && !data.form.get('paused').value">
+        <button mat-raised-button (click)="pauseDownload(data.form)">
+          Pause
         </button>
       </div>
-    </mat-form-field>
+      <div class="m-r-m" *ngIf="data.form.get('uploadTask').value && data.form.get('paused').value">
+        <button mat-raised-button (click)="resumeDownload(data.form)">
+          Resume
+        </button>
+      </div>
+      <div class="m-r-m" *ngIf="data.form.get('uploadTask').value">
+        <button mat-raised-button (click)="cancelDownload(data.form)" color="accent">
+          Cancel
+        </button>
+      </div>
+      <div>
+        <button mat-raised-button (click)="startUpload(data.form)" color="primary" [disabled]="!file.files.length || !!data.form.get('uploadTask').value">
+          Upload
+        </button>
+      </div>
+    </mat-dialog-actions>
   </form>
-  <div *ngIf="uploadProgress$ | async as progress" class="w-full flex ai-center">
-    <mat-progress-bar class="flex-1" mode="determinate" color="accent" [value]="progress"></mat-progress-bar>
-    <b>{{progress}} %</b>
-  </div>
-
-  <div class="w-full flex jc-end m-t-m">
-    <div class="m-r-m" *ngIf="data.form.get('uploadTask').value && !data.form.get('paused').value">
-      <button mat-raised-button (click)="pauseDownload(data.form)">
-        Pause
-      </button>
-    </div>
-    <div class="m-r-m" *ngIf="data.form.get('uploadTask').value && data.form.get('paused').value">
-      <button mat-raised-button (click)="resumeDownload(data.form)">
-        Resume
-      </button>
-    </div>
-    <div class="m-r-m" *ngIf="data.form.get('uploadTask').value">
-      <button mat-raised-button (click)="cancelDownload(data.form)" color="accent">
-        Cancel
-      </button>
-    </div>
-    <div>
-      <button mat-raised-button (click)="startUpload(data.form)" color="primary" [disabled]="!file.files.length || !!data.form.get('uploadTask').value">
-        Upload
-      </button>
-    </div>
-  </div>
 </ng-template>

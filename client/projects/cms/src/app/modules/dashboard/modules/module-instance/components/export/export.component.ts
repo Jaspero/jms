@@ -1,9 +1,11 @@
 import {HttpClient} from '@angular/common/http';
 import {ChangeDetectionStrategy, Component, Inject, TemplateRef, ViewChild} from '@angular/core';
+import {Auth, getIdToken} from '@angular/fire/auth';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef} from '@angular/material/bottom-sheet';
+import {MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA} from '@angular/material/bottom-sheet';
 import {MatDialog} from '@angular/material/dialog';
 import {TranslocoService} from '@ngneat/transloco';
+import {notify} from '@shared/utils/notify.operator';
 import {saveAs} from 'file-saver';
 import firebase from 'firebase/app';
 import {from} from 'rxjs';
@@ -12,7 +14,6 @@ import {FilterModule} from '../../../../../../shared/interfaces/filter-module.in
 import {InstanceSort} from '../../../../../../shared/interfaces/instance-sort.interface';
 import {ModuleLayoutTableColumn} from '../../../../../../shared/interfaces/module-layout-table.interface';
 import {DbService} from '../../../../../../shared/services/db/db.service';
-import {notify} from '@shared/utils/notify.operator';
 import {queue} from '../../../../../../shared/utils/queue.operator';
 import {ColumnOrganizationComponent} from '../column-organization/column-organization.component';
 
@@ -46,7 +47,8 @@ export class ExportComponent {
     private dialog: MatDialog,
     private db: DbService,
     private fb: FormBuilder,
-    private transloco: TranslocoService
+    private transloco: TranslocoService,
+    private auth: Auth
   ) {
   }
 
@@ -104,7 +106,7 @@ export class ExportComponent {
       }));
 
       return from(
-        firebase.auth().currentUser.getIdToken()
+        getIdToken(this.auth.currentUser)
       )
         .pipe(
           switchMap(token =>

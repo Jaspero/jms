@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {collection, collectionGroup, CollectionReference, collectionSnapshots, deleteDoc, doc, docData, Firestore, getDoc, getDocs, getDocsFromCache, getDocsFromServer, limit, orderBy, query, setDoc, startAfter, where} from '@angular/fire/firestore';
+import {collection, collectionChanges, collectionGroup, deleteDoc, doc, docData, Firestore, getDoc, getDocs, getDocsFromCache, getDocsFromServer, limit, orderBy, query, setDoc, startAfter, where} from '@angular/fire/firestore';
 import {Functions, httpsCallableData} from '@angular/fire/functions';
 import {from, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -8,8 +8,6 @@ import {WhereFilter} from '../../src/app/shared/interfaces/where-filter.interfac
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
 import {STATIC_CONFIG} from '../../src/environments/static-config';
-
-type FilterFunction = (ref: CollectionReference) => CollectionReference;
 
 @Injectable()
 export class FbDatabaseService extends DbService {
@@ -71,7 +69,7 @@ export class FbDatabaseService extends DbService {
     filters?: WhereFilter[],
     collectionGroup?
   ) {
-    return collectionSnapshots(
+    return collectionChanges(
       this.collection(
         moduleId,
         pageSize,
@@ -94,7 +92,7 @@ export class FbDatabaseService extends DbService {
           this.firestore,
           moduleId,
           documentId
-        ),
+        ) as any,
         {idField: 'id'}
       )
     }
@@ -122,8 +120,11 @@ export class FbDatabaseService extends DbService {
       getDocs(
         query(
           collection(this.firestore, moduleId),
-          order && orderBy(order),
-          filter && where(filter.key, filter.operator, filter.value)
+          ...[
+            order && orderBy(order),
+            filter && where(filter.key, filter.operator, filter.value)
+          ]
+            .filter(it => it)
         )
       )
     )
@@ -142,8 +143,11 @@ export class FbDatabaseService extends DbService {
       getDocs(
         query(
           collectionGroup(this.firestore, moduleId),
-          order && orderBy(order),
-          filter && where(filter.key, filter.operator, filter.value)
+          ...[
+            order && orderBy(order),
+            filter && where(filter.key, filter.operator, filter.value)
+          ]
+            .filter(it => it)
         )
       )
     )
@@ -208,7 +212,8 @@ export class FbDatabaseService extends DbService {
       ...(filters ? filters : []),
       pageSize && limit(pageSize),
       cursor && startAfter(cursor)
-    ];
+    ]
+      .filter(it => it);
 
     if (collectionGroup) {
 
