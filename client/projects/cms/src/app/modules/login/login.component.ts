@@ -8,7 +8,7 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import {Auth, authState, FacebookAuthProvider, GoogleAuthProvider, MultiFactorResolver, PhoneAuthProvider, PhoneMultiFactorGenerator, RecaptchaVerifier, setPersistence, signInWithEmailAndPassword, signInWithPopup} from '@angular/fire/auth';
+import {Auth, authState, browserLocalPersistence, browserSessionPersistence, FacebookAuthProvider, GoogleAuthProvider, MultiFactorResolver, PhoneAuthProvider, PhoneMultiFactorGenerator, RecaptchaVerifier, setPersistence, signInWithEmailAndPassword, signInWithPopup} from '@angular/fire/auth';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
@@ -189,7 +189,7 @@ export class LoginComponent implements OnInit {
   private setPersistance() {
     return from(setPersistence(
       this.auth,
-      this.loginForm.get('remember').value ? 'LOCAL' : 'SESSION' as any
+      this.loginForm.get('remember').value ? browserLocalPersistence : browserSessionPersistence
     ))
   }
 

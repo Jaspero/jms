@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Auth, signOut} from '@angular/fire/auth';
+import {Auth, authState, getIdTokenResult, signOut} from '@angular/fire/auth';
 import {CanActivate, Router} from '@angular/router';
 import {TranslocoService} from '@ngneat/transloco';
 import {notify} from '@shared/utils/notify.operator';
 import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
-import {from, Observable, of, throwError} from 'rxjs';
+import {Observable, of, throwError} from 'rxjs';
 import {catchError, map, switchMap, take} from 'rxjs/operators';
 import {FirestoreCollection} from '../../../../../integrations/firebase/firestore-collection.enum';
 import {DbService} from '../../services/db/db.service';
@@ -29,13 +29,11 @@ export class HasClaimGuard implements CanActivate {
       return of(true);
     }
 
-    from(
-      this.auth.currentUser.getIdTokenResult()
-    )
+    return authState(this.auth)
       .pipe(
         take(1),
-        switchMap((data) => {
-
+        switchMap(user => getIdTokenResult(user)),
+        switchMap(data => {
           /**
            * It's assumed that any user with a role claim
            * is allowed to access tha dashboard
@@ -55,9 +53,7 @@ export class HasClaimGuard implements CanActivate {
           this.state.user = user;
           return true;
         }),
-        catchError((e) =>
-          this.signOut(e)
-        ),
+        catchError(e => this.signOut(e)),
         notify({
           showThrownError: true,
           success: false

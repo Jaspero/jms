@@ -203,18 +203,18 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
                 tap(snaps => {
                   snaps.forEach(snap => {
                     const index = snapshots.findIndex(
-                      sp => sp.id === snap.payload.doc.id
+                      sp => sp.id === snap.doc.id
                     );
 
                     switch (snap.type) {
                       case 'added':
                         if (index === -1) {
-                          snapshots.push(snap.payload.doc);
+                          snapshots.push(snap.doc);
                         }
                         break;
                       case 'modified':
                         if (index !== -1) {
-                          snapshots[index] = snap.payload.doc;
+                          snapshots[index] = snap.doc;
                         }
                         break;
                       case 'removed':

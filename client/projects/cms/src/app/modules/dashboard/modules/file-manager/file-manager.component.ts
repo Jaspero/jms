@@ -9,16 +9,17 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
+import {getDownloadURL, getMetadata} from '@angular/fire/storage';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {formatFileName} from '@jaspero/form-builder';
 import {safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {notify} from '@shared/utils/notify.operator';
 import {BehaviorSubject, combineLatest, Observable, of, Subscription, throwError} from 'rxjs';
 import {map, scan, shareReplay, startWith, switchMap, tap} from 'rxjs/operators';
 import {Color} from '../../../../shared/enums/color.enum';
 import {confirmation} from '../../../../shared/utils/confirmation';
-import {notify} from '@shared/utils/notify.operator';
 import {FileManagerService} from './file-manager.service';
 
 @UntilDestroy()
@@ -89,8 +90,8 @@ export class FileManagerComponent implements OnInit, OnDestroy {
         return Promise.all([
           Promise.all(
             response.items.map(async item => {
-              const metadata = await item.getMetadata();
-              const downloadLink = await item.getDownloadURL();
+              const metadata = await getMetadata(item);
+              const downloadLink = await getDownloadURL(item);
               return {
                 name: item.name,
                 type: 'file',
