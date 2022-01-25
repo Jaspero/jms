@@ -8,10 +8,11 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import {Auth, authState, browserLocalPersistence, browserSessionPersistence, FacebookAuthProvider, GoogleAuthProvider, MultiFactorResolver, PhoneAuthProvider, PhoneMultiFactorGenerator, RecaptchaVerifier, setPersistence, signInWithEmailAndPassword, signInWithPopup} from '@angular/fire/auth';
+import {Auth, authState, FacebookAuthProvider, getMultiFactorResolver, GoogleAuthProvider, MultiFactorResolver, PhoneAuthProvider, PhoneMultiFactorGenerator, RecaptchaVerifier, signInWithEmailAndPassword, signInWithPopup} from '@angular/fire/auth';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
+import {browserLocalPersistence, browserSessionPersistence, MultiFactorError, setPersistence} from '@firebase/auth';
 import {UntilDestroy} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
 import {from, of, throwError} from 'rxjs';
@@ -92,14 +93,13 @@ export class LoginComponent implements OnInit {
           signInWithPopup(this.auth, new GoogleAuthProvider())
         )
       )
-      .subscribe(
-        () => {},
-        e => {
+      .subscribe({
+        error: e => {
           if (e.code === 'auth/multi-factor-auth-required') {
-            this.openMfa(e.resolver);
+            this.openMfa(e);
           }
         }
-      )
+      })
   }
 
   loginFacebook() {
@@ -114,7 +114,7 @@ export class LoginComponent implements OnInit {
         () => {},
         e => {
           if (e.code === 'auth/multi-factor-auth-required') {
-            this.openMfa(e.resolver);
+            this.openMfa(e);
           }
         }
       )
@@ -136,7 +136,7 @@ export class LoginComponent implements OnInit {
         ),
         catchError(error => {
           if (error.code === 'auth/multi-factor-auth-required') {
-            this.openMfa(error.resolver);
+            this.openMfa(error);
             return of(true);
           } else {
             this.loginForm.get('passwordLogin').reset();
@@ -187,19 +187,28 @@ export class LoginComponent implements OnInit {
   }
 
   private setPersistance() {
-    return from(setPersistence(
-      this.auth,
-      this.loginForm.get('remember').value ? browserLocalPersistence : browserSessionPersistence
-    ))
+    return from(
+      setPersistence(
+        this.auth,
+        this.loginForm.get('remember').value ? browserLocalPersistence : browserSessionPersistence
+      )
+    )
+      .pipe(
+        catchError(e => {
+          console.error(e);
+          return throwError(e);
+        })
+      )
   }
 
-  private openMfa(resolver: MultiFactorResolver) {
-
-    this.resolver = resolver;
+  private openMfa(error: MultiFactorError) {
+    this.resolver = getMultiFactorResolver(this.auth, error);
     this.verificationState = 'select';
 
+    const hints = this.resolver.hints;
+
     this.deviceForm = this.fb.group({
-      device: resolver.hints[resolver.hints.length - 1].uid
+      device: hints[hints.length - 1].uid
     });
 
     this.dialog.open(
