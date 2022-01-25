@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {Auth, browserSessionPersistence, setPersistence, signInWithCustomToken} from '@angular/fire/auth';
+import {Auth, signInWithCustomToken} from '@angular/fire/auth';
 import {ActivatedRoute, Router} from '@angular/router';
+import {browserLocalPersistence, setPersistence} from '@firebase/auth';
 import {from} from 'rxjs';
 import {switchMap, tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../environments/static-config';
@@ -26,7 +27,7 @@ export class ImpersonateComponent implements OnInit {
     }
 
     from(
-      setPersistence(this.auth, browserSessionPersistence)
+      setPersistence(this.auth, browserLocalPersistence)
     )
       .pipe(
         switchMap(() =>

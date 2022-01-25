@@ -57,7 +57,8 @@ export class ProfileSecurityComponent implements OnInit {
       .pipe(
         map(() =>
           !!(multiFactor(this.auth.currentUser)?.enrolledFactors?.length)
-        )
+        ),
+        shareReplay(1)
       );
 
     this.googleProvider$ = state
