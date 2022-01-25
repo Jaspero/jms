@@ -16,32 +16,41 @@ import {FbStorageService} from './fb-storage.service';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => {
       const firestore = getFirestore();
+
       if (environment.firebaseEmulators) {
         connectFirestoreEmulator(firestore, 'localhost', 8080);
       }
+
       enableMultiTabIndexedDbPersistence(firestore)
         .then(() => true, () => false);
+
       return firestore;
     }),
     provideStorage(() => {
       const storage = getStorage();
+
       if (environment.firebaseEmulators) {
         connectStorageEmulator(storage, 'localhost', 9199);
       }
+
       return storage;
     }),
     provideAuth(() => {
       const auth = getAuth();
+
       if (environment.firebaseEmulators) {
         connectAuthEmulator(auth, 'http://localhost:9099', {disableWarnings: true});
       }
+
       return auth;
     }),
     provideFunctions(() => {
       const functions = getFunctions(undefined, STATIC_CONFIG.cloudRegion);
+
       if (environment.firebaseEmulators) {
         connectFunctionsEmulator(functions, 'localhost', 5000);
       }
+
       return functions;
     }),
     provideAnalytics(() => getAnalytics())
