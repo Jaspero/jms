@@ -8,7 +8,19 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import {Auth, authState, FacebookAuthProvider, getMultiFactorResolver, GoogleAuthProvider, MultiFactorResolver, PhoneAuthProvider, PhoneMultiFactorGenerator, RecaptchaVerifier, signInWithEmailAndPassword, signInWithPopup} from '@angular/fire/auth';
+import {
+  Auth,
+  authState,
+  FacebookAuthProvider,
+  getMultiFactorResolver,
+  GoogleAuthProvider,
+  MultiFactorResolver,
+  PhoneAuthProvider,
+  PhoneMultiFactorGenerator,
+  RecaptchaVerifier,
+  signInWithEmailAndPassword,
+  signInWithPopup
+} from '@angular/fire/auth';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
@@ -36,8 +48,7 @@ export class LoginComponent implements OnInit {
     private dialog: MatDialog,
     private cdr: ChangeDetectorRef,
     private zone: NgZone
-  ) {
-  }
+  ) {}
 
   @ViewChild('password', {static: true})
   passwordField: ElementRef;
@@ -86,7 +97,6 @@ export class LoginComponent implements OnInit {
   }
 
   loginGoogle() {
-
     this.setPersistance()
       .pipe(
         switchMap(() =>
@@ -99,7 +109,7 @@ export class LoginComponent implements OnInit {
             this.openMfa(e);
           }
         }
-      })
+      });
   }
 
   loginFacebook() {
@@ -117,7 +127,7 @@ export class LoginComponent implements OnInit {
             this.openMfa(e);
           }
         }
-      )
+      );
   }
 
   loginEmail() {
@@ -198,7 +208,7 @@ export class LoginComponent implements OnInit {
           console.error(e);
           return throwError(e);
         })
-      )
+      );
   }
 
   private openMfa(error: MultiFactorError) {

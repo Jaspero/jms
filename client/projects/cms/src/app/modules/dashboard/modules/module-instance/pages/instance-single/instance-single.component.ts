@@ -147,7 +147,7 @@ export class InstanceSingleComponent implements OnInit {
                     this.saveBuffer$.next(this.change);
                     this.change = null;
                   }
-                })
+                });
             }
 
             return {
@@ -184,7 +184,7 @@ export class InstanceSingleComponent implements OnInit {
         ),
         untilDestroyed(this)
       )
-      .subscribe()
+      .subscribe();
   }
 
   save(instance: Instance, navigate = true) {
@@ -218,7 +218,7 @@ export class InstanceSingleComponent implements OnInit {
         actions.push(notify());
 
         if (!instance.directLink) {
-          actions.push(tap(() => this.back()))
+          actions.push(tap(() => this.back()));
         }
       }
 
@@ -227,7 +227,7 @@ export class InstanceSingleComponent implements OnInit {
       return (this.formBuilderComponent.save(
         instance.module.id,
         id
-      ).pipe as any)(...actions)
+      ).pipe as any)(...actions);
     };
   }
 

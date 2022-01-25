@@ -4,7 +4,6 @@ import {AbstractControlOptions, FormBuilder, FormGroup, FormGroupDirective, Vali
 import {Router} from '@angular/router';
 import {notify} from '@shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
-import firebase from 'firebase/app';
 import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 import {combineLatest, from, Observable, throwError} from 'rxjs';
 import {catchError, map, shareReplay, switchMap, take, tap} from 'rxjs/operators';
@@ -26,8 +25,7 @@ export class ProfileSecurityComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private db: DbService
-  ) {
-  }
+  ) {}
 
   multipleProviders$: Observable<boolean>;
   passwordProvider$: Observable<any>;
@@ -38,7 +36,6 @@ export class ProfileSecurityComponent implements OnInit {
   emailForm: FormGroup;
 
   ngOnInit() {
-
     this.emailForm = this.fb.group({
       email: [this.state.user.email || '', [Validators.required, Validators.email]]
     });
@@ -123,7 +120,6 @@ export class ProfileSecurityComponent implements OnInit {
 
   changeEmail() {
     return () => {
-
       const {email} = this.emailForm.getRawValue();
 
       return combineLatest([
@@ -212,7 +208,6 @@ export class ProfileSecurityComponent implements OnInit {
 
   toggleTwoFactor() {
     return () => {
-
       let htf: boolean;
 
       return this.hasTwoFactor$

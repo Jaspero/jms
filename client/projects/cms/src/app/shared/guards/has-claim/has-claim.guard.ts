@@ -20,11 +20,9 @@ export class HasClaimGuard implements CanActivate {
     private router: Router,
     private db: DbService,
     private transloco: TranslocoService
-  ) {
-  }
+  ) {}
 
   canActivate(): Observable<boolean> {
-
     if (this.state.role) {
       return of(true);
     }
