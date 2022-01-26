@@ -7,8 +7,8 @@
       <ng-container *ngFor="let category of results | keyvalue">
         <h3 matSubheader *ngIf="category.value.length">{{category.key | transloco}}</h3>
         <mat-list-option *ngFor="let result of category.value" [value]="result">
-          {{result.value}}
-          <div mat-line class="option-description">{{result.description}}</div>
+          {{result.value | transloco}}
+          <div mat-line class="option-description">{{result.description | transloco}}</div>
         </mat-list-option>
       </ng-container>
     </mat-selection-list>

@@ -2,20 +2,22 @@ import {ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild} from
 import {Auth, authState, signOut, updatePassword} from '@angular/fire/auth';
 import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {Router} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import {safeEval} from '@jaspero/utils';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
-import firebase from 'firebase/app';
-import {from, Observable, throwError} from 'rxjs';
-import {catchError, map, switchMap, take, tap} from 'rxjs/operators';
+import {BehaviorSubject, from, Observable, throwError} from 'rxjs';
+import {catchError, filter, map, shareReplay, startWith, switchMap, take, tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../../../environments/static-config';
 import {NavigationItemType} from '../../../../shared/enums/navigation-item-type.enum';
 import {NavigationItemWithActive} from '../../../../shared/interfaces/navigation-item-with-active.interface';
+import {NavigationItem} from '../../../../shared/interfaces/navigation-item.interface';
 import {DbService} from '../../../../shared/services/db/db.service';
 import {StateService} from '../../../../shared/services/state/state.service';
 import {SpotlightComponent} from '../spotlight/spotlight.component';
 
+@UntilDestroy()
 @Component({
   selector: 'jms-layout',
   templateUrl: './layout.component.html',
@@ -39,12 +41,10 @@ export class LayoutComponent implements OnInit {
   links$: Observable<NavigationItemWithActive[]>;
   staticConfig = STATIC_CONFIG;
   navigationExpanded = false;
-
   navigationItemType = NavigationItemType;
-
   resetPassword: FormGroup;
-
   spotlightDialogRef: MatDialogRef<any>;
+  activeExpand$ = new BehaviorSubject(null);
 
   ngOnInit() {
     document.addEventListener('keydown', (event) => {
@@ -152,8 +152,48 @@ export class LayoutComponent implements OnInit {
           }
 
           return [];
-        })
+        }),
+        shareReplay(1)
       );
+
+    const expandLinks$: Observable<NavigationItem[]> = this.links$
+      .pipe(
+        map(links =>
+          links.filter(it => it.type === NavigationItemType.Expandable)  
+        )  
+      )
+
+    this.router.events
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        startWith({url: location.pathname}),
+        switchMap((e: NavigationEnd) =>
+          expandLinks$
+            .pipe(
+              map(links => [e.url, links])
+            )
+        ),
+        untilDestroyed(this)
+      )
+      .subscribe(([url, links]: [string, NavigationItem[]]) => {
+        const exact = links.find(it => it.children.some(c => c.value === url));
+        const current = this.activeExpand$.getValue();
+
+        if (exact) {
+          if (exact !== current) {
+            this.activeExpand$.next(exact);
+          }
+          return;
+        }
+
+        const startMatch = links.find(it => it.children.some(c => url.startsWith(c.value)));
+
+        if (startMatch) {
+          if (startMatch !== current) {
+            this.activeExpand$.next(startMatch);
+          }
+        }
+      })
   }
 
   toggleMenu() {
