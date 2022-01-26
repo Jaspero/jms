@@ -67,7 +67,6 @@ export class UserActionsComponent implements OnInit {
           return throwError(() => error);
         })),
         tap(user => {
-          console.log('the user', user);
           this.status = new FormControl(user.disabled);
 
           this.providers = user.providerData.map(it => {
