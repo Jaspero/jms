@@ -226,8 +226,14 @@
       "TITLE": "Change Password",
       "DIALOG_TITLE": "Change Users Password"
     },
-    "USER_STATUS": {
-      "LOADING": "Loading Status..."
+    "USER_ACTIONS": {
+      "LOADING": "Loading Information...",
+      "PROVIDERS": "Providers",
+      "GOOGLE": "Google",
+      "EMAIL_PASSWORD": "Email and Password",
+      "CREATION_TIME": "Creation Time",
+      "LAST_SIGN_IN_TIME": "Last Sign In",
+      "LAST_REFRESH_TIME": "Last Refresh"
     },
     "TRIGGER_PASSWORD_RESET": {
       "TITLE": "Send password reset email"

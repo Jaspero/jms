@@ -1,0 +1,38 @@
+:host {
+	display: block;
+	padding: 0 16px;
+	margin-top: 1rem;
+
+	.loading {
+		margin: 16px 0;
+	}
+}
+
+.info {
+	padding: 0 8px;
+	margin-top: 8px;
+}
+
+.providers {
+	> div {
+		font-size: .75rem;
+	}
+
+	&-list {
+		display: flex; 
+
+		> div {
+			margin-right: .6rem;
+		}
+	}
+}
+
+.metadata {
+	> div {
+		margin-bottom: 8px;
+
+		> div {
+			font-size: .75rem;
+		}
+	}
+}

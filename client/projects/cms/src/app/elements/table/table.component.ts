@@ -41,6 +41,10 @@ import {DbService} from '../../shared/services/db/db.service';
 import {StateService} from '../../shared/services/state/state.service';
 import {processActions} from '../../shared/utils/process-actions';
 
+interface MenuAction extends Action {
+  menuStyle?: boolean;
+}
+
 interface TableData {
   moduleId: string;
   authorization?: ModuleAuthorization;

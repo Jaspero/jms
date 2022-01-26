@@ -25,6 +25,7 @@ export function processActions(
 
       if (parsed) {
         acc.push({
+          menuStyle: cur.menuStyle,
           value: parsed,
           ...(criteria && {criteria})
         });

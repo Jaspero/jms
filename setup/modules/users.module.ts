@@ -92,6 +92,11 @@ export const USERS_MODULE: Module = {
       ],
       actions: [
         {
+          value: it => `<jms-e-user-actions id="${it.id}"></jms-e-user-actions>`,
+          authorization: ['admin'],
+          menuStyle: false
+        },
+        {
           value: it => `<jms-e-notes data-id="${it.id}"></jms-e-notes>`,
         },
         {
@@ -103,17 +108,13 @@ export const USERS_MODULE: Module = {
           authorization: ['admin']
         },
         {
-          value: it => `<jms-e-tus data-id="${it.id}"></jms-e-tus>`,
-          authorization: ['admin']
-        },
-        {
           value: it => `<jms-e-ce data-id="${it.id}"></jms-e-ce>`,
           authorization: ['admin']
         },
         {
           value: it => `<jms-e-impersonate id="${it.id}"></jms-e-impersonate>`,
           authorization: ['admin']
-        }
+        },
       ]
     },
     overview: {
