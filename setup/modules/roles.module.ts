@@ -53,7 +53,7 @@ export const ROLES_MODULE: Module = {
     properties: {
       id: {type: 'string'},
       name: {type: 'string',},
-    description: {type: 'string',},
+      description: {type: 'string',},
       ...CREATED_ON.property
     },
     required: [
