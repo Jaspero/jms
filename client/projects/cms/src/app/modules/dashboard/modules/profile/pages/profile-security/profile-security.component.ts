@@ -1,17 +1,16 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
+import {Auth, authState, deleteUser, multiFactor, sendEmailVerification, signOut, unlink, updateEmail, updatePassword, User} from '@angular/fire/auth';
 import {AbstractControlOptions, FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import firebase from 'firebase/app';
+import {notify} from '@shared/utils/notify.operator';
+import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
+import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 import {combineLatest, from, Observable, throwError} from 'rxjs';
-import {catchError, map, switchMap, take, tap} from 'rxjs/operators';
+import {catchError, map, shareReplay, switchMap, take, tap} from 'rxjs/operators';
 import {FirestoreCollection} from '../../../../../../../../integrations/firebase/firestore-collection.enum';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
 import {confirmation} from '../../../../../../shared/utils/confirmation';
-import {notify} from '@shared/utils/notify.operator';
-import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
-import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 
 @Component({
   selector: 'jms-profile-security',
@@ -22,12 +21,11 @@ import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 export class ProfileSecurityComponent implements OnInit {
   constructor(
     private state: StateService,
-    private afAuth: AngularFireAuth,
+    private auth: Auth,
     private fb: FormBuilder,
     private router: Router,
     private db: DbService
-  ) {
-  }
+  ) {}
 
   multipleProviders$: Observable<boolean>;
   passwordProvider$: Observable<any>;
@@ -38,25 +36,29 @@ export class ProfileSecurityComponent implements OnInit {
   emailForm: FormGroup;
 
   ngOnInit() {
-
     this.emailForm = this.fb.group({
       email: [this.state.user.email || '', [Validators.required, Validators.email]]
-
     });
 
-    this.multipleProviders$ = this.afAuth.user
+    const state: Observable<User> = authState(this.auth)
+      .pipe(
+        shareReplay(1)
+      );
+
+    this.multipleProviders$ = state
       .pipe(
         map(item => item?.providerData?.length > 1)
       );
 
-    this.hasTwoFactor$ = this.afAuth.user
+    this.hasTwoFactor$ = state
       .pipe(
-        map(user =>
-          !!(user.multiFactor?.enrolledFactors?.length)
-        )
+        map(() =>
+          !!(multiFactor(this.auth.currentUser)?.enrolledFactors?.length)
+        ),
+        shareReplay(1)
       );
 
-    this.googleProvider$ = this.afAuth.user
+    this.googleProvider$ = state
       .pipe(
         map(item =>
           (item?.providerData || [])
@@ -64,7 +66,7 @@ export class ProfileSecurityComponent implements OnInit {
         )
       );
 
-    this.passwordProvider$ = this.afAuth.user
+    this.passwordProvider$ = state
       .pipe(
         map(item =>
           (item.providerData || [])
@@ -84,9 +86,10 @@ export class ProfileSecurityComponent implements OnInit {
   changePassword(form: FormGroupDirective) {
     return () =>
       from(
-        firebase.auth()
-          .currentUser
-          .updatePassword(this.pwForm.get('password').value)
+        updatePassword(
+          this.auth.currentUser,
+          this.pwForm.get('password').value
+        )
       )
         .pipe(
           catchError(err => {
@@ -94,8 +97,7 @@ export class ProfileSecurityComponent implements OnInit {
 
             if (err.code === 'auth/requires-recent-login') {
               message = 'For security reasons please login to your account again before changing your password.';
-              firebase.auth()
-                .signOut()
+              signOut(this.auth)
                 .then(() =>
                   this.router.navigate(STATIC_CONFIG.loginRoute)
                 );
@@ -118,7 +120,6 @@ export class ProfileSecurityComponent implements OnInit {
 
   changeEmail() {
     return () => {
-
       const {email} = this.emailForm.getRawValue();
 
       return combineLatest([
@@ -129,9 +130,7 @@ export class ProfileSecurityComponent implements OnInit {
           {merge: true}
         ),
         from(
-          firebase.auth()
-            .currentUser
-            .updateEmail(email)
+          updateEmail(this.auth.currentUser, email)
         )
           .pipe(
             catchError(err => {
@@ -139,11 +138,7 @@ export class ProfileSecurityComponent implements OnInit {
 
               if (err.code === 'auth/requires-recent-login') {
                 message = 'For security reasons please login to your account again before changing your email.';
-                firebase.auth()
-                  .signOut()
-                  .then(() =>
-                    this.router.navigate(STATIC_CONFIG.loginRoute)
-                  );
+                this.signOut();
               }
 
               return throwError(() => ({
@@ -165,11 +160,10 @@ export class ProfileSecurityComponent implements OnInit {
   removeAccount() {
     confirmation(
       [
-        switchMap(() => from(firebase.auth().currentUser.delete())),
+        switchMap(() => from(deleteUser(this.auth.currentUser))),
         catchError(error => {
           if (error.code === 'auth/requires-recent-login') {
-            firebase.auth().signOut();
-            this.router.navigate(STATIC_CONFIG.loginRoute);
+            this.signOut();
           }
 
           return throwError(() => ({
@@ -198,9 +192,7 @@ export class ProfileSecurityComponent implements OnInit {
     confirmation(
       [
         switchMap(() =>
-          firebase.auth()
-            .currentUser
-            .unlink(provider)
+          unlink(this.auth.currentUser, provider)
         ),
         notify({
           success: 'Your account has been successfully unlinked.'
@@ -216,7 +208,6 @@ export class ProfileSecurityComponent implements OnInit {
 
   toggleTwoFactor() {
     return () => {
-
       let htf: boolean;
 
       return this.hasTwoFactor$
@@ -224,20 +215,19 @@ export class ProfileSecurityComponent implements OnInit {
           take(1),
           switchMap((hasTwoFactor) => {
             htf = hasTwoFactor;
-            return this.afAuth.user
+            return authState(this.auth)
               .pipe(
                 take(1),
-                switchMap(user =>
+                switchMap(() =>
                   from(
                     hasTwoFactor ?
-                      user.multiFactor.unenroll(user.multiFactor.enrolledFactors.pop()) :
-                      user.sendEmailVerification({url: `${location.origin}/mfa`})
+                      multiFactor(this.auth.currentUser).unenroll(multiFactor(this.auth.currentUser).enrolledFactors.pop()) :
+                      sendEmailVerification(this.auth.currentUser, {url: `${location.origin}/mfa`})
                   )
                 ),
                 catchError(e => {
                   if (e.code === 'auth/requires-recent-login') {
-                    this.router.navigate(STATIC_CONFIG.loginRoute);
-                    this.afAuth.signOut();
+                    this.signOut();
                   }
 
                   return throwError(() => e);
@@ -250,5 +240,12 @@ export class ProfileSecurityComponent implements OnInit {
           })
         );
     };
+  }
+
+  signOut() {
+    signOut(this.auth)
+      .then(() =>
+        this.router.navigate(STATIC_CONFIG.loginRoute)
+      );
   }
 }

@@ -1,27 +1,59 @@
 import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
-import {AngularFireModule} from '@angular/fire';
-import {USE_EMULATOR as USE_AUTH_EMULATOR} from '@angular/fire/auth';
-import {USE_EMULATOR as USE_FIRESTORE_EMULATOR} from '@angular/fire/firestore';
-import {USE_EMULATOR as USE_FUNCTIONS_EMULATOR} from '@angular/fire/functions';
-import {AngularFireAuthModule} from '@angular/fire/auth';
-import {AngularFireAuthGuardModule} from '@angular/fire/auth-guard';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {AngularFireFunctionsModule, ORIGIN, REGION} from '@angular/fire/functions';
-import {AngularFirePerformanceModule} from '@angular/fire/performance';
-import {AngularFireStorageModule} from '@angular/fire/storage';
+import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
+import {connectAuthEmulator, getAuth, provideAuth} from '@angular/fire/auth';
+import {connectFirestoreEmulator, enableMultiTabIndexedDbPersistence, getFirestore, provideFirestore} from '@angular/fire/firestore';
+import {connectFunctionsEmulator, getFunctions, provideFunctions} from '@angular/fire/functions';
+import {connectStorageEmulator, getStorage, provideStorage} from '@angular/fire/storage';
+import {getAnalytics, provideAnalytics} from '@angular/fire/analytics';
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
+import {STATIC_CONFIG} from '../../src/environments/static-config';
 import {FbDatabaseService} from './fb-database.service';
+import {FbStorageService} from './fb-storage.service';
 
 @NgModule({
   imports: [
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule.enablePersistence(),
-    AngularFireAuthModule,
-    AngularFireStorageModule,
-    AngularFireAuthGuardModule,
-    AngularFirePerformanceModule,
-    AngularFireFunctionsModule
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => {
+      const firestore = getFirestore();
+
+      if (environment.firebaseEmulators) {
+        connectFirestoreEmulator(firestore, 'localhost', 8080);
+      }
+
+      enableMultiTabIndexedDbPersistence(firestore)
+        .then(() => true, () => false);
+
+      return firestore;
+    }),
+    provideStorage(() => {
+      const storage = getStorage();
+
+      if (environment.firebaseEmulators) {
+        connectStorageEmulator(storage, 'localhost', 9199);
+      }
+
+      return storage;
+    }),
+    provideAuth(() => {
+      const auth = getAuth();
+
+      if (environment.firebaseEmulators) {
+        connectAuthEmulator(auth, 'http://localhost:9099', {disableWarnings: true});
+      }
+
+      return auth;
+    }),
+    provideFunctions(() => {
+      const functions = getFunctions(undefined, STATIC_CONFIG.cloudRegion);
+
+      if (environment.firebaseEmulators) {
+        connectFunctionsEmulator(functions, 'localhost', 5000);
+      }
+
+      return functions;
+    }),
+    provideAnalytics(() => getAnalytics())
   ]
 })
 export class FirebaseModule {
@@ -38,32 +70,13 @@ export class FirebaseModule {
       ngModule: FirebaseModule,
       providers: [
         FbDatabaseService,
+        FbStorageService,
         {
           provide: DbService,
           useClass: FbDatabaseService
-        },
-        {
-          provide: REGION,
-          useValue: 'us-central1'
-        },
-        {
-          provide: ORIGIN,
-          useValue: environment.origin
-        },
-
-        {
-          provide: USE_AUTH_EMULATOR,
-          useValue: environment.firebaseEmulators ? ['localhost', 9099] : undefined
-        },
-        {
-          provide: USE_FIRESTORE_EMULATOR,
-          useValue: environment.firebaseEmulators ? ['localhost', 8080] : undefined
-        },
-        {
-          provide: USE_FUNCTIONS_EMULATOR,
-          useValue: environment.firebaseEmulators ? ['localhost', 5000] : undefined
-        },
+        }
       ]
     };
   }
 }
+

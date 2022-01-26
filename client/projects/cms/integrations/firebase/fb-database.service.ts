@@ -1,27 +1,19 @@
-import {Inject, Injectable, Optional} from '@angular/core';
-import {AngularFirestore, CollectionReference} from '@angular/fire/firestore';
-import {AngularFireFunctions, ORIGIN, REGION} from '@angular/fire/functions';
+import {Injectable} from '@angular/core';
+import {collection, collectionChanges, collectionGroup, deleteDoc, doc, docData, Firestore, getDoc, getDocs, getDocsFromCache, getDocsFromServer, limit, orderBy, query, setDoc, startAfter, where} from '@angular/fire/firestore';
+import {Functions, httpsCallableData} from '@angular/fire/functions';
 import {from, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {FilterMethod} from '../../src/app/shared/enums/filter-method.enum';
-import {Settings} from '../../src/app/shared/interfaces/settings.interface';
 import {WhereFilter} from '../../src/app/shared/interfaces/where-filter.interface';
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
-import {FirestoreCollection} from './firestore-collection.enum';
-
-type FilterFunction = (ref: CollectionReference) => CollectionReference;
+import {STATIC_CONFIG} from '../../src/environments/static-config';
 
 @Injectable()
 export class FbDatabaseService extends DbService {
   constructor(
-    public afs: AngularFirestore,
-    public aff: AngularFireFunctions,
-    @Inject(REGION)
-    private region: string,
-    @Optional()
-    @Inject(ORIGIN)
-    private origin: string
+    private firestore: Firestore,
+    private functions: Functions
   ) {
     super();
   }
@@ -32,35 +24,13 @@ export class FbDatabaseService extends DbService {
       return [
         environment.origin,
         environment.firebase.projectId,
-        this.region,
+        STATIC_CONFIG.cloudRegion,
         url
       ]
         .join('/');
     } else {
-      return `https://${this.region}-${environment.firebase.projectId}.cloudfunctions.net/${url}`;
+      return `https://${STATIC_CONFIG.cloudRegion}-${environment.firebase.projectId}.cloudfunctions.net/${url}`;
     }
-  }
-
-  getUserSettings() {
-    return this.afs
-      .collection(FirestoreCollection.Settings)
-      .doc<Settings>('user')
-      .get()
-      .pipe(
-        map(it => ({
-          id: it.id,
-          ...it.data() as Settings
-        }))
-      );
-  }
-
-  updateUserSettings(settings: Partial<Settings>) {
-    return from(
-      this.afs
-        .collection(FirestoreCollection.Settings)
-        .doc('user')
-        .update(settings)
-    );
   }
 
   getDocuments(
@@ -72,15 +42,23 @@ export class FbDatabaseService extends DbService {
     source?,
     collectionGroup?
   ) {
-    return this.collection(moduleId, pageSize, sort, cursor, this.filterMethod(filters), collectionGroup)
-      .get({
-        source: source || 'default'
-      })
+
+    const sources = {
+      server: getDocsFromServer,
+      cache: getDocsFromCache
+    }
+    const method = source ? sources[source] : getDocs;
+
+    return from(
+      method(
+        this.collection(moduleId, pageSize, sort, cursor, this.filterMethod(filters), collectionGroup)
+      )
+    )
       .pipe(
-        map(res =>
+        map((res: any) =>
           res.docs
         )
-      );
+      )
   }
 
   getStateChanges(
@@ -91,15 +69,16 @@ export class FbDatabaseService extends DbService {
     filters?: WhereFilter[],
     collectionGroup?
   ) {
-    return this.collection(
-      moduleId,
-      pageSize,
-      sort,
-      cursor,
-      this.filterMethod(filters),
-      collectionGroup
+    return collectionChanges(
+      this.collection(
+        moduleId,
+        pageSize,
+        sort,
+        cursor,
+        this.filterMethod(filters),
+        collectionGroup
+      )
     )
-      .stateChanges();
   }
 
   getDocument<T = any>(
@@ -107,59 +86,48 @@ export class FbDatabaseService extends DbService {
     documentId,
     stream = false
   ): Observable<T> {
-
-    const pipes = [];
-
     if (stream) {
-
-      pipes.push(
-        map((value: any) => ({
-          ...value,
-          id: documentId
-        }))
-      );
-
-      return this.afs
-        .collection(moduleId)
-        .doc<T>(documentId)
-        .valueChanges()
-        .pipe(
-          // @ts-ignore
-          ...pipes
-        );
-    } else {
-      pipes.push(
-        map((value: any) => ({
-          id: documentId,
-          ...value.data()
-        }))
-      );
-
-      return this.afs
-        .collection(moduleId)
-        .doc<T>(documentId)
-        .get()
-        .pipe(
-          // @ts-ignore
-          ...pipes
-        );
+      return docData<T>(
+        doc(
+          this.firestore,
+          moduleId,
+          documentId
+        ) as any,
+        {idField: 'id'}
+      )
     }
+
+    return from(
+      getDoc(
+        doc(
+          this.firestore,
+          moduleId,
+          documentId
+        )
+      )
+    )
+      .pipe(
+        map(snap => ({
+          ...snap.data(),
+          id: documentId
+        } as any))
+      )
+
   }
 
-  getDocumentsSimple(moduleId, orderBy?, filter?) {
-    return this.afs
-      .collection(moduleId, (ref: any) => {
-        if (orderBy) {
-          ref = ref.orderBy(orderBy);
-        }
-
-        if (filter) {
-          ref = ref.where(filter.key, filter.operator, filter.value);
-        }
-
-        return ref;
-      })
-      .get()
+  getDocumentsSimple(moduleId, order?, filter?) {
+    return from(
+      getDocs(
+        query(
+          collection(this.firestore, moduleId),
+          ...[
+            order && orderBy(order),
+            filter && where(filter.key, filter.operator, filter.value)
+          ]
+            .filter(it => it)
+        )
+      )
+    )
       .pipe(
         map(data =>
           data.docs.map((it: any) => ({
@@ -167,23 +135,22 @@ export class FbDatabaseService extends DbService {
             ...it.data()
           }))
         )
-      );
+      )
   }
 
-  getSubdocumentsSimple(moduleId, orderBy?, filter?) {
-    return this.afs
-      .collectionGroup(moduleId, (ref: any) => {
-        if (orderBy) {
-          ref = ref.orderBy(orderBy);
-        }
-
-        if (filter) {
-          ref = ref.where(filter.key, filter.operator, filter.value);
-        }
-
-        return ref;
-      })
-      .get()
+  getSubdocumentsSimple(moduleId, order?, filter?) {
+    return from(
+      getDocs(
+        query(
+          collectionGroup(this.firestore, moduleId),
+          ...[
+            order && orderBy(order),
+            filter && where(filter.key, filter.operator, filter.value)
+          ]
+            .filter(it => it)
+        )
+      )
+    )
       .pipe(
         map(data =>
           data.docs.map((it: any) => ({
@@ -191,25 +158,33 @@ export class FbDatabaseService extends DbService {
             ...it.data()
           }))
         )
-      );
+      )
   }
 
   setDocument(moduleId, documentId, data, options) {
     return from(
-      this.afs
-        .collection(moduleId)
-        .doc(documentId)
-        .set(data, options || {})
+      setDoc(
+        doc(
+          this.firestore,
+          moduleId,
+          documentId
+        ),
+        data,
+        options || {}
+      )
     );
   }
 
   removeDocument(moduleId, documentId) {
     return from(
-      this.afs
-        .collection(moduleId)
-        .doc(documentId)
-        .delete()
-    );
+      deleteDoc(
+        doc(
+          this.firestore,
+          moduleId,
+          documentId
+        )
+      )
+    )
   }
 
   createUserAccount(email: string, password: string) {
@@ -221,11 +196,7 @@ export class FbDatabaseService extends DbService {
   }
 
   callFunction(name: string, data) {
-    return this.aff.httpsCallable(name)(data);
-  }
-
-  createId() {
-    return this.afs.createId();
+    return httpsCallableData(this.functions, name)(data);
   }
 
   private collection(
@@ -233,74 +204,58 @@ export class FbDatabaseService extends DbService {
     pageSize,
     sort,
     cursor,
-    filter?: (ref: CollectionReference) => CollectionReference,
+    filters?: any[],
     collectionGroup?
   ) {
-    const refFunction = ref => {
-      let final = ref;
-
-      if (sort) {
-        final = final.orderBy(
-          sort.active,
-          sort.direction
-        ) as CollectionReference;
-      }
-
-      if (filter) {
-        final = filter(final);
-      }
-
-      if (pageSize) {
-        final = final.limit(pageSize) as CollectionReference;
-      }
-
-      if (cursor) {
-        final = final.startAfter(cursor) as CollectionReference;
-      }
-
-      return final;
-    };
+    const methods = [
+      sort && orderBy(sort.active, sort.direction),
+      ...(filters ? filters : []),
+      pageSize && limit(pageSize),
+      cursor && startAfter(cursor)
+    ]
+      .filter(it => it);
 
     if (collectionGroup) {
-      return this.afs.collectionGroup(moduleId, refFunction);
+
+      return query(
+        collectionGroup(moduleId),
+        ...methods
+      );
     }
 
-    return this.afs.collection(moduleId, refFunction);
+    return query(
+      collection(this.firestore, moduleId),
+      ...methods
+    )
   }
 
-  private filterMethod(
-    filters?: WhereFilter[]
-  ) {
-    let fMethod: FilterFunction;
-
+  private filterMethod(filters?: WhereFilter[]) {
     if (filters) {
-      fMethod = (ref) => {
-        filters.forEach(item => {
-
-          if (
-            item.value !== undefined &&
-            item.value !== null &&
-            !Number.isNaN(item.value) &&
-            item.value !== '' &&
+      return filters.reduce((acc, item) => {
+        if (
+          item.value !== undefined &&
+          item.value !== null &&
+          !Number.isNaN(item.value) &&
+          item.value !== '' &&
+          (
             (
-              (
-                item.operator === FilterMethod.ArrayContains ||
-                item.operator === FilterMethod.ArrayContainsAny ||
-                item.operator === FilterMethod.In
-              ) && Array.isArray(item.value) ?
-                item.value.length :
-                true
-            )
-          ) {
-            // @ts-ignore
-            ref = ref.where(item.key, item.operator, item.value) as CollectionReference;
-          }
-        });
+              item.operator === FilterMethod.ArrayContains ||
+              item.operator === FilterMethod.ArrayContainsAny ||
+              item.operator === FilterMethod.In
+            ) && Array.isArray(item.value) ?
+              item.value.length :
+              true
+          )
+        ) {
+          acc.push(
+            where(item.key, item.operator, item.value)
+          );
+        }
 
-        return ref;
-      };
+        return acc;
+      }, []);
     }
 
-    return fMethod;
+    return [];
   }
 }

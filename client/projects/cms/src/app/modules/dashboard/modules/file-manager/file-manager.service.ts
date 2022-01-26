@@ -1,16 +1,18 @@
 import {Injectable} from '@angular/core';
-import firebase from 'firebase/app';
-import 'firebase/storage';
+import {deleteObject, getDownloadURL, list, ref, Storage, uploadBytesResumable} from '@angular/fire/storage';
 import {from, Observable, of} from 'rxjs';
 import {tap} from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class FileManagerService {
+  constructor(
+    private storage: Storage
+  ) {}
 
   cache: {[key: string]: any} = {};
 
   get ref() {
-    return firebase.storage().ref();
+    return ref(this.storage);
   }
 
   list(path: string, pageToken: string, maxResults = 100) {
@@ -18,7 +20,7 @@ export class FileManagerService {
       return of(this.cache[path]);
     }
 
-    return from(this.ref.child(path).list({maxResults, pageToken}))
+    return from(list(ref(this.ref, path), {maxResults, pageToken}))
       .pipe(
         tap(resp => {
           this.cache[path] = resp;
@@ -28,8 +30,7 @@ export class FileManagerService {
 
   async upload(route: string, file: File) {
     try {
-      const ref = firebase.storage().ref(route + file.name);
-      await ref.getDownloadURL();
+      await getDownloadURL(ref(this.storage, route + file.name));
 
       const [extension, ...name] = file.name.split('.').reverse();
 
@@ -39,18 +40,17 @@ export class FileManagerService {
       route += file.name;
     }
 
-    const uploadTask = firebase.storage().ref(route).put(file);
+    const uploadTask = uploadBytesResumable(ref(this.storage, route), file);
 
     delete this.cache[route];
 
     return {
       progress: new Observable<{complete?: boolean, status: string, progress: number}>(obs => {
         uploadTask.on('state_changed',
-          snapshot =>
-            obs.next({status: snapshot.state, progress: (snapshot.bytesTransferred / snapshot.totalBytes) * 100}),
+          snapshot => obs.next({status: snapshot.state, progress: (snapshot.bytesTransferred / snapshot.totalBytes) * 100}),
           error => obs.error(error),
           () => {
-            obs.next({status: firebase.storage.TaskState.SUCCESS, progress: 0, complete: true});
+            obs.next({status: 'success', progress: 0, complete: true});
             obs.complete();
           }
         );
@@ -60,7 +60,7 @@ export class FileManagerService {
   }
 
   deleteFile(path: string) {
-    return from(this.ref.child(path).delete())
+    return from(deleteObject(ref(this.ref, path)))
       .pipe(
         tap(() =>
           this.cache = {}
@@ -74,7 +74,7 @@ export class FileManagerService {
 
     const deleteSubFiles = () => {
 
-      return this.ref.child(path).list({
+      return list(ref(this.ref, path), {
         maxResults: 100,
         pageToken
       })
@@ -82,7 +82,7 @@ export class FileManagerService {
           pageToken = response.nextPageToken;
 
           if (response.items.length) {
-            return Promise.all(response.items.map(item => item.delete()))
+            return Promise.all(response.items.map(item => deleteObject(item)))
               .then(() => deleteSubFiles());
           }
 

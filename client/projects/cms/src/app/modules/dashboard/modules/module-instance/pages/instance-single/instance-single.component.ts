@@ -8,7 +8,7 @@ import {
   Segment,
   State
 } from '@jaspero/form-builder';
-import {safeEval} from '@jaspero/utils';
+import {random, safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {JSONSchema7} from 'json-schema';
 import {interval, Observable, of, Subject, Subscription} from 'rxjs';
@@ -24,6 +24,8 @@ import {InstanceOverviewContextService} from '../../services/instance-overview-c
 interface Instance {
   module: {
     id: string;
+    docIdPrefix: string;
+    docIdSize: number;
     name: string;
     editTitleKey: string;
   };
@@ -162,6 +164,8 @@ export class InstanceSingleComponent implements OnInit {
             return {
               module: {
                 id: module.id,
+                docIdPrefix: module.metadata?.docIdPrefix || module.id.slice(0, 2),
+                docIdSize: module.metadata?.docIdSize || 12,
                 name: module.name,
                 editTitleKey
               },
@@ -197,7 +201,7 @@ export class InstanceSingleComponent implements OnInit {
   save(instance: Instance, navigate = true) {
     return () => {
       this.formBuilderComponent.process();
-      const id = this.formBuilderComponent.form.getRawValue().id || this.dbService.createId();
+      const id = this.formBuilderComponent.form.getRawValue().id || `${instance.module.docIdPrefix}-${random.string(instance.module.docIdSize)}`;
 
       const actions: any[] = [
         switchMap(() => {
@@ -225,7 +229,7 @@ export class InstanceSingleComponent implements OnInit {
         actions.push(notify());
 
         if (!instance.directLink) {
-          actions.push(tap(() => this.back()))
+          actions.push(tap(() => this.back()));
         }
       }
 
@@ -234,7 +238,7 @@ export class InstanceSingleComponent implements OnInit {
       return (this.formBuilderComponent.save(
         instance.module.id,
         id
-      ).pipe as any)(...actions)
+      ).pipe as any)(...actions);
     };
   }
 

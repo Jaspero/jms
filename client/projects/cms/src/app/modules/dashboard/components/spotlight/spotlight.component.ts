@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
+import {Auth, signOut} from '@angular/fire/auth';
 import {FormControl} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
@@ -23,7 +23,7 @@ export class SpotlightComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private db: DbService,
-    private afAuth: AngularFireAuth
+    private auth: Auth
   ) {
   }
 
@@ -131,7 +131,7 @@ export class SpotlightComponent implements OnInit {
           {
             value: 'Log Out',
             description: 'Log Out current account',
-            call: () => this.afAuth.signOut().then(() => this.router.navigate(STATIC_CONFIG.loginRoute)),
+            call: () => signOut(this.auth).then(() => this.router.navigate(STATIC_CONFIG.loginRoute)),
             search: 'logout log out signout sign out'
           },
           ...(this.state.role === 'admin' ? [{

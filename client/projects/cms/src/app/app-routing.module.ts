@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
+import {AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 import {RouterModule, Routes} from '@angular/router';
 import {STATIC_CONFIG} from '../environments/static-config';
 import {HasClaimGuard} from './shared/guards/has-claim/has-claim.guard';
@@ -16,7 +16,7 @@ const routes: Routes = [
         .then(m => m.DashboardModule),
     canActivate: [
       RedirectGuard,
-      AngularFireAuthGuard,
+      AuthGuard,
       HasClaimGuard
     ],
     data: {
@@ -28,9 +28,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/login/login.module')
         .then(m => m.LoginModule),
-    canActivate: [
-      AngularFireAuthGuard
-    ],
+    canActivate: [AuthGuard],
     data: {
       authGuardPipe: redirectLoggedInToDashboard
     },
@@ -40,9 +38,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/finish-sign-up/finish-sign-up.module')
         .then(m => m.FinishSignUpModule),
-    canActivate: [
-      AngularFireAuthGuard
-    ],
+    canActivate: [AuthGuard],
     data: {
       authGuardPipe: redirectLoggedInToDashboard
     },
@@ -52,9 +48,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/trigger-password-reset/trigger-password-reset.module')
         .then(m => m.TriggerPasswordResetModule),
-    canActivate: [
-      AngularFireAuthGuard
-    ],
+    canActivate: [AuthGuard],
     data: {
       authGuardPipe: redirectLoggedInToDashboard
     },
@@ -87,8 +81,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-    scrollPositionRestoration: 'top'
-})
+      scrollPositionRestoration: 'top'
+    })
   ],
   exports: [RouterModule]
 })

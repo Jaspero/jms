@@ -1,14 +1,14 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {AngularFireFunctions} from '@angular/fire/functions';
+import {Auth, signInWithCustomToken, updatePassword} from '@angular/fire/auth';
 import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import firebase from 'firebase/app';
-import {from, throwError} from 'rxjs';
-import {catchError, switchMap, take, tap} from 'rxjs/operators';
 import {notify} from '@shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
+import {signOut} from 'firebase/auth';
 import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
+import {from, throwError} from 'rxjs';
+import {catchError, switchMap, take, tap} from 'rxjs/operators';
+import {DbService} from '../../shared/services/db/db.service';
 
 @Component({
   selector: 'jms-finish-sign-up',
@@ -20,8 +20,8 @@ export class FinishSignUpComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private aff: AngularFireFunctions,
-    private afAuth: AngularFireAuth,
+    private db: DbService,
+    private auth: Auth,
     private router: Router
   ) { }
 
@@ -47,16 +47,14 @@ export class FinishSignUpComponent implements OnInit {
         .pipe(
           take(1),
           switchMap(({t}) =>
-            this.aff.httpsCallable('cms-exchangeToken')({token: t, pullUser: false})
+            this.db.callFunction('cms-exchangeToken', {token: t, pullUser: false})
           ),
           switchMap(({token}) =>
-            this.afAuth.signInWithCustomToken(token)
+            signInWithCustomToken(this.auth, token)
           ),
           switchMap(() =>
             from(
-              firebase.auth()
-                .currentUser
-                .updatePassword(password)
+              updatePassword(this.auth.currentUser, password)
             )
           ),
           catchError(err => {
@@ -64,8 +62,7 @@ export class FinishSignUpComponent implements OnInit {
 
             if (err.code === 'auth/requires-recent-login') {
               message = 'For security reasons please login to your account again before changing your password.';
-              firebase.auth()
-                .signOut()
+              signOut(this.auth)
                 .then(() =>
                   this.router.navigate(STATIC_CONFIG.loginRoute)
                 );

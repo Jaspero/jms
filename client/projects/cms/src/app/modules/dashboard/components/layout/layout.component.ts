@@ -1,21 +1,23 @@
 import {ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
+import {Auth, authState, signOut, updatePassword} from '@angular/fire/auth';
 import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {Router} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import {safeEval} from '@jaspero/utils';
-import firebase from 'firebase/app';
-import {from, Observable, throwError} from 'rxjs';
-import {catchError, map, switchMap, take, tap} from 'rxjs/operators';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {notify} from '@shared/utils/notify.operator';
+import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
+import {BehaviorSubject, from, Observable, throwError} from 'rxjs';
+import {catchError, filter, map, shareReplay, startWith, switchMap, take, tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../../../environments/static-config';
 import {NavigationItemType} from '../../../../shared/enums/navigation-item-type.enum';
 import {NavigationItemWithActive} from '../../../../shared/interfaces/navigation-item-with-active.interface';
+import {NavigationItem} from '../../../../shared/interfaces/navigation-item.interface';
 import {DbService} from '../../../../shared/services/db/db.service';
 import {StateService} from '../../../../shared/services/state/state.service';
-import {notify} from '@shared/utils/notify.operator';
-import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
 import {SpotlightComponent} from '../spotlight/spotlight.component';
 
+@UntilDestroy()
 @Component({
   selector: 'jms-layout',
   templateUrl: './layout.component.html',
@@ -25,7 +27,7 @@ import {SpotlightComponent} from '../spotlight/spotlight.component';
 export class LayoutComponent implements OnInit {
   constructor(
     public state: StateService,
-    private afAuth: AngularFireAuth,
+    private auth: Auth,
     private router: Router,
     private dialog: MatDialog,
     private fb: FormBuilder,
@@ -39,12 +41,10 @@ export class LayoutComponent implements OnInit {
   links$: Observable<NavigationItemWithActive[]>;
   staticConfig = STATIC_CONFIG;
   navigationExpanded = false;
-
   navigationItemType = NavigationItemType;
-
   resetPassword: FormGroup;
-
   spotlightDialogRef: MatDialogRef<any>;
+  activeExpand$ = new BehaviorSubject(null);
 
   ngOnInit() {
     document.addEventListener('keydown', (event) => {
@@ -70,7 +70,7 @@ export class LayoutComponent implements OnInit {
       }
     });
 
-    this.currentUser$ = this.afAuth.user;
+    this.currentUser$ = authState(this.auth);
 
     if (this.state.user.requireReset) {
 
@@ -152,8 +152,48 @@ export class LayoutComponent implements OnInit {
           }
 
           return [];
-        })
+        }),
+        shareReplay(1)
       );
+
+    const expandLinks$: Observable<NavigationItem[]> = this.links$
+      .pipe(
+        map(links =>
+          links.filter(it => it.type === NavigationItemType.Expandable)  
+        )  
+      )
+
+    this.router.events
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        startWith({url: location.pathname}),
+        switchMap((e: NavigationEnd) =>
+          expandLinks$
+            .pipe(
+              map(links => [e.url, links])
+            )
+        ),
+        untilDestroyed(this)
+      )
+      .subscribe(([url, links]: [string, NavigationItem[]]) => {
+        const exact = links.find(it => it.children.some(c => c.value === url));
+        const current = this.activeExpand$.getValue();
+
+        if (exact) {
+          if (exact !== current) {
+            this.activeExpand$.next(exact);
+          }
+          return;
+        }
+
+        const startMatch = links.find(it => it.children.some(c => url.startsWith(c.value)));
+
+        if (startMatch) {
+          if (startMatch !== current) {
+            this.activeExpand$.next(startMatch);
+          }
+        }
+      })
   }
 
   toggleMenu() {
@@ -167,7 +207,7 @@ export class LayoutComponent implements OnInit {
   }
 
   logOut() {
-    this.afAuth.signOut()
+    signOut(this.auth)
       .then(() =>
         this.router.navigate(STATIC_CONFIG.loginRoute)
       );
@@ -176,9 +216,7 @@ export class LayoutComponent implements OnInit {
   changePassword() {
     return () =>
       from(
-        firebase.auth()
-          .currentUser
-          .updatePassword(this.resetPassword.get('password').value)
+        updatePassword(this.auth.currentUser, this.resetPassword.get('password').value)
       )
         .pipe(
           catchError(err => {
@@ -186,11 +224,7 @@ export class LayoutComponent implements OnInit {
 
             if (err.code === 'auth/requires-recent-login') {
               message = 'For security reasons please login to your account again before changing your password.';
-              firebase.auth()
-                .signOut()
-                .then(() =>
-                  this.router.navigate(STATIC_CONFIG.loginRoute)
-                );
+              this.logOut();
             }
 
             return throwError(() => ({

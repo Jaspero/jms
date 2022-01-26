@@ -9,6 +9,7 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
+import {getDownloadURL, getMetadata} from '@angular/fire/storage';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {formatFileName} from '@jaspero/form-builder';
@@ -89,8 +90,8 @@ export class FileManagerComponent implements OnInit, OnDestroy {
         return Promise.all([
           Promise.all(
             response.items.map(async item => {
-              const metadata = await item.getMetadata();
-              const downloadLink = await item.getDownloadURL();
+              const metadata = await getMetadata(item);
+              const downloadLink = await getDownloadURL(item);
               return {
                 name: item.name,
                 type: 'file',

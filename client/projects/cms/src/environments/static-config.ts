@@ -6,6 +6,7 @@ import {NavigationItemWithActive} from '../app/shared/interfaces/navigation-item
 export const STATIC_CONFIG = {
   displayName: 'JMS',
   elementSelectorPrefix: 'jms-e-',
+  cloudRegion: 'us-central1',
   /**
    * We use this to redirect all unauthenticated users
    */

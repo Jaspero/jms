@@ -13,14 +13,6 @@ export abstract class DbService {
     return url;
   }
 
-  getUserSettings(): Observable<Settings> {
-    return of(null);
-  }
-
-  updateUserSettings(settings: Partial<Settings>): Observable<void> {
-    return of();
-  }
-
   getDocuments(
     moduleId: string,
     pageSize?: number,
@@ -97,9 +89,5 @@ export abstract class DbService {
 
   callFunction(name: string, data: any): Observable<any> {
     return of();
-  }
-
-  createId() {
-    return '';
   }
 }

@@ -1,6 +1,5 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {AngularFireStorage} from '@angular/fire/storage';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {FbFieldsMatModule} from '@jaspero/fb-fields-mat';
@@ -20,6 +19,7 @@ import {
 } from '@jaspero/form-builder';
 import {TranslocoModule} from '@ngneat/transloco';
 import {BlocksModule} from '@shared/blocks/blocks.module';
+import {FbStorageService} from '../../../../../integrations/firebase/fb-storage.service';
 import {environment} from '../../../../environments/environment';
 import {DbService} from '../../services/db/db.service';
 import {StateService} from '../../services/state/state.service';
@@ -61,7 +61,7 @@ export function roleFactory(state: StateService) {
   providers: [
     {
       provide: StorageService,
-      useExisting: AngularFireStorage
+      useExisting: FbStorageService
     },
     {
       provide: FDbService,
