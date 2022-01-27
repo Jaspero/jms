@@ -210,8 +210,8 @@
       "PROFILE_PHOTO": "Profile Photo"
     },
     "FILTERS": {
-      "START_DATE": "Start Date",
-      "END_DATE": "End Date"
+      "START_DATE": "Created On Start Date",
+      "END_DATE": "Created On End Date"
     }
   },
   "USER_INVITES": {

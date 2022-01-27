@@ -14,7 +14,8 @@ export const USERS_MODULE: Module = {
         properties: {
           role: {type: 'string'},
           start: {type: 'string'},
-          end: {type: 'string'}
+          end: {type: 'string'},
+          email: {type: 'string'}
         }
       },
       definitions: {
@@ -48,12 +49,27 @@ export const USERS_MODULE: Module = {
         },
         role: {
           label: 'GENERAL.ROLE',
+          filterValuePipe: [PipeType.GetDocuments, PipeType.Custom],
+          filterValuePipeArguments: {
+            0: role => [`roles/${role}`],
+            1: role => role[0].name
+          },
           component: {
             type: 'select',
             configuration: {
+              reset: true,
               populate: {
                 collection: 'roles'
               }
+            }
+          }
+        },
+        email: {
+          label: 'GENERAL.EMAIL',
+          component: {
+            type: 'input',
+            configuration: {
+              type: 'email'
             }
           }
         }
@@ -61,7 +77,7 @@ export const USERS_MODULE: Module = {
       segments: [
         {
           type: 'empty',
-          fields: ['/start', '/end', '/role']
+          fields: ['/start', '/end', '/email', '/role']
         }
       ]
     },

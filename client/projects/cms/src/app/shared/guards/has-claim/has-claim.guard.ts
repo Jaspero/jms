@@ -47,7 +47,7 @@ export class HasClaimGuard implements CanActivate {
 
           return this.db.getDocument(FirestoreCollection.Users, data.claims.user_id as string);
         }),
-        map((user) => {
+        map(user => {
           this.state.user = user;
           return true;
         }),

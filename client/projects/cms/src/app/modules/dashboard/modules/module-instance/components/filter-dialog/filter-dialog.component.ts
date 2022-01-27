@@ -1,9 +1,11 @@
 import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Parser, State} from '@jaspero/form-builder';
 import {safeEval} from '@jaspero/utils';
+import {AsyncSubject, BehaviorSubject, map, Observable, of, ReplaySubject, Subject, switchMap, tap} from 'rxjs';
 import {FilterMethod} from '../../../../../../shared/enums/filter-method.enum';
+import {PipeType} from '../../../../../../shared/enums/pipe-type.enum';
 import {FilterModule, FilterModuleDefinition} from '../../../../../../shared/interfaces/filter-module.interface';
 import {WhereFilter} from '../../../../../../shared/interfaces/where-filter.interface';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
@@ -22,61 +24,105 @@ export class FilterDialogComponent {
       ioc: InstanceOverviewContextService
     },
     private dialogRef: MatDialogRef<FilterDialogComponent>
-  ) {}
+  ) { }
 
   apply(form: FormGroup, parser: Parser, override?: any) {
+    return () => {
 
-    parser.preSaveHooks(
-      State.Create,
-      []
-    );
+      parser.preSaveHooks(
+        State.Create,
+        []
+      );
 
-    const data = override || form.getRawValue();
-    let toSend: WhereFilter[] = [];
+      const data = override || form.getRawValue();
+      const pipes: any[] = [];
+      let toSend: WhereFilter[] = [];
 
-    for (const key in data) {
-      if (data.hasOwnProperty(key)) {
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
 
-        const definition = ((this.data.module.definitions || {})[key] || {}) as FilterModuleDefinition;
-        const value = data[key];
+          const definition = ((this.data.module.definitions || {})[key] || {}) as FilterModuleDefinition;
+          const value = data[key];
 
-        let displayValue: any = value;
+          let displayValue: any = value;
 
-        if (
-          value !== undefined &&
-          value !== null &&
-          !Number.isNaN(value) &&
-          value !== ''
-        ) {
-          if (definition.filterValuePipe) {
-            displayValue = this.data.ioc.columnPipe.transform(
+          if (
+            value !== undefined &&
+            value !== null &&
+            !Number.isNaN(value) &&
+            value !== ''
+          ) {
+
+            const insert = () => toSend.push({
+              value,
               displayValue,
-              definition.filterValuePipe,
-              definition.filterValuePipeArguments,
-              {[definition.filterKey || key]: displayValue}
-            );
-          }
+              key: definition.filterKey || key,
+              operator: definition.filterMethod || FilterMethod.Equal,
+              ...definition.filterLabel && {label: definition.filterLabel},
+              ...this.data.module.persist && {persist: this.data.module.persist}
+            });
 
-          toSend.push({
-            value,
-            displayValue,
-            key: definition.filterKey || key,
-            operator: definition.filterMethod || FilterMethod.Equal,
-            ...definition.filterLabel && {label: definition.filterLabel},
-            ...this.data.module.persist && {persist: this.data.module.persist}
-          });
+            if (definition.filterValuePipe) {
+
+              if (!Array.isArray(definition.filterValuePipe)) {
+                definition.filterValuePipe = [definition.filterValuePipe];
+              }
+
+              for (const [i, item] of (definition.filterValuePipe as Array<PipeType>).entries()) {
+                pipes.push(
+                  switchMap(() => {
+                    displayValue = this.data.ioc.columnPipe.transform(
+                      displayValue,
+                      item,
+                      (definition.filterValuePipeArguments || [])[i]
+                    );
+      
+                    const constructor = displayValue?.constructor;
+                    if ([
+                        Observable,
+                        Subject,
+                        BehaviorSubject,
+                        ReplaySubject,
+                        AsyncSubject
+                      ].includes(constructor)
+                    ) {
+                      return displayValue
+                        .pipe(
+                          map(value => 
+                            displayValue = value  
+                          )
+                        );
+                    } else {
+                      return of(displayValue);
+                    }
+                  })
+                );
+              }
+              
+              pipes.push(tap(() => insert()))
+            } else {
+              insert();
+            }
+          }
         }
       }
-    }
 
-    if (this.data.module.formatOnSubmit) {
-      const formatOnSubmit = safeEval(this.data.module.formatOnSubmit);
+      if (this.data.module.formatOnSubmit) {
+        const formatOnSubmit = safeEval(this.data.module.formatOnSubmit);
 
-      if (formatOnSubmit) {
-        toSend = formatOnSubmit(toSend);
+        if (formatOnSubmit) {
+          toSend = formatOnSubmit(toSend);
+        }
       }
-    }
 
-    this.dialogRef.close(toSend);
+      return of(true)
+        .pipe(
+          // @ts-ignore
+          ...pipes,
+          tap(() =>
+            this.dialogRef.close(toSend)
+          )
+        )
+    }
   }
 }
