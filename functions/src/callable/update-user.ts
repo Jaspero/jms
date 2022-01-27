@@ -9,10 +9,27 @@ export const updateUser = functions
   .onCall(async (data, context) => {
     hasRole(context, 'admin');
 
+    const ah = auth();
     const {id, ...update} = data;
 
+    if (update.provider) {
+      const user = await ah.getUser(data);
+
+      if (update.provider.type === 'provider') {
+        update.providerData = user.providerData
+          .filter((it: any) => it.providerId !== update.provider.id);
+      } else if (user.multiFactor) {
+        update.multiFactor = {
+          enrolledFactors: user.multiFactor.enrolledFactors
+            .filter((it: any) => it.factorId !== update.provider.id)
+        };
+      }
+
+      delete update.provider;
+    }
+
     try {
-      await auth().updateUser(id, update);
+      await ah.updateUser(id, update);
     } catch (e) {
       console.error(e);
       throw new functions.https.HttpsError('internal', e.message);

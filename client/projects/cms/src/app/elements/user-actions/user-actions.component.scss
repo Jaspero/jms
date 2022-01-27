@@ -38,16 +38,22 @@
 }
 
 .provider-table {
+
+	border-collapse: collapse;
+
+	th, td {
+		text-align: left;
+		border: 1px solid var(--tertiary);
+		padding: .5rem;
+	}
+
 	th {
 		text-transform: capitalize;
 		margin-right: .5rem;
+		text-align: left;
 	}
 
 	td {
 		line-break: anywhere;
-	}
-
-	th, td {
-		text-align: left;
 	}
 }

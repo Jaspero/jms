@@ -233,10 +233,14 @@
       "EMAIL_PASSWORD": "Email and Password",
       "MULTI_FACTORS": "MFA",
       "PROVIDER_INFORMATION": "Provider Information",
+      "KEY": "Key",
+      "VALUE": "Value",
       "PHONE": "Phone",
       "CREATION_TIME": "Creation Time",
       "LAST_SIGN_IN_TIME": "Last Sign In",
-      "LAST_REFRESH_TIME": "Last Refresh"
+      "LAST_REFRESH_TIME": "Last Refresh",
+      "REMOVE_PROVIDER_TITLE": "Remove Provider",
+      "REMOVE_PROVIDER_DESCRIPTION": "Are you sure you want to remove this provider? This action can't be reverted."
     },
     "TRIGGER_PASSWORD_RESET": {
       "TITLE": "Send password reset email"

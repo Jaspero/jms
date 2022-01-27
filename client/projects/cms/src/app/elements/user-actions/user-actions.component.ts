@@ -1,12 +1,13 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {throwError} from 'rxjs';
 import {catchError, switchMap, tap} from 'rxjs/operators';
 import {DbService} from '../../shared/services/db/db.service';
+import {confirmation} from '../../shared/utils/confirmation';
 import {queue} from '../../shared/utils/queue.operator';
 
 interface Provider {
@@ -54,7 +55,10 @@ export class UserActionsComponent implements OnInit {
   multiFactors: Provider[] = [];
   provider: {
     data: Array<{label: string; value: any;}>;
-  }; 
+    id: string;
+    type: string;
+  };
+  providerDialogRef: MatDialogRef<any>;
 
   ngOnInit() {
 
@@ -122,10 +126,12 @@ export class UserActionsComponent implements OnInit {
     event.stopPropagation();
   }
 
-  openProvider(data: any) {
+  openProvider(data: any, type = 'provider') {
 
     this.provider = {
-      data: []
+      data: [],
+      type,
+      id: type === 'provider' ? data.providerId : data.factorId
     };
 
     for (const key in data) {
@@ -135,10 +141,39 @@ export class UserActionsComponent implements OnInit {
       });
     }
 
-    this.dialog.open(
+    this.providerDialogRef = this.dialog.open(
       this.providerTemplate,
+      {width: '600px'}
+    )
+  }
+
+  removeProvider() {
+    confirmation(
+      [
+        switchMap(() =>
+          this.dbService.callFunction('cms-updateUser', {
+            id: this.id,
+            provider: {
+              type: this.provider.type,
+              id: this.provider.id
+            }
+          }),
+        ),
+        tap(() => {
+          const arr = this.provider.type === 'provider' ? this.providers : this.multiFactors;
+          arr.splice(
+            arr.findIndex(it =>
+              it[this.provider.type === 'provider' ? 'providerId' : 'factorId'] === this.provider.id
+            ),
+            1
+          );
+          this.providerDialogRef.close();
+          this.cdr.markForCheck();
+        })
+      ],
       {
-        width: '600px'
+        header: 'ELEMENTS.USER_ACTIONS.REMOVE_PROVIDER_TITLE',
+        description: 'ELEMENTS.USER_ACTIONS.REMOVE_PROVIDER_DESCRIPTION'
       }
     )
   }

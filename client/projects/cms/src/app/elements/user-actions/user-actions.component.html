@@ -21,7 +21,7 @@
   
       <div class="providers-list">
         <div *ngFor="let provider of multiFactors">
-          <button mat-icon-button (jpStopPropagation)="openProvider(provider.data)">
+          <button mat-icon-button (jpStopPropagation)="openProvider(provider.data, 'mfa')">
             <mat-icon [svgIcon]="provider.svg ? provider.svg : ''" [matTooltip]="provider.label | transloco">{{provider.icon ? provider.icon : ''}}</mat-icon>
           </button>
         </div>
@@ -49,10 +49,17 @@
   <h4 mat-dialog-title>{{'ELEMENTS.USER_ACTIONS.PROVIDER_INFORMATION' | transloco}}</h4>
   <mat-dialog-content>
     <table class="provider-table">
+      <tr>
+        <th>{{'ELEMENTS.USER_ACTIONS.KEY' | transloco}}</th>
+        <th>{{'ELEMENTS.USER_ACTIONS.VALUE' | transloco}}</th>
+      </tr>
       <tr *ngFor="let item of provider.data">
-        <th>{{item.label}}</th>
+        <td>{{item.label}}</td>
         <td>{{item.value}}</td>
       </tr>
     </table>
   </mat-dialog-content>
+  <mat-dialog-actions class="jc-end">
+    <button mat-flat-button color="warn" (click)="removeProvider()">{{'GENERAL.REMOVE' | transloco}}</button>
+  </mat-dialog-actions>
 </ng-template>
