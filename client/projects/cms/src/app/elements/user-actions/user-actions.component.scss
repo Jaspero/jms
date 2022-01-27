@@ -36,3 +36,18 @@
 		}
 	}
 }
+
+.provider-table {
+	th {
+		text-transform: capitalize;
+		margin-right: .5rem;
+	}
+
+	td {
+		line-break: anywhere;
+	}
+
+	th, td {
+		text-align: left;
+	}
+}

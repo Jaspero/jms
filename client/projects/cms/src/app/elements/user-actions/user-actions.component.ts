@@ -1,5 +1,6 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
@@ -8,6 +9,12 @@ import {catchError, switchMap, tap} from 'rxjs/operators';
 import {DbService} from '../../shared/services/db/db.service';
 import {queue} from '../../shared/utils/queue.operator';
 
+interface Provider {
+  label: string;
+  icon?: string;
+  svg?: string;
+  data: any;
+}
 @UntilDestroy()
 @Component({
   selector: 'jms-user-actions',
@@ -20,7 +27,8 @@ export class UserActionsComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private dbService: DbService,
     private iconRegistry: MatIconRegistry,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private dialog: MatDialog
   ) {
     this.iconRegistry.addSvgIconLiteral('google', this.sanitizer.bypassSecurityTrustHtml(`
       <svg viewBox="0 0 20 20" preserveAspectRatio="xMidYMid meet" focusable="false">
@@ -32,16 +40,21 @@ export class UserActionsComponent implements OnInit {
     `));
   }
 
+  @ViewChild('providerDialog', {read: TemplateRef}) providerTemplate: TemplateRef<any>
   @Input() id: string;
 
   status: FormControl;
-  providers: Array<{label: string; icon: string; svg: string;}> = [];
+  providers: Provider[] = [];
   loading = true;
   metadata: {
     creationTime?: string;
     lastSignInTime?: string;
     lastRefreshTime?: string;
-  }
+  };
+  multiFactors: Provider[] = [];
+  provider: {
+    data: Array<{label: string; value: any;}>;
+  }; 
 
   ngOnInit() {
 
@@ -55,6 +68,12 @@ export class UserActionsComponent implements OnInit {
         label: 'ELEMENTS.USER_ACTIONS.EMAIL_PASSWORD'
       }
     };
+    const multiFactorMap = {
+      phone: {
+        icon: 'phone',
+        label: 'ELEMENTS.USER_ACTIONS.PHONE'
+      }
+    }
 
     this.dbService.callFunction('cms-getUser', this.id)
       .pipe(
@@ -69,11 +88,18 @@ export class UserActionsComponent implements OnInit {
         tap(user => {
           this.status = new FormControl(user.disabled);
 
-          this.providers = user.providerData.map(it => {
-            const type = providerMap[it.providerId];
-            return {...type};
+          this.providers = user.providerData.map(data => {
+            const type = providerMap[data.providerId];
+            return {...type, data};
           });
           this.metadata = user.metadata;
+
+          if (user.multiFactor?.enrolledFactors) {
+            this.multiFactors = user.multiFactor.enrolledFactors.map(data => {
+              const type = multiFactorMap[data.factorId];
+              return {...type, data};
+            })
+          }
 
           this.loading = false;
           this.cdr.markForCheck();
@@ -94,5 +120,26 @@ export class UserActionsComponent implements OnInit {
 
   dummy(event) {
     event.stopPropagation();
+  }
+
+  openProvider(data: any) {
+
+    this.provider = {
+      data: []
+    };
+
+    for (const key in data) {
+      this.provider.data.push({
+        label: key,
+        value: data[key]
+      });
+    }
+
+    this.dialog.open(
+      this.providerTemplate,
+      {
+        width: '600px'
+      }
+    )
   }
 }

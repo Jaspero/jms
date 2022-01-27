@@ -231,6 +231,9 @@
       "PROVIDERS": "Providers",
       "GOOGLE": "Google",
       "EMAIL_PASSWORD": "Email and Password",
+      "MULTI_FACTORS": "MFA",
+      "PROVIDER_INFORMATION": "Provider Information",
+      "PHONE": "Phone",
       "CREATION_TIME": "Creation Time",
       "LAST_SIGN_IN_TIME": "Last Sign In",
       "LAST_REFRESH_TIME": "Last Refresh"

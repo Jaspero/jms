@@ -1,4 +1,5 @@
 <div class="loading" *ngIf="loading; else loaded;">{{'ELEMENTS.USER_ACTIONS.LOADING' | transloco}}</div>
+
 <ng-template #loaded>
   <mat-slide-toggle (click)="dummy($event)" [formControl]="status">{{'GENERAL.USER' | transloco}} {{(status.value ? 'GENERAL.DISABLED' : 'GENERAL.ENABLED') | transloco}}</mat-slide-toggle>
   
@@ -8,7 +9,21 @@
   
       <div class="providers-list">
         <div *ngFor="let provider of providers">
-          <mat-icon [svgIcon]="provider.svg ? provider.svg : ''" [matTooltip]="provider.label | transloco">{{provider.icon ? provider.icon : ''}}</mat-icon>
+          <button mat-icon-button (jpStopPropagation)="openProvider(provider.data)">
+            <mat-icon [svgIcon]="provider.svg ? provider.svg : ''" [matTooltip]="provider.label | transloco">{{provider.icon ? provider.icon : ''}}</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="providers" *ngIf="multiFactors.length">
+      <div>{{'ELEMENTS.USER_ACTIONS.MULTI_FACTORS' | transloco}}:</div>
+  
+      <div class="providers-list">
+        <div *ngFor="let provider of multiFactors">
+          <button mat-icon-button (jpStopPropagation)="openProvider(provider.data)">
+            <mat-icon [svgIcon]="provider.svg ? provider.svg : ''" [matTooltip]="provider.label | transloco">{{provider.icon ? provider.icon : ''}}</mat-icon>
+          </button>
         </div>
       </div>
     </div>
@@ -28,4 +43,16 @@
       </div>
     </div>
   </div>
+</ng-template>
+
+<ng-template #providerDialog>
+  <h4 mat-dialog-title>{{'ELEMENTS.USER_ACTIONS.PROVIDER_INFORMATION' | transloco}}</h4>
+  <mat-dialog-content>
+    <table class="provider-table">
+      <tr *ngFor="let item of provider.data">
+        <th>{{item.label}}</th>
+        <td>{{item.value}}</td>
+      </tr>
+    </table>
+  </mat-dialog-content>
 </ng-template>
