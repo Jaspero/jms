@@ -24,7 +24,7 @@ export class FilterDialogComponent {
       ioc: InstanceOverviewContextService
     },
     private dialogRef: MatDialogRef<FilterDialogComponent>
-  ) { }
+  ) {}
 
   apply(form: FormGroup, parser: Parser, override?: any) {
     return () => {
@@ -58,7 +58,7 @@ export class FilterDialogComponent {
               displayValue,
               key: definition.filterKey || key,
               operator: definition.filterMethod || FilterMethod.Equal,
-              ...definition.filterLabel && {label: definition.filterLabel},
+              ...(definition.filterLabel || definition.label) && {label: definition.filterLabel || definition.label},
               ...this.data.module.persist && {persist: this.data.module.persist}
             });
 

@@ -180,14 +180,8 @@ export const USERS_MODULE: Module = {
           },
           table: {
             tableColumns: [
-              {
-                key: '/id',
-                label: 'GENERAL.ID'
-              },
-              {
-                key: '/name',
-                label: 'GENERAL.NAME'
-              }
+              {key: '/name', label: 'GENERAL.NAME'},
+              {key: '/id', label: 'GENERAL.ID'}
             ]
           }
         }
