@@ -131,7 +131,7 @@ export class UserActionsComponent implements OnInit {
     this.provider = {
       data: [],
       type,
-      id: type === 'provider' ? data.providerId : data.factorId
+      id: type === 'provider' ? data.uid : data.factorId
     };
 
     for (const key in data) {
