@@ -13,19 +13,25 @@ export const updateUser = functions
     const {id, ...update} = data;
 
     if (update.provider) {
-      const user = await ah.getUser(id);
-
       if (update.provider.type === 'provider') {
-        update.providerData = user.providerData
-          .filter((it: any) => it.providerId !== update.provider.id);
-      } else if (user.multiFactor) {
-        update.multiFactor = {
-          enrolledFactors: user.multiFactor.enrolledFactors
-            .filter((it: any) => it.factorId !== update.provider.id)
-        };
+        await ah.deleteProviderConfig(update.provider.id);
+      } else {
+
+        const user = await ah.getUser(id);
+
+        if (user.multiFactor) {
+          update.multiFactor = {
+            enrolledFactors: user.multiFactor.enrolledFactors
+              .filter((it: any) => it.factorId !== update.provider.id)
+          };
+        }
       }
 
       delete update.provider;
+    }
+
+    if (!Object.keys(update).length) {
+      return;
     }
 
     try {

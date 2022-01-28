@@ -73,7 +73,7 @@ export class FirebaseModule {
         FbStorageService,
         {
           provide: DbService,
-          useClass: FbDatabaseService
+          useExisting: FbDatabaseService
         }
       ]
     };
