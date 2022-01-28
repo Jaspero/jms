@@ -13,7 +13,7 @@ export const updateUser = functions
     const {id, ...update} = data;
 
     if (update.provider) {
-      const user = await ah.getUser(data);
+      const user = await ah.getUser(id);
 
       if (update.provider.type === 'provider') {
         update.providerData = user.providerData
