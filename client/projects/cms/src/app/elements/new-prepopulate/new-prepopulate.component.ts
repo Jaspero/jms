@@ -8,20 +8,19 @@ import {Router} from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewPrepopulateComponent implements OnInit {
-
   constructor(
     private el: ElementRef,
     private router: Router
-  ) { }
-
-  @Input()
-  label = 'Prepopulate';
+  ) {}
 
   @Input()
   docId: string;
 
   @Input()
   subCollection: string;
+
+  @Input()
+  icon: string;
 
   @Input()
   collection: string;
