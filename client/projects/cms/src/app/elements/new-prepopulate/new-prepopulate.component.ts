@@ -1,6 +1,9 @@
 import {ChangeDetectionStrategy, Component, ElementRef, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
+/**
+ * On html use window.btoa(encodeURIComponent(JSON.stringify(data)))
+ */
 @Component({
   selector: 'jms-new-prepopulate',
   templateUrl: './new-prepopulate.component.html',
@@ -45,7 +48,7 @@ export class NewPrepopulateComponent implements OnInit {
 
     return this.router.navigate([url], {
       state: {
-        data: this.dataset ? JSON.parse(this.dataset) : this.data
+        data: this.dataset ? JSON.parse(decodeURIComponent(window.atob(this.dataset))) : this.data
       }
     });
   }
