@@ -115,13 +115,13 @@ export class FbDatabaseService extends DbService {
 
   }
 
-  getDocumentsSimple(moduleId, order?, filter?) {
+  getDocumentsSimple(moduleId, sort?, filter?) {
     return from(
       getDocs(
         query(
           collection(this.firestore, moduleId),
           ...[
-            order && orderBy(order),
+            sort && orderBy(sort.active, sort.direction),
             filter && where(filter.key, filter.operator, filter.value)
           ]
             .filter(it => it)
@@ -138,13 +138,13 @@ export class FbDatabaseService extends DbService {
       )
   }
 
-  getSubdocumentsSimple(moduleId, order?, filter?) {
+  getSubdocumentsSimple(moduleId, sort?, filter?) {
     return from(
       getDocs(
         query(
           collectionGroup(this.firestore, moduleId),
           ...[
-            order && orderBy(order),
+            sort && orderBy(sort.active, sort.direction),
             filter && where(filter.key, filter.operator, filter.value)
           ]
             .filter(it => it)
@@ -205,8 +205,9 @@ export class FbDatabaseService extends DbService {
     sort,
     cursor,
     filters?: any[],
-    collectionGroup?
+    cg?
   ) {
+
     const methods = [
       sort && orderBy(sort.active, sort.direction),
       ...(filters ? filters : []),
@@ -215,10 +216,10 @@ export class FbDatabaseService extends DbService {
     ]
       .filter(it => it);
 
-    if (collectionGroup) {
+    if (cg) {
 
       return query(
-        collectionGroup(moduleId),
+        collectionGroup(this.firestore, moduleId),
         ...methods
       );
     }
