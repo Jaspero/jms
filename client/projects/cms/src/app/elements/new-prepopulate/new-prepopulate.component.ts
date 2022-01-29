@@ -23,6 +23,9 @@ export class NewPrepopulateComponent implements OnInit {
   icon: string;
 
   @Input()
+  dataset: string;
+
+  @Input()
   collection: string;
   data: any;
 
@@ -42,7 +45,7 @@ export class NewPrepopulateComponent implements OnInit {
 
     return this.router.navigate([url], {
       state: {
-        data: this.data
+        data: this.dataset ? JSON.parse(this.dataset) : this.data
       }
     });
   }
