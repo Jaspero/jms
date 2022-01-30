@@ -1,6 +1,7 @@
 import {Clipboard} from '@angular/cdk/clipboard';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
@@ -13,7 +14,7 @@ import {getDownloadURL, getMetadata} from '@angular/fire/storage';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {formatFileName} from '@jaspero/form-builder';
-import {safeEval} from '@jaspero/utils';
+import {safeEval, capitalize} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
 import {BehaviorSubject, combineLatest, Observable, of, Subscription, throwError} from 'rxjs';
@@ -30,6 +31,15 @@ import {FileManagerService} from './file-manager.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FileManagerComponent implements OnInit, OnDestroy {
+  constructor(
+    private dialog: MatDialog,
+    private fb: FormBuilder,
+    private clipboard: Clipboard,
+    private fileManager: FileManagerService,
+    private cdr: ChangeDetectorRef
+  ) {
+  }
+
   @ViewChild('file')
   fileElement: ElementRef<HTMLInputElement>;
   @ViewChild('metadata')
@@ -41,6 +51,9 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   @ViewChild('newFolder')
   newFolderDialogElement: TemplateRef<any>;
   newFolderDialog: MatDialogRef<any>;
+  @ViewChild('preview')
+  previewDialogElement: TemplateRef<any>;
+  previewDialog: MatDialogRef<any>;
   @Input()
   configuration = {
     uploadMode: false,
@@ -52,7 +65,6 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   @Input()
   dialogRef: MatDialogRef<any>;
   routeControl: FormControl;
-  displayMode$ = new BehaviorSubject<'list' | 'grid'>('list');
   data$: Observable<{
     files: any[];
     folders: any[];
@@ -63,15 +75,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   activeFile$ = new BehaviorSubject<number>(-1);
   nextPageToken: string | undefined;
   loadMore = false;
-  private subscriptions: Subscription[] = [];
-
-  constructor(
-    private dialog: MatDialog,
-    private fb: FormBuilder,
-    private clipboard: Clipboard,
-    private fileManager: FileManagerService
-  ) {
-  }
+  subscriptions: Subscription[] = [];
 
   ngOnInit() {
     this.routeControl = new FormControl(this.configuration.route, {
@@ -124,12 +128,10 @@ export class FileManagerComponent implements OnInit, OnDestroy {
           )
         ]);
       }),
-      map(([files, folders]) => {
-        return {
-          files,
-          folders
-        };
-      }),
+      map(([files, folders]) => ({
+        files,
+        folders
+      })),
       scan((data, item) => {
         if (this.loadMore) {
           data.files.push(...item.files);
@@ -151,11 +153,6 @@ export class FileManagerComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(subscription => {
       subscription.unsubscribe();
     });
-  }
-
-  toggleDisplayMode() {
-    const current = this.displayMode$.value;
-    this.displayMode$.next(current === 'list' ? 'grid' : 'list');
   }
 
   typeToIcon(type = '') {
@@ -244,15 +241,14 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   }
 
   copyURL(file) {
-    return () => {
-      return of(this.clipboard.copy(file.downloadLink) || throwError(''))
+    return () =>
+      of(this.clipboard.copy(file.downloadLink) || throwError(''))
         .pipe(
           notify({
             success: 'FILE_MANAGER.COPY.SUCCESS',
             error: 'FILE_MANAGER.COPY.ERROR'
           })
-        );
-    };
+        )
   }
 
   deleteFile(file) {
@@ -270,23 +266,42 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   }
 
   editFileMetadata(file) {
-    const keys = Object.keys(file.customMetadata || {});
+    const metadata = file.customMetadata || {};
+    const keys = Object.keys(metadata);
     this.metadataDialog = this.dialog.open(this.metadataDialogElement, {
       autoFocus: false,
       data: {
-        ...file,
+        file,
         fb: {
           schema: {
             properties: keys.reduce((acc, key) => {
               acc[key] = {type: 'string'};
               return acc;
-            }, {})
+            }, {
+              displayName: {type: 'string'}
+            })
           },
-          value: file.customMetadata || {a: '123'}
+          definitions: keys.reduce((acc, key) => {
+            acc[key] = {label: capitalize(key.split(/(?=[A-Z])/).join(' '))};
+            return acc;
+          }, {displayName: {label: 'Display Name'}}),
+          value: metadata || {}
         }
       },
       width: '600px'
     });
+  }
+
+  updateMetadata(file, form: FormGroup) {
+    return () =>
+      this.fileManager.updateMetadata(file.fullPath, {customMetadata: form.getRawValue()})
+        .pipe(
+          tap(data => {
+            file.customMetadata = data.customMetadata;
+            this.cdr.markForCheck();
+            this.metadataDialog.close();
+          })
+        )
   }
 
   openNewFolderDialog() {
@@ -297,9 +312,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
     this.newFolderDialog = this.dialog.open(this.newFolderDialogElement, {
       autoFocus: true,
       width: '600px',
-      data: {
-        form
-      }
+      data: {form}
     });
   }
 
@@ -460,6 +473,14 @@ export class FileManagerComponent implements OnInit, OnDestroy {
       url: file.downloadLink,
       name: file.name,
       direct: true
+    });
+  }
+
+  previewFile(file) {
+    this.previewDialog = this.dialog.open(this.previewDialogElement, {
+      autoFocus: false,
+      data: {file},
+      width: '800px'
     });
   }
 }

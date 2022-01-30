@@ -1,67 +1,90 @@
-.item {
-  &-bar {
-    transition: all .1s;
-    padding-left: 16px;
-    height: 50px;
-    &:hover {
-      cursor: pointer;
-      background-color: #cccccc;
-    }
+$borderRadius: 4px;
 
-    &.active {
-      background-color: rgba(100, 100, 200, 0.3);
-    }
-  }
+.folder {
 
-  &-name {
-    padding-left: 16px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  background: var(--backdrop-theme);
+  border-color: var(--primary-theme);
+  border-radius: $borderRadius;
+  cursor: pointer;
+
+  &-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: var(--primary-theme);
+    color: var(--primary-primary);
   }
 }
 
-.fb-image-suffix {
-  display: flex;
+.file {
+
+  overflow: hidden;
+  border-radius: $borderRadius;
 
   &-preview {
-    display: inline-block;
-    position: relative;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("/assets/images/transparent-pattern.png");
+    background-size: 16px 16px;
 
-    &-image {
-      position: absolute;
-      z-index: 999;
-      top: 100%;
-      left: 0;
-      width: 300px;
-      height: 300px;
-      max-width: unset;
+    &-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background-color: var(--primary-theme);
+      color: var(--primary-primary);
+
+      .mat-icon {
+        font-size: 70px;
+        width: 70px;
+        height: 70px;
+      }
+    }
+
+    > img {
+      height: 100%;
+      width: auto;
       object-fit: contain;
-      background: white;
-      box-shadow: 0 2px 5px 0 rgba(0,0,0,.4);
-      visibility: hidden;
-      opacity: 0;
-      transition: .2s;
     }
+  }
 
-    &-button:hover + &-image {
-      transition-delay: 1s;
-      visibility: visible;
-      opacity: 1;
-    }
+  &-bar {
+    background: var(--backdrop-theme);
+    border-color: var(--primary-theme);
+    border-radius: $borderRadius;
   }
 }
 
-.no-select {
-  user-select: none;
+.item-label {
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .m-r-m-i {
   margin-right: 10px !important;
 }
 
-mat-list-item.disabled {
-  cursor: not-allowed !important;
-  opacity: 0.5;
-  text-decoration: none;
+.preview {
+  &-image {
+    max-width: 90%;
+    max-height: 70vh;
+  }
+
+  &-video {
+    max-width: 90%;
+    max-height: 70vh;
+
+    width: 90%;
+    height: 100%;
+  }
 }
