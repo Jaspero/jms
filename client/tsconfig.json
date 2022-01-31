@@ -18,8 +18,10 @@
     ],
     "skipLibCheck": true,
     "paths": {
-      "@shared/*": ["./projects/shared/*"]  
+      "@shared/*": ["./projects/shared/*"]
     },
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "reactNamespace": "JSX"
   }
 }
