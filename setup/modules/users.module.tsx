@@ -98,7 +98,7 @@ export const USERS_MODULE: Module = {
           key: '/name',
           label: 'GENERAL.NAME',
           nestedColumns: [
-            {key: '/email', label: 'GENERAL.EMAIL', ...EMAIL_PIPE},
+            {key: '/email', label: 'GENERAL.EMAIL', ...EMAIL_PIPE}
           ]
         },
         {
@@ -109,36 +109,33 @@ export const USERS_MODULE: Module = {
       ],
       actions: [
         {
-          value: it => `<jms-e-user-actions id="${it.id}"></jms-e-user-actions>`,
+          value: it => JSX(<jms-e-user-actions id={it.id}/>),
           authorization: ['admin'],
           menuStyle: false
         },
         {
-          value: (it) => {
-            console.log(window.jms.util.state.user);
-            return JSX(<jms-e-notes data-id={it.id} />);
-          },
+          value: (it) => JSX(<jms-e-notes data-id={it.id}/>)
         },
         {
-          value: it => `<jms-e-tpr data-email="${it.data.email}"></jms-e-tpr>`,
+          value: it => JSX(<jms-e-tpr data-email={it.data.email}/>),
           authorization: ['admin']
         },
         {
-          value: it => `<jms-e-cp data-id="${it.id}"></jms-e-cp>`,
+          value: it => JSX(<jms-e-cp data-id={it.id}/>),
           authorization: ['admin']
         },
         {
-          value: it => `<jms-e-ce data-id="${it.id}"></jms-e-ce>`,
+          value: it => JSX(<jms-e-ce data-id={it.id}/>),
           authorization: ['admin']
         },
         {
-          value: it => `<jms-e-impersonate id="${it.id}"></jms-e-impersonate>`,
+          value: it => JSX(<jms-e-impersonate id={it.id}/>),
           authorization: ['admin']
-        },
+        }
       ]
     },
     overview: {
-      toolbar: ['<jms-e-user-add></jms-e-user-add>']
+      toolbar: [JSX(<jms-e-user-add/>)]
     }
   },
   schema: {
@@ -200,8 +197,7 @@ export const USERS_MODULE: Module = {
             {
               id: 'file-manager',
               label: 'FILE_MANAGER.TITLE',
-              component:
-                '<jms-e-file-manager-select></jms-e-file-manager-select>',
+              component: JSX(<jms-e-file-manager-select/>),
               configuration: {
                 route: '/generated',
                 hidePath: true,
