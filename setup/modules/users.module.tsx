@@ -1,6 +1,7 @@
 import {CREATED_ON} from './shared/created-on';
 import {EMAIL_PIPE} from './shared/email-pipe';
 import {FilterMethod, Module, PipeType} from './shared/module.type';
+import JSX from '../../client/projects/shared/utils/jsx.compiler';
 
 export const USERS_MODULE: Module = {
   id: 'users',
@@ -113,7 +114,10 @@ export const USERS_MODULE: Module = {
           menuStyle: false
         },
         {
-          value: it => `<jms-e-notes data-id="${it.id}"></jms-e-notes>`,
+          value: (it) => {
+            console.log(window.jms.util.state.user);
+            return JSX(<jms-e-notes data-id={it.id} />);
+          },
         },
         {
           value: it => `<jms-e-tpr data-email="${it.data.email}"></jms-e-tpr>`,
