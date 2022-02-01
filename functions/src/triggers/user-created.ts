@@ -60,6 +60,7 @@ export const userCreated = functions
       .set({
         createdOn: Date.now(),
         email: user.email,
+        active: true,
         ...role ? {
           role: role.role,
           requireReset: role.requireReset || false

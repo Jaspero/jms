@@ -19,6 +19,7 @@ import {MatSort} from '@angular/material/sort';
 import {Router} from '@angular/router';
 import {Definitions, Parser, State} from '@jaspero/form-builder';
 import {parseTemplate, random, safeEval} from '@jaspero/utils';
+import {TranslocoService} from '@ngneat/transloco';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
 import {get, has} from 'json-pointer';
@@ -87,7 +88,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     private dbService: DbService,
     private dialog: MatDialog,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private transloco: TranslocoService
   ) {}
 
   /**
@@ -502,6 +504,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           );
         } else {
           value = column.fallback || '';
+
+          if (!nested) {
+            value = this.transloco.translate(value);
+          }
         }
       }
 
@@ -520,7 +526,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           return new TemplatePortal(
             this.simpleColumnTemplate,
             this.viewContainerRef,
-            {value: column.populate.fallback || '-'}
+            {value: this.transloco.translate(column.populate.fallback || '-')}
           );
         }
 
@@ -567,10 +573,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
                         {rowData, populated}
                       );
                     } else {
-                      return column.populate.fallback || '-';
+                      return this.transloco.translate(column.populate.fallback || '-');
                     }
                   } else {
-                    return column.populate.fallback || '-';
+                    return this.transloco.translate(column.populate.fallback || '-');
                   }
                 }),
                 shareReplay(1)
@@ -592,7 +598,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
                       {rowData, populated}
                     );
                   } else {
-                    return column.populate.fallback || '-';
+                    return this.transloco.translate(column.populate.fallback || '-');
                   }
                 }),
                 shareReplay(1)

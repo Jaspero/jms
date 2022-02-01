@@ -15,13 +15,6 @@ export const ROLES_MODULE: Module = {
     instance: {
       segments: [
         {
-          components: [
-            {
-              selector: 'duplicate'
-            }
-          ]
-        },
-        {
           fields: [
             '/createdOn',
             '/name',
@@ -33,14 +26,8 @@ export const ROLES_MODULE: Module = {
     table: {
       tableColumns: [
         CREATED_ON.column(),
-        {
-          key: '/name',
-          label: 'GENERAL.NAME'
-        },
-        {
-          key: '/description',
-          label: 'GENERAL.DESCRIPTION'
-        }
+        {key: '/name', label: 'GENERAL.NAME'},
+        {key: '/description', label: 'GENERAL.DESCRIPTION'}
       ],
       actions: [
         {
