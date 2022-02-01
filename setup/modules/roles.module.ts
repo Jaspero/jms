@@ -44,7 +44,7 @@ export const ROLES_MODULE: Module = {
       ],
       actions: [
         {
-          value: `it => '<jms-e-new-prepopulate collection="users" data-name="Prefill Test" data-email="{{it.data.description}}" label="Assign User"></jms-e-new-prepopulate>'`
+          value: `it => '<jms-e-new-prepopulate collection="users" data-name="Prefill Test" data-email="{{it.data.description}}" label="Assign User">Prepopulate User</jms-e-new-prepopulate>'`
         }
       ]
     }

@@ -26,16 +26,16 @@ export class NewPrepopulateComponent implements OnInit {
   icon: string;
 
   @Input()
-  dataset: string;
+  data: string;
 
   @Input()
   collection: string;
-  data: any;
+  private _data: any;
 
   ngOnInit(): void {
     const camelize = s => s.replace(/-./g, x => x.toUpperCase()[1]);
     const dataset = this.el.nativeElement.dataset;
-    this.data = Object.keys(dataset).reduce((data, key) => {
+    this._data = Object.keys(dataset).reduce((data, key) => {
       data[camelize(key)] = dataset[key];
       return data;
     }, {});
@@ -48,7 +48,7 @@ export class NewPrepopulateComponent implements OnInit {
 
     return this.router.navigate([url], {
       state: {
-        data: this.dataset ? JSON.parse(decodeURIComponent(window.atob(this.dataset))) : this.data
+        data: this.data ? JSON.parse(decodeURIComponent(window.atob(this.data))) : this._data
       }
     });
   }

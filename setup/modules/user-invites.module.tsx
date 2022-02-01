@@ -1,5 +1,6 @@
 import {CREATED_ON} from './shared/created-on';
 import {Module, PipeType} from './shared/module.type';
+import JSX from '../../client/projects/shared/utils/jsx.compiler';
 
 export const USER_INVITES_MODULE: Module = {
   id: 'user-invites',
@@ -18,7 +19,7 @@ export const USER_INVITES_MODULE: Module = {
           label: 'GENERAL.EMAIL',
           pipe: [PipeType.Custom],
           pipeArguments: {
-            0: `id => '<a target="_blank" href="mailto:{{id}}">{{id}}</a>'`
+            0: (id) => JSX(<a target="_blank" href={'mailto:' + id}>{id}</a>)
           }
         },
         {
