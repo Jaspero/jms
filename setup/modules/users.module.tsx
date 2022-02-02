@@ -215,22 +215,19 @@ export const USERS_MODULE: Module = {
       component: {
         type: 'image',
         configuration: {
-          uploadMethods: [
-            {
-              id: 'file-manager',
-              label: 'FILE_MANAGER.TITLE',
-              component: JSX(<jms-e-file-manager-select/>),
-              configuration: {
-                route: '/generated',
-                hidePath: true,
-                filters: [
-                  {
-                    value: `(file) => file.contentType.startsWith('image/')`
-                  }
-                ]
-              }
+          uploadMethods: [{
+            id: 'file-manager',
+            label: 'FILE_MANAGER.TITLE',
+            component: JSX(<jms-e-file-manager-select/>),
+            configuration: {
+              hidePath: false,
+              hideFolders: false,
+              allowUpload: true,
+              filters: [{
+                value: file => file.contentType.startsWith('image/')
+              }]
             }
-          ]
+          }]
         }
       }
     },
