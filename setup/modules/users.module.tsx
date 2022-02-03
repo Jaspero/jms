@@ -99,11 +99,9 @@ export const USERS_MODULE: Module = {
     },
     sort: CREATED_ON.sort,
     instance: {
-      segments: [
-        {
-          fields: ['/createdOn', '/id', '/name', '/email', '/role', '/photo']
-        }
-      ]
+      segments: [{
+        fields: ['/id', '/name', '/email', '/role', '/photo']
+      }]
     },
     table: {
       hideImport: true,
@@ -170,10 +168,7 @@ export const USERS_MODULE: Module = {
     }
   },
   definitions: {
-    id: {
-      label: 'GENERAL.ID',
-      disableOn: 'edit'
-    },
+    id: {label: 'GENERAL.ID', disableOn: 'edit'},
     name: {label: 'GENERAL.NAME'},
     email: {
       label: 'GENERAL.EMAIL',
@@ -191,16 +186,9 @@ export const USERS_MODULE: Module = {
         type: 'ref',
         configuration: {
           collection: 'roles',
-          valueKey: 'id',
           clearValue: null,
-          search: {
-            key: '/name',
-            label: 'Name'
-          },
-          display: {
-            key: '/name',
-            label: 'GENERAL.NAME'
-          },
+          search: {key: '/name', label: 'GENERAL.NAME'},
+          display: {key: '/name', label: 'GENERAL.ROLE'},
           table: {
             tableColumns: [
               {key: '/name', label: 'GENERAL.NAME'},

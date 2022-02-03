@@ -16,7 +16,6 @@ export const ROLES_MODULE: Module = {
       segments: [
         {
           fields: [
-            '/createdOn',
             '/name',
             '/description'
           ]
