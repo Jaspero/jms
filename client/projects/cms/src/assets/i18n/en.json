@@ -34,6 +34,8 @@
     "SUBMIT": "Submit",
     "DISABLED": "Disabled",
     "ENABLED": "Enabled",
+    "ACTIVE": "Active",
+    "IN_ACTIVE": "In Active",
     "BACK": "Back",
 
     "COUNTRY": "Country",
@@ -48,7 +50,8 @@
     "EMAIL": "Email",
     "DESCRIPTION": "Description",
 
-    "YES": "Yes"
+    "YES": "Yes",
+    "NO": "No"
   },
   "LOGIN": {
     "LOGIN": "Login",

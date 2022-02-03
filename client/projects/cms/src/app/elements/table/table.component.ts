@@ -19,6 +19,7 @@ import {MatSort} from '@angular/material/sort';
 import {Router} from '@angular/router';
 import {Definitions, Parser, State} from '@jaspero/form-builder';
 import {parseTemplate, random, safeEval} from '@jaspero/utils';
+import {TranslocoService} from '@ngneat/transloco';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
 import {get, has} from 'json-pointer';
@@ -80,6 +81,18 @@ interface TableData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
+  constructor(
+    public ioc: InstanceOverviewContextService,
+    private state: StateService,
+    private injector: Injector,
+    private viewContainerRef: ViewContainerRef,
+    private dbService: DbService,
+    private dialog: MatDialog,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private transloco: TranslocoService
+  ) { }
+
   /**
    * Using view children so we can listen for changes
    */
@@ -106,18 +119,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   };
   maxHeight$ = new Subject<string>();
   actions = {};
-
-  constructor(
-    public ioc: InstanceOverviewContextService,
-    private state: StateService,
-    private injector: Injector,
-    private viewContainerRef: ViewContainerRef,
-    private dbService: DbService,
-    private dialog: MatDialog,
-    private router: Router,
-    private cdr: ChangeDetectorRef
-  ) {
-  }
 
   ngOnInit() {
     /**
@@ -233,7 +234,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           ? {
             stickyHeader:
               data.layout.table &&
-              data.layout.table.hasOwnProperty('stickyHeader')
+                data.layout.table.hasOwnProperty('stickyHeader')
                 ? data.layout.table.stickyHeader
                 : true,
             sortModule: data.layout.sortModule,
@@ -512,6 +513,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           );
         } else {
           value = column.fallback || '';
+
+          if (!nested) {
+            value = this.transloco.translate(value);
+          }
         }
       }
 
@@ -531,7 +536,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           return new TemplatePortal(
             this.simpleColumnTemplate,
             this.viewContainerRef,
-            {value: column.populate.fallback || '-'}
+            {value: this.transloco.translate(column.populate.fallback || '-')}
           );
         }
 
@@ -541,15 +546,14 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           (key, entry) => get(entry, key),
           true
         );
-        const popKey = `${parsedCollection}-${
-          column.populate.lookUp
+        const popKey = `${parsedCollection}-${column.populate.lookUp
             ? [
               column.populate.lookUp.key,
               column.populate.lookUp.operator,
               id
             ].join('-')
             : id
-        }`;
+          }`;
 
         if (!this.populateCache[popKey]) {
           if (column.populate.lookUp) {
@@ -578,10 +582,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
                         {rowData, populated}
                       );
                     } else {
-                      return column.populate.fallback || '-';
+                      return this.transloco.translate(column.populate.fallback || '-');
                     }
                   } else {
-                    return column.populate.fallback || '-';
+                    return this.transloco.translate(column.populate.fallback || '-');
                   }
                 }),
                 shareReplay(1)
@@ -603,7 +607,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
                       {rowData, populated}
                     );
                   } else {
-                    return column.populate.fallback || '-';
+                    return this.transloco.translate(column.populate.fallback || '-');
                   }
                 }),
                 shareReplay(1)

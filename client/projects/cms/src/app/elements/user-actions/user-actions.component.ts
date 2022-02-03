@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {FormControl} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -44,7 +43,6 @@ export class UserActionsComponent implements OnInit {
   @ViewChild('providerDialog', {read: TemplateRef}) providerTemplate: TemplateRef<any>
   @Input() id: string;
 
-  status: FormControl;
   providers: Provider[] = [];
   loading = true;
   metadata: {
@@ -83,15 +81,12 @@ export class UserActionsComponent implements OnInit {
       .pipe(
         queue(),
         catchError((error => {
-          this.status = new FormControl(false);
           this.loading = false;
           this.cdr.markForCheck();
           console.error(error);
           return throwError(() => error);
         })),
         tap(user => {
-          this.status = new FormControl(user.disabled);
-
           this.providers = user.providerData.map(data => {
             const type = providerMap[data.providerId];
             return {...type, data};
@@ -108,15 +103,6 @@ export class UserActionsComponent implements OnInit {
           this.loading = false;
           this.cdr.markForCheck();
         }),
-        switchMap(() =>
-          this.status.valueChanges
-        ),
-        switchMap(disabled =>
-          this.dbService.callFunction('cms-updateUser', {
-            id: this.id,
-            disabled
-          })
-        ),
         untilDestroyed(this)
       )
       .subscribe();

@@ -60,6 +60,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
     allowUpload: true,
     route: '/',
     hidePath: false,
+    hideFolders: false,
     filters: []
   };
   @Input()
@@ -104,18 +105,17 @@ export class FileManagerComponent implements OnInit, OnDestroy {
                 icon: this.typeToIcon(metadata.contentType)
               };
             })
-          ).then(files => {
-            return files.filter(file => {
-              return this.configuration.filters.every(filter => {
-                try {
-                  const fn = safeEval(filter.value);
-
-                  return fn(file);
-                } catch (error) {
-                }
-              });
-            });
-          }),
+          )
+            .then(files => 
+              files.filter(file =>
+                this.configuration.filters.every(filter => {
+                  try {
+                    const fn = safeEval(filter.value);
+                    return fn(file);
+                  } catch (error) {}
+                })  
+              )
+            ),
           Promise.all(
             response.prefixes.map(async (item) => {
               return {
@@ -216,8 +216,12 @@ export class FileManagerComponent implements OnInit, OnDestroy {
 
   deleteFolder(folder) {
     confirmation([
-      switchMap(() => this.fileManager.deleteFolder(folder.fullPath)
-        .pipe(notify())),
+      switchMap(() =>
+        this.fileManager.deleteFolder(folder.fullPath)
+          .pipe(
+            notify()
+          )
+      ),
       tap(() => this.reset())
     ], {
       description: 'FILE_MANAGER.DELETE_FOLDER.DESCRIPTION',

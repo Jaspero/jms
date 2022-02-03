@@ -1,4 +1,10 @@
+@import "../../../../../scss/breakpoints";
+
 $borderRadius: 4px;
+
+.path {
+  width: 100%;
+}
 
 .folder {
 
@@ -23,6 +29,19 @@ $borderRadius: 4px;
 
   overflow: hidden;
   border-radius: $borderRadius;
+
+  &-col {
+    padding: 10px;
+    width: 33.33%;
+
+    @media (max-width: $screen-m) {
+      width: 50%;
+    }
+
+    @media (max-width: $screen-s) {
+      width: 100%;
+    }
+  }
 
   &-preview {
     height: 200px;
@@ -86,5 +105,42 @@ $borderRadius: 4px;
 
     width: 90%;
     height: 100%;
+  }
+}
+
+section {
+  padding: 20px;
+
+  &.selection-mode {
+    padding: 0;
+
+    .path {
+      width: auto;
+    }
+
+    .item-card {
+      > mat-card {
+        box-shadow: none;
+        padding: 0;
+
+        > .mat-card-header {
+          padding: 0;
+          margin: 0;
+        }
+      }
+    }
+
+    .file {
+      height: auto;
+      cursor: pointer;
+    }
+
+    .file-preview {
+      height: 130px;
+    }
+
+    .file-col {
+      width: 33.33%;
+    }
   }
 }

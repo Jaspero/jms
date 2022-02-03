@@ -20,6 +20,7 @@ interface Instance {
     id: string;
     docIdPrefix: string;
     docIdSize: number;
+    docIdMethod?: <T = any>(data: T) => string;
     name: string;
     editTitleKey: string;
   };
@@ -155,6 +156,7 @@ export class InstanceSingleComponent implements OnInit {
                 id: module.id,
                 docIdPrefix: module.metadata?.docIdPrefix || module.id.slice(0, 2),
                 docIdSize: module.metadata?.docIdSize || 12,
+                docIdMethod: module.metadata?.docIdMethod,
                 name: module.name,
                 editTitleKey
               },
@@ -190,7 +192,12 @@ export class InstanceSingleComponent implements OnInit {
   save(instance: Instance, navigate = true) {
     return () => {
       this.formBuilderComponent.process();
-      const id = this.formBuilderComponent.form.getRawValue().id || `${instance.module.docIdPrefix}-${random.string(instance.module.docIdSize)}`;
+      const initial = this.formBuilderComponent.form.getRawValue();
+      const id = 
+        initial.id ||
+        instance.module.docIdMethod ?
+          instance.module.docIdMethod(initial) :
+          `${instance.module.docIdPrefix}-${random.string(instance.module.docIdSize)}`;
 
       const actions: any[] = [
         switchMap(() => {
