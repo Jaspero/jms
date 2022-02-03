@@ -13,25 +13,18 @@ export const ROLES_MODULE: Module = {
     editTitleKey: 'name',
     sort: CREATED_ON.sort,
     instance: {
-      segments: [
-        {
-          fields: [
-            '/name',
-            '/description'
-          ]
-        }
-      ]
+      segments: [{
+        fields: [
+          '/name',
+          '/description'
+        ]
+      }]
     },
     table: {
       tableColumns: [
         CREATED_ON.column(),
         {key: '/name', label: 'GENERAL.NAME'},
         {key: '/description', label: 'GENERAL.DESCRIPTION'}
-      ],
-      actions: [
-        {
-          value: `it => '<jms-e-new-prepopulate collection="users" data-name="Prefill Test" data-email="{{it.data.description}}" label="Assign User"></jms-e-new-prepopulate>'`
-        }
       ]
     }
   },
@@ -56,8 +49,5 @@ export const ROLES_MODULE: Module = {
       }
     },
     ...CREATED_ON.definition()
-  },
-  metadata: {
-    autoSave: 0
   }
 };

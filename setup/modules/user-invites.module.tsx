@@ -19,7 +19,7 @@ export const USER_INVITES_MODULE: Module = {
           label: 'GENERAL.EMAIL',
           pipe: [PipeType.Custom],
           pipeArguments: {
-            0: id => JSX(<a target="_blank" href="mailto:{id}">{id}</a>)
+            0: id => JSX(<a target="_blank" href={'mailto:' + id}>{id}</a>)
           }
         },
         {

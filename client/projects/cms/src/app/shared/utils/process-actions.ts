@@ -1,10 +1,14 @@
 import {safeEval} from '@jaspero/utils';
 import {Action} from '../interfaces/action.interface';
 import {ModuleLayoutTableAction} from '../interfaces/module-layout-table.interface';
+import {map, shareReplay, startWith, switchMap} from 'rxjs/operators';
+import {InstanceOverviewContextService} from '../../modules/dashboard/modules/module-instance/services/instance-overview-context.service';
+import {toObservable} from './to-observable';
 
 export function processActions(
   role: string,
-  actions: ModuleLayoutTableAction[]
+  actions: ModuleLayoutTableAction[],
+  ioc: InstanceOverviewContextService
 ): Action[] {
   return actions.reduce((acc, cur) => {
     if (!cur.authorization || cur.authorization.includes(role)) {
@@ -20,13 +24,24 @@ export function processActions(
         );
       }
 
-      const criteria = cur.criteria && safeEval(cur.criteria);
+      const criteria = ioc.selection.changed.pipe(
+        startWith(ioc.selection.selected),
+        switchMap((selection) => {
+          return toObservable((cur.criteria && safeEval(cur.criteria))?.(selection));
+        }),
+        map((criteria) => {
+          return {
+            value: criteria
+          };
+        }),
+        shareReplay(1)
+      );
       const parsed = safeEval(cur.value);
 
       if (parsed) {
         acc.push({
           menuStyle: cur.menuStyle,
-          value: parsed,
+          value: toObservable(parsed).pipe(shareReplay(1)),
           ...(criteria && {criteria})
         });
       }

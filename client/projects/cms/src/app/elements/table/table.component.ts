@@ -25,7 +25,7 @@ import {notify} from '@shared/utils/notify.operator';
 import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';
 import {AsyncSubject, BehaviorSubject, combineLatest, Observable, of, ReplaySubject, Subject} from 'rxjs';
-import {filter, map, shareReplay, startWith, switchMap} from 'rxjs/operators';
+import {filter, map, shareReplay, startWith, switchMap, tap} from 'rxjs/operators';
 import {ColumnOrganizationComponent} from '../../modules/dashboard/modules/module-instance/components/column-organization/column-organization.component';
 import {InstanceOverviewContextService} from '../../modules/dashboard/modules/module-instance/services/instance-overview-context.service';
 import {PipeType} from '../../shared/enums/pipe-type.enum';
@@ -41,6 +41,7 @@ import {SortModule} from '../../shared/interfaces/sort-module.interface';
 import {DbService} from '../../shared/services/db/db.service';
 import {StateService} from '../../shared/services/state/state.service';
 import {processActions} from '../../shared/utils/process-actions';
+import {toObservable} from '../../shared/utils/to-observable';
 
 interface MenuAction extends Action {
   menuStyle?: boolean;
@@ -68,8 +69,8 @@ interface TableData {
   hideExport?: boolean;
   hideImport?: boolean;
   collectionGroup?: boolean;
-  actions?: Action[];
-  selectionActions?: Action<SelectionModel<string>>[];
+  actions?: Observable<Action[]>;
+  selectionActions?: Observable<Action<SelectionModel<string>>[]>;
 }
 
 @UntilDestroy()
@@ -90,42 +91,34 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     private cdr: ChangeDetectorRef,
     private transloco: TranslocoService
-  ) {}
+  ) { }
 
   /**
    * Using view children so we can listen for changes
    */
   @ViewChildren(MatSort)
   sort: QueryList<MatSort>;
-
   @ViewChild('subHeaderTemplate', {static: true})
   subHeaderTemplate: TemplateRef<any>;
-
   @ViewChild('simpleColumn', {static: true})
   simpleColumnTemplate: TemplateRef<any>;
-
   @ViewChild('populateColumn', {static: true})
   populateColumnTemplate: TemplateRef<any>;
-
   @ViewChild('observableColumn', {static: true})
   observableColumnTemplate: TemplateRef<any>;
-
   @ViewChild('columnOrganization', {static: true})
   columnOrganizationTemplate: TemplateRef<any>;
-
   items$: Observable<any>;
   columnsSorted$ = new BehaviorSubject(false);
-
   data: TableData;
   parserCache: {[key: string]: Parser} = {};
   populateCache: {[key: string]: Observable<any>} = {};
-
   permission = {
     write: false,
     read: false
   };
-
   maxHeight$ = new Subject<string>();
+  actions = {};
 
   ngOnInit() {
     /**
@@ -197,11 +190,11 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           }, {});
 
           if (data.layout.table.actions) {
-            addedData.actions = processActions(this.state.role, data.layout.table.actions);
+            addedData.actions = processActions(this.state.role, data.layout.table.actions, this.ioc);
           }
 
           if (data.layout.table.selectionActions) {
-            addedData.selectionActions = processActions(this.state.role, data.layout.table.selectionActions);
+            addedData.selectionActions = processActions(this.state.role, data.layout.table.selectionActions, this.ioc);
           }
 
           if (data.layout.table.hideAdd) {
@@ -209,8 +202,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
               data?.layout?.table?.hideAdd?.constructor === Boolean
                 ? data.layout.table.hideAdd
                 : (data.layout.table.hideAdd as string[]).includes(
-                    this.state.role
-                  );
+                  this.state.role
+                );
           }
         }
       }
@@ -239,20 +232,20 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         definitions: data.definitions,
         ...(data.layout
           ? {
-              stickyHeader:
-                data.layout.table &&
+            stickyHeader:
+              data.layout.table &&
                 data.layout.table.hasOwnProperty('stickyHeader')
-                  ? data.layout.table.stickyHeader
-                  : true,
-              sortModule: data.layout.sortModule,
-              filterModule: data.layout.filterModule,
-              searchModule: data.layout.searchModule,
-              importModule: data.layout.importModule,
-              ...addedData
-            }
+                ? data.layout.table.stickyHeader
+                : true,
+            sortModule: data.layout.sortModule,
+            filterModule: data.layout.filterModule,
+            searchModule: data.layout.searchModule,
+            importModule: data.layout.importModule,
+            ...addedData
+          }
           : {
-              stickyHeader: true
-            })
+            stickyHeader: true
+          })
       };
 
       this.items$ = combineLatest([this.ioc.items$, this.columnsSorted$]).pipe(
@@ -320,6 +313,22 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.columnsSorted$.next(true);
   }
 
+  navigateToSingleView(element, e: MouseEvent) {
+    const link = `/m/${this.data.collectionGroup ? element.ref.parent.path : this.data.moduleId}/single/${element.id}`;
+    if (e.ctrlKey || e.metaKey) {
+      window.open(link, '_blank');
+    } else {
+      this.router.navigate([link]);
+    }
+  }
+
+  toActionObservable(value, element, index) {
+    const observable = toObservable(value(element)).pipe(shareReplay(1));
+
+    this.actions[element.id + '/' + index] = observable;
+    return observable;
+  }
+
   private mapRow(overview: TableData, rowData: any) {
     const {id, ref, data} = rowData;
 
@@ -376,12 +385,12 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         value,
         ...(column.nestedColumns
           ? {
-              nested: this.parseColumns(
-                {...overview, tableColumns: column.nestedColumns},
-                rowData,
-                true
-              )
-            }
+            nested: this.parseColumns(
+              {...overview, tableColumns: column.nestedColumns},
+              rowData,
+              true
+            )
+          }
           : {})
       };
       return acc;
@@ -467,12 +476,12 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
               const constructor = result?.constructor;
               if ([
-                  Observable,
-                  Subject,
-                  BehaviorSubject,
-                  ReplaySubject,
-                  AsyncSubject
-                ].includes(constructor)
+                Observable,
+                Subject,
+                BehaviorSubject,
+                ReplaySubject,
+                AsyncSubject
+              ].includes(constructor)
               ) {
                 return result;
               } else {
@@ -519,7 +528,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!id) {
           try {
             id = get(rowData, column.key as string);
-          } catch (e) {}
+          } catch (e) {
+          }
         }
 
         if (!id) {
@@ -536,15 +546,14 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           (key, entry) => get(entry, key),
           true
         );
-        const popKey = `${parsedCollection}-${
-          column.populate.lookUp
+        const popKey = `${parsedCollection}-${column.populate.lookUp
             ? [
-                column.populate.lookUp.key,
-                column.populate.lookUp.operator,
-                id
-              ].join('-')
+              column.populate.lookUp.key,
+              column.populate.lookUp.operator,
+              id
+            ].join('-')
             : id
-        }`;
+          }`;
 
         if (!this.populateCache[popKey]) {
           if (column.populate.lookUp) {
@@ -629,15 +638,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           {value}
         );
       }
-    }
-  }
-
-  navigateToSingleView(element, e: MouseEvent) {
-    const link = `/m/${this.data.collectionGroup ? element.ref.parent.path : this.data.moduleId}/single/${element.id}`;
-    if (e.ctrlKey || e.metaKey) {
-      window.open(link, '_blank');
-    } else {
-      this.router.navigate([link]);
     }
   }
 }
