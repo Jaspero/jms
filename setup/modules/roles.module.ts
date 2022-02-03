@@ -13,39 +13,18 @@ export const ROLES_MODULE: Module = {
     editTitleKey: 'name',
     sort: CREATED_ON.sort,
     instance: {
-      segments: [
-        {
-          components: [
-            {
-              selector: 'duplicate'
-            }
-          ]
-        },
-        {
-          fields: [
-            '/createdOn',
-            '/name',
-            '/description'
-          ]
-        }
-      ]
+      segments: [{
+        fields: [
+          '/name',
+          '/description'
+        ]
+      }]
     },
     table: {
       tableColumns: [
         CREATED_ON.column(),
-        {
-          key: '/name',
-          label: 'GENERAL.NAME'
-        },
-        {
-          key: '/description',
-          label: 'GENERAL.DESCRIPTION'
-        }
-      ],
-      actions: [
-        {
-          value: `it => '<jms-e-new-prepopulate collection="users" data-name="Prefill Test" data-email="{{it.data.description}}" label="Assign User">Prepopulate User</jms-e-new-prepopulate>'`
-        }
+        {key: '/name', label: 'GENERAL.NAME'},
+        {key: '/description', label: 'GENERAL.DESCRIPTION'}
       ]
     }
   },
@@ -70,8 +49,5 @@ export const ROLES_MODULE: Module = {
       }
     },
     ...CREATED_ON.definition()
-  },
-  metadata: {
-    autoSave: 0
   }
 };
