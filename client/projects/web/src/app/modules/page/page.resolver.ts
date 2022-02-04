@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {AngularFirestore} from '@angular/fire/firestore';
+import {doc, Firestore, getDoc} from '@angular/fire/firestore';
 import {Meta, Title} from '@angular/platform-browser';
 import {ActivatedRouteSnapshot, Resolve, Router} from '@angular/router';
 import {snapshotMap} from '@shared/utils/snapshot-map.operator';
-import {Observable, of} from 'rxjs';
+import {from, Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BASE_TITLE} from '../../consts/base-title.const';
 import {INITIAL_STATE} from '../../consts/initial-state.const';
@@ -14,7 +14,7 @@ export class PageResolver implements Resolve<any> {
     private title: Title,
     private meta: Meta,
     private router: Router,
-    private afs: AngularFirestore
+    private firestore: Firestore
   ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
@@ -61,10 +61,15 @@ export class PageResolver implements Resolve<any> {
       return of(INITIAL_STATE.collections[collection][id]);
     }
 
-    return this.afs
-      .collection(collection)
-      .doc(id)
-      .get()
+    return from(
+      getDoc(
+        doc(
+          this.firestore,
+          collection,
+          id
+        )
+      )
+    )
       .pipe(
         snapshotMap()
       );

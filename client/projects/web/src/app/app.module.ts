@@ -1,7 +1,7 @@
 import {HttpClientModule} from '@angular/common/http';
 import {APP_INITIALIZER, Injector, NgModule} from '@angular/core';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFirestoreModule, USE_EMULATOR as USE_FIRESTORE_EMULATOR} from '@angular/fire/firestore';
+import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
+import {connectFirestoreEmulator, enableMultiTabIndexedDbPersistence, getFirestore, provideFirestore} from '@angular/fire/firestore';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserModule} from '@angular/platform-browser';
 import {environment} from '../environments/environment';
@@ -25,8 +25,19 @@ export function init(injector: Injector) {
     HttpClientModule,
     AppRoutingModule,
 
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule.enablePersistence(),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => {
+      const firestore = getFirestore();
+
+      if (environment.firebaseEmulators) {
+        connectFirestoreEmulator(firestore, 'localhost', 8080);
+      }
+
+      enableMultiTabIndexedDbPersistence(firestore)
+        .then(() => true, () => false);
+
+      return firestore;
+    }),
 
     MatSnackBarModule,
 
@@ -36,10 +47,6 @@ export function init(injector: Injector) {
     TranslocoRootModule
   ],
   providers: [
-    {
-      provide: USE_FIRESTORE_EMULATOR,
-      useValue: environment.firebaseEmulators ? ['localhost', 8080] : undefined
-    },
     {
       provide: APP_INITIALIZER,
       useFactory: init,
