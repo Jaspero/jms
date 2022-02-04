@@ -195,9 +195,9 @@ export class InstanceSingleComponent implements OnInit {
       const initial = this.formBuilderComponent.form.getRawValue();
       const id = 
         initial.id ||
-        instance.module.docIdMethod ?
+        (instance.module.docIdMethod ?
           instance.module.docIdMethod(initial) :
-          `${instance.module.docIdPrefix}-${random.string(instance.module.docIdSize)}`;
+          `${instance.module.docIdPrefix}-${random.string(instance.module.docIdSize)}`);
 
       const actions: any[] = [
         switchMap(() => {
