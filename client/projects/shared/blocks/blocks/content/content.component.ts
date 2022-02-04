@@ -9,7 +9,7 @@ interface ContentOptions extends CommonOptions {
 
 @Block({
   label: 'PB.FORM.BLOCKS.CONTENT.TITLE',
-  icon: 'subject',
+  icon: 'article',
   previewValue: {
     content: '<h1>Custom Title</h1><h2>Custom Subtitle</h2><p>Custom content</p>',
     ...COMMON_OPTIONS.defaults
@@ -17,7 +17,8 @@ interface ContentOptions extends CommonOptions {
   form: {
     segments: [
       {
-        type: 'empty',
+        title: 'Content',
+        icon: 'subject',
         fields: [
           '/content'
         ],

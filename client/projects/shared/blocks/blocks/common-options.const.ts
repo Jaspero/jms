@@ -15,7 +15,8 @@ export const COMMON_OPTIONS: {
     background: {type: 'string'},
     backgroundSize: {type: 'string'},
     backgroundRepeat: {type: 'boolean'},
-    backgroundPosition: {type: 'string'}
+    backgroundPosition: {type: 'string'},
+    additionalStyle: {type: 'string'}
   },
   segment: [
     {
