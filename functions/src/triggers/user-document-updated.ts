@@ -14,14 +14,19 @@ export const userDocumentUpdated = functions
   .onUpdate(async change => {
     const after: any = change.after.data();
     const before: any = change.before.data();
+    const ah = auth();
 
     if (after.role !== before.role) {
-      await auth().setCustomUserClaims(
+      await ah.setCustomUserClaims(
         change.after.id,
         {
           role: after.role
         }
       )
+    }
+
+    if (after.active !== before.active) {
+      await ah.updateUser(change.after.id, {disabled: !after.active});
     }
   });
 

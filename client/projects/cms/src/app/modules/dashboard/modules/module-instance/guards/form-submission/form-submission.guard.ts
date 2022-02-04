@@ -21,7 +21,6 @@ export class FormSubmissionGuard implements CanActivate {
     route: ActivatedRouteSnapshot
   ) {
     const {id} = route.params;
-
     return this.db.getDocument('forms', id)
       .pipe(
         queue(),

@@ -4,3 +4,4 @@ export type {InstanceSort} from '../../../client/projects/cms/src/app/shared/int
 
 export {PipeType} from '../../../client/projects/cms/src/app/shared/enums/pipe-type.enum';
 export {FilterMethod} from '../../../client/projects/cms/src/app/shared/enums/filter-method.enum';
+export {JSX} from '../../../client/projects/shared/utils/jsx.compiler';

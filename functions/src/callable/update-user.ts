@@ -9,10 +9,34 @@ export const updateUser = functions
   .onCall(async (data, context) => {
     hasRole(context, 'admin');
 
+    const ah = auth();
     const {id, ...update} = data;
 
+    if (update.provider) {
+
+      const user = await ah.getUser(id);
+
+      if (update.provider.type === 'provider') {
+        const overriderUser = user.toJSON() as any;
+        overriderUser.providerData = user.providerData
+          .filter((it: any) => it.uid !== update.provider.id);
+        await ah.importUsers([overriderUser]);
+      } else if (user.multiFactor) {
+        update.multiFactor = {
+          enrolledFactors: user.multiFactor.enrolledFactors
+            .filter((it: any) => it.factorId !== update.provider.id)
+        };
+      }
+
+      delete update.provider;
+    }
+
+    if (!Object.keys(update).length) {
+      return;
+    }
+
     try {
-      await auth().updateUser(id, update);
+      await ah.updateUser(id, update);
     } catch (e) {
       console.error(e);
       throw new functions.https.HttpsError('internal', e.message);

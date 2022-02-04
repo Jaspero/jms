@@ -130,7 +130,7 @@ tr.mat-row.mat-row {
   background: var(--panel-theme);
   font-size: 12px;
   overflow: hidden;
-  vertical-align: top;
+  vertical-align: middle;
 
   // row checkbox
   &.cta-column {
@@ -138,7 +138,6 @@ tr.mat-row.mat-row {
     width: 48px;
     min-width: 48px;
     box-shadow: inset -1px 0 0 0 var(--tertiary);
-    vertical-align: middle;
     text-align: center;
   }
 
@@ -148,7 +147,6 @@ tr.mat-row.mat-row {
     width: 48px;
     min-width: 48px;
     box-shadow: inset 1px 0 0 0 var(--tertiary);
-    vertical-align: middle;
   }
 }
 

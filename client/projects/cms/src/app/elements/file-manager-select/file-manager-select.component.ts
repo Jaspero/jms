@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {FileManagerComponent} from '../../modules/dashboard/modules/file-manager/file-manager.component';
 
@@ -13,11 +13,14 @@ export class FileManagerSelectComponent extends FileManagerComponent implements 
   dialogRef: MatDialogRef<any>;
   configuration: any;
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.dialogRef = (window as any).fileSelect?.dialogRef;
     this.configuration = {
       allowUpload: false,
       uploadMode: true,
+      hidePath: true,
+      hideFolders: true,
+      route: '/',
       ...((window as any).fileSelect?.uploadMethods?.find(method => method.id === 'file-manager')?.configuration || {})
     };
   }

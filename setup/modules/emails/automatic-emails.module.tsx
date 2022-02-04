@@ -1,4 +1,5 @@
 import {PROCESSED} from './processed.const';
+import {JSX} from '../shared/module.type';
 
 export const AUTOMATIC_EMAILS_MODULE = {
   id: 'automatic-emails',
@@ -44,7 +45,7 @@ export const AUTOMATIC_EMAILS_MODULE = {
       ],
       actions: [
         {
-          value: `it => '<jms-e-sample-email id="' + it.id + '"></jms-e-sample-email>'`
+          value: it => JSX(<jms-e-sample-email id={it.id} />)
         }
       ]
     },

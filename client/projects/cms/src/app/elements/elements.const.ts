@@ -7,7 +7,7 @@ import {LinkComponent} from './link/link.component';
 import {NewPrepopulateComponent} from './new-prepopulate/new-prepopulate.component';
 import {SampleEmailComponent} from './sample-email/sample-email.component';
 import {TableComponent} from './table/table.component';
-import {ToggleUserStatusComponent} from './toggle-user-status/toggle-user-status.component';
+import {UserActionsComponent} from './user-actions/user-actions.component';
 import {TriggerPasswordResetComponent} from './trigger-password-reset/trigger-password-reset.component';
 import {UserAddComponent} from './user-add/user-add.component';
 
@@ -17,7 +17,7 @@ export const ELEMENTS = [
   TriggerPasswordResetComponent,
   UserAddComponent,
   ChangePasswordComponent,
-  ToggleUserStatusComponent,
+  UserActionsComponent,
   ChangeEmailComponent,
   NewPrepopulateComponent,
   FileManagerSelectComponent,
@@ -47,8 +47,8 @@ export const ELEMENT_SELECTOR = [
     component: ChangePasswordComponent
   },
   {
-    selector: STATIC_CONFIG.elementSelectorPrefix + 'tus',
-    component: ToggleUserStatusComponent
+    selector: STATIC_CONFIG.elementSelectorPrefix + 'user-actions',
+    component: UserActionsComponent
   },
   {
     selector: STATIC_CONFIG.elementSelectorPrefix + 'ce',

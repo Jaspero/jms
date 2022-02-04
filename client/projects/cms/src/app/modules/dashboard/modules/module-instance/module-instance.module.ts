@@ -26,10 +26,10 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {RouterModule, Routes} from '@angular/router';
 import {JMSPNotesModule} from '@jaspero/jmsp-notes';
-import {LoadClickModule, SanitizeModule} from '@jaspero/ng-helpers';
+import {LoadClickModule, SanitizeModule, StopPropagationModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
 import {STATIC_CONFIG} from '../../../../../environments/static-config';
-import {ELEMENT_SELECTOR, ELEMENTS} from '../../../../elements/elements.const';
+import {ELEMENTS, ELEMENT_SELECTOR} from '../../../../elements/elements.const';
 import {CanReadModuleGuard} from '../../../../shared/guards/can-read-module/can-read-module.guard';
 import {FormBuilderSharedModule} from '../../../../shared/modules/fb/form-builder-shared.module';
 import {SearchInputModule} from '../../../../shared/modules/search-input/search-input.module';
@@ -192,6 +192,7 @@ const routes: Routes = [
      */
     LoadClickModule,
     SanitizeModule,
+    StopPropagationModule,
 
     /**
      * External

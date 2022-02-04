@@ -1,0 +1,59 @@
+:host {
+	display: block;
+	padding: 0 16px;
+	margin-top: 1rem;
+
+	.loading {
+		margin: 16px 0;
+	}
+}
+
+.info {
+	padding: 0 8px;
+	margin-top: 8px;
+}
+
+.providers {
+	> div {
+		font-size: .75rem;
+	}
+
+	&-list {
+		display: flex; 
+
+		> div {
+			margin-right: .6rem;
+		}
+	}
+}
+
+.metadata {
+	> div {
+		margin-bottom: 8px;
+
+		> div {
+			font-size: .75rem;
+		}
+	}
+}
+
+.provider-table {
+
+	border-collapse: collapse;
+
+	th, td {
+		text-align: left;
+		border: 1px solid var(--tertiary);
+		padding: .5rem;
+	}
+
+	th {
+		text-transform: capitalize;
+		margin-right: .5rem;
+		text-align: left;
+	}
+
+	td {
+		line-break: anywhere;
+	}
+}

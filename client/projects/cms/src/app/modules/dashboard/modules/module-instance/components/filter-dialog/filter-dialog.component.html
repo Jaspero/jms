@@ -9,7 +9,7 @@
         {{data.module.clearFiltersLabel || 'Clear'}}
       </button>
     </ng-container>
-    <button type="submit" mat-raised-button color="primary" (click)="apply(cForm.form, cForm.parser)">
+    <button type="submit" mat-raised-button color="primary" [jpLoadClick]="apply(cForm.form, cForm.parser)">
       {{'INSTANCE_OVERVIEW.APPLY' | transloco}}
     </button>
   </mat-dialog-actions>

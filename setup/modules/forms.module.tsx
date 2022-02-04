@@ -1,6 +1,6 @@
 import {CREATED_ON} from './shared/created-on';
 import {FORMAT_SEARCH} from './shared/format-search';
-import {Module, PipeType} from './shared/module.type';
+import {Module, PipeType, JSX} from './shared/module.type';
 
 export const FORMS_MODULE: Module = {
   id: 'forms',
@@ -38,7 +38,7 @@ export const FORMS_MODULE: Module = {
           label: 'Submission',
           pipe: [PipeType.Custom, PipeType.Sanitize],
           pipeArguments: {
-            0: `(id => '<jms-e-link link=/m/forms/' + id + '/submissions >View</jms-e-link>')`
+            0: id => JSX(<jms-e-link link={'/m/forms/' + id + '/submissions'}>View</jms-e-link>)
           }
         }
       ]

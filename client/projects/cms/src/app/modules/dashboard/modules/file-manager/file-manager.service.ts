@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {deleteObject, getDownloadURL, list, ref, Storage, uploadBytesResumable} from '@angular/fire/storage';
+import {updateMetadata} from '@angular/fire/storage';
 import {from, Observable, of} from 'rxjs';
 import {tap} from 'rxjs/operators';
 
@@ -98,4 +99,7 @@ export class FileManagerService {
       );
   }
 
+  updateMetadata(path: string, meta: any) {
+    return from(updateMetadata(ref(this.ref, path), meta))
+  }
 }

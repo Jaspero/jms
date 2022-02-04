@@ -82,6 +82,7 @@ export interface ModuleLayoutTableAction {
    * row => boolean
    */
   criteria?: string;
+  menuStyle?: boolean;
 }
 
 export interface ModuleLayoutTable {

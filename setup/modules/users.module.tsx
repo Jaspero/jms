@@ -1,6 +1,7 @@
 import {CREATED_ON} from './shared/created-on';
 import {EMAIL_PIPE} from './shared/email-pipe';
-import {FilterMethod, Module, PipeType} from './shared/module.type';
+import {FilterMethod, JSX, Module, PipeType} from './shared/module.type';
+import {YES_NO_FILTER_PIPE} from './shared/yes-no-pipe';
 
 export const USERS_MODULE: Module = {
   id: 'users',
@@ -14,7 +15,9 @@ export const USERS_MODULE: Module = {
         properties: {
           role: {type: 'string'},
           start: {type: 'string'},
-          end: {type: 'string'}
+          end: {type: 'string'},
+          email: {type: 'string'},
+          active: {type: 'boolean', default: null}
         }
       },
       definitions: {
@@ -48,12 +51,41 @@ export const USERS_MODULE: Module = {
         },
         role: {
           label: 'GENERAL.ROLE',
+          filterValuePipe: [PipeType.GetDocuments, PipeType.Custom],
+          filterValuePipeArguments: {
+            0: role => [`roles/${role}`],
+            1: role => role[0].name
+          },
           component: {
             type: 'select',
             configuration: {
+              reset: true,
               populate: {
                 collection: 'roles'
               }
+            }
+          }
+        },
+        active: {
+          label: 'GENERAL.ACTIVE',
+          ...YES_NO_FILTER_PIPE,
+          component: {
+            type: 'select',
+            configuration: {
+              reset: true,
+              dataSet: [
+                {name: 'GENERAL.ACTIVE', value: true},
+                {name: 'GENERAL.IN_ACTIVE', value: false},
+              ]
+            }
+          }
+        },
+        email: {
+          label: 'GENERAL.EMAIL',
+          component: {
+            type: 'input',
+            configuration: {
+              type: 'email'
             }
           }
         }
@@ -61,17 +93,15 @@ export const USERS_MODULE: Module = {
       segments: [
         {
           type: 'empty',
-          fields: ['/start', '/end', '/role']
+          fields: ['/start', '/end', '/email', '/role', '/active']
         }
       ]
     },
     sort: CREATED_ON.sort,
     instance: {
-      segments: [
-        {
-          fields: ['/createdOn', '/id', '/name', '/email', '/role', '/photo']
-        }
-      ]
+      segments: [{
+        fields: ['/id', '/name', '/email', '/role', '/photo']
+      }]
     },
     table: {
       hideImport: true,
@@ -81,43 +111,49 @@ export const USERS_MODULE: Module = {
           key: '/name',
           label: 'GENERAL.NAME',
           nestedColumns: [
-            {key: '/email', label: 'GENERAL.EMAIL', ...EMAIL_PIPE},
+            {key: '/email', label: 'GENERAL.EMAIL', ...EMAIL_PIPE}
           ]
         },
         {
           key: '/role',
           label: 'GENERAL.ROLE',
           control: true
+        },
+        {
+          key: '/active',
+          label: 'GENERAL.ACTIVE',
+          control: true
         }
       ],
       actions: [
         {
-          value: it => `<jms-e-notes data-id="${it.id}"></jms-e-notes>`,
+          value: it => JSX(<jms-e-user-actions id={it.id}/>),
+          authorization: ['admin'],
+          menuStyle: false
         },
         {
-          value: it => `<jms-e-tpr data-email="${it.data.email}"></jms-e-tpr>`,
+          value: it => JSX(<jms-e-notes data-id={it.id}/>)
+        },
+        {
+          value: it => JSX(<jms-e-tpr data-email={it.data.email}/>),
           authorization: ['admin']
         },
         {
-          value: it => `<jms-e-cp data-id="${it.id}"></jms-e-cp>`,
+          value: it => JSX(<jms-e-cp data-id={it.id}/>),
           authorization: ['admin']
         },
         {
-          value: it => `<jms-e-tus data-id="${it.id}"></jms-e-tus>`,
+          value: it => JSX(<jms-e-ce data-id={it.id}/>),
           authorization: ['admin']
         },
         {
-          value: it => `<jms-e-ce data-id="${it.id}"></jms-e-ce>`,
-          authorization: ['admin']
-        },
-        {
-          value: it => `<jms-e-impersonate id="${it.id}"></jms-e-impersonate>`,
+          value: it => JSX(<jms-e-impersonate id={it.id}/>),
           authorization: ['admin']
         }
       ]
     },
     overview: {
-      toolbar: ['<jms-e-user-add></jms-e-user-add>']
+      toolbar: [JSX(<jms-e-user-add/>)]
     }
   },
   schema: {
@@ -127,14 +163,12 @@ export const USERS_MODULE: Module = {
       email: {type: 'number'},
       role: {type: 'string'},
       photo: {type: 'string'},
+      active: {type: 'boolean'},
       ...CREATED_ON.property
     }
   },
   definitions: {
-    id: {
-      label: 'GENERAL.ID',
-      disableOn: 'edit'
-    },
+    id: {label: 'GENERAL.ID', disableOn: 'edit'},
     name: {label: 'GENERAL.NAME'},
     email: {
       label: 'GENERAL.EMAIL',
@@ -145,32 +179,20 @@ export const USERS_MODULE: Module = {
         }
       }
     },
+    active: {label: 'GENERAL.ACTIVE'},
     role: {
       label: 'GENERAL.ROLE',
       component: {
         type: 'ref',
         configuration: {
           collection: 'roles',
-          valueKey: 'id',
           clearValue: null,
-          search: {
-            key: '/name',
-            label: 'Name'
-          },
-          display: {
-            key: '/name',
-            label: 'GENERAL.NAME'
-          },
+          search: {key: '/name', label: 'GENERAL.NAME'},
+          display: {key: '/name', label: 'GENERAL.ROLE'},
           table: {
             tableColumns: [
-              {
-                key: '/id',
-                label: 'GENERAL.ID'
-              },
-              {
-                key: '/name',
-                label: 'GENERAL.NAME'
-              }
+              {key: '/name', label: 'GENERAL.NAME'},
+              {key: '/id', label: 'GENERAL.ID'}
             ]
           }
         }
@@ -181,23 +203,19 @@ export const USERS_MODULE: Module = {
       component: {
         type: 'image',
         configuration: {
-          uploadMethods: [
-            {
-              id: 'file-manager',
-              label: 'FILE_MANAGER.TITLE',
-              component:
-                '<jms-e-file-manager-select></jms-e-file-manager-select>',
-              configuration: {
-                route: '/generated',
-                hidePath: true,
-                filters: [
-                  {
-                    value: `(file) => file.contentType.startsWith('image/')`
-                  }
-                ]
-              }
+          uploadMethods: [{
+            id: 'file-manager',
+            label: 'FILE_MANAGER.TITLE',
+            component: JSX(<jms-e-file-manager-select/>),
+            configuration: {
+              hidePath: false,
+              hideFolders: false,
+              allowUpload: true,
+              filters: [{
+                value: file => file.contentType.startsWith('image/')
+              }]
             }
-          ]
+          }]
         }
       }
     },

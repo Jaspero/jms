@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { ToggleUserStatusComponent } from './toggle-user-status.component';
+import { UserActionsComponent } from './user-actions.component';
 
-describe('ToggleUserStatusComponent', () => {
-  let component: ToggleUserStatusComponent;
-  let fixture: ComponentFixture<ToggleUserStatusComponent>;
+describe('UserActionsComponent', () => {
+  let component: UserActionsComponent;
+  let fixture: ComponentFixture<UserActionsComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ToggleUserStatusComponent ]
+      declarations: [ UserActionsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ToggleUserStatusComponent);
+    fixture = TestBed.createComponent(UserActionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

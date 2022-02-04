@@ -1,4 +1,4 @@
-<mat-toolbar role="heading" color="primary" class="sticky-header" *ngIf="!configuration.uploadMode || configuration.allowUpload">
+<mat-toolbar role="heading" color="primary" class="sticky-header" *ngIf="!configuration.uploadMode">
   <span>File Manager</span>
   <div class="flex-1"></div>
   <ng-container *ngIf="loading$ | async">
@@ -12,122 +12,115 @@
     <mat-icon>upload</mat-icon>
     Upload
   </button>
-  <!--  <button mat-icon-button (click)="toggleDisplayMode()">-->
-  <!--    <mat-icon>{{(displayMode$ | async) === 'list' ? 'list' : 'view_modules'}}</mat-icon>-->
-  <!--  </button>-->
 </mat-toolbar>
 
-<section class="p-a-m w-full">
-  <div class="flex ai-base" *ngIf="!configuration.hidePath">
+<section [class.selection-mode]="configuration.uploadMode" [class.no-path]="!configuration.hidePath">
+
+  <div class="flex ai-base jc-center" *ngIf="!configuration.hidePath">
     <div class="m-x-s">
       <button mat-icon-button [disabled]="routeControl.value === '/'" (click)="navigateBack()">
         <mat-icon>arrow_back</mat-icon>
       </button>
+
+      <ng-container *ngIf="configuration.uploadMode && configuration.allowUpload">
+        <button mat-icon-button (click)="openNewFolderDialog()">
+          <mat-icon>create_new_folder</mat-icon>
+        </button>
+        <button mat-icon-button (click)="openUploadDialog()">
+          <mat-icon>upload</mat-icon>
+        </button>
+      </ng-container>
     </div>
-    <mat-form-field class="w-full path">
+    <mat-form-field class="path">
       <mat-label>Path</mat-label>
       <input matInput [formControl]="routeControl" />
     </mat-form-field>
   </div>
 
-  <div *ngIf="data$ | async as data" [hidden]="(loading$ | async) && !loadMore">
-    <ng-container *ngIf="(displayMode$ | async) === 'list'; else grid">
-      <mat-card>
-        <mat-list>
-          <div mat-subheader *ngIf="data.folders.length > 0">Folders</div>
-          <mat-list-item *ngFor="let folder of data.folders" class="flex no-select" [class.disabled]="configuration.hidePath">
-            <div class="flex-1 flex ai-center h-full item-bar" [title]="folder.name"  (dblclick)="appendFolder(folder.name)">
-              <mat-icon mat-list-icon>{{folder.icon}}</mat-icon>
-              <div class="item-name">
-                <div mat-line>{{folder.name}}</div>
-                <div mat-line>{{folder.updated | date}}</div>
-              </div>
-            </div>
-            <div class="flex jc-center m-l-m">
-              <button mat-icon-button [matMenuTriggerFor]="folderMenu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-            </div>
-            <mat-menu #folderMenu="matMenu">
-              <button mat-menu-item (click)="deleteFolder(folder)">
-                <mat-icon color="warn">delete</mat-icon>
-                Delete
-              </button>
-            </mat-menu>
-          </mat-list-item>
-          <div mat-subheader *ngIf="data.files.length > 0">Files</div>
-          <mat-list-item *ngFor="let file of data.files; index as i" class="flex no-select" (click)="setFileActive(i)" (dblclick)="selectFile(file)">
-            <div class="flex-1 flex ai-center h-full item-bar" [title]="file.name" [class.active]="i === (activeFile$ | async)">
+  <div class="item-card" *ngIf="data$ | async as data" [hidden]="(loading$ | async) && !loadMore">
+    <mat-card class="m-b-m" *ngIf="data.folders.length > 0 && !configuration.hideFolders">
+      <mat-card-header>
+        <mat-card-title>Folders</mat-card-title>
+      </mat-card-header>
 
-              <div class="fb-image-suffix-preview" (mouseenter)="loadImage($event, file.downloadLink)">
-                <button class="fb-image-suffix-preview-button" mat-icon-button>
-                  <mat-icon mat-list-icon>{{file.icon}}</mat-icon>
-                </button>
-                <img class="fb-image-suffix-preview-image" alt="Image Preview" *ngIf="file.contentType.startsWith('image/')">
-              </div>
-              <div class="item-name">
-                <div mat-line>{{file.name}}</div>
-                <div mat-line>{{file.updated | date}}</div>
+      <mat-card-content>
+        <div class="grid jc-start">
+          <div *ngFor="let folder of data.folders" class="col-3 col-m-4 col-s-6 col-xs-12">
+            <div class="folder flex jc-between ai-center b-a p-a-s" (click)="appendFolder(folder.name)">
+              <div class="flex ai-center">
+                <div class="folder-icon">
+                  <mat-icon>{{ folder.icon }}</mat-icon>
+                </div>
+                <span class="m-l-s item-label max-width-100">{{ folder.name }}</span>
               </div>
 
-              <div class="w-full flex jc-end m-r-m">
-                <div>{{file.size | fileSize}}</div>
+              <button mat-icon-button (jpStopPropagation)="appendFolder(folder.name)">
+                <mat-icon>chevron_right</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="data.files.length > 0">
+      <mat-card-header *ngIf="!configuration.hideFolders">
+        <mat-card-title>Files</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="grid jc-start">
+          <div *ngFor="let file of data.files" class="file-col">
+            <div class="file" (click)="selectFile(file)">
+              <div class="file-preview">
+                <img *ngIf="file.contentType.startsWith('image/'); else icon" [src]="file.downloadLink" alt="Image Preview" />
+                <ng-template #icon>
+                  <div class="file-preview-icon">
+                    <mat-icon>{{ file.icon }}</mat-icon>
+                  </div>
+                </ng-template>
+              </div>
+
+              <div class="file-bar b-a p-a-s flex jc-between ai-center">
+                <span class="item-label" [matTooltip]="(file.customMetadata?.displayName || file.name) + ' (' + (file.size | fileSize) + ')'">
+                  {{ file.customMetadata?.displayName || file.name }} ({{ file.size | fileSize }})
+                </span>
+                <div *ngIf="!configuration.uploadMode">
+                  <button mat-icon-button matTooltip="Download" (click)="downloadFile(file)" *ngIf="!file.contentType.startsWith('video/')">
+                    <mat-icon>file_download</mat-icon>
+                  </button>
+                  <button mat-icon-button matTooltip="Copy URL" [jpLoadClick]="copyURL(file)">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                  <button mat-icon-button matTooltip="Preview" *ngIf="['image', 'video', 'audio'].includes(file.contentType.split('/')[0])" (click)="previewFile(file)">
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+                  <button mat-icon-button matTooltip="Edit Metadata" (click)="editFileMetadata(file)">
+                    <mat-icon>create</mat-icon>
+                  </button>
+                  <button mat-icon-button matTooltip="Delete" color="warn" (click)="deleteFile(file)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="flex jc-center m-l-m" *ngIf="!configuration.uploadMode">
-              <button mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-            </div>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="downloadFile(file)">
-                <mat-icon>file_download</mat-icon>
-                Download
-              </button>
-              <button mat-menu-item [jpLoadClick]="copyURL(file)">
-                <mat-icon>content_copy</mat-icon>
-                Copy URL
-              </button>
-              <button mat-menu-item (click)="editFileMetadata(file)">
-                <mat-icon>create</mat-icon>
-                Edit Metadata
-              </button>
-              <button mat-menu-item (click)="deleteFile(file)">
-                <mat-icon color="warn">delete</mat-icon>
-                Delete
-              </button>
-            </mat-menu>
-          </mat-list-item>
-        </mat-list>
-      </mat-card>
-    </ng-container>
-    <ng-template #grid>
-      <div class="grid">
-        <mat-card class="col-4 col-m-6 col-s-12" *ngFor="let folder of data.folders">
-          <div class="flex ai-center h-full">
-            <mat-icon mat-list-icon>folder</mat-icon>
-            <span class="item-name">{{folder.name}}</span>
           </div>
-        </mat-card>
-        <mat-card class="col-4 col-m-6 col-s-12" *ngFor="let file of data.files">
-          <div class="flex ai-center h-full">
-            <mat-icon mat-list-icon>{{file.icon}}</mat-icon>
-            <span class="item-name">{{file.name}}</span>
-          </div>
-        </mat-card>
-      </div>
-    </ng-template>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="flex jc-center" *ngIf="configuration.uploadMode && (loading$ | async)">
+    <mat-spinner diameter="30" color="accent" class="m-t-m m-b-m"></mat-spinner>
   </div>
 
   <div class="ta-center m-t-s" *ngIf="nextPageToken">
-    <button mat-raised-button (click)="loadMoreFiles()">
-      Load More
-    </button>
+    <button mat-raised-button (click)="loadMoreFiles()">Load More</button>
   </div>
 </section>
 
 <ng-template #metadata let-data>
-  <h4 mat-dialog-title>{{data.name}}</h4>
+  <h4 mat-dialog-title>{{ data.file.name }}</h4>
 
   <form>
     <mat-dialog-content>
@@ -135,9 +128,7 @@
     </mat-dialog-content>
 
     <mat-dialog-actions class="jc-end">
-      <button mat-raised-button color="primary" [disabled]="fB.form.invalid">
-        Update
-      </button>
+      <button mat-raised-button color="primary" [disabled]="fB.form.invalid" [jpLoadClick]="updateMetadata(data.file, fB.form)">Update</button>
     </mat-dialog-actions>
   </form>
 </ng-template>
@@ -149,14 +140,12 @@
     <mat-dialog-content>
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>Name</mat-label>
-        <input matInput formControlName="name">
+        <input matInput formControlName="name" />
       </mat-form-field>
     </mat-dialog-content>
 
     <mat-dialog-actions class="jc-end">
-      <button mat-raised-button color="primary" (click)="createNewFolder(data.form)" [disabled]="data.form.invalid">
-        Create
-      </button>
+      <button mat-raised-button color="primary" (click)="createNewFolder(data.form)" [disabled]="data.form.invalid">Create</button>
     </mat-dialog-actions>
   </form>
 </ng-template>
@@ -164,7 +153,7 @@
 <ng-template #upload let-data>
   <h4 mat-dialog-title>Upload File</h4>
 
-  <input #file type="file" multiple hidden (change)="fileChange(data.form)">
+  <input #file type="file" multiple hidden (change)="fileChange(data.form)" />
 
   <form [formGroup]="data.form" class="m-t-m">
     <mat-dialog-content>
@@ -173,11 +162,11 @@
         <input matInput formControlName="route" [readOnly]="data.form.get('uploadTask').value" [matAutocomplete]="auto" />
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let folder of filteredFolders$ | async" [value]="folder">
-            {{folder}}
+            {{ folder }}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-  
+
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>Files</mat-label>
         <input matInput type="url" readonly formControlName="file" />
@@ -190,31 +179,42 @@
 
       <div *ngIf="uploadProgress$ | async as progress" class="w-full flex ai-center">
         <mat-progress-bar class="flex-1" mode="determinate" color="accent" [value]="progress"></mat-progress-bar>
-        <b>{{progress}} %</b>
+        <b>{{ progress }} %</b>
       </div>
     </mat-dialog-content>
 
     <mat-dialog-actions class="jc-end">
       <div class="m-r-m" *ngIf="data.form.get('uploadTask').value && !data.form.get('paused').value">
-        <button mat-raised-button (click)="pauseDownload(data.form)">
-          Pause
-        </button>
+        <button mat-raised-button (click)="pauseDownload(data.form)">Pause</button>
       </div>
       <div class="m-r-m" *ngIf="data.form.get('uploadTask').value && data.form.get('paused').value">
-        <button mat-raised-button (click)="resumeDownload(data.form)">
-          Resume
-        </button>
+        <button mat-raised-button (click)="resumeDownload(data.form)">Resume</button>
       </div>
       <div class="m-r-m" *ngIf="data.form.get('uploadTask').value">
-        <button mat-raised-button (click)="cancelDownload(data.form)" color="accent">
-          Cancel
-        </button>
+        <button mat-raised-button (click)="cancelDownload(data.form)" color="accent">Cancel</button>
       </div>
       <div>
-        <button mat-raised-button (click)="startUpload(data.form)" color="primary" [disabled]="!file.files.length || !!data.form.get('uploadTask').value">
-          Upload
-        </button>
+        <button mat-raised-button (click)="startUpload(data.form)" color="primary" [disabled]="!file.files.length || !!data.form.get('uploadTask').value">Upload</button>
       </div>
     </mat-dialog-actions>
   </form>
+</ng-template>
+
+<ng-template #preview let-data>
+  <div *ngIf="data.file.contentType.startsWith('image/')" class="flex jc-center">
+    <img [src]="data.file.downloadLink" alt="Preview" class="preview-image" />
+  </div>
+
+  <div *ngIf="data.file.contentType.startsWith('video/')" class="flex jc-center">
+    <video class="preview-video" controls controlsList="nodownload">
+      <source [src]="data.file.downloadLink" />
+    </video>
+  </div>
+
+  <div *ngIf="data.file.contentType.startsWith('audio/')" class="flex jc-center">
+    <audio controls class="preview-audio" controlsList="nodownload">
+      <source [src]="data.file.downloadLink" />
+      Your browser does not support the audio element.
+    </audio>
+  </div>
 </ng-template>

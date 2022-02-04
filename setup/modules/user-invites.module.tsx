@@ -1,5 +1,6 @@
 import {CREATED_ON} from './shared/created-on';
-import {Module, PipeType} from './shared/module.type';
+import {JSX, Module, PipeType} from './shared/module.type';
+import {YES_NO_PIPE} from './shared/yes-no-pipe';
 
 export const USER_INVITES_MODULE: Module = {
   id: 'user-invites',
@@ -18,12 +19,13 @@ export const USER_INVITES_MODULE: Module = {
           label: 'GENERAL.EMAIL',
           pipe: [PipeType.Custom],
           pipeArguments: {
-            0: `id => '<a target="_blank" href="mailto:{{id}}">{{id}}</a>'`
+            0: id => JSX(<a target="_blank" href={'mailto:' + id}>{id}</a>)
           }
         },
         {
           key: '/role',
-          label: 'GENERAL.ROLE'
+          label: 'GENERAL.ROLE',
+          pipe: [PipeType.Titlecase]
         },
         {
           key: '/requireReset',
@@ -32,13 +34,19 @@ export const USER_INVITES_MODULE: Module = {
         },
         {
           key: '/sendInvite',
-          label: 'USER_INVITES.FIELDS.SEND_INVITE'
+          label: 'USER_INVITES.FIELDS.SEND_INVITE',
+          ...YES_NO_PIPE
         },
         {
           key: '/acceptedOn',
           label: 'USER_INVITES.FIELDS.ACCEPTED_ON',
           pipe: [PipeType.Date],
-          fallback: 'No'
+          fallback: 'GENERAL.NO'
+        }
+      ],
+      actions: [
+        {
+          value: it => JSX(<jms-e-notes data-id={it.id}/>)
         }
       ]
     },

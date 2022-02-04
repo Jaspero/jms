@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
@@ -13,6 +14,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {RouterModule, Routes} from '@angular/router';
 import {FormBuilderModule} from '@jaspero/form-builder';
 import {LoadClickModule} from '@jaspero/ng-helpers';
@@ -20,7 +22,6 @@ import {TranslocoModule} from '@ngneat/transloco';
 import {FormBuilderSharedModule} from '../../../../shared/modules/fb/form-builder-shared.module';
 import {FileSizePipe} from '../../../../shared/pipes/file-size/file-size.pipe';
 import {FileManagerComponent} from './file-manager.component';
-import {ClipboardModule} from '@angular/cdk/clipboard';
 
 const routes: Routes = [
   {
@@ -60,6 +61,7 @@ const routes: Routes = [
     MatDialogModule,
     MatProgressBarModule,
     MatAutocompleteModule,
+    MatTooltipModule,
     ClipboardModule,
     /**
      * External
