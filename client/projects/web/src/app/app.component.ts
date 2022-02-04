@@ -21,7 +21,5 @@ export class AppComponent implements OnInit {
       .pipe(
         map(loadings => loadings.some(Boolean))
       );
-
-    this.loading$.subscribe(console.log);
   }
 }

@@ -1,7 +1,10 @@
 import {Injector} from '@angular/core';
 import {Firestore, doc, getDoc} from '@angular/fire/firestore';
+import {STATE} from '@jaspero/fb-page-builder';
 import {INITIAL_STATE} from '../consts/initial-state.const';
 import {PAGE_BLACK_LIST} from '../consts/page-black-list.const';
+
+STATE.renderMode = true;
 
 export async function appInit(injector: Injector) {
   let page = location.pathname.split('/')[1];

@@ -101,6 +101,7 @@
               "tinymce/plugins/code",
               "tinymce/plugins/table",
               "tinymce/plugins/advlist",
+              "tinymce/plugins/emoticons",
               "@jaspero/utils"
             ],
             "vendorChunk": true,

@@ -20,7 +20,8 @@ export class BlockRendererComponent {
   set blocks(blocks: any[]) {
     this.vcr.clear();
 
-    const bDefs = Object.values(STATE.blocks[this.module]);
+    const bDefs = Object.entries(STATE.blocks[this.module])
+      .map(([id, data]) => ({id, ...data}));
 
     for (const block of (blocks || [])) {
       const def = bDefs.find(it => it.id === block.type);
@@ -29,7 +30,10 @@ export class BlockRendererComponent {
           def.component
         );
         const componentRef = this.vcr.createComponent(componentFactory);
-        (componentRef.instance as any).data = block.value;
+
+        Object.defineProperty(componentRef.instance, 'data', {
+          value: block.value
+        });
       }
     }
   }

@@ -1,7 +1,7 @@
-# JMS flavor/mw-blog
+# JMS flavor/blog
 
 This flavor of JMS comes with everything preconfigured for a simple blog. 
-It consists of two angular projects CMS and Web and has the multiple project structure preconfigured.
+It consists of two angular projects CMS and Web.
 
 ## Checklist
 
