@@ -37,9 +37,11 @@ export class BlockLinkDirective implements OnInit {
 
         const queryParams: any = {};
 
-        new URLSearchParams('?' + split[1]).forEach((value, key) => {
-          queryParams[key] = value;
-        });
+        if (split[1]) {
+          new URLSearchParams('?' + split[1]).forEach((value, key) => {
+            queryParams[key] = value;
+          });
+        }
 
         this.router.navigate([], {queryParams});
       }
