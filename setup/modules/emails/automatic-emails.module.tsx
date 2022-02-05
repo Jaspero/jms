@@ -1,7 +1,7 @@
 import {PROCESSED} from './processed.const';
-import {JSX} from '../shared/module.type';
+import {JSX, Module} from '../shared/module.type';
 
-export const AUTOMATIC_EMAILS_MODULE = {
+export const AUTOMATIC_EMAILS_MODULE: Module = {
   id: 'automatic-emails',
   name: 'MODULES.AUTOMATIC_EMAILS',
   layout: {

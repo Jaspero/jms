@@ -1,4 +1,6 @@
-export const LAYOUT_MODULE = {
+import {Module} from '../shared/module.type';
+
+export const LAYOUT_MODULE: Module = {
 	id: 'settings',
 	name: 'WEBSITE.LAYOUT.LAYOUT',
 	authorization: {

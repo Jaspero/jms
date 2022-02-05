@@ -1,4 +1,5 @@
 import {CREATED_ON} from '../shared/created-on';
+import {Module, PipeType} from '../shared/module.type';
 
 const STATUS_DEFINITION = {
   label: 'Status',
@@ -32,7 +33,7 @@ const TEMPLATE_ID_DEFINITION = {
   }
 };
 
-export const SENT_EMAILS_MODULE = {
+export const SENT_EMAILS_MODULE: Module = {
   id: 'sent-emails',
   name: 'MODULES.SENT_EMAILS',
   layout: {
@@ -95,7 +96,7 @@ export const SENT_EMAILS_MODULE = {
         {
           key: '/status',
           label: 'Status',
-          pipe: ['custom'],
+          pipe: [PipeType.Custom],
           pipeArguments: {
             0: `v => v ? 'Sent' : 'Failed'`
           }
