@@ -5,4 +5,22 @@
     <div class="subline dec"></div>
   </div>
 </div>
-<router-outlet></router-outlet>
+
+<header>
+  <span>Logo</span>
+  <nav>
+    <ul>
+      <li *ngFor="let link of layout.headerLinks" [routerLink]="[link.link]" routerLinkActive="active">
+        {{link.label}}
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<footer>
+  Example Footer
+</footer>

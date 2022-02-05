@@ -48,6 +48,16 @@ service cloud.firestore {
       }
     }
 
+    match /settings/{item} {
+      allow read: if true;
+      allow write: if admin();
+    }
+
+    match /posts/{item} {
+      allow read: if resource.data.published || admin();
+      allow write: if admin();
+    }    
+
     match /pages/{item=**} {
       allow read: if true;
       allow write: if admin();

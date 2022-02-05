@@ -25,16 +25,29 @@ export const STATIC_CONFIG = {
         value: '/dashboard'
       },
       {
-        icon: 'list_alt',
-        label: 'MODULES.FORMS',
-        type: 'link',
-        value: '/m/forms'
-      },
-      {
-        icon: 'pages',
-        label: 'MODULES.PAGES',
-        type: 'link',
-        value: '/m/pages'
+        icon: 'language',
+        label: 'LAYOUT.WEBSITE',
+        type: 'expandable',
+        children: [
+          {
+            icon: 'settings',
+            label: 'WEBSITE.LAYOUT.LAYOUT',
+            type: 'link',
+            value: '/m/settings/single/layout'
+          },
+          {
+            icon: 'pages',
+            label: 'MODULES.PAGES',
+            type: 'link',
+            value: '/m/pages'
+          },
+          {
+            icon: 'list_alt',
+            label: 'MODULES.FORMS',
+            type: 'link',
+            value: '/m/forms'
+          },
+        ]
       },
       {
         children: [

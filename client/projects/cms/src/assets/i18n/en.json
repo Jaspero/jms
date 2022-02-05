@@ -31,6 +31,7 @@
     "USER": "User",
     "ROLES": "Roles",
     "LABEL": "Label",
+    "LINK": "Link",
     "SUBMIT": "Submit",
     "DISABLED": "Disabled",
     "ENABLED": "Enabled",
@@ -97,7 +98,8 @@
     "MANAGEMENT": "Management",
     "SYSTEM": "System",
     "RESET_PASSWORD": "Please reset your password",
-    "FILE_MANAGER": "File Manager"
+    "FILE_MANAGER": "File Manager",
+    "WEBSITE": "Website"
   },
   "MODULES": {
     "REMOVE_ITEMS": "Remove {{value}} items",
@@ -406,5 +408,11 @@
   },
   "TEMPLATE_EDITOR": {
     "ADD_SEGMENT": "Add Segment"
+  },
+  "WEBSITE": {
+    "LAYOUT": {
+      "LAYOUT": "Layout",
+      "HEADER_NAVIGATION": "Header Navigation"
+    }
   }
 }
