@@ -30,6 +30,13 @@ export class FileManagerService {
   }
 
   async upload(route: string, file: File) {
+
+    delete this.cache[route];
+
+    if (!route.endsWith('/')) {
+      route += '/';
+    }
+
     try {
       await getDownloadURL(ref(this.storage, route + file.name));
 
@@ -42,8 +49,6 @@ export class FileManagerService {
     }
 
     const uploadTask = uploadBytesResumable(ref(this.storage, route), file);
-
-    delete this.cache[route];
 
     return {
       progress: new Observable<{complete?: boolean, status: string, progress: number}>(obs => {

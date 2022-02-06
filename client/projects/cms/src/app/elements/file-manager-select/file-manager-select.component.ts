@@ -20,7 +20,8 @@ export class FileManagerSelectComponent extends FileManagerComponent implements 
       uploadMode: true,
       hidePath: true,
       hideFolders: true,
-      route: '/',
+      route: '/public',
+      minPath: '/public',
       ...((window as any).fileSelect?.uploadMethods?.find(method => method.id === 'file-manager')?.configuration || {})
     };
   }
