@@ -127,6 +127,7 @@ export const AUTOMATIC_EMAILS_MODULE: Module = {
           templates: [
             {
               id: 'newsletter',
+              name: 'Newsletter',
               layout: PROCESSED.layout,
               defaultSegments: ['section'],
               style: PROCESSED.css,

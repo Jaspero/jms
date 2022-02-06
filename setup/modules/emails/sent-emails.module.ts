@@ -1,7 +1,7 @@
 import {CREATED_ON} from '../shared/created-on';
 import {Module, PipeType} from '../shared/module.type';
 
-const STATUS_DEFINITION = {
+const STATUS_DEFINITION: any = {
   label: 'Status',
   component: {
     type: 'select',
@@ -20,7 +20,7 @@ const STATUS_DEFINITION = {
   }
 };
 
-const TEMPLATE_ID_DEFINITION = {
+const TEMPLATE_ID_DEFINITION: any = {
   label: 'Template ID',
   component: {
     type: 'select',
