@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, ElementRef, Input} from '@angular/core';
 import {Router} from '@angular/router';
-import {safeJsonParse} from '@jaspero/utils';
+import {safeEval, safeJsonParse} from '@jaspero/utils';
 
 /**
  * When using the data input you'll need to encode the input since it's going through html
@@ -33,7 +33,7 @@ export class NewPrepopulateComponent {
     let data: any;
 
     if (this.method) {
-      data = this.method();
+      data = safeEval(this.method)();
     } else if (this.data) {
       data = safeJsonParse(decodeURIComponent(window.atob(this.data)));
     } else {
