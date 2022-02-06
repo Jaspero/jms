@@ -52,7 +52,7 @@ export const PAGES_MODULE: Module = {
             }
 
             return JSX(
-              <jms-e-new-prepopulate collection="pages" method={method}>
+              <jms-e-new-prepopulate collection="pages" methodFunc={method}>
                 Duplicate Blocks
               </jms-e-new-prepopulate>
             );
