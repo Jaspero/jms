@@ -1,7 +1,7 @@
 import {CREATED_ON} from '../shared/created-on';
 import {FORMAT_SEARCH} from '../shared/format-search';
 import {META} from '../shared/meta';
-import {Module} from '../shared/module.type';
+import {JSX, Module} from '../shared/module.type';
 import {PROCESSED} from './processed.const';
 
 export const PAGES_MODULE: Module = {
@@ -38,6 +38,26 @@ export const PAGES_MODULE: Module = {
         CREATED_ON.column(),
         {key: '/title', label: 'PB.FORM.TITLE'},
         {key: '/id', label: 'URL'}
+      ],
+      actions: [
+        {
+          value: it => {
+
+            window['tempDuplicate'] = it.data.blocks;
+
+            const method = () => {
+              const blocks = [...window['tempDuplicate']];
+              delete window['tempDuplicate'];
+              return {blocks};
+            }
+
+            return JSX(
+              <jms-e-new-prepopulate collection="pages" method={method}>
+                Duplicate Blocks
+              </jms-e-new-prepopulate>
+            );
+          }
+        }
       ]
     }
   },
