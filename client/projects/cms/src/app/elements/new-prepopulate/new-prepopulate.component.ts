@@ -3,7 +3,8 @@ import {Router} from '@angular/router';
 import {safeJsonParse} from '@jaspero/utils';
 
 /**
- * On html use window.btoa(encodeURIComponent(JSON.stringify(data)))
+ * When using the data input you'll need to encode the input since it's going through html
+ * window.btoa(encodeURIComponent(JSON.stringify(data)))
  */
 @Component({
   selector: 'jms-new-prepopulate',
@@ -22,6 +23,7 @@ export class NewPrepopulateComponent {
   @Input() icon: string;
   @Input() data: string;
   @Input() collection: string;
+  @Input() method: () => any;
 
   prepopulate() {
     const url = (this.docId && this.subCollection)
@@ -30,7 +32,9 @@ export class NewPrepopulateComponent {
 
     let data: any;
 
-    if (this.data) {
+    if (this.method) {
+      data = this.method();
+    } else if (this.data) {
       data = safeJsonParse(decodeURIComponent(window.atob(this.data)));
     } else {
       const camelize = s => s.replace(/-./g, x => x.toUpperCase()[1]);
