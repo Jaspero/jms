@@ -5,26 +5,32 @@ export const JSX = (item) => {
 JSX.createElement = (name: string, props: {[id: string]: string}, ...content: string[]) => {
   props = props || {};
 
-  const onclick = props.onclick || '';
-  delete props.onclick;
+  const proccessed = [];
 
-  const propsString = Object.keys(props)
-    .map(key => {
-      const value = props[key];
-      if (key === 'className') {
-        return `class=${value}`;
+  for (let prop in props) {
+    let value = props[prop];
+
+    if (prop.startsWith('on') || prop.endsWith('Func')) {
+
+      let key = prop;
+
+      if (key.endsWith('Func')) {
+        key = key.replace(/Func$/, '');
       }
-      return `${key}=${value}`;
-    })
-    .join(' ');
-  const onclickContent = onclick.toString()
-    .slice(
-      onclick.toString().indexOf('{') + 1,
-      onclick.toString().lastIndexOf('}')
-    ).trim().replace(/"/g, '\\"');
 
-  const onclickString = onclick ? `onclick="${onclickContent}"` : '';
-  return `<${name} ${propsString} ${onclickString}> ${content.join('')}</${name}>`;
+      proccessed.push(`${key}="${value.toString().trim()}"`)
+
+      continue;
+    }
+
+    if (prop === 'className') {
+      prop = 'class';
+    }
+
+    proccessed.push(`${prop}=${value}`);
+  }
+
+  return `<${name} ${proccessed.join(' ')}> ${content.join('')}</${name}>`;
 };
 
 export default JSX;
