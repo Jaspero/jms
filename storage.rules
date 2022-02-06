@@ -12,7 +12,7 @@ service firebase.storage {
       allow write: if admin();
     }
 
-    match /{files} {
+    match /public/{files=**} {
       allow read: if true;
       allow write: if admin();
     }

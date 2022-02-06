@@ -18,7 +18,7 @@
 
   <div class="flex ai-base jc-center" *ngIf="!configuration.hidePath">
     <div class="m-x-s">
-      <button mat-icon-button [disabled]="routeControl.value === '/'" (click)="navigateBack()">
+      <button mat-icon-button [disabled]="routeControl.value === configuration.minPath" (click)="navigateBack()">
         <mat-icon>arrow_back</mat-icon>
       </button>
 

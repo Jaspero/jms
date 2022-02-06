@@ -58,7 +58,8 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   configuration = {
     uploadMode: false,
     allowUpload: true,
-    route: '/',
+    route: '/public',
+    minPath: '/public',
     hidePath: false,
     hideFolders: false,
     filters: []
@@ -150,9 +151,9 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(subscription => {
-      subscription.unsubscribe();
-    });
+    this.subscriptions.forEach(subscription =>
+      subscription.unsubscribe()
+    );
   }
 
   typeToIcon(type = '') {
@@ -392,10 +393,6 @@ export class FileManagerComponent implements OnInit, OnDestroy {
     form.get('uploadTask').setValue([]);
 
     let route = form.get('route').value;
-
-    if (!route.endsWith('/')) {
-      route += '/';
-    }
 
     for (const file of files) {
       Object.defineProperty(file, 'name', {
