@@ -5,4 +5,5 @@ export interface Page {
     description?: string;
   };
   blocks: any[];
+  active: boolean;
 }

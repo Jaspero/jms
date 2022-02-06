@@ -1,7 +1,8 @@
 import {CREATED_ON} from '../shared/created-on';
 import {FORMAT_SEARCH} from '../shared/format-search';
+import {STATIC_CONFIG} from '../shared/static-config.const';
 import {META} from '../shared/meta';
-import {JSX, Module} from '../shared/module.type';
+import {JSX, Module, PipeType} from '../shared/module.type';
 import {PROCESSED} from './processed.const';
 
 export const PAGES_MODULE: Module = {
@@ -37,7 +38,15 @@ export const PAGES_MODULE: Module = {
       tableColumns: [
         CREATED_ON.column(),
         {key: '/title', label: 'PB.FORM.TITLE'},
-        {key: '/id', label: 'URL'}
+        {
+          key: '/id',
+          label: 'URL',
+          pipe: [PipeType.Custom],
+          pipeArguments: {
+            0: id => JSX(<a class="link" target="_blank" href={STATIC_CONFIG.webUrl + id}>{id}</a>)
+          }
+        },
+        {key: '/active', label: 'GENERAL.ACTIVE', control: true}
       ],
       actions: [
         {
@@ -52,7 +61,7 @@ export const PAGES_MODULE: Module = {
             }
 
             return JSX(
-              <jms-e-new-prepopulate collection="pages" methodFunc={method}>
+              <jms-e-new-prepopulate icon="content_copy" collection="pages" methodFunc={method}>
                 Duplicate Blocks
               </jms-e-new-prepopulate>
             );
@@ -65,6 +74,7 @@ export const PAGES_MODULE: Module = {
     properties: {
       id: {type: 'string'},
       title: {type: 'string'},
+      active: {type: 'boolean'},
       blocks: {type: 'array'},
       ...CREATED_ON.property,
       ...META.property(),

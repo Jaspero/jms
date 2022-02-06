@@ -23,7 +23,7 @@ export class PageResolver implements Resolve<any> {
 
     return this.getItem(id, collection).pipe(
       map((page: any) => {
-        if (!page) {
+        if (!page || !page.active) {
           this.router.navigate(['/404']);
           return;
         }
