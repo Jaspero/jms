@@ -3,12 +3,21 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - main
     paths:
       - 'client/projects/web/**/*'
       - '.github/workflows/web.workflow.yml'
 jobs:
   deploy:
+    env: 
+      project: 'jaspero-jms'
+      # Release Branch
+      # Only when the workflow is being run on this branch
+      # will it create the build branch
+      release: 'main'
+      # Build Branch
+      # This is the branch that is created on deployment
+      build: 'build'
     name: Deploy
     runs-on: ubuntu-latest
     steps:
@@ -27,7 +36,7 @@ jobs:
       - name: Build
         run: npm run build:web
       - name: Build.js
-        if: contains(github.ref, 'master')
+        if: contains(github.ref, env.release)
         run: |
           cd build
           echo $SERVICE_ACCOUNT > account.json
@@ -42,16 +51,16 @@ jobs:
           args: deploy --only hosting:web
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_ID: 'jaspero-jms'
+          PROJECT_ID: ${{ env.project }}
       - name: Commit
-        if: contains(github.ref, 'master')
+        if: contains(github.ref, env.release)
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -f --all public/
           git commit -m "BOT - Connected build branch"
       - name: Update current app version
-        if: contains(github.ref, 'master')
+        if: contains(github.ref, env.release)
         run: |
           cd build
           echo $SERVICE_ACCOUNT > account.json
@@ -59,10 +68,10 @@ jobs:
         env:
           SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
       - name: Push
-        if: contains(github.ref, 'master')
+        if: contains(github.ref, env.release)
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: 'build'
+          branch: ${{ env.build }}
           force: true
 
