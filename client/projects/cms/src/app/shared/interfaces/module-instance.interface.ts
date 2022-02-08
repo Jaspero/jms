@@ -1,4 +1,5 @@
 import {Segment} from '@jaspero/form-builder';
+import {FormatMethod} from './format-method.interface';
 
 export interface ModuleInstance {
 
@@ -8,13 +9,13 @@ export interface ModuleInstance {
    * on the document
    * (data: any) => any;
    */
-  formatOnSave?: string;
-  formatOnCreate?: string;
-  formatOnEdit?: string;
+  formatOnSave?: string | FormatMethod;
+  formatOnCreate?: string | FormatMethod;
+  formatOnEdit?: string | FormatMethod;
 
   /**
    * (form: FormGroup) => void;
    */
-  formatOnLoad?: string;
+  formatOnLoad?: string | FormatMethod;
   segments: Segment[];
 }

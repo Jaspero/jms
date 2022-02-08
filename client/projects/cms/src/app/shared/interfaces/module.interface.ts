@@ -11,6 +11,7 @@ import {ModuleMetadata} from './module-metadata.interface';
 import {ModuleOverview} from './module-overview.interface';
 import {SearchModule} from './search-module.interface';
 import {SortModule} from './sort-module.interface';
+import {FormatMethod} from './format-method.interface';
 
 export interface ModuleLayout {
   icon?: string;
@@ -38,8 +39,6 @@ export interface ComponentDefinition {
   type: string;
   configuration?: any;
 }
-
-export type FormatMethod = (d: any) => any;
 
 export interface ModuleDefinition {
   /**
