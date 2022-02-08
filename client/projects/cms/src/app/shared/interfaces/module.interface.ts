@@ -39,16 +39,18 @@ export interface ComponentDefinition {
   configuration?: any;
 }
 
+export type FormatMethod = (d: any) => any;
+
 export interface ModuleDefinition {
   /**
    * Any newly registered field modules
    * need to be included here
    */
   component?: MatFieldDefinitions<''>;
-  formatOnSave?: string;
-  formatOnCreate?: string;
-  formatOnEdit?: string;
-  formatOnLoad?: string;
+  formatOnSave?: string | FormatMethod;
+  formatOnCreate?: string | FormatMethod;
+  formatOnEdit?: string | FormatMethod;
+  formatOnLoad?: string | FormatMethod;
   label?: string;
   hint?: string;
   defaultValue?: any;
