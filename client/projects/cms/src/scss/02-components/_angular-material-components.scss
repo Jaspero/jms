@@ -21,6 +21,10 @@
   background-color: rgba(255,255,255,.15);
 }
 
+.mat-stroked-button:not(.mat-button-disabled) {
+  border-color: var(--panel-tertiary);
+}
+
 .mat-button-disabled {
   color: var(--panel-tertiary) !important;
 }
@@ -36,6 +40,15 @@
   .mat-option {
     color: var(--panel-primary);
   }
+}
+
+
+
+/* List
+ *============================================================================*/
+
+.mat-list-item-content {
+  color: var(--panel-primary);
 }
 
 
