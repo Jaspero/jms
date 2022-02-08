@@ -1,17 +1,15 @@
 import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Definitions, FormBuilderComponent, Segment, State} from '@jaspero/form-builder';
 import {random, safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {notify} from '@shared/utils/notify.operator';
 import {JSONSchema7} from 'json-schema';
 import {interval, Observable, of, Subject, Subscription} from 'rxjs';
 import {debounceTime, map, switchMap, tap} from 'rxjs/operators';
 import {ViewState} from '../../../../../../shared/enums/view-state.enum';
 import {ModuleAuthorization} from '../../../../../../shared/interfaces/module-authorization.interface';
 import {DbService} from '../../../../../../shared/services/db/db.service';
-import {StateService} from '../../../../../../shared/services/state/state.service';
-import {notify} from '@shared/utils/notify.operator';
 import {queue} from '../../../../../../shared/utils/queue.operator';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
 
@@ -49,9 +47,7 @@ export class InstanceSingleComponent implements OnInit {
   constructor(
     private dbService: DbService,
     private router: Router,
-    private state: StateService,
     private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder,
     private ioc: InstanceOverviewContextService
   ) {
   }
