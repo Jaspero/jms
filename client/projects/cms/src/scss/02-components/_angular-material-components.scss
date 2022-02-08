@@ -21,6 +21,23 @@
   background-color: rgba(255,255,255,.15);
 }
 
+.mat-button-disabled {
+  color: var(--panel-tertiary) !important;
+}
+
+
+
+/* Select
+ *============================================================================*/
+
+.mat-select-panel {
+  background-color: var(--panel-theme);
+
+  .mat-option {
+    color: var(--panel-primary);
+  }
+}
+
 
 
 /* Form field
@@ -28,6 +45,23 @@
 
 .mat-form-field {
   font-size: 13px;
+  color: var(--panel-primary);
+}
+
+.mat-form-field-outline {
+  color: var(--panel-tertiary) !important;
+}
+
+.mat-form-field-outline-thick {
+  color: var(--panel-primary) !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-outline-thick {
+  color: var(--primary-theme) !important;
+}
+
+.mat-form-field-label {
+  color: var(--panel-secondary);
 }
 
 // 'mat-form-field-has-hint' custom class for extra white space after hint
@@ -48,6 +82,15 @@
 // 'mat-form-field-large' custom class for larger form fields
 .mat-form-field.mat-form-field-large .mat-form-field-infix {
   width: 240px;
+}
+
+
+
+/* Buttons
+ *============================================================================*/
+
+.mat-hint {
+  color: var(--panel-secondary);
 }
 
 
@@ -91,6 +134,11 @@
 /* Toolbar
  *============================================================================*/
 
+.mat-toolbar {
+  background-color: var(--panel-theme);
+  color: var(--panel-primary);
+}
+
 .mat-toolbar-row.mat-toolbar-row,
 .mat-toolbar-single-row.mat-toolbar-single-row {
   height: 64px;
@@ -128,6 +176,8 @@ tr.mat-row.mat-row {
 .mat-header-cell.mat-header-cell {
   padding: 8px;
   background: var(--panel-theme);
+  color: var(--panel-primary);
+  border-color: var(--panel-tertiary);
   font-size: 12px;
   overflow: hidden;
   vertical-align: middle;
@@ -152,6 +202,10 @@ tr.mat-row.mat-row {
 
 .mat-sort-header-button.mat-sort-header-button {
   text-align: left;
+}
+
+.ref-row:hover {
+  background-color: var(--primary-theme) !important;
 }
 
 // Mobile layout
@@ -213,6 +267,15 @@ tr.mat-row.mat-row {
       box-shadow: none;
     }
   }
+}
+
+
+
+/* Snackbar
+ *============================================================================*/
+
+.mat-checkbox-frame {
+  border-color: var(--panel-secondary);
 }
 
 
@@ -300,6 +363,38 @@ tr.mat-row.mat-row {
   margin-right: -16px;
   margin-bottom: -16px !important;
   margin-left: -16px;
+}
+
+
+
+/* Menu
+ *============================================================================*/
+
+.mat-menu-panel {
+  background-color: var(--panel-theme);
+}
+
+.mat-menu-item {
+  color: var(--panel-secondary);
+  .mat-icon {
+    color: var(--panel-secondary);
+  }
+
+  &:hover {
+    color: var(--panel-primary);
+    .mat-icon {
+      color: var(--panel-primary);
+    }
+  }
+}
+
+
+
+/* Autocomplete panel
+ *============================================================================*/
+
+.mat-autocomplete-panel {
+  background-color: var(--panel-theme);
 }
 
 
