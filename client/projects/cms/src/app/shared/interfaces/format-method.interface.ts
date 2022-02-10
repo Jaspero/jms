@@ -1,0 +1,1 @@
+export type FormatMethod = (d: any) => any;

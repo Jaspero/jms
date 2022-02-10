@@ -15,6 +15,7 @@ import {ModuleMetadata} from './module-metadata.interface';
 import {ModuleOverview} from './module-overview.interface';
 import {SearchModule} from './search-module.interface';
 import {SortModule} from './sort-module.interface';
+import {FormatMethod} from './format-method.interface';
 
 export interface ModuleLayout {
   icon?: string;
@@ -49,10 +50,10 @@ export interface ModuleDefinition {
    * need to be included here
    */
   component?: MatFieldDefinitions<''> | MonacoDefinition | TinymceDefinition | FieldsDefinition | PbFieldDefinitions | TemplateEditorDefinition;
-  formatOnSave?: string;
-  formatOnCreate?: string;
-  formatOnEdit?: string;
-  formatOnLoad?: string;
+  formatOnSave?: string | FormatMethod;
+  formatOnCreate?: string | FormatMethod;
+  formatOnEdit?: string | FormatMethod;
+  formatOnLoad?: string | FormatMethod;
   label?: string;
   hint?: string;
   defaultValue?: any;
