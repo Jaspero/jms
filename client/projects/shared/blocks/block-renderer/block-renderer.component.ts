@@ -1,5 +1,7 @@
-import {ChangeDetectionStrategy, Component, ComponentFactoryResolver, Input, ViewContainerRef} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, Output, ViewContainerRef, EventEmitter} from '@angular/core';
 import {STATE} from '@jaspero/fb-page-builder';
+import {combineLatest, filter, take} from 'rxjs';
+import {CommonBlockComponent} from '../blocks/common.block';
 
 @Component({
   selector: 'jms-block-renderer',
@@ -9,12 +11,14 @@ import {STATE} from '@jaspero/fb-page-builder';
 })
 export class BlockRendererComponent {
   constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
     private vcr: ViewContainerRef
   ) {}
 
   @Input()
   module: string;
+
+  @Output()
+  loaded = new EventEmitter();
 
   @Input()
   set blocks(blocks: any[]) {
@@ -22,19 +26,30 @@ export class BlockRendererComponent {
 
     const bDefs = Object.entries(STATE.blocks[this.module])
       .map(([id, data]) => ({id, ...data}));
+    const loaders = [];
 
     for (const block of (blocks || [])) {
       const def = bDefs.find(it => it.id === block.type);
       if (def) {
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-          def.component
-        );
-        const componentRef = this.vcr.createComponent(componentFactory);
+        const componentRef = this.vcr.createComponent<CommonBlockComponent>(def.component);
 
         Object.defineProperty(componentRef.instance, 'data', {
           value: block.value
         });
+
+        loaders.push(componentRef.instance.loaded$);
       }
     }
+
+    combineLatest(loaders)
+      .pipe(
+        filter(loaders =>
+          !loaders.some(loader => !loader)
+        ),
+        take(1)
+      )
+      .subscribe(() =>
+        this.loaded.emit(true)
+      )
   }
 }

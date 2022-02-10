@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {StateService} from '../../services/state/state.service';
 import {Page} from './page.interface';
 
 @Component({
@@ -12,7 +13,8 @@ import {Page} from './page.interface';
 })
 export class PageComponent implements OnInit {
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private state: StateService
   ) {}
 
   page$: Observable<Page>;
@@ -22,5 +24,9 @@ export class PageComponent implements OnInit {
       .pipe(
         map(({page}) => page)
       );
+  }
+
+  loaded() {
+    this.state.firstPageLoaded();
   }
 }

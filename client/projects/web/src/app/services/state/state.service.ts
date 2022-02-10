@@ -24,4 +24,17 @@ export class StateService {
   }
 
   routeLoading$: Observable<boolean>;
+
+  private firstPage = false;
+
+  firstPageLoaded() {
+    if (this.firstPage) {
+      return;
+    }
+
+    document.body.classList.remove('body-loading');
+    document.body.removeChild(document.querySelector('.app-loading'));
+
+    this.firstPage = true;
+  }
 }

@@ -52,11 +52,15 @@
       from { transform: rotate(0); }
       to   { transform: rotate(360deg); }
     }
+    .body-loading {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
   </style>
 </head>
-<body>
-  <jms-w-root>
-    <div class="app-loading"></div>
-  </jms-w-root>
+<body class="body-loading">
+  <div class="app-loading"></div>
+  <jms-w-root></jms-w-root>
 </body>
 </html>
