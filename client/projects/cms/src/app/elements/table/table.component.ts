@@ -417,12 +417,12 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.parserCache[rowData.id].buildForm(rowData);
       }
 
-      const field = this.parserCache[rowData.id].field(
-        key,
-        this.parserCache[rowData.id].pointers[key],
-        overview.definitions as Definitions,
-        false
-      );
+      const field = this.parserCache[rowData.id].field({
+        pointerKey: key,
+        pointer: this.parserCache[rowData.id].pointers[key],
+        definitions: overview.definitions as Definitions,
+        single: true
+      });
 
       field.control.valueChanges
         .pipe(
