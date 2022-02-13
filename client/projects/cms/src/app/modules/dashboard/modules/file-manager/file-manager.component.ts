@@ -22,6 +22,7 @@ import {map, scan, shareReplay, startWith, switchMap, tap} from 'rxjs/operators'
 import {Color} from '../../../../shared/enums/color.enum';
 import {confirmation} from '../../../../shared/utils/confirmation';
 import {FileManagerService} from './file-manager.service';
+import {Folder} from './interfaces/folder.interface';
 
 @UntilDestroy()
 @Component({
@@ -67,34 +68,39 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   @Input()
   dialogRef: MatDialogRef<any>;
   routeControl: FormControl;
-  data$: Observable<{
-    files: any[];
-    folders: any[];
-  }>;
-  filteredFolders$: Observable<string[]>;
+  files$: Observable<any[]>;
   loading$ = new BehaviorSubject(false);
   uploadProgress$ = new BehaviorSubject(0);
   activeFile$ = new BehaviorSubject<number>(-1);
   nextPageToken: string | undefined;
   loadMore = false;
   subscriptions: Subscription[] = [];
+  folders$: Observable<Folder[]>
 
   ngOnInit() {
     this.routeControl = new FormControl(this.configuration.route, {
       updateOn: 'blur'
     });
 
-    this.data$ = this.routeControl.valueChanges.pipe(
-      startWith(this.routeControl.value),
-      switchMap(route => {
-        this.loading$.next(true);
-        this.activeFile$.next(-1);
-        return this.fileManager.list(route, this.nextPageToken);
-      }),
-      switchMap(response => {
-        this.nextPageToken = response.nextPageToken;
-        return Promise.all([
-          Promise.all(
+    this.folders$ = this.routeControl.valueChanges
+      .pipe(
+        startWith(this.routeControl.value),
+        switchMap(route =>
+          this.fileManager.getFolders(route)
+        )
+      )
+
+    this.files$ = this.routeControl.valueChanges
+      .pipe(
+        startWith(this.routeControl.value),
+        switchMap(route => {
+          this.loading$.next(true);
+          this.activeFile$.next(-1);
+          return this.fileManager.list(route, this.nextPageToken);
+        }),
+        switchMap(response => {
+          this.nextPageToken = response.nextPageToken;
+          return Promise.all(
             response.items.map(async item => {
               const metadata = await getMetadata(item);
               const downloadLink = await getDownloadURL(item);
@@ -116,38 +122,22 @@ export class FileManagerComponent implements OnInit, OnDestroy {
                   } catch (error) {}
                 })  
               )
-            ),
-          Promise.all(
-            response.prefixes.map(async (item) => {
-              return {
-                name: item.name,
-                type: 'folder',
-                icon: 'folder',
-                fullPath: item.fullPath
-              };
-            })
-          )
-        ]);
-      }),
-      map(([files, folders]) => ({
-        files,
-        folders
-      })),
-      scan((data, item) => {
-        if (this.loadMore) {
-          data.files.push(...item.files);
-          data.folders.push(...item.folders);
-        } else {
-          data = item;
-        }
+            );
+        }),
+        scan((data, files) => {
+          if (this.loadMore) {
+            data.push(...files);
+          } else {
+            data = files;
+          }
 
-        this.loadMore = false;
+          this.loadMore = false;
 
-        return data;
-      }, {files: [], folders: []}),
-      tap(() => this.loading$.next(false)),
-      shareReplay(1)
-    );
+          return data;
+        }, []),
+        tap(() => this.loading$.next(false)),
+        shareReplay(1)
+      );
   }
 
   ngOnDestroy() {
@@ -322,9 +312,17 @@ export class FileManagerComponent implements OnInit, OnDestroy {
   }
 
   createNewFolder(form: FormGroup) {
-    this.appendFolder(form.controls.name.value);
-
-    this.newFolderDialog.close();
+    return () =>
+      this.fileManager.createFolder(
+        this.routeControl.value,
+        form.getRawValue()
+      )
+        .pipe(
+          tap(id => {
+            this.appendFolder(id);
+            this.newFolderDialog.close();
+          })
+        )
   }
 
   openUploadDialog() {
@@ -334,19 +332,6 @@ export class FileManagerComponent implements OnInit, OnDestroy {
       uploadTask: [null],
       paused: [false]
     });
-
-    this.filteredFolders$ = combineLatest([
-      this.data$,
-      form.controls.route.valueChanges.pipe(startWith(form.controls.route.value))
-    ])
-      .pipe(
-        map(([data, route]) =>
-          data.folders.filter(folder =>
-            folder.name.toLowerCase().replace(/\//g, '').indexOf((route || '').replace(/\//g, '').toLowerCase()) > -1
-          )
-            .map(folder => '/' + folder.name)
-        )
-      );
 
     this.uploadDialog = this.dialog.open(this.uploadDialogElement, {
       autoFocus: false,
@@ -408,6 +393,7 @@ export class FileManagerComponent implements OnInit, OnDestroy {
         untilDestroyed(this)
       )
       .subscribe((statuses: Array<{complete?: boolean, status: string, progress: number}>) => {
+        console.log(statuses);
         if (!statuses.some(it => !it.complete)) {
           this.uploadProgress$.next(0);
           el.value = '';

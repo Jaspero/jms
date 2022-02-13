@@ -1,19 +1,52 @@
 import {Injectable} from '@angular/core';
-import {deleteObject, getDownloadURL, list, ref, Storage, uploadBytesResumable} from '@angular/fire/storage';
-import {updateMetadata} from '@angular/fire/storage';
+import {deleteObject, getDownloadURL, list, ref, Storage, updateMetadata, uploadBytesResumable} from '@angular/fire/storage';
 import {from, Observable, of} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
+import {DbService} from '../../../../shared/services/db/db.service';
 
 @Injectable({providedIn: 'root'})
 export class FileManagerService {
   constructor(
-    private storage: Storage
+    private storage: Storage,
+    private db: DbService
   ) {}
 
   cache: {[key: string]: any} = {};
 
   get ref() {
     return ref(this.storage);
+  }
+
+  adjustedFolderPath(path: string) {
+    return path
+      .split('/')
+      .join('/folders/')
+      .replace(/^\//, '') + '/folders';
+  }
+
+  getFolders(path: string) {
+    return this.db.getDocumentsSimple(
+      this.adjustedFolderPath(path)
+    )
+  }
+
+  createFolder(path: string, folder: {name: string}) {
+    const id = folder.name
+      .toLowerCase()
+      .trim()
+      .replace(/ /g, '-');
+
+    return this.db.setDocument(
+      this.adjustedFolderPath(path),
+      id,
+      {
+        createdOn: Date.now(),
+        name: folder.name
+      }
+    )
+      .pipe(
+        map(() => id)
+      )
   }
 
   list(path: string, pageToken: string, maxResults = 100) {

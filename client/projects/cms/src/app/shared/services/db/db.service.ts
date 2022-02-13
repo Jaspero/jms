@@ -1,9 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {Module} from '../../interfaces/module.interface';
-import {Settings} from '../../interfaces/settings.interface';
-import {ExampleType} from '../../enums/example-type.enum';
-import {Example} from '../../interfaces/example.interface';
 import {WhereFilter} from '../../interfaces/where-filter.interface';
 
 @Injectable({providedIn: 'root'})
