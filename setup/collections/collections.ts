@@ -1,3 +1,4 @@
+import {FOLDERS_COLLECTION} from './folders.collection';
 import {ROLES_COLLECTION} from './roles.collection';
 import {USER_INVITES_COLLECTION} from './user-invites.collection';
 
@@ -6,5 +7,6 @@ import {USER_INVITES_COLLECTION} from './user-invites.collection';
  */
 export const COLLECTIONS = [
   ROLES_COLLECTION,
-  USER_INVITES_COLLECTION
+  USER_INVITES_COLLECTION,
+  FOLDERS_COLLECTION
 ];

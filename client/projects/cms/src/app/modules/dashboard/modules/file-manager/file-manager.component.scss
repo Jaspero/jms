@@ -8,8 +8,18 @@ $borderRadius: 4px;
 
 .folder {
 
+  &-color {
+    &-blue {
+
+      border-color: var(--primary-theme);
+      
+      .folder-icon {
+        background-color: var(--primary-theme);
+      }
+    }
+  }
+
   background: var(--backdrop-theme);
-  border-color: var(--primary-theme);
   border-radius: $borderRadius;
   cursor: pointer;
 
@@ -20,7 +30,6 @@ $borderRadius: 4px;
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    background-color: var(--primary-theme);
     color: var(--primary-primary);
   }
 }
