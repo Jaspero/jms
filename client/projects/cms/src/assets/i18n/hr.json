@@ -31,6 +31,7 @@
     "USER": "Korisnik",
     "ROLES": "Uloge",
     "LABEL": "Labela",
+    "LINK": "Poveznica",
     "SUBMIT": "Pošali",
     "DISABLED": "Blokiran",
     "ENABLED": "Aktivan",
@@ -49,7 +50,8 @@
     "ROLE": "Uloga",
     "EMAIL": "Email",
     "DESCRIPTION": "Opis",
-
+    "KEY": "Kljuć",
+    "GENERAL": "Opčenito",
     "YES": "Da",
     "NO": "Ne"
   },
@@ -96,7 +98,8 @@
     "MANAGEMENT": "Upravljanje",
     "SYSTEM": "Sustav",
     "RESET_PASSWORD": "Molim vas resetirajte lozinku",
-    "FILE_MANAGER": "Upravljanje datotekama"
+    "FILE_MANAGER": "Upravljanje datotekama",
+    "WEBSITE": "Stranica"
   },
   "MODULES": {
     "REMOVE_ITEMS": "Ukloni {{value}} predmete",
@@ -112,7 +115,11 @@
     "USER_INVITES": "Pozivi",
     "USER_INVITES_DESCRIPTION": "Pozivi poslani novim korisnicima",
     "USERS": "Korisnici",
-    "USERS_DESCRIPTION": "Korisnici aplikacije"
+    "USERS_DESCRIPTION": "Korisnici aplikacije",
+    "AUTOMATIC_EMAILS": "Automatski mailovi",
+    "SENT_EMAILS": "Poslani mailovi",
+    "FORMS": "Forme",
+    "PAGES": "Stranice"
   },
   "INSTANCE_OVERVIEW": {
     "REMOVE_ITEMS": "Ukloni {{value}} predmete",
@@ -224,6 +231,16 @@
       "ACCEPTED_ON": "Datum prihvačanja"
     }
   },
+  "AUTOMATIC_EMAILS": {
+    "FIELDS": {
+      "RECIPIENT": "Primaoc",
+      "SUBJECT": "Zaglavlje",
+      "SEND_TO": "Pošalji na"
+    },
+    "TEMPLATES": {
+      "SECTION": "Segment"
+    }
+  },
   "ELEMENTS": {
     "CHANGE_PASSWORD": {
       "TITLE": "Promijeni lozinku",
@@ -252,7 +269,19 @@
       "TITLE": "Promijeni Email",
       "DIALOG_TITLE": "Promijeni korisnikovu email adresu"
     },
+    "SAMPLE_EMAIL": {
+      "BUTTON": "Pošalji uzorak email-a",
+      "DIALOG_TITLE": "Uzorak email-a",
+      "DIALOG_BUTTON": "Pošalji",
+      "RECEIVER_EMAIL": "Primaoc",
+      "DYNAMIC_DATA": "Dinamični podaci"
+    },
     "IMPERSONATE": "Oponašaj"
+  },
+  "COMPONENTS": {
+    "EMAIL_TEMPLATE": {
+      "COPY_KEY": "Kopiraj ključ"
+    }
   },
   "NOTES": {
     "TITLE": "Bilješke",
@@ -276,9 +305,111 @@
       "ERROR": "Neuspjelo kopiranje"
     }
   },
+  "PB": {
+    "START": "Start",
+    "CLOSE": "Close",
+    "OPEN_ADD": "Add segments",
+    "ADD": "Add",
+    "SEGMENT": "Segment",
+    "FORM": {
+      "TITLE": "Title",
+      "ID_HINT": "Created from title if empty",
+      "COMMON": {
+        "CONTENT": "Content"
+      },
+      "BLOCKS": {
+        "SHARED": {
+          "STANDARD_OPTIONS": "Standard Options",
+          "ADVANCED_OPTIONS": "Advanced Options",
+          "BLOCK_OPTIONS": "Segment Options",
+          "SIZE": "Size",
+          "SIZE_SMALL": "Small",
+          "SIZE_REGULAR": "Medium",
+          "SIZE_LARGE": "Big",
+          "SIZE_FULL_SCREEN": "Full Screen",
+          "CONTAINED": "Contained",
+          "BACKGROUND": "Background",
+          "BACKGROUND_REPEAT": "Background Repeat",
+          "BACKGROUND_SIZE": "Background Size",
+          "BACKGROUND_SIZE_COVER": "Cover",
+          "BACKGROUND_SIZE_CONTAIN": "Contain",
+          "VERTICAL_ALIGNMENT": "Vertical Align",
+          "VERTICAL_ALIGNMENT_CENTER": "Center",
+          "VERTICAL_ALIGNMENT_TOP": "Top",
+          "VERTICAL_ALIGNMENT_BOTTOM": "Bottom",
+          "ADDITIONAL_STYLE": "Custom Style",
+          "CUSTOM_CLASS": "Custom Class",
+          "ELEMENT_ID": "Element ID"
+        },
+        "CONTENT": {
+          "TITLE": "Content"
+        },
+        "FORM": {
+          "TITLE": "Form",
+          "FIELDS": {
+            "FORM": "Form"
+          }
+        }
+      }
+    }
+  },
+  "FU": {
+    "ID": "ID",
+    "LABEL": "Labela",
+    "VALUE": "Vrijednost",
+    "HINT": "Pomoć",
+    "ORGANIZE": "Organiziraj",
+    "PLACEHOLDER": "Držać prostora",
+    "ADJUST_SIZE": "Podesi veličinu",
+    "ADD_FIELD": "Dodaj polje",
+    "REQUIRED": "Obvezno",
+    "CHANGE_TYPE": "Promijeni tip",
+    "EDIT": "Uredi",
+    "REMOVE": "Obriši",
+    "OPTIONS": "Opcije",
+    "SETTINGS": "Postavake",
+    "DEFAULT_PLACEHOLDER": "Trenutno nema dodanih polja. Dodajte polje pritiskom na tipku ispod.",
+    "SIZE": {
+      "DESKTOP": "Računalo",
+      "TABLET": "Tablet",
+      "MOBILE": "Mobitel"
+    },
+    "TYPE": {
+      "checkbox": "Kučica",
+      "email": "Email",
+      "number": "Broj",
+      "select": "Odabir",
+      "text": "Tekst",
+      "textarea": "Tekst polje",
+      "content": "Sadržaj",
+      "date": "Datum",
+      "tel": "Telefon",
+      "color": "Boja"
+    },
+    "CONDITIONS": {
+      "TITLE": "Kriteriji",
+      "CONDITION": "Kriterij",
+      "VALUE": "Vrijednost",
+      "TYPE": "Tip",
+      "EQUAL": "Jednako",
+      "NOT_EQUAL": "Nije jednako",
+      "LARGER_THEN": "Veče od",
+      "SMALLER_THEN": "Manje od",
+      "FORM": "Upitnik"
+    }
+  },
   "SPOTLIGHT": {
     "MODULES": "Kolekcije",
     "DOCUMENTS": "Dokumenti",
     "ACTIONS": "Akcije"
+  },
+  "TEMPLATE_EDITOR": {
+    "ADD_SEGMENT": "Dodaj segment"
+  },
+  "WEBSITE": {
+    "LAYOUT": {
+      "LAYOUT": "Sadržaj",
+      "HEADER_NAVIGATION": "Navigacija"
+    }
   }
 }
