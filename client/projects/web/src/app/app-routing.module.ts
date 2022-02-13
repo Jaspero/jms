@@ -3,11 +3,6 @@ import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '404',
-    loadChildren: () =>
-      import('./modules/not-found/not-found.module').then(m => m.NotFoundModule)
-  },
-  {
     path: '',
     loadChildren: () =>
       import('./modules/page/page.module')
