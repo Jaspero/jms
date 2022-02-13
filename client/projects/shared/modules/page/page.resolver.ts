@@ -5,7 +5,7 @@ import {ActivatedRouteSnapshot, Resolve, Router} from '@angular/router';
 import {snapshotMap} from '@shared/utils/snapshot-map.operator';
 import {from, Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {BASE_TITLE} from '../../consts/base-title.const';
+import {BASE_TITLE} from '../../../web/src/app/consts/base-title.const';
 import {INITIAL_STATE} from '../../consts/initial-state.const';
 
 @Injectable()

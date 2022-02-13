@@ -1,0 +1,26 @@
+<div id="load-bar" *ngIf="loading$ | async">
+  <div class="slider">
+    <div class="line"></div>
+    <div class="subline inc"></div>
+    <div class="subline dec"></div>
+  </div>
+</div>
+
+<header>
+  <span>Logo</span>
+  <nav>
+    <ul>
+      <li *ngFor="let link of layout.headerLinks" routerLinkActive="active">
+        <a [routerLink]="[link.link]">{{link.label}}</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <ng-content></ng-content>
+</main>
+
+<footer>
+  Example Footer
+</footer>

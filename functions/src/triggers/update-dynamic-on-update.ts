@@ -20,7 +20,7 @@ export const updateDynamicOnUpdate = functions
       if (changed) {
         if (!collection.criteria || collection.criteria(newValue)) {
           try {
-            await updateBuildBranch(moduleId, documentId);
+            await updateBuildBranch(moduleId, documentId, collection.command, collection.hosting);
           } catch (e) {
             console.error(e)
           }

@@ -11,6 +11,12 @@ on:
       operation:
         description: 'Type of operation to perform'
         default: 'create'
+      command:
+        description: 'Command to run',
+        default: 'build'
+      hosting:
+        description: 'Hosting to deploy',
+        default: 'web'
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -28,14 +34,14 @@ jobs:
         run: |
           cd build
           echo $SERVICE_ACCOUNT > account.json
-          node build.js ${{ github.event.inputs.collection }} ${{ github.event.inputs.doc }}
+          node ${{ github.event.inputs.command }}.js ${{ github.event.inputs.collection }} ${{ github.event.inputs.doc }}
         env:
           SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
       - name: Deploy
         run: |
           npm install firebase-tools
           npm run firebase -- use $FIREBASE_PROJECT --token $FIREBASE_TOKEN
-          npm run firebase -- deploy --only hosting:web -m "${{ github.run_id }}" --token $FIREBASE_TOKEN
+          npm run firebase -- deploy --only hosting:${{ github.event.inputs.hosting }} -m "${{ github.run_id }}" --token $FIREBASE_TOKEN
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_PROJECT: 'jaspero-jms'
@@ -49,5 +55,5 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: 'build'
+          branch: ${{ github.event.inputs.command }}
           force: true

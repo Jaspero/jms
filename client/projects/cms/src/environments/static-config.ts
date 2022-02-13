@@ -50,6 +50,25 @@ export const STATIC_CONFIG = {
         ]
       },
       {
+        icon: 'language',
+        label: 'Website HR',
+        type: 'expandable',
+        children: [
+          {
+            icon: 'settings',
+            label: 'WEBSITE.LAYOUT.LAYOUT',
+            type: 'link',
+            value: '/m/settings-hr/single/layout'
+          },
+          {
+            icon: 'pages',
+            label: 'MODULES.PAGES',
+            type: 'link',
+            value: '/m/pages-hr'
+          }
+        ]
+      },
+      {
         children: [
           {
             icon: 'supervised_user_circle',

@@ -4,7 +4,12 @@ import {DYNAMIC_COLLECTIONS} from '../consts/dynamic-collections.const';
 import {ENV_CONFIG} from '../consts/env-config.const';
 import {STATIC_CONFIG} from '../consts/static-config.const';
 
-export async function updateBuildBranch(collection: string, doc: string) {
+export async function updateBuildBranch(
+  collection: string,
+  doc: string,
+  command: string,
+  hosting: string
+) {
 
   if (!ENV_CONFIG.gh?.token) {
     return;
@@ -19,10 +24,12 @@ export async function updateBuildBranch(collection: string, doc: string) {
         authorization: `bearer ${ENV_CONFIG.gh?.token}`
       },
       body: JSON.stringify({
-        ref: 'build',
+        ref: command,
         inputs: {
           collection,
           doc,
+          command,
+          hosting
         }
       })
     }
@@ -44,7 +51,7 @@ export const updateDynamicOnCreate = functions
 
       if (!collection.criteria || collection.criteria(data)) {
         try {
-          await updateBuildBranch(moduleId, documentId);
+          await updateBuildBranch(moduleId, documentId, collection.command, collection.hosting);
         } catch (e) {
           console.error(e)
         }

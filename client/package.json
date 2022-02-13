@@ -7,8 +7,11 @@
     "start:cms:live": "ng serve --project=cms --configuration=live",
     "start:web": "ng serve --project=web",
     "start:web:live": "ng serve --project=web --configuration=live",
+    "start:web-hr": "ng serve --project=web-hr",
+    "start:web-hr:live": "ng serve --project=web-hr --configuration=live",
     "build:cms": "node timestamp.js && ng build --project=cms --configuration=production",
     "build:web": "ng build --project=web --configuration=production",
+    "build:web-hr": "ng build --project=web-hr --configuration=production",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

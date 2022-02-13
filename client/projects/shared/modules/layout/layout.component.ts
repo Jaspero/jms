@@ -1,0 +1,29 @@
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {combineLatest, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {INITIAL_STATE} from '../../consts/initial-state.const';
+import {Layout} from '../../interfaces/layout.interface';
+import {StateService} from '../../services/state/state.service';
+
+@Component({
+  selector: 'jms-w-layout',
+  templateUrl: './layout.component.html',
+  styleUrls: ['./layout.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class LayoutComponent implements OnInit {
+  constructor(
+    private state: StateService
+  ) { }
+
+  layout: Layout;
+  loading$: Observable<boolean>;
+
+  ngOnInit() {
+    this.layout = INITIAL_STATE.layout;
+    this.loading$ = combineLatest([this.state.routeLoading$])
+      .pipe(
+        map(loadings => loadings.some(Boolean))
+      );
+  }
+}

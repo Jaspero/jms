@@ -18,6 +18,7 @@ jobs:
       # Build Branch
       # This is the branch that is created on deployment
       build: 'build'
+      buildHr: 'build-hr'
     name: Deploy
     runs-on: ubuntu-latest
     steps:
@@ -34,7 +35,7 @@ jobs:
         run: |
           npm --prefix client ci
       - name: Build
-        run: npm run build:web
+        run: npm run build:web && npm run build:web-hr
       - name: Build.js
         if: contains(github.ref, env.release)
         run: |
@@ -42,13 +43,14 @@ jobs:
           echo $SERVICE_ACCOUNT > account.json
           npm ci
           node build.js
+          node build-hr.js
           cd ..
         env:
           SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting:web
+          args: deploy --only hosting:web,hosting:web-hr
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           PROJECT_ID: ${{ env.project }}
@@ -57,7 +59,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add -f --all public/
+          git add -f --all public/web
           git commit -m "BOT - Connected build branch"
       - name: Update current app version
         if: contains(github.ref, env.release)
@@ -74,4 +76,17 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ env.build }}
           force: true
-
+      - name: Commit HR
+        if: contains(github.ref, env.release)
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -f --all public/web-hr
+          git commit -m "BOT - Connected build branch"
+      - name: Push HR
+        if: contains(github.ref, env.release)
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ env.buildHr }}
+          force: true

@@ -369,6 +369,157 @@
           }
         }
       }
+    },
+    "web-hr": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "changeDetection": "OnPush"
+        },
+        "@schematics/angular:directive": {
+          "flat": false
+        },
+        "@schematics/angular:pipe": {
+          "flat": false
+        },
+        "@schematics/angular:service": {
+          "flat": false
+        }
+      },
+      "root": "projects/web-hr",
+      "sourceRoot": "projects/web/src",
+      "prefix": "jms-w",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "../public/web-hr",
+            "index": "projects/web-hr/src/index.html",
+            "main": "projects/web-hr/src/main.ts",
+            "polyfills": "projects/web-hr/src/polyfills.ts",
+            "tsConfig": "projects/web-hr/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/web-hr/src/favicon.ico",
+              "projects/web-hr/src/assets"
+            ],
+            "styles": [
+              "projects/web-hr/src/styles.scss"
+            ],
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "@jaspero/utils"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/web-hr/src/environments/environment.ts",
+                  "with": "projects/web-hr/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            },
+            "live": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/web-hr/src/environments/environment.ts",
+                  "with": "projects/web-hr/src/environments/environment.live.ts"
+                }
+              ],
+              "optimization": false,
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": false,
+              "vendorChunk": false,
+              "buildOptimizer": false
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "web:build",
+            "port": 4300
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "web:build:production"
+            },
+            "live": {
+              "browserTarget": "web:build:live"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "web:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/web-hr/src/test.ts",
+            "polyfills": "projects/web-hr/src/polyfills.ts",
+            "tsConfig": "projects/web-hr/tsconfig.spec.json",
+            "karmaConfig": "projects/web-hr/karma.conf.js",
+            "assets": [
+              "projects/web-hr/src/favicon.ico",
+              "projects/web-hr/src/assets"
+            ],
+            "styles": [
+              "projects/web-hr/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/web-hr/tsconfig.app.json",
+              "projects/web-hr/tsconfig.spec.json",
+              "projects/web-hr/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/web-hr/e2e/protractor.conf.js",
+            "devServerTarget": "web:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "web:serve:production"
+            }
+          }
+        }
+      }
     }
   },
   "defaultProject": "cms",

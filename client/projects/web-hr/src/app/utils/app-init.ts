@@ -15,10 +15,10 @@ export async function appInit(injector: Injector) {
     page = 'home';
   }
 
-  INITIAL_STATE.layout = (await getDoc(doc(firestore, 'settings', 'layout'))).data() as any;
+  INITIAL_STATE.layout = (await getDoc(doc(firestore, 'settings-hr', 'layout'))).data() as any;
 
   if (page && !PAGE_BLACK_LIST.includes(page)) {
-    const res = await getDoc(doc(firestore, 'pages', page));
+    const res = await getDoc(doc(firestore, 'pages-hr', page));
 
     if (res.exists) {
       INITIAL_STATE.collections.pages = {
