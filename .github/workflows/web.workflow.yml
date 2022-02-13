@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'client/projects/web/**/*'
+      - 'client/projects/web-hr/**/*'
       - '.github/workflows/web.workflow.yml'
 jobs:
   deploy:
