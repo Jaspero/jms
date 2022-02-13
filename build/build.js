@@ -39,20 +39,6 @@ const PAGES = [
         ['twitter:image']: thumb
       }
     }
-  },
-  {
-    url: '404',
-    title: '404',
-    meta: {
-      description: '',
-      keywords: ''
-    },
-    metaProperties: {
-      ['og:title']: '',
-      ['og:description']: '',
-      ['twitter:title']: '',
-      ['twitter:description']: '',
-    }
   }
 ];
 
