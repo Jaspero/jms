@@ -388,7 +388,7 @@
         }
       },
       "root": "projects/web-hr",
-      "sourceRoot": "projects/web/src",
+      "sourceRoot": "projects/web-hr/src",
       "prefix": "jms-w",
       "architect": {
         "build": {

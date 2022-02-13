@@ -7,6 +7,9 @@
         ],
         "web": [
           "jaspero-jms-web"
+        ],
+        "web-hr": [
+          "jaspero-jms-web-hr"
         ]
       }
     }

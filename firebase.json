@@ -53,6 +53,26 @@
           ]
         }
       ]
+    },
+    {
+      "target": "web-hr",
+      "public": "public/web-hr",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "headers": [
+        {
+          "source": "**",
+          "headers": [
+            {
+              "key": "x-frame-options",
+              "value": "DENY"
+            }
+          ]
+        }
+      ]
     }
   ],
   "storage": {
