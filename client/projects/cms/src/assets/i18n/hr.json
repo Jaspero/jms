@@ -16,7 +16,6 @@
     "ERROR": "Pogreška",
     "SUCCESS": "Uspjeh",
     "OR": "ili",
-    "EMAIL": "Email",
     "PASSWORD": "Lozinka",
     "SEARCH": "Pretraga",
     "DUPLICATE": "Dupliciraj",
@@ -35,20 +34,36 @@
     "SUBMIT": "Pošali",
     "DISABLED": "Blokiran",
     "ENABLED": "Aktivan",
+    "ACTIVE": "Aktivan",
+    "IN_ACTIVE": "Ne aktivan",
     "BACK": "Natrag",
 
+    "COUNTRY": "Država",
     "CREATED_ON": "Datum kreiranja",
     "DATE": "Datum",
     "HOURS": "Sati",
-    "MINUTES": "Minuta"
+    "MINUTES": "Minuta",
+
+    "ID": "ID",
+    "NAME": "Ime",
+    "ROLE": "Uloga",
+    "EMAIL": "Email",
+    "DESCRIPTION": "Opis",
+
+    "YES": "Da",
+    "NO": "Ne"
   },
   "LOGIN": {
     "LOGIN": "Prijava",
     "LOGIN_WITH": "Prijava koristeći {{value}}",
     "FORGOT_PASSWORD": "Zaboravljena lozinka?",
     "ERROR_MESSAGE": "Uneseni Email i Lozinka nisu pronađeni. Molim vas pokušajte ponovo.",
+    "MFA_VERIFICATION": "Autentifikacija u više koraka",
+    "MFA_AUTHENTICATION": "Autentificiran",
+    "MFA_SELECT_DEVICE": "Uređaj",
     "TOO_MANY_ATTEMPTS_TRY_LATER": "Pristup ovom računu je tretnuo onemogućen zbog učestalnosti netočnih pokušaja prijave. Možete odmah zatražiti novu lozinku pomoći \"Zaboravili ste lozinku?\" ili pokušati se kasnije prijaviti.",
-    "USER_NOT_FOUND": "Email ne postoji u sustavu."
+    "USER_NOT_FOUND": "Email ne postoji u sustavu.",
+    "REMEMBER": "Ostani ulogiran?"
   },
   "RESET_PASSWORD": {
     "REPEAT_PASSWORD": "Ponovite lozinku",
@@ -57,7 +72,21 @@
     "GO_BACK": "Nazad",
     "RESET_MY_PASSWORD": "Resetiraj lozinku",
     "SUCCESS_MESSAGE": "Nova lozinka vam je poslana na email.",
-    "ERROR_MESSAGE": "Email nije valjan"
+    "ERROR_MESSAGE": "Email nije valjan",
+    "RESET_SUCCESSFUL": "Vaša lozinka je uspješno resetirana. Sada se možete ulogirati.",
+    "INVALID_OOB_CODE": "Vaš kod je istekao. Molim vas pokrenite postupak ponovno."
+  },
+  "FINISH_SIGN_UP": {
+    "TITLE": "Završi prijavu",
+    "SIGN_UP_SUCCESSFUL": "Račun kreiran uspješno"
+  },
+  "MFA": {
+    "CONNECT": "Pokrenite autentifikaciju u više koraka",
+    "PHONE": "Broj telefona",
+    "VERIFICATION": "Verifikacija",
+    "DESCRIPTION": "Kod vam je poslan",
+    "AUTHENTICATE": "Autentifikacija",
+    "VERIFICATION_CODE": "Kod"
   },
   "LAYOUT": {
     "MENU": "Izbornik",
@@ -66,7 +95,8 @@
     "LOG_OUT": "Odjavi se",
     "MANAGEMENT": "Upravljanje",
     "SYSTEM": "Sustav",
-    "RESET_PASSWORD": "Molim vas resetirajte lozinku"
+    "RESET_PASSWORD": "Molim vas resetirajte lozinku",
+    "FILE_MANAGER": "Upravljanje datotekama"
   },
   "MODULES": {
     "REMOVE_ITEMS": "Ukloni {{value}} predmete",
@@ -77,12 +107,17 @@
     "DESCRIPTION": "Opis",
     "GO_TO": "Idi na",
     "NAME": "Ime",
-    "COPIED_TO_CLIPBOARD": "Kopirano u međuspremnik",
-    "LAYOUT_SETTINGS": "Postavke izgleda"
+    "ROLES": "Uloge",
+    "ROLES_DESCRIPTION": "Popis usluga koje se mogu dodijeliti korisniku",
+    "USER_INVITES": "Pozivi",
+    "USER_INVITES_DESCRIPTION": "Pozivi poslani novim korisnicima",
+    "USERS": "Korisnici",
+    "USERS_DESCRIPTION": "Korisnici aplikacije"
   },
   "INSTANCE_OVERVIEW": {
     "REMOVE_ITEMS": "Ukloni {{value}} predmete",
     "REMOVE_ONE": "Ova akcija će u potpunosti ukloniti {{value}}",
+    "REMOVE_ITEMS_WARNING": "Ova akcija će obrisati sve navedene dokumente:",
     "NO_ITEMS": "{{value}} još ne postoji.",
     "LOAD_MORE": "Učitaj još...",
     "APPLY": "Primjeni",
@@ -98,6 +133,11 @@
   "FIELDS": {
     "IMAGE": {
       "PREVIEW": "Pregled slike"
+    },
+    "FILE": {
+      "EMPTY": "Datoteka nije odabrana",
+      "ADD": "Odaberi datoteku",
+      "URL": "Putanja datoteke"
     },
     "GALLERY": {
       "ENTER_URL": "Unesi URL",
@@ -117,6 +157,11 @@
       "LEFT": "Lijevo",
       "CENTER": "Sredina",
       "RIGHT": "Desno"
+    },
+    "REF": {
+      "SEARCH_BY": "Pretraži po",
+      "APPLY_VALUE": "Postavi vrijednost",
+      "LOAD_MORE": "Učitaj više"
     }
   },
   "IMPORT": {
@@ -127,15 +172,16 @@
     "ERROR": "Došlo je do pogreške pri importu podataka"
   },
   "EXPORT": {
-    "ERROR": "Nepoznata pogreška pri izvozu",
     "TITLE": "Izvoz",
     "USE_FILTERS": "Koristi filtere",
     "ROWS_TO_SKIP": "Redova za preskočiti",
+    "ADJUST_COLUMNS": "Uredi kolumne",
     "LIMIT": "Limit",
-    "ADJUST_COLUMNS": "Uredi kolumne"
+    "ERROR": "Nepoznata pogreška pri izvozu"
   },
   "CONFIRMATION": {
-    "TITLE": "Jeste li sigurni?"
+    "TITLE": "Jeste li sigurni?",
+    "TOUCHED_DESCRIPTION": "Postoje promijene koje će biti odbačene!"
   },
   "PROFILE": {
     "TITLE": "Profil",
@@ -157,12 +203,63 @@
     "CONNECT_MFA": "Email sa linkom za verifikaciju je poslan na vašu adresu.",
     "REMOVE_MFA": "Vaš MFA je obrisan uspješno."
   },
-
   "USERS": {
     "ADD": "Dodaj Korisnika",
     "METHOD": "Metoda",
     "ROLE": "Uloga",
-    "PASSWORD_RULES": "Lozinka mora imati barem 6 znakova"
+    "PASSWORD_RULES": "Lozinka mora imati barem 6 znakova",
+
+    "FIELDS": {
+      "PROFILE_PHOTO": "Profilna slika"
+    },
+    "FILTERS": {
+      "START_DATE": "Početni datum",
+      "END_DATE": "Završni datum"
+    }
+  },
+  "USER_INVITES": {
+    "FIELDS": {
+      "REQUIRE_RESET": "Zatraži resetiranje",
+      "SEND_INVITE": "Pošalji poziv",
+      "ACCEPTED_ON": "Datum prihvačanja"
+    }
+  },
+  "ELEMENTS": {
+    "CHANGE_PASSWORD": {
+      "TITLE": "Promijeni lozinku",
+      "DIALOG_TITLE": "Promijeni korisnikovu lozinku"
+    },
+    "USER_ACTIONS": {
+      "LOADING": "Učitavanje...",
+      "PROVIDERS": "Poslužitelji",
+      "GOOGLE": "Google",
+      "EMAIL_PASSWORD": "Email i lozinka",
+      "MULTI_FACTORS": "Prijava u više koraka",
+      "PROVIDER_INFORMATION": "Informacije poslužitelja",
+      "KEY": "Ključ",
+      "VALUE": "Vrijednost",
+      "PHONE": "Telefon",
+      "CREATION_TIME": "Datum kreiranja",
+      "LAST_SIGN_IN_TIME": "Posljednja prijava",
+      "LAST_REFRESH_TIME": "Zadnje osvježavanje",
+      "REMOVE_PROVIDER_TITLE": "Obriši poslužitelja",
+      "REMOVE_PROVIDER_DESCRIPTION": "Jeste li sigurni da želite maknuti ovog poslužitelja?"
+    },
+    "TRIGGER_PASSWORD_RESET": {
+      "TITLE": "Pošalji email za resetiranje lozinke"
+    },
+    "CHANGE_EMAIL": {
+      "TITLE": "Promijeni Email",
+      "DIALOG_TITLE": "Promijeni korisnikovu email adresu"
+    },
+    "IMPERSONATE": "Oponašaj"
+  },
+  "NOTES": {
+    "TITLE": "Bilješke",
+    "LABEL": "Bilješka"
+  },
+  "ERRORS": {
+    "DASHBOARD_ACCESS": "Nemate pristup upravljačkom sustavu."
   },
   "FILE_MANAGER": {
     "TITLE": "Upravitelj datotekama",
@@ -179,20 +276,9 @@
       "ERROR": "Neuspjelo kopiranje"
     }
   },
-  "ELEMENTS": {
-    "CHANGE_PASSWORD": {
-      "TITLE": "Promijeni lozinku",
-      "DIALOG_TITLE": "Promijeni korisnikovu lozinku"
-    },
-    "USER_STATUS": {
-      "LOADING": "Učitavanje statusa..."
-    },
-    "TRIGGER_PASSWORD_RESET": {
-      "TITLE": "Pošalji email za resetiranje lozinke"
-    },
-    "CHANGE_EMAIL": {
-      "TITLE": "Promijeni Email",
-      "DIALOG_TITLE": "Promijeni korisnikovu email adresu"
-    }
+  "SPOTLIGHT": {
+    "MODULES": "Kolekcije",
+    "DOCUMENTS": "Dokumenti",
+    "ACTIONS": "Akcije"
   }
 }
