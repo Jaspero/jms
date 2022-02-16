@@ -24,7 +24,7 @@ import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
 import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';
-import {AsyncSubject, BehaviorSubject, combineLatest, Observable, of, ReplaySubject, Subject} from 'rxjs';
+import {AsyncSubject, BehaviorSubject, combineLatest, forkJoin, Observable, of, ReplaySubject, Subject} from 'rxjs';
 import {filter, map, shareReplay, startWith, switchMap, tap} from 'rxjs/operators';
 import {ColumnOrganizationComponent} from '../../modules/dashboard/modules/module-instance/components/column-organization/column-organization.component';
 import {InstanceOverviewContextService} from '../../modules/dashboard/modules/module-instance/services/instance-overview-context.service';
@@ -528,8 +528,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!id) {
           try {
             id = get(rowData, column.key as string);
-          } catch (e) {
-          }
+          } catch (e) {}
         }
 
         if (!id) {
@@ -553,65 +552,86 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
               id
             ].join('-')
             : id
-          }`;
+          }`; 
+        const populateMethod = itId => this.dbService
+          .getDocument(parsedCollection, itId)
+          .pipe(
+            map(populated => {
+              if (
+                populated.hasOwnProperty(
+                  column.populate.displayKey || 'name'
+                )
+              ) {
+                return this.ioc.columnPipe.transform(
+                  populated[column.populate.displayKey || 'name'],
+                  column.pipe,
+                  column.pipeArguments,
+                  {rowData, populated}
+                );
+              } else {
+                return this.transloco.translate(column.populate.fallback || '-');
+              }
+            }),
+            shareReplay(1)
+          )
+        const populateLookupMethod = itId => this.dbService
+          .getDocuments(parsedCollection, 1, undefined, undefined, [
+            {
+              ...column.populate.lookUp,
+              value: itId
+            }
+          ])
+          .pipe(
+            map(docs => {
+              if (docs[0]) {
+                const populated: any = docs[0].data();
+
+                if (
+                  populated &&
+                  populated.hasOwnProperty(
+                    column.populate.displayKey || 'name'
+                  )
+                ) {
+                  return this.ioc.columnPipe.transform(
+                    populated[column.populate.displayKey || 'name'],
+                    column.pipe,
+                    column.pipeArguments,
+                    {rowData, populated}
+                  );
+                } else {
+                  return this.transloco.translate(column.populate.fallback || '-');
+                }
+              } else {
+                return this.transloco.translate(column.populate.fallback || '-');
+              }
+            }),
+            shareReplay(1)
+          );
 
         if (!this.populateCache[popKey]) {
-          if (column.populate.lookUp) {
-            this.populateCache[popKey] = this.dbService
-              .getDocuments(parsedCollection, 1, undefined, undefined, [
-                {
-                  ...column.populate.lookUp,
-                  value: id
-                }
-              ])
-              .pipe(
-                map(docs => {
-                  if (docs[0]) {
-                    const populated: any = docs[0].data();
 
-                    if (
-                      populated &&
-                      populated.hasOwnProperty(
-                        column.populate.displayKey || 'name'
-                      )
-                    ) {
-                      return this.ioc.columnPipe.transform(
-                        populated[column.populate.displayKey || 'name'],
-                        column.pipe,
-                        column.pipeArguments,
-                        {rowData, populated}
-                      );
-                    } else {
-                      return this.transloco.translate(column.populate.fallback || '-');
-                    }
-                  } else {
-                    return this.transloco.translate(column.populate.fallback || '-');
-                  }
-                }),
-                shareReplay(1)
-              );
+          if (Array.isArray(id)) {
+            if (column.populate.lookUp) {
+              this.populateCache[popKey] = forkJoin(
+                id.map(itId => populateLookupMethod(itId))
+              )
+                .pipe(
+                  map(data => data.join(','))
+                )
+            } else {
+              this.populateCache[popKey] = forkJoin(
+                id.map(itId => populateMethod(itId))
+              )
+                .pipe(
+                  map(data => data.join(','))
+                )
+            }
           } else {
-            this.populateCache[popKey] = this.dbService
-              .getDocument(parsedCollection, id)
-              .pipe(
-                map(populated => {
-                  if (
-                    populated.hasOwnProperty(
-                      column.populate.displayKey || 'name'
-                    )
-                  ) {
-                    return this.ioc.columnPipe.transform(
-                      populated[column.populate.displayKey || 'name'],
-                      column.pipe,
-                      column.pipeArguments,
-                      {rowData, populated}
-                    );
-                  } else {
-                    return this.transloco.translate(column.populate.fallback || '-');
-                  }
-                }),
-                shareReplay(1)
-              );
+            if (column.populate.lookUp) {
+              this.populateCache[popKey] = populateLookupMethod(id);
+            } else {
+              this.populateCache[popKey] = populateMethod(id);
+            }
           }
         }
 
