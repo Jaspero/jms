@@ -221,7 +221,6 @@
     background: none;
     font-size: inherit;
     border-right: 3px solid transparent;
-    color: var(--sidebar-secondary);
     transition: .2s;
 
     @media (max-width: $screen-m) {
@@ -271,7 +270,6 @@
     height: 0;
     min-height: 0;
     opacity: 0;
-    color: var(--sidebar-secondary);
 
     @media (max-width: $screen-m) {
       padding-left: 8px;

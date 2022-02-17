@@ -1,20 +1,23 @@
 <form *ngIf="data$ | async as data" [ngSwitch]="currentState">
   <mat-toolbar role="heading" color="primary" class="sticky-header">
-    <span *ngSwitchCase="viewState.Edit">{{'INSTANCE_SINGLE.EDITING' | transloco}} {{formBuilderComponent?.form.get(data.module.editTitleKey).value}}</span>
+    <span
+      *ngSwitchCase="viewState.Edit">{{'INSTANCE_SINGLE.EDITING' | transloco}} {{formBuilderComponent?.form.get(data.module.editTitleKey).value}}</span>
     <span *ngSwitchCase="viewState.New">{{'GENERAL.NEW' | transloco}} {{data.module.name | transloco}}</span>
-    <span *ngSwitchCase="viewState.Copy">{{'INSTANCE_SINGLE.COPY_OF' | transloco}} {{formBuilderComponent?.form.get('id').value}}</span>
+    <span
+      *ngSwitchCase="viewState.Copy">{{'INSTANCE_SINGLE.COPY_OF' | transloco}} {{formBuilderComponent?.form.get('id').value}}</span>
     <div class="flex-1"></div>
     <ng-container *ngIf="!data.directLink">
-      <span class="hide-xs">
+      <span class="hide-xs flex ai-center">
         <a mat-button (click)="back()">{{(data.autoSave ? 'GENERAL.BACK' : 'GENERAL.CANCEL') | transloco}}</a>&nbsp;
       </span>
-      <span class="show-xs">
-        <a mat-icon-button (click)="back()" [matTooltip]="(data.autoSave ? 'GENERAL.BACK' : 'GENERAL.CANCEL') | transloco">
+      <span class="show-xs flex ai-center">
+        <a mat-icon-button (click)="back()"
+           [matTooltip]="(data.autoSave ? 'GENERAL.BACK' : 'GENERAL.CANCEL') | transloco">
           <mat-icon>cancel</mat-icon>
         </a>&nbsp;
       </span>
     </ng-container>
-    <span class="hide-xs">
+    <span class="hide-xs flex ai-center">
       <button
         *ngIf="!data.autoSave"
         type="submit"
@@ -25,7 +28,7 @@
       {{'GENERAL.SAVE' | transloco}}
     </button>
     </span>
-    <span class="show-xs">
+    <span class="show-xs flex ai-center">
       <button
         type="submit"
         mat-icon-button
@@ -40,5 +43,6 @@
     <!--<mat-progress-bar class="jms-instance-single-loading" color="accent" mode="determinate" value="40"></mat-progress-bar>-->
   </mat-toolbar>
 
-  <fb-form-builder [data]="data.formBuilder" [state]="formState" [id]="data.module.id" (valueChanges)="valueChange($event, data)"></fb-form-builder>
+  <fb-form-builder [data]="data.formBuilder" [state]="formState" [id]="data.module.id"
+                   (valueChanges)="valueChange($event, data)"></fb-form-builder>
 </form>

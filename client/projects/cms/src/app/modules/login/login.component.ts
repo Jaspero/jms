@@ -50,10 +50,10 @@ export class LoginComponent implements OnInit {
     private zone: NgZone
   ) {}
 
-  @ViewChild('password', {static: true})
+  @ViewChild('password')
   passwordField: ElementRef;
 
-  @ViewChild('mfaVerification', {static: true})
+  @ViewChild('mfaVerification')
   mfaVerificationTemp: TemplateRef<any>;
 
   loginForm: FormGroup;
