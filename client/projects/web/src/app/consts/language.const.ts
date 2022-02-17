@@ -1,3 +1,3 @@
 export const LANGUAGE = {
-	short: 'en'
+	short: ''
 };

@@ -6,12 +6,16 @@ import {LANG_SUFFIX} from '../modules/page/lang-suffix.token';
 
 export async function initialState(injector: Injector) {
   const firestore = injector.get(Firestore);
-	const langSuffix = '-' + injector.get(LANG_SUFFIX);
-
+	
+  let langSuffix = injector.get(LANG_SUFFIX);
   let page = location.pathname.split('/')[1];
 
   if (page === '') {
     page = 'home';
+  }
+
+  if (langSuffix) {
+    langSuffix = '-' + langSuffix;
   }
 
   INITIAL_STATE.layout = (await getDoc(doc(firestore, 'settings', 'layout' + langSuffix))).data() as any;
