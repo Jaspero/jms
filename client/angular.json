@@ -459,22 +459,22 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "web:build",
+            "browserTarget": "web-hr:build",
             "port": 4300
           },
           "configurations": {
             "production": {
-              "browserTarget": "web:build:production"
+              "browserTarget": "web-hr:build:production"
             },
             "live": {
-              "browserTarget": "web:build:live"
+              "browserTarget": "web-hr:build:live"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "web:build"
+            "browserTarget": "web-hr:build"
           }
         },
         "test": {
@@ -515,7 +515,7 @@
           },
           "configurations": {
             "production": {
-              "devServerTarget": "web:serve:production"
+              "devServerTarget": "web-hr:serve:production"
             }
           }
         }

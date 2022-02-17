@@ -5,15 +5,17 @@ import {connectFirestoreEmulator, enableMultiTabIndexedDbPersistence, getFiresto
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserModule} from '@angular/platform-browser';
 import {LayoutModule} from '../../../shared/modules/layout/layout.module';
+import {LANG_SUFFIX} from '../../../shared/modules/page/lang-suffix.token';
+import {initialState} from '../../../shared/utils/initial-state';
 import {environment} from '../environments/environment';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
+import {LANGUAGE} from './consts/language.const';
 import {TranslocoRootModule} from './transloco-root.module';
-import {appInit} from './utils/app-init';
 
 export function init(injector: Injector) {
   return () => {
-    return appInit(injector);
+    return initialState(injector);
   };
 }
 
@@ -55,6 +57,10 @@ export function init(injector: Injector) {
       useFactory: init,
       deps: [Injector],
       multi: true
+    },
+    {
+      provide: LANG_SUFFIX,
+      useValue: LANGUAGE.short
     }
   ],
   bootstrap: [AppComponent]

@@ -13,7 +13,7 @@ const routes: Routes = [
       page: PageResolver
     },
     data: {
-      collection: 'pages-hr',
+      collection: 'pages',
       id: 'home'
     }
   },
@@ -24,7 +24,7 @@ const routes: Routes = [
       page: PageResolver
     },
     data: {
-      collection: 'pages-hr'
+      collection: 'pages'
     }
   }
 ];

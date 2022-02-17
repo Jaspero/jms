@@ -53,12 +53,27 @@ service cloud.firestore {
       allow write: if admin();
     }
 
+    match /settings-hr/{item} {
+      allow read: if true;
+      allow write: if admin();
+    }    
+
     match /posts/{item} {
       allow read: if resource.data.published || admin();
       allow write: if admin();
     }    
 
+    match /posts-hr/{item} {
+      allow read: if resource.data.published || admin();
+      allow write: if admin();
+    }
+
     match /pages/{item=**} {
+      allow read: if true;
+      allow write: if admin();
+    }
+
+    match /pages-hr/{item=**} {
       allow read: if true;
       allow write: if admin();
     }

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable, Optional} from '@angular/core';
 import {doc, Firestore, getDoc} from '@angular/fire/firestore';
 import {Meta, Title} from '@angular/platform-browser';
 import {ActivatedRouteSnapshot, Resolve, Router} from '@angular/router';
@@ -14,14 +14,18 @@ export class PageResolver implements Resolve<any> {
     private title: Title,
     private meta: Meta,
     private router: Router,
-    private firestore: Firestore
-  ) {}
+    private firestore: Firestore,
+    @Optional()
+    @Inject('LANG_SUFFIX')
+    private langSuffix: string
+  ) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const {collection, skipMeta} = route.data;
+    const {collection, skipMeta, langSuffix} = route.data;
     const {id = route.data.id} = route.params;
+    const suffix = langSuffix !== undefined ? langSuffix : (this.langSuffix ? ('-' + this.langSuffix) : '');
 
-    return this.getItem(id, collection).pipe(
+    return this.getItem(id, collection + suffix).pipe(
       map((page: any) => {
         if (!page || !page.active) {
           this.router.navigate(['/404']);
