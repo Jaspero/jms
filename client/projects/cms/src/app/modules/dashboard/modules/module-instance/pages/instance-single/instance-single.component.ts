@@ -10,6 +10,7 @@ import {debounceTime, map, switchMap, tap} from 'rxjs/operators';
 import {ViewState} from '../../../../../../shared/enums/view-state.enum';
 import {ModuleAuthorization} from '../../../../../../shared/interfaces/module-authorization.interface';
 import {DbService} from '../../../../../../shared/services/db/db.service';
+import {UtilService} from '../../../../../../shared/services/util/util.service';
 import {queue} from '../../../../../../shared/utils/queue.operator';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
 
@@ -48,7 +49,8 @@ export class InstanceSingleComponent implements OnInit {
     private dbService: DbService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private ioc: InstanceOverviewContextService
+    private ioc: InstanceOverviewContextService,
+    private util: UtilService
   ) {
   }
 
@@ -75,6 +77,9 @@ export class InstanceSingleComponent implements OnInit {
       switchMap(module =>
         this.activatedRoute.params.pipe(
           switchMap(params => {
+
+            this.util.docId = params.id;
+
             if (params.id === 'new') {
               this.currentState = ViewState.New;
               this.formState = State.Create;
