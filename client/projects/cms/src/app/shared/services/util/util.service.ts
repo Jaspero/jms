@@ -11,6 +11,11 @@ export class UtilService {
     public transloco: TranslocoService
   ) {}
 
+  /**
+   * ID of the currently open document
+   */
+  docId: string;
+
   init() {
     if (!window.jms) {
       window.jms = {

@@ -5,11 +5,24 @@ service firebase.storage {
     return request.auth.token.role == 'admin'
   }
 
+  function authenticated() {
+    return request.auth != null;
+  }
+
+  function isCurrentUser(userId) {
+    return request.auth.uid == userId;
+  }
+
   match /b/{bucket}/o {
 
     match /generated/{files=**} {
       allow read: if true;
       allow write: if admin();
+    }
+
+    match /users/{userId=**} {
+      allow read: if authenticated();
+      allow write: if admin() || isCurrentUser(userId);
     }
 
     match /public/{files=**} {

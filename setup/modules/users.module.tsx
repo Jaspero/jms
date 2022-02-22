@@ -202,20 +202,28 @@ export const USERS_MODULE: Module = {
       label: 'USERS.FIELDS.PROFILE_PHOTO',
       component: {
         type: 'image',
-        configuration: {
-          uploadMethods: [{
-            id: 'file-manager',
-            label: 'FILE_MANAGER.TITLE',
-            component: JSX(<jms-e-file-manager-select/>),
-            configuration: {
-              hidePath: false,
-              hideFolders: false,
-              allowUpload: true,
-              filters: [{
-                value: file => file.contentType.startsWith('image/')
-              }]
-            }
-          }]
+        configuration: () => {
+          const route = `/users/${window.jms.util.docId}`;
+          const minPath = window.jms.util.state.role !== 'admin' ? route : `/`;
+
+          return {
+            filePrefix: route + '/',
+            uploadMethods: [{
+              id: 'file-manager',
+              label: 'FILE_MANAGER.TITLE',
+              component: JSX(<jms-e-file-manager-select/>),
+              configuration: {
+                hidePath: false,
+                hideFolders: false,
+                allowUpload: true,
+                minPath,
+                route,
+                filters: [{
+                  value: file => file.contentType.startsWith('image/')
+                }]
+              }
+            }]
+          }
         }
       }
     },
