@@ -52,7 +52,7 @@
   justify-content: center;
   height: 128px;
   min-height: 128px;
-  padding-left: 24px;
+  padding: 16px;
   box-shadow: 0 0 0 1px var(--sidebar-tertiary);
 
   @media (max-width: $screen-m) {
@@ -62,6 +62,8 @@
   }
 
   &-logo {
+    object-fit: contain;
+    height: 100%;
     font-size: 28px;
     @media (max-width: $screen-m) {
       display: none;
@@ -106,7 +108,7 @@
   align-items: center;
   height: 48px;
   min-height: 48px;
-  padding-left: 24px;
+  padding-left: 16px;
   border-right: 3px solid transparent;
   border-bottom: 1px solid var(--sidebar-tertiary);
   transition: .2s;
@@ -157,7 +159,7 @@
   align-items: center;
   height: 48px;
   min-height: 48px;
-  padding-left: 24px;
+  padding-left: 16px;
   border-right: 3px solid transparent;
   border-bottom: 1px solid var(--sidebar-tertiary);
   transition: .2s;
@@ -213,13 +215,12 @@
     width: 100%;
     height: 48px;
     min-height: 48px;
-    padding-left: 24px;
+    padding-left: 16px;
     border: none;
     outline: none;
     background: none;
     font-size: inherit;
     border-right: 3px solid transparent;
-    color: var(--sidebar-secondary);
     transition: .2s;
 
     @media (max-width: $screen-m) {
@@ -262,14 +263,13 @@
     white-space: nowrap;
     display: flex;
     align-items: center;
-    padding-left: 24px;
+    padding-left: 16px;
     border-right: 3px solid transparent;
     overflow: hidden;
     transition: .2s;
     height: 0;
     min-height: 0;
     opacity: 0;
-    color: var(--sidebar-secondary);
 
     @media (max-width: $screen-m) {
       padding-left: 8px;
@@ -322,7 +322,7 @@
     align-items: center;
     height: 48px;
     min-height: 48px;
-    padding-left: 24px;
+    padding-left: 16px;
     border-right: 3px solid transparent;
     transition: .2s;
 
@@ -352,7 +352,7 @@
     align-items: center;
     height: 32px;
     min-height: 32px;
-    padding-left: 24px;
+    padding-left: 16px;
     border-right: 3px solid transparent;
     transition: .2s;
 
@@ -409,7 +409,7 @@
   align-items: center;
   height: 30px;
   min-height: 30px;
-  padding-left: 24px;
+  padding-left: 16px;
   box-shadow: 0 0 0 1px var(--sidebar-tertiary);
   background: var(--sidebar-theme);
   color: var(--sidebar-secondary);

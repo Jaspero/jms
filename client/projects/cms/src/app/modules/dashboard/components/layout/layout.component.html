@@ -1,6 +1,6 @@
 <nav class="dashboard-nav" [class.dashboard-nav-expanded]="navigationExpanded">
   <section class="dashboard-nav-welcome">
-    <img class="dashboard-nav-welcome-logo" src="assets/images/logo.svg" alt="Logo" width="60">
+    <img class="dashboard-nav-welcome-logo" src="assets/images/logo.svg" alt="Logo">
     <!--<h1 class="dashboard-nav-welcome-logo">{{staticConfig.displayName}}</h1>-->
     <mat-icon class="dashboard-nav-welcome-menu" role="button" [attr.aria-label]="'LAYOUT.MENU' | transloco" (click)="toggleMenu()">menu</mat-icon>
   </section>
@@ -24,7 +24,7 @@
         *ngSwitchCase="navigationItemType.Expandable"
         class="dashboard-nav-expandable"
         [class.active]="(activeExpand$ | async) === item">
-        <button class="dashboard-nav-expandable-label" (click)="activeExpand$.next(item)">
+        <button class="dashboard-nav-expandable-label" (click)="toggleExpand(item)">
           <mat-icon *ngIf="item.icon" aria-hidden="true" class="dashboard-nav-expandable-label-icon">{{item.icon}}</mat-icon>
           <span class="dashboard-nav-expandable-label-text">{{item.label | transloco}}</span>
           <span class="dashboard-nav-expandable-label-tooltip" [matTooltip]="item.label | transloco" matTooltipPosition="right"></span>

@@ -2,6 +2,12 @@
   overflow-x: auto;
 }
 
+:host {
+  .mat-toolbar-single-row {
+    border-radius: 4px;
+  }
+}
+
 ::ng-deep {
 
   /* The .select-all class was added to fix the 'select all' checkbox in place */

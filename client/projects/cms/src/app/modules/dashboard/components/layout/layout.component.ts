@@ -25,18 +25,8 @@ import {SpotlightComponent} from '../spotlight/spotlight.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LayoutComponent implements OnInit {
-  constructor(
-    public state: StateService,
-    private auth: Auth,
-    private router: Router,
-    private dialog: MatDialog,
-    private fb: FormBuilder,
-    private dbService: DbService
-  ) {}
-
   @ViewChild('reset')
   resetDialog: TemplateRef<any>;
-
   currentUser$: Observable<any>;
   links$: Observable<NavigationItemWithActive[]>;
   staticConfig = STATIC_CONFIG;
@@ -45,6 +35,16 @@ export class LayoutComponent implements OnInit {
   resetPassword: FormGroup;
   spotlightDialogRef: MatDialogRef<any>;
   activeExpand$ = new BehaviorSubject(null);
+
+  constructor(
+    public state: StateService,
+    private auth: Auth,
+    private router: Router,
+    private dialog: MatDialog,
+    private fb: FormBuilder,
+    private dbService: DbService
+  ) {
+  }
 
   ngOnInit() {
     document.addEventListener('keydown', (event) => {
@@ -75,12 +75,12 @@ export class LayoutComponent implements OnInit {
     if (this.state.user.requireReset) {
 
       this.resetPassword = this.fb.group({
-        password: ['', Validators.required],
-        repeatPassword: ['', Validators.required]
-      },
-      {
-        validator: RepeatPasswordValidator(`Passwords don't match`)
-      } as AbstractControlOptions);
+          password: ['', Validators.required],
+          repeatPassword: ['', Validators.required]
+        },
+        {
+          validator: RepeatPasswordValidator(`Passwords don't match`)
+        } as AbstractControlOptions);
 
       setTimeout(() => {
         this.dialog.open(
@@ -159,9 +159,9 @@ export class LayoutComponent implements OnInit {
     const expandLinks$: Observable<NavigationItem[]> = this.links$
       .pipe(
         map(links =>
-          links.filter(it => it.type === NavigationItemType.Expandable)  
-        )  
-      )
+          links.filter(it => it.type === NavigationItemType.Expandable)
+        )
+      );
 
     this.router.events
       .pipe(
@@ -193,7 +193,15 @@ export class LayoutComponent implements OnInit {
             this.activeExpand$.next(startMatch);
           }
         }
-      })
+      });
+  }
+
+  toggleExpand(item) {
+    if (this.activeExpand$.value === item) {
+      this.activeExpand$.next(null);
+    } else {
+      this.activeExpand$.next(item);
+    }
   }
 
   toggleMenu() {
