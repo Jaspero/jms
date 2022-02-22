@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ref, Storage, uploadBytes} from '@angular/fire/storage';
+import {ref, Storage, uploadBytes, getDownloadURL, StorageReference} from '@angular/fire/storage';
 import {StorageService} from '@jaspero/form-builder';
 
 @Injectable()
@@ -16,5 +16,9 @@ export class FbStorageService extends StorageService {
 			data,
 			metadata
 		)
+	}
+
+	getDownloadURL(ref: StorageReference) {
+		return getDownloadURL(ref);
 	}
 }
