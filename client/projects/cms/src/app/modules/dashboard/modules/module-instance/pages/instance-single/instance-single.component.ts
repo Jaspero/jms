@@ -196,9 +196,7 @@ export class InstanceSingleComponent implements OnInit {
           `${instance.module.docIdPrefix}-${random.string(instance.module.docIdSize)}`);
 
       const actions: any[] = [
-        switchMap(() => {
-          let data = this.formBuilderComponent.form.getRawValue();
-
+        switchMap((data: any) => {
           if (this.currentState === ViewState.Edit && instance.formatOnEdit) {
             data = instance.formatOnEdit(data);
           } else if (this.currentState === ViewState.New && instance.formatOnCreate) {
