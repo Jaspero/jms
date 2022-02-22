@@ -4,7 +4,7 @@
       <img class="login-logo" src="assets/images/logo.svg" alt="Logo" width="80">
       <!--<h6 class="m-b-l p-t-m ta-center">{{staticConfig.displayName}}</h6>-->
       <!--Social login-->
-      <section>
+      <section *ngIf="staticConfig.login.google">
         <div class="m-b-s">
           <button class="w-full" mat-stroked-button (click)="loginGoogle()">
             {{'LOGIN.LOGIN_WITH' | transloco:{value: 'Google'} }}
@@ -12,7 +12,7 @@
         </div>
       </section>
 
-      <section>
+      <section *ngIf="staticConfig.login.facebook">
         <div class="m-b-s">
           <button class="w-full" mat-stroked-button (click)="loginFacebook()">
             {{'LOGIN.LOGIN_WITH' | transloco:{value: 'Facebook'} }}
@@ -21,14 +21,14 @@
       </section>
 
       <!--Divider-->
-      <div class="flex ai-center m-y-m disabled">
+      <div class="flex ai-center jc-center m-y-m disabled" *ngIf="(staticConfig.login.google || staticConfig.login.facebook) && staticConfig.login.email">
         <hr class="flex1">
-        <p class="p-x-s">{{'GENERAL.OR' | transloco}}</p>
+        <p class="p-x-s">{{'GENERAL.OR' | transloco | uppercase}}</p>
         <hr class="flex1">
       </div>
 
       <!--Regular login-->
-      <form [formGroup]="loginForm">
+      <form [formGroup]="loginForm" *ngIf="staticConfig.login.email">
         <mat-form-field class="w-full">
           <mat-label>{{'GENERAL.EMAIL' | transloco}}</mat-label>
           <input

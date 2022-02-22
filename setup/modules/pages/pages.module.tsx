@@ -88,6 +88,7 @@ export const PAGES_MODULE: Module = {
       hint: 'PB.FORM.ID_HINT'
     },
     title: {label: 'PB.FORM.TITLE'},
+    active: {label: ''},
     blocks: {
       component: {
         type: 'pb-blocks',
