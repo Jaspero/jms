@@ -20,7 +20,6 @@ jobs:
         with:
           node-version: 16.x
       - name: Prepare definitions package
-        if: ${{ steps.changes.outputs.CHANGES }}
         run: |
             npm --prefix definitions ci
             cd definitions && npm run build
