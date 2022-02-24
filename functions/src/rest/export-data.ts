@@ -7,6 +7,7 @@ import {Parser} from 'json2csv';
 import * as XLSX from 'xlsx';
 import {CORS} from '../consts/cors-whitelist.const';
 import {STATIC_CONFIG} from '../consts/static-config.const';
+import {MODULES} from '../modules';
 import {authenticated} from './middlewares/authenticated';
 
 enum Type {
@@ -27,16 +28,11 @@ app.post('/:module', authenticated(), (req, res) => {
     // @ts-ignore
     const role = req['user'].role;
 
-    let moduleDoc: any = await admin.firestore()
-      .collection('modules')
-      .doc(module)
-      .get();
+    const moduleDoc: any = MODULES.find(it => it.id === module);
 
-    if (!moduleDoc.exists) {
+    if (!moduleDoc) {
       throw new Error('Requested module not found.')
     }
-
-    moduleDoc = moduleDoc.data();
 
     if (
       moduleDoc.authorization &&
