@@ -33,6 +33,7 @@
             "polyfills": "projects/cms/src/polyfills.ts",
             "tsConfig": "projects/cms/tsconfig.app.json",
             "aot": true,
+            "preserveSymlinks": true,
             "assets": [
               "projects/cms/src/favicon.ico",
               "projects/cms/src/assets",

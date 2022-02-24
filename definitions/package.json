@@ -6,7 +6,7 @@
   },
   "main": "./dist/definitions/modules.js",
   "peerDependencies": {
-    "@jaspero/fb-fields-mat": "1.8.0",
+    "@jaspero/fb-fields-mat": "^1.8.0",
     "@jaspero/fb-form-ui": "^2.5.16",
     "@jaspero/fb-monaco-editor": "^2.5.13",
     "@jaspero/fb-page-builder": "^3.21.8",
