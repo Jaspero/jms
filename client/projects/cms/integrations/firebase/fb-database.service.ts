@@ -184,7 +184,7 @@ export class FbDatabaseService extends DbService {
           documentId
         )
       )
-    )
+    );
   }
 
   createUserAccount(email: string, password: string) {
