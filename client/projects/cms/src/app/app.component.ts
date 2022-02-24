@@ -6,6 +6,7 @@ import {UtilService} from './shared/services/util/util.service';
 
 declare global {
   interface Window {
+    // @ts-ignore
     jms: {
       util: UtilService
     };

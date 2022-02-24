@@ -18,8 +18,7 @@
     ],
     "skipLibCheck": true,
     "paths": {
-      "@shared/*": ["./projects/shared/*"],
-      "@definitions/*": ["../definitions/*"]
+      "@shared/*": ["./projects/shared/*"]
     },
     "allowSyntheticDefaultImports": true,
     "jsx": "react",

@@ -1,6 +1,8 @@
 {
   "compileOnSave": true,
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
   "compilerOptions": {
     "module": "commonjs",
     "noImplicitReturns": false,
@@ -15,5 +17,5 @@
     "jsx": "react",
     "reactNamespace": "JSX",
     "strictNullChecks": false
-  },
+  }
 }

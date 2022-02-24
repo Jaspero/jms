@@ -17,15 +17,17 @@ import {
 import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
 import {Router} from '@angular/router';
-import {PipeType} from '@definitions/enums/pipe-type.enum';
-import {FilterModule} from '@definitions/interfaces/filter-module.interface';
-import {ImportModule} from '@definitions/interfaces/import-module.interface';
-import {InstanceSort} from '@definitions/interfaces/instance-sort.interface';
-import {ModuleAuthorization} from '@definitions/interfaces/module-authorization.interface';
-import {ModuleLayoutTableColumn} from '@definitions/interfaces/module-layout-table.interface';
-import {ModuleDefinitions} from '@definitions/interfaces/module.interface';
-import {SearchModule} from '@definitions/interfaces/search-module.interface';
-import {SortModule} from '@definitions/interfaces/sort-module.interface';
+import {
+  FilterModule,
+  ImportModule,
+  InstanceSort,
+  ModuleAuthorization,
+  ModuleDefinitions,
+  ModuleLayoutTableColumn,
+  PipeType,
+  SearchModule,
+  SortModule
+} from 'definitions';
 import {Definitions, Parser, State} from '@jaspero/form-builder';
 import {parseTemplate, random, safeEval} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
@@ -81,18 +83,6 @@ interface TableData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
-  constructor(
-    public ioc: InstanceOverviewContextService,
-    private state: StateService,
-    private injector: Injector,
-    private viewContainerRef: ViewContainerRef,
-    private dbService: DbService,
-    private dialog: MatDialog,
-    private router: Router,
-    private cdr: ChangeDetectorRef,
-    private transloco: TranslocoService
-  ) { }
-
   /**
    * Using view children so we can listen for changes
    */
@@ -119,6 +109,19 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   };
   maxHeight$ = new Subject<string>();
   actions = {};
+
+  constructor(
+    public ioc: InstanceOverviewContextService,
+    private state: StateService,
+    private injector: Injector,
+    private viewContainerRef: ViewContainerRef,
+    private dbService: DbService,
+    private dialog: MatDialog,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private transloco: TranslocoService
+  ) {
+  }
 
   ngOnInit() {
     /**
@@ -234,7 +237,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           ? {
             stickyHeader:
               data.layout.table &&
-                data.layout.table.hasOwnProperty('stickyHeader')
+              data.layout.table.hasOwnProperty('stickyHeader')
                 ? data.layout.table.stickyHeader
                 : true,
             sortModule: data.layout.sortModule,
@@ -426,6 +429,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
       field.control.valueChanges
         .pipe(
+          // @ts-ignore
           switchMap(value =>
             this.dbService.setDocument(
               overview.moduleId,
@@ -528,7 +532,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!id) {
           try {
             id = get(rowData, column.key as string);
-          } catch (e) {}
+          } catch (e) {
+          }
         }
 
         if (!id) {
@@ -546,13 +551,13 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           true
         );
         const popKey = `${parsedCollection}-${column.populate.lookUp
-            ? [
-              column.populate.lookUp.key,
-              column.populate.lookUp.operator,
-              id
-            ].join('-')
-            : id
-          }`; 
+          ? [
+            column.populate.lookUp.key,
+            column.populate.lookUp.operator,
+            id
+          ].join('-')
+          : id
+        }`;
         const populateMethod = itId => this.dbService
           .getDocument(parsedCollection, itId)
           .pipe(
@@ -573,7 +578,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
               }
             }),
             shareReplay(1)
-          )
+          );
         const populateLookupMethod = itId => this.dbService
           .getDocuments(parsedCollection, 1, undefined, undefined, [
             {
@@ -617,14 +622,14 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
               )
                 .pipe(
                   map(data => data.join(','))
-                )
+                );
             } else {
               this.populateCache[popKey] = forkJoin(
                 id.map(itId => populateMethod(itId))
               )
                 .pipe(
                   map(data => data.join(','))
-                )
+                );
             }
           } else {
             if (column.populate.lookUp) {

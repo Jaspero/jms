@@ -8,7 +8,7 @@ import * as XLSX from 'xlsx';
 import {CORS} from '../consts/cors-whitelist.const';
 import {STATIC_CONFIG} from '../consts/static-config.const';
 import {authenticated} from './middlewares/authenticated';
-import {MODULES} from '../../../definitions/modules'
+import {MODULES} from 'definitions';
 
 enum Type {
   csv = 'csv',

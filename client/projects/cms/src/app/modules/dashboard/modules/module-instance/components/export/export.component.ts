@@ -2,11 +2,9 @@ import {HttpClient} from '@angular/common/http';
 import {ChangeDetectionStrategy, Component, Inject, TemplateRef, ViewChild} from '@angular/core';
 import {Auth, getIdToken} from '@angular/fire/auth';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA} from '@angular/material/bottom-sheet';
+import {MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef} from '@angular/material/bottom-sheet';
 import {MatDialog} from '@angular/material/dialog';
-import {FilterModule} from '@definitions/interfaces/filter-module.interface';
-import {InstanceSort} from '@definitions/interfaces/instance-sort.interface';
-import {ModuleLayoutTableColumn} from '@definitions/interfaces/module-layout-table.interface';
+import {FilterModule, InstanceSort, ModuleLayoutTableColumn} from 'definitions';
 import {TranslocoService} from '@ngneat/transloco';
 import {notify} from '@shared/utils/notify.operator';
 import {saveAs} from 'file-saver';
@@ -30,6 +28,12 @@ enum ExportType {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExportComponent {
+  @ViewChild('options', {static: true})
+  optionsTemplate: TemplateRef<any>;
+  types = ExportType;
+  type: ExportType;
+  form: FormGroup;
+
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA)
     public data: {
@@ -50,13 +54,6 @@ export class ExportComponent {
     private auth: Auth
   ) {
   }
-
-  @ViewChild('options', {static: true})
-  optionsTemplate: TemplateRef<any>;
-
-  types = ExportType;
-  type: ExportType;
-  form: FormGroup;
 
   selectType(type: ExportType) {
 

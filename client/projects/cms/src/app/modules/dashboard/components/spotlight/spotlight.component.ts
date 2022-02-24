@@ -3,7 +3,7 @@ import {Auth, signOut} from '@angular/fire/auth';
 import {FormControl} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
-import {Module} from '@definitions/interfaces/module.interface';
+import {Module} from 'definitions';
 import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 import {BehaviorSubject, combineLatest, forkJoin, Observable, of} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, map, startWith, switchMap, take, tap} from 'rxjs/operators';
@@ -18,6 +18,10 @@ import {StateService} from '../../../../shared/services/state/state.service';
 })
 export class SpotlightComponent implements OnInit {
 
+  searchControl: FormControl;
+  results$: Observable<any>;
+  modules$ = new BehaviorSubject<Module[]>([]);
+
   constructor(
     private state: StateService,
     private router: Router,
@@ -26,12 +30,6 @@ export class SpotlightComponent implements OnInit {
     private auth: Auth
   ) {
   }
-
-  searchControl: FormControl;
-
-  results$: Observable<any>;
-
-  modules$ = new BehaviorSubject<Module[]>([]);
 
   ngOnInit(): void {
     this.state.modules$.pipe(
@@ -61,7 +59,7 @@ export class SpotlightComponent implements OnInit {
           return {
             href: `/m/${module.id}/overview`,
             value: module.name,
-            description: module.id,
+            description: module.id
           };
         }));
 
@@ -117,7 +115,7 @@ export class SpotlightComponent implements OnInit {
                       href: `/m/${module.id}/single/${item.id}`,
                       value: item.id,
                       description: `Document - ${module.id}`
-                    }
+                    };
                   });
                   return res.length ? res[0] : false;
                 })
@@ -145,7 +143,7 @@ export class SpotlightComponent implements OnInit {
             return actions.filter(action => {
               return action.search.toLowerCase().includes(search.toLowerCase())
                 || action.value.toLowerCase().includes(search.toLowerCase());
-            })
+            });
           })
         );
 
