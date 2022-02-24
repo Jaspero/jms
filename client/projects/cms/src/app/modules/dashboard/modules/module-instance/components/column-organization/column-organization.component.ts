@@ -1,7 +1,7 @@
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {ModuleLayoutTableColumn} from '@definitions/interfaces/module-layout-table.interface';
+import {ModuleLayoutTableColumn} from 'definitions';
 import {TranslocoService} from '@ngneat/transloco';
 
 interface AdjustableColumn {

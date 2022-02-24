@@ -3,7 +3,7 @@ import {ChangeDetectionStrategy, Component, ElementRef, Input, TemplateRef, View
 import {Auth, getIdToken} from '@angular/fire/auth';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
-import {ImportModule} from '@definitions/interfaces/import-module.interface';
+import {ImportModule} from 'definitions';
 import {notify} from '@shared/utils/notify.operator';
 import {from} from 'rxjs';
 import {switchMap} from 'rxjs/operators';

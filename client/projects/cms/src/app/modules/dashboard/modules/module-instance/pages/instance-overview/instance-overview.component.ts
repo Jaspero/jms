@@ -1,10 +1,7 @@
 import {SelectionModel} from '@angular/cdk/collections';
 import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {FilterMethod} from '@definitions/enums/filter-method.enum';
-import {InstanceSort} from '@definitions/interfaces/instance-sort.interface';
-import {ModuleOverviewView} from '@definitions/interfaces/module-overview-view.interface';
-import {Module} from '@definitions/interfaces/module.interface';
+import {FilterMethod, InstanceSort, Module, ModuleOverviewView} from 'definitions';
 import {Parser} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {BehaviorSubject, combineLatest, merge, Subject} from 'rxjs';
@@ -24,13 +21,6 @@ import {InstanceOverviewContextService} from '../../services/instance-overview-c
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InstanceOverviewComponent implements OnInit, AfterViewInit {
-  constructor(
-    public ioc: InstanceOverviewContextService,
-    private dbService: DbService,
-    private state: StateService,
-    private cdr: ChangeDetectorRef
-  ) {}
-
   currentView: string;
   activeView: string;
   showViewSelector: boolean;
@@ -38,6 +28,14 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
   views: ModuleOverviewView[];
   toolbar: string[];
   hideAdd = false;
+
+  constructor(
+    public ioc: InstanceOverviewContextService,
+    private dbService: DbService,
+    private state: StateService,
+    private cdr: ChangeDetectorRef
+  ) {
+  }
 
   ngOnInit() {
     this.ioc.module$

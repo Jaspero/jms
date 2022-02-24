@@ -1,4 +1,4 @@
-import {Module} from '@definitions/interfaces/module.interface';
+import {Module} from 'definitions';
 
 export function findModule(
   modules: Module[],

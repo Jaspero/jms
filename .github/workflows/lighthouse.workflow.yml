@@ -19,10 +19,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16.x
+      - name: Prepare definitions package
+        run: |
+            npm --prefix definitions ci
+            cd definitions && npm run build
       - name: Install Dependencies
         run: |
           npm --prefix client ci
-          npm --prefix definitions ci
       - name: Build
         run: npm run build:cms
       - name: Run Lighthouse CI

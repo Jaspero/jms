@@ -1,6 +1,6 @@
 import {safeEval} from '@jaspero/utils';
 import {map, shareReplay, startWith, switchMap} from 'rxjs/operators';
-import {ModuleLayoutTableAction} from '@definitions/interfaces/module-layout-table.interface';
+import {ModuleLayoutTableAction} from 'definitions';
 import {InstanceOverviewContextService} from '../../modules/dashboard/modules/module-instance/services/instance-overview-context.service';
 import {Action} from '../interfaces/action.interface';
 import {toObservable} from './to-observable';

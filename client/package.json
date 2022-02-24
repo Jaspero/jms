@@ -15,6 +15,7 @@
   },
   "private": true,
   "dependencies": {
+    "definitions": "file:../definitions",
     "@angular/animations": "13.2.0",
     "@angular/cdk": "13.2.1",
     "@angular/common": "13.2.1",

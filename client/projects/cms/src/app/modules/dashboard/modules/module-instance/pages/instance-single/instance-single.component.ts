@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ModuleAuthorization} from '@definitions/interfaces/module-authorization.interface';
+import {ModuleAuthorization} from 'definitions';
 import {
   Definitions,
   FormBuilderComponent,
@@ -63,19 +63,15 @@ export class InstanceSingleComponent implements OnInit {
 
   @ViewChild(FormBuilderComponent, {static: false})
   formBuilderComponent: FormBuilderComponent;
-
   initialValue: string;
   currentValue: string;
   viewState = ViewState;
   currentState: ViewState;
   formState: State;
-
   data$: Observable<Instance>;
   change: Instance;
-
   saveBuffer$ = new Subject<Instance>();
   first = true;
-
   confirmExitOnTouched: boolean;
   private autoSaveListener: Subscription;
 
@@ -205,7 +201,7 @@ export class InstanceSingleComponent implements OnInit {
     return () => {
       this.formBuilderComponent.process();
       const initial = this.formBuilderComponent.form.getRawValue();
-      const id = 
+      const id =
         initial.id ||
         (instance.module.docIdMethod ?
           instance.module.docIdMethod(initial) :

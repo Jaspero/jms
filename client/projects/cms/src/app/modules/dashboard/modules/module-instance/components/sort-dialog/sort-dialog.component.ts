@@ -1,7 +1,7 @@
 import {CdkDragDrop} from '@angular/cdk/drag-drop';
 import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {SortModule} from '@definitions/interfaces/sort-module.interface';
+import {SortModule} from 'definitions';
 import {swapItems} from '@jaspero/utils';
 import {notify} from '@shared/utils/notify.operator';
 import {forkJoin, from, Observable, of} from 'rxjs';
