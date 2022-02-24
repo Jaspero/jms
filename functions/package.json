@@ -14,7 +14,7 @@
   "engines": {
     "node": "10"
   },
-  "main": "lib/index.js",
+  "main": "lib/functions/src/index.js",
   "dependencies": {
     "@google-cloud/storage": "5.8.3",
     "@sendgrid/mail": "7.4.2",

@@ -1,5 +1,4 @@
 import {State} from '@jaspero/form-builder';
-import {FieldDefinitions as MatFieldDefinitions} from '@jaspero/fb-fields-mat';
 import {JSONSchema7} from 'json-schema';
 import {FilterModule} from './filter-module.interface';
 import {ImportModule} from './import-module.interface';
@@ -12,6 +11,7 @@ import {ModuleOverview} from './module-overview.interface';
 import {SearchModule} from './search-module.interface';
 import {SortModule} from './sort-module.interface';
 import {FormatMethod} from './format-method.interface';
+import {ComponentDefinition} from './component-definition.type';
 
 export interface ModuleLayout {
   icon?: string;
@@ -35,17 +35,8 @@ export interface ModuleLayout {
   overview?: ModuleOverview;
 }
 
-export interface ComponentDefinition {
-  type: string;
-  configuration?: any;
-}
-
 export interface ModuleDefinition {
-  /**
-   * Any newly registered field modules
-   * need to be included here
-   */
-  component?: MatFieldDefinitions<''>;
+  component?: ComponentDefinition;
   formatOnSave?: string | FormatMethod;
   formatOnCreate?: string | FormatMethod;
   formatOnEdit?: string | FormatMethod;

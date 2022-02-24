@@ -23,6 +23,7 @@ jobs:
       - name: Install Dependencies
         run: |
           npm --prefix client ci
+          npm --prefix definitions ci
       - name: Build
         run: npm run build:cms
       - name: Deploy to Firebase

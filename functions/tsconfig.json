@@ -14,9 +14,6 @@
     "noImplicitAny": false,
     "jsx": "react",
     "reactNamespace": "JSX",
-    "strictNullChecks": false,
-    "paths": {
-      "@definitions/*": ["../definitions/*"]
-    },
+    "strictNullChecks": false
   },
 }

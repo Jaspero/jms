@@ -1,3 +1,8 @@
+/**
+ * NOTE(Adding Pipes):
+ * Any newly added pipe that needs to be accessable by tables
+ * needs to be added to this enum.
+ */
 export enum PipeType {
   /**
    * Angular

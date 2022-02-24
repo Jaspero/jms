@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Module} from '@definitions/interfaces/module.interface';
+import {MODULES} from '@definitions/modules';
 import {TranslocoService} from '@ngneat/transloco';
 import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 import {shareReplay} from 'rxjs/operators';
-import {MODULES} from '../../../../../../../../setup/modules/modules';
-import {Module} from '../../interfaces/module.interface';
 import {User} from '../../interfaces/user.interface';
 
 @Injectable({

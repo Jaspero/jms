@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CUSTOM_COMPONENT_DATA, CustomComponent, CustomComponentData} from '@jaspero/form-builder';
-import {DbService} from '../../../../services/db/db.service';
+import {CustomComponent, CustomComponentData, CUSTOM_COMPONENT_DATA} from '@jaspero/form-builder';
 import {random} from '@jaspero/utils';
+import {DbService} from '../../../../services/db/db.service';
 
 @Component({
   selector: 'jms-duplicate',
