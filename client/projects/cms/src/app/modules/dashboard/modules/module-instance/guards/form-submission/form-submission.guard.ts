@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router} from '@angular/router';
-import {Module} from '@definitions/interfaces/module.interface';
+import {Module} from 'definitions';
 import {of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {DbService} from '../../../../../../shared/services/db/db.service';
