@@ -18,14 +18,6 @@ import {impersonate} from './callable/impersonate';
 import {userDocumentDeleted} from './triggers/user-document-deleted';
 import {userDocumentUpdated} from './triggers/user-document-updated';
 
-declare global {
-  interface Window {
-    jms: {
-      util: any
-    };
-  }
-}
-
 initializeApp();
 
 export {actionController} from './standalone/action-controller';
