@@ -1,12 +1,13 @@
 import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {FilterMethod} from '@definitions/enums/filter-method.enum';
+import {PipeType} from '@definitions/enums/pipe-type.enum';
+import {FilterModule, FilterModuleDefinition} from '@definitions/interfaces/filter-module.interface';
 import {Parser, State} from '@jaspero/form-builder';
 import {safeEval} from '@jaspero/utils';
-import {AsyncSubject, BehaviorSubject, map, Observable, of, ReplaySubject, Subject, switchMap, tap} from 'rxjs';
-import {FilterMethod} from '../../../../../../shared/enums/filter-method.enum';
-import {PipeType} from '../../../../../../shared/enums/pipe-type.enum';
-import {FilterModule, FilterModuleDefinition} from '../../../../../../shared/interfaces/filter-module.interface';
+import {AsyncSubject, BehaviorSubject, Observable, of, ReplaySubject, Subject} from 'rxjs';
+import {map, switchMap, tap} from 'rxjs/operators';
 import {WhereFilter} from '../../../../../../shared/interfaces/where-filter.interface';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
 

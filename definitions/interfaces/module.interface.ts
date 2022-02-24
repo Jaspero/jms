@@ -1,8 +1,3 @@
-import {FieldDefinitions as MatFieldDefinitions} from '@jaspero/fb-fields-mat';
-import {FieldsDefinition} from '@jaspero/fb-form-ui';
-import {MonacoDefinition} from '@jaspero/fb-monaco-editor';
-import {FieldDefinitions as PbFieldDefinitions} from '@jaspero/fb-page-builder';
-import {TemplateEditorDefinition, TinymceDefinition} from '@jaspero/fb-tinymce';
 import {State} from '@jaspero/form-builder';
 import {JSONSchema7} from 'json-schema';
 import {FilterModule} from './filter-module.interface';
@@ -16,6 +11,7 @@ import {ModuleOverview} from './module-overview.interface';
 import {SearchModule} from './search-module.interface';
 import {SortModule} from './sort-module.interface';
 import {FormatMethod} from './format-method.interface';
+import {ComponentDefinition} from './component-definition.type';
 
 export interface ModuleLayout {
   icon?: string;
@@ -39,17 +35,8 @@ export interface ModuleLayout {
   overview?: ModuleOverview;
 }
 
-export interface ComponentDefinition {
-  type: string;
-  configuration?: any;
-}
-
 export interface ModuleDefinition {
-  /**
-   * Any newly registered field modules
-   * need to be included here
-   */
-  component?: MatFieldDefinitions<''> | MonacoDefinition | TinymceDefinition | FieldsDefinition | PbFieldDefinitions | TemplateEditorDefinition;
+  component?: ComponentDefinition;
   formatOnSave?: string | FormatMethod;
   formatOnCreate?: string | FormatMethod;
   formatOnEdit?: string | FormatMethod;

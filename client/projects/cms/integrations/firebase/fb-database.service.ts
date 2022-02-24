@@ -3,7 +3,7 @@ import {collection, collectionChanges, collectionGroup, deleteDoc, doc, docData,
 import {Functions, httpsCallableData} from '@angular/fire/functions';
 import {from, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {FilterMethod} from '../../src/app/shared/enums/filter-method.enum';
+import {FilterMethod} from '@definitions/enums/filter-method.enum';
 import {WhereFilter} from '../../src/app/shared/interfaces/where-filter.interface';
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
@@ -184,7 +184,7 @@ export class FbDatabaseService extends DbService {
           documentId
         )
       )
-    )
+    );
   }
 
   createUserAccount(email: string, password: string) {

@@ -1,4 +1,4 @@
-import {Module} from '../../../../../shared/interfaces/module.interface';
+import {Module} from '@definitions/interfaces/module.interface';
 
 export function findModule(
   modules: Module[],

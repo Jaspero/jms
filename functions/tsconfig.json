@@ -1,14 +1,19 @@
 {
+  "compileOnSave": true,
+  "include": ["src"],
   "compilerOptions": {
     "module": "commonjs",
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "noUnusedLocals": true,
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
     "target": "es2017",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "strictPropertyInitialization": false,
+    "noImplicitAny": false,
+    "jsx": "react",
+    "reactNamespace": "JSX",
+    "strictNullChecks": false
   },
-  "compileOnSave": true,
-  "include": ["src"]
 }

@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
 type Unit = 'bytes' | 'KB' | 'MB' | 'GB' | 'TB' | 'PB';
 type unitPrecisionMap = {

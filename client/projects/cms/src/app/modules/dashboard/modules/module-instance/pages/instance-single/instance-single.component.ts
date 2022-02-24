@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ModuleAuthorization} from '@definitions/interfaces/module-authorization.interface';
 import {
   Definitions,
   FormBuilderComponent,
@@ -14,7 +15,6 @@ import {JSONSchema7} from 'json-schema';
 import {interval, Observable, of, Subject, Subscription} from 'rxjs';
 import {debounceTime, map, switchMap, tap} from 'rxjs/operators';
 import {ViewState} from '../../../../../../shared/enums/view-state.enum';
-import {ModuleAuthorization} from '../../../../../../shared/interfaces/module-authorization.interface';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {UtilService} from '../../../../../../shared/services/util/util.service';
 import {queue} from '../../../../../../shared/utils/queue.operator';

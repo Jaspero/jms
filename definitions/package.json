@@ -1,0 +1,13 @@
+{
+  "name": "definitions",
+  "version": "0.0.1",
+  "dependencies": {
+    "@jaspero/fb-fields-mat": "1.8.0",
+    "@jaspero/fb-form-ui": "^2.5.16",
+    "@jaspero/fb-monaco-editor": "^2.5.13",
+    "@jaspero/fb-page-builder": "^3.21.8",
+    "@jaspero/fb-tinymce": "^2.6.8",
+    "@jaspero/form-builder": "5.7.0",
+    "json-schema": "0.4.0"
+  }
+}

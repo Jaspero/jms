@@ -1,4 +1,4 @@
-import {FilterMethod} from '../enums/filter-method.enum';
+import {FilterMethod} from '@definitions/enums/filter-method.enum';
 
 export interface WhereFilter {
   key: string;

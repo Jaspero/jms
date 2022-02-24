@@ -3,10 +3,10 @@ import {Auth, signOut} from '@angular/fire/auth';
 import {FormControl} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
+import {Module} from '@definitions/interfaces/module.interface';
 import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 import {BehaviorSubject, combineLatest, forkJoin, Observable, of} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, map, startWith, switchMap, take, tap} from 'rxjs/operators';
-import {Module} from '../../../../shared/interfaces/module.interface';
 import {DbService} from '../../../../shared/services/db/db.service';
 import {StateService} from '../../../../shared/services/state/state.service';
 
