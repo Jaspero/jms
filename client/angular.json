@@ -23,6 +23,7 @@
             "main": "projects/cms/src/main.ts",
             "polyfills": "projects/cms/src/polyfills.ts",
             "tsConfig": "projects/cms/tsconfig.app.json",
+            "preserveSymlinks": true,
             "aot": true,
             "assets": [
               "projects/cms/src/favicon.ico",
