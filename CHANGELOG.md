@@ -1,3 +1,84 @@
+# [5.0.0](https://github.com/jaspero/jms/compare/v4.21.0...v5.0.0) (2022-02-27)
+
+
+### Bug Fixes
+
+* added missing hr translations ([3b28d0b](https://github.com/jaspero/jms/commit/3b28d0b52031bbc7260c3a958e2c5d96d55fa920))
+* better type definition for formatOn methods ([c10b213](https://github.com/jaspero/jms/commit/c10b213758eec374ee942fa8155bfa7e1d687421))
+* **client:** ellipsis pipe location ([25ed971](https://github.com/jaspero/jms/commit/25ed971f714a6aa0e5a200b3d677c8d8dcd8d426))
+* **client:** wrong outputPath for cms ([e85bcb7](https://github.com/jaspero/jms/commit/e85bcb7252e5a0dc4870f89a84e21459091a914c))
+* **cms:** collectionGroups working in FbDatabaseService ([009e1da](https://github.com/jaspero/jms/commit/009e1da2cf2805cc1618ad3f4f3e7eb3fb927a5c))
+* **cms:** enable duplicate component to work properly ([e334f74](https://github.com/jaspero/jms/commit/e334f7485cf5db40e0b6cb193abdd737afacd090))
+* **cms:** export definitions as javascript package and import directly from package name in cms and functions ([5ff4ac6](https://github.com/jaspero/jms/commit/5ff4ac6ff4c99530be453be0bfca34ae778e0c97))
+* **cms:** file-manager working in selection mode; ([24c4e74](https://github.com/jaspero/jms/commit/24c4e74ae1c303535ffbc266f6a7e476aa903b4d))
+* **cms:** method in new-prepopulate not being evaluated ([3fc9ba6](https://github.com/jaspero/jms/commit/3fc9ba67f7d4d3e95079a4389b6fa091dbfe3aab))
+* **cms:** missing brackets for docIdModule condition ([55f7601](https://github.com/jaspero/jms/commit/55f7601f6018553e91190d6ce368baaf12d73d5f))
+* **cms:** prepare definitions package before build ([cc82b57](https://github.com/jaspero/jms/commit/cc82b57e5dbe5c21eebb9ad139b9d5aa0a8c59dd))
+* **cms:** using uid instead of providerId ([2383e25](https://github.com/jaspero/jms/commit/2383e25346cfaca5a4844e1fbd65c845524b56fd))
+* console log ([825b668](https://github.com/jaspero/jms/commit/825b6688469417ae41ac98e950aad62270f0620a))
+* definition for formatOn method ([2155805](https://github.com/jaspero/jms/commit/2155805965db0e9ed2e799283507b34a490ec33f))
+* **FilterDialog:** use innerParser ([d16200b](https://github.com/jaspero/jms/commit/d16200b6d2b88ef8c3ec356c377e962427c39dec))
+* **functions:** export not working with new module approach ([ba554b3](https://github.com/jaspero/jms/commit/ba554b390a6310aba433b017a6d957245e06adcb))
+* **functions:** removing providers using deleteProviderConfig ([e2cd3ac](https://github.com/jaspero/jms/commit/e2cd3acd76b7191faecd712e21ab8bd42f0d3a17))
+* **functions:** using id to get user information in update-user ([166c2cd](https://github.com/jaspero/jms/commit/166c2cd60245f09e7f426d0dedc586dcc9b40fa0))
+* issues around login with firebase v9 ([57d40f4](https://github.com/jaspero/jms/commit/57d40f4140a1c2c766366bc3f903d08d4731fed4))
+* lighthouse missing definition install ([75491cf](https://github.com/jaspero/jms/commit/75491cfdb57e2f12fa774f66ec386278bcd7ec80))
+* **package:** removed unnecessary --client option [#213](https://github.com/jaspero/jms/issues/213) ([eac4b6d](https://github.com/jaspero/jms/commit/eac4b6d17000baab36dc45c3073c65835af7bf70))
+* prepopulate component use atob ([c70cba7](https://github.com/jaspero/jms/commit/c70cba7988b1d93aee42e15329d1a1f80840765f))
+* updated env variable location ([9090d4e](https://github.com/jaspero/jms/commit/9090d4e8c098aa97e76b097e31f11a28b90bc365))
+* using node v16 in release pipeline ([e98fa75](https://github.com/jaspero/jms/commit/e98fa756bf64f1226d43b96442b1074b0d1ac179))
+* various versioning issues ([3d6ff8a](https://github.com/jaspero/jms/commit/3d6ff8a6c9b6704ee27f1102420dcc0e282ffe53))
+* version updates for prod build ([7fbe211](https://github.com/jaspero/jms/commit/7fbe211093f1ee1809dfe87a6a8259d97bebcc19))
+
+
+### Features
+
+* added definitions folder ([8d0ae3b](https://github.com/jaspero/jms/commit/8d0ae3b16cfcc50ff9cb545112840990dacb97b4))
+* added type definitions for all modules ([66e888f](https://github.com/jaspero/jms/commit/66e888fc154b21722f418f457cc232232f9bdfbc))
+* adjusted scripts and firebase import in environment for mw [#186](https://github.com/jaspero/jms/issues/186) ([0367d5c](https://github.com/jaspero/jms/commit/0367d5c96a66d55b1a138db50b54060b2375068d))
+* better jsx ([b4279f4](https://github.com/jaspero/jms/commit/b4279f408b86c824bd309959f5ff91a729785d5d))
+* **client:** updated to angular 13 and firebase 9 ([0c5c5bc](https://github.com/jaspero/jms/commit/0c5c5bc136f787164d406803cb96c550666edd26))
+* **cms:** add custom style for dialogs and invalid form fields [#315](https://github.com/jaspero/jms/issues/315) ([7e6f7b1](https://github.com/jaspero/jms/commit/7e6f7b16a25ba22ea0b43502bd925db6882168b1))
+* **cms:** add custom style for lists and stroked buttons [#315](https://github.com/jaspero/jms/issues/315) ([2bcd8ea](https://github.com/jaspero/jms/commit/2bcd8ea42a56fe509b0a3b2117bf7e120ea2250d))
+* **cms:** add custom style to make theme-swapping easier closes [#315](https://github.com/jaspero/jms/issues/315) ([639116a](https://github.com/jaspero/jms/commit/639116ad2357701353c914a938fb46cece8c5dd8))
+* **cms:** added better logo scaling ([d34aa58](https://github.com/jaspero/jms/commit/d34aa58ccd46c19290b17163e19b5cd7ea8356ab))
+* **cms:** added docIdMethod closes [#308](https://github.com/jaspero/jms/issues/308) ([6392563](https://github.com/jaspero/jms/commit/6392563c7d893af3174d5a39ba79d526df1ed07b))
+* **cms:** added providers and meta for user-actions [#304](https://github.com/jaspero/jms/issues/304) ([c725001](https://github.com/jaspero/jms/commit/c7250015c6c3c16a44c9b4402194d5b18655b2d4))
+* **cms:** allow for multiple pipes in filter dialog and properly calling async on pipes that need it ([4ecdbf5](https://github.com/jaspero/jms/commit/4ecdbf596974ec9cacf92b1ebfd0f554ffe21f98))
+* **cms:** connected populate on array values closes [#321](https://github.com/jaspero/jms/issues/321) ([64b41b9](https://github.com/jaspero/jms/commit/64b41b96326266258a3f4b3e607bae557b5e8a2b))
+* **cms:** connected provider table ([6e01636](https://github.com/jaspero/jms/commit/6e01636780d3f583bc6ecb44e1ce022baae4a22e))
+* **cms:** convert actions to observables to ensure they are invoked once. fix prepopulate dataset input ([191e6fc](https://github.com/jaspero/jms/commit/191e6fc39ecfda1692e021b457d456304c107b85))
+* **cms:** default storage to public route for better security ([33c12ce](https://github.com/jaspero/jms/commit/33c12ce4f9187e4de9e978d48b951c2cca08c2dc))
+* **cms:** defaulting chip label to label in filter dialog ([de47dbd](https://github.com/jaspero/jms/commit/de47dbd9e42d336663633740d5444f080b052683))
+* **cms:** expose util service to global window object for easier integration with modules. extend modules to support jsx syntax with custom jsx compiler ([75ad23f](https://github.com/jaspero/jms/commit/75ad23fc0a1c73a7262ff43780283d18c44f9d20))
+* **cms:** lower padding of sidebar elements, logo will now always be 100% height ([66891eb](https://github.com/jaspero/jms/commit/66891eba9994eccb3d3221a28922f743e7cedc2c))
+* **cms:** removing auth providers and mfa closes [#304](https://github.com/jaspero/jms/issues/304) ([ea6298f](https://github.com/jaspero/jms/commit/ea6298fbc2106863acb5a5a8c42491b844eb1611))
+* **cms:** setting form builder ids on single instance ([f9ff7d7](https://github.com/jaspero/jms/commit/f9ff7d758cf1fcb8894ff00fad7591bd6ad9cd3c))
+* **cms:** storing folders in firestore [#309](https://github.com/jaspero/jms/issues/309) ([930db7e](https://github.com/jaspero/jms/commit/930db7e005f79cc3db612b9743aabb41c440482c))
+* **cms:** updated file manager design; connected metadata updates on file manager; ([abf246c](https://github.com/jaspero/jms/commit/abf246c277d68dc19def691cfae3b3dd46aa82e7))
+* connected user status; added some missing indexes; added some missing translations; less padding on tables; closes [#313](https://github.com/jaspero/jms/issues/313) ([72e62e7](https://github.com/jaspero/jms/commit/72e62e7ef0abbcb30769cdd56954551ab67f21c4))
+* connected users folder in firebase storage ([8c1c270](https://github.com/jaspero/jms/commit/8c1c2704b48781228f24ffc195aba8c9f040f65a))
+* expanded links are automatically expanded on page load; only one expanded item is possible at a time; ([8b2587a](https://github.com/jaspero/jms/commit/8b2587adfa408be358f8bf2e83ba9bd6d344de6b))
+* extracted all interfaces for modules in to definitions ([db8b565](https://github.com/jaspero/jms/commit/db8b565175bbbe7d1fb2af3ba7974dce05d1586a))
+* initial setup for multiple projects workflow ([38008c3](https://github.com/jaspero/jms/commit/38008c38a7ea1f547eee865230b69bf99404249b))
+* master merge ([64485c5](https://github.com/jaspero/jms/commit/64485c577ec9aa9e3124b0a9a0fd151d4fa256b6))
+* master merge ([c87b9d4](https://github.com/jaspero/jms/commit/c87b9d4ae053c079fdc07e334220d013f7a8a929))
+* master merge ([0513e0c](https://github.com/jaspero/jms/commit/0513e0c358ab4a896086e5a77f9dac59f44e75bc))
+* merges from master ([5d80c94](https://github.com/jaspero/jms/commit/5d80c940a36b4f5418ecad2118d52df335835764))
+* moved validators to shared folder ([8eb7ec9](https://github.com/jaspero/jms/commit/8eb7ec961f6d83812efa1213d5e9d7bc010a5a44))
+* prepopulate component enhancement ([d6d7f16](https://github.com/jaspero/jms/commit/d6d7f16d2924820820e41959dfba80637d8ec296))
+* pulled notify in to shared ([f12848c](https://github.com/jaspero/jms/commit/f12848c58991b0a247e9f1cbf1b0d6f8c9a91cbf))
+* removed setup folder ([4ef6b2b](https://github.com/jaspero/jms/commit/4ef6b2b4249d4480a900323607b37b937d4ac1e2))
+* **setup:** added types :tada: ([1263fd3](https://github.com/jaspero/jms/commit/1263fd3b0450d4d48fa4c7e43faabbaa9b38b42a))
+* updated schema form versions; added types for module definitions; ([7b09880](https://github.com/jaspero/jms/commit/7b09880229e1f3b7f5f67b8cab9d5f5684688ef0))
+* updated to form builder v5.4.0 ([fde8ba6](https://github.com/jaspero/jms/commit/fde8ba6985964609d71331950d6a754363d3b401))
+* updated workflows for new main branch ([48e14aa](https://github.com/jaspero/jms/commit/48e14aab81705eaaeff049799b26b46ee6eeb98a))
+
+
+### BREAKING CHANGES
+
+* form builder introduces big changes in v5.4.0 that can be considered breaking for JMS. Mainly it's the change in how field save methods are processed.
+
 # [4.21.0](https://github.com/jaspero/jms/compare/v4.20.0...v4.21.0) (2022-01-12)
 
 
