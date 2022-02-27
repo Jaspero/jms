@@ -22,7 +22,7 @@ jobs:
       - name: Prepare definitions package
         run: |
             npm --prefix definitions ci
-            cd definitions && npm run build
+            npm --prefix definitions run build
       - name: Install Dependencies
         run: |
           npm --prefix client ci
