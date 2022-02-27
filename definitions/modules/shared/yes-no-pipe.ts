@@ -1,4 +1,4 @@
-import {PipeType} from './module.type'
+import {PipeType} from '../../enums/pipe-type.enum';
 
 const method = it => it ? 'GENERAL.YES' : 'GENERAL.NO';
 

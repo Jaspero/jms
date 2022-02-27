@@ -1,5 +1,5 @@
+import {Module} from '../interfaces/module.interface';
 import {CREATED_ON} from './shared/created-on';
-import {Module} from './shared/module.type';
 
 export const ROLES_MODULE: Module = {
   id: 'roles',

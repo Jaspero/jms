@@ -1,4 +1,4 @@
-import {PipeType} from './module.type';
+import {PipeType} from '../../enums/pipe-type.enum';
 
 export const EMAIL_PIPE = {
   pipe: [PipeType.Custom],

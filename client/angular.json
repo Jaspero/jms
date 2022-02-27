@@ -78,7 +78,8 @@
               "tinymce/plugins/code",
               "tinymce/plugins/table",
               "tinymce/plugins/advlist",
-              "@jaspero/utils"
+              "@jaspero/utils",
+              "definitions"
             ],
             "vendorChunk": true,
             "extractLicenses": false,

@@ -6,7 +6,7 @@ declare global {
   }
 }
 
-export * from '../setup/modules/modules';
+export * from './modules/modules';
 
 /**
  * Types

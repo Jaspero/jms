@@ -1,19 +1,20 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
     "lib": [
       "es2015",
       "dom"
     ],
+    "moduleResolution": "node",
     "jsx": "react",
     "reactNamespace": "JSX",
     "noImplicitAny": false,
     "strictNullChecks": false,
     "declaration": true,
-    "outDir": "./dist",
+    "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true
-  }
+  },
+  "exclude": ["setup.ts"]
 }
