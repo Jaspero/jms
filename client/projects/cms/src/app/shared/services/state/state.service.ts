@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Module} from 'definitions';
-import {MODULES} from 'definitions';
+import {MODULES, Module} from 'definitions';
 import {TranslocoService} from '@ngneat/transloco';
 import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 import {shareReplay} from 'rxjs/operators';

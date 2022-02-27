@@ -1,6 +1,8 @@
+import {PipeType} from '../enums/pipe-type.enum';
+import {Module} from '../interfaces/module.interface';
+import JSX from '../jsx.compiler';
 import {CREATED_ON} from './shared/created-on';
 import {FORMAT_SEARCH} from './shared/format-search';
-import {Module, PipeType, JSX} from './shared/module.type';
 
 export const FORMS_MODULE: Module = {
   id: 'forms',

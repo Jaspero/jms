@@ -2,8 +2,10 @@ import {CREATED_ON} from '../shared/created-on';
 import {FORMAT_SEARCH} from '../shared/format-search';
 import {STATIC_CONFIG} from '../shared/static-config.const';
 import {META} from '../shared/meta';
-import {JSX, Module, PipeType} from '../shared/module.type';
 import {PROCESSED} from './processed.const';
+import {Module} from '../../interfaces/module.interface';
+import {PipeType} from '../../enums/pipe-type.enum';
+import JSX from '../../jsx.compiler';
 
 export const PAGES_MODULE: Module = {
   id: 'pages',

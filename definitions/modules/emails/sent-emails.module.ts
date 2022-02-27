@@ -1,5 +1,6 @@
+import {PipeType} from '../../enums/pipe-type.enum';
+import {Module} from '../../interfaces/module.interface';
 import {CREATED_ON} from '../shared/created-on';
-import {Module, PipeType} from '../shared/module.type';
 
 const STATUS_DEFINITION: any = {
   label: 'Status',

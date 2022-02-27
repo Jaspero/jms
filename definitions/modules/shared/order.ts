@@ -1,4 +1,5 @@
-import {InstanceSort, SortModule} from './module.type';
+import {InstanceSort} from '../../interfaces/instance-sort.interface';
+import {SortModule} from '../../interfaces/sort-module.interface';
 
 export const ORDER = {
   property: {

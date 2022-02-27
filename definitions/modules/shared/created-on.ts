@@ -1,4 +1,5 @@
-import {InstanceSort, PipeType} from './module.type';
+import {PipeType} from '../../enums/pipe-type.enum';
+import {InstanceSort} from '../../interfaces/instance-sort.interface';
 
 export const CREATED_ON = {
   sort: {

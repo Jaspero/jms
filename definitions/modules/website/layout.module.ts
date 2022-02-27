@@ -1,4 +1,4 @@
-import {Module} from '../shared/module.type';
+import {Module} from '../../interfaces/module.interface';
 
 export const LAYOUT_MODULE: Module = {
 	id: 'settings',

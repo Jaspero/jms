@@ -1,5 +1,7 @@
+import {PipeType} from '../enums/pipe-type.enum';
+import {Module} from '../interfaces/module.interface';
+import JSX from '../jsx.compiler';
 import {CREATED_ON} from './shared/created-on';
-import {JSX, Module, PipeType} from './shared/module.type';
 import {YES_NO_PIPE} from './shared/yes-no-pipe';
 
 export const USER_INVITES_MODULE: Module = {
@@ -53,6 +55,9 @@ export const USER_INVITES_MODULE: Module = {
     overview: {
       toolbar: []
     }
+  },
+  definitions: {
+    requireReset: {label: ''}
   },
   schema: {
     properties: {
