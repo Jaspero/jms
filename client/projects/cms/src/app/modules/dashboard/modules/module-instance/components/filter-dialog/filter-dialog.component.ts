@@ -1,12 +1,11 @@
 import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {FilterMethod, FilterModule, FilterModuleDefinition, PipeType} from 'definitions';
 import {Parser, State} from '@jaspero/form-builder';
 import {safeEval} from '@jaspero/utils';
-import {AsyncSubject, BehaviorSubject, map, Observable, of, ReplaySubject, Subject, switchMap, tap} from 'rxjs';
-import {FilterMethod} from '../../../../../../shared/enums/filter-method.enum';
-import {PipeType} from '../../../../../../shared/enums/pipe-type.enum';
-import {FilterModule, FilterModuleDefinition} from '../../../../../../shared/interfaces/filter-module.interface';
+import {AsyncSubject, BehaviorSubject, Observable, of, ReplaySubject, Subject} from 'rxjs';
+import {map, switchMap, tap} from 'rxjs/operators';
 import {WhereFilter} from '../../../../../../shared/interfaces/where-filter.interface';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
 
@@ -24,7 +23,8 @@ export class FilterDialogComponent {
       ioc: InstanceOverviewContextService
     },
     private dialogRef: MatDialogRef<FilterDialogComponent>
-  ) {}
+  ) {
+  }
 
   apply(form: FormGroup, parser: Parser, override?: any) {
     return () => {
@@ -76,20 +76,20 @@ export class FilterDialogComponent {
                       item,
                       (definition.filterValuePipeArguments || [])[i]
                     );
-      
+
                     const constructor = displayValue?.constructor;
                     if ([
-                        Observable,
-                        Subject,
-                        BehaviorSubject,
-                        ReplaySubject,
-                        AsyncSubject
-                      ].includes(constructor)
+                      Observable,
+                      Subject,
+                      BehaviorSubject,
+                      ReplaySubject,
+                      AsyncSubject
+                    ].includes(constructor)
                     ) {
                       return displayValue
                         .pipe(
-                          map(value => 
-                            displayValue = value  
+                          map(value =>
+                            displayValue = value
                           )
                         );
                     } else {
@@ -98,8 +98,8 @@ export class FilterDialogComponent {
                   })
                 );
               }
-              
-              pipes.push(tap(() => insert()))
+
+              pipes.push(tap(() => insert()));
             } else {
               insert();
             }
@@ -122,7 +122,7 @@ export class FilterDialogComponent {
           tap(() =>
             this.dialogRef.close(toSend)
           )
-        )
-    }
+        );
+    };
   }
 }

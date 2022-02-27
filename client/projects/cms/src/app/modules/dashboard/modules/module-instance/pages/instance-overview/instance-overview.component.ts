@@ -1,16 +1,13 @@
 import {SelectionModel} from '@angular/cdk/collections';
 import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
+import {FilterMethod, InstanceSort, Module, ModuleOverviewView} from 'definitions';
 import {Parser} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {BehaviorSubject, combineLatest, merge, Subject} from 'rxjs';
 import {map, shareReplay, skip, startWith, switchMap, tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../../../../../environments/static-config';
 import {DEFAULT_PAGE_SIZE} from '../../../../../../shared/consts/page-sizes.const';
-import {FilterMethod} from '../../../../../../shared/enums/filter-method.enum';
-import {InstanceSort} from '../../../../../../shared/interfaces/instance-sort.interface';
-import {ModuleOverviewView} from '../../../../../../shared/interfaces/module-overview-view.interface';
-import {Module} from '../../../../../../shared/interfaces/module.interface';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
 import {queue} from '../../../../../../shared/utils/queue.operator';
@@ -24,13 +21,6 @@ import {InstanceOverviewContextService} from '../../services/instance-overview-c
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InstanceOverviewComponent implements OnInit, AfterViewInit {
-  constructor(
-    public ioc: InstanceOverviewContextService,
-    private dbService: DbService,
-    private state: StateService,
-    private cdr: ChangeDetectorRef
-  ) {}
-
   currentView: string;
   activeView: string;
   showViewSelector: boolean;
@@ -38,6 +28,14 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
   views: ModuleOverviewView[];
   toolbar: string[];
   hideAdd = false;
+
+  constructor(
+    public ioc: InstanceOverviewContextService,
+    private dbService: DbService,
+    private state: StateService,
+    private cdr: ChangeDetectorRef
+  ) {
+  }
 
   ngOnInit() {
     this.ioc.module$

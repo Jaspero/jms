@@ -4,20 +4,16 @@ import {FormControl} from '@angular/forms';
 import {MatBottomSheet} from '@angular/material/bottom-sheet';
 import {MatDialog} from '@angular/material/dialog';
 import {DomSanitizer} from '@angular/platform-browser';
+import {FilterModule, InstanceSort, Module, ModuleLayoutTableColumn, SortModule} from 'definitions';
 import {MaybeArray, TRANSLOCO_LANG, TRANSLOCO_SCOPE, TranslocoScope, TranslocoService} from '@ngneat/transloco';
+import {notify} from '@shared/utils/notify.operator';
 import {BehaviorSubject, combineLatest, forkJoin, Observable, Subject} from 'rxjs';
 import {filter, map, switchMap, take, tap} from 'rxjs/operators';
 import {PAGE_SIZES} from '../../../../../shared/consts/page-sizes.const';
-import {FilterModule} from '../../../../../shared/interfaces/filter-module.interface';
-import {InstanceSort} from '../../../../../shared/interfaces/instance-sort.interface';
-import {ModuleLayoutTableColumn} from '../../../../../shared/interfaces/module-layout-table.interface';
-import {Module} from '../../../../../shared/interfaces/module.interface';
-import {SortModule} from '../../../../../shared/interfaces/sort-module.interface';
 import {WhereFilter} from '../../../../../shared/interfaces/where-filter.interface';
 import {DbService} from '../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../shared/services/state/state.service';
 import {confirmation} from '../../../../../shared/utils/confirmation';
-import {notify} from '@shared/utils/notify.operator';
 import {ExportComponent} from '../components/export/export.component';
 import {FilterDialogComponent} from '../components/filter-dialog/filter-dialog.component';
 import {SortDialogComponent} from '../components/sort-dialog/sort-dialog.component';
@@ -25,25 +21,8 @@ import {ColumnPipe} from '../pipes/column/column.pipe';
 
 @Injectable()
 export class InstanceOverviewContextService {
-  constructor(
-    private state: StateService,
-    private domSanitizer: DomSanitizer,
-    private dialog: MatDialog,
-    private bottomSheet: MatBottomSheet,
-    private dbService: DbService,
-    private transloco: TranslocoService,
-    @Optional()
-    @Inject(TRANSLOCO_SCOPE)
-    private providerScope: MaybeArray<TranslocoScope>,
-    @Optional()
-    @Inject(TRANSLOCO_LANG)
-    private providerLang: string | null
-  ) {
-  }
-
   module$: Observable<Module>;
   items$: Observable<any[]>;
-
   columnPipe: ColumnPipe;
   loading$ = this.state.loadingQue$
     .pipe(
@@ -60,8 +39,23 @@ export class InstanceOverviewContextService {
   selection: SelectionModel<string>;
   pageSizes = PAGE_SIZES;
   subHeaderTemplate$ = new Subject<TemplateRef<any>>();
-
   pageSize: FormControl;
+
+  constructor(
+    private state: StateService,
+    private domSanitizer: DomSanitizer,
+    private dialog: MatDialog,
+    private bottomSheet: MatBottomSheet,
+    private dbService: DbService,
+    private transloco: TranslocoService,
+    @Optional()
+    @Inject(TRANSLOCO_SCOPE)
+    private providerScope: MaybeArray<TranslocoScope>,
+    @Optional()
+    @Inject(TRANSLOCO_LANG)
+    private providerLang: string | null
+  ) {
+  }
 
   openFilterDialog(
     data: FilterModule
@@ -127,7 +121,7 @@ export class InstanceOverviewContextService {
       ],
       {
         description: this.selection.selected.reduce((acc, cur) =>
-          acc + cur + '\n',
+            acc + cur + '\n',
           `${this.transloco.translate('INSTANCE_OVERVIEW.REMOVE_ITEMS_WARNING')}\n`
         )
       }

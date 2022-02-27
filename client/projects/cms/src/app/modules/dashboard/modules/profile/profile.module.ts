@@ -71,7 +71,8 @@ const routes: Routes = [
      */
     FormBuilderSharedModule,
     LoadClickModule,
-    TranslocoModule,
+    TranslocoModule
   ]
 })
-export class ProfileModule { }
+export class ProfileModule {
+}

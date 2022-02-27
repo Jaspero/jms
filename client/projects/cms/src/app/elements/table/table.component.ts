@@ -17,6 +17,17 @@ import {
 import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
 import {Router} from '@angular/router';
+import {
+  FilterModule,
+  ImportModule,
+  InstanceSort,
+  ModuleAuthorization,
+  ModuleDefinitions,
+  ModuleLayoutTableColumn,
+  PipeType,
+  SearchModule,
+  SortModule
+} from 'definitions';
 import {Definitions, Parser, State} from '@jaspero/form-builder';
 import {parseTemplate, random, safeEval} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
@@ -25,19 +36,10 @@ import {notify} from '@shared/utils/notify.operator';
 import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';
 import {AsyncSubject, BehaviorSubject, combineLatest, forkJoin, Observable, of, ReplaySubject, Subject} from 'rxjs';
-import {filter, map, shareReplay, startWith, switchMap, tap} from 'rxjs/operators';
+import {filter, map, shareReplay, startWith, switchMap} from 'rxjs/operators';
 import {ColumnOrganizationComponent} from '../../modules/dashboard/modules/module-instance/components/column-organization/column-organization.component';
 import {InstanceOverviewContextService} from '../../modules/dashboard/modules/module-instance/services/instance-overview-context.service';
-import {PipeType} from '../../shared/enums/pipe-type.enum';
 import {Action} from '../../shared/interfaces/action.interface';
-import {FilterModule} from '../../shared/interfaces/filter-module.interface';
-import {ImportModule} from '../../shared/interfaces/import-module.interface';
-import {InstanceSort} from '../../shared/interfaces/instance-sort.interface';
-import {ModuleAuthorization} from '../../shared/interfaces/module-authorization.interface';
-import {ModuleLayoutTableColumn} from '../../shared/interfaces/module-layout-table.interface';
-import {ModuleDefinitions} from '../../shared/interfaces/module.interface';
-import {SearchModule} from '../../shared/interfaces/search-module.interface';
-import {SortModule} from '../../shared/interfaces/sort-module.interface';
 import {DbService} from '../../shared/services/db/db.service';
 import {StateService} from '../../shared/services/state/state.service';
 import {processActions} from '../../shared/utils/process-actions';
@@ -81,18 +83,6 @@ interface TableData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
-  constructor(
-    public ioc: InstanceOverviewContextService,
-    private state: StateService,
-    private injector: Injector,
-    private viewContainerRef: ViewContainerRef,
-    private dbService: DbService,
-    private dialog: MatDialog,
-    private router: Router,
-    private cdr: ChangeDetectorRef,
-    private transloco: TranslocoService
-  ) { }
-
   /**
    * Using view children so we can listen for changes
    */
@@ -119,6 +109,19 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   };
   maxHeight$ = new Subject<string>();
   actions = {};
+
+  constructor(
+    public ioc: InstanceOverviewContextService,
+    private state: StateService,
+    private injector: Injector,
+    private viewContainerRef: ViewContainerRef,
+    private dbService: DbService,
+    private dialog: MatDialog,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private transloco: TranslocoService
+  ) {
+  }
 
   ngOnInit() {
     /**
@@ -234,7 +237,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           ? {
             stickyHeader:
               data.layout.table &&
-                data.layout.table.hasOwnProperty('stickyHeader')
+              data.layout.table.hasOwnProperty('stickyHeader')
                 ? data.layout.table.stickyHeader
                 : true,
             sortModule: data.layout.sortModule,
@@ -426,6 +429,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
       field.control.valueChanges
         .pipe(
+          // @ts-ignore
           switchMap(value =>
             this.dbService.setDocument(
               overview.moduleId,
@@ -528,7 +532,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!id) {
           try {
             id = get(rowData, column.key as string);
-          } catch (e) {}
+          } catch (e) {
+          }
         }
 
         if (!id) {
@@ -546,13 +551,13 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           true
         );
         const popKey = `${parsedCollection}-${column.populate.lookUp
-            ? [
-              column.populate.lookUp.key,
-              column.populate.lookUp.operator,
-              id
-            ].join('-')
-            : id
-          }`; 
+          ? [
+            column.populate.lookUp.key,
+            column.populate.lookUp.operator,
+            id
+          ].join('-')
+          : id
+        }`;
         const populateMethod = itId => this.dbService
           .getDocument(parsedCollection, itId)
           .pipe(
@@ -573,7 +578,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
               }
             }),
             shareReplay(1)
-          )
+          );
         const populateLookupMethod = itId => this.dbService
           .getDocuments(parsedCollection, 1, undefined, undefined, [
             {
@@ -617,14 +622,14 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
               )
                 .pipe(
                   map(data => data.join(','))
-                )
+                );
             } else {
               this.populateCache[popKey] = forkJoin(
                 id.map(itId => populateMethod(itId))
               )
                 .pipe(
                   map(data => data.join(','))
-                )
+                );
             }
           } else {
             if (column.populate.lookUp) {

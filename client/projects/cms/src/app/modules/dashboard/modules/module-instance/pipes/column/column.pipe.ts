@@ -10,18 +10,16 @@ import {
 } from '@angular/common';
 import {ChangeDetectorRef, Inject, Optional, Pipe, PipeTransform} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
+import {PipeType} from 'definitions';
 import {SanitizePipe} from '@jaspero/ng-helpers';
 import {safeEval} from '@jaspero/utils';
 import {
-  MaybeArray,
-  TRANSLOCO_LANG,
-  TRANSLOCO_SCOPE,
-  TranslocoPipe,
+  MaybeArray, TranslocoPipe,
   TranslocoScope,
-  TranslocoService
+  TranslocoService, TRANSLOCO_LANG,
+  TRANSLOCO_SCOPE
 } from '@ngneat/transloco';
 import {forkJoin, of} from 'rxjs';
-import {PipeType} from '../../../../../../shared/enums/pipe-type.enum';
 import {MathPipe} from '../../../../../../shared/pipes/math/math-pipe.';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';

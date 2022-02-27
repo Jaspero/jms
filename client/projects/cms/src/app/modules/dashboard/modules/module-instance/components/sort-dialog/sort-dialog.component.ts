@@ -1,12 +1,12 @@
 import {CdkDragDrop} from '@angular/cdk/drag-drop';
 import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {SortModule} from 'definitions';
 import {swapItems} from '@jaspero/utils';
+import {notify} from '@shared/utils/notify.operator';
 import {forkJoin, from, Observable, of} from 'rxjs';
 import {tap} from 'rxjs/operators';
-import {SortModule} from '../../../../../../shared/interfaces/sort-module.interface';
 import {DbService} from '../../../../../../shared/services/db/db.service';
-import {notify} from '@shared/utils/notify.operator';
 
 @Component({
   selector: 'jms-sort-dialog',

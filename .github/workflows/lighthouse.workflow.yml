@@ -19,6 +19,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16.x
+      - name: Prepare definitions package
+        run: |
+            npm --prefix definitions ci
+            npm --prefix definitions run build
       - name: Install Dependencies
         run: |
           npm --prefix client ci

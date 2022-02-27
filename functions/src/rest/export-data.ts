@@ -7,8 +7,8 @@ import {Parser} from 'json2csv';
 import * as XLSX from 'xlsx';
 import {CORS} from '../consts/cors-whitelist.const';
 import {STATIC_CONFIG} from '../consts/static-config.const';
-import {MODULES} from '../modules';
 import {authenticated} from './middlewares/authenticated';
+import {MODULES} from 'definitions';
 
 enum Type {
   csv = 'csv',
@@ -27,8 +27,7 @@ app.post('/:module', authenticated(), (req, res) => {
     const {module} = req.params;
     // @ts-ignore
     const role = req['user'].role;
-
-    const moduleDoc: any = MODULES.find(it => it.id === module);
+    const moduleDoc = MODULES.find(item => item.id === module);
 
     if (!moduleDoc) {
       throw new Error('Requested module not found.')

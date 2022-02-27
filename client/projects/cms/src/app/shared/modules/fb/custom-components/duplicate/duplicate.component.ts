@@ -1,6 +1,8 @@
 import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CUSTOM_COMPONENT_DATA, CustomComponent, CustomComponentData} from '@jaspero/form-builder';
+import {CustomComponent, CustomComponentData, CUSTOM_COMPONENT_DATA} from '@jaspero/form-builder';
+import {random} from '@jaspero/utils';
+import {DbService} from '../../../../services/db/db.service';
 
 @Component({
   selector: 'jms-duplicate',
@@ -13,16 +15,20 @@ export class DuplicateComponent extends CustomComponent {
     @Inject(CUSTOM_COMPONENT_DATA)
     public data: CustomComponentData,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private db: DbService
   ) {
     super(data);
   }
 
   duplicate() {
-    this.router.navigate([
-      '..',
-      `${this.data.id}--copy`
-    ], {
+    this.data.form.get('id').setValue(random.string(20));
+    const data = this.data.form.getRawValue();
+
+    return this.router.navigate(['..', 'new'], {
+      state: {
+        data
+      },
       relativeTo: this.activatedRoute
     });
   }

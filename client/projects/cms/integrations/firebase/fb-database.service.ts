@@ -1,9 +1,27 @@
 import {Injectable} from '@angular/core';
-import {collection, collectionChanges, collectionGroup, deleteDoc, doc, docData, Firestore, getDoc, getDocs, getDocsFromCache, getDocsFromServer, limit, orderBy, query, setDoc, startAfter, where} from '@angular/fire/firestore';
+import {
+  collection,
+  collectionChanges,
+  collectionGroup,
+  deleteDoc,
+  doc,
+  docData,
+  Firestore,
+  getDoc,
+  getDocs,
+  getDocsFromCache,
+  getDocsFromServer,
+  limit,
+  orderBy,
+  query,
+  setDoc,
+  startAfter,
+  where
+} from '@angular/fire/firestore';
 import {Functions, httpsCallableData} from '@angular/fire/functions';
 import {from, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {FilterMethod} from '../../src/app/shared/enums/filter-method.enum';
+import {FilterMethod} from 'definitions';
 import {WhereFilter} from '../../src/app/shared/interfaces/where-filter.interface';
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
@@ -46,7 +64,7 @@ export class FbDatabaseService extends DbService {
     const sources = {
       server: getDocsFromServer,
       cache: getDocsFromCache
-    }
+    };
     const method = source ? sources[source] : getDocs;
 
     return from(
@@ -58,7 +76,7 @@ export class FbDatabaseService extends DbService {
         map((res: any) =>
           res.docs
         )
-      )
+      );
   }
 
   getStateChanges(
@@ -78,7 +96,7 @@ export class FbDatabaseService extends DbService {
         this.filterMethod(filters),
         collectionGroup
       )
-    )
+    );
   }
 
   getDocument<T = any>(
@@ -94,7 +112,7 @@ export class FbDatabaseService extends DbService {
           documentId
         ) as any,
         {idField: 'id'}
-      )
+      );
     }
 
     return from(
@@ -111,7 +129,7 @@ export class FbDatabaseService extends DbService {
           ...snap.data(),
           id: documentId
         } as any))
-      )
+      );
 
   }
 
@@ -135,7 +153,7 @@ export class FbDatabaseService extends DbService {
             ...it.data()
           }))
         )
-      )
+      );
   }
 
   getSubdocumentsSimple(moduleId, sort?, filter?) {
@@ -158,7 +176,7 @@ export class FbDatabaseService extends DbService {
             ...it.data()
           }))
         )
-      )
+      );
   }
 
   setDocument(moduleId, documentId, data, options) {
@@ -184,7 +202,7 @@ export class FbDatabaseService extends DbService {
           documentId
         )
       )
-    )
+    );
   }
 
   createUserAccount(email: string, password: string) {
@@ -227,7 +245,7 @@ export class FbDatabaseService extends DbService {
     return query(
       collection(this.firestore, moduleId),
       ...methods
-    )
+    );
   }
 
   private filterMethod(filters?: WhereFilter[]) {

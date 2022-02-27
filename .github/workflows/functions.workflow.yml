@@ -11,7 +11,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    env: 
+    env:
       project: 'jaspero-jms'
     steps:
       - name: Checkout Repo
@@ -29,10 +29,14 @@ jobs:
         id: changes
         run: |
           echo ::set-output name=CHANGES::$(node ./.github/utils/function-changes.js '${{ steps.file_changes.outputs.files_modified}}' '${{ steps.file_changes.outputs.files_added}}')
+      - name: Prepare definitions package
+        if: ${{ steps.changes.outputs.CHANGES }}
+        run: |
+            npm --prefix definitions ci
+            npm --prefix definitions run build
       - name: Install Dependencies
         if: ${{ steps.changes.outputs.CHANGES }}
         run: |
-          npm ci
           npm install firebase-tools
           npm --prefix functions ci
           npm --prefix functions run build

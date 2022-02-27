@@ -77,6 +77,7 @@ export class FormUiRendererComponent {
       this.subscription = null;
     }
 
+    // @ts-ignore
     this.subscription = this.db.getDocument('forms', this.data.id)
       .subscribe(res => {
         this.form = res as Form;
@@ -101,6 +102,7 @@ export class FormUiRendererComponent {
   submit() {
     return () => {
       return from(
+        // @ts-ignore
         this.db.setDocument(
           `forms/${this.form.id}/submissions`,
           'fa-' + random.string(),
