@@ -14,6 +14,7 @@ interface FormOptions extends CommonOptions {
 @Block({
   label: 'PB.FORM.BLOCKS.FORM.TITLE',
   icon: 'contact_mail',
+  module: ['pages', 'pages-hr'],
   previewValue: {
     title: '<h2>Form Title</h2>',
     description: '<h3>Form description</h3>',

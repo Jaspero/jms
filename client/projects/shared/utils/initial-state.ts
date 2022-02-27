@@ -18,7 +18,7 @@ export async function initialState(injector: Injector) {
     langSuffix = '-' + langSuffix;
   }
 
-  INITIAL_STATE.layout = (await getDoc(doc(firestore, 'settings', 'layout' + langSuffix))).data() as any;
+  INITIAL_STATE.layout = (await getDoc(doc(firestore, 'settings' + langSuffix, 'layout'))).data() as any;
 
   if (page && !PAGE_BLACK_LIST.includes(page)) {
     const res = await getDoc(doc(firestore, 'pages' + langSuffix, page));

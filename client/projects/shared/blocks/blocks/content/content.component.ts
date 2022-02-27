@@ -10,6 +10,7 @@ interface ContentOptions extends CommonOptions {
 @Block({
   label: 'PB.FORM.BLOCKS.CONTENT.TITLE',
   icon: 'article',
+  module: ['pages', 'pages-hr'],
   previewValue: {
     content: '<h1>Custom Title</h1><h2>Custom Subtitle</h2><p>Custom content</p>',
     ...COMMON_OPTIONS.defaults
