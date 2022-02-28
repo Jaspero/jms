@@ -7,6 +7,7 @@ import {from, Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BASE_TITLE} from '../../../web/src/app/consts/base-title.const';
 import {INITIAL_STATE} from '../../consts/initial-state.const';
+import {LANG_SUFFIX} from './lang-suffix.token';
 
 @Injectable()
 export class PageResolver implements Resolve<any> {
@@ -16,7 +17,7 @@ export class PageResolver implements Resolve<any> {
     private router: Router,
     private firestore: Firestore,
     @Optional()
-    @Inject('LANG_SUFFIX')
+    @Inject(LANG_SUFFIX)
     private langSuffix: string
   ) { }
 
