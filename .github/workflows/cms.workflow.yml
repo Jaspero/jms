@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'client/projects/cms/**/*'
+      - 'client/projects/shared/**/*'
       - '.github/workflows/cms.workflow.yml'
 jobs:
   deploy:
