@@ -1,16 +1,16 @@
 name: Dynamic Pages
 on:
   workflow_dispatch:
-  inputs:
-    collection:
-      description: 'Collection to fetch'
-      required: true
-    doc:
-      description: 'ID of the document to fetch'
-      required: true
-    operation:
-      description: 'Type of operation to perform'
-      default: 'create'
+    inputs:
+      collection:
+        description: 'Collection to fetch'
+        required: true
+      doc:
+        description: 'ID of the document to fetch'
+        required: true
+      operation:
+        description: 'Type of operation to perform'
+        default: 'create'
 jobs:
   deploy:
     runs-on: ubuntu-latest
