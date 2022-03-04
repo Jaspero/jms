@@ -8,12 +8,33 @@ export const documentWrite = functions
   .firestore
   .document(`{colId}/{docId}`)
   .onWrite(async (change, context) => {
-
     const module = MODULES.find(item => item.id === context.params.colId);
+
+    if (change.before.exists) {
+      const data = change.before.data();
+
+      change.before.data = () => {
+        return {
+          ...data,
+          id: change.before.id
+        };
+      }
+    }
+
+    if (change.after.exists) {
+      const data = change.after.data();
+
+      change.after.data = () => {
+        return {
+          ...data,
+          id: change.after.id
+        };
+      }
+    }
 
     if (module?.spotlight?.queryFields?.length) {
       await relevantIndex(change, context, {
-        fields: module.spotlight.queryFields
+        fields: ['id', ...module.spotlight.queryFields]
       });
     }
   });

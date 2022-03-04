@@ -58,8 +58,30 @@ async function exec() {
             after: snap.docs[0]
           }
 
+          if (change.before.exists) {
+            const data = change.before.data();
+
+            change.before.data = () => {
+              return {
+                ...data,
+                id: change.before.id
+              };
+            }
+          }
+
+          if (change.after.exists) {
+            const data = change.after.data();
+
+            change.after.data = () => {
+              return {
+                ...data,
+                id: change.after.id
+              };
+            }
+          }
+
           await relevantIndex(change, context, {
-            fields: module.spotlight.queryFields
+            fields: ['id', ...module.spotlight.queryFields]
           });
 
           return fetchDocument();
