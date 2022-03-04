@@ -1,3 +1,10 @@
+# [5.2.0](https://github.com/jaspero/jms/compare/v5.1.1...v5.2.0) (2022-03-04)
+
+
+### Features
+
+* connected actions on single instance ([debf879](https://github.com/jaspero/jms/commit/debf8790f34334d3b84706db1a9741a026820c6e))
+
 ## [5.1.1](https://github.com/jaspero/jms/compare/v5.1.0...v5.1.1) (2022-03-04)
 
 
