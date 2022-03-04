@@ -16,5 +16,5 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "exclude": ["setup.ts"]
+  "exclude": ["setup.ts", "dist"]
 }

@@ -80,5 +80,10 @@ export interface Module {
      * default ['id', 'name']
      */
     queryFields: string[];
+
+    /**
+     * HTML Template for the spotlight result
+     */
+    template?: string | ((data: any) => string);
   }
 }

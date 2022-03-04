@@ -5,7 +5,7 @@
   "scripts": {
     "start:emulator": "firebase emulators:start --export-on-exit=.emulator-export --import=.emulator-export",
     "start:cms": "npm --prefix client run start:cms",
-    "start:cms:live": "npm --prefix client run start:live",
+    "start:cms:live": "cd definitions && tsc-watch --onSuccess 'node run-client.js'",
     "start:functions": "npm --prefix functions run serve",
     "start:functions:watch": "npm --prefix functions run watch",
     "start:setup": "npm --prefix definitions setup",
@@ -50,7 +50,8 @@
     "@semantic-release/git": "10.0.1",
     "@semantic-release/npm": "9.0.0",
     "concurrently": "7.0.0",
-    "semantic-release": "19.0.2"
+    "semantic-release": "19.0.2",
+    "tsc-watch": "^4.6.0"
   },
   "release": {
     "branches": [

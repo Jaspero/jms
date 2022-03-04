@@ -233,6 +233,10 @@ export const USERS_MODULE: Module = {
     ...CREATED_ON.definition()
   },
   spotlight: {
-    queryFields: ['name', 'email']
+    queryFields: ['email', 'name'],
+    template: (packet) => {
+      const url = URL.createObjectURL(new Blob([JSON.stringify(packet)], {type: 'application/json'}));
+      return JSX(<jms-spotlight-result url={url} label='email' />)
+    }
   }
 };

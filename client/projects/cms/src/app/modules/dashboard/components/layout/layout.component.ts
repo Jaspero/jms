@@ -15,7 +15,7 @@ import {NavigationItemWithActive} from '../../../../shared/interfaces/navigation
 import {NavigationItem} from '../../../../shared/interfaces/navigation-item.interface';
 import {DbService} from '../../../../shared/services/db/db.service';
 import {StateService} from '../../../../shared/services/state/state.service';
-import {SpotlightComponent} from '../spotlight/spotlight.component';
+import {SpotlightComponent} from '../../modules/spotlight/spotlight.component';
 
 @UntilDestroy()
 @Component({
