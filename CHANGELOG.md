@@ -1,3 +1,11 @@
+## [5.1.1](https://github.com/jaspero/jms/compare/v5.1.0...v5.1.1) (2022-03-04)
+
+
+### Bug Fixes
+
+* **cms:** extend spotlight to include document ids in search results ([6347c12](https://github.com/jaspero/jms/commit/6347c12411ab3e4fefd326a7ea00669240a20130))
+* **cms:** extend spotlight to include document ids in search results ([e6a898e](https://github.com/jaspero/jms/commit/e6a898ea282165676ee9d4ee6f926375f7462c1a))
+
 # [5.1.0](https://github.com/jaspero/jms/compare/v5.0.0...v5.1.0) (2022-03-04)
 
 
