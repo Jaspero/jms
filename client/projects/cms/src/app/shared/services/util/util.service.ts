@@ -8,7 +8,8 @@ import {StateService} from '../state/state.service';
 export class UtilService {
   constructor(
     public state: StateService,
-    public transloco: TranslocoService
+    public transloco: TranslocoService,
+    // public afs: AngularFirestore
   ) {}
 
   /**

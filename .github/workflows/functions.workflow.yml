@@ -38,7 +38,7 @@ jobs:
         if: ${{ steps.changes.outputs.CHANGES }}
         run: |
           npm install firebase-tools
-          npm --prefix functions ci
+          npm --prefix functions install
           npm --prefix functions run build
       - name: Set project
         if: ${{ steps.changes.outputs.CHANGES }}

@@ -36,7 +36,8 @@ const routes: Routes = [{
     MatTooltipModule,
     MatDialogModule,
     MatFormFieldModule,
-    OverlayModule,
+    OverlayModule
   ]
 })
-export class OverviewModule { }
+export class OverviewModule {
+}

@@ -34,3 +34,5 @@ export type {ModuleDefinitions} from './interfaces/module.interface';
 
 export {PipeType} from './enums/pipe-type.enum';
 export {FilterMethod} from './enums/filter-method.enum';
+
+export {JSX} from './jsx.compiler';

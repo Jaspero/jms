@@ -16,7 +16,7 @@ import {DbService} from '../../shared/services/db/db.service';
 import {StateService} from '../../shared/services/state/state.service';
 import {ActiveLinkDirective} from './components/active-link/active-link.directive';
 import {LayoutComponent} from './components/layout/layout.component';
-import {SpotlightComponent} from './components/spotlight/spotlight.component';
+import {SpotlightModule} from './modules/spotlight/spotlight.module';
 
 const routes: Routes = [{
   path: '',
@@ -54,8 +54,7 @@ const routes: Routes = [{
 }];
 
 const COMPONENTS = [
-  LayoutComponent,
-  SpotlightComponent
+  LayoutComponent
 ];
 
 const DIRECTIVES = [
@@ -71,6 +70,8 @@ const DIRECTIVES = [
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
+
+    SpotlightModule,
 
     /**
      * Material
