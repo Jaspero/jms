@@ -18,7 +18,7 @@ export const documentWrite = functions
           ...data,
           id: change.before.id
         };
-      };
+      }
     }
 
     if (change.after.exists) {
@@ -29,7 +29,7 @@ export const documentWrite = functions
           ...data,
           id: change.after.id
         };
-      };
+      }
     }
 
     if (module?.spotlight?.queryFields?.length) {
