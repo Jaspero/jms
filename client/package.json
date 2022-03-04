@@ -38,7 +38,7 @@
     "document-register-element": "1.14.10",
     "file-saver": "2.0.5",
     "firebase": "9.6.4",
-    "json-pointer": "0.6.1",
+    "json-pointer": "0.6.2",
     "rxfire": "6.0.3",
     "rxjs": "7.5.2",
     "tinymce": "5.10.0",
