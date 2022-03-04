@@ -1,3 +1,10 @@
+# [5.1.0](https://github.com/jaspero/jms/compare/v5.0.0...v5.1.0) (2022-03-04)
+
+
+### Features
+
+* **cms:** implemented relevant search into spotlight search bar. fix definitions not updating in angular app ([45539da](https://github.com/jaspero/jms/commit/45539daf95c2895f26f283df5c323a071485d6c2))
+
 # [5.0.0](https://github.com/jaspero/jms/compare/v4.21.0...v5.0.0) (2022-02-27)
 
 
