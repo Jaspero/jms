@@ -102,32 +102,6 @@ export const USERS_MODULE: Module = {
     },
     sort: CREATED_ON.sort,
     instance: {
-      segments: [{
-        fields: ['/id', '/name', '/email', '/role', '/photo']
-      }]
-    },
-    table: {
-      hideImport: true,
-      tableColumns: [
-        CREATED_ON.column(),
-        {
-          key: '/name',
-          label: 'GENERAL.NAME',
-          nestedColumns: [
-            {key: '/email', label: 'GENERAL.EMAIL', ...EMAIL_PIPE}
-          ]
-        },
-        {
-          key: '/role',
-          label: 'GENERAL.ROLE',
-          control: true
-        },
-        {
-          key: '/active',
-          label: 'GENERAL.ACTIVE',
-          control: true
-        }
-      ],
       actions: [
         {
           value: it => JSX(<jms-e-user-actions id={it.id}/>),
@@ -152,6 +126,32 @@ export const USERS_MODULE: Module = {
         {
           value: it => JSX(<jms-e-impersonate id={it.id}/>),
           authorization: ['admin']
+        }
+      ],
+      segments: [{
+        fields: ['/id', '/name', '/email', '/role', '/photo']
+      }]
+    },
+    table: {
+      hideImport: true,
+      tableColumns: [
+        CREATED_ON.column(),
+        {
+          key: '/name',
+          label: 'GENERAL.NAME',
+          nestedColumns: [
+            {key: '/email', label: 'GENERAL.EMAIL', ...EMAIL_PIPE}
+          ]
+        },
+        {
+          key: '/role',
+          label: 'GENERAL.ROLE',
+          control: true
+        },
+        {
+          key: '/active',
+          label: 'GENERAL.ACTIVE',
+          control: true
         }
       ]
     },

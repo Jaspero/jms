@@ -83,6 +83,19 @@ interface TableData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
+  constructor(
+    public ioc: InstanceOverviewContextService,
+    private state: StateService,
+    private injector: Injector,
+    private viewContainerRef: ViewContainerRef,
+    private dbService: DbService,
+    private dialog: MatDialog,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private transloco: TranslocoService
+  ) {
+  }
+
   /**
    * Using view children so we can listen for changes
    */
@@ -109,19 +122,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   };
   maxHeight$ = new Subject<string>();
   actions = {};
-
-  constructor(
-    public ioc: InstanceOverviewContextService,
-    private state: StateService,
-    private injector: Injector,
-    private viewContainerRef: ViewContainerRef,
-    private dbService: DbService,
-    private dialog: MatDialog,
-    private router: Router,
-    private cdr: ChangeDetectorRef,
-    private transloco: TranslocoService
-  ) {
-  }
 
   ngOnInit() {
     /**
@@ -176,25 +176,30 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       if (data.layout) {
         sort = data.layout.sort;
 
-        if (data.layout.table) {
-          addedData = [
-            'hideCheckbox',
-            'hideEdit',
-            'hideDelete',
-            'hideExport',
-            'hideImport'
-          ].reduce((acc, key) => {
-            acc[key] = data.layout.table[key]
-              ? typeof data.layout.table[key] === 'boolean'
-                ? true
-                : data.layout.table[key].includes(this.state.role)
-              : false;
-            return acc;
-          }, {});
+        const actions = data.layout.instance?.actions || data.layout.table?.actions;
 
-          if (data.layout.table.actions) {
-            addedData.actions = processActions(this.state.role, data.layout.table.actions, this.ioc);
-          }
+        if (actions) {
+          addedData.actions = processActions(this.state.role, actions, this.ioc);
+        }
+
+        if (data.layout.table) {
+          addedData = {
+            ...addedData,
+            ...[
+              'hideCheckbox',
+              'hideEdit',
+              'hideDelete',
+              'hideExport',
+              'hideImport'
+            ].reduce((acc, key) => {
+              acc[key] = data.layout.table[key]
+                ? typeof data.layout.table[key] === 'boolean'
+                  ? true
+                  : data.layout.table[key].includes(this.state.role)
+                : false;
+              return acc;
+            }, {})
+          };
 
           if (data.layout.table.selectionActions) {
             addedData.selectionActions = processActions(this.state.role, data.layout.table.selectionActions, this.ioc);
@@ -237,7 +242,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           ? {
             stickyHeader:
               data.layout.table &&
-              data.layout.table.hasOwnProperty('stickyHeader')
+                data.layout.table.hasOwnProperty('stickyHeader')
                 ? data.layout.table.stickyHeader
                 : true,
             sortModule: data.layout.sortModule,
@@ -557,7 +562,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
             id
           ].join('-')
           : id
-        }`;
+          }`;
         const populateMethod = itId => this.dbService
           .getDocument(parsedCollection, itId)
           .pipe(

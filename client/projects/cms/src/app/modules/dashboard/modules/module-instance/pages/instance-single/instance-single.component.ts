@@ -7,12 +7,16 @@ import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
 import {JSONSchema7} from 'json-schema';
 import {interval, Observable, of, Subject, Subscription} from 'rxjs';
-import {debounceTime, map, switchMap, tap} from 'rxjs/operators';
+import {debounceTime, map, shareReplay, switchMap, tap} from 'rxjs/operators';
 import {ViewState} from '../../../../../../shared/enums/view-state.enum';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {UtilService} from '../../../../../../shared/services/util/util.service';
 import {queue} from '../../../../../../shared/utils/queue.operator';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
+import {Action} from '../../../../../../shared/interfaces/action.interface';
+import {processActions} from '../../../../../../shared/utils/process-actions';
+import {StateService} from '../../../../../../shared/services/state/state.service';
+import {toObservable} from '../../../../../../shared/utils/to-observable';
 
 interface Instance {
   module: {
@@ -23,6 +27,7 @@ interface Instance {
     name: string;
     editTitleKey: string;
   };
+  actions?: Action[];
   autoSave?: true;
   directLink: boolean;
   formatOnSave: (data: any) => any;
@@ -45,6 +50,16 @@ interface Instance {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InstanceSingleComponent implements OnInit {
+  constructor(
+    public ioc: InstanceOverviewContextService,
+    public util: UtilService,
+    private dbService: DbService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private state: StateService
+  ) {
+  }
+
   @ViewChild(FormBuilderComponent, {static: false})
   formBuilderComponent: FormBuilderComponent;
   initialValue: string;
@@ -57,16 +72,8 @@ export class InstanceSingleComponent implements OnInit {
   saveBuffer$ = new Subject<Instance>();
   first = true;
   confirmExitOnTouched: boolean;
+  actions = {};
   private autoSaveListener: Subscription;
-
-  constructor(
-    private dbService: DbService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private ioc: InstanceOverviewContextService,
-    private util: UtilService
-  ) {
-  }
 
   ngOnInit() {
     this.data$ = this.ioc.module$.pipe(
@@ -99,6 +106,7 @@ export class InstanceSingleComponent implements OnInit {
             this.currentValue = JSON.stringify(this.initialValue);
 
             let editTitleKey = 'id';
+            let actions: Action[];
 
             const formatOn: any = {};
             const autoSave = module.metadata?.hasOwnProperty('autoSave') && this.currentState === ViewState.Edit;
@@ -111,6 +119,11 @@ export class InstanceSingleComponent implements OnInit {
               }
 
               if (module.layout.instance) {
+
+                if (module.layout.instance.actions) {
+                  actions = processActions(this.state.role, module.layout.instance.actions, this.ioc);
+                }
+
                 if (module.layout.instance.formatOnLoad) {
                   const method = safeEval(module.layout.instance.formatOnLoad);
 
@@ -159,6 +172,7 @@ export class InstanceSingleComponent implements OnInit {
               },
               directLink: !!(module.layout && module.layout.directLink),
               authorization: module.authorization,
+              ...actions && {actions},
               ...formatOn,
               formBuilder: {
                 schema: module.schema,
@@ -261,5 +275,13 @@ export class InstanceSingleComponent implements OnInit {
         }
       }
     }
+  }
+
+  toActionObservable(value, data, index) {
+    const observable = toObservable(value({id: this.util.docId, data}))
+      .pipe(shareReplay(1));
+
+    this.actions[data.id + '/' + index] = observable;
+    return observable;
   }
 }
