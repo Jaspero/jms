@@ -37,7 +37,7 @@
     </mat-dialog-content>
 
     <mat-dialog-actions class="jc-end">
-      <button type="submit" mat-flat-button color="primary" (click)="updateColumns(jco)">
+      <button type="submit" mat-flat-button color="primary" (click)="updateColumns($event, jco)">
         {{ 'GENERAL.SAVE' | transloco }}
       </button>
     </mat-dialog-actions>
@@ -106,13 +106,13 @@
 
           <ng-container *ngIf="data.filterModule && !data.filterModule.hidden">
             <span class="hide-xs">
-              <button mat-button (click)="ioc.openFilterDialog(data.filterModule)">
+              <button mat-button (click)="openFilterDialog(data.filterModule)">
                 <mat-icon>vertical_split</mat-icon>
                 <span>{{ 'GENERAL.FILTER' | transloco }}</span>
               </button>
             </span>
             <span class="show-xs">
-              <button mat-icon-button (click)="ioc.openFilterDialog(data.filterModule)" [matTooltip]="'GENERAL.FILTER' | transloco">
+              <button mat-icon-button (click)="openFilterDialog(data.filterModule)" [matTooltip]="'GENERAL.FILTER' | transloco">
                 <mat-icon>vertical_split</mat-icon>
               </button>
             </span>
@@ -120,13 +120,13 @@
 
           <ng-container *ngIf="data.sortModule">
             <span class="hide-xs">
-              <button mat-button (click)="ioc.openSortDialog(data.moduleId, data.name, data.sortModule)">
+              <button mat-button (click)="openSortDialog(data.moduleId, data.name, data.sortModule)">
                 <mat-icon>vertical_split</mat-icon>
                 <span>{{ 'GENERAL.SORT' | transloco }}</span>
               </button>
             </span>
             <span class="show-xs">
-              <button mat-icon-button (click)="ioc.openSortDialog(data.moduleId, data.name, data.sortModule)" [matTooltip]="'GENERAL.SORT' | transloco">
+              <button mat-icon-button (click)="openSortDialog(data.moduleId, data.name, data.sortModule)" [matTooltip]="'GENERAL.SORT' | transloco">
                 <mat-icon>vertical_split</mat-icon>
               </button>
             </span>

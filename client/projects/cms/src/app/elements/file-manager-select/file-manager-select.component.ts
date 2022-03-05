@@ -1,7 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {FileManagerComponent} from '../../modules/dashboard/modules/file-manager/file-manager.component';
+import {Element} from '../element.decorator';
 
+@Element()
 @Component({
   selector: 'jms-file-manager-select',
   templateUrl: './file-manager-select.component.html',

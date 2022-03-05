@@ -8,6 +8,7 @@ import {catchError, switchMap, tap} from 'rxjs/operators';
 import {DbService} from '../../shared/services/db/db.service';
 import {confirmation} from '../../shared/utils/confirmation';
 import {queue} from '../../shared/utils/queue.operator';
+import {Element} from '../element.decorator';
 
 interface Provider {
   label: string;
@@ -15,6 +16,7 @@ interface Provider {
   svg?: string;
   data: any;
 }
+@Element()
 @UntilDestroy()
 @Component({
   selector: 'jms-user-actions',

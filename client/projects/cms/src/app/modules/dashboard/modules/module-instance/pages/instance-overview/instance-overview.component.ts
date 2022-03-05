@@ -6,12 +6,12 @@ import {Parser} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {BehaviorSubject, combineLatest, merge, Subject} from 'rxjs';
 import {map, shareReplay, skip, startWith, switchMap, tap} from 'rxjs/operators';
-import {STATIC_CONFIG} from '../../../../../../../environments/static-config';
 import {DEFAULT_PAGE_SIZE} from '../../../../../../shared/consts/page-sizes.const';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
 import {queue} from '../../../../../../shared/utils/queue.operator';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
+import {createSelector} from '../../../../../../elements/element.decorator';
 
 @UntilDestroy()
 @Component({
@@ -304,7 +304,7 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
   getCurrentView(selector: string) {
     this.activeView = selector;
 
-    const toUse = selector.startsWith(STATIC_CONFIG.elementSelectorPrefix) ? selector : STATIC_CONFIG.elementSelectorPrefix + selector;
+    const toUse = createSelector(selector);
 
     return `<${toUse}></${toUse}>`;
   }

@@ -6,8 +6,8 @@ import {Parser, State} from '@jaspero/form-builder';
 import {safeEval} from '@jaspero/utils';
 import {AsyncSubject, BehaviorSubject, Observable, of, ReplaySubject, Subject} from 'rxjs';
 import {map, switchMap, tap} from 'rxjs/operators';
-import {WhereFilter} from '../../../../../../shared/interfaces/where-filter.interface';
-import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
+import {WhereFilter} from '../../shared/interfaces/where-filter.interface';
+import {InstanceOverviewContextService} from '../../modules/dashboard/modules/module-instance/services/instance-overview-context.service';
 
 @Component({
   selector: 'jms-filter-dialog',

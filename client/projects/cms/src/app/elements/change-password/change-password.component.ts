@@ -5,9 +5,11 @@ import {tap} from 'rxjs/operators';
 import {DbService} from '../../shared/services/db/db.service';
 import {notify} from '@shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
+import {Element} from '../element.decorator';
 
+@Element()
 @Component({
-  selector: 'jms-change-password',
+  selector: 'jms-cp',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

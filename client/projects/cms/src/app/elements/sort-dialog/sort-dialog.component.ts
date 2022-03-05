@@ -6,7 +6,7 @@ import {swapItems} from '@jaspero/utils';
 import {notify} from '@shared/utils/notify.operator';
 import {forkJoin, from, Observable, of} from 'rxjs';
 import {tap} from 'rxjs/operators';
-import {DbService} from '../../../../../../shared/services/db/db.service';
+import {DbService} from '../../shared/services/db/db.service';
 
 @Component({
   selector: 'jms-sort-dialog',

@@ -1,9 +1,11 @@
 import {ChangeDetectionStrategy, Component, ElementRef} from '@angular/core';
 import {DbService} from '../../shared/services/db/db.service';
 import {notify} from '@shared/utils/notify.operator';
+import {Element} from '../element.decorator';
 
+@Element()
 @Component({
-  selector: 'jms-e-tpr',
+  selector: 'jms-tpr',
   templateUrl: './trigger-password-reset.component.html',
   styleUrls: ['./trigger-password-reset.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
