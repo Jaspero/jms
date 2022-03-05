@@ -1,3 +1,15 @@
+# [5.3.0](https://github.com/jaspero/jms/compare/v5.2.0...v5.3.0) (2022-03-05)
+
+
+### Bug Fixes
+
+* **cms:** style on change password button ([544e304](https://github.com/jaspero/jms/commit/544e3049e65e67a7f4ac477ec25c696dc7c74a65))
+
+
+### Features
+
+* created elements module and decorator closes [#333](https://github.com/jaspero/jms/issues/333) ([9dc7805](https://github.com/jaspero/jms/commit/9dc780519fb964a03bf912314449e0aa60fb6702))
+
 # [5.2.0](https://github.com/jaspero/jms/compare/v5.1.1...v5.2.0) (2022-03-04)
 
 
