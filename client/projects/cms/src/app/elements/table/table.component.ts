@@ -29,7 +29,7 @@ import {
   SortModule
 } from 'definitions';
 import {Definitions, Parser, State} from '@jaspero/form-builder';
-import {parseTemplate, random, safeEval} from '@jaspero/utils';
+import {parseTemplate, random, safeEval, toLabel} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
@@ -418,6 +418,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       displayColumns.push(random.string(12));
       tableColumns.push({
         ...column,
+        label: column.label || toLabel(Array.isArray(column.key) ? column.key[0] : column.key),
         ...(tooltip && {
           tooltip,
           tooltipFunction: typeof tooltip === 'function'
