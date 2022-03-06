@@ -1,3 +1,10 @@
+# [5.4.0](https://github.com/jaspero/jms/compare/v5.3.0...v5.4.0) (2022-03-05)
+
+
+### Features
+
+* **cms:** defaulting labels in table closes [#332](https://github.com/jaspero/jms/issues/332) ([7a069bc](https://github.com/jaspero/jms/commit/7a069bc4c876ab8f45e887b52f70a281c379f780))
+
 # [5.3.0](https://github.com/jaspero/jms/compare/v5.2.0...v5.3.0) (2022-03-05)
 
 
