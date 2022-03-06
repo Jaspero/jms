@@ -67,6 +67,7 @@
   },
   "RESET_PASSWORD": {
     "REPEAT_PASSWORD": "Repeat Password",
+    "MIN_LENGTH": "Password needs to be at least 6 characters long.",
     "PASSWORD_RESET": "Password Reset",
     "EMAIL_DOESNT_EXIST": "Email doesn't exist",
     "GO_BACK": "Go back",
