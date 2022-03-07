@@ -4,9 +4,11 @@ import {MatDialog} from '@angular/material/dialog';
 import {tap} from 'rxjs/operators';
 import {DbService} from '../../shared/services/db/db.service';
 import {notify} from '@shared/utils/notify.operator';
+import {Element} from '../element.decorator';
 
+@Element()
 @Component({
-  selector: 'jms-change-email',
+  selector: 'jms-ce',
   templateUrl: './change-email.component.html',
   styleUrls: ['./change-email.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

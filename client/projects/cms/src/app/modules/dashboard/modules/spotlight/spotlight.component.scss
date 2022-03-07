@@ -7,7 +7,7 @@
   opacity: 0.8;
 }
 
-.icon {
+.spotlight-icon {
   position: absolute;
   margin-top: 2px;
   padding: 10px;
@@ -16,9 +16,11 @@
   pointer-events: none;
 
   color: var(--color);
+
+  line-height: 2.5vh;
 }
 
-.search {
+.spotlight-search {
   width: 500px;
   border-radius: 16px;
 
@@ -37,3 +39,15 @@
 .option-description.option-description.option-description.option-description {
   font-size: 0.8em;
 }
+
+.spotlight {
+  .mat-action-list {
+    overflow-y: scroll;
+  }
+}
+
+.hint {
+  opacity: 0.8;
+  font-size: 0.7em;
+}
+

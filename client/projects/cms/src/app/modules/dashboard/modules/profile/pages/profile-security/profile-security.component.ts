@@ -75,7 +75,7 @@ export class ProfileSecurityComponent implements OnInit {
       );
 
     this.pwForm = this.fb.group({
-        password: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(6)]],
         repeatPassword: ['', Validators.required]
       },
       {

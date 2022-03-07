@@ -1,13 +1,13 @@
 {
   "name": "@jaspero/jms",
-  "version": "4.21.0",
+  "version": "5.4.0",
   "license": "MIT",
   "scripts": {
     "start:emulator": "firebase emulators:start --export-on-exit=.emulator-export --import=.emulator-export",
     "start:cms": "npm --prefix client run start:cms",
-    "start:cms:live": "npm --prefix client run start:cms:live",
     "start:web": "npm --prefix client run start:web",
-    "start:web:live": "npm --prefix client run start:web:live",
+    "start:web:live": "cd definitions && tsc-watch --onSuccess 'node run-client.js start:web:live'",
+    "start:cms:live": "cd definitions && tsc-watch --onSuccess 'node run-client.js start:cms:live'",
     "start:functions": "npm --prefix functions run serve",
     "start:functions:watch": "npm --prefix functions run watch",
     "build:cms": "npm --prefix client run build:cms",
@@ -53,10 +53,13 @@
     "@semantic-release/git": "10.0.1",
     "@semantic-release/npm": "9.0.0",
     "concurrently": "7.0.0",
-    "semantic-release": "19.0.2"
+    "semantic-release": "19.0.2",
+    "tsc-watch": "^4.6.0"
   },
   "release": {
-    "branches": ["main"],
+    "branches": [
+      "main"
+    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",

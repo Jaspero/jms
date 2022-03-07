@@ -10,8 +10,8 @@ import {notify} from '@shared/utils/notify.operator';
 import {saveAs} from 'file-saver';
 import {from} from 'rxjs';
 import {switchMap, tap} from 'rxjs/operators';
-import {DbService} from '../../../../../../shared/services/db/db.service';
-import {queue} from '../../../../../../shared/utils/queue.operator';
+import {DbService} from '../../shared/services/db/db.service';
+import {queue} from '../../shared/utils/queue.operator';
 import {ColumnOrganizationComponent} from '../column-organization/column-organization.component';
 
 enum ExportType {
@@ -28,12 +28,6 @@ enum ExportType {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExportComponent {
-  @ViewChild('options', {static: true})
-  optionsTemplate: TemplateRef<any>;
-  types = ExportType;
-  type: ExportType;
-  form: FormGroup;
-
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA)
     public data: {
@@ -54,6 +48,12 @@ export class ExportComponent {
     private auth: Auth
   ) {
   }
+  
+  @ViewChild('options', {static: true})
+  optionsTemplate: TemplateRef<any>;
+  types = ExportType;
+  type: ExportType;
+  form: FormGroup;
 
   selectType(type: ExportType) {
 

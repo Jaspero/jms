@@ -1,7 +1,9 @@
 import {Component, ChangeDetectionStrategy, Input} from '@angular/core';
 import {tap} from 'rxjs/operators';
 import {DbService} from '../../shared/services/db/db.service';
+import {Element} from '../element.decorator';
 
+@Element()
 @Component({
   selector: 'jms-impersonate',
   templateUrl: './impersonate.component.html',

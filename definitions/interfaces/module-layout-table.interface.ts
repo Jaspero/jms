@@ -1,5 +1,6 @@
 import {FilterMethod} from '../enums/filter-method.enum';
 import {PipeType} from '../enums/pipe-type.enum';
+import {ModuleInstanceAction} from './module-instance-action.interface';
 
 export interface ModuleLayoutTableColumn {
   /**
@@ -70,7 +71,7 @@ export interface ModuleLayoutTableNestedColumn extends ModuleLayoutTableColumn {
   showLabel?: boolean;
 }
 
-export interface ModuleLayoutTableAction {
+export interface ModuleLayoutTableSelectionAction {
   /**
    * item => web element
    */
@@ -93,8 +94,11 @@ export interface ModuleLayoutTable {
   hideDelete?: string[] | boolean;
   hideExport?: string[] | boolean;
   hideImport?: string[] | boolean;
-  actions?: ModuleLayoutTableAction[];
-  selectionActions?: ModuleLayoutTableAction[];
+  /**
+   * @description use `module.layout.instance.actions` instead. This will be deleted in the future
+   */
+  actions?: ModuleInstanceAction[];
+  selectionActions?: ModuleLayoutTableSelectionAction[];
 
   /**
    * True by default

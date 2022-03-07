@@ -1,11 +1,14 @@
 import {ChangeDetectionStrategy, Component, ElementRef, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import {safeEval, safeJsonParse} from '@jaspero/utils';
+import {Element} from '../element.decorator';
 
 /**
  * When using the data input you'll need to encode the input since it's going through html
  * window.btoa(encodeURIComponent(JSON.stringify(data)))
  */
+
+ @Element()
 @Component({
   selector: 'jms-new-prepopulate',
   templateUrl: './new-prepopulate.component.html',

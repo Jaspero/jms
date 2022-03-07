@@ -29,21 +29,24 @@ import {
   SortModule
 } from 'definitions';
 import {Definitions, Parser, State} from '@jaspero/form-builder';
-import {parseTemplate, random, safeEval} from '@jaspero/utils';
+import {parseTemplate, random, safeEval, toLabel} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
 import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';
 import {AsyncSubject, BehaviorSubject, combineLatest, forkJoin, Observable, of, ReplaySubject, Subject} from 'rxjs';
-import {filter, map, shareReplay, startWith, switchMap} from 'rxjs/operators';
-import {ColumnOrganizationComponent} from '../../modules/dashboard/modules/module-instance/components/column-organization/column-organization.component';
+import {filter, map, shareReplay, startWith, switchMap, take} from 'rxjs/operators';
+import {ColumnOrganizationComponent} from '../column-organization/column-organization.component';
 import {InstanceOverviewContextService} from '../../modules/dashboard/modules/module-instance/services/instance-overview-context.service';
 import {Action} from '../../shared/interfaces/action.interface';
 import {DbService} from '../../shared/services/db/db.service';
 import {StateService} from '../../shared/services/state/state.service';
 import {processActions} from '../../shared/utils/process-actions';
 import {toObservable} from '../../shared/utils/to-observable';
+import {Element} from '../element.decorator';
+import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
+import {SortDialogComponent} from '../sort-dialog/sort-dialog.component';
 
 interface MenuAction extends Action {
   menuStyle?: boolean;
@@ -75,14 +78,28 @@ interface TableData {
   selectionActions?: Observable<Action<SelectionModel<string>>[]>;
 }
 
+@Element()
 @UntilDestroy()
 @Component({
-  selector: 'jms-e-table',
+  selector: 'jms-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
+  constructor(
+    public ioc: InstanceOverviewContextService,
+    private state: StateService,
+    private injector: Injector,
+    private viewContainerRef: ViewContainerRef,
+    private dbService: DbService,
+    private dialog: MatDialog,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private transloco: TranslocoService
+  ) {
+  }
+
   /**
    * Using view children so we can listen for changes
    */
@@ -109,19 +126,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   };
   maxHeight$ = new Subject<string>();
   actions = {};
-
-  constructor(
-    public ioc: InstanceOverviewContextService,
-    private state: StateService,
-    private injector: Injector,
-    private viewContainerRef: ViewContainerRef,
-    private dbService: DbService,
-    private dialog: MatDialog,
-    private router: Router,
-    private cdr: ChangeDetectorRef,
-    private transloco: TranslocoService
-  ) {
-  }
 
   ngOnInit() {
     /**
@@ -176,25 +180,30 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       if (data.layout) {
         sort = data.layout.sort;
 
-        if (data.layout.table) {
-          addedData = [
-            'hideCheckbox',
-            'hideEdit',
-            'hideDelete',
-            'hideExport',
-            'hideImport'
-          ].reduce((acc, key) => {
-            acc[key] = data.layout.table[key]
-              ? typeof data.layout.table[key] === 'boolean'
-                ? true
-                : data.layout.table[key].includes(this.state.role)
-              : false;
-            return acc;
-          }, {});
+        const actions = data.layout.instance?.actions || data.layout.table?.actions;
 
-          if (data.layout.table.actions) {
-            addedData.actions = processActions(this.state.role, data.layout.table.actions, this.ioc);
-          }
+        if (actions) {
+          addedData.actions = processActions(this.state.role, actions, this.ioc);
+        }
+
+        if (data.layout.table) {
+          addedData = {
+            ...addedData,
+            ...[
+              'hideCheckbox',
+              'hideEdit',
+              'hideDelete',
+              'hideExport',
+              'hideImport'
+            ].reduce((acc, key) => {
+              acc[key] = data.layout.table[key]
+                ? typeof data.layout.table[key] === 'boolean'
+                  ? true
+                  : data.layout.table[key].includes(this.state.role)
+                : false;
+              return acc;
+            }, {})
+          };
 
           if (data.layout.table.selectionActions) {
             addedData.selectionActions = processActions(this.state.role, data.layout.table.selectionActions, this.ioc);
@@ -237,7 +246,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
           ? {
             stickyHeader:
               data.layout.table &&
-              data.layout.table.hasOwnProperty('stickyHeader')
+                data.layout.table.hasOwnProperty('stickyHeader')
                 ? data.layout.table.stickyHeader
                 : true,
             sortModule: data.layout.sortModule,
@@ -291,13 +300,63 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ioc.subHeaderTemplate$.next(null);
   }
 
+  openFilterDialog(
+    data: FilterModule
+  ) {
+    this.ioc.filterChange$
+      .pipe(
+        take(1),
+        switchMap(filterValue =>
+          this.dialog.open(FilterDialogComponent, {
+            ...data.dialogOptions || {},
+            width: '800px',
+            data: {
+              module: {
+                ...data,
+                value: filterValue ?
+                  filterValue.reduce((acc, cur) => {
+                    acc[cur.key] = cur.value;
+                    return acc;
+                  }, {}) :
+                  data.value
+              },
+              ioc: this
+            }
+          })
+            .afterClosed()
+        ),
+        filter(value => !!value)
+      )
+      .subscribe(value =>
+        this.ioc.filterChange$.next(value)
+      );
+  }
+
+  openSortDialog(
+    collection: string,
+    collectionName: string,
+    options: SortModule
+  ) {
+    this.dialog.open(SortDialogComponent, {
+      width: '800px',
+      data: {
+        options,
+        collection,
+        collectionName
+      }
+    });
+  }
+
   openColumnOrganization() {
     this.dialog.open(this.columnOrganizationTemplate, {
       width: '400px'
     });
   }
 
-  updateColumns(columnOrganization: ColumnOrganizationComponent) {
+  updateColumns(event, columnOrganization: ColumnOrganizationComponent) {
+
+    event.preventDefault();
+
     this.data.originalColumns = columnOrganization.save();
     const columns = this.constructColumns(this.data.originalColumns);
 
@@ -359,6 +418,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       displayColumns.push(random.string(12));
       tableColumns.push({
         ...column,
+        label: column.label || toLabel(Array.isArray(column.key) ? column.key[0] : column.key),
         ...(tooltip && {
           tooltip,
           tooltipFunction: typeof tooltip === 'function'
@@ -557,7 +617,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
             id
           ].join('-')
           : id
-        }`;
+          }`;
         const populateMethod = itId => this.dbService
           .getDocument(parsedCollection, itId)
           .pipe(

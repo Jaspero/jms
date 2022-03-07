@@ -1,0 +1,4 @@
+<div *ngIf="packet$ | async as packet" class="p-a-s p-b-0 container">
+  <p>{{packet.data[label]}}</p>
+  <p class="hint">{{packet.module}}/{{packet.data.id}}</p>
+</div>

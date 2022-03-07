@@ -1,0 +1,29 @@
+<div class="spotlight">
+  <mat-icon class="spotlight-icon">search</mat-icon>
+  <input matInput class="spotlight-search" autocomplete="off" placeholder="Spotlight Search" spellcheck="false" [formControl]="searchControl">
+
+
+  <ng-container *ngIf="results$ | async as results">
+    <ng-container *ngIf="results.length">
+      <mat-action-list tabindex="-1">
+        <ng-container *ngFor="let category of results; trackBy:trackByTitle">
+          <div matSubheader *ngIf="category?.items?.length">{{category.title | transloco}}</div>
+          <ng-container *ngFor="let item of category.items; trackBy:trackByHref; index as index;">
+            <ng-container *ngIf="item.template; else searchResult">
+              <mat-list-item [innerHTML]="item.template | jpSanitize" (click)="selectItem(item)"></mat-list-item>
+            </ng-container>
+
+            <ng-template #searchResult>
+              <mat-list-item (click)="selectItem(item)">
+                <div class="p-a-s p-b-0">
+                  <p>{{item.label | transloco}}</p>
+                  <p class="hint">{{item.description | transloco}}</p>
+                </div>
+              </mat-list-item>
+            </ng-template>
+          </ng-container>
+        </ng-container>
+      </mat-action-list>
+    </ng-container>
+  </ng-container>
+</div>

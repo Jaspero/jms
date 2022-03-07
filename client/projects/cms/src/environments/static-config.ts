@@ -5,7 +5,24 @@ import {NavigationItemWithActive} from '../app/shared/interfaces/navigation-item
  */
 export const STATIC_CONFIG = {
   displayName: 'JMS',
-  elementSelectorPrefix: 'jms-e-',
+  elements: {
+
+    /**
+     * This is removed from the components selector
+     * when registering it as an element
+     */
+    componentPrefix: 'jms-',
+
+    /**
+     * This is added as the suffix instead
+     * 
+     * @example
+     * A component with the selector jms-table
+     * is registered as an element with the selector
+     * jms-e-table
+     */
+    selectorPrefix: 'jms-e-',
+  },
   cloudRegion: 'us-central1',
   login: {
     email: true,

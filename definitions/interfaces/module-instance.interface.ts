@@ -1,5 +1,6 @@
 import {Segment} from '@jaspero/form-builder';
 import {FormatMethod} from './format-method.interface';
+import {ModuleInstanceAction} from './module-instance-action.interface';
 
 export interface ModuleInstance {
 
@@ -18,4 +19,5 @@ export interface ModuleInstance {
    */
   formatOnLoad?: string | FormatMethod;
   segments: Segment[];
+  actions?: ModuleInstanceAction[];
 }

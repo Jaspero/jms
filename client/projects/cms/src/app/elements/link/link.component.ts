@@ -1,9 +1,11 @@
 import {Component, ChangeDetectionStrategy, Input} from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
 import {Router} from '@angular/router';
+import {Element} from '../element.decorator';
 
+@Element()
 @Component({
-  selector: 'jms-e-link',
+  selector: 'jms-link',
   templateUrl: './link.component.html',
   styleUrls: ['./link.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
