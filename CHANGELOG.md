@@ -1,3 +1,10 @@
+## [5.4.1](https://github.com/jaspero/jms/compare/v5.4.0...v5.4.1) (2022-03-10)
+
+
+### Bug Fixes
+
+* **ImportComponent:** import path ([5df426c](https://github.com/jaspero/jms/commit/5df426ca87ea2e24e96371d8a2670c9993c8560b))
+
 # [5.4.0](https://github.com/jaspero/jms/compare/v5.3.0...v5.4.0) (2022-03-05)
 
 
