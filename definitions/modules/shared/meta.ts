@@ -1,3 +1,5 @@
+import JSX from '../../jsx.compiler';
+
 export const META = {
   segment: (options: any = {}) => ({
     type: 'card',
@@ -37,13 +39,25 @@ export const META = {
         type: 'image',
         configuration: {
           maxSize: 5e+6,
-          generatedImages: [
-            {
-              filePrefix: 'thumb_m_',
-              width: 1200,
-              height: 630
+          generatedImages: [{
+            filePrefix: 'thumb_m_',
+            width: 1200,
+            height: 630
+          }],
+          filePrefix: '/public/',
+          uploadMethods: [{
+            id: 'file-manager',
+            label: 'FILE_MANAGER.TITLE',
+            component: JSX(<jms-e - file - manager - select />),
+            configuration: {
+              route: '/public',
+              hidePath: false,
+              hideFolders: false,
+              filters: [{
+                value: file => file.contentType.startsWith('image/')
+              }]
             }
-          ]
+          }]
         }
       }
     }
