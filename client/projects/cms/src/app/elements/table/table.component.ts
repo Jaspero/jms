@@ -74,6 +74,7 @@ interface TableData {
   hideExport?: boolean;
   hideImport?: boolean;
   collectionGroup?: boolean;
+  hasActions: boolean;
   actions?: Observable<Action[]>;
   selectionActions?: Observable<Action<SelectionModel<string>>[]>;
 }
@@ -126,6 +127,14 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   };
   maxHeight$ = new Subject<string>();
   actions = {};
+
+  get showDelete() {
+    return !this.data.hideDelete && this.permission.write;
+  }
+
+  get showActionsColumn() {
+    return !this.data.hideEdit || this.showDelete || this.data.hasActions;
+  }
 
   ngOnInit() {
     /**
@@ -224,7 +233,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         displayColumns.unshift('check');
       }
 
-      if (!addedData.hideDelete || !addedData.hideEdit) {
+      if (!addedData.hideDelete || !addedData.hideEdit || addedData.actions?.length) {
         displayColumns.push('actions');
       }
 
@@ -242,6 +251,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         sort,
         originalColumns: pColumns,
         definitions: data.definitions,
+        hasActions: !!addedData.actions?.length,
         ...(data.layout
           ? {
             stickyHeader:
@@ -364,7 +374,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       columns.displayColumns.unshift('check');
     }
 
-    if (!this.data.hideDelete || !this.data.hideEdit) {
+    if (this.showActionsColumn) {
       columns.displayColumns.push('actions');
     }
 

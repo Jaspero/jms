@@ -196,7 +196,7 @@
               </ng-template>
             </ng-container>
 
-            <ng-container *ngIf="!data.hideEdit || !data.hideDelete" matColumnDef="actions" stickyEnd>
+            <ng-container *ngIf="!data.hideEdit || !data.hideDelete || data.actions?.length" matColumnDef="actions" stickyEnd>
               <th class="cta-column-last" mat-header-cell *matHeaderCellDef></th>
               <td class="cta-column-last" mat-cell *matCellDef="let element" [attr.data-label]="'GENERAL.ACTIONS' | transloco">
                 <button mat-icon-button [matMenuTriggerFor]="menu" [attr.aria-label]="'GENERAL.ACTIONS' | transloco" [matTooltip]="'GENERAL.ACTIONS' | transloco">
@@ -220,7 +220,7 @@
                         </ng-container>
                       </ng-container>
 
-                      <hr />
+                      <hr *ngIf="showDelete || !data.hideEdit" />
                     </ng-container>
 
                     <a *ngIf="!data.hideEdit" mat-menu-item (click)="navigateToSingleView(element, $event)">
@@ -228,7 +228,7 @@
                       <span>{{ (permission.write ? 'GENERAL.EDIT' : 'GENERAL.VIEW') | transloco }}</span>
                     </a>
                     <button
-                      *ngIf="!data.hideDelete && permission.write"
+                      *ngIf="showDelete"
                       mat-menu-item
                       [fDisable]="data.authorization"
                       (click)="ioc.deleteOne(this.data.collectionGroup ? element.ref.parent.path : data.moduleId, element)"
