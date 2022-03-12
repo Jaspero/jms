@@ -1,3 +1,10 @@
+## [5.4.2](https://github.com/jaspero/jms/compare/v5.4.1...v5.4.2) (2022-03-12)
+
+
+### Bug Fixes
+
+* **cms:** properly showing table actions when there are actions but delete and edit are hidden ([b0264a6](https://github.com/jaspero/jms/commit/b0264a6e395cb18c042bb7de213fb5d5462706ea))
+
 ## [5.4.1](https://github.com/jaspero/jms/compare/v5.4.0...v5.4.1) (2022-03-10)
 
 
