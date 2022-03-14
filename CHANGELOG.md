@@ -1,3 +1,11 @@
+## [5.4.3](https://github.com/jaspero/jms/compare/v5.4.2...v5.4.3) (2022-03-14)
+
+
+### Bug Fixes
+
+* **functions:** no longer query all files when not needed; updated for new module setup; ([53bd1a2](https://github.com/jaspero/jms/commit/53bd1a26aa503efae69e917aec876848154b39ff))
+* **functions:** use built in auth user delete instead of user delete trigger ([5b3083f](https://github.com/jaspero/jms/commit/5b3083f1532d72b30d9669a08c4370806d2300f6))
+
 ## [5.4.2](https://github.com/jaspero/jms/compare/v5.4.1...v5.4.2) (2022-03-12)
 
 
