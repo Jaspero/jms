@@ -240,6 +240,7 @@ export const USERS_MODULE: Module = {
     }
   },
   metadata: {
+    deletedAuthUser: true,
     attachedFiles: {
       prefix: '/users/{{documentId}}/'
     }
