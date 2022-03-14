@@ -20,6 +20,11 @@ export interface ModuleMetadata {
   };
 
   subCollections?: ModuleSubCollection[];
+
+  /**
+   * When set to true attempts to delete an auth user
+   * with the same id of the deleted document
+   */
   deletedAuthUser?: boolean;
 
   /**
