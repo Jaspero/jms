@@ -3,27 +3,37 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import {STATIC_CONFIG} from '../consts/static-config.const';
 import {deleteCollection} from '../utils/delete-collection';
+import {MODULES} from 'definitions';
+import {parseTemplate} from '@jaspero/utils';
 
 export const documentDeleted = functions
   .region(STATIC_CONFIG.cloudRegion)
   .firestore
   .document('{moduleId}/{documentId}')
   .onDelete(async (snap, context) => {
+    const {moduleId, documentId} = context.params;
+    const moduleDoc = MODULES.find(item => item.id === moduleId);
+
+    if (!moduleDoc || !moduleDoc.metadata?.attachedFiles?.containes) {
+      return;
+    }
+
     const storage = new Storage().bucket(admin.storage().bucket().name);
     const firestore = admin.firestore();
-    const {moduleId, documentId} = context.params;
 
-    const [fs, module] = await Promise.all([
-      storage.getFiles({
-        delimiter: '/',
-        autoPaginate: true
-      }),
-      firestore.doc(`modules/${moduleId}`).get()
-    ]);
-    const [files] = fs;
+    const [files] = await storage.getFiles({
+      delimiter: '/',
+      ...moduleDoc.metadata?.attachedFiles.prefix && {
+        prefix: parseTemplate(moduleDoc.metadata?.attachedFiles.prefix, context.params)
+      },
+      autoPaginate: true
+    });
 
     const toExec: Array<Promise<any>> = files
-      .filter(file => file.name.startsWith(`${moduleId}-${documentId}-`))
+      .filter(file =>
+        (file.metadata.moduleId === moduleId && file.metadata.documentId === documentId) ||
+        file.name.startsWith(`${moduleId}-${documentId}-`)
+      )
       .map(
         file =>
           new Promise(resolve =>
@@ -37,19 +47,18 @@ export const documentDeleted = functions
           )
       );
 
-    if (module.exists) {
-      const moduleData = module.data() as any;
+      if (moduleDoc.metadata) {
 
-      if (moduleData.metadata) {
+        const {deletedAuthUser, subCollections} = moduleDoc.metadata;
 
-        if (moduleData.metadata.deletedAuthUser) {
+        if (deletedAuthUser) {
           toExec.push(
             admin.auth().deleteUser(documentId)
           )
         }
 
-        if (moduleData.metadata.subCollections) {
-          moduleData.metadata.subCollections.forEach(
+        if (subCollections) {
+          subCollections.forEach(
             ({name, batch}: {name: string; batch?: number}) => {
               toExec.push(
                 deleteCollection(
@@ -62,7 +71,6 @@ export const documentDeleted = functions
           );
         }
       }
-    }
 
     if (toExec.length) {
       await Promise.all(toExec);

@@ -1,6 +1,24 @@
 import {ModuleSubCollection} from './module-sub-collection.interface';
 
 export interface ModuleMetadata {
+
+  /**
+   * Defines if a module has attached files.
+   * This defaults to true and only setting `attachedFiles.contains = false`
+   * would prevent the delete trigger from attempting
+   * to delete attached files
+   */
+  attachedFiles?: {
+    containes?: boolean;
+
+    /**
+     * Folder to search for files to delete in.
+     * Defaults to "/". Can also contain dynamic {{documentId}} and
+     * {{moduleId}} macros.
+     */
+    prefix?: string;
+  };
+
   subCollections?: ModuleSubCollection[];
   deletedAuthUser?: boolean;
 

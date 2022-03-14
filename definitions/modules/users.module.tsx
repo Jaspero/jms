@@ -238,5 +238,10 @@ export const USERS_MODULE: Module = {
       const url = URL.createObjectURL(new Blob([JSON.stringify(packet)], {type: 'application/json'}));
       return JSX(<jms-spotlight-result url={url} label='email' />)
     }
+  },
+  metadata: {
+    attachedFiles: {
+      prefix: '/users/{{documentId}}/'
+    }
   }
 };
