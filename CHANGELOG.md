@@ -1,3 +1,15 @@
+# [5.6.0](https://github.com/jaspero/jms/compare/v5.5.0...v5.6.0) (2022-03-22)
+
+
+### Bug Fixes
+
+* filters refreshing page on submit ([e379f10](https://github.com/jaspero/jms/commit/e379f10d78707bb0c96a72ca22a3ea996fa47d4e))
+
+
+### Features
+
+* added profile image to users module ([bfd4bf7](https://github.com/jaspero/jms/commit/bfd4bf70c9e4c699aaadfb36b690ce853b04ac2b))
+
 # [5.5.0](https://github.com/jaspero/jms/compare/v5.4.3...v5.5.0) (2022-03-22)
 
 
