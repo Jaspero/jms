@@ -51,7 +51,8 @@
     "DESCRIPTION": "Opis",
 
     "YES": "Da",
-    "NO": "Ne"
+    "NO": "Ne",
+    "PHOTO": "Slika"
   },
   "LOGIN": {
     "LOGIN": "Prijava",

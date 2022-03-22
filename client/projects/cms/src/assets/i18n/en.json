@@ -51,7 +51,8 @@
     "DESCRIPTION": "Description",
 
     "YES": "Yes",
-    "NO": "No"
+    "NO": "No",
+    "PHOTO": "Photo"
   },
   "LOGIN": {
     "LOGIN": "Login",

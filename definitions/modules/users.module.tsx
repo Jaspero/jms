@@ -135,6 +135,14 @@ export const USERS_MODULE: Module = {
     table: {
       hideImport: true,
       tableColumns: [
+        {
+          key: '/photo',
+          label: 'GENERAL.PHOTO',
+          pipe: [PipeType.Custom, PipeType.Sanitize],
+          pipeArguments: {
+            0: v => `<img src="${v || '/assets/images/profile-placeholder.png'}" width="50" height="50" style="border-radius:50px" />`
+          }
+        },
         CREATED_ON.column(),
         {
           key: '/name',
