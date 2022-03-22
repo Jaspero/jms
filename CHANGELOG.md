@@ -1,3 +1,10 @@
+# [5.7.0](https://github.com/jaspero/jms/compare/v5.6.0...v5.7.0) (2022-03-22)
+
+
+### Features
+
+* dev and start:cms commands working in root :tada: ([ae46bab](https://github.com/jaspero/jms/commit/ae46bab9787d985763ddaa864124563550485e00))
+
 # [5.6.0](https://github.com/jaspero/jms/compare/v5.5.0...v5.6.0) (2022-03-22)
 
 
