@@ -1,3 +1,10 @@
+# [5.5.0](https://github.com/jaspero/jms/compare/v5.4.3...v5.5.0) (2022-03-22)
+
+
+### Features
+
+* **cms:** Nested table elements now add a margin between each other closes [#323](https://github.com/jaspero/jms/issues/323) ([3d85b5d](https://github.com/jaspero/jms/commit/3d85b5d915f0cf981f1c79eeef9f6d94babdee8f))
+
 ## [5.4.3](https://github.com/jaspero/jms/compare/v5.4.2...v5.4.3) (2022-03-14)
 
 
