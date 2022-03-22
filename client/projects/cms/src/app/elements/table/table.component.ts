@@ -330,7 +330,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
                   }, {}) :
                   data.value
               },
-              ioc: this
+              ioc: this.ioc
             }
           })
             .afterClosed()
