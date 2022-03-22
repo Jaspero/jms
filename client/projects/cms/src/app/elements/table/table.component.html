@@ -11,7 +11,7 @@
 </ng-template>
 
 <ng-template #simpleColumn let-value="value">
-  <div class="column-inner" [innerHTML]="value"></div>
+  <div class="column-inner" *ngIf="value" [innerHTML]="value"></div>
 </ng-template>
 
 <ng-template #populateColumn let-value="value">
