@@ -54,5 +54,10 @@ export interface ModuleMetadata {
    * Confirmation dialog to confirm page exit if form is edited
    */
   confirmExitOnTouched?: boolean;
+
+  /**
+   * Generates history entries for the specified collection
+   */
+  history?: boolean;
   [key: string]: any;
 }

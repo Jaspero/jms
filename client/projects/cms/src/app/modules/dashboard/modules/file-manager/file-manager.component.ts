@@ -393,7 +393,6 @@ export class FileManagerComponent implements OnInit, OnDestroy {
         untilDestroyed(this)
       )
       .subscribe((statuses: Array<{complete?: boolean, status: string, progress: number}>) => {
-        console.log(statuses);
         if (!statuses.some(it => !it.complete)) {
           this.uploadProgress$.next(0);
           el.value = '';

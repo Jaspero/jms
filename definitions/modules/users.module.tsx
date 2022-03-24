@@ -7,7 +7,7 @@ import {EMAIL_PIPE} from './shared/email-pipe';
 import {YES_NO_FILTER_PIPE} from './shared/yes-no-pipe';
 
 export const USERS_MODULE: Module = {
-  id: 'users',
+  id: 'users',  
   name: 'MODULES.USERS',
   description: 'MODULES.USERS_DESCRIPTION',
   layout: {
@@ -110,6 +110,9 @@ export const USERS_MODULE: Module = {
         },
         {
           value: it => JSX(<jms-e-notes data-id={it.id}/>)
+        },
+        {
+          value: it => JSX(<jms-e-link link={'/m/users/' + it.id + '/history'}>History</jms-e-link>)
         },
         {
           value: it => JSX(<jms-e-tpr data-email={it.data.email}/>),
@@ -251,6 +254,7 @@ export const USERS_MODULE: Module = {
     deletedAuthUser: true,
     attachedFiles: {
       prefix: '/users/{{documentId}}/'
-    }
+    },
+    history: true
   }
 };

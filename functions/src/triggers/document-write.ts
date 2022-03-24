@@ -2,6 +2,7 @@ import {relevantIndex} from 'adv-firestore-functions';
 import * as functions from 'firebase-functions';
 import {STATIC_CONFIG} from '../consts/static-config.const';
 import {MODULES} from 'definitions';
+import {random} from '@jaspero/utils';
 
 export const documentWrite = functions
   .region(STATIC_CONFIG.cloudRegion)
@@ -30,6 +31,24 @@ export const documentWrite = functions
           id: change.after.id
         };
       }
+    }
+
+    if (module?.metadata?.history) {
+
+      /**
+       * TODO:
+       * This is the same method for generating the id
+       * on save. We should fine a way to re-use it.
+       */
+      const historyId = 'hi-' + module.metadata.docIdMethod ?
+        module.metadata.docIdMethod(change.after) :
+        `${module.metadata?.docIdPrefix || module.id.slice(0, 2)}-${random.string(module.metadata?.docIdSize || 12)}`
+
+      change.after.ref.collection('history').doc(historyId).set({
+        createdOn: Date.now(),
+        before: change.before,
+        after: change.after
+      });
     }
 
     if (module?.spotlight?.queryFields?.length) {
