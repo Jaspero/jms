@@ -16,6 +16,7 @@ import {userCreated} from './triggers/user-created';
 import {userDeleted} from './triggers/user-deleted';
 import {impersonate} from './callable/impersonate';
 import {userDocumentUpdated} from './triggers/user-document-updated';
+import {documentWrite} from './triggers/document-write';
 
 initializeApp();
 
@@ -29,6 +30,7 @@ export const cms = {
   fileCreated,
   fileDeleted,
   documentDeleted,
+  documentWrite,
   triggerPasswordReset,
 
   // Callable

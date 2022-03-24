@@ -11,6 +11,8 @@ export const documentWrite = functions
   .onWrite(async (change, context) => {
     const module = MODULES.find(item => item.id === context.params.colId);
 
+    console.log(module);
+
     if (change.before.exists) {
       const data = change.before.data();
 
@@ -46,8 +48,8 @@ export const documentWrite = functions
 
       change.after.ref.collection('history').doc(historyId).set({
         createdOn: Date.now(),
-        before: change.before,
-        after: change.after
+        ...change.before.exists && {before: change.before.data()},
+        ...change.after.exists && {after: change.after.data()}
       });
     }
 
