@@ -81,23 +81,34 @@ export class InstanceSingleComponent implements OnInit {
         this.activatedRoute.params.pipe(
           switchMap(params => {
 
-            this.util.docId = params.id;
+            const id = Object.entries(params).reduce((acc, [key, value]) => {
+              if (key.startsWith('document')) {
+                const index = key.split('-')[1] || 0;
 
-            if (params.id === 'new') {
+                if (index >= acc[0]) {
+                  acc = [index, value];
+                }
+              }
+              return acc;
+            }, [0, 'new'])[1] as string;
+
+            this.util.docId = id;
+
+            if (id === 'new') {
               this.currentState = ViewState.New;
               this.formState = State.Create;
               return of(history.state?.data);
-            } else if (params.id.endsWith('--copy')) {
+            } else if (id.endsWith('--copy')) {
               this.currentState = ViewState.Copy;
               this.formState = State.Create;
               return this.dbService
-                .getDocument(module.id, params.id.replace('--copy', ''))
+                .getDocument(module.id, id.replace('--copy', ''))
                 .pipe(queue());
             } else {
               this.currentState = ViewState.Edit;
               this.formState = State.Edit;
               return this.dbService
-                .getDocument(module.id, params.id)
+                .getDocument(module.id, id)
                 .pipe(queue());
             }
           }),
@@ -254,7 +265,7 @@ export class InstanceSingleComponent implements OnInit {
     if (this.activatedRoute.snapshot.queryParams.back) {
       this.router.navigate([this.activatedRoute.snapshot.queryParams.back]);
     } else {
-      this.router.navigate(['../..', 'overview'], {relativeTo: this.activatedRoute});
+      this.router.navigate(['../'], {relativeTo: this.activatedRoute});
     }
   }
 

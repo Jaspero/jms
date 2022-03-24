@@ -223,7 +223,7 @@
                       <hr *ngIf="showDelete || !data.hideEdit" />
                     </ng-container>
 
-                    <a *ngIf="!data.hideEdit" mat-menu-item (click)="navigateToSingleView(element, $event)">
+                    <a *ngIf="!data.hideEdit" mat-menu-item [routerLink]="['/m', element.ref.parent.path, element.id]">
                       <mat-icon>{{ permission.write ? 'edit' : 'visibility' }}</mat-icon>
                       <span>{{ (permission.write ? 'GENERAL.EDIT' : 'GENERAL.VIEW') | transloco }}</span>
                     </a>
@@ -231,7 +231,7 @@
                       *ngIf="showDelete"
                       mat-menu-item
                       [fDisable]="data.authorization"
-                      (click)="ioc.deleteOne(this.data.collectionGroup ? element.ref.parent.path : data.moduleId, element)"
+                      (click)="ioc.deleteOne(element.ref.parent.path, element)"
                     >
                       <mat-icon>delete_forever</mat-icon>
                       <span>{{ 'GENERAL.DELETE' | transloco }}</span>

@@ -17,6 +17,11 @@ import {
 import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
 import {Router} from '@angular/router';
+import {Definitions, Parser, State} from '@jaspero/form-builder';
+import {parseTemplate, random, safeEval, toLabel} from '@jaspero/utils';
+import {TranslocoService} from '@ngneat/transloco';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {notify} from '@shared/utils/notify.operator';
 import {
   FilterModule,
   ImportModule,
@@ -28,22 +33,17 @@ import {
   SearchModule,
   SortModule
 } from 'definitions';
-import {Definitions, Parser, State} from '@jaspero/form-builder';
-import {parseTemplate, random, safeEval, toLabel} from '@jaspero/utils';
-import {TranslocoService} from '@ngneat/transloco';
-import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {notify} from '@shared/utils/notify.operator';
 import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';
 import {AsyncSubject, BehaviorSubject, combineLatest, forkJoin, Observable, of, ReplaySubject, Subject} from 'rxjs';
 import {filter, map, shareReplay, startWith, switchMap, take} from 'rxjs/operators';
-import {ColumnOrganizationComponent} from '../column-organization/column-organization.component';
 import {InstanceOverviewContextService} from '../../modules/dashboard/modules/module-instance/services/instance-overview-context.service';
 import {Action} from '../../shared/interfaces/action.interface';
 import {DbService} from '../../shared/services/db/db.service';
 import {StateService} from '../../shared/services/state/state.service';
 import {processActions} from '../../shared/utils/process-actions';
 import {toObservable} from '../../shared/utils/to-observable';
+import {ColumnOrganizationComponent} from '../column-organization/column-organization.component';
 import {Element} from '../element.decorator';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 import {SortDialogComponent} from '../sort-dialog/sort-dialog.component';
@@ -73,7 +73,6 @@ interface TableData {
   hideDelete?: boolean;
   hideExport?: boolean;
   hideImport?: boolean;
-  collectionGroup?: boolean;
   hasActions: boolean;
   actions?: Observable<Action[]>;
   selectionActions?: Observable<Action<SelectionModel<string>>[]>;
@@ -242,7 +241,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.data = {
         moduleId: data.id,
-        collectionGroup: data.collectionGroup,
         moduleAuthorization: data.authorization,
         name: data.name,
         schema: data.schema,
@@ -383,15 +381,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.dialog.closeAll();
     this.columnsSorted$.next(true);
-  }
-
-  navigateToSingleView(element, e: MouseEvent) {
-    const link = `/m/${this.data.collectionGroup ? element.ref.parent.path : this.data.moduleId}/single/${element.id}`;
-    if (e.ctrlKey || e.metaKey) {
-      window.open(link, '_blank');
-    } else {
-      this.router.navigate([link]);
-    }
   }
 
   toActionObservable(value, element, index) {

@@ -19,19 +19,18 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSortModule} from '@angular/material/sort';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {RouterModule, Routes} from '@angular/router';
+import {RouterModule} from '@angular/router';
 import {JMSPNotesModule} from '@jaspero/jmsp-notes';
 import {LoadClickModule, SanitizeModule, StopPropagationModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
 import {ElementsModule} from '../../../../elements/elements.module';
-import {CanReadModuleGuard} from '../../../../shared/guards/can-read-module/can-read-module.guard';
 import {FormBuilderSharedModule} from '../../../../shared/modules/fb/form-builder-shared.module';
 import {SearchInputModule} from '../../../../shared/modules/search-input/search-input.module';
 import {FileManagerModule} from '../file-manager/file-manager.module';
 import {ForceDisableDirective} from './directives/force-disable/force-disable.directive';
+import {CanReadModuleGuard} from './guards/can-read-module/can-read-module.guard';
 import {ConfirmExitGuard} from './guards/confirm-exit/confirm-exit.guard';
 import {CustomModuleGuard} from './guards/custom-module/custom-module.guard';
-import {ModuleInstanceComponent} from './module-instance.component';
 import {InstanceOverviewComponent} from './pages/instance-overview/instance-overview.component';
 import {InstanceSingleComponent} from './pages/instance-single/instance-single.component';
 import {ColumnPipe} from './pipes/column/column.pipe';
@@ -42,43 +41,39 @@ export function moduleProvider(ic: InstanceOverviewContextService) {
   return ic.module$;
 }
 
-const innerRoutes = {
-  canActivate: [
-    CanReadModuleGuard
-  ],
-  children: [
-    {
-      path: 'overview',
-      component: InstanceOverviewComponent
-    },
-    {
-      path: 'single/:id',
-      component: InstanceSingleComponent,
-      canDeactivate: [ConfirmExitGuard]
-    },
-    {
-      path: '',
-      redirectTo: 'overview'
-    }
-  ]
-};
+function routes(deep = 10) {
+  const paths = [];
 
-const routes: Routes = [
-  {
-    path: ':id',
-    component: ModuleInstanceComponent,
-    ...innerRoutes
-  },
-  {
-    path: ':collectionId/:documentId/:subCollectionId',
-    component: ModuleInstanceComponent,
-    ...innerRoutes
+  let base = '';
+
+  for (let i = 0; i < deep; i++) {
+
+    const suffix = i ? `-${i}` : '';
+    const module = `${base}:module${suffix}`;
+    const document = module + `/:document${suffix}`;
+
+    paths.push(
+      {
+        path: module,
+        canActivate: [CanReadModuleGuard],
+        component: InstanceOverviewComponent
+      },
+      {
+        path: document,
+        canActivate: [CanReadModuleGuard],
+        component: InstanceSingleComponent,
+        canDeactivate: [ConfirmExitGuard]
+      }
+    );
+
+    base += document + '/';
   }
-];
+
+  return paths;
+}
 
 @NgModule({
   declarations: [
-    ModuleInstanceComponent,
     InstanceOverviewComponent,
     InstanceSingleComponent,
 
@@ -96,6 +91,7 @@ const routes: Routes = [
   providers: [
     InstanceOverviewContextService,
     CustomModuleGuard,
+    CanReadModuleGuard,
     ConfirmExitGuard,
 
     /**
@@ -110,7 +106,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(routes()),
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,

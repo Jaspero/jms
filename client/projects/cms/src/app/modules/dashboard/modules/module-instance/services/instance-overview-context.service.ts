@@ -4,17 +4,17 @@ import {FormControl} from '@angular/forms';
 import {MatBottomSheet} from '@angular/material/bottom-sheet';
 import {MatDialog} from '@angular/material/dialog';
 import {DomSanitizer} from '@angular/platform-browser';
-import {InstanceSort, Module, ModuleLayoutTableColumn} from 'definitions';
-import {MaybeArray, TRANSLOCO_LANG, TRANSLOCO_SCOPE, TranslocoScope, TranslocoService} from '@ngneat/transloco';
+import {MaybeArray, TranslocoScope, TranslocoService, TRANSLOCO_LANG, TRANSLOCO_SCOPE} from '@ngneat/transloco';
 import {notify} from '@shared/utils/notify.operator';
+import {InstanceSort, Module, ModuleLayoutTableColumn} from 'definitions';
 import {BehaviorSubject, combineLatest, forkJoin, Observable, Subject} from 'rxjs';
 import {map, switchMap, take, tap} from 'rxjs/operators';
+import {ExportComponent} from '../../../../../elements/export/export.component';
 import {PAGE_SIZES} from '../../../../../shared/consts/page-sizes.const';
 import {WhereFilter} from '../../../../../shared/interfaces/where-filter.interface';
 import {DbService} from '../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../shared/services/state/state.service';
 import {confirmation} from '../../../../../shared/utils/confirmation';
-import {ExportComponent} from '../../../../../elements/export/export.component';
 import {ColumnPipe} from '../pipes/column/column.pipe';
 
 @Injectable()
@@ -35,7 +35,7 @@ export class InstanceOverviewContextService {
   ) {
   }
 
-  module$: Observable<Module>;
+  module$ = new BehaviorSubject<Module>(null);
   items$: Observable<any[]>;
   columnPipe: ColumnPipe;
   loading$ = this.state.loadingQue$

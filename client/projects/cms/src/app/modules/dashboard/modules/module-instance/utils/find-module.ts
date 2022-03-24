@@ -2,25 +2,17 @@ import {Module} from 'definitions';
 
 export function findModule(
   modules: Module[],
-  query: {
-    id?: string;
-    collectionId?: string;
-    documentId?: string;
-    subCollectionId?: string;
-  }
+  query: {[key: string]: string}
 ) {
-  if (query.id) {
-    return modules.find(mod => mod.id === query.id);
-  } else {
-    return modules.find(mod => {
-      const [collection, document, subCollection] = mod.id.split('/');
 
-      if  (!subCollection) {
-        return;
-      }
+  const moduleIds = Object.entries(query).reduce((acc, [key, value]) => {
 
-      return collection === query.collectionId &&
-        subCollection === query.subCollectionId;
-    });
-  }
+    if (key.startsWith('module')) {
+      acc.push(value)
+    }
+
+    return acc;
+  }, []);
+
+  return modules.find(mod => !moduleIds.some(id => !mod.id.includes(id)));
 }

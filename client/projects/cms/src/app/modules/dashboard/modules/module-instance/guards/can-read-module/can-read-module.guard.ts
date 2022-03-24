@@ -1,25 +1,28 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router} from '@angular/router';
-import {findModule} from '../../../modules/dashboard/modules/module-instance/utils/find-module';
-import {StateService} from '../../services/state/state.service';
-import {map, take} from 'rxjs/operators';
 import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
+import {map, take} from 'rxjs/operators';
+import {StateService} from '../../../../../../shared/services/state/state.service';
+import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
+import {findModule} from '../../utils/find-module';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CanReadModuleGuard implements CanActivate {
   constructor(
     private state: StateService,
+    private ioc: InstanceOverviewContextService,
     private router: Router
-  ) {}
+  ) { }
 
   canActivate(
     route: ActivatedRouteSnapshot
   ) {
+    console.log('route', route);
     return this.state.modules$.pipe(
       map(modules => {
         const module = findModule(modules, route.params);
+
+        console.log('module', module);
 
         if (
           !module ||
@@ -31,6 +34,8 @@ export class CanReadModuleGuard implements CanActivate {
           return false;
         }
 
+        this.ioc.module$.next(module);
+        this.state.page$.next({module: {id: module.id, name: module.name}});
         return true;
       }),
       take(1),
