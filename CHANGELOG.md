@@ -1,3 +1,16 @@
+# [5.8.0](https://github.com/jaspero/jms/compare/v5.7.0...v5.8.0) (2022-03-24)
+
+
+### Bug Fixes
+
+* **cms:** missing [@element](https://github.com/element) decorator on user-add component ([49e4fec](https://github.com/jaspero/jms/commit/49e4fecd8b5d98486011818de245bb14167d2d6d))
+
+
+### Features
+
+* added history ([5ec9d68](https://github.com/jaspero/jms/commit/5ec9d686ac8e018d488855eb9bcc6ae17eb0460a))
+* **cms:** support for infinetly nested (10 by default) collections ([4703b1b](https://github.com/jaspero/jms/commit/4703b1b9d2feab196219f62e7259114b77a4763f))
+
 # [5.7.0](https://github.com/jaspero/jms/compare/v5.6.0...v5.7.0) (2022-03-22)
 
 
