@@ -1,3 +1,17 @@
+# [5.10.0](https://github.com/jaspero/jms/compare/v5.9.1...v5.10.0) (2022-03-25)
+
+
+### Features
+
+* **cms:** added variable for sidebar width which adjusts the sidebar width and the padding of the mein content ([5b0a034](https://github.com/jaspero/jms/commit/5b0a034e52bfcdf6ddcd8a55e518d3d9b9c74a72))
+
+## [5.9.1](https://github.com/jaspero/jms/compare/v5.9.0...v5.9.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* function deployment with definitions ([aaccf7b](https://github.com/jaspero/jms/commit/aaccf7bc9fbed6420ac9b87c62db3e4b4b9ac65f))
+
 # [5.9.0](https://github.com/jaspero/jms/compare/v5.8.1...v5.9.0) (2022-03-25)
 
 
