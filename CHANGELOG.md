@@ -1,3 +1,10 @@
+# [5.9.0](https://github.com/jaspero/jms/compare/v5.8.1...v5.9.0) (2022-03-25)
+
+
+### Features
+
+* added type to user-history ([499c272](https://github.com/jaspero/jms/commit/499c272c5ff7b82449c4ab638907f28de84ab7d0))
+
 ## [5.8.1](https://github.com/jaspero/jms/compare/v5.8.0...v5.8.1) (2022-03-24)
 
 
