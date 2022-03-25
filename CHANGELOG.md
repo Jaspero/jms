@@ -1,3 +1,10 @@
+## [5.10.1](https://github.com/jaspero/jms/compare/v5.10.0...v5.10.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* **functions:** historyId not generating properly ([b4be44d](https://github.com/jaspero/jms/commit/b4be44d92545734d50077b1700a456c588f70a3a))
+
 # [5.10.0](https://github.com/jaspero/jms/compare/v5.9.1...v5.10.0) (2022-03-25)
 
 
