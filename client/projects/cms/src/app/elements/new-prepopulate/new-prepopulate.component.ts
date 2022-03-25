@@ -21,17 +21,13 @@ export class NewPrepopulateComponent {
     private router: Router
   ) {}
 
-  @Input() docId: string;
-  @Input() subCollection: string;
   @Input() icon: string;
   @Input() data: string;
   @Input() collection: string;
   @Input() method: () => any;
 
   prepopulate() {
-    const url = (this.docId && this.subCollection)
-      ? `/m/${this.collection}/${this.docId}/${this.subCollection}/single/new`
-      : `/m/${this.collection}/single/new`;
+    const url = `/m/${this.collection}/new`;
 
     let data: any;
 

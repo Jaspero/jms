@@ -7,7 +7,7 @@
         <div *ngIf="item === 'add'; else element;" class="m-l-xs">
           <a *ngIf="!hideAdd"
              mat-flat-button
-             routerLink="../single/new">
+             [routerLink]="['/new']">
             {{'GENERAL.ADD' | transloco}} {{name | transloco}}
           </a>
         </div>
