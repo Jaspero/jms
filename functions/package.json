@@ -2,7 +2,7 @@
   "name": "functions",
   "scripts": {
     "lint": "tslint --project tsconfig.json",
-    "build:definitions": "npm run --prefix ../definitions build && cp -r ../definitions/dist definitions",
+    "build:definitions": "npm run --prefix ../definitions build && cp -r ../definitions definitions",
     "build": "tsc",
     "watch": "npm run build -- -w",
     "serve": "npm run build && firebase serve --only functions",

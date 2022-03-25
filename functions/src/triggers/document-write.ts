@@ -40,9 +40,11 @@ export const documentWrite = functions
        * This is the same method for generating the id
        * on save. We should fine a way to re-use it.
        */
-      const historyId = 'hi-' + module.metadata.docIdMethod ?
-        module.metadata.docIdMethod(change.after) :
-        `${module.metadata?.docIdPrefix || module.id.slice(0, 2)}-${random.string(module.metadata?.docIdSize || 12)}`
+      const historyId = 'hi-' + (
+        module.metadata.docIdMethod ?
+          module.metadata.docIdMethod(change.after) :
+          `${module.metadata?.docIdPrefix || module.id.slice(0, 2)}-${random.string(module.metadata?.docIdSize || 12)}`
+      )
 
       await change.after.ref.collection('history').doc(historyId).set({
         type: change.before.exists ? (change.after.exists ? 'update' : 'delete') : 'create',
