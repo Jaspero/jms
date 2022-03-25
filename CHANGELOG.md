@@ -1,3 +1,10 @@
+## [5.10.3](https://github.com/jaspero/jms/compare/v5.10.2...v5.10.3) (2022-03-25)
+
+
+### Bug Fixes
+
+* **cms:** various links to single ([cfec2ba](https://github.com/jaspero/jms/commit/cfec2bac1b326088153270f70ada57a74c47a505))
+
 ## [5.10.2](https://github.com/jaspero/jms/compare/v5.10.1...v5.10.2) (2022-03-25)
 
 
