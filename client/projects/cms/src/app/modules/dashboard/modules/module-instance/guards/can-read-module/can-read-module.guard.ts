@@ -17,12 +17,9 @@ export class CanReadModuleGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot
   ) {
-    console.log('route', route);
     return this.state.modules$.pipe(
       map(modules => {
         const module = findModule(modules, route.params);
-
-        console.log('module', module);
 
         if (
           !module ||
@@ -34,8 +31,25 @@ export class CanReadModuleGuard implements CanActivate {
           return false;
         }
 
-        this.ioc.module$.next(module);
-        this.state.page$.next({module: {id: module.id, name: module.name}});
+        const mToUse = {...module};
+
+        if (mToUse.id.includes('{docId}')) {
+
+          let it = 0;
+
+          while (mToUse.id.includes('{docId}')) {
+            const key = 'document' + (it ? `-${it}` : '');
+
+            if (!route.params[key]) {
+              return false;
+            }
+
+            mToUse.id = mToUse.id.replace('{docId}', route.params[key])
+          }
+        }
+
+        this.ioc.module$.next(mToUse);
+        this.state.page$.next({module: {id: mToUse.id, name: mToUse.name}});
         return true;
       }),
       take(1),
