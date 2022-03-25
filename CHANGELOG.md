@@ -1,3 +1,10 @@
+## [5.8.1](https://github.com/jaspero/jms/compare/v5.8.0...v5.8.1) (2022-03-24)
+
+
+### Bug Fixes
+
+* **functions:** documentWrite not executing ([c2bc733](https://github.com/jaspero/jms/commit/c2bc733d58ffe9b7cefa5b8521e0cea7452f5ab6))
+
 # [5.8.0](https://github.com/jaspero/jms/compare/v5.7.0...v5.8.0) (2022-03-24)
 
 
