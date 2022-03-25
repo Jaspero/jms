@@ -1,3 +1,10 @@
+## [5.10.2](https://github.com/jaspero/jms/compare/v5.10.1...v5.10.2) (2022-03-25)
+
+
+### Bug Fixes
+
+* **cms:** nested collections not working ([7bb3208](https://github.com/jaspero/jms/commit/7bb320839cfe58a9a5fd48ed0b6effe9c1345099))
+
 ## [5.10.1](https://github.com/jaspero/jms/compare/v5.10.0...v5.10.1) (2022-03-25)
 
 
