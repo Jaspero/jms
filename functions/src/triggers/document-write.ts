@@ -44,7 +44,7 @@ export const documentWrite = functions
         module.metadata.docIdMethod(change.after) :
         `${module.metadata?.docIdPrefix || module.id.slice(0, 2)}-${random.string(module.metadata?.docIdSize || 12)}`
 
-      change.after.ref.collection('history').doc(historyId).set({
+      await change.after.ref.collection('history').doc(historyId).set({
         type: change.before.exists ? (change.after.exists ? 'update' : 'delete') : 'create',
         createdOn: Date.now(),
         ...change.before.exists && {before: change.before.data()},
