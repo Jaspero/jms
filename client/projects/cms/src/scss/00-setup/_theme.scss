@@ -42,6 +42,8 @@ $colors-themes: (
     tertiary : rgba(0,0,0,.15),
   ),
   sidebar: (
+    width    : 256px,
+    width-mob: 40px,
     theme    : #fff,
     primary  : rgba(0,0,0,.9),
     secondary: rgba(0,0,0,.7),
