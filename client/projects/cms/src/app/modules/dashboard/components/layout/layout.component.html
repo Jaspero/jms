@@ -28,6 +28,7 @@
           <mat-icon *ngIf="item.icon" aria-hidden="true" class="dashboard-nav-expandable-label-icon">{{item.icon}}</mat-icon>
           <span class="dashboard-nav-expandable-label-text">{{item.label | transloco}}</span>
           <span class="dashboard-nav-expandable-label-tooltip" [matTooltip]="item.label | transloco" matTooltipPosition="right"></span>
+          <mat-icon class="dashboard-nav-expandable-label-arrow">expand_more</mat-icon>
         </button>
         <a class="dashboard-nav-expandable-item" *ngFor="let child of item.children" [jmsActiveLink]="child" (click)="closeMenu()">
           <mat-icon *ngIf="child.icon" aria-hidden="true" class="dashboard-nav-expandable-item-icon">{{child.icon}}</mat-icon>
