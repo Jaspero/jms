@@ -52,7 +52,6 @@
   height: 128px;
   min-height: 128px;
   padding: 16px;
-  box-shadow: 0 0 0 1px var(--sidebar-tertiary);
 
   @media (max-width: $screen-m) {
     height: 64px;
@@ -342,8 +341,6 @@
 }
 
 .dashboard-nav-expanded {
-  border-bottom: 1px solid var(--sidebar-tertiary);
-
   &-label {
     white-space: nowrap;
     display: flex;
@@ -355,7 +352,6 @@
     transition: .2s;
 
     &.active {
-      background: var(--sidebar-tertiary);
       border-right: 3px solid var(--primary-theme);
     }
 
@@ -389,12 +385,11 @@
     }
 
     &.active {
-      background: var(--sidebar-tertiary);
       border-right: 3px solid var(--primary-theme);
     }
 
     &:hover {
-      background: var(--sidebar-tertiary);
+      background-color: var(--sidebar-hover);
     }
 
     &-icon {
@@ -439,7 +434,7 @@
   min-height: calc(var(--sidebar-scaling) * 3);
   padding: 0 var(--sidebar-scaling);
   background: var(--sidebar-theme);
-  color: var(--sidebar-secondary);
+  color: var(--sidebar-contrast);
   transition: .2s;
 
   &.inactive {
