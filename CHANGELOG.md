@@ -1,3 +1,12 @@
+# [5.11.0](https://github.com/jaspero/jms/compare/v5.10.3...v5.11.0) (2022-03-28)
+
+
+### Features
+
+* **cms:** add responsiveness closes [#345](https://github.com/jaspero/jms/issues/345) ([8b3106a](https://github.com/jaspero/jms/commit/8b3106aa04e9547d2f380bb2be73b0222ccfb77d))
+* **cms:** added new variables that change the look of the sidebar [#345](https://github.com/jaspero/jms/issues/345) ([a4f9302](https://github.com/jaspero/jms/commit/a4f93021ddea44fbdc8af28e02c0eda38d3f6e94))
+* **cms:** removed old variables [#345](https://github.com/jaspero/jms/issues/345) ([ffeefd9](https://github.com/jaspero/jms/commit/ffeefd9660519ffa16dd9f8139b75db98d3eabb1))
+
 ## [5.10.3](https://github.com/jaspero/jms/compare/v5.10.2...v5.10.3) (2022-03-25)
 
 
