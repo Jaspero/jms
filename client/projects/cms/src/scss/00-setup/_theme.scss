@@ -30,7 +30,7 @@ $colors-themes: (
     tertiary : rgba(255,255,255,.15),
   ),
   backdrop: (
-    theme    : #F0F0F0,
+    theme    : #f6f6f6,
     primary  : rgba(0,0,0,.9),
     secondary: rgba(0,0,0,.7),
     tertiary : rgba(0,0,0,.15),
@@ -45,12 +45,15 @@ $colors-themes: (
     width    : 256px,   /* Sidebar width (adjusting this number also changes padding-left on the main element)  */
     width-mob: 48px,    /* Sidebar width on mobile */
     scaling  : 16px,    /* Sidebar elements scale based on this number */
-    theme    : #262626, /* Sidebar background color */
-    contrast : #ffffff, /* Sidebar text color */
-    accent   : #80B2ED, /* Sidebar icon color */
-    active   : #273C54, /* Background color of active items in sidebar */
-    hover    : #363636, /* Background color of hovered items in sidebar */
+    theme    : #ffffff, /* Sidebar background color */ /* #262626 - dark sidebar */
+    contrast : #262626, /* Sidebar text color */ /* #ffffff - dark sidebar */
+    accent   : #1C7ED6, /* Sidebar icon color */ /* #80B2ED - dark sidebar */
+    active   : #E7F5FF, /* Background color of active items in sidebar */ /* #283B54 - dark sidebar */
+    hover    : #dedede, /* Background color of hovered items in sidebar */ /* #363636 - dark sidebar */
     position : 0,       /* Sidebar position, 0 = left, 1 = right */
+    dd-b     : #d0d0d0, /* Dropdown border color */ /* rgba(255,255,255,.3) - dark sidebar */
+    dd-b-a   : #737373, /* Dropdown border color - active */ /* white - dark sidebar */
+    border   : rgba(0,0,0,.15)
   )
 );
 
