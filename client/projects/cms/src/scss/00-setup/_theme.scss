@@ -50,6 +50,7 @@ $colors-themes: (
     accent   : #80B2ED, /* Sidebar icon color */
     active   : #273C54, /* Background color of active items in sidebar */
     hover    : #363636, /* Background color of hovered items in sidebar */
+    position : 0,       /* Sidebar position, 0 = left, 1 = right */
   )
 );
 

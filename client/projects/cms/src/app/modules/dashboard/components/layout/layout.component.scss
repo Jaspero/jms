@@ -18,7 +18,8 @@
 .dashboard-nav {
   position: fixed;
   z-index: 109;
-  left: 0;
+  left: calc(var(--sidebar-position) * 100%);
+  transform: translateX(calc(calc(-1 * var(--sidebar-position)) * var(--sidebar-width)));
   top: 0;
   width: var(--sidebar-width);
   height: 100%;
@@ -31,6 +32,7 @@
 
   @media (max-width: $screen-m) {
     width: var(--sidebar-width-mob);
+    transform: translateX(calc(calc(-1 * var(--sidebar-position)) * var(--sidebar-width-mob)));
     transition: .4s;
 
     &.dashboard-nav-expanded {
@@ -519,9 +521,9 @@
  *============================================================================*/
 
 .dashboard-main {
-  padding-left: var(--sidebar-width);
+  padding: 0 calc(var(--sidebar-position) * var(--sidebar-width)) 0 calc(var(--sidebar-width) - calc(var(--sidebar-position) * var(--sidebar-width)));
 
   @media (max-width: $screen-m) {
-    padding-left: var(--sidebar-width-mob);
+    padding: 0 calc(var(--sidebar-position) * var(--sidebar-width-mob)) 0 calc(var(--sidebar-width-mob) - calc(var(--sidebar-position) * var(--sidebar-width-mob)));
   }
 }
