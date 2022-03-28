@@ -1,3 +1,10 @@
+# [5.13.0](https://github.com/jaspero/jms/compare/v5.12.0...v5.13.0) (2022-03-28)
+
+
+### Features
+
+* **cms:** add new default light theme for sidebar ([feceadb](https://github.com/jaspero/jms/commit/feceadbea200b0e8805019a1fd29135ff00c7e4d))
+
 # [5.12.0](https://github.com/jaspero/jms/compare/v5.11.0...v5.12.0) (2022-03-28)
 
 
