@@ -1,3 +1,10 @@
+# [5.12.0](https://github.com/jaspero/jms/compare/v5.11.0...v5.12.0) (2022-03-28)
+
+
+### Features
+
+* **cms:** add variable for positioning of the sidebar closes [#347](https://github.com/jaspero/jms/issues/347) ([9113bcc](https://github.com/jaspero/jms/commit/9113bcc7ca67f9e5113a4d93377635fe5d8d7de9))
+
 # [5.11.0](https://github.com/jaspero/jms/compare/v5.10.3...v5.11.0) (2022-03-28)
 
 
