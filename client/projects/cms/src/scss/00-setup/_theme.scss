@@ -12,7 +12,7 @@
 
 $colors-themes: (
   primary: (
-    theme    : #3f51b5,
+    theme    : #3F50B5,
     primary  : rgba(255,255,255,1),
     secondary: rgba(255,255,255,.8),
     tertiary : rgba(255,255,255,.15),
@@ -30,7 +30,7 @@ $colors-themes: (
     tertiary : rgba(255,255,255,.15),
   ),
   backdrop: (
-    theme    : #f1f2f4,
+    theme    : #F0F0F0,
     primary  : rgba(0,0,0,.9),
     secondary: rgba(0,0,0,.7),
     tertiary : rgba(0,0,0,.15),
@@ -42,12 +42,14 @@ $colors-themes: (
     tertiary : rgba(0,0,0,.15),
   ),
   sidebar: (
-    width    : 256px,
-    width-mob: 40px,
-    theme    : #fff,
-    primary  : rgba(0,0,0,.9),
-    secondary: rgba(0,0,0,.7),
-    tertiary : rgba(0,0,0,.1),
+    width    : 256px,   /* Sidebar width (adjusting this number also changes padding-left on the main element)  */
+    width-mob: 48px,    /* Sidebar width on mobile */
+    scaling  : 16px,    /* Sidebar elements scale based on this number */
+    theme    : #262626, /* Sidebar background color */
+    contrast : #ffffff, /* Sidebar text color */
+    accent   : #80B2ED, /* Sidebar icon color */
+    active   : #273C54, /* Background color of active items in sidebar */
+    hover    : #363636, /* Background color of hovered items in sidebar */
   )
 );
 
