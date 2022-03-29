@@ -5,6 +5,7 @@ on:
     branches:
       - main
     paths:
+      - 'definitions/**/*'
       - 'client/projects/cms/**/*'
       - '.github/workflows/cms.workflow.yml'
 jobs:
