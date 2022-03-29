@@ -1,3 +1,10 @@
+## [5.13.1](https://github.com/jaspero/jms/compare/v5.13.0...v5.13.1) (2022-03-29)
+
+
+### Bug Fixes
+
+* **cms:** production version using ivy ([68f811e](https://github.com/jaspero/jms/commit/68f811e651055f9ee6df2feccaa9cf4f42ecf9d1))
+
 # [5.13.0](https://github.com/jaspero/jms/compare/v5.12.0...v5.13.0) (2022-03-28)
 
 
