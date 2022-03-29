@@ -1,3 +1,10 @@
+## [5.13.2](https://github.com/jaspero/jms/compare/v5.13.1...v5.13.2) (2022-03-29)
+
+
+### Bug Fixes
+
+* **cms:** bundle size requirements ([5fef086](https://github.com/jaspero/jms/commit/5fef086c3a4888b2c92269be37b4f8287e6e9285))
+
 ## [5.13.1](https://github.com/jaspero/jms/compare/v5.13.0...v5.13.1) (2022-03-29)
 
 
