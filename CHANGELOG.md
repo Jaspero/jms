@@ -1,3 +1,10 @@
+## [5.13.3](https://github.com/jaspero/jms/compare/v5.13.2...v5.13.3) (2022-04-01)
+
+
+### Bug Fixes
+
+* **cms:** instance-overview new link should be relative ([31abbde](https://github.com/jaspero/jms/commit/31abbde7d6039ab7028bd1a7487c06805646435d))
+
 ## [5.13.2](https://github.com/jaspero/jms/compare/v5.13.1...v5.13.2) (2022-03-29)
 
 
