@@ -255,6 +255,10 @@ export const USERS_MODULE: Module = {
     attachedFiles: {
       prefix: '/users/{{documentId}}/'
     },
-    history: true
+    history: true,
+    subCollections: [
+      {name: 'history'},
+      {name: 'notes'}
+    ]
   }
 };
