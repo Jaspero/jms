@@ -1,3 +1,10 @@
+## [5.13.5](https://github.com/jaspero/jms/compare/v5.13.4...v5.13.5) (2022-04-02)
+
+
+### Bug Fixes
+
+* deleting notes and history when user document is deleted ([8686882](https://github.com/jaspero/jms/commit/86868820bb3123012a8cc0e5ccbac9b8270de00f))
+
 ## [5.13.4](https://github.com/jaspero/jms/compare/v5.13.3...v5.13.4) (2022-04-02)
 
 
