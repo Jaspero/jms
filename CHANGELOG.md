@@ -1,3 +1,10 @@
+## [5.13.4](https://github.com/jaspero/jms/compare/v5.13.3...v5.13.4) (2022-04-02)
+
+
+### Bug Fixes
+
+* better structure for storage rules ([4fd409e](https://github.com/jaspero/jms/commit/4fd409e4a05efb0c9b0b9d39b7aa1aa6a64855f8))
+
 ## [5.13.3](https://github.com/jaspero/jms/compare/v5.13.2...v5.13.3) (2022-04-01)
 
 
