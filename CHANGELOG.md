@@ -1,3 +1,10 @@
+## [5.14.2](https://github.com/jaspero/jms/compare/v5.14.1...v5.14.2) (2022-04-03)
+
+
+### Bug Fixes
+
+* **cms:** filters prevent sort from applying when matches ([81aff1e](https://github.com/jaspero/jms/commit/81aff1e0be8c0e29216abb10897f47ccde59a660))
+
 ## [5.14.1](https://github.com/jaspero/jms/compare/v5.14.0...v5.14.1) (2022-04-03)
 
 
