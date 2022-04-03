@@ -1,3 +1,10 @@
+## [5.14.1](https://github.com/jaspero/jms/compare/v5.14.0...v5.14.1) (2022-04-03)
+
+
+### Bug Fixes
+
+* **cms:** sort excluded when filtering by what is being sorted ([3e3c827](https://github.com/jaspero/jms/commit/3e3c82716c52b5c5f8d7672ddee6a2b08b8297dc))
+
 # [5.14.0](https://github.com/jaspero/jms/compare/v5.13.5...v5.14.0) (2022-04-03)
 
 
