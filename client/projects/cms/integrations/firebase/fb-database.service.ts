@@ -67,6 +67,18 @@ export class FbDatabaseService extends DbService {
     };
     const method = source ? sources[source] : getDocs;
 
+    /**
+     * In firebase we can't sort by the
+     * key we filter with.
+     */
+    if (
+      filters?.length &&
+      sort?.active &&
+      filters.some(it => it.key === sort.active)
+    ) {
+      sort = null;
+    }
+
     return from(
       method(
         this.collection(moduleId, pageSize, sort, cursor, this.filterMethod(filters), collectionGroup)
