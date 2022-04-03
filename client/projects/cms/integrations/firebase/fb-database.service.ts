@@ -69,7 +69,7 @@ export class FbDatabaseService extends DbService {
 
     return from(
       method(
-        this.collection(moduleId, pageSize, sort, cursor, this.filterMethod(filters), collectionGroup)
+        this.collection(moduleId, pageSize, sort, cursor, filters, collectionGroup)
       )
     )
       .pipe(
@@ -93,7 +93,7 @@ export class FbDatabaseService extends DbService {
         pageSize,
         sort,
         cursor,
-        this.filterMethod(filters),
+        filters,
         collectionGroup
       )
     );
@@ -240,7 +240,7 @@ export class FbDatabaseService extends DbService {
 
     const methods = [
       sort && orderBy(sort.active, sort.direction),
-      ...(filters ? filters : []),
+      ...this.filterMethod(filters || []),
       pageSize && limit(pageSize),
       cursor && startAfter(cursor)
     ]
