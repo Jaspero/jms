@@ -1,3 +1,10 @@
+# [5.14.0](https://github.com/jaspero/jms/compare/v5.13.5...v5.14.0) (2022-04-03)
+
+
+### Features
+
+* **cms:** disable sort when it's the same as one of the filters ([93ab458](https://github.com/jaspero/jms/commit/93ab458f32b71d97b2fab2fe2e1a938984361ded))
+
 ## [5.13.5](https://github.com/jaspero/jms/compare/v5.13.4...v5.13.5) (2022-04-02)
 
 
