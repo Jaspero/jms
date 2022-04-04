@@ -1,18 +1,14 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate} from '@angular/router';
 import {Module} from 'definitions';
-import {of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {DbService} from '../../../../../../shared/services/db/db.service';
-import {StateService} from '../../../../../../shared/services/state/state.service';
 import {queue} from '../../../../../../shared/utils/queue.operator';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
 
 @Injectable()
 export class FormSubmissionGuard implements CanActivate {
   constructor(
-    private state: StateService,
-    private router: Router,
     private db: DbService,
     private ioc: InstanceOverviewContextService
   ) {}
