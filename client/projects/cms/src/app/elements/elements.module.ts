@@ -21,6 +21,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {RouterModule} from '@angular/router';
 import {LoadClickModule, SanitizeModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
 import {STATIC_CONFIG} from '../../environments/static-config';
@@ -51,6 +52,7 @@ import {UserAddComponent} from './user-add/user-add.component';
 	imports: [
 		CommonModule,
 		ReactiveFormsModule,
+		RouterModule,
 
 		/**
 		 * Anything the elements use

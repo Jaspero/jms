@@ -48,7 +48,7 @@ export const META = {
           uploadMethods: [{
             id: 'file-manager',
             label: 'FILE_MANAGER.TITLE',
-            component: JSX(<jms-e - file - manager - select />),
+            component: JSX(<jms-e-file-manager-select />),
             configuration: {
               route: '/public',
               hidePath: false,

@@ -11,7 +11,7 @@
 </ng-template>
 
 <ng-template #simpleColumn let-value="value">
-  <div class="column-inner" [innerHTML]="value"></div>
+  <div class="column-inner" *ngIf="value" [innerHTML]="value"></div>
 </ng-template>
 
 <ng-template #populateColumn let-value="value">
@@ -196,7 +196,7 @@
               </ng-template>
             </ng-container>
 
-            <ng-container *ngIf="!data.hideEdit || !data.hideDelete" matColumnDef="actions" stickyEnd>
+            <ng-container *ngIf="!data.hideEdit || !data.hideDelete || data.actions?.length" matColumnDef="actions" stickyEnd>
               <th class="cta-column-last" mat-header-cell *matHeaderCellDef></th>
               <td class="cta-column-last" mat-cell *matCellDef="let element" [attr.data-label]="'GENERAL.ACTIONS' | transloco">
                 <button mat-icon-button [matMenuTriggerFor]="menu" [attr.aria-label]="'GENERAL.ACTIONS' | transloco" [matTooltip]="'GENERAL.ACTIONS' | transloco">
@@ -220,18 +220,18 @@
                         </ng-container>
                       </ng-container>
 
-                      <hr />
+                      <hr *ngIf="showDelete || !data.hideEdit" />
                     </ng-container>
 
-                    <a *ngIf="!data.hideEdit" mat-menu-item (click)="navigateToSingleView(element, $event)">
+                    <a *ngIf="!data.hideEdit" mat-menu-item [routerLink]="['/m', element.ref.parent.path, element.id]">
                       <mat-icon>{{ permission.write ? 'edit' : 'visibility' }}</mat-icon>
                       <span>{{ (permission.write ? 'GENERAL.EDIT' : 'GENERAL.VIEW') | transloco }}</span>
                     </a>
                     <button
-                      *ngIf="!data.hideDelete && permission.write"
+                      *ngIf="showDelete"
                       mat-menu-item
                       [fDisable]="data.authorization"
-                      (click)="ioc.deleteOne(this.data.collectionGroup ? element.ref.parent.path : data.moduleId, element)"
+                      (click)="ioc.deleteOne(element.ref.parent.path, element)"
                     >
                       <mat-icon>delete_forever</mat-icon>
                       <span>{{ 'GENERAL.DELETE' | transloco }}</span>
@@ -249,7 +249,7 @@
         <ng-container *ngIf="ioc.emptyState$ | async; else hasContent">
           <mat-toolbar class="jc-center" *ngIf="!data.hideAdd">
             <p class="m-r-s">{{ 'INSTANCE_OVERVIEW.NO_ITEMS' | transloco }}</p>
-            <a mat-button color="primary" routerLink="/m/{{ data.moduleId }}/single/new"> {{ 'GENERAL.ADD' | transloco }} {{ data.name | transloco }} </a>
+            <a mat-button color="primary" routerLink="/m/{{ data.moduleId }}/new"> {{ 'GENERAL.ADD' | transloco }} {{ data.name | transloco }} </a>
           </mat-toolbar>
         </ng-container>
 

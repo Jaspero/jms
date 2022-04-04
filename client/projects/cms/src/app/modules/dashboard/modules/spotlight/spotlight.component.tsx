@@ -146,7 +146,7 @@ export class SpotlightComponent implements OnInit {
                       return {
                         ...item,
                         type: 'link',
-                        href: `/m/${item.module}/single/${item.data.id}`
+                        href: `/m/${item.module}/${item.data.id}`
                       };
                     })
                   };

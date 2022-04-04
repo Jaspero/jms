@@ -33,7 +33,7 @@ jobs:
         if: ${{ steps.changes.outputs.CHANGES }}
         run: |
             npm --prefix definitions ci
-            npm --prefix definitions run build
+            npm --prefix functions run build:definitions
       - name: Install Dependencies
         if: ${{ steps.changes.outputs.CHANGES }}
         run: |

@@ -1,3 +1,192 @@
+## [5.14.2](https://github.com/jaspero/jms/compare/v5.14.1...v5.14.2) (2022-04-03)
+
+
+### Bug Fixes
+
+* **cms:** filters prevent sort from applying when matches ([81aff1e](https://github.com/jaspero/jms/commit/81aff1e0be8c0e29216abb10897f47ccde59a660))
+
+## [5.14.1](https://github.com/jaspero/jms/compare/v5.14.0...v5.14.1) (2022-04-03)
+
+
+### Bug Fixes
+
+* **cms:** sort excluded when filtering by what is being sorted ([3e3c827](https://github.com/jaspero/jms/commit/3e3c82716c52b5c5f8d7672ddee6a2b08b8297dc))
+
+# [5.14.0](https://github.com/jaspero/jms/compare/v5.13.5...v5.14.0) (2022-04-03)
+
+
+### Features
+
+* **cms:** disable sort when it's the same as one of the filters ([93ab458](https://github.com/jaspero/jms/commit/93ab458f32b71d97b2fab2fe2e1a938984361ded))
+
+## [5.13.5](https://github.com/jaspero/jms/compare/v5.13.4...v5.13.5) (2022-04-02)
+
+
+### Bug Fixes
+
+* deleting notes and history when user document is deleted ([8686882](https://github.com/jaspero/jms/commit/86868820bb3123012a8cc0e5ccbac9b8270de00f))
+
+## [5.13.4](https://github.com/jaspero/jms/compare/v5.13.3...v5.13.4) (2022-04-02)
+
+
+### Bug Fixes
+
+* better structure for storage rules ([4fd409e](https://github.com/jaspero/jms/commit/4fd409e4a05efb0c9b0b9d39b7aa1aa6a64855f8))
+
+## [5.13.3](https://github.com/jaspero/jms/compare/v5.13.2...v5.13.3) (2022-04-01)
+
+
+### Bug Fixes
+
+* **cms:** instance-overview new link should be relative ([31abbde](https://github.com/jaspero/jms/commit/31abbde7d6039ab7028bd1a7487c06805646435d))
+
+## [5.13.2](https://github.com/jaspero/jms/compare/v5.13.1...v5.13.2) (2022-03-29)
+
+
+### Bug Fixes
+
+* **cms:** bundle size requirements ([5fef086](https://github.com/jaspero/jms/commit/5fef086c3a4888b2c92269be37b4f8287e6e9285))
+
+## [5.13.1](https://github.com/jaspero/jms/compare/v5.13.0...v5.13.1) (2022-03-29)
+
+
+### Bug Fixes
+
+* **cms:** production version using ivy ([68f811e](https://github.com/jaspero/jms/commit/68f811e651055f9ee6df2feccaa9cf4f42ecf9d1))
+
+# [5.13.0](https://github.com/jaspero/jms/compare/v5.12.0...v5.13.0) (2022-03-28)
+
+
+### Features
+
+* **cms:** add new default light theme for sidebar ([feceadb](https://github.com/jaspero/jms/commit/feceadbea200b0e8805019a1fd29135ff00c7e4d))
+
+# [5.12.0](https://github.com/jaspero/jms/compare/v5.11.0...v5.12.0) (2022-03-28)
+
+
+### Features
+
+* **cms:** add variable for positioning of the sidebar closes [#347](https://github.com/jaspero/jms/issues/347) ([9113bcc](https://github.com/jaspero/jms/commit/9113bcc7ca67f9e5113a4d93377635fe5d8d7de9))
+
+# [5.11.0](https://github.com/jaspero/jms/compare/v5.10.3...v5.11.0) (2022-03-28)
+
+
+### Features
+
+* **cms:** add responsiveness closes [#345](https://github.com/jaspero/jms/issues/345) ([8b3106a](https://github.com/jaspero/jms/commit/8b3106aa04e9547d2f380bb2be73b0222ccfb77d))
+* **cms:** added new variables that change the look of the sidebar [#345](https://github.com/jaspero/jms/issues/345) ([a4f9302](https://github.com/jaspero/jms/commit/a4f93021ddea44fbdc8af28e02c0eda38d3f6e94))
+* **cms:** removed old variables [#345](https://github.com/jaspero/jms/issues/345) ([ffeefd9](https://github.com/jaspero/jms/commit/ffeefd9660519ffa16dd9f8139b75db98d3eabb1))
+
+## [5.10.3](https://github.com/jaspero/jms/compare/v5.10.2...v5.10.3) (2022-03-25)
+
+
+### Bug Fixes
+
+* **cms:** various links to single ([cfec2ba](https://github.com/jaspero/jms/commit/cfec2bac1b326088153270f70ada57a74c47a505))
+
+## [5.10.2](https://github.com/jaspero/jms/compare/v5.10.1...v5.10.2) (2022-03-25)
+
+
+### Bug Fixes
+
+* **cms:** nested collections not working ([7bb3208](https://github.com/jaspero/jms/commit/7bb320839cfe58a9a5fd48ed0b6effe9c1345099))
+
+## [5.10.1](https://github.com/jaspero/jms/compare/v5.10.0...v5.10.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* **functions:** historyId not generating properly ([b4be44d](https://github.com/jaspero/jms/commit/b4be44d92545734d50077b1700a456c588f70a3a))
+
+# [5.10.0](https://github.com/jaspero/jms/compare/v5.9.1...v5.10.0) (2022-03-25)
+
+
+### Features
+
+* **cms:** added variable for sidebar width which adjusts the sidebar width and the padding of the mein content ([5b0a034](https://github.com/jaspero/jms/commit/5b0a034e52bfcdf6ddcd8a55e518d3d9b9c74a72))
+
+## [5.9.1](https://github.com/jaspero/jms/compare/v5.9.0...v5.9.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* function deployment with definitions ([aaccf7b](https://github.com/jaspero/jms/commit/aaccf7bc9fbed6420ac9b87c62db3e4b4b9ac65f))
+
+# [5.9.0](https://github.com/jaspero/jms/compare/v5.8.1...v5.9.0) (2022-03-25)
+
+
+### Features
+
+* added type to user-history ([499c272](https://github.com/jaspero/jms/commit/499c272c5ff7b82449c4ab638907f28de84ab7d0))
+
+## [5.8.1](https://github.com/jaspero/jms/compare/v5.8.0...v5.8.1) (2022-03-24)
+
+
+### Bug Fixes
+
+* **functions:** documentWrite not executing ([c2bc733](https://github.com/jaspero/jms/commit/c2bc733d58ffe9b7cefa5b8521e0cea7452f5ab6))
+
+# [5.8.0](https://github.com/jaspero/jms/compare/v5.7.0...v5.8.0) (2022-03-24)
+
+
+### Bug Fixes
+
+* **cms:** missing [@element](https://github.com/element) decorator on user-add component ([49e4fec](https://github.com/jaspero/jms/commit/49e4fecd8b5d98486011818de245bb14167d2d6d))
+
+
+### Features
+
+* added history ([5ec9d68](https://github.com/jaspero/jms/commit/5ec9d686ac8e018d488855eb9bcc6ae17eb0460a))
+* **cms:** support for infinetly nested (10 by default) collections ([4703b1b](https://github.com/jaspero/jms/commit/4703b1b9d2feab196219f62e7259114b77a4763f))
+
+# [5.7.0](https://github.com/jaspero/jms/compare/v5.6.0...v5.7.0) (2022-03-22)
+
+
+### Features
+
+* dev and start:cms commands working in root :tada: ([ae46bab](https://github.com/jaspero/jms/commit/ae46bab9787d985763ddaa864124563550485e00))
+
+# [5.6.0](https://github.com/jaspero/jms/compare/v5.5.0...v5.6.0) (2022-03-22)
+
+
+### Bug Fixes
+
+* filters refreshing page on submit ([e379f10](https://github.com/jaspero/jms/commit/e379f10d78707bb0c96a72ca22a3ea996fa47d4e))
+
+
+### Features
+
+* added profile image to users module ([bfd4bf7](https://github.com/jaspero/jms/commit/bfd4bf70c9e4c699aaadfb36b690ce853b04ac2b))
+
+# [5.5.0](https://github.com/jaspero/jms/compare/v5.4.3...v5.5.0) (2022-03-22)
+
+
+### Features
+
+* **cms:** Nested table elements now add a margin between each other closes [#323](https://github.com/jaspero/jms/issues/323) ([3d85b5d](https://github.com/jaspero/jms/commit/3d85b5d915f0cf981f1c79eeef9f6d94babdee8f))
+
+## [5.4.3](https://github.com/jaspero/jms/compare/v5.4.2...v5.4.3) (2022-03-14)
+
+
+### Bug Fixes
+
+* **functions:** no longer query all files when not needed; updated for new module setup; ([53bd1a2](https://github.com/jaspero/jms/commit/53bd1a26aa503efae69e917aec876848154b39ff))
+* **functions:** use built in auth user delete instead of user delete trigger ([5b3083f](https://github.com/jaspero/jms/commit/5b3083f1532d72b30d9669a08c4370806d2300f6))
+
+## [5.4.2](https://github.com/jaspero/jms/compare/v5.4.1...v5.4.2) (2022-03-12)
+
+
+### Bug Fixes
+
+* **cms:** properly showing table actions when there are actions but delete and edit are hidden ([b0264a6](https://github.com/jaspero/jms/commit/b0264a6e395cb18c042bb7de213fb5d5462706ea))
+
+## [5.4.1](https://github.com/jaspero/jms/compare/v5.4.0...v5.4.1) (2022-03-10)
+
+
+### Bug Fixes
+
+* **ImportComponent:** import path ([5df426c](https://github.com/jaspero/jms/commit/5df426ca87ea2e24e96371d8a2670c9993c8560b))
+
 # [5.4.0](https://github.com/jaspero/jms/compare/v5.3.0...v5.4.0) (2022-03-05)
 
 

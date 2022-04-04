@@ -1,11 +1,11 @@
-.table-wrapper {
-  overflow-x: auto;
-}
-
 :host {
   .mat-toolbar-single-row {
     border-radius: 4px;
   }
+}
+
+.table-wrapper {
+  overflow-x: auto;
 }
 
 ::ng-deep {
@@ -21,5 +21,11 @@
     */
     .mat-form-field-wrapper { padding-bottom: 0; }
     .fb-field-12 > section { margin: 0 !important; }
+  }
+}
+
+@media (max-width: 900px) {
+  .mat-cell .column-inner:not(:first-of-type) {
+    margin-right: 1rem;
   }
 }

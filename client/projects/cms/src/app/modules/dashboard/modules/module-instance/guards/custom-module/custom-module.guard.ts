@@ -19,7 +19,7 @@ export class CustomModuleGuard implements CanActivate {
     } = route;
     const {module, ...other} = data;
 
-    this.ioc.module$ = of(module({
+    this.ioc.module$.next(module({
       params,
       queryParams,
       data: other

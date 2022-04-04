@@ -19,8 +19,8 @@ import {updateDynamicOnUpdate} from './triggers/update-dynamic-on-update';
 import {userCreated} from './triggers/user-created';
 import {userDeleted} from './triggers/user-deleted';
 import {impersonate} from './callable/impersonate';
-import {userDocumentDeleted} from './triggers/user-document-deleted';
 import {userDocumentUpdated} from './triggers/user-document-updated';
+import {documentWrite} from './triggers/document-write';
 
 initializeApp();
 
@@ -31,10 +31,10 @@ export const cms = {
   userCreated,
   userDeleted,
   userDocumentUpdated,
-  userDocumentDeleted,
   fileCreated,
   fileDeleted,
   documentDeleted,
+  documentWrite,
   triggerPasswordReset,
   formSubmissionCreated,
 

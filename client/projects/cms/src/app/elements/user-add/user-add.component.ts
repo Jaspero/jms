@@ -3,13 +3,15 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {random} from '@jaspero/utils';
 import {UntilDestroy} from '@ngneat/until-destroy';
+import {notify} from '@shared/utils/notify.operator';
 import {Observable, of} from 'rxjs';
 import {shareReplay, switchMap, tap} from 'rxjs/operators';
 import {FirestoreCollection} from '../../../../integrations/firebase/firestore-collection.enum';
 import {Role} from '../../shared/interfaces/role.interface';
 import {DbService} from '../../shared/services/db/db.service';
-import {notify} from '@shared/utils/notify.operator';
+import {Element} from '../element.decorator';
 
+@Element()
 @UntilDestroy({checkProperties: true})
 @Component({
   selector: 'jms-user-add',

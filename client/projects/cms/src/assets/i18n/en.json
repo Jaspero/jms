@@ -53,7 +53,8 @@
     "KEY": "Key",
     "GENERAL": "General",
     "YES": "Yes",
-    "NO": "No"
+    "NO": "No",
+    "PHOTO": "Photo"
   },
   "LOGIN": {
     "LOGIN": "Login",

@@ -122,12 +122,12 @@
                   "with": "projects/cms/src/environments/environment.live.ts"
                 }
               ],
+              "buildOptimizer": false,
               "optimization": false,
-              "sourceMap": true,
-              "namedChunks": false,
+              "vendorChunk": true,
               "extractLicenses": false,
-              "vendorChunk": false,
-              "buildOptimizer": false
+              "sourceMap": true,
+              "namedChunks": true
             },
             "production": {
               "fileReplacements": [
@@ -136,27 +136,30 @@
                   "with": "projects/cms/src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "10mb",
-                  "maximumError": "20mb"
+                  "maximumWarning": "20mb",
+                  "maximumError": "30mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "50kb",
+                  "maximumError": "100kb"
                 }
-              ]
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",

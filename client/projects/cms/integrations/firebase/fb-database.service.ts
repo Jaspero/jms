@@ -69,7 +69,7 @@ export class FbDatabaseService extends DbService {
 
     return from(
       method(
-        this.collection(moduleId, pageSize, sort, cursor, this.filterMethod(filters), collectionGroup)
+        this.collection(moduleId, pageSize, sort, cursor, filters, collectionGroup)
       )
     )
       .pipe(
@@ -93,7 +93,7 @@ export class FbDatabaseService extends DbService {
         pageSize,
         sort,
         cursor,
-        this.filterMethod(filters),
+        filters,
         collectionGroup
       )
     );
@@ -226,9 +226,21 @@ export class FbDatabaseService extends DbService {
     cg?
   ) {
 
+    /**
+     * In firebase we can't sort by the
+     * key we filter with.
+     */
+    if (
+      filters?.length &&
+      sort?.active &&
+      filters.some(it => it.key === sort.active)
+    ) {
+      sort = null;
+    }
+
     const methods = [
       sort && orderBy(sort.active, sort.direction),
-      ...(filters ? filters : []),
+      ...this.filterMethod(filters || []),
       pageSize && limit(pageSize),
       cursor && startAfter(cursor)
     ]

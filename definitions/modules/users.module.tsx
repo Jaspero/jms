@@ -7,7 +7,7 @@ import {EMAIL_PIPE} from './shared/email-pipe';
 import {YES_NO_FILTER_PIPE} from './shared/yes-no-pipe';
 
 export const USERS_MODULE: Module = {
-  id: 'users',
+  id: 'users',  
   name: 'MODULES.USERS',
   description: 'MODULES.USERS_DESCRIPTION',
   layout: {
@@ -112,6 +112,9 @@ export const USERS_MODULE: Module = {
           value: it => JSX(<jms-e-notes data-id={it.id}/>)
         },
         {
+          value: it => JSX(<jms-e-link link={'/m/users/' + it.id + '/history'}>History</jms-e-link>)
+        },
+        {
           value: it => JSX(<jms-e-tpr data-email={it.data.email}/>),
           authorization: ['admin']
         },
@@ -135,6 +138,14 @@ export const USERS_MODULE: Module = {
     table: {
       hideImport: true,
       tableColumns: [
+        {
+          key: '/photo',
+          label: 'GENERAL.PHOTO',
+          pipe: [PipeType.Custom, PipeType.Sanitize],
+          pipeArguments: {
+            0: v => `<img src="${v || '/assets/images/profile-placeholder.png'}" width="50" height="50" style="border-radius:50px" />`
+          }
+        },
         CREATED_ON.column(),
         {
           key: '/name',
@@ -238,5 +249,16 @@ export const USERS_MODULE: Module = {
       const url = URL.createObjectURL(new Blob([JSON.stringify(packet)], {type: 'application/json'}));
       return JSX(<jms-spotlight-result url={url} label='email' />)
     }
+  },
+  metadata: {
+    deletedAuthUser: true,
+    attachedFiles: {
+      prefix: '/users/{{documentId}}/'
+    },
+    history: true,
+    subCollections: [
+      {name: 'history'},
+      {name: 'notes'}
+    ]
   }
 };

@@ -96,7 +96,7 @@ export class ImportComponent {
         switchMap(token =>
           this.http
             .post(
-              this.db.url('cms-importData/' + this.collection),
+              this.db.url('cms-importData'),
               formData,
               {
                 headers: {
