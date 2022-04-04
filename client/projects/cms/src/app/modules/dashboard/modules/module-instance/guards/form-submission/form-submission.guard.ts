@@ -26,7 +26,7 @@ export class FormSubmissionGuard implements CanActivate {
         queue(),
         map(doc => {
 
-          this.ioc.module$ = of({
+          this.ioc.module$.next({
             id: `forms/${doc.id}/submissions`,
             name: `Forms - ${doc.name}`,
             layout: {
