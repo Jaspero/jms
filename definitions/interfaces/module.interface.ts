@@ -45,8 +45,8 @@ export interface ModuleDefinition {
   hint?: string;
   defaultValue?: any;
   placeholder?: string;
-  onlyOn?: State | string;
-  disableOn?: State | string;
+  onlyOn?: State | string | string[] | State[];
+  disableOn?: State | string | string[] | State[];
 
   columnsDesktop?: number;
   columnsMobile?: number;
