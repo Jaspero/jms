@@ -1,3 +1,10 @@
+## [5.14.3](https://github.com/jaspero/jms/compare/v5.14.2...v5.14.3) (2022-04-04)
+
+
+### Bug Fixes
+
+* **definitions:** disableOn and onlyOn can be provided as arrays ([2f349d5](https://github.com/jaspero/jms/commit/2f349d59e57dbd977c545bdc5f8b62637c012017))
+
 ## [5.14.2](https://github.com/jaspero/jms/compare/v5.14.1...v5.14.2) (2022-04-03)
 
 
