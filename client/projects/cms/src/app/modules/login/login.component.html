@@ -6,8 +6,11 @@
       <!--Social login-->
       <section *ngIf="staticConfig.login.google">
         <div class="m-b-s">
-          <button class="w-full" mat-stroked-button (click)="loginGoogle()">
-            {{'LOGIN.LOGIN_WITH' | transloco:{value: 'Google'} }}
+          <button class="google-login" (click)="loginGoogle()">
+            <img src="assets/images/google-logo.svg" alt="" class="google-login-icon">
+            <span class="google-login-text">
+              {{'LOGIN.LOGIN_WITH' | transloco:{value: 'Google'} }}
+            </span>
           </button>
         </div>
       </section>
