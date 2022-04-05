@@ -1,3 +1,13 @@
+## [5.14.4](https://github.com/jaspero/jms/compare/v5.14.3...v5.14.4) (2022-04-05)
+
+
+### Bug Fixes
+
+* **cms:** fixed contrast color for ref component highlight closes [#355](https://github.com/jaspero/jms/issues/355) ([91ab89c](https://github.com/jaspero/jms/commit/91ab89c405f18befd94f97af0f9ce5198e2e6a12))
+* **cms:** fixed contrast color on disabled buttons closes [#358](https://github.com/jaspero/jms/issues/358) ([a944532](https://github.com/jaspero/jms/commit/a9445324bfb845dfff0957803cdb37367a0d6e47))
+* **cms:** google login is now up to google guidelines closes [#354](https://github.com/jaspero/jms/issues/354) ([2d9035d](https://github.com/jaspero/jms/commit/2d9035d37af912cd5220d6f97bd1d9552451e165))
+* **cms:** menu expand now works on right side closes [#359](https://github.com/jaspero/jms/issues/359) ([df06504](https://github.com/jaspero/jms/commit/df065045c70673cf9dcb9f870222c117f2cb51eb))
+
 ## [5.14.3](https://github.com/jaspero/jms/compare/v5.14.2...v5.14.3) (2022-04-04)
 
 
