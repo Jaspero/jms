@@ -1,3 +1,10 @@
+## [5.14.5](https://github.com/jaspero/jms/compare/v5.14.4...v5.14.5) (2022-04-06)
+
+
+### Bug Fixes
+
+* **cms:** module loading before route changed ([f1f581c](https://github.com/jaspero/jms/commit/f1f581cffcf531ad28004a197eb16c57d8de4dfe))
+
 ## [5.14.4](https://github.com/jaspero/jms/compare/v5.14.3...v5.14.4) (2022-04-05)
 
 
