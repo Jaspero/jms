@@ -1,17 +1,17 @@
 import {SelectionModel} from '@angular/cdk/collections';
 import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {FilterMethod, InstanceSort, Module, ModuleOverviewView} from 'definitions';
 import {Parser} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {FilterMethod, InstanceSort, Module, ModuleOverviewView} from 'definitions';
 import {BehaviorSubject, combineLatest, merge, Subject} from 'rxjs';
 import {map, shareReplay, skip, startWith, switchMap, tap} from 'rxjs/operators';
+import {createSelector} from '../../../../../../elements/element.decorator';
 import {DEFAULT_PAGE_SIZE} from '../../../../../../shared/consts/page-sizes.const';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
 import {queue} from '../../../../../../shared/utils/queue.operator';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
-import {createSelector} from '../../../../../../elements/element.decorator';
 
 @UntilDestroy()
 @Component({
@@ -21,14 +21,6 @@ import {createSelector} from '../../../../../../elements/element.decorator';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InstanceOverviewComponent implements OnInit, AfterViewInit {
-  currentView: string;
-  activeView: string;
-  showViewSelector: boolean;
-  name: string;
-  views: ModuleOverviewView[];
-  toolbar: string[];
-  hideAdd = false;
-
   constructor(
     public ioc: InstanceOverviewContextService,
     private dbService: DbService,
@@ -37,13 +29,21 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
   ) {
   }
 
+  currentView: string;
+  activeView: string;
+  showViewSelector: boolean;
+  name: string;
+  views: ModuleOverviewView[];
+  toolbar: string[];
+  hideAdd = false;
+
   ngOnInit() {
     this.ioc.module$
       .pipe(
         untilDestroyed(this)
       )
       .subscribe(module => {
-
+        console.log(module.id);
         const defaultData = {
           pageSize: null,
           sort: null,

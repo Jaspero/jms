@@ -249,7 +249,7 @@
         <ng-container *ngIf="ioc.emptyState$ | async; else hasContent">
           <mat-toolbar class="jc-center" *ngIf="!data.hideAdd">
             <p class="m-r-s">{{ 'INSTANCE_OVERVIEW.NO_ITEMS' | transloco }}</p>
-            <a mat-button color="primary" routerLink="/m/{{ data.moduleId }}/new"> {{ 'GENERAL.ADD' | transloco }} {{ data.name | transloco }} </a>
+            <a mat-button color="primary" routerLink="/m/{{data.moduleId}}/new"> {{ 'GENERAL.ADD' | transloco }} {{ data.name | transloco }} </a>
           </mat-toolbar>
         </ng-container>
 

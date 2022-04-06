@@ -25,6 +25,16 @@ import {SpotlightComponent} from '../../modules/spotlight/spotlight.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LayoutComponent implements OnInit {
+  constructor(
+    public state: StateService,
+    private auth: Auth,
+    private router: Router,
+    private dialog: MatDialog,
+    private fb: FormBuilder,
+    private dbService: DbService
+  ) {
+  }
+
   @ViewChild('reset')
   resetDialog: TemplateRef<any>;
   currentUser$: Observable<any>;
@@ -35,16 +45,6 @@ export class LayoutComponent implements OnInit {
   resetPassword: FormGroup;
   spotlightDialogRef: MatDialogRef<any>;
   activeExpand$ = new BehaviorSubject(null);
-
-  constructor(
-    public state: StateService,
-    private auth: Auth,
-    private router: Router,
-    private dialog: MatDialog,
-    private fb: FormBuilder,
-    private dbService: DbService
-  ) {
-  }
 
   ngOnInit() {
     document.addEventListener('keydown', (event) => {
