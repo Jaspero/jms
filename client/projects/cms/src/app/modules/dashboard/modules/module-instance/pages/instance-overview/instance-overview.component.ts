@@ -43,7 +43,6 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
         untilDestroyed(this)
       )
       .subscribe(module => {
-        console.log(module.id);
         const defaultData = {
           pageSize: null,
           sort: null,

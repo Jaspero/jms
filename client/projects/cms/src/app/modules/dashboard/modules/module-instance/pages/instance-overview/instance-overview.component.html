@@ -18,7 +18,7 @@
     </div>
   </mat-toolbar>
 
-  <div class="flex ai-center jc-between" data-include-max-height>
+  <div class="flex ai-center jc-between fd-row-rev" data-include-max-height>
     <ng-container *ngIf="ioc.subHeaderTemplate$ | async as subHeaderTemplate">
       <ng-container *ngTemplateOutlet="subHeaderTemplate"></ng-container>
     </ng-container>
