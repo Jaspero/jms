@@ -1,3 +1,11 @@
+# [5.15.0](https://github.com/jaspero/jms/compare/v5.14.5...v5.15.0) (2022-04-08)
+
+
+### Features
+
+* **cms:** allow for raw html in overview views ([f6c3fa8](https://github.com/jaspero/jms/commit/f6c3fa8e4e149320090e23bc17bb8bb74980782e))
+* **cms:** better css for view switching ([b8f73c9](https://github.com/jaspero/jms/commit/b8f73c994b3f603585647d17107ac74d02dc2485))
+
 ## [5.14.5](https://github.com/jaspero/jms/compare/v5.14.4...v5.14.5) (2022-04-06)
 
 
