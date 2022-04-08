@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/co
 import {ActivatedRoute, Router} from '@angular/router';
 import {ModuleAuthorization} from 'definitions';
 import {Definitions, FormBuilderComponent, Segment, State} from '@jaspero/form-builder';
-import {random, safeEval} from '@jaspero/utils';
+import {parseTemplate, random, safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
 import {JSONSchema7} from 'json-schema';
@@ -126,7 +126,10 @@ export class InstanceSingleComponent implements OnInit {
 
             if (module.layout) {
               if (module.layout.editTitleKey) {
-                editTitleKey = module.layout.editTitleKey;
+                const evaluated = safeEval(module.layout.editTitleKey);
+                editTitleKey = typeof evaluated === 'function'
+                  ? evaluated(value)
+                  : parseTemplate(`{{${module.layout.editTitleKey}}}`, value);
               }
 
               if (module.layout.instance) {
