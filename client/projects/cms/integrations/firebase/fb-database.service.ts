@@ -26,6 +26,7 @@ import {WhereFilter} from '../../src/app/shared/interfaces/where-filter.interfac
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
 import {STATIC_CONFIG} from '../../src/environments/static-config';
+import {collectionData} from 'rxfire/firestore';
 
 @Injectable()
 export class FbDatabaseService extends DbService {
@@ -88,6 +89,26 @@ export class FbDatabaseService extends DbService {
     collectionGroup?
   ) {
     return collectionChanges(
+      this.collection(
+        moduleId,
+        pageSize,
+        sort,
+        cursor,
+        filters,
+        collectionGroup
+      )
+    );
+  }
+
+  getValueChanges(
+    moduleId,
+    pageSize?,
+    sort?,
+    cursor?,
+    filters?: WhereFilter[],
+    collectionGroup?
+  ) {
+    return collectionData(
       this.collection(
         moduleId,
         pageSize,

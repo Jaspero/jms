@@ -1,0 +1,76 @@
+.dropzone {
+  margin-top: 20px;
+
+  flex: 1;
+
+  border-radius: 8px;
+
+  &.active {
+    outline: 2px dashed #adadad;
+    outline-offset: 2px;
+
+    background-color: #E7F0FE;
+  }
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.drive {
+
+  width: 100%;
+  height: calc(100vh - 64px);
+  padding: 20px;
+
+  &-subheader {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54);
+  }
+
+  &-item {
+    user-select: none;
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    &:focus, &.active {
+      color: #1967d2;
+      background-color: #E7F0FE;
+    }
+
+    &:focus &-icon, &.active &-icon {
+      color: #1967d2;
+    }
+
+    &-icon {
+      color: rgba(0, 0, 0, 0.7);
+    }
+
+    &-name {
+      font-weight: 500;
+
+      padding-left: 10px;
+
+      display: inline-block;
+      //width: 180px;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden !important;
+      text-overflow: ellipsis;
+    }
+
+    &-file {
+      aspect-ratio: 1 / 1;
+      width: 100%;
+    }
+  }
+}

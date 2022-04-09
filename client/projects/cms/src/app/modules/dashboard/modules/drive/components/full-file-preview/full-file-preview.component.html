@@ -1,0 +1,56 @@
+<section class="container">
+  <div class="flex ai-center p-x-m p-y-s">
+    <button mat-icon-button mat-dialog-close>
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+
+    <div class="flex ai-center">
+      <mat-icon>{{data.item | fileIcon}}</mat-icon>
+      <div class="name">{{data.item.name}}</div>
+    </div>
+
+    <div class="flex-1"></div>
+    <div>
+      <button mat-icon-button>
+        <mat-icon>file_download</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </div>
+
+
+    <div class="preview">
+      <ng-container [ngSwitch]="type">
+        <ng-container *ngSwitchCase="'image'">
+          <ng-container *ngIf="data.item | fileUrl | async as url; else loading">
+            <img [src]="url" [alt]="data.item.name" class="preview-image">
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'other'">
+          <mat-card style="height: 140px; width: 300px; border-radius: 8px; background-color: #4B494C; color: #fff;">
+            <div mat-card-title>
+              <div class="flex jc-center">
+                No preview available
+              </div>
+            </div>
+
+            <div class="flex jc-center ai-center m-t-l">
+              <button mat-raised-button color="primary">
+                <mat-icon>file_download</mat-icon>
+                Download
+              </button>
+            </div>
+          </mat-card>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</section>
+
+<ng-template #loading>
+  <div class="flex jc-center">
+    <mat-spinner diameter="30"></mat-spinner>
+  </div>
+</ng-template>

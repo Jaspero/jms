@@ -54,6 +54,20 @@ export abstract class DbService {
     return of([]);
   }
 
+  getValueChanges(
+    moduleId: string,
+    pageSize?: number,
+    sort?: {
+      active: string;
+      direction: string;
+    },
+    cursor?: any,
+    filters?: WhereFilter[],
+    collectionGroup?: boolean
+  ): Observable<any[]> {
+    return of([]);
+  }
+
   getDocument<T = any>(
     moduleId: string,
     documentId: string,

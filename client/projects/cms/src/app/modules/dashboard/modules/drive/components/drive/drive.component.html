@@ -1,0 +1,104 @@
+<mat-toolbar role="heading" color="primary">
+  <span>{{title}}</span>
+  <div class="flex-1"></div>
+</mat-toolbar>
+<section class="drive">
+  <div class="container">
+    <mat-card>
+      <mat-card-title>
+        <div class="flex ai-center">
+          <mat-form-field>
+            <mat-label>Path</mat-label>
+            <input matInput [formControl]="routeControl">
+          </mat-form-field>
+
+          <button mat-icon-button (click)="toggleView()">
+            <mat-icon>{{view === 'grid' ? 'list' : 'grid_view'}}</mat-icon>
+          </button>
+        </div>
+      </mat-card-title>
+    </mat-card>
+
+    <div class="dropzone" jpDropZone (dropped)="uploadItems($event)">
+      <ng-container *ngIf="loading$ | async">
+        <div class="flex jc-center">
+          <mat-spinner diameter="30"></mat-spinner>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="items$ | async as items">
+        <ng-container [ngSwitch]="view">
+          <ng-container *ngSwitchCase="'grid'">
+            <!-- Folders -->
+            <p class="drive-subheader m-t-s" *ngIf="items.folders.length">Folders</p>
+            <div class="grid jc-start p-a-0">
+              <div *ngFor="let folder of items.folders; index as index" class="col-3 col-s-6 col-xs-12">
+                <mat-card class="drive-item" [tabIndex]="index + 1">
+                  <div class="flex jc-start ai-center">
+                    <mat-icon class="drive-item-icon">folder</mat-icon>
+                    <div class="drive-item-name" [matTooltip]="folder.name" matTooltipShowDelay="1000">
+                      {{folder.name}}
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+
+            <!-- Files -->
+            <p class="drive-subheader m-t-s" *ngIf="items.files.length">Files</p>
+            <div class="grid jc-start p-a-0">
+              <div *ngFor="let file of items.files; index as index" class="col-3 col-s-6 col-xs-12">
+                <mat-card class="drive-item" [tabIndex]="items.folders.length + index + 1" style="padding: 0;"
+                          (contextmenu)="openItemContextMenu($event, file)"
+                          (dblclick)="previewItem(file)">
+                  <div class="drive-item-file flex fd-col">
+                    <div class="drive-item-preview w-full" style="height: calc(100% - 48px);">
+                      <jms-file-preview [file]="file"></jms-file-preview>
+                    </div>
+                    <div style="height: 48px;" class="flex jc-start ai-center p-x-s">
+                      <mat-icon class="drive-item-icon">{{file | fileIcon}}</mat-icon>
+                      <div class="drive-item-name" [matTooltip]="file.name" matTooltipShowDelay="1000">
+                        {{file.name}}
+                      </div>
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+
+          </ng-container>
+          <ng-container *ngSwitchCase="'list'">LIST</ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</section>
+
+<ng-template #context let-data>
+  <button
+    class="contextmenu-dialog-item"
+    mat-button
+    mat-dialog-close
+    (click)="previewItem(data.item)">
+    <mat-icon>visibility</mat-icon>
+    <span class="p-l-s">Preview</span>
+  </button>
+  <hr>
+  <button
+    class="contextmenu-dialog-item"
+    mat-button
+    mat-dialog-close
+    (click)="downloadItem(data.item)">
+    <mat-icon>file_download</mat-icon>
+    <span class="p-l-s">Download</span>
+  </button>
+  <hr>
+  <button
+    class="contextmenu-dialog-item"
+    mat-button
+    color="warn"
+    mat-dialog-close>
+    <mat-icon>delete</mat-icon>
+    <span class="p-l-s">Remove</span>
+  </button>
+</ng-template>
