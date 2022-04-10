@@ -32,6 +32,8 @@ export type {ModuleLayoutTableSelectionAction} from './interfaces/module-layout-
 export type {ModuleLayoutTableColumn} from './interfaces/module-layout-table.interface';
 export type {ModuleDefinitions} from './interfaces/module.interface';
 
+export {Collections} from './interfaces/collections';
+
 export {PipeType} from './enums/pipe-type.enum';
 export {FilterMethod} from './enums/filter-method.enum';
 

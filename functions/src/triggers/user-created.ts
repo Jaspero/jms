@@ -1,10 +1,9 @@
 import {auth, firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {STATIC_CONFIG} from '../consts/static-config.const';
-import {FirestoreCollection} from '../enums/firestore-collections.enum';
 import {EmailService} from '../services/email/email.service';
 import {createJwt} from '../utils/create-jwt';
-import {SHARED_CONFIG} from 'definitions';
+import {SHARED_CONFIG, Collections} from 'definitions';
 
 export const userCreated = functions
   .region(SHARED_CONFIG.cloudRegion)
@@ -17,7 +16,7 @@ export const userCreated = functions
     }
 
     const inviteRef = await firestore()
-      .collection('user-invites')
+      .collection(Collections.UserInvites)
       .doc(user.email as string)
       .get();
 
@@ -56,7 +55,7 @@ export const userCreated = functions
     }
 
     await firestore()
-      .collection(FirestoreCollection.Users)
+      .collection(Collections.Users)
       .doc(user.uid)
       .set({
         createdOn: Date.now(),

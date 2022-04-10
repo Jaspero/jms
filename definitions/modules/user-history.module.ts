@@ -1,9 +1,10 @@
 import {PipeType} from '../enums/pipe-type.enum';
+import {Collections} from '../interfaces/collections';
 import {Module} from '../interfaces/module.interface';
 import {CREATED_ON} from './shared/created-on';
 
 export const USER_HISTORY_MODULE: Module = {
-	id: 'users/{docId}/history',
+	id: Collections.UserHistory,
 	name: 'User History',
 	layout: {
 		filterModule: {

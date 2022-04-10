@@ -1,5 +1,7 @@
+import {Collections} from '../interfaces/collections';
+
 export const ROLES_COLLECTION = {
-  name: 'roles',
+  name: Collections.Roles,
   documents: [
     {
       id: 'admin',

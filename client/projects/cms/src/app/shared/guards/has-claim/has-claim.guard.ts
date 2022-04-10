@@ -3,10 +3,10 @@ import {Auth, authState, getIdTokenResult, signOut} from '@angular/fire/auth';
 import {CanActivate, Router} from '@angular/router';
 import {TranslocoService} from '@ngneat/transloco';
 import {notify} from '@shared/utils/notify.operator';
+import {Collections} from 'definitions';
 import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 import {Observable, of, throwError} from 'rxjs';
 import {catchError, map, switchMap, take} from 'rxjs/operators';
-import {FirestoreCollection} from '../../../../../integrations/firebase/firestore-collection.enum';
 import {DbService} from '../../services/db/db.service';
 import {StateService} from '../../services/state/state.service';
 
@@ -45,7 +45,7 @@ export class HasClaimGuard implements CanActivate {
 
           this.state.role = data.claims.role as string;
 
-          return this.db.getDocument(FirestoreCollection.Users, data.claims.user_id as string);
+          return this.db.getDocument(Collections.Users, data.claims.user_id as string);
         }),
         map(user => {
           this.state.user = user;

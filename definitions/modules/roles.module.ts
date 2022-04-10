@@ -1,8 +1,9 @@
+import {Collections} from '../interfaces/collections';
 import {Module} from '../interfaces/module.interface';
 import {CREATED_ON} from './shared/created-on';
 
 export const ROLES_MODULE: Module = {
-  id: 'roles',
+  id: Collections.Roles,
   name: 'MODULES.ROLES',
   description: 'MODULES.ROLES_DESCRIPTION',
   authorization: {

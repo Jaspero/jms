@@ -7,6 +7,7 @@ import {safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
+import {Collections} from 'definitions';
 import {BehaviorSubject, from, Observable, throwError} from 'rxjs';
 import {catchError, filter, map, shareReplay, startWith, switchMap, take, tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../../../environments/static-config';
@@ -243,7 +244,7 @@ export class LayoutComponent implements OnInit {
           }),
           switchMap(() =>
             this.dbService.setDocument(
-              'users',
+              Collections.Users,
               this.state.user.id,
               {requireReset: false},
               {merge: true}

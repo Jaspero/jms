@@ -1,3 +1,5 @@
+import {Collections} from '../interfaces/collections';
+
 /**
  * List all users that should be created initially.
  * Initially created users can only login through
@@ -7,7 +9,7 @@
  * firebase dashboard.
  */
 export const USER_INVITES_COLLECTION = {
-  name: 'user-invites',
+  name: Collections.UserInvites,
   documents: [
     {
       id: 'info@jaspero.co',

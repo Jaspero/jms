@@ -2,7 +2,7 @@
   "name": "functions",
   "scripts": {
     "lint": "tslint --project tsconfig.json",
-    "copy:definitions": "node copy-definitions.js",
+    "copy:definitions": "rm -rf definitions && node copy-definitions.js",
     "build:definitions": "npm run --prefix ../definitions build && npm run copy:definitions",
     "build": "tsc",
     "watch": "npm run build -- -w",

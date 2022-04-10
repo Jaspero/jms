@@ -1,5 +1,4 @@
-import {SHARED_CONFIG} from 'definitions';
-import {FirestoreCollection} from '../enums/firestore-collections.enum';
+import {SHARED_CONFIG, Collections} from 'definitions';
 import * as functions from 'firebase-functions';
 import {auth} from 'firebase-admin';
 
@@ -10,7 +9,7 @@ import {auth} from 'firebase-admin';
 export const userDocumentUpdated = functions
   .region(SHARED_CONFIG.cloudRegion)
   .firestore
-  .document(`${FirestoreCollection.Users}/{documentId}`)
+  .document(`${Collections.Users}/{documentId}`)
   .onUpdate(async change => {
     const after: any = change.after.data();
     const before: any = change.before.data();
