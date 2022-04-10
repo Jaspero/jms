@@ -1,11 +1,11 @@
 import {Storage} from '@google-cloud/storage';
 import * as functions from 'firebase-functions';
 import {basename, dirname, join} from 'path';
-import {STATIC_CONFIG} from '../consts/static-config.const';
 import {unpackGenerateImageString} from '../utils/unpack-generate-image-string';
+import {SHARED_CONFIG} from 'definitions';
 
 export const fileDeleted = functions
-  .region(STATIC_CONFIG.cloudRegion)
+  .region(SHARED_CONFIG.cloudRegion)
   .storage
   .object()
   .onDelete(async (data: any) => {

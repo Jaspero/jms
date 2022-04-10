@@ -1,10 +1,10 @@
 import {firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import {STATIC_CONFIG} from '../consts/static-config.const';
+import {SHARED_CONFIG} from 'definitions';
 import {FirestoreCollection} from '../enums/firestore-collections.enum';
 
 export const userDeleted = functions
-  .region(STATIC_CONFIG.cloudRegion)
+  .region(SHARED_CONFIG.cloudRegion)
   .auth
   .user()
   .onDelete(async user => {

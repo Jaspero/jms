@@ -1,11 +1,10 @@
 import {relevantIndex} from 'adv-firestore-functions';
 import * as functions from 'firebase-functions';
-import {STATIC_CONFIG} from '../consts/static-config.const';
-import {MODULES} from 'definitions';
+import {MODULES, SHARED_CONFIG} from 'definitions';
 import {random} from '@jaspero/utils';
 
 export const documentWrite = functions
-  .region(STATIC_CONFIG.cloudRegion)
+  .region(SHARED_CONFIG.cloudRegion)
   .firestore
   .document(`{colId}/{docId}`)
   .onWrite(async (change, context) => {

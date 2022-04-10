@@ -6,7 +6,7 @@ import * as ajv from 'ajv';
 import * as admin from 'firebase-admin';
 import {constants} from 'http2';
 import {CORS} from '../consts/cors-whitelist.const';
-import {STATIC_CONFIG} from '../consts/static-config.const';
+import {SHARED_CONFIG} from 'definitions';
 import {safeEval} from '../utils/safe-eval';
 import {authenticated} from './middlewares/authenticated';
 
@@ -114,6 +114,6 @@ app.post('/', authenticated(['admin']), (req, res) => {
 });
 
 export const importData = functions
-  .region(STATIC_CONFIG.cloudRegion)
+  .region(SHARED_CONFIG.cloudRegion)
   .https
   .onRequest(app);

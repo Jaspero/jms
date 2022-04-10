@@ -2,10 +2,10 @@ import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {verify} from 'jsonwebtoken';
 import {ENV_CONFIG} from '../consts/env-config.const';
-import {STATIC_CONFIG} from '../consts/static-config.const';
+import {SHARED_CONFIG} from 'definitions';
 
 export const exchangeToken = functions
-  .region(STATIC_CONFIG.cloudRegion)
+  .region(SHARED_CONFIG.cloudRegion)
   .https.onCall(async data => {
 
     let decoded: {id: string};

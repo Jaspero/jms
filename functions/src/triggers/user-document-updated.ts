@@ -1,4 +1,4 @@
-import {STATIC_CONFIG} from '../consts/static-config.const';
+import {SHARED_CONFIG} from 'definitions';
 import {FirestoreCollection} from '../enums/firestore-collections.enum';
 import * as functions from 'firebase-functions';
 import {auth} from 'firebase-admin';
@@ -8,7 +8,7 @@ import {auth} from 'firebase-admin';
  * the users role changes in firestore
  */
 export const userDocumentUpdated = functions
-  .region(STATIC_CONFIG.cloudRegion)
+  .region(SHARED_CONFIG.cloudRegion)
   .firestore
   .document(`${FirestoreCollection.Users}/{documentId}`)
   .onUpdate(async change => {
