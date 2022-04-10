@@ -1,3 +1,16 @@
+# [5.16.0](https://github.com/jaspero/jms/compare/v5.15.0...v5.16.0) (2022-04-10)
+
+
+### Bug Fixes
+
+* **functions:** copy definitions without node_modules ([3073565](https://github.com/jaspero/jms/commit/3073565b2003afbe0bbcd7fa5bb354155f1538d2))
+
+
+### Features
+
+* added collections.ts and replaced throughout ([90e363f](https://github.com/jaspero/jms/commit/90e363f43c5e7093337f7043096addf7f85f9dbe))
+* added SHARED_CONFIG to definitions and moved cloudRegion there ([41da52f](https://github.com/jaspero/jms/commit/41da52fb2031d6779050152470d34f6526831fbb))
+
 # [5.15.0](https://github.com/jaspero/jms/compare/v5.14.5...v5.15.0) (2022-04-08)
 
 
