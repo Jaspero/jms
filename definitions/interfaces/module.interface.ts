@@ -15,7 +15,7 @@ import {ComponentDefinition} from './component-definition.type';
 
 export interface ModuleLayout {
   icon?: string;
-  editTitleKey?: string;
+  editTitleKey?: string | ((row: any) => any);
   order?: number;
 
   /**

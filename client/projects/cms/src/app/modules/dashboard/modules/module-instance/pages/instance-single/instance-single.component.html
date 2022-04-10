@@ -1,6 +1,6 @@
 <form *ngIf="data$ | async as data" [ngSwitch]="currentState">
   <mat-toolbar role="heading" color="primary" class="sticky-header">
-    <span *ngSwitchCase="viewState.Edit">{{ 'INSTANCE_SINGLE.EDITING' | transloco }} {{ formBuilderComponent?.form.get(data.module.editTitleKey).value }}</span>
+    <span *ngSwitchCase="viewState.Edit">{{ 'INSTANCE_SINGLE.EDITING' | transloco }} {{ data.module.editTitleKey }}</span>
     <span *ngSwitchCase="viewState.New">{{ 'GENERAL.NEW' | transloco }} {{ data.module.name | transloco }}</span>
     <span *ngSwitchCase="viewState.Copy">{{ 'INSTANCE_SINGLE.COPY_OF' | transloco }} {{ util.docId }}</span>
     <div class="flex-1"></div>
