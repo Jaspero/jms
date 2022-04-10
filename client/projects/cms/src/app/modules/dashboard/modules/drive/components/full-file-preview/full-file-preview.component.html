@@ -5,8 +5,10 @@
     </button>
 
     <div class="flex ai-center">
-      <mat-icon>{{data.item | fileIcon}}</mat-icon>
-      <div class="name">{{data.item.name}}</div>
+      <ng-container *ngIf="data.item | fileIcon as icon">
+        <mat-icon [style]="'color: ' + (icon.color === 'rgba(0, 0, 0, 0.65)' ? 'white' : icon.color)">{{icon.name}}</mat-icon>
+      </ng-container>
+      <div class="name" [matTooltip]="data.item.name" matTooltipShowDelay="1000">{{data.item.name}}</div>
     </div>
 
     <div class="flex-1"></div>
@@ -25,6 +27,14 @@
         <ng-container *ngSwitchCase="'image'">
           <ng-container *ngIf="data.item | fileUrl | async as url; else loading">
             <img [src]="url" [alt]="data.item.name" class="preview-image">
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'video'">
+          <ng-container *ngIf="data.item | fileUrl | async as url; else loading">
+            <video muted controls preload="metadata" class="preview-video">
+              <source [src]="url" [type]="data.item.contentType">
+            </video>
           </ng-container>
         </ng-container>
 

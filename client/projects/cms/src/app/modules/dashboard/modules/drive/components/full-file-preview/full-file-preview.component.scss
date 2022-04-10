@@ -37,7 +37,7 @@
     max-width: 80vw;
     max-height: 80vh;
 
-    &-image {
+    &-image, &-video {
       object-fit: contain;
 
       width: auto;

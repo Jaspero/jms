@@ -42,6 +42,8 @@
 
     overflow: hidden;
 
+    color: rgba(0, 0, 0, 0.65);
+
     &:focus, &.active {
       color: #1967d2;
       background-color: #E7F0FE;
@@ -49,10 +51,6 @@
 
     &:focus &-icon, &.active &-icon {
       color: #1967d2;
-    }
-
-    &-icon {
-      color: rgba(0, 0, 0, 0.7);
     }
 
     &-name {
@@ -73,4 +71,15 @@
       width: 100%;
     }
   }
+}
+
+.downloads {
+  position: fixed;
+
+  width: 300px;
+
+  bottom: 20px;
+  right: 20px;
+
+  padding-top: 0;
 }

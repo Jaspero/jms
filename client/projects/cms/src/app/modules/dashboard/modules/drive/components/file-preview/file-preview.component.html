@@ -1,12 +1,23 @@
 <div class="w-full h-full flex jc-center ai-center" style="background-color: white">
   <ng-container [ngSwitch]="type">
     <ng-container *ngSwitchCase="'other'">
-      <mat-icon style="transform: scale(2.5);">{{file | fileIcon}}</mat-icon>
+      <ng-container *ngIf="file | fileIcon as icon">
+        <mat-icon [style]="'transform: scale(2.5); color: ' + icon.color">{{icon.name}}</mat-icon>
+      </ng-container>
     </ng-container>
 
     <ng-container *ngSwitchCase="'image'">
       <ng-container *ngIf="file | fileUrl | async as url">
-        <img [src]="url" loading="lazy" [alt]="file.name" style="width: auto; height: auto; max-width: 100%; max-height: 100%">
+        <img [src]="url" loading="lazy" [alt]="file.name"
+             style="width: auto; height: auto; max-width: 100%; max-height: 100%">
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'video'">
+      <ng-container *ngIf="file | fileUrl | async as url">
+        <video muted preload="metadata" style="width: auto; height: auto; max-width: 100%; max-height: 100%">
+          <source [src]="url + '#t=0.5'" [type]="file.contentType">
+        </video>
       </ng-container>
     </ng-container>
   </ng-container>

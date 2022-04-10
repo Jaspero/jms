@@ -6,45 +6,77 @@ import {DriveItem} from 'definitions';
 })
 export class FileIconPipe implements PipeTransform {
 
-  transform(file: string | DriveItem): string {
+  transform(file: string | DriveItem): { name: string, color: string } {
     const type = typeof file === 'string' ? file : file?.contentType;
 
+    const defaultColor = 'rgba(0, 0, 0, 0.65)';
+
     if (type === 'application/pdf') {
-      return 'picture_as_pdf';
+      return {
+        name: 'picture_as_pdf',
+        color: '#d9534f'
+      };
     }
 
     if (type === 'application/zip' || type === 'application/vnd.rar') {
-      return 'inventory_2';
+      return {
+        name: 'inventory_2',
+        color: '#5bc0de'
+      };
     }
 
     if (type === 'application/json') {
-      return 'library_books';
+      return {
+        name: 'library_books',
+        color: '#5cb85c'
+      };
     }
 
     if (type === 'application/msword') {
-      return 'description';
+      return {
+        name: 'description',
+        color: defaultColor
+      };
     }
 
     if (type.startsWith('image/')) {
-      return 'insert_photo';
+      return {
+        name: 'insert_photo',
+        color: defaultColor
+      };
     }
 
     if (type.startsWith('text/')) {
-      return 'article';
+      return {
+        name: 'article',
+        color: defaultColor
+      };
     }
 
     if (type.startsWith('audio/')) {
-      return 'headphones';
+      return {
+        name: 'headphones',
+        color: defaultColor
+      };
     }
 
     if (type.startsWith('video/')) {
-      return 'movie';
+      return {
+        name: 'movie',
+        color: defaultColor
+      };
     }
 
     if (type.startsWith('font/')) {
-      return 'text_fields';
+      return {
+        name: 'text_fields',
+        color: defaultColor
+      };
     }
 
-    return 'note';
+    return {
+      name: 'note',
+      color: defaultColor
+    };
   }
 }

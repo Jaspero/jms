@@ -16,6 +16,11 @@ import {MatDialog} from '@angular/material/dialog';
 import {NoopScrollStrategy} from '@angular/cdk/overlay';
 import {disableScroll, enableScroll} from '@shared/utils/scroll';
 import {FullFilePreviewComponent} from '../full-file-preview/full-file-preview.component';
+import {getStorage, ref} from '@angular/fire/storage';
+import {FbStorageService} from '../../../../../../../../integrations/firebase/fb-storage.service';
+import {HttpClient, HttpEventType} from '@angular/common/http';
+import {saveAs} from 'file-saver';
+import {random} from '@jaspero/utils';
 
 @Component({
   selector: 'jms-drive',
@@ -40,10 +45,14 @@ export class DriveComponent implements OnInit {
 
   loading$ = new BehaviorSubject(true);
 
+  downloads$ = new BehaviorSubject([]);
+
   constructor(
     private db: DbService,
     private dialog: MatDialog,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private storage: FbStorageService,
+    private http: HttpClient
   ) {
   }
 
@@ -137,6 +146,86 @@ export class DriveComponent implements OnInit {
 
   downloadItem(item: DriveItem) {
     console.log('download', item);
+
+    if (item.type === 'folder') {
+      return console.log('Cannot download folder');
+    }
+
+
+    const storageInstance = getStorage();
+    const path = item.path === '.' ? item.name : `${item.path}/${item.name}`;
+
+    // getBlob(ref(storageInstance, path)).then(a => {
+    //   console.log(a);
+    // });
+
+    this.storage.getDownloadURL(ref(storageInstance, path)).then(async (url) => {
+
+      // url = ;
+      // if (item.contentType.startsWith('image/') || item.contentType.startsWith('video/')) {
+      //
+      // }
+
+      // saveAs(url, item.name);
+      // // const link = document.createElement('a');
+      // // link.href = url;
+      // // link.target = '_blank';
+      // // link.setAttribute('download', item.name);
+      // // document.body.appendChild(link);
+      // // link.click();
+      // // document.body.removeChild(link);
+      //
+      //
+      // //
+      // // const link = document.createElement('a');
+      // // link.href = url;
+      // // link.setAttribute('download', item.name);
+      // // document.body.appendChild(link);
+      // // link.click();
+      // // document.body.removeChild(link);
+
+      const id = random.string(8);
+
+      this.downloads$.next([...this.downloads$.value, {
+        name: item.name,
+        url,
+        percent: 0,
+        id
+      }]);
+
+      this.http.get(
+        this.db.url('cms-proxy/' + url),
+        {
+          responseType: 'blob',
+          reportProgress: true,
+          observe: 'events'
+        }
+      ).pipe(
+        tap((result) => {
+          if (result.type === HttpEventType.DownloadProgress) {
+            const percent = Math.round(100 * result.loaded / result.total);
+            console.log(percent);
+
+            this.downloads$.next(this.downloads$.value.map(item => {
+              if (item.id === id) {
+                return {
+                  ...item,
+                  percent
+                };
+              }
+
+              return item;
+            }));
+          }
+          if (result.type === HttpEventType.Response) {
+            // this.generateDownload(result.body);
+            console.log('FINISHED');
+            saveAs(result.body, item.name);
+            console.log(result.body);
+          }
+        })
+      ).subscribe();
+    });
   }
 
   previewItem(item: DriveItem) {
@@ -172,5 +261,9 @@ export class DriveComponent implements OnInit {
 
   uploadItems(files: FileList) {
     console.log(files);
+  }
+
+  closeDownloads() {
+    this.downloads$.next([]);
   }
 }

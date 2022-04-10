@@ -17,6 +17,7 @@ import {userDeleted} from './triggers/user-deleted';
 import {impersonate} from './callable/impersonate';
 import {userDocumentUpdated} from './triggers/user-document-updated';
 import {documentWrite} from './triggers/document-write';
+import {proxy} from './rest/proxy';
 
 initializeApp();
 
@@ -45,5 +46,6 @@ export const cms = {
   // Rest
   exportData,
   importData,
+  proxy,
   api
 };
