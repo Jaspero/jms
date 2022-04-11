@@ -13,7 +13,7 @@
 
     <div class="flex-1"></div>
     <div>
-      <button mat-icon-button>
+      <button mat-icon-button (click)="drive.downloadItem(data.item); dialogRef.close()">
         <mat-icon>file_download</mat-icon>
       </button>
       <button mat-icon-button>
@@ -38,6 +38,12 @@
           </ng-container>
         </ng-container>
 
+        <ng-container *ngSwitchCase="'pdf'">
+          <ng-container *ngIf="data.item | fileUrl | async as url; else loading">
+            <iframe [src]="(url + '#toolbar=0&navpanes=0&scrollbar=0') | jpSanitize:'resourceUrl'" frameborder="0" class="preview-pdf"></iframe>
+          </ng-container>
+        </ng-container>
+
         <ng-container *ngSwitchCase="'other'">
           <mat-card style="height: 140px; width: 300px; border-radius: 8px; background-color: #4B494C; color: #fff;">
             <div mat-card-title>
@@ -47,7 +53,7 @@
             </div>
 
             <div class="flex jc-center ai-center m-t-l">
-              <button mat-raised-button color="primary">
+              <button mat-raised-button color="primary" (click)="drive.downloadItem(data.item); dialogRef.close()">
                 <mat-icon>file_download</mat-icon>
                 Download
               </button>

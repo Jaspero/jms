@@ -13,9 +13,10 @@ import {FileIconPipe} from './pipes/file-icon/file-icon.pipe';
 import {FilePreviewComponent} from './components/file-preview/file-preview.component';
 import {FileUrlPipe} from './pipes/file-url/file-url.pipe';
 import {MatDialogModule} from '@angular/material/dialog';
-import {DropZoneModule} from '@jaspero/ng-helpers';
+import {DropZoneModule, SanitizeModule} from '@jaspero/ng-helpers';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {FullFilePreviewComponent} from './components/full-file-preview/full-file-preview.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -43,7 +44,9 @@ import {FullFilePreviewComponent} from './components/full-file-preview/full-file
     MatTooltipModule,
     MatDialogModule,
     DropZoneModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    SanitizeModule
   ],
   exports: [
     DriveComponent

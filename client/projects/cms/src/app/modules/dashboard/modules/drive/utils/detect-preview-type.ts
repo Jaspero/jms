@@ -9,5 +9,9 @@ export function detectPreviewType(contentType: string): PreviewType {
     return 'video';
   }
 
+  if (contentType === 'application/pdf') {
+    return 'pdf';
+  }
+
   return 'other';
 }

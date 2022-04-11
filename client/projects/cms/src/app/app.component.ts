@@ -3,7 +3,6 @@ import {Observable} from 'rxjs';
 import {debounceTime, map} from 'rxjs/operators';
 import {StateService} from './shared/services/state/state.service';
 import {UtilService} from './shared/services/util/util.service';
-import {Diff2HtmlUI} from 'diff2html/lib/ui/js/diff2html-ui';
 
 declare global {
   interface Window {
@@ -30,19 +29,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    const input = `{
-  "role": "",
-  "id": "OymWyVBBPwRLpR05IeNtcmo56cn2",
-  "createdOn": 1649007674951,
-  "active": true,
-  "requireReset": false,
-  "email": "amarishk9@gmail.com"
-}`;
-
-    const diff = new Diff2HtmlUI(document.querySelector('#test'), input);
-    diff.draw();
-
     this.util.init();
 
     this.loading$ = this.state.loadingQue$.pipe(

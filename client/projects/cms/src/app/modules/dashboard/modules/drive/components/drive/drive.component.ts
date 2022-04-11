@@ -21,6 +21,8 @@ import {FbStorageService} from '../../../../../../../../integrations/firebase/fb
 import {HttpClient, HttpEventType} from '@angular/common/http';
 import {saveAs} from 'file-saver';
 import {random} from '@jaspero/utils';
+import {DriveService} from '../../services/drive/drive.service';
+import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 
 @Component({
   selector: 'jms-drive',
@@ -45,19 +47,23 @@ export class DriveComponent implements OnInit {
 
   loading$ = new BehaviorSubject(true);
 
-  downloads$ = new BehaviorSubject([]);
-
   constructor(
+    public drive: DriveService,
+    public activatedRoute: ActivatedRoute,
     private db: DbService,
     private dialog: MatDialog,
     private cdr: ChangeDetectorRef,
-    private storage: FbStorageService,
-    private http: HttpClient
+    private router: Router
   ) {
   }
 
   ngOnInit(): void {
     this.routeControl = new FormControl('');
+
+    this.activatedRoute.data.pipe().subscribe((data) => {
+      const routes = (data as any)?.route || [];
+      this.routeControl.setValue(routes.join('/'));
+    });
 
     this.items$ = this.routeControl.valueChanges.pipe(
       debounceTime(500),
@@ -144,109 +150,15 @@ export class DriveComponent implements OnInit {
     ).subscribe();
   }
 
-  downloadItem(item: DriveItem) {
-    console.log('download', item);
-
-    if (item.type === 'folder') {
-      return console.log('Cannot download folder');
-    }
-
-
-    const storageInstance = getStorage();
-    const path = item.path === '.' ? item.name : `${item.path}/${item.name}`;
-
-    // getBlob(ref(storageInstance, path)).then(a => {
-    //   console.log(a);
-    // });
-
-    this.storage.getDownloadURL(ref(storageInstance, path)).then(async (url) => {
-
-      // url = ;
-      // if (item.contentType.startsWith('image/') || item.contentType.startsWith('video/')) {
-      //
-      // }
-
-      // saveAs(url, item.name);
-      // // const link = document.createElement('a');
-      // // link.href = url;
-      // // link.target = '_blank';
-      // // link.setAttribute('download', item.name);
-      // // document.body.appendChild(link);
-      // // link.click();
-      // // document.body.removeChild(link);
-      //
-      //
-      // //
-      // // const link = document.createElement('a');
-      // // link.href = url;
-      // // link.setAttribute('download', item.name);
-      // // document.body.appendChild(link);
-      // // link.click();
-      // // document.body.removeChild(link);
-
-      const id = random.string(8);
-
-      this.downloads$.next([...this.downloads$.value, {
-        name: item.name,
-        url,
-        percent: 0,
-        id
-      }]);
-
-      this.http.get(
-        this.db.url('cms-proxy/' + url),
-        {
-          responseType: 'blob',
-          reportProgress: true,
-          observe: 'events'
-        }
-      ).pipe(
-        tap((result) => {
-          if (result.type === HttpEventType.DownloadProgress) {
-            const percent = Math.round(100 * result.loaded / result.total);
-            console.log(percent);
-
-            this.downloads$.next(this.downloads$.value.map(item => {
-              if (item.id === id) {
-                return {
-                  ...item,
-                  percent
-                };
-              }
-
-              return item;
-            }));
-          }
-          if (result.type === HttpEventType.Response) {
-            // this.generateDownload(result.body);
-            console.log('FINISHED');
-            saveAs(result.body, item.name);
-            console.log(result.body);
-          }
-        })
-      ).subscribe();
-    });
-  }
-
   previewItem(item: DriveItem) {
-    console.log('preview', item);
-
     disableScroll();
 
     this.dialog.open(FullFilePreviewComponent, {
-
       maxWidth: '100vw',
       maxHeight: '100vh',
       height: '100%',
       width: '100%',
       panelClass: 'full-screen-dialog',
-
-      // autoFocus: false,
-      // width: '100%',
-      // height: '100%',
-      // // width: '140px',
-      // backdropClass: 'clear-backdrop',
-      // panelClass: 'contextmenu-dialog',
       data: {
         item
       },
@@ -263,7 +175,36 @@ export class DriveComponent implements OnInit {
     console.log(files);
   }
 
-  closeDownloads() {
-    this.downloads$.next([]);
+  navigateTo(item: DriveItem, append = false) {
+    const route = this.routeControl.value;
+    const path = (
+      (it: string) => it.startsWith('/') ? it.slice(1) : it
+    )(route === '.' ? item.name : `${route}/${item.name}`).split('/').filter(it => !!it);
+
+    const extras: NavigationExtras = {};
+
+    if (append) {
+      path.unshift('drive');
+    } else {
+      path.splice(0, path.length);
+      path.push('drive');
+      if (item.name) {
+        path.push(item.name);
+      }
+    }
+
+    this.router.navigate(path, extras);
+  }
+
+  mouseEnterDownload(download: DriveItem) {
+    (download as any).hover = true;
+    (download as any).icon = 'cancel';
+    (download as any).iconColor = '#757575';
+  }
+
+  mouseLeaveDownload(download: DriveItem) {
+    (download as any).hover = false;
+    (download as any).icon = '';
+    (download as any).iconColor = '';
   }
 }

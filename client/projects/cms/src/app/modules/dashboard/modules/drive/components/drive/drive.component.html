@@ -7,10 +7,24 @@
     <mat-card>
       <mat-card-title>
         <div class="flex ai-center">
-          <mat-form-field>
-            <mat-label>Path</mat-label>
-            <input matInput [formControl]="routeControl">
-          </mat-form-field>
+          <div class="flex jc-start ai-center" *ngIf="activatedRoute.data | async as data">
+            <button mat-icon-button (click)="navigateTo({name: ''})">
+              <mat-icon>home</mat-icon>
+            </button>
+            <ng-container *ngIf="data.route as routes">
+              <mat-icon>chevron_right</mat-icon>
+              <div *ngFor="let route of routes; index as index" class="flex ai-center">
+                <button mat-flat-button (click)="navigateTo({name: route})">{{route}}</button>
+                <mat-icon *ngIf="index !== routes.length - 1">chevron_right</mat-icon>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="flex-1"></div>
+          <!--          <mat-form-field>-->
+          <!--            <mat-label>Path</mat-label>-->
+          <!--            <input matInput [formControl]="routeControl">-->
+          <!--          </mat-form-field>-->
 
           <button mat-icon-button (click)="toggleView()">
             <mat-icon>{{view === 'grid' ? 'list' : 'grid_view'}}</mat-icon>
@@ -33,7 +47,7 @@
             <p class="drive-subheader m-t-s" *ngIf="items.folders.length">Folders</p>
             <div class="grid jc-start p-a-0">
               <div *ngFor="let folder of items.folders; index as index" class="col-3 col-s-6 col-xs-12">
-                <mat-card class="drive-item" [tabIndex]="index + 1">
+                <mat-card class="drive-item" [tabIndex]="index + 1" (dblclick)="navigateTo(folder, true)">
                   <div class="flex jc-start ai-center">
                     <mat-icon class="drive-item-icon">folder</mat-icon>
                     <div class="drive-item-name" [matTooltip]="folder.name" matTooltipShowDelay="1000">
@@ -57,7 +71,7 @@
                     </div>
                     <div style="height: 48px;" class="flex jc-start ai-center p-x-s">
                       <ng-container *ngIf="file | fileIcon as icon">
-                      <mat-icon class="drive-item-icon" [style]="'color: ' + icon.color">{{icon.name}}</mat-icon>
+                        <mat-icon class="drive-item-icon" [style]="'color: ' + icon.color">{{icon.name}}</mat-icon>
                       </ng-container>
                       <div class="drive-item-name" [matTooltip]="file.name" matTooltipShowDelay="1000">
                         {{file.name}}
@@ -76,17 +90,48 @@
   </div>
 </section>
 
-<ng-container *ngIf="downloads$ | async as downloads">
+<ng-container *ngIf="drive.downloads$ | async as downloads">
   <mat-card *ngIf="downloads.length" class="downloads">
     <mat-card-title>
       <div class="flex jc-between ai-center">
         <div>Downloads</div>
-        <button mat-icon-button (click)="closeDownloads()">
-          <mat-icon>close</mat-icon>
-        </button>
+<!--        <button mat-icon-button (click)="drive.closeDownloads()">-->
+<!--          <mat-icon>close</mat-icon>-->
+<!--        </button>-->
       </div>
     </mat-card-title>
-    {{downloads | json}}
+
+    <div *ngFor="let download of downloads; index as index">
+      <div class="flex jc-between p-a-s">
+        <div class="wrap-text" [matTooltip]="download.name" matTooltipShowDelay="1000">{{download.name}}</div>
+        <!--        <div>{{download.percent}}%</div>-->
+        <div class="flex ai-center"
+             (mouseenter)="mouseEnterDownload(download)"
+             (mouseleave)="mouseLeaveDownload(download)">
+          <div (click)="drive.stopDownload(download)" style="height: 20px;">
+            <ng-container *ngIf="download.percent$ | async as percent">
+
+
+              <ng-container *ngIf="download.hover || percent === 100; else progress">
+                <mat-icon
+                  [style]="'cursor: pointer; width: 20px; height: 20px; font-size: 20px; color: ' + (download.iconColor || '#7cb342')">{{download.icon || 'check_circle'}}</mat-icon>
+              </ng-container>
+              <ng-template #progress>
+                <mat-progress-spinner diameter="20" mode="determinate"
+                                      [value]="percent"></mat-progress-spinner>
+              </ng-template>
+
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <!--      <div>-->
+      <!--        <mat-progress-bar [value]="download.percent / 100"></mat-progress-bar>-->
+      <!--      </div>-->
+
+      <hr *ngIf="index !== downloads.length - 1">
+    </div>
   </mat-card>
 </ng-container>
 
@@ -104,7 +149,7 @@
     class="contextmenu-dialog-item"
     mat-button
     mat-dialog-close
-    (click)="downloadItem(data.item)">
+    (click)="drive.downloadItem(data.item)">
     <mat-icon>file_download</mat-icon>
     <span class="p-l-s">Download</span>
   </button>
