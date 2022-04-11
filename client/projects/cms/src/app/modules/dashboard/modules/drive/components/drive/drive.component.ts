@@ -2,28 +2,25 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Input,
-  OnInit,
+  Input, NgZone,
+  OnInit, Renderer2,
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import {BehaviorSubject, combineLatest, map, Observable, shareReplay, startWith} from 'rxjs';
+import {BehaviorSubject, combineLatest, map, Observable, startWith} from 'rxjs';
 import {DriveItem, FilterMethod} from 'definitions';
 import {DbService} from '../../../../../../shared/services/db/db.service';
-import {FormControl} from '@angular/forms';
-import {debounceTime, switchMap, take, tap} from 'rxjs/operators';
+import {FormControl, Validators} from '@angular/forms';
+import {shareReplay, switchMap, take, tap} from 'rxjs/operators';
 import {MatDialog} from '@angular/material/dialog';
 import {NoopScrollStrategy} from '@angular/cdk/overlay';
 import {disableScroll, enableScroll} from '@shared/utils/scroll';
 import {FullFilePreviewComponent} from '../full-file-preview/full-file-preview.component';
-import {getStorage, ref} from '@angular/fire/storage';
-import {FbStorageService} from '../../../../../../../../integrations/firebase/fb-storage.service';
-import {HttpClient, HttpEventType} from '@angular/common/http';
-import {saveAs} from 'file-saver';
-import {random} from '@jaspero/utils';
 import {DriveService} from '../../services/drive/drive.service';
 import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'jms-drive',
   templateUrl: './drive.component.html',
@@ -34,16 +31,19 @@ export class DriveComponent implements OnInit {
 
   @Input()
   title = 'Drive';
-  items$: Observable<{
+  items$ = new BehaviorSubject<{
     folders: DriveItem[],
     files: DriveItem[]
-  }>;
+  }>(null);
   routeControl: FormControl;
 
   view: 'list' | 'grid' = 'grid';
 
   @ViewChild('context')
   contextTemplate: TemplateRef<any>;
+
+  @ViewChild('newFolder')
+  newFolderTemplate: TemplateRef<any>;
 
   loading$ = new BehaviorSubject(true);
 
@@ -53,7 +53,9 @@ export class DriveComponent implements OnInit {
     private db: DbService,
     private dialog: MatDialog,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private ngZone: NgZone,
+    private renderer: Renderer2
   ) {
   }
 
@@ -65,11 +67,13 @@ export class DriveComponent implements OnInit {
       this.routeControl.setValue(routes.join('/'));
     });
 
-    this.items$ = this.routeControl.valueChanges.pipe(
+    this.routeControl.valueChanges.pipe(
       startWith(this.routeControl.value),
       switchMap((route) => {
-        console.log(route);
-        this.loading$.next(true);
+        this.ngZone.run(() => {
+          this.items$.next(null);
+          this.loading$.next(true);
+        });
 
         return combineLatest([
           this.getItems(route, 'folder'),
@@ -83,11 +87,15 @@ export class DriveComponent implements OnInit {
         };
       }),
       shareReplay(1),
-      tap((a) => {
-        this.loading$.next(false);
-        this.cdr.detectChanges();
-      })
-    );
+      tap((items) => {
+        this.ngZone.run(() => {
+          this.loading$.next(false);
+          this.items$.next(items);
+          this.cdr.markForCheck();
+        });
+      }),
+      untilDestroyed(this)
+    ).subscribe();
   }
 
   getItems(route: string, type?: 'file' | 'folder'): Observable<DriveItem[]> {
@@ -171,15 +179,13 @@ export class DriveComponent implements OnInit {
     ).subscribe();
   }
 
-  uploadItems(files: FileList) {
-    console.log(files);
-  }
+  navigateTo(item: DriveItem | string, append = false) {
+    const name = typeof item === 'string' ? item : item.name;
 
-  navigateTo(item: DriveItem, append = false) {
     const route = this.routeControl.value;
     const path = (
       (it: string) => it.startsWith('/') ? it.slice(1) : it
-    )(route === '.' ? item.name : `${route}/${item.name}`).split('/').filter(it => !!it);
+    )(route === '.' ? name : `${route}/${name}`).split('/').filter(it => !!it);
 
     const extras: NavigationExtras = {};
 
@@ -188,8 +194,8 @@ export class DriveComponent implements OnInit {
     } else {
       path.splice(0, path.length);
       path.push('drive');
-      if (item.name) {
-        path.push(item.name);
+      if (name) {
+        path.push(name);
       }
     }
 
@@ -208,11 +214,53 @@ export class DriveComponent implements OnInit {
     (download as any).iconColor = '';
   }
 
-  trackById(index: number, item: DriveItem) {
-    return item.id;
+  trackByPath(index: number, item: DriveItem) {
+    return item.path + '/' + item.name;
   }
 
   trackByName(index: number, item: string) {
     return item;
+  }
+
+  openNewFolderDialog() {
+    const control = new FormControl('', [Validators.required]);
+
+    disableScroll();
+    this.dialog.open(this.newFolderTemplate, {
+      data: {
+        control
+      },
+      width: '400px',
+      scrollStrategy: new NoopScrollStrategy()
+    }).afterClosed().pipe(
+      take(1),
+      tap((data) => {
+        enableScroll();
+
+        if (!data) {
+          return;
+        }
+
+        this.navigateTo(control.value, true);
+      })
+    ).subscribe();
+  }
+
+  openUploadDialog() {
+    const input: HTMLInputElement = this.renderer.createElement('input');
+    input.type = 'file';
+    input.multiple = true;
+
+    input.onchange = (event) => {
+      console.log('CHANGE');
+      console.log(input.files);
+      console.log(event);
+
+      this.drive.uploadFiles(this.routeControl.value, input.files);
+
+      input.remove();
+    };
+
+    input.click();
   }
 }

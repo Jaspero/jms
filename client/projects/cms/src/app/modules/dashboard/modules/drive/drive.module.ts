@@ -17,6 +17,7 @@ import {DropZoneModule, SanitizeModule} from '@jaspero/ng-helpers';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {FullFilePreviewComponent} from './components/full-file-preview/full-file-preview.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     DropZoneModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    SanitizeModule
+    SanitizeModule,
+    DragDropModule
   ],
   exports: [
     DriveComponent

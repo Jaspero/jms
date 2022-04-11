@@ -13,7 +13,7 @@
 
     <div class="flex-1"></div>
     <div>
-      <button mat-icon-button (click)="drive.downloadItem(data.item); dialogRef.close()">
+      <button mat-icon-button (click)="drive.downloadItem(data.item)">
         <mat-icon>file_download</mat-icon>
       </button>
       <button mat-icon-button>
@@ -53,7 +53,7 @@
             </div>
 
             <div class="flex jc-center ai-center m-t-l">
-              <button mat-raised-button color="primary" (click)="drive.downloadItem(data.item); dialogRef.close()">
+              <button mat-raised-button color="primary" (click)="drive.downloadItem(data.item)">
                 <mat-icon>file_download</mat-icon>
                 Download
               </button>

@@ -24,7 +24,5 @@ export class FullFilePreviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.type = detectPreviewType(this.data.item.contentType);
-
-    console.log(this.data);
   }
 }

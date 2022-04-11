@@ -1,29 +1,31 @@
-import {Injectable} from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import {DriveItem} from 'definitions';
-import {getStorage, ref} from '@angular/fire/storage';
+import {deleteObject, getStorage, ref, uploadBytesResumable, UploadTask} from '@angular/fire/storage';
 import {random} from '@jaspero/utils';
 import {tap} from 'rxjs/operators';
 import {HttpClient, HttpEventType} from '@angular/common/http';
 import {FbStorageService} from '../../../../../../../../integrations/firebase/fb-storage.service';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {saveAs} from 'file-saver';
-import {BehaviorSubject, Subscription} from 'rxjs';
+import {BehaviorSubject, Observable, Subscription} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DriveService {
 
+  uploads$ = new BehaviorSubject([]);
+  downloads$ = new BehaviorSubject([]);
+  uploadProcesses: {[key: string]: UploadTask} = {};
+  downloadProcesses: {[key: string]: Subscription} = {};
+
   constructor(
     private storage: FbStorageService,
     private db: DbService,
-    private http: HttpClient
+    private http: HttpClient,
+    private ngZone: NgZone
   ) {
   }
-
-  downloads$ = new BehaviorSubject([]);
-
-  downloadProcesses: {[key: string]: Subscription} = {};
 
   downloadItem(item: DriveItem) {
     if (item.type === 'folder') {
@@ -35,16 +37,27 @@ export class DriveService {
 
     const id = random.string(8);
 
-    this.storage.getDownloadURL(ref(storageInstance, path)).then(async (url) => {
+    const percent$ = new BehaviorSubject(0);
 
-      const percent$ = new BehaviorSubject(0);
-
+    this.ngZone.run(() => {
       this.downloads$.next([...this.downloads$.value, {
         name: item.name,
-        url,
+        url: '',
         percent$,
         id
       }]);
+    });
+
+    this.storage.getDownloadURL(ref(storageInstance, path)).then(async (url) => {
+
+      this.downloads$.next(
+        this.downloads$.value.map(download => {
+          if (download.id === id) {
+            download.url = url;
+          }
+          return download;
+        })
+      );
 
       this.downloadProcesses[id] = this.http.get(
         this.db.url('cms-proxy/' + url),
@@ -57,28 +70,14 @@ export class DriveService {
         tap((result) => {
           if (result.type === HttpEventType.DownloadProgress) {
             const percent = Number((100 * result.loaded / result.total).toFixed(1));
-            console.log(percent);
-
-            percent$.next(percent);
-
-            // this.downloads$.next(
-            //   this.downloads$.value.map(it => {
-            //     if (it.id === id) {
-            //       return {
-            //         ...it,
-            //         percent
-            //       };
-            //     }
-            //
-            //     return it;
-            //   })
-            // );
+            this.ngZone.run(() => {
+              percent$.next(percent);
+            });
           }
+
           if (result.type === HttpEventType.Response) {
-            console.log('FINISHED');
             this.downloadProcesses[id]?.unsubscribe();
             saveAs(result.body, item.name);
-            console.log(result.body);
           }
         })
       ).subscribe();
@@ -86,12 +85,66 @@ export class DriveService {
   }
 
   stopDownload(download) {
-    console.log('STOP DOWNLOAD', download);
     this.downloadProcesses[download.id]?.unsubscribe();
     this.downloads$.next(this.downloads$.value.filter(it => it.id !== download.id));
   }
 
   closeDownloads() {
     this.downloads$.next([]);
+  }
+
+  stopUpload(upload) {
+    this.uploadProcesses[upload.id]?.cancel();
+    this.uploads$.next(this.uploads$.value.filter(it => it.id !== upload.id));
+  }
+
+  closeUploads() {
+    this.uploads$.next([]);
+  }
+
+  uploadFiles(path: string, files: FileList) {
+    if (!files.length) {
+      return;
+    }
+
+    const storageInstance = getStorage();
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files.item(i);
+
+      const id = random.string(8);
+      const percent$ = new BehaviorSubject(0);
+
+      this.ngZone.run(() => {
+        this.uploads$.next([
+          ...this.uploads$.value,
+          {
+            name: file.name,
+            path,
+            percent$,
+            id
+          }
+        ]);
+      });
+
+      this.uploadProcesses[id] = uploadBytesResumable(ref(storageInstance, path + '/' + file.name), file);
+
+      this.uploadProcesses[id].on('state_changed', (snapshot) => {
+        const percent = snapshot.totalBytes
+          ? Number(((100 * snapshot.bytesTransferred / snapshot.totalBytes)).toFixed(1))
+          : 100;
+
+        this.ngZone.run(() => {
+          percent$.next(percent);
+        });
+      });
+    }
+  }
+
+  async removeItem(item: DriveItem) {
+    const storageInstance = getStorage();
+
+    const path = item.path === '.' ? item.name : `${item.path}/${item.name}`;
+    await deleteObject(ref(storageInstance, path));
   }
 }

@@ -4,49 +4,60 @@
 </mat-toolbar>
 <section class="drive">
   <div class="container">
-    <mat-card>
+    <mat-card style="padding: 4px">
       <mat-card-title>
         <div class="flex ai-center">
           <div class="flex jc-start ai-center" *ngIf="activatedRoute.data | async as data">
-            <button mat-icon-button (click)="navigateTo({name: ''})">
+            <button mat-icon-button (click)="navigateTo('')">
               <mat-icon>home</mat-icon>
             </button>
             <ng-container *ngIf="data.route as routes">
               <mat-icon>chevron_right</mat-icon>
               <div *ngFor="let route of routes; trackBy: trackByName; index as index" class="flex ai-center">
-                <button mat-flat-button (click)="navigateTo({name: route})">{{route}}</button>
+                <button mat-flat-button (click)="navigateTo(route)">{{route}}</button>
                 <mat-icon *ngIf="index !== routes.length - 1">chevron_right</mat-icon>
               </div>
             </ng-container>
           </div>
 
           <div class="flex-1"></div>
-          <!--          <mat-form-field>-->
-          <!--            <mat-label>Path</mat-label>-->
-          <!--            <input matInput [formControl]="routeControl">-->
-          <!--          </mat-form-field>-->
-
+          <button mat-icon-button (click)="openUploadDialog()">
+            <mat-icon>file_upload</mat-icon>
+          </button>
+          <button mat-icon-button (click)="openNewFolderDialog()">
+            <mat-icon>create_new_folder</mat-icon>
+          </button>
           <button mat-icon-button (click)="toggleView()">
-            <mat-icon>{{view === 'grid' ? 'list' : 'grid_view'}}</mat-icon>
+            <mat-icon>{{view === 'grid' ? 'list' : 'calendar_view_month'}}</mat-icon>
           </button>
         </div>
       </mat-card-title>
     </mat-card>
 
-    <div class="dropzone" jpDropZone (dropped)="uploadItems($event)">
+    <div class="dropzone" jpDropZone (dropped)="drive.uploadFiles(routeControl.value, $event)">
       <ng-container *ngIf="loading$ | async">
-        <div class="flex jc-center">
+        <div class="flex jc-center ai-center w-full" style="height: 80%">
           <mat-spinner diameter="30"></mat-spinner>
         </div>
       </ng-container>
 
       <ng-container *ngIf="items$ | async as items">
+
+        <ng-container *ngIf="!items.folders.length && !items.files.length">
+          <div class="flex jc-center ai-center fd-col" style="height: 90%; color: rgba(0, 0, 0, 0.65)">
+            <mat-icon style="font-size: 80px; width: 80px; height: 80px;">folder</mat-icon>
+            <h2>Folder empty</h2>
+            <h4>Drop files here or click 'Upload'</h4>
+          </div>
+        </ng-container>
+
         <ng-container [ngSwitch]="view">
           <ng-container *ngSwitchCase="'grid'">
             <!-- Folders -->
             <p class="drive-subheader m-t-s" *ngIf="items.folders.length">Folders</p>
             <div class="grid jc-start p-a-0">
-              <div *ngFor="let folder of items.folders; trackBy: trackById; index as index" class="col-3 col-s-6 col-xs-12">
+              <div *ngFor="let folder of items.folders; trackBy: trackByPath; index as index"
+                   class="col-3 col-s-6 col-xs-12">
                 <mat-card class="drive-item" [tabIndex]="index + 1" (dblclick)="navigateTo(folder, true)">
                   <div class="flex jc-start ai-center">
                     <mat-icon class="drive-item-icon">folder</mat-icon>
@@ -61,7 +72,8 @@
             <!-- Files -->
             <p class="drive-subheader m-t-s" *ngIf="items.files.length">Files</p>
             <div class="grid jc-start p-a-0">
-              <div *ngFor="let file of items.files; trackBy: trackById; index as index" class="col-3 col-s-6 col-xs-12">
+              <div *ngFor="let file of items.files; trackBy: trackByPath; index as index"
+                   class="col-3 col-s-6 col-xs-12">
                 <mat-card class="drive-item" [tabIndex]="items.folders.length + index + 1" style="padding: 0;"
                           (contextmenu)="openItemContextMenu($event, file)"
                           (dblclick)="previewItem(file)">
@@ -90,50 +102,87 @@
   </div>
 </section>
 
-<ng-container *ngIf="drive.downloads$ | async as downloads">
-  <mat-card *ngIf="downloads.length" class="downloads">
-    <mat-card-title>
-      <div class="flex jc-between ai-center">
-        <div>Downloads</div>
-<!--        <button mat-icon-button (click)="drive.closeDownloads()">-->
-<!--          <mat-icon>close</mat-icon>-->
-<!--        </button>-->
-      </div>
-    </mat-card-title>
+<div class="drive-actions">
+  <ng-container *ngIf="drive.downloads$ | async as downloads">
+    <mat-card *ngIf="downloads.length" class="downloads">
+      <mat-card-title>
+        <div class="flex jc-between ai-center m-t-s">
+          <div>Downloads</div>
+          <button mat-icon-button (click)="drive.closeDownloads()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </mat-card-title>
 
-    <div *ngFor="let download of downloads; index as index">
-      <div class="flex jc-between p-a-s">
-        <div class="wrap-text" [matTooltip]="download.name" matTooltipShowDelay="1000">{{download.name}}</div>
-        <!--        <div>{{download.percent}}%</div>-->
-        <div class="flex ai-center"
-             (mouseenter)="mouseEnterDownload(download)"
-             (mouseleave)="mouseLeaveDownload(download)">
-          <div (click)="drive.stopDownload(download)" style="height: 20px;">
-            <ng-container *ngIf="download.percent$ | async as percent">
+      <div *ngFor="let download of downloads; index as index">
+        <div class="flex jc-between p-a-s">
+          <div class="wrap-text" [matTooltip]="download.name" matTooltipShowDelay="1000">{{download.name}}</div>
+          <div class="flex ai-center"
+               (mouseenter)="mouseEnterDownload(download)"
+               (mouseleave)="mouseLeaveDownload(download)">
+            <div (click)="drive.stopDownload(download)" style="height: 20px;">
+              <ng-container *ngIf="download.percent$ | async as percent">
 
 
-              <ng-container *ngIf="download.hover || percent === 100; else progress">
-                <mat-icon
-                  [style]="'cursor: pointer; width: 20px; height: 20px; font-size: 20px; color: ' + (download.iconColor || '#7cb342')">{{download.icon || 'check_circle'}}</mat-icon>
+                <ng-container *ngIf="download.hover || percent === 100; else progress">
+                  <mat-icon class="downloads-icon"
+                            [style]="'color: ' + (download.iconColor || '#7cb342')">{{download.icon || 'check_circle'}}</mat-icon>
+                </ng-container>
+                <ng-template #progress>
+                  <mat-progress-spinner diameter="20" mode="determinate"
+                                        [value]="percent"></mat-progress-spinner>
+                </ng-template>
+
               </ng-container>
-              <ng-template #progress>
-                <mat-progress-spinner diameter="20" mode="determinate"
-                                      [value]="percent"></mat-progress-spinner>
-              </ng-template>
-
-            </ng-container>
+            </div>
           </div>
         </div>
+
+        <hr *ngIf="index !== downloads.length - 1">
       </div>
+    </mat-card>
+  </ng-container>
 
-      <!--      <div>-->
-      <!--        <mat-progress-bar [value]="download.percent / 100"></mat-progress-bar>-->
-      <!--      </div>-->
+  <ng-container *ngIf="drive.uploads$ | async as uploads">
+    <mat-card *ngIf="uploads.length" class="downloads">
+      <mat-card-title>
+        <div class="flex jc-between ai-center m-t-s">
+          <div>Uploads</div>
+          <button mat-icon-button (click)="drive.closeUploads()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </mat-card-title>
 
-      <hr *ngIf="index !== downloads.length - 1">
-    </div>
-  </mat-card>
-</ng-container>
+      <div *ngFor="let upload of uploads; index as index">
+        <div class="flex jc-between p-a-s">
+          <div class="wrap-text" [matTooltip]="upload.name" matTooltipShowDelay="1000">{{upload.name}}</div>
+          <div class="flex ai-center"
+               (mouseenter)="mouseEnterDownload(upload)"
+               (mouseleave)="mouseLeaveDownload(upload)">
+            <div (click)="drive.stopUpload(upload)" style="height: 20px;">
+              <ng-container *ngIf="upload.percent$ | async as percent">
+
+
+                <ng-container *ngIf="upload.hover || percent === 100; else progress">
+                  <mat-icon class="downloads-icon"
+                            [style]="'color: ' + (upload.iconColor || '#7cb342')">{{upload.icon || 'check_circle'}}</mat-icon>
+                </ng-container>
+                <ng-template #progress>
+                  <mat-progress-spinner diameter="20" mode="determinate"
+                                        [value]="percent"></mat-progress-spinner>
+                </ng-template>
+
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <hr *ngIf="index !== uploads.length - 1">
+      </div>
+    </mat-card>
+  </ng-container>
+</div>
 
 <ng-template #context let-data>
   <button
@@ -158,8 +207,27 @@
     class="contextmenu-dialog-item"
     mat-button
     color="warn"
-    mat-dialog-close>
+    mat-dialog-close (click)="drive.removeItem(data.item)">
     <mat-icon>delete</mat-icon>
     <span class="p-l-s">Remove</span>
   </button>
+</ng-template>
+
+<ng-template #newFolder let-data>
+  <div mat-dialog-title>New Folder</div>
+
+  <mat-form-field class="w-full">
+    <mat-label>Name</mat-label>
+    <input matInput [formControl]="data.control" autocomplete="off">
+  </mat-form-field>
+
+  <div class="flex jc-end">
+    <div class="p-x-xs">
+      <button mat-raised-button mat-dialog-close>Cancel</button>
+    </div>
+    <div class="p-x-xs">
+      <button mat-raised-button color="primary" [disabled]="data.control.invalid" [mat-dialog-close]="true">Create
+      </button>
+    </div>
+  </div>
 </ng-template>

@@ -12,39 +12,7 @@ const routes: Routes = [
       route: RouteResolver
     }
   }
-  // {
-  //   path: '',
-  //   component: DriveComponent,
-  //   children: [
-  //     {
-  //       path: ':id',
-  //       loadChildren: () => import('./drive-routing.module').then(m => m.DriveRoutingModule)
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: ':route',
-  //   component: DriveComponent,
-  //   children: [
-  //     {
-  //       path: '',
-  //       loadChildren: () => import('./drive-routing.module').then(m => m.DriveRoutingModule)
-  //     }
-  //   ]
-  //   // children: [
-  //   //   {
-  //   //     path: '**',
-  //   //     component: DriveComponent
-  //   //   }
-  //   // ]
-  // }
 ];
-//
-// { path: '', component: FolderComponent, children: [
-//   { path: ':id', loadChildren: './src/folder/folder.module' }
-// ]},
-
-// routes[1].children = routes;
 
 @NgModule({
   imports: [
