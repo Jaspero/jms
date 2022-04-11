@@ -18,10 +18,7 @@
     </div>
   </mat-toolbar>
 
-  <div class="flex ai-center jc-between" data-include-max-height>
-    <ng-container *ngIf="ioc.subHeaderTemplate$ | async as subHeaderTemplate">
-      <ng-container *ngTemplateOutlet="subHeaderTemplate"></ng-container>
-    </ng-container>
+  <div class="flex ai-center jc-between fd-row-rev" data-include-max-height>
     <div class="m-r-s" *ngIf="views && views.length">
       <button
         *ngFor="let view of views"
@@ -32,6 +29,9 @@
         <mat-icon>{{view.icon}}</mat-icon>
       </button>
     </div>
+    <ng-container *ngIf="ioc.subHeaderTemplate$ | async as subHeaderTemplate">
+      <ng-container *ngTemplateOutlet="subHeaderTemplate"></ng-container>
+    </ng-container>
   </div>
 
   <div class="contents" [innerHtml]="currentView | jpSanitize"></div>

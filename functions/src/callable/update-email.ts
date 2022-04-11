@@ -1,10 +1,10 @@
 import {auth, firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import {STATIC_CONFIG} from '../consts/static-config.const';
+import {SHARED_CONFIG, Collections} from 'definitions';
 import {hasRole} from '../utils/auth';
 
 export const updateEmail = functions
-  .region(STATIC_CONFIG.cloudRegion)
+  .region(SHARED_CONFIG.cloudRegion)
   .https.onCall(async (data, context) => {
     hasRole(context, 'admin');
 
@@ -13,7 +13,7 @@ export const updateEmail = functions
 
     try {
       await auth().updateUser(id, {email});
-      await firestore().collection('users').doc(id).update({
+      await firestore().collection(Collections.Users).doc(id).update({
         email
       });
     } catch (e) {

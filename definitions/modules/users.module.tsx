@@ -1,5 +1,6 @@
 import {FilterMethod} from '../enums/filter-method.enum';
 import {PipeType} from '../enums/pipe-type.enum';
+import {Collections} from '../interfaces/collections';
 import {Module} from '../interfaces/module.interface';
 import JSX from '../jsx.compiler';
 import {CREATED_ON} from './shared/created-on';
@@ -7,7 +8,7 @@ import {EMAIL_PIPE} from './shared/email-pipe';
 import {YES_NO_FILTER_PIPE} from './shared/yes-no-pipe';
 
 export const USERS_MODULE: Module = {
-  id: 'users',  
+  id: Collections.Users,  
   name: 'MODULES.USERS',
   description: 'MODULES.USERS_DESCRIPTION',
   layout: {
@@ -64,7 +65,7 @@ export const USERS_MODULE: Module = {
             configuration: {
               reset: true,
               populate: {
-                collection: 'roles'
+                collection: Collections.Roles
               }
             }
           }
@@ -199,7 +200,7 @@ export const USERS_MODULE: Module = {
       component: {
         type: 'ref',
         configuration: {
-          collection: 'roles',
+          collection: Collections.Roles,
           clearValue: null,
           search: {key: '/name', label: 'GENERAL.NAME'},
           display: {key: '/name', label: 'GENERAL.ROLE'},

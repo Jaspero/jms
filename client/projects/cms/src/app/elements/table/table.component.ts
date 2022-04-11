@@ -16,7 +16,6 @@ import {
 } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
-import {Router} from '@angular/router';
 import {Definitions, Parser, State} from '@jaspero/form-builder';
 import {parseTemplate, random, safeEval, toLabel} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
@@ -94,7 +93,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     private viewContainerRef: ViewContainerRef,
     private dbService: DbService,
     private dialog: MatDialog,
-    private router: Router,
     private cdr: ChangeDetectorRef,
     private transloco: TranslocoService
   ) {

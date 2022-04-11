@@ -6,9 +6,8 @@ import {get, has} from 'json-pointer';
 import {Parser} from 'json2csv';
 import * as XLSX from 'xlsx';
 import {CORS} from '../consts/cors-whitelist.const';
-import {STATIC_CONFIG} from '../consts/static-config.const';
 import {authenticated} from './middlewares/authenticated';
-import {MODULES} from 'definitions';
+import {MODULES, SHARED_CONFIG} from 'definitions';
 
 enum Type {
   csv = 'csv',
@@ -205,6 +204,6 @@ app.post('/:module', authenticated(), (req, res) => {
 });
 
 export const exportData = functions
-  .region(STATIC_CONFIG.cloudRegion)
+  .region(SHARED_CONFIG.cloudRegion)
   .https
   .onRequest(app);

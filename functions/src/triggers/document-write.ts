@@ -1,11 +1,10 @@
 import {relevantIndex} from 'adv-firestore-functions';
 import * as functions from 'firebase-functions';
-import {STATIC_CONFIG} from '../consts/static-config.const';
-import {MODULES} from 'definitions';
+import {MODULES, SHARED_CONFIG, Collections} from 'definitions';
 import {random} from '@jaspero/utils';
 
 export const documentWrite = functions
-  .region(STATIC_CONFIG.cloudRegion)
+  .region(SHARED_CONFIG.cloudRegion)
   .firestore
   .document(`{colId}/{docId}`)
   .onWrite(async (change, context) => {
@@ -46,7 +45,7 @@ export const documentWrite = functions
           `${module.metadata?.docIdPrefix || module.id.slice(0, 2)}-${random.string(module.metadata?.docIdSize || 12)}`
       )
 
-      await change.after.ref.collection('history').doc(historyId).set({
+      await change.after.ref.collection(Collections.History).doc(historyId).set({
         type: change.before.exists ? (change.after.exists ? 'update' : 'delete') : 'create',
         createdOn: Date.now(),
         ...change.before.exists && {before: change.before.data()},

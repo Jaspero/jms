@@ -21,11 +21,10 @@ import {
 import {Functions, httpsCallableData} from '@angular/fire/functions';
 import {from, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {FilterMethod} from 'definitions';
+import {FilterMethod, SHARED_CONFIG} from 'definitions';
 import {WhereFilter} from '../../src/app/shared/interfaces/where-filter.interface';
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
-import {STATIC_CONFIG} from '../../src/environments/static-config';
 import {collectionData} from 'rxfire/firestore';
 
 @Injectable()
@@ -43,12 +42,12 @@ export class FbDatabaseService extends DbService {
       return [
         environment.origin,
         environment.firebase.projectId,
-        STATIC_CONFIG.cloudRegion,
+        SHARED_CONFIG.cloudRegion,
         url
       ]
         .join('/');
     } else {
-      return `https://${STATIC_CONFIG.cloudRegion}-${environment.firebase.projectId}.cloudfunctions.net/${url}`;
+      return `https://${SHARED_CONFIG.cloudRegion}-${environment.firebase.projectId}.cloudfunctions.net/${url}`;
     }
   }
 

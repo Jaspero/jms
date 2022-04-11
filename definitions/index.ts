@@ -33,7 +33,11 @@ export type {ModuleLayoutTableColumn} from './interfaces/module-layout-table.int
 export type {ModuleDefinitions} from './interfaces/module.interface';
 export type {DriveItem} from './interfaces/drive-item.interface';
 
+export {Collections} from './interfaces/collections';
+
 export {PipeType} from './enums/pipe-type.enum';
 export {FilterMethod} from './enums/filter-method.enum';
+
+export {SHARED_CONFIG} from './consts/shared-config.const';
 
 export {JSX} from './jsx.compiler';

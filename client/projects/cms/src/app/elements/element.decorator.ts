@@ -6,6 +6,11 @@ export interface ElementOptions {};
 export const ELEMENTS = {};
 
 export function createSelector(selector: string) {
+
+  if (selector.startsWith('<')) {
+    return selector;
+  }
+
 	return selector.startsWith(STATIC_CONFIG.elements.selectorPrefix) ?
 		selector :
 		(STATIC_CONFIG.elements.selectorPrefix + selector.replace(STATIC_CONFIG.elements.componentPrefix, ''))

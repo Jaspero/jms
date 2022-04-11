@@ -5,13 +5,13 @@ import {tmpdir} from 'os';
 import {basename, dirname, join} from 'path';
 import * as sharp from 'sharp';
 import {promisify} from 'util';
-import {STATIC_CONFIG} from '../consts/static-config.const';
 import {unpackGenerateImageString} from '../utils/unpack-generate-image-string';
 import {firestore} from 'firebase-admin';
 import {ObjectMetadata} from 'firebase-functions/lib/providers/storage';
+import {SHARED_CONFIG} from 'definitions';
 
 export const fileCreated = functions
-  .region(STATIC_CONFIG.cloudRegion)
+  .region(SHARED_CONFIG.cloudRegion)
   .runWith({
     memory: '1GB',
     timeoutSeconds: 300

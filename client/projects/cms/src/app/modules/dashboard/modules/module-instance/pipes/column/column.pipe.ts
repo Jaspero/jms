@@ -216,6 +216,15 @@ export class ColumnPipe implements PipeTransform {
         return response;
     }
 
-    return this.pipes[type].transform(val, ...(args || []));
+    /**
+     * Process args (allows for inserting functions where primitives are expected)
+     */
+    if (!Array.isArray(args)) {
+      args = [args];
+    }
+
+    const argsToUse = (args || []).map(it => typeof it === 'function' ? it(val, row) : it);
+
+    return this.pipes[type].transform(val, ...argsToUse);
   }
 }

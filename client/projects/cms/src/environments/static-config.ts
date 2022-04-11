@@ -23,7 +23,6 @@ export const STATIC_CONFIG = {
      */
     selectorPrefix: 'jms-e-',
   },
-  cloudRegion: 'us-central1',
   login: {
     email: true,
     google: true,

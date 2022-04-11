@@ -2,7 +2,8 @@
   "name": "functions",
   "scripts": {
     "lint": "tslint --project tsconfig.json",
-    "build:definitions": "npm run --prefix ../definitions build && cp -r ../definitions definitions",
+    "copy:definitions": "rm -rf definitions && node copy-definitions.js",
+    "build:definitions": "npm run --prefix ../definitions build && npm run copy:definitions",
     "build": "tsc",
     "watch": "npm run build -- -w",
     "serve": "npm run build && firebase serve --only functions",
@@ -31,7 +32,7 @@
     "firebase-admin": "10.0.2",
     "firebase-functions": "3.16.0",
     "handlebars": "4.7.7",
-    "json-pointer": "0.6.1",
+    "json-pointer": "0.6.2",
     "json2csv": "5.0.1",
     "jsonwebtoken": "8.5.1",
     "sharp": "0.28.1",

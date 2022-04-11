@@ -7,9 +7,9 @@ import {connectStorageEmulator, getStorage, provideStorage} from '@angular/fire/
 import {getAnalytics, provideAnalytics} from '@angular/fire/analytics';
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
-import {STATIC_CONFIG} from '../../src/environments/static-config';
 import {FbDatabaseService} from './fb-database.service';
 import {FbStorageService} from './fb-storage.service';
+import {SHARED_CONFIG} from 'definitions';
 
 @NgModule({
   imports: [
@@ -45,7 +45,7 @@ import {FbStorageService} from './fb-storage.service';
       return auth;
     }),
     provideFunctions(() => {
-      const functions = getFunctions(undefined, STATIC_CONFIG.cloudRegion);
+      const functions = getFunctions(undefined, SHARED_CONFIG.cloudRegion);
 
       if (environment.firebaseEmulators) {
         connectFunctionsEmulator(functions, 'localhost', 5000);

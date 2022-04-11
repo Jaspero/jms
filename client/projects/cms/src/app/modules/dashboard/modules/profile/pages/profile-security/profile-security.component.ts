@@ -4,10 +4,10 @@ import {AbstractControlOptions, FormBuilder, FormGroup, FormGroupDirective, Vali
 import {Router} from '@angular/router';
 import {notify} from '@shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
+import {Collections} from 'definitions';
 import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 import {combineLatest, from, Observable, throwError} from 'rxjs';
 import {catchError, map, shareReplay, switchMap, take, tap} from 'rxjs/operators';
-import {FirestoreCollection} from '../../../../../../../../integrations/firebase/firestore-collection.enum';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
 import {confirmation} from '../../../../../../shared/utils/confirmation';
@@ -124,7 +124,7 @@ export class ProfileSecurityComponent implements OnInit {
 
       return combineLatest([
         this.db.setDocument(
-          FirestoreCollection.Users,
+          Collections.Users,
           this.state.user.id,
           {email},
           {merge: true}

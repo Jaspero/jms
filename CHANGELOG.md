@@ -1,3 +1,31 @@
+# [5.17.0](https://github.com/jaspero/jms/compare/v5.16.0...v5.17.0) (2022-04-11)
+
+
+### Features
+
+* **cms:** support for providing methods where primitives are expected in column pipe ([6f387b1](https://github.com/jaspero/jms/commit/6f387b1f4c4ecae497a686d598cf203394fdc56c))
+
+# [5.16.0](https://github.com/jaspero/jms/compare/v5.15.0...v5.16.0) (2022-04-10)
+
+
+### Bug Fixes
+
+* **functions:** copy definitions without node_modules ([3073565](https://github.com/jaspero/jms/commit/3073565b2003afbe0bbcd7fa5bb354155f1538d2))
+
+
+### Features
+
+* added collections.ts and replaced throughout ([90e363f](https://github.com/jaspero/jms/commit/90e363f43c5e7093337f7043096addf7f85f9dbe))
+* added SHARED_CONFIG to definitions and moved cloudRegion there ([41da52f](https://github.com/jaspero/jms/commit/41da52fb2031d6779050152470d34f6526831fbb))
+
+# [5.15.0](https://github.com/jaspero/jms/compare/v5.14.5...v5.15.0) (2022-04-08)
+
+
+### Features
+
+* **cms:** allow for raw html in overview views ([f6c3fa8](https://github.com/jaspero/jms/commit/f6c3fa8e4e149320090e23bc17bb8bb74980782e))
+* **cms:** better css for view switching ([b8f73c9](https://github.com/jaspero/jms/commit/b8f73c994b3f603585647d17107ac74d02dc2485))
+
 ## [5.14.5](https://github.com/jaspero/jms/compare/v5.14.4...v5.14.5) (2022-04-06)
 
 

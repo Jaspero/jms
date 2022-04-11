@@ -1,11 +1,12 @@
 import {PipeType} from '../enums/pipe-type.enum';
+import {Collections} from '../interfaces/collections';
 import {Module} from '../interfaces/module.interface';
 import JSX from '../jsx.compiler';
 import {CREATED_ON} from './shared/created-on';
 import {YES_NO_PIPE} from './shared/yes-no-pipe';
 
 export const USER_INVITES_MODULE: Module = {
-  id: 'user-invites',
+  id: Collections.UserInvites,
   name: 'MODULES.USER_INVITES',
   description: 'MODULES.USER_INVITES_DESCRIPTION',
   layout: {
