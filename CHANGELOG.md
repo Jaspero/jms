@@ -1,3 +1,10 @@
+# [5.17.0](https://github.com/jaspero/jms/compare/v5.16.0...v5.17.0) (2022-04-11)
+
+
+### Features
+
+* **cms:** support for providing methods where primitives are expected in column pipe ([6f387b1](https://github.com/jaspero/jms/commit/6f387b1f4c4ecae497a686d598cf203394fdc56c))
+
 # [5.16.0](https://github.com/jaspero/jms/compare/v5.15.0...v5.16.0) (2022-04-10)
 
 
