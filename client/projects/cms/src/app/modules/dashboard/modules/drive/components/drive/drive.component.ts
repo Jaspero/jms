@@ -66,9 +66,9 @@ export class DriveComponent implements OnInit {
     });
 
     this.items$ = this.routeControl.valueChanges.pipe(
-      debounceTime(500),
       startWith(this.routeControl.value),
       switchMap((route) => {
+        console.log(route);
         this.loading$.next(true);
 
         return combineLatest([
@@ -85,7 +85,7 @@ export class DriveComponent implements OnInit {
       shareReplay(1),
       tap((a) => {
         this.loading$.next(false);
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
       })
     );
   }
@@ -206,5 +206,13 @@ export class DriveComponent implements OnInit {
     (download as any).hover = false;
     (download as any).icon = '';
     (download as any).iconColor = '';
+  }
+
+  trackById(index: number, item: DriveItem) {
+    return item.id;
+  }
+
+  trackByName(index: number, item: string) {
+    return item;
   }
 }
