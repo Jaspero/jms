@@ -1,3 +1,10 @@
+## [5.17.1](https://github.com/jaspero/jms/compare/v5.17.0...v5.17.1) (2022-04-14)
+
+
+### Bug Fixes
+
+* fallback to default fix ([8caa69e](https://github.com/jaspero/jms/commit/8caa69e68223f3fac8e434f9ae757c8f99ed4359))
+
 # [5.17.0](https://github.com/jaspero/jms/compare/v5.16.0...v5.17.0) (2022-04-11)
 
 
