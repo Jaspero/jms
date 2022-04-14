@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.util.init();
 
     this.loading$ = this.state.loadingQue$.pipe(

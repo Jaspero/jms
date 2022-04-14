@@ -1,3 +1,7 @@
+:host {
+  font-family: Google Sans, Roboto, RobotoDraft, Helvetica, Arial, sans-serif !important;
+}
+
 .dropzone {
   margin-top: 20px;
 
@@ -44,12 +48,12 @@
 
     color: rgba(0, 0, 0, 0.65);
 
-    &:focus, &.active {
+    &.active {
       color: #1967d2;
       background-color: #E7F0FE;
     }
 
-    &:focus &-icon, &.active &-icon {
+    &.active &-icon {
       color: #1967d2;
     }
 
@@ -81,10 +85,15 @@
   z-index: 9999;
 }
 
-.downloads {
+.downloads, .uploads {
   width: 300px;
 
+  max-height: 40vh;
+
+  overflow-y: scroll;
+
   padding-top: 0;
+  margin-bottom: 10px;
 
   &-icon {
     cursor: pointer;

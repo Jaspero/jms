@@ -49,7 +49,7 @@ export class SpotlightComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((search) => {
 
-        search = (search || '').trim().toLowerCase().replace(/[.@#$/,-]/g, ' ');
+        search = (search || '').trim().toLowerCase().replace(/[.@#$/,-]/g, ' ').trim();
 
 
         if (!search) {

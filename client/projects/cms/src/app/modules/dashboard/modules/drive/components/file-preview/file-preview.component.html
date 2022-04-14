@@ -1,6 +1,6 @@
 <div class="w-full h-full flex jc-center ai-center" style="background-color: white">
   <ng-container [ngSwitch]="true">
-    <ng-container *ngSwitchCase="['other', 'pdf'].includes(type)">
+    <ng-container *ngSwitchCase="['other', 'pdf', 'audio'].includes(type)">
       <ng-container *ngIf="file | fileIcon as icon">
         <mat-icon [style]="'transform: scale(2.5); color: ' + icon.color">{{icon.name}}</mat-icon>
       </ng-container>

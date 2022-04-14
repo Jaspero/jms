@@ -23,7 +23,7 @@ export const DRIVE_MODULE: Module = {
     queryFields: ['name', 'path', 'contentType'],
     template: (packet) => {
       const url = URL.createObjectURL(new Blob([JSON.stringify(packet)], {type: 'application/json'}));
-      return JSX(<jms-spotlight-result url={url} label='email' />)
+      return JSX(<jms-spotlight-drive-result url={url} />)
     }
   },
 };

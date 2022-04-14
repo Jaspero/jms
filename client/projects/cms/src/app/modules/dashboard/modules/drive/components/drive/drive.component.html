@@ -42,7 +42,6 @@
       </ng-container>
 
       <ng-container *ngIf="items$ | async as items">
-
         <ng-container *ngIf="!items.folders.length && !items.files.length">
           <div class="flex jc-center ai-center fd-col" style="height: 90%; color: rgba(0, 0, 0, 0.65)">
             <mat-icon style="font-size: 80px; width: 80px; height: 80px;">folder</mat-icon>
@@ -58,9 +57,12 @@
             <div class="grid jc-start p-a-0">
               <div *ngFor="let folder of items.folders; trackBy: trackByPath; index as index"
                    class="col-3 col-s-6 col-xs-12">
-                <mat-card class="drive-item" [tabIndex]="index + 1" (dblclick)="navigateTo(folder, true)">
+                <mat-card class="drive-item" [tabIndex]="index + 1"
+                          (mousedown)="focusItem($event)"
+                          (dblclick)="navigateTo(folder, true)"
+                          (contextmenu)="openItemContextMenu($event, folder)">
                   <div class="flex jc-start ai-center">
-                    <mat-icon class="drive-item-icon">folder</mat-icon>
+                    <mat-icon class="drive-item-icon">{{folder | folderIcon}}</mat-icon>
                     <div class="drive-item-name" [matTooltip]="folder.name" matTooltipShowDelay="1000">
                       {{folder.name}}
                     </div>
@@ -74,7 +76,8 @@
             <div class="grid jc-start p-a-0">
               <div *ngFor="let file of items.files; trackBy: trackByPath; index as index"
                    class="col-3 col-s-6 col-xs-12">
-                <mat-card class="drive-item" [tabIndex]="items.folders.length + index + 1" style="padding: 0;"
+                <mat-card class="drive-item file" [tabIndex]="items.folders.length + index + 1" style="padding: 0;"
+                          (mousedown)="focusItem($event)"
                           (contextmenu)="openItemContextMenu($event, file)"
                           (dblclick)="previewItem(file)">
                   <div class="drive-item-file flex fd-col">
@@ -144,7 +147,7 @@
   </ng-container>
 
   <ng-container *ngIf="drive.uploads$ | async as uploads">
-    <mat-card *ngIf="uploads.length" class="downloads">
+    <mat-card *ngIf="uploads.length" class="uploads">
       <mat-card-title>
         <div class="flex jc-between ai-center m-t-s">
           <div>Uploads</div>
@@ -162,8 +165,6 @@
                (mouseleave)="mouseLeaveDownload(upload)">
             <div (click)="drive.stopUpload(upload)" style="height: 20px;">
               <ng-container *ngIf="upload.percent$ | async as percent">
-
-
                 <ng-container *ngIf="upload.hover || percent === 100; else progress">
                   <mat-icon class="downloads-icon"
                             [style]="'color: ' + (upload.iconColor || '#7cb342')">{{upload.icon || 'check_circle'}}</mat-icon>
@@ -185,32 +186,69 @@
 </div>
 
 <ng-template #context let-data>
-  <button
-    class="contextmenu-dialog-item"
-    mat-button
-    mat-dialog-close
-    (click)="previewItem(data.item)">
-    <mat-icon>visibility</mat-icon>
-    <span class="p-l-s">Preview</span>
-  </button>
-  <hr>
-  <button
-    class="contextmenu-dialog-item"
-    mat-button
-    mat-dialog-close
-    (click)="drive.downloadItem(data.item)">
-    <mat-icon>file_download</mat-icon>
-    <span class="p-l-s">Download</span>
-  </button>
-  <hr>
-  <button
-    class="contextmenu-dialog-item"
-    mat-button
-    color="warn"
-    mat-dialog-close (click)="drive.removeItem(data.item)">
-    <mat-icon>delete</mat-icon>
-    <span class="p-l-s">Remove</span>
-  </button>
+  <ng-container *ngIf="data.item.type === 'file'">
+    <button
+      class="contextmenu-dialog-item"
+      mat-button
+      mat-dialog-close
+      (click)="previewItem(data.item)">
+      <mat-icon>visibility</mat-icon>
+      <span class="p-l-s">Preview</span>
+    </button>
+    <button
+      class="contextmenu-dialog-item"
+      mat-button
+      mat-dialog-close
+      (click)="openShareDialog(data.item)">
+      <mat-icon>person_add_alt</mat-icon>
+      <span class="p-l-s">Share</span>
+    </button>
+    <hr>
+    <button
+      class="contextmenu-dialog-item"
+      mat-button
+      mat-dialog-close
+      (click)="drive.downloadItem(data.item)">
+      <mat-icon>file_download</mat-icon>
+      <span class="p-l-s">Download</span>
+    </button>
+    <hr>
+    <button
+      class="contextmenu-dialog-item"
+      mat-button
+      color="warn"
+      mat-dialog-close (click)="drive.removeItem(data.item)">
+      <mat-icon>delete</mat-icon>
+      <span class="p-l-s">Remove</span>
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="data.item.type === 'folder'">
+    <button
+      class="contextmenu-dialog-item"
+      mat-button
+      mat-dialog-close
+      (click)="openShareDialog(data.item)">
+      <mat-icon>person_add_alt</mat-icon>
+      <span class="p-l-s">Share</span>
+    </button>
+    <button
+      class="contextmenu-dialog-item"
+      mat-button
+      mat-dialog-close
+      (click)="openInfoDialog(data.item)">
+      <mat-icon style="color: rgba(0, 0, 0, 0.65)">info</mat-icon>
+      <span class="p-l-s">View details</span>
+    </button>
+    <button
+      class="contextmenu-dialog-item"
+      mat-button
+      color="warn"
+      mat-dialog-close (click)="drive.removeItem(data.item)">
+      <mat-icon>delete</mat-icon>
+      <span class="p-l-s">Remove</span>
+    </button>
+  </ng-container>
 </ng-template>
 
 <ng-template #newFolder let-data>
@@ -229,5 +267,182 @@
       <button mat-raised-button color="primary" [disabled]="data.control.invalid" [mat-dialog-close]="true">Create
       </button>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #details let-data>
+  <div style="background-color: white; max-height: 80vh; overflow-y: scroll;" class="w-full h-full br-rounded">
+    <div style="height: 80px; background-color: white;" class="flex jc-center ai-center">
+      <ng-container *ngIf="data.item.type === 'folder'">
+        <mat-icon style="transform: scale(2.5); color: rgba(0, 0, 0, 0.65)">{{data.item | folderIcon}}</mat-icon>
+      </ng-container>
+
+      <ng-container *ngIf="data.item.type === 'file'">
+        <jms-file-preview [file]="data.item"></jms-file-preview>
+      </ng-container>
+    </div>
+
+    <hr>
+
+    <div class="p-a-m p-t-0">
+      <h3>Who has access</h3>
+      <br>
+
+      <ng-container *ngIf="data.permissions$ | async as permissions; else loading">
+        <mat-list>
+          <div mat-subheader>Write</div>
+          <mat-chip-list>
+            <mat-chip color="primary" selected *ngFor="let permission of permissions.write" style="max-width: 90%">
+              <div class="wrap-text" style="width: 100%">
+                {{permission}}
+              </div>
+            </mat-chip>
+          </mat-chip-list>
+
+          <div mat-subheader>Read</div>
+          <mat-chip color="primary" selected *ngFor="let permission of permissions.read" style="max-width: 90%">
+            <div class="wrap-text" style="width: 100%">
+              {{permission}}
+            </div>
+          </mat-chip>
+        </mat-list>
+        <div class="flex jc-end m-y-xs">
+          <button mat-flat-button>Manage access</button>
+        </div>
+      </ng-container>
+
+      <hr>
+
+      <h3 class="m-t-m">System properties</h3>
+
+      <mat-list>
+        <mat-list-item>
+          <div class="w-full flex jc-between ai-center">
+            <div style="color: #7c7c7c;">
+              <b>Name</b>
+            </div>
+            <div>{{data.item.name}}</div>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <div class="w-full flex jc-between ai-center">
+            <div style="color: #7c7c7c;">
+              <b>Location</b>
+            </div>
+            <div>{{data.item.path === '.' ? 'My Drive' : data.item.path}}</div>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <div class="w-full flex jc-between ai-center">
+            <div style="color: #7c7c7c;">
+              <b>Size</b>
+            </div>
+            <div>{{data.item.size | fileSize}}</div>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <div class="w-full flex jc-between ai-center">
+            <div style="color: #7c7c7c;">
+              <b>Created</b>
+            </div>
+            <div>{{data.item.createdOn | date}}</div>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <div class="w-full flex jc-between ai-center">
+            <div style="color: #7c7c7c;">
+              <b>Type</b>
+            </div>
+            <div>{{data.item.type | titlecase}}</div>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <div class="w-full flex jc-between ai-center">
+            <div style="color: #7c7c7c;">
+              <b>Content Type</b>
+            </div>
+            <div>{{data.item.contentType}}</div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #share let-data>
+  <div mat-dialog-title>Share with users and roles</div>
+
+  <mat-form-field class="w-full">
+    <mat-label>Users and roles</mat-label>
+    <input
+      #input
+      (blur)="data.select(data.inputControl.value, 'users')"
+      (submit)="data.select(data.inputControl.value, 'users')"
+      (keydown.enter)="data.select(data.inputControl.value, 'users')"
+      matInput
+      placeholder="Add user or role"
+      [formControl]="data.inputControl"
+      [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="data.select($event.option.value, $event.option?.group?.label || 'public'); input.blur()">
+      <ng-container *ngFor="let autocomplete of data.autocomplete$ | async">
+        <ng-container *ngIf="autocomplete.type === 'group'">
+          <mat-optgroup [label]="autocomplete.label">
+            <mat-option *ngFor="let item of autocomplete.items" [value]="item.value">
+              {{item.label}}
+            </mat-option>
+          </mat-optgroup>
+        </ng-container>
+
+        <ng-container *ngIf="autocomplete.type === 'single'">
+          <mat-option *ngFor="let item of autocomplete.items" [value]="item">
+            {{item}}
+          </mat-option>
+        </ng-container>
+      </ng-container>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <div class="w-full">
+    <div *ngFor="let share of data.shares; index as index" class="grid ai-center">
+      <div class="col-6 col-s-12">
+        <b>
+          {{share.label}}
+        </b>
+      </div>
+      <div class="col-4 col-s-8">
+        <mat-select [formControl]="share.permission">
+          <mat-option value="read">Read</mat-option>
+          <mat-option value="write">Write</mat-option>
+        </mat-select>
+      </div>
+      <div class="col-2 col-s-4 flex jc-center">
+        <button mat-icon-button (click)="data.remove(share.label)">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
+      <div class="col-12">
+        <hr *ngIf="index !== data.shares.length - 1">
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full flex jc-end">
+    <div class="m-r-s">
+      <button mat-raised-button mat-dialog-close>Cancel</button>
+    </div>
+    <div>
+      <button mat-raised-button color="primary" [mat-dialog-close]="true">Save</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <div class="flex jc-center m-y-m">
+    <mat-spinner diameter="20"></mat-spinner>
   </div>
 </ng-template>

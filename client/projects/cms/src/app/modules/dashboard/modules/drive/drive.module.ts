@@ -18,6 +18,12 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {FullFilePreviewComponent} from './components/full-file-preview/full-file-preview.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {FolderIconPipe} from './pipes/folder-icon/folder-icon.pipe';
+import {FileSizePipe} from './pipes/file-size/file-size.pipe';
+import {MatListModule} from '@angular/material/list';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -26,7 +32,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     FilePreviewComponent,
     FullFilePreviewComponent,
     FileIconPipe,
-    FileUrlPipe
+    FolderIconPipe,
+    FileUrlPipe,
+    FileSizePipe
   ],
   imports: [
     CommonModule,
@@ -48,10 +56,15 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatProgressSpinnerModule,
     MatProgressBarModule,
     SanitizeModule,
-    DragDropModule
+    DragDropModule,
+    MatListModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatSelectModule
   ],
   exports: [
-    DriveComponent
+    DriveComponent,
+    FileIconPipe
   ]
 })
 export class DriveModule {

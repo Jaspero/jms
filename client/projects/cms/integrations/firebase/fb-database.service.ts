@@ -115,7 +115,10 @@ export class FbDatabaseService extends DbService {
         cursor,
         filters,
         collectionGroup
-      )
+      ),
+      {
+        idField: 'id'
+      }
     );
   }
 

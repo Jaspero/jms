@@ -18,6 +18,7 @@ import {impersonate} from './callable/impersonate';
 import {userDocumentUpdated} from './triggers/user-document-updated';
 import {documentWrite} from './triggers/document-write';
 import {proxy} from './rest/proxy';
+import {fileMetadataUpdated} from './triggers/file-metadata-updated';
 
 initializeApp();
 
@@ -30,6 +31,7 @@ export const cms = {
   userDocumentUpdated,
   fileCreated,
   fileDeleted,
+  fileMetadataUpdated,
   documentDeleted,
   documentWrite,
   triggerPasswordReset,

@@ -9,6 +9,10 @@ export function detectPreviewType(contentType: string): PreviewType {
     return 'video';
   }
 
+  if (contentType.startsWith('audio/')) {
+    return 'audio';
+  }
+
   if (contentType === 'application/pdf') {
     return 'pdf';
   }

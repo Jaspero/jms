@@ -38,6 +38,14 @@
           </ng-container>
         </ng-container>
 
+        <ng-container *ngSwitchCase="'audio'">
+          <ng-container *ngIf="data.item | fileUrl | async as url; else loading">
+            <audio controls preload="metadata" class="preview-audio">
+              <source [src]="url" [type]="data.item.contentType">
+            </audio>
+          </ng-container>
+        </ng-container>
+
         <ng-container *ngSwitchCase="'pdf'">
           <ng-container *ngIf="data.item | fileUrl | async as url; else loading">
             <iframe [src]="(url + '#toolbar=0&navpanes=0&scrollbar=0') | jpSanitize:'resourceUrl'" frameborder="0" class="preview-pdf"></iframe>

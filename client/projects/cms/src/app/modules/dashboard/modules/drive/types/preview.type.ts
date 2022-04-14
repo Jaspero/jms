@@ -1,1 +1,1 @@
-export type PreviewType = 'image' | 'video' | 'pdf' | 'other';
+export type PreviewType = 'image' | 'video' | 'audio' | 'pdf' | 'other';
