@@ -9,6 +9,4 @@ const server = cors_proxy.createServer({
 export const proxy = functions
   .region(SHARED_CONFIG.cloudRegion)
   .https
-  .onRequest((request, response) => {
-    server.emit('request', request, response);
-  });
+  .onRequest((request, response) => server.emit('request', request, response));

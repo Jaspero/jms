@@ -11,6 +11,7 @@ export const fileDeleted = functions
   .storage
   .object()
   .onDelete(async (data: ObjectMetadata) => {
+    
     const fileName = basename(data.name);
     const dirName = dirname(data.name);
 

@@ -20,7 +20,8 @@ export const fileCreated = functions
   .onFinalize(async ({bucket, name, contentType, metadata, timeCreated, size}: ObjectMetadata) => {
     const fileName = basename(name);
     const dirName = dirname(name);
-
+    const folders = {};
+    
     /**
      * Drive
      */
@@ -56,7 +57,6 @@ export const fileCreated = functions
     /**
      * Mimic folder documents since they are not created by the Firebase
      */
-    const folders = {};
     const paths = driveDocument.path.split('/');
     for (let i = 0; i < paths.length; i++) {
       const parentPath = paths.slice(0, i + 1).join('/');

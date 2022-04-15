@@ -33,7 +33,6 @@ export const documentWrite = functions
     }
 
     if (module?.metadata?.history) {
-
       /**
        * TODO:
        * This is the same method for generating the id
