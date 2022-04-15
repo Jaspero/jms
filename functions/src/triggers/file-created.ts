@@ -1,14 +1,14 @@
 import {Storage} from '@google-cloud/storage';
+import {SHARED_CONFIG} from 'definitions';
+import {firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
+import {ObjectMetadata} from 'firebase-functions/lib/providers/storage';
 import {unlink} from 'fs';
 import {tmpdir} from 'os';
 import {basename, dirname, join} from 'path';
 import * as sharp from 'sharp';
 import {promisify} from 'util';
 import {unpackGenerateImageString} from '../utils/unpack-generate-image-string';
-import {firestore} from 'firebase-admin';
-import {ObjectMetadata} from 'firebase-functions/lib/providers/storage';
-import {SHARED_CONFIG} from 'definitions';
 
 export const fileCreated = functions
   .region(SHARED_CONFIG.cloudRegion)
@@ -24,7 +24,6 @@ export const fileCreated = functions
     /**
      * Drive
      */
-
     const driveDocument = {
       name: fileName,
       path: dirName,

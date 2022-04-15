@@ -1,8 +1,8 @@
-import * as functions from 'firebase-functions';
-import {basename, dirname} from 'path';
-import {firestore} from 'firebase-admin';
-import {ObjectMetadata} from 'firebase-functions/lib/providers/storage';
 import {SHARED_CONFIG} from 'definitions';
+import {firestore} from 'firebase-admin';
+import * as functions from 'firebase-functions';
+import {ObjectMetadata} from 'firebase-functions/lib/providers/storage';
+import {basename, dirname} from 'path';
 
 export const fileMetadataUpdated = functions
   .region(SHARED_CONFIG.cloudRegion)
@@ -33,5 +33,4 @@ export const fileMetadataUpdated = functions
         metadata
       }, {merge: true});
     }
-
   });

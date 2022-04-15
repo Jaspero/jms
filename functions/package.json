@@ -27,7 +27,7 @@
     "cors": "2.8.5",
     "cors-anywhere": "^0.4.4",
     "csvtojson": "2.0.10",
-    "definitions": "file:../definitions",
+    "definitions": "file:definitions",
     "express": "4.17.1",
     "firebase-admin": "10.0.2",
     "firebase-functions": "3.16.0",

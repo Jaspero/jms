@@ -1,10 +1,10 @@
 import {Storage} from '@google-cloud/storage';
+import {SHARED_CONFIG} from 'definitions';
+import {firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
+import {ObjectMetadata} from 'firebase-functions/lib/providers/storage';
 import {basename, dirname, join} from 'path';
 import {unpackGenerateImageString} from '../utils/unpack-generate-image-string';
-import {firestore} from 'firebase-admin';
-import {ObjectMetadata} from 'firebase-functions/lib/providers/storage';
-import {SHARED_CONFIG} from 'definitions';
 
 export const fileDeleted = functions
   .region(SHARED_CONFIG.cloudRegion)
@@ -17,7 +17,6 @@ export const fileDeleted = functions
     /**
      * Drive
      */
-
     const driveDocumentRef = await firestore()
       .collection('drive')
       .where('name', '==', fileName)

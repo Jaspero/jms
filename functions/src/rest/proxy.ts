@@ -5,6 +5,7 @@ const cors_proxy = require('cors-anywhere');
 const server = cors_proxy.createServer({
   originWhitelist: []
 });
+
 export const proxy = functions
   .region(SHARED_CONFIG.cloudRegion)
   .https

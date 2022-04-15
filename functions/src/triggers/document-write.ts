@@ -1,7 +1,7 @@
-import {relevantIndex} from 'adv-firestore-functions';
-import * as functions from 'firebase-functions';
-import {MODULES, SHARED_CONFIG, Collections} from 'definitions';
 import {random} from '@jaspero/utils';
+import {relevantIndex} from 'adv-firestore-functions';
+import {Collections, MODULES, SHARED_CONFIG} from 'definitions';
+import * as functions from 'firebase-functions';
 
 export const documentWrite = functions
   .region(SHARED_CONFIG.cloudRegion)

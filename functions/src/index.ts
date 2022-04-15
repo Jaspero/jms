@@ -6,7 +6,6 @@ import {removeUser} from './callable/remove-user';
 import {triggerPasswordReset} from './callable/trigger-password-reset';
 import {updateEmail} from './callable/update-email';
 import {updateUser} from './callable/update-user';
-import {api} from './rest/api';
 import {exportData} from './rest/export-data';
 import {importData} from './rest/import-data';
 import {documentDeleted} from './triggers/document-deleted';

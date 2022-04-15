@@ -47,7 +47,7 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Deploy
         if: ${{ steps.changes.outputs.CHANGES }}
-        run: npm run firebase -- deploy --only $FILES --token $FIREBASE_TOKEN
+        run: npm run firebase -- deploy --only $FILES --token $FIREBASE_TOKEN --force
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FILES: ${{ steps.changes.outputs.CHANGES }}
