@@ -17,6 +17,7 @@ export const fileDeleted = functions
     /**
      * Drive
      */
+
     const driveDocumentRef = await firestore()
       .collection('drive')
       .where('name', '==', fileName)

@@ -33,4 +33,5 @@ export const fileMetadataUpdated = functions
         metadata
       }, {merge: true});
     }
+
   });
