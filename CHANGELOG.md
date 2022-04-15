@@ -1,3 +1,10 @@
+## [5.18.1](https://github.com/jaspero/jms/compare/v5.18.0...v5.18.1) (2022-04-15)
+
+
+### Bug Fixes
+
+* **functions:** remove firestore calls before initialization. redeploy storage trigger functions ([e4dec69](https://github.com/jaspero/jms/commit/e4dec69ffcf7b17770e6698e07f35878c631099b))
+
 # [5.18.0](https://github.com/jaspero/jms/compare/v5.17.1...v5.18.0) (2022-04-15)
 
 
