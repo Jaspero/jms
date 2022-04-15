@@ -1,3 +1,10 @@
+## [5.18.3](https://github.com/jaspero/jms/compare/v5.18.2...v5.18.3) (2022-04-15)
+
+
+### Bug Fixes
+
+* **functions:** removed api ref ([f3e9d55](https://github.com/jaspero/jms/commit/f3e9d55aca26800cde73803b065ea873612cca00))
+
 ## [5.18.2](https://github.com/jaspero/jms/compare/v5.18.1...v5.18.2) (2022-04-15)
 
 
