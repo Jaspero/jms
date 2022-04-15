@@ -43,7 +43,7 @@ export const USER_HISTORY_MODULE: Module = {
 					label: 'Before',
 					pipe: [PipeType.Json, PipeType.Custom, PipeType.Sanitize],
 					pipeArguments: {
-						1: (item, row) => {
+						1: (item) => {
 							return `<pre style="background-color: #f2f2f2; padding: 5px; border-radius: 4px;">${item}</pre>`
 						}
 					}
@@ -53,7 +53,7 @@ export const USER_HISTORY_MODULE: Module = {
 					label: 'After',
 					pipe: [PipeType.Json, PipeType.Custom, PipeType.Sanitize],
 					pipeArguments: {
-						1: (item, row) => {
+						1: (item) => {
 							return `<pre style="background-color: #f2f2f2; padding: 5px; border-radius: 4px;">${item}</pre>`
 						}
 					}

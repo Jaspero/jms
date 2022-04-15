@@ -138,11 +138,26 @@ export class DriveService {
 
       const metadata = {};
 
-      console.log({path});
       if (path && path !== '.') {
 
-        const parentPath = path.split('/').slice(0, -1).join('/');
+        console.log(1);
+        const parentPath = path.split('/').slice(0, -1).join('/') || '.';
         const parentName = path.split('/').slice(-1)[0];
+
+        console.log({parentPath, parentName});
+
+        console.log([
+          {
+            key: 'path',
+            operator: FilterMethod.Equal,
+            value: parentPath
+          },
+          {
+            key: 'name',
+            operator: FilterMethod.Equal,
+            value: parentName
+          }
+        ]);
 
         const folders = await this.db.getDocuments('drive', undefined, undefined, undefined, [
           {
@@ -157,9 +172,10 @@ export class DriveService {
           }
         ]).toPromise();
 
+        console.log(2);
+
         const folder = folders[0]?.data?.();
 
-        console.log({folder});
         if (folder?.metadata) {
           for (const [key, value] of Object.entries(folder.metadata)) {
             if (key.startsWith('permissions_')) {
@@ -169,13 +185,9 @@ export class DriveService {
         }
       }
 
-      console.log({metadata});
-
       if (!Object.keys(metadata).length) {
-        metadata[`permissions_users_${this.state.user.id}_read`] = 'true';
         metadata[`permissions_users_${this.state.user.id}_write`] = 'true';
       }
-
 
       this.uploadProcesses[id] = uploadBytesResumable(ref(storageInstance, path + '/' + file.name), file, {
         customMetadata: metadata
@@ -220,5 +232,53 @@ export class DriveService {
         await this.db.removeDocument('drive', itemDocument.id);
       }
     }
+  }
+
+  hasPermission(item: DriveItem, permission?: 'read' | 'write') {
+
+    const userId = this.state.user.id;
+    const userRole = this.state.user.role;
+
+    return Object.keys(item.metadata || {}).some((key) => {
+
+      if (key.startsWith('permissions_') && item.metadata[key] === 'true') {
+        const type = key.split('_')[1];
+        const permissionType = key.split('_').slice(-1)[0];
+
+        if (type === 'public') {
+          if (!permission) {
+            return true;
+          }
+
+          if (permissionType === permission) {
+            return true;
+          }
+        } else if (type === 'roles') {
+
+          const role = key.split('_')[2];
+
+          if (!permission && role === userRole) {
+            return true;
+          }
+
+          if (permissionType === permission && role === userRole) {
+            return true;
+          }
+        } else if (type === 'users') {
+
+          const userIdKey = key.split('_')[2];
+
+          if (!permission && userIdKey === userId) {
+            return true;
+          }
+
+          if (permissionType === permission && userIdKey === userId) {
+            return true;
+          }
+        }
+      }
+
+      return false;
+    });
   }
 }

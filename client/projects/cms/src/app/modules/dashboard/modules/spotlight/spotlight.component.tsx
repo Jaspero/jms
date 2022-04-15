@@ -5,7 +5,7 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {JSX, Module} from 'definitions';
 import {BehaviorSubject, combineLatest, forkJoin, from, Observable, of} from 'rxjs';
-import {debounceTime, distinctUntilChanged, filter, map, switchMap, take, tap} from 'rxjs/operators';
+import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, take, tap} from 'rxjs/operators';
 import {DbService} from '../../../../shared/services/db/db.service';
 import {StateService} from '../../../../shared/services/state/state.service';
 import {relevantSearch} from '../../../../shared/utils/relevant-search';
@@ -102,15 +102,40 @@ export class SpotlightComponent implements OnInit {
                       query: search,
                       col: module.id,
                       limit: 5
-                    }).then((searchResult) => {
-                      data.push(...searchResult.map(item => {
-                        return {
+                    }).then(async (searchResult) => {
+
+                      for (const item of searchResult) {
+                        const searchItem = {
                           ...item,
                           module: module.id,
                           moduleName: module.name,
                           template: module.spotlight?.template
                         };
-                      }));
+
+                        let valid = true;
+
+                        // await this.db.getDocument(searchItem.module, searchItem.id).pipe(
+                        //   take(1),
+                        //   catchError(() => {
+                        //     valid = false;
+                        //
+                        //     return of(null);
+                        //   })
+                        // ).toPromise();
+
+                        if (valid) {
+                          data.push(searchItem);
+                        }
+                      }
+                      //
+                      // data.push(...searchResult.map(item => {
+                      //   return {
+                      //     ...item,
+                      //     module: module.id,
+                      //     moduleName: module.name,
+                      //     template: module.spotlight?.template
+                      //   };
+                      // }));
                     });
                   }
 
@@ -123,7 +148,14 @@ export class SpotlightComponent implements OnInit {
                   }
 
                   return forkJoin(results.map(item => this.db.getDocument(item.module, item.id).pipe(
+                    catchError(() => {
+                      console.log(item);
+                      return of(null);
+                    }),
                     map((data) => {
+                      if (!data) {
+                        return null;
+                      }
 
                       const packet: any = {
                         data,
@@ -142,7 +174,7 @@ export class SpotlightComponent implements OnInit {
                 map((results) => {
                   return {
                     title: 'SPOTLIGHT.DOCUMENTS',
-                    items: results.map(item => {
+                    items: results.filter(item => !!item).map(item => {
                       return {
                         ...item,
                         type: 'link',

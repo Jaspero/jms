@@ -17,8 +17,32 @@ service cloud.firestore {
   }
 
   function user() {
-      return request.auth.token.role == 'user';
-    }
+    return request.auth.token.role == 'user';
+  }
+
+  function driveItemPublicRead() {
+    return 'metadata' in resource.data && resource.data.metadata.keys().hasAny(['permissions_public_read']) && resource.data.metadata['permissions_public_read'] == 'true';
+  }
+
+  function driveItemPublicWrite() {
+    return 'metadata' in resource.data && resource.data.metadata.keys().hasAny(['permissions_public_write']) && resource.data.metadata['permissions_public_write'] == 'true';
+  }
+
+  function driveItemRoleRead() {
+    return 'metadata' in resource.data && resource.data.metadata.keys().hasAny(['permissions_roles_' + request.auth.token.role + '_read']) && resource.data.metadata['permissions_roles_' + request.auth.token.role + '_read'] == 'true';
+  }
+
+  function driveItemRoleWrite() {
+    return 'metadata' in resource.data && resource.data.metadata.keys().hasAny(['permissions_roles_' + request.auth.token.role + '_write']) && resource.data.metadata['permissions_roles_' + request.auth.token.role + '_write'] == 'true';
+  }
+
+  function driveItemUserRead() {
+    return 'metadata' in resource.data && resource.data.metadata.keys().hasAny(['permissions_users_' + request.auth.uid + '_read']) && resource.data.metadata['permissions_users_' + request.auth.uid + '_read'] == 'true';
+  }
+
+  function driveItemUserWrite() {
+    return 'metadata' in resource.data && resource.data.metadata.keys().hasAny(['permissions_users_' + request.auth.uid + '_write']) && resource.data.metadata['permissions_users_' + request.auth.uid + '_write'] == 'true';
+  }
 
   match /databases/{database}/documents {
 
@@ -34,9 +58,15 @@ service cloud.firestore {
       allow read, write: if admin() || hasId(resource);
     }
 
-    match /{module}/{document=**} {
-      allow read: if hasRoles(['user', 'admin']) || hasId(resource);
-      allow write: if hasRoles(['admin']) || hasId(resource);
+    match /drive/{item=**} {
+      allow read: if driveItemPublicRead() || driveItemPublicWrite() || driveItemRoleRead() || driveItemRoleWrite() || driveItemUserRead() || driveItemUserWrite();
+      allow write: if driveItemPublicWrite() || driveItemRoleWrite() || driveItemUserWrite();
+      allow create: if hasRoles(['admin', 'user']);
+    }
+
+    match /_search/{item=**} {
+      allow read: if hasRoles(['admin', 'user']);
+      allow write: if false;
     }
   }
 }

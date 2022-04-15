@@ -21,7 +21,7 @@
           </div>
 
           <div class="flex-1"></div>
-          <button mat-icon-button (click)="openUploadDialog()">
+          <button mat-icon-button (click)="openUploadDialog()" *ngIf="writeAccess$ | async">
             <mat-icon>file_upload</mat-icon>
           </button>
           <button mat-icon-button (click)="openNewFolderDialog()">
@@ -34,7 +34,7 @@
       </mat-card-title>
     </mat-card>
 
-    <div class="dropzone" jpDropZone (dropped)="drive.uploadFiles(routeControl.value, $event)">
+    <div class="dropzone" jpDropZone (dropped)="uploadFiles(routeControl.value, $event)">
       <ng-container *ngIf="loading$ | async">
         <div class="flex jc-center ai-center w-full" style="height: 80%">
           <mat-spinner diameter="30"></mat-spinner>

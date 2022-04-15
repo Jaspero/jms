@@ -64,6 +64,8 @@ export class DriveComponent implements OnInit {
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
+  writeAccess$ = new BehaviorSubject(true);
+
   constructor(
     public drive: DriveService,
     public activatedRoute: ActivatedRoute,
@@ -107,11 +109,40 @@ export class DriveComponent implements OnInit {
           this.loading$.next(true);
         });
 
-        return combineLatest([
+        const items$ = combineLatest([
           this.getItems(route, 'public'),
           this.getItems(route, 'roles'),
-          this.getItems(route, 'users')
+          this.getItems(route, 'users'),
         ]);
+
+        if (route && route !== '.') {
+          const parentPath = route.split('/').slice(0, -1).join('/') || '.';
+          const parentName = route.split('/').slice(-1)[0];
+
+          return this.db.getValueChanges('drive', undefined, undefined, undefined, [
+            {
+              key: 'path',
+              operator: FilterMethod.Equal,
+              value: parentPath
+            },
+            {
+              key: 'name',
+              operator: FilterMethod.Equal,
+              value: parentName
+            }
+          ]).pipe(
+            switchMap((docs) => {
+
+              this.writeAccess$.next(docs[0] && this.drive.hasPermission(docs[0], 'write'));
+
+              return items$;
+            })
+          );
+        } else {
+          this.writeAccess$.next(true);
+        }
+
+        return items$;
       }),
       map(([publicItems, roleItems, userItems]) => {
         return [...publicItems, ...roleItems, ...userItems].reduce((acc, item) => {
@@ -325,7 +356,6 @@ export class DriveComponent implements OnInit {
           path: this.routeControl.value || '.',
           type: 'folder',
           metadata: {
-            ['permissions_users_' + this.state.user.id + '_read']: 'true',
             ['permissions_users_' + this.state.user.id + '_write']: 'true'
           },
           contentType: 'text/plain',
@@ -612,5 +642,13 @@ export class DriveComponent implements OnInit {
         }
       })
     ).subscribe();
+  }
+
+  uploadFiles(route, event) {
+    if (!this.writeAccess$.value) {
+      return;
+    }
+
+    return this.drive.uploadFiles(route, event);
   }
 }
