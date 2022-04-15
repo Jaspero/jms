@@ -1,3 +1,20 @@
+# [5.18.0](https://github.com/jaspero/jms/compare/v5.17.1...v5.18.0) (2022-04-15)
+
+
+### Bug Fixes
+
+* **cms:** detect drive route changes ([556aa83](https://github.com/jaspero/jms/commit/556aa83998c3f45ca4ae7a98996da19486eeb38e))
+
+
+### Features
+
+* **cms:** drive service dedicated for drive actions. preview pdfs. cancel downloads ([c371323](https://github.com/jaspero/jms/commit/c371323888d8c3530651e57be7fe1e14a6e90cf2))
+* **cms:** drive style cleanup. color icons for specific file types. preview video. download files through functions proxy ([20b56d7](https://github.com/jaspero/jms/commit/20b56d74157763f37ee56aac1c24942c0f6639bb))
+* **cms:** file manager rewrite to drive. list files in grid view. display folders and files. file selection and contextmenu actions. full item preview. jms logo update ([875f1bf](https://github.com/jaspero/jms/commit/875f1bf7ce04b0ffc788abcc9b5e339dcd7576fb))
+* **drive:** forbid upload to unauthorized users. apply permissions to spotlight search results ([215f4cb](https://github.com/jaspero/jms/commit/215f4cb2633a5189ee72aba444a52d185b4b1c10))
+* **drive:** implement permissions per folders and files. share drive items to specific users, roles or public ([25f5a4a](https://github.com/jaspero/jms/commit/25f5a4a291282698d7a77e56a352ea806af43710))
+* **drive:** navigate using params and refresh ui accordingly. show upload process. delete items ([1eccfb3](https://github.com/jaspero/jms/commit/1eccfb3afeda9f84be057805b4516319107b8623))
+
 ## [5.17.1](https://github.com/jaspero/jms/compare/v5.17.0...v5.17.1) (2022-04-14)
 
 
