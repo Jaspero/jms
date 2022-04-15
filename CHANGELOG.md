@@ -1,3 +1,10 @@
+## [5.18.2](https://github.com/jaspero/jms/compare/v5.18.1...v5.18.2) (2022-04-15)
+
+
+### Bug Fixes
+
+* **functions:** definitions source ([517d12a](https://github.com/jaspero/jms/commit/517d12a29e7a9439aa31cf082641ae4e5ad89d2e))
+
 ## [5.18.1](https://github.com/jaspero/jms/compare/v5.18.0...v5.18.1) (2022-04-15)
 
 
