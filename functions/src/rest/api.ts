@@ -4,6 +4,8 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import {SHARED_CONFIG} from 'definitions';
 
+admin.firestore().doc('drive/L7C930hmPWqg7bzX7RGj')
+
 interface RequestWithCollection extends express.Request {
   collectionDoc: any;
   ref: admin.firestore.CollectionReference;

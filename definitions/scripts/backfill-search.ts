@@ -95,7 +95,7 @@ async function exec() {
 
 exec()
   .then(() => {
-    console.log('Backfill search completely successfully');
+    console.log('Backfill Search completely successfully');
     process.exit(0);
   })
   .catch(error => {

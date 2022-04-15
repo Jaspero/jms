@@ -62,6 +62,12 @@
     </ng-container>
   </div>
 
+  <a class="dashboard-nav-footer" *ngIf="state.role === 'admin'" routerLink="/drive" routerLinkActive="active">
+    <mat-icon aria-hidden="true" class="dashboard-nav-footer-icon">storage</mat-icon>
+    <span class="dashboard-nav-footer-text">Drive</span>
+    <span class="dashboard-nav-footer-tooltip" [matTooltip]="'Drive'" matTooltipPosition="right"></span>
+  </a>
+
   <a class="dashboard-nav-footer" *ngIf="state.role === 'admin'" routerLink="/file-manager" routerLinkActive="active">
     <mat-icon aria-hidden="true" class="dashboard-nav-footer-icon">storage</mat-icon>
     <span class="dashboard-nav-footer-text">{{'LAYOUT.FILE_MANAGER' | transloco}}</span>

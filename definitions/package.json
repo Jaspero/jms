@@ -15,6 +15,7 @@
     "json-schema": "0.4.0"
   },
   "devDependencies": {
+    "@google-cloud/storage": "^5.19.0",
     "cross-env": "^7.0.3",
     "firebase-admin": "9.4.1",
     "rimraf": "^3.0.2",

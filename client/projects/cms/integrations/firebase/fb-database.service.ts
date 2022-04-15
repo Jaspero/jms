@@ -25,6 +25,7 @@ import {FilterMethod, SHARED_CONFIG} from 'definitions';
 import {WhereFilter} from '../../src/app/shared/interfaces/where-filter.interface';
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
+import {collectionData} from 'rxfire/firestore';
 
 @Injectable()
 export class FbDatabaseService extends DbService {
@@ -95,6 +96,29 @@ export class FbDatabaseService extends DbService {
         filters,
         collectionGroup
       )
+    );
+  }
+
+  getValueChanges(
+    moduleId,
+    pageSize?,
+    sort?,
+    cursor?,
+    filters?: WhereFilter[],
+    collectionGroup?
+  ) {
+    return collectionData(
+      this.collection(
+        moduleId,
+        pageSize,
+        sort,
+        cursor,
+        filters,
+        collectionGroup
+      ),
+      {
+        idField: 'id'
+      }
     );
   }
 

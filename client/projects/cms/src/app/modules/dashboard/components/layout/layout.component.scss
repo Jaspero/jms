@@ -67,6 +67,10 @@
     object-fit: contain;
     height: 100%;
     font-size: 28px;
+    margin: 0 auto;
+
+    max-width: 200px;
+
     @media (max-width: $screen-m) {
       display: none;
     }
