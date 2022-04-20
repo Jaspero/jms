@@ -62,7 +62,7 @@ export class DriveService {
       );
 
       this.downloadProcesses[id] = this.http.get(
-        this.db.url('cms-proxy/' + url),
+        this.db.url('cms-proxy?url=' + encodeURIComponent(url)),
         {
           responseType: 'blob',
           reportProgress: true,
