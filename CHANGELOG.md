@@ -1,3 +1,10 @@
+## [5.18.4](https://github.com/jaspero/jms/compare/v5.18.3...v5.18.4) (2022-04-20)
+
+
+### Bug Fixes
+
+* **functions:** extract correct url path from proxy ([4b4131d](https://github.com/jaspero/jms/commit/4b4131d273f8391e702cb0d93d263fd236928fb5))
+
 ## [5.18.3](https://github.com/jaspero/jms/compare/v5.18.2...v5.18.3) (2022-04-15)
 
 
