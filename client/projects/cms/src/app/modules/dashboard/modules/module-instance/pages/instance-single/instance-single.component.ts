@@ -1,11 +1,10 @@
 import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ModuleAuthorization} from 'definitions';
-import {Definitions, FormBuilderComponent, Segment, State} from '@jaspero/form-builder';
+import {FormBuilderData, FormBuilderComponent, State} from '@jaspero/form-builder';
 import {parseTemplate, random, safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
-import {JSONSchema7} from 'json-schema';
 import {interval, Observable, of, Subject, Subscription} from 'rxjs';
 import {debounceTime, map, shareReplay, switchMap, tap} from 'rxjs/operators';
 import {ViewState} from '../../../../../../shared/enums/view-state.enum';
@@ -34,12 +33,7 @@ interface Instance {
   formatOnEdit: (data: any) => any;
   formatOnCreate: (data: any) => any;
   authorization?: ModuleAuthorization;
-  formBuilder: {
-    schema: JSONSchema7;
-    definitions: Definitions;
-    value: any;
-    segments?: Segment[];
-  };
+  formBuilder: FormBuilderData;
 }
 
 @UntilDestroy()
