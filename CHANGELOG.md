@@ -1,3 +1,10 @@
+# [5.19.0](https://github.com/jaspero/jms/compare/v5.18.4...v5.19.0) (2022-04-21)
+
+
+### Features
+
+* added scriptSetup util ([7e33d1b](https://github.com/jaspero/jms/commit/7e33d1bd79404e366c45c0e723236e5fea5a4371))
+
 ## [5.18.4](https://github.com/jaspero/jms/compare/v5.18.3...v5.18.4) (2022-04-20)
 
 
