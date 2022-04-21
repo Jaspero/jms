@@ -1,6 +1,6 @@
 import {relevantIndex} from 'adv-firestore-functions';
-import * as admin from 'firebase-admin';
 import {MODULES} from '../modules/modules';
+import {scriptSetup} from './script-setup';
 
 declare global {
   interface Window {
@@ -10,20 +10,7 @@ declare global {
   }
 }
 
-let environment: any = process.argv[2] || 'd';
-
-if (environment === 'd') {
-  environment = {
-    projectId: 'jaspero-jms'
-  };
-} else {
-  environment = {
-    credential: admin.credential.cert('../serviceAccountKey.json'),
-    databaseURL: 'https://jaspero-jms.firebaseio.com'
-  };
-}
-
-admin.initializeApp(environment);
+const admin = scriptSetup();
 
 async function exec() {
   const firestore = admin.firestore();

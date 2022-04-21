@@ -1,20 +1,7 @@
-import * as admin from 'firebase-admin';
+import {scriptSetup} from './scripts/script-setup';
 import {COLLECTIONS} from './collections/collections';
 
-let environment: any = process.argv[2] || 'd';
-
-if (environment === 'd') {
-  environment = {
-    projectId: 'jaspero-jms'
-  };
-} else {
-  environment = {
-    credential: admin.credential.cert('./serviceAccountKey.json'),
-    databaseURL: 'https://jaspero-jms.firebaseio.com'
-  };
-}
-
-admin.initializeApp(environment);
+const admin = scriptSetup();
 
 async function exec() {
   const fStore = admin.firestore();

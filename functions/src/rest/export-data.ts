@@ -21,8 +21,6 @@ app.use(CORS);
 
 app.post('/:module', authenticated(), (req, res) => {
   async function exec() {
-
-
     const {module} = req.params;
     // @ts-ignore
     const role = req['user'].role;

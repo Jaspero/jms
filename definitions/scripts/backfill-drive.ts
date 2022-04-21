@@ -1,22 +1,9 @@
-import * as admin from 'firebase-admin';
 import {Storage} from '@google-cloud/storage';
 import {basename, dirname} from 'path';
+import {scriptSetup} from './script-setup';
+
 const serviceAccount = require('../serviceAccountKey.json');
-
-let environment: any = process.argv[2] || 'd';
-
-if (environment === 'd') {
-  environment = {
-    projectId: 'jaspero-jms'
-  };
-} else {
-  environment = {
-    credential: admin.credential.cert('../serviceAccountKey.json'),
-    databaseURL: 'https://jaspero-jms.firebaseio.com'
-  };
-}
-
-admin.initializeApp(environment);
+const admin = scriptSetup();
 
 async function exec() {
   const firestore = admin.firestore();
@@ -55,7 +42,7 @@ async function exec() {
       };
 
       /**
-       * Mimic folder documents since they are not created by the Firebase
+       * Mimic folder documents since they are not created by Firebase
        */
       const paths = driveDocument.path.split('/');
       for (let i = 0; i < paths.length; i++) {

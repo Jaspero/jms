@@ -1,6 +1,5 @@
 import * as functions from 'firebase-functions';
 import {SHARED_CONFIG} from 'definitions';
-
 import {createServer} from '../utils/cors-anywhere';
 
 const server = createServer({
@@ -13,7 +12,6 @@ const server = createServer({
  * Example:
  * https://us-central1-jaspero-jms.cloudfunctions.net/cms-proxy?url=https://www.google.com
  */
-
 export const proxy = functions
   .region(SHARED_CONFIG.cloudRegion)
   .https
