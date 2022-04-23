@@ -1,3 +1,10 @@
+# [5.20.0](https://github.com/jaspero/jms/compare/v5.19.0...v5.20.0) (2022-04-23)
+
+
+### Features
+
+* updated versions; moved user and role interfaces to definitions; ([050bb93](https://github.com/jaspero/jms/commit/050bb933d3de7cc1d71a49ae72f4d845d4f537a9))
+
 # [5.19.0](https://github.com/jaspero/jms/compare/v5.18.4...v5.19.0) (2022-04-21)
 
 
