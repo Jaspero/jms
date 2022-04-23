@@ -7,6 +7,7 @@ declare global {
 }
 
 export * from './modules/modules';
+export * from './interfaces/collections/collections';
 
 /**
  * Types

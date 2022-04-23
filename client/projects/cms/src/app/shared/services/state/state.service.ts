@@ -4,7 +4,7 @@ import {TranslocoService} from '@ngneat/transloco';
 import {Module, MODULES} from 'definitions';
 import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 import {shareReplay} from 'rxjs/operators';
-import {User} from '../../interfaces/user.interface';
+import {User} from 'definitions';
 
 @Injectable({
   providedIn: 'root'

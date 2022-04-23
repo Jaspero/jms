@@ -1,6 +1,4 @@
 export class Collections {
-	static Modules = 'modules';
-  static Settings = 'settings';
   static Users = 'users';
   static Roles = 'roles';
 	static UserInvites = 'user-invites';

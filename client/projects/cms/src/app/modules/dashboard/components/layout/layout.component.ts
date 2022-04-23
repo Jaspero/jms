@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {Auth, authState, signOut, updatePassword} from '@angular/fire/auth';
+import {Auth, authState, signOut, updatePassword, User} from '@angular/fire/auth';
 import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {NavigationEnd, Router} from '@angular/router';
@@ -38,7 +38,7 @@ export class LayoutComponent implements OnInit {
 
   @ViewChild('reset')
   resetDialog: TemplateRef<any>;
-  currentUser$: Observable<any>;
+  currentUser$: Observable<User | null>;
   links$: Observable<NavigationItemWithActive[]>;
   staticConfig = STATIC_CONFIG;
   navigationExpanded = false;

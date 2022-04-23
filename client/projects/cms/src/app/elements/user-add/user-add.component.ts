@@ -4,10 +4,9 @@ import {MatDialog} from '@angular/material/dialog';
 import {random} from '@jaspero/utils';
 import {UntilDestroy} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
-import {Collections} from 'definitions';
+import {Collections, Role} from 'definitions';
 import {Observable, of} from 'rxjs';
 import {shareReplay, switchMap, tap} from 'rxjs/operators';
-import {Role} from '../../shared/interfaces/role.interface';
 import {DbService} from '../../shared/services/db/db.service';
 import {Element} from '../element.decorator';
 
