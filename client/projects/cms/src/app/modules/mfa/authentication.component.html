@@ -5,7 +5,7 @@
 
       <form [formGroup]="form">
         <mat-form-field class="w-full">
-          <mat-label>{{'GENERAL.COUNTRY' | transloco}}</mat-label>
+          <mat-label>{{'COUNTRY' | transloco}}</mat-label>
           <mat-select formControlName="countryCode">
             <mat-option *ngFor="let country of countries" [value]="country.code">
               {{country.label}}
@@ -14,7 +14,7 @@
         </mat-form-field>
 
         <mat-form-field class="w-full">
-          <mat-label>{{'MFA.PHONE' | transloco}}</mat-label>
+          <mat-label>{{'PHONE' | transloco}}</mat-label>
           <input formControlName="phone" inputmode="numeric" matInput>
           <span matPrefix *ngIf="prefix" class="m-r-s">{{prefix}}</span>
         </mat-form-field>
@@ -26,7 +26,7 @@
           class="w-full"
           id="mfa-submit"
           [disabled]="form.invalid">
-          {{'GENERAL.SUBMIT' | transloco}}
+          {{'SUBMIT' | transloco}}
         </button>
       </form>
     </mat-card>
@@ -34,7 +34,7 @@
 </section>
 
 <ng-template #verificationDialog>
-  <h4 mat-dialog-title>{{'MFA.VERIFICATION' | transloco}}</h4>
+  <h4 mat-dialog-title>{{'VERIFICATION' | transloco}}</h4>
 
   <mat-dialog-content>
     <p class="m-b-m">{{'MFA.DESCRIPTION' | transloco}}</p>
@@ -46,7 +46,7 @@
       </mat-form-field>
 
       <button mat-stroked-button color="primary" type="submit" [jpLoadClick]="verify()">
-        {{'MFA.AUTHENTICATE' | transloco}}
+        {{'AUTHENTICATE' | transloco}}
       </button>
     </form>
 

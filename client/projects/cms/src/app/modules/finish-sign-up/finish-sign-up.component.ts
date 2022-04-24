@@ -61,7 +61,7 @@ export class FinishSignUpComponent implements OnInit {
             let message;
 
             if (err.code === 'auth/requires-recent-login') {
-              message = 'For security reasons please login to your account again before changing your password.';
+              message = 'REQUIRES_RECENT_LOGIN';
               signOut(this.auth)
                 .then(() =>
                   this.router.navigate(STATIC_CONFIG.loginRoute)
@@ -75,7 +75,7 @@ export class FinishSignUpComponent implements OnInit {
             }));
           }),
           notify({
-            success: 'FINISH_SIGN_UP.SIGN_UP_SUCCESSFUL'
+            success: 'SIGN_UP_SUCCESSFUL'
           }),
           tap(() =>
             this.router.navigate(STATIC_CONFIG.dashboardRoute)

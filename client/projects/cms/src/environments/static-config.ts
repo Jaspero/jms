@@ -41,7 +41,7 @@ export const STATIC_CONFIG = {
     items: [
       {
         icon: 'dashboard',
-        label: 'LAYOUT.DASHBOARD',
+        label: 'DASHBOARD',
         type: 'link',
         value: '/dashboard'
       },
@@ -49,32 +49,32 @@ export const STATIC_CONFIG = {
         children: [
           {
             icon: 'supervised_user_circle',
-            label: 'GENERAL.USERS',
+            label: 'USERS',
             type: 'link',
             value: '/m/users'
           },
           {
             icon: 'vpn_key',
-            label: 'GENERAL.ROLES',
+            label: 'ROLES',
             type: 'link',
             value: '/m/roles'
           }
         ],
         icon: 'account_box',
-        label: 'LAYOUT.MANAGEMENT',
+        label: 'MANAGEMENT',
         type: 'expandable'
       },
       {
         children: [
           {
             icon: 'send',
-            label: 'LAYOUT.INVITES',
+            label: 'INVITES',
             type: 'link',
             value: '/m/user-invites'
           }
         ],
         icon: 'dns',
-        label: 'LAYOUT.SYSTEM',
+        label: 'SYSTEM',
         type: 'expandable'
       }
     ] as NavigationItemWithActive[]

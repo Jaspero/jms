@@ -5,8 +5,8 @@ import {catchError, tap} from 'rxjs/operators';
 
 const DEFAULT_OPTIONS = {
   showThrownError: false,
-  success: 'GENERAL.OPERATION_COMPLETED',
-  error: 'GENERAL.OPERATION_FAILED'
+  success: 'OPERATION_COMPLETED',
+  error: 'OPERATION_FAILED'
 };
 
 export function notify(
@@ -30,7 +30,7 @@ export function notify(
         if (finalOptions.success) {
           snackBar.open(
             transloco.translate(finalOptions.success as string),
-            transloco.translate('GENERAL.DISMISS'),
+            transloco.translate('DISMISS'),
             {
               duration: 5000
             }
@@ -42,7 +42,7 @@ export function notify(
           snackBar.open(
             finalOptions.showThrownError && (err || err.message) ?
               (err || err.message) : transloco.translate(err?.message || finalOptions.error as string),
-            transloco.translate('GENERAL.DISMISS'),
+            transloco.translate('DISMISS'),
             {
               panelClass: 'snack-bar-error',
               duration: 5000

@@ -1,13 +1,13 @@
-<button mat-flat-button (click)="open()">{{'GENERAL.ADD' | transloco}} User</button>
+<button mat-flat-button (click)="open()">{{'ADD' | transloco}} User</button>
 
 <ng-template #addDialog>
-  <h4 mat-dialog-title>{{'USERS.ADD' | transloco}}</h4>
+  <h4 mat-dialog-title>{{'ADD_USER' | transloco}}</h4>
 
   <form autocomplete="off">
     <mat-dialog-content>
 
       <mat-form-field class="w-full">
-        <mat-label>{{'USERS.METHOD' | transloco}}</mat-label>
+        <mat-label>{{'METHOD' | transloco}}</mat-label>
         <mat-select [formControl]="accountType">
           <mat-option *ngFor="let option of accountTypes" [value]="option.value">
             {{option.label}}
@@ -17,13 +17,13 @@
 
       <ng-container [formGroup]="form">
         <mat-form-field class="w-full">
-          <mat-label>{{'GENERAL.EMAIL' | transloco}}</mat-label>
+          <mat-label>{{'EMAIL' | transloco}}</mat-label>
           <input type="email" formControlName="email" matInput>
         </mat-form-field>
 
         <ng-container *ngIf="accountType.value === 'manual'">
           <mat-form-field class="w-full">
-            <mat-label>{{'GENERAL.PASSWORD' | transloco}}</mat-label>
+            <mat-label>{{'PASSWORD' | transloco}}</mat-label>
             <input [type]="type" formControlName="password" autocomplete="new-password" name="pwd" matInput>
             <div class="flex" matSuffix>
               <button type="button" tabindex="-1" mat-icon-button (click)="toggleType()">
@@ -34,14 +34,14 @@
                 <mat-icon>cached</mat-icon>
               </button>
             </div>
-            <mat-error>{{'USERS.PASSWORD_RULES' | transloco}}</mat-error>
+            <mat-error>{{'PASSWORD_MIN_LENGTH' | transloco}}</mat-error>
           </mat-form-field>
 
           <mat-checkbox class="m-b-m" formControlName="requireReset">Require reset on first login.</mat-checkbox>
         </ng-container>
 
         <mat-form-field class="w-full">
-          <mat-label>{{'USERS.ROLE' | transloco}}</mat-label>
+          <mat-label>{{'ROLE' | transloco}}</mat-label>
           <mat-select formControlName="role">
             <mat-option *ngFor="let role of roles$ | async" [value]="role.id">{{role.name}}</mat-option>
           </mat-select>
@@ -51,7 +51,7 @@
     </mat-dialog-content>
 
     <mat-dialog-actions class="jc-end">
-      <button type="submit" mat-flat-button color="primary" [disabled]="form.invalid" [jpLoadClick]="add()">{{'GENERAL.ADD' | transloco}}</button>
+      <button type="submit" mat-flat-button color="primary" [disabled]="form.invalid" [jpLoadClick]="add()">{{'ADD' | transloco}}</button>
     </mat-dialog-actions>
   </form>
 </ng-template>

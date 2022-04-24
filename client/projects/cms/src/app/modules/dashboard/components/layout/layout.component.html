@@ -2,7 +2,7 @@
   <section class="dashboard-nav-welcome">
     <img class="dashboard-nav-welcome-logo" src="assets/images/logo.svg" alt="Logo">
     <!--<h1 class="dashboard-nav-welcome-logo">{{staticConfig.displayName}}</h1>-->
-    <mat-icon class="dashboard-nav-welcome-menu" role="button" [attr.aria-label]="'LAYOUT.MENU' | transloco" (click)="toggleMenu()">menu</mat-icon>
+    <mat-icon class="dashboard-nav-welcome-menu" role="button" [attr.aria-label]="'MENU' | transloco" (click)="toggleMenu()">menu</mat-icon>
   </section>
 
   <div class="dashboard-nav-scrollable">
@@ -68,12 +68,6 @@
     <span class="dashboard-nav-footer-tooltip" [matTooltip]="'Drive'" matTooltipPosition="right"></span>
   </a>
 
-  <a class="dashboard-nav-footer" *ngIf="state.role === 'admin'" routerLink="/file-manager" routerLinkActive="active">
-    <mat-icon aria-hidden="true" class="dashboard-nav-footer-icon">storage</mat-icon>
-    <span class="dashboard-nav-footer-text">{{'LAYOUT.FILE_MANAGER' | transloco}}</span>
-    <span class="dashboard-nav-footer-tooltip" [matTooltip]="'LAYOUT.FILE_MANAGER' | transloco" matTooltipPosition="right"></span>
-  </a>
-
   <a class="dashboard-nav-footer" *ngIf="currentUser$ | async as user" routerLink="/profile/information" routerLinkActive="active">
     <mat-icon aria-hidden="true" class="dashboard-nav-footer-icon">account_circle</mat-icon>
     <span class="dashboard-nav-footer-text">{{user.email}}</span>
@@ -82,8 +76,8 @@
 
   <a class="dashboard-nav-footer" (click)="logOut()">
     <mat-icon aria-hidden="true" class="dashboard-nav-footer-icon">power_settings_new</mat-icon>
-    <span class="dashboard-nav-footer-text">{{'LAYOUT.LOG_OUT' | transloco}}</span>
-    <span class="dashboard-nav-footer-tooltip" [matTooltip]="'LAYOUT.LOG_OUT' | transloco" matTooltipPosition="right"></span>
+    <span class="dashboard-nav-footer-text">{{'LOG_OUT' | transloco}}</span>
+    <span class="dashboard-nav-footer-tooltip" [matTooltip]="'LOG_OUT' | transloco" matTooltipPosition="right"></span>
   </a>
 </nav>
 
@@ -93,16 +87,16 @@
 
 
 <ng-template #reset>
-  <h4 mat-dialog-title>{{'LAYOUT.RESET_PASSWORD' | transloco}}</h4>
+  <h4 mat-dialog-title>{{'RESET_PASSWORD' | transloco}}</h4>
 
   <form [formGroup]="resetPassword">
     <mat-card-content>
       <mat-form-field class="w-full">
-        <mat-label>{{'PROFILE.NEW_PASSWORD' | transloco}}</mat-label>
+        <mat-label>{{'NEW_PASSWORD' | transloco}}</mat-label>
         <input type="password" matInput formControlName="password">
       </mat-form-field>
       <mat-form-field class="w-full">
-        <mat-label>{{'PROFILE.REPEAT_PASSWORD' | transloco}}</mat-label>
+        <mat-label>{{'REPEAT_PASSWORD' | transloco}}</mat-label>
         <input type="password" matInput formControlName="repeatPassword">
       </mat-form-field>
     </mat-card-content>
@@ -113,7 +107,7 @@
         type="submit"
         [disabled]="resetPassword.invalid"
         [jpLoadClick]="changePassword()">
-        {{'GENERAL.SAVE' | transloco}}
+        {{'SAVE' | transloco}}
       </button>
     </mat-card-actions>
   </form>

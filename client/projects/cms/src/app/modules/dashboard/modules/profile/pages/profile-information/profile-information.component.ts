@@ -33,10 +33,10 @@ export class ProfileInformationComponent {
     },
     definitions: {
       name: {
-        label: 'PROFILE.NAME'
+        label: 'NAME'
       },
       profileImage: {
-        label: 'PROFILE.IMAGE',
+        label: 'PROFILE_IMAGE',
         class: 'profile',
         component: {
           type: 'image',

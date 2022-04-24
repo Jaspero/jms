@@ -1,15 +1,15 @@
 <section>
   <mat-card>
-    <h6 class="m-b-l p-t-m ta-center">{{'FINISH_SIGN_UP.TITLE' | transloco}}</h6>
+    <h6 class="m-b-l p-t-m ta-center">{{'FINISH_SIGN_UP' | transloco}}</h6>
     <form [formGroup]="form">
 
       <mat-form-field class="w-full">
-        <mat-label>{{'GENERAL.PASSWORD' | transloco}}</mat-label>
+        <mat-label>{{'PASSWORD' | transloco}}</mat-label>
         <input type="password" matInput formControlName="password" />
       </mat-form-field>
 
       <mat-form-field class="w-full">
-        <mat-label>{{'RESET_PASSWORD.REPEAT_PASSWORD' | transloco}}</mat-label>
+        <mat-label>{{'REPEAT_PASSWORD' | transloco}}</mat-label>
         <input type="password" matInput formControlName="repeatPassword" />
       </mat-form-field>
 
@@ -20,7 +20,7 @@
         class="w-full"
         [disabled]="form.invalid"
         [jpLoadClick]="save()">
-        {{'GENERAL.SUBMIT' | transloco}}
+        {{'SUBMIT' | transloco}}
       </button>
     </form>
   </mat-card>

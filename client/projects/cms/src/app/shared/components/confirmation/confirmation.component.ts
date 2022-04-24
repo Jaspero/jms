@@ -21,9 +21,9 @@ export class ConfirmationComponent implements OnInit {
   ) {}
 
   defaultOptions: ConfirmationOptions = {
-    header: 'CONFIRMATION.TITLE',
-    confirm: 'GENERAL.REMOVE',
-    negate: 'GENERAL.CANCEL',
+    header: 'ARE_YOU_SURE',
+    confirm: 'REMOVE',
+    negate: 'CANCEL',
     color: Color.Warn,
     variables: {}
   };

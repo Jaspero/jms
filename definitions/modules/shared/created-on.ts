@@ -8,7 +8,7 @@ export const CREATED_ON = {
   } as InstanceSort,
   column: (sortable = true, format?: string) => ({
     key: '/createdOn',
-    label: 'GENERAL.DATE',
+    label: 'DATE',
     pipe: [PipeType.Date],
     ...sortable && {sortable: true},
     ...format && {
@@ -22,7 +22,7 @@ export const CREATED_ON = {
   } as any,
   definition: (
     id = 'createdOn',
-    label = 'GENERAL.CREATED_ON',
+    label = 'CREATED_ON',
     createInitially = true
   ) => ({
     [id]: {
@@ -35,8 +35,8 @@ export const CREATED_ON = {
         type: 'date',
         configuration: {
           includeTime: true,
-          labelHours: 'GENERAL.HOURS',
-          labelMinutes: 'GENERAL.MINUTES',
+          labelHours: 'HOURS',
+          labelMinutes: 'MINUTES',
           format: 'number'
         }
       }

@@ -5,21 +5,21 @@
 </mat-action-list>
 
 <ng-template #options>
-  <h4 mat-dialog-title>{{'EXPORT.TITLE' | transloco}}</h4>
+  <h4 mat-dialog-title>{{'EXPORT_OPTIONS' | transloco}}</h4>
 
   <form [formGroup]="form">
     <mat-dialog-content>
       <div class="m-b-s" *ngIf="data.filterModule && data.filterValue">
-        <mat-checkbox formControlName="useFilters">{{'EXPORT.USE_FILTERS' | transloco}}</mat-checkbox>
+        <mat-checkbox formControlName="useFilters">{{'USE_FILTERS' | transloco}}</mat-checkbox>
       </div>
 
       <mat-form-field class="w-full">
-        <mat-label>{{'EXPORT.ROWS_TO_SKIP' | transloco}}</mat-label>
+        <mat-label>{{'ROWS_TO_SKIP' | transloco}}</mat-label>
         <input type="number" matInput formControlName="skip">
       </mat-form-field>
 
       <mat-form-field class="w-full">
-        <mat-label>{{'EXPORT.LIMIT' | transloco}}</mat-label>
+        <mat-label>{{'LIMIT' | transloco}}</mat-label>
         <input type="number" matInput formControlName="limit">
       </mat-form-field>
 
@@ -27,7 +27,7 @@
         <mat-accordion>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
-              <mat-panel-title>{{'EXPORT.ADJUST_COLUMNS' | transloco}}</mat-panel-title>
+              <mat-panel-title>{{'ADJUST_COLUMNS' | transloco}}</mat-panel-title>
             </mat-expansion-panel-header>
 
             <jms-column-organization #col [tableColumns]="data.columns"></jms-column-organization>
@@ -37,7 +37,7 @@
     </mat-dialog-content>
 
     <mat-dialog-actions class="jc-end">
-      <button type="submit" mat-flat-button color="primary" [jpLoadClick]="export(col)">{{'GENERAL.EXPORT' | transloco}}</button>
+      <button type="submit" mat-flat-button color="primary" [jpLoadClick]="export(col)">{{'EXPORT' | transloco}}</button>
     </mat-dialog-actions>
   </form>
 </ng-template>

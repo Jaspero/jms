@@ -73,7 +73,7 @@ export class InstanceOverviewContextService {
       {
         description: this.selection.selected.reduce((acc, cur) =>
           acc + cur + '\n',
-          `${this.transloco.translate('INSTANCE_OVERVIEW.REMOVE_ITEMS_WARNING')}\n`
+          `${this.transloco.translate('REMOVE_ITEMS_WARNING')}\n`
         )
       }
     );
@@ -91,7 +91,7 @@ export class InstanceOverviewContextService {
         notify()
       ],
       {
-        description: 'INSTANCE_OVERVIEW.REMOVE_ONE',
+        description: 'REMOVE_ONE',
         variables: {
           value: item.id
         }

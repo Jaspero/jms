@@ -65,17 +65,17 @@ export class UserActionsComponent implements OnInit {
     const providerMap = {
       'google.com': {
         svg: 'google',
-        label: 'ELEMENTS.USER_ACTIONS.GOOGLE'
+        label: 'GOOGLE'
       },
       password: {
         icon: 'email',
-        label: 'ELEMENTS.USER_ACTIONS.EMAIL_PASSWORD'
+        label: 'EMAIL_PASSWORD'
       }
     };
     const multiFactorMap = {
       phone: {
         icon: 'phone',
-        label: 'ELEMENTS.USER_ACTIONS.PHONE'
+        label: 'PHONE'
       }
     }
 
@@ -160,8 +160,8 @@ export class UserActionsComponent implements OnInit {
         })
       ],
       {
-        header: 'ELEMENTS.USER_ACTIONS.REMOVE_PROVIDER_TITLE',
-        description: 'ELEMENTS.USER_ACTIONS.REMOVE_PROVIDER_DESCRIPTION'
+        header: 'REMOVE_PROVIDER_TITLE',
+        description: 'REMOVE_PROVIDER_DESCRIPTION'
       }
     )
   }

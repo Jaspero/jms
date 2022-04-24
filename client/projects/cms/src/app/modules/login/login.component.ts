@@ -67,8 +67,8 @@ export class LoginComponent implements OnInit {
 
   errorMap = {
     'auth/wrong-password': 'LOGIN.ERROR_MESSAGE',
-    'auth/too-many-requests': 'LOGIN.TOO_MANY_ATTEMPTS_TRY_LATER',
-    'auth/user-not-found': 'LOGIN.USER_NOT_FOUND'
+    'auth/too-many-requests': 'TOO_MANY_ATTEMPTS_TRY_LATER',
+    'auth/user-not-found': 'USER_NOT_FOUND'
   };
 
   ngOnInit() {

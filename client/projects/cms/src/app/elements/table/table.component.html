@@ -29,7 +29,7 @@
 </ng-template>
 
 <ng-template #columnOrganization>
-  <h4 mat-dialog-title>{{ 'INSTANCE_OVERVIEW.TABLE.COLUMNS' | transloco }}</h4>
+  <h4 mat-dialog-title>{{ 'COLUMNS' | transloco }}</h4>
 
   <form>
     <mat-dialog-content>
@@ -38,7 +38,7 @@
 
     <mat-dialog-actions class="jc-end">
       <button type="submit" mat-flat-button color="primary" (click)="updateColumns($event, jco)">
-        {{ 'GENERAL.SAVE' | transloco }}
+        {{ 'SAVE' | transloco }}
       </button>
     </mat-dialog-actions>
   </form>
@@ -56,7 +56,7 @@
                 [checked]="ioc.selection.hasValue() && ac.checked"
                 [indeterminate]="ioc.selection.hasValue() && !ac.checked"
                 color="primary"
-                [matTooltip]="'GENERAL.SELECT' | transloco"
+                [matTooltip]="'SELECT' | transloco"
                 class="select-all"
               >
               </mat-checkbox
@@ -67,7 +67,7 @@
             <button
               *ngIf="!data.hideDelete"
               mat-icon-button
-              [matTooltip]="'INSTANCE_OVERVIEW.REMOVE_ITEMS' | transloco: {value: ioc.selection.selected.length}"
+              [matTooltip]="'REMOVE_ITEMS' | transloco: {value: ioc.selection.selected.length}"
               (click)="ioc.deleteSelection(data.moduleId)"
             >
               <mat-icon>delete_forever</mat-icon>
@@ -92,11 +92,11 @@
             <span class="hide-xs">
               <button mat-button (click)="ioc.export(data.originalColumns)">
                 <mat-icon>vertical_align_top</mat-icon>
-                <span>{{ 'GENERAL.EXPORT' | transloco }}</span>
+                <span>{{ 'EXPORT' | transloco }}</span>
               </button>
             </span>
             <span class="show-xs">
-              <button mat-icon-button (click)="ioc.export(data.originalColumns)" [matTooltip]="'GENERAL.EXPORT' | transloco">
+              <button mat-icon-button (click)="ioc.export(data.originalColumns)" [matTooltip]="'EXPORT' | transloco">
                 <mat-icon>vertical_align_top</mat-icon>
               </button>
             </span>
@@ -108,11 +108,11 @@
             <span class="hide-xs">
               <button mat-button (click)="openFilterDialog(data.filterModule)">
                 <mat-icon>vertical_split</mat-icon>
-                <span>{{ 'GENERAL.FILTER' | transloco }}</span>
+                <span>{{ 'FILTER' | transloco }}</span>
               </button>
             </span>
             <span class="show-xs">
-              <button mat-icon-button (click)="openFilterDialog(data.filterModule)" [matTooltip]="'GENERAL.FILTER' | transloco">
+              <button mat-icon-button (click)="openFilterDialog(data.filterModule)" [matTooltip]="'FILTER' | transloco">
                 <mat-icon>vertical_split</mat-icon>
               </button>
             </span>
@@ -122,11 +122,11 @@
             <span class="hide-xs">
               <button mat-button (click)="openSortDialog(data.moduleId, data.name, data.sortModule)">
                 <mat-icon>vertical_split</mat-icon>
-                <span>{{ 'GENERAL.SORT' | transloco }}</span>
+                <span>{{ 'SORT' | transloco }}</span>
               </button>
             </span>
             <span class="show-xs">
-              <button mat-icon-button (click)="openSortDialog(data.moduleId, data.name, data.sortModule)" [matTooltip]="'GENERAL.SORT' | transloco">
+              <button mat-icon-button (click)="openSortDialog(data.moduleId, data.name, data.sortModule)" [matTooltip]="'SORT' | transloco">
                 <mat-icon>vertical_split</mat-icon>
               </button>
             </span>
@@ -135,7 +135,7 @@
           <span class="hide-xs" *ngIf="data.originalColumns">
             <button mat-button (click)="openColumnOrganization()">
               <mat-icon>view_column</mat-icon>
-              <span>{{ 'INSTANCE_OVERVIEW.TABLE.COLUMNS' | transloco }}</span>
+              <span>{{ 'COLUMNS' | transloco }}</span>
             </button>
           </span>
 
@@ -158,7 +158,7 @@
             <ng-container *ngIf="!data.hideCheckbox">
               <ng-container matColumnDef="check" sticky>
                 <th class="cta-column" mat-header-cell *matHeaderCellDef></th>
-                <td class="cta-column" mat-cell *matCellDef="let row" [attr.data-label]="'GENERAL.SELECT' | transloco">
+                <td class="cta-column" mat-cell *matCellDef="let row" [attr.data-label]="'SELECT' | transloco">
                   <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? ioc.selection.toggle(row.id) : null" [checked]="ioc.selection.isSelected(row.id)" color="primary"> </mat-checkbox>
                 </td>
               </ng-container>
@@ -198,8 +198,8 @@
 
             <ng-container *ngIf="!data.hideEdit || !data.hideDelete || data.actions?.length" matColumnDef="actions" stickyEnd>
               <th class="cta-column-last" mat-header-cell *matHeaderCellDef></th>
-              <td class="cta-column-last" mat-cell *matCellDef="let element" [attr.data-label]="'GENERAL.ACTIONS' | transloco">
-                <button mat-icon-button [matMenuTriggerFor]="menu" [attr.aria-label]="'GENERAL.ACTIONS' | transloco" [matTooltip]="'GENERAL.ACTIONS' | transloco">
+              <td class="cta-column-last" mat-cell *matCellDef="let element" [attr.data-label]="'ACTIONS' | transloco">
+                <button mat-icon-button [matMenuTriggerFor]="menu" [attr.aria-label]="'ACTIONS' | transloco" [matTooltip]="'ACTIONS' | transloco">
                   <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
@@ -225,7 +225,7 @@
 
                     <a *ngIf="!data.hideEdit" mat-menu-item [routerLink]="['/m', element.ref.parent.path, element.id]">
                       <mat-icon>{{ permission.write ? 'edit' : 'visibility' }}</mat-icon>
-                      <span>{{ (permission.write ? 'GENERAL.EDIT' : 'GENERAL.VIEW') | transloco }}</span>
+                      <span>{{ (permission.write ? 'EDIT' : 'VIEW') | transloco }}</span>
                     </a>
                     <button
                       *ngIf="showDelete"
@@ -234,7 +234,7 @@
                       (click)="ioc.deleteOne(element.ref.parent.path, element)"
                     >
                       <mat-icon>delete_forever</mat-icon>
-                      <span>{{ 'GENERAL.DELETE' | transloco }}</span>
+                      <span>{{ 'DELETE' | transloco }}</span>
                     </button>
                   </ng-template>
                 </mat-menu>
@@ -248,18 +248,18 @@
 
         <ng-container *ngIf="ioc.emptyState$ | async; else hasContent">
           <mat-toolbar class="jc-center" *ngIf="!data.hideAdd">
-            <p class="m-r-s">{{ 'INSTANCE_OVERVIEW.NO_ITEMS' | transloco }}</p>
-            <a mat-button color="primary" routerLink="/m/{{data.moduleId}}/new"> {{ 'GENERAL.ADD' | transloco }} {{ data.name | transloco }} </a>
+            <p class="m-r-s">{{ 'NO_ITEMS' | transloco }}</p>
+            <a mat-button color="primary" routerLink="/m/{{data.moduleId}}/new"> {{ 'ADD' | transloco }} {{ data.name | transloco }} </a>
           </mat-toolbar>
         </ng-container>
 
         <ng-template #hasContent>
           <mat-toolbar class="jc-between">
             <button mat-button color="primary" [disabled]="(ioc.hasMore$ | async) === false" [class.loading]="ioc.loading$ | async" (click)="ioc.loadMore$.next(true)">
-              {{ 'INSTANCE_OVERVIEW.LOAD_MORE' | transloco }}
+              {{ 'LOAD_MORE' | transloco }}
             </button>
             <mat-form-field class="mat-form-field-no-hint">
-              <mat-label>{{ 'GENERAL.PAGE_SIZE' | transloco }}</mat-label>
+              <mat-label>{{ 'PAGE_SIZE' | transloco }}</mat-label>
               <mat-select [formControl]="ioc.pageSize">
                 <mat-option *ngFor="let size of ioc.pageSizes" [value]="size">
                   {{ size }}

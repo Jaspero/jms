@@ -233,7 +233,7 @@ export class ProfileSecurityComponent implements OnInit {
                   return throwError(() => e);
                 }),
                 notify({
-                  success: htf ? 'PROFILE.REMOVE_MFA' : 'PROFILE.CONNECT_MFA',
+                  success: htf ? 'REMOVE_MFA' : 'CONNECT_MFA',
                   showThrownError: true
                 })
               );

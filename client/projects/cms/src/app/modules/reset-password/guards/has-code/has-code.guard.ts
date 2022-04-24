@@ -23,7 +23,7 @@ export class HasCodeGuard implements CanActivate {
           map(() => true),
           notify({
             success: false,
-            error: 'RESET_PASSWORD.INVALID_OOB_CODE'
+            error: 'INVALID_OOB_CODE'
           }),
           catchError(() => {
             this.router.navigate(STATIC_CONFIG.loginRoute);

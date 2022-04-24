@@ -39,7 +39,7 @@ export class HasClaimGuard implements CanActivate {
           if (!data || !data.claims.role) {
             return throwError(
               () =>
-                this.transloco.translate('ERRORS.DASHBOARD_ACCESS')
+                this.transloco.translate('DASHBOARD_ACCESS_DENIED')
             );
           }
 

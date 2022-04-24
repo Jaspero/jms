@@ -7,8 +7,7 @@ import {YES_NO_PIPE} from './shared/yes-no-pipe';
 
 export const USER_INVITES_MODULE: Module = {
   id: Collections.UserInvites,
-  name: 'MODULES.USER_INVITES',
-  description: 'MODULES.USER_INVITES_DESCRIPTION',
+  name: 'USER_INVITES',
   layout: {
     sort: CREATED_ON.sort,
     table: {
@@ -19,7 +18,7 @@ export const USER_INVITES_MODULE: Module = {
         CREATED_ON.column(),
         {
           key: '/id',
-          label: 'GENERAL.EMAIL',
+          label: 'EMAIL',
           pipe: [PipeType.Custom],
           pipeArguments: {
             0: id => JSX(<a target="_blank" href={'mailto:' + id}>{id}</a>)
@@ -27,24 +26,24 @@ export const USER_INVITES_MODULE: Module = {
         },
         {
           key: '/role',
-          label: 'GENERAL.ROLE',
+          label: 'ROLE',
           pipe: [PipeType.Titlecase]
         },
         {
           key: '/requireReset',
-          label: 'USER_INVITES.FIELDS.REQUIRE_RESET',
+          label: 'REQUIRE_RESET',
           control: true
         },
         {
           key: '/sendInvite',
-          label: 'USER_INVITES.FIELDS.SEND_INVITE',
+          label: 'SEND_INVITE',
           ...YES_NO_PIPE
         },
         {
           key: '/acceptedOn',
-          label: 'USER_INVITES.FIELDS.ACCEPTED_ON',
+          label: 'ACCEPTED_ON',
           pipe: [PipeType.Date],
-          fallback: 'GENERAL.NO'
+          fallback: 'NO'
         }
       ],
       actions: [

@@ -4,8 +4,7 @@ import {CREATED_ON} from './shared/created-on';
 
 export const ROLES_MODULE: Module = {
   id: Collections.Roles,
-  name: 'MODULES.ROLES',
-  description: 'MODULES.ROLES_DESCRIPTION',
+  name: 'ROLES',
   authorization: {
     read: ['admin'],
     write: ['admin']
@@ -24,8 +23,8 @@ export const ROLES_MODULE: Module = {
     table: {
       tableColumns: [
         CREATED_ON.column(),
-        {key: '/name', label: 'GENERAL.NAME'},
-        {key: '/description', label: 'GENERAL.DESCRIPTION'}
+        {key: '/name', label: 'NAME'},
+        {key: '/description', label: 'DESCRIPTION'}
       ]
     }
   },
@@ -42,9 +41,9 @@ export const ROLES_MODULE: Module = {
     ]
   },
   definitions: {
-    name: {label: 'GENERAL.NAME'},
+    name: {label: 'NAME'},
     description: {
-      label: 'GENERAL.DESCRIPTION',
+      label: 'DESCRIPTION',
       component: {
         type: 'textarea'
       }
