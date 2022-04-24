@@ -47,10 +47,6 @@ import {Element} from '../element.decorator';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 import {SortDialogComponent} from '../sort-dialog/sort-dialog.component';
 
-interface MenuAction extends Action {
-  menuStyle?: boolean;
-}
-
 interface TableData {
   moduleId: string;
   authorization?: ModuleAuthorization;
