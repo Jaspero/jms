@@ -1,3 +1,10 @@
+# [5.21.0](https://github.com/jaspero/jms/compare/v5.20.0...v5.21.0) (2022-04-24)
+
+
+### Features
+
+* **definitions:** connected clear method for collections ([0429002](https://github.com/jaspero/jms/commit/04290027ae4db87a83eca13005d3bfb8dba29ed3))
+
 # [5.20.0](https://github.com/jaspero/jms/compare/v5.19.0...v5.20.0) (2022-04-23)
 
 
