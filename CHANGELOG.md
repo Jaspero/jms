@@ -1,3 +1,12 @@
+# [5.22.0](https://github.com/jaspero/jms/compare/v5.21.0...v5.22.0) (2022-04-24)
+
+
+### Features
+
+* **cms:** added transloco optimizer ([e54db1c](https://github.com/jaspero/jms/commit/e54db1c4d7d1fbd92c4136ec891a32084b268d77))
+* **cms:** improved subHeaderTemplate handling ([0a66fa5](https://github.com/jaspero/jms/commit/0a66fa5dd78516589fa9bcbb27af58408adcaee2))
+* **cms:** simplified and flattened translations ([cf2689e](https://github.com/jaspero/jms/commit/cf2689e033c3563bb761e884f707b696bca5e0ce))
+
 # [5.21.0](https://github.com/jaspero/jms/compare/v5.20.0...v5.21.0) (2022-04-24)
 
 
