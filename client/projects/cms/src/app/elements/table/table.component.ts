@@ -134,14 +134,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    /**
-     * Component isn't necessarily destroyed
-     * before it's instantiated again
-     */
-    setTimeout(() => {
-      this.ioc.subHeaderTemplate$.next(this.subHeaderTemplate);
-    }, 100);
-
+    this.ioc.subHeaderTemplate$.next(this.subHeaderTemplate);
     this.ioc.module$.pipe(untilDestroyed(this)).subscribe(data => {
       let displayColumns: string[];
       let tableColumns: ModuleLayoutTableColumn[];

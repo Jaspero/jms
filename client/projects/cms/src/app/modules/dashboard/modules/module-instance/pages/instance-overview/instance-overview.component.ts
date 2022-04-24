@@ -309,6 +309,7 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
   }
 
   changeCurrentView(view: string) {
+    this.ioc.subHeaderTemplate$.next(null);
     this.currentView = this.getCurrentView(view);
     this.cdr.markForCheck();
   }
