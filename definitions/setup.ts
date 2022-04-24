@@ -10,7 +10,16 @@ async function exec() {
     for (const document of collection.documents) {
       const {id, ...data} = document;
 
-      await fStore.collection(collection.name).doc(id).set(data);
+      const doc = await fStore.collection(collection.name).doc(id).get();
+
+      if (doc.exists && collection.clear) {
+        collection.clear(data);
+      }
+
+      await doc.ref.set(
+        data,
+        collection.options || {}
+      )
     }
   }
 }

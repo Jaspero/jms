@@ -5,7 +5,12 @@ import {USER_INVITES_COLLECTION} from './user-invites.collection';
 /**
  * A list of collections to create initially
  */
-export const COLLECTIONS = [
+export const COLLECTIONS: Array<{
+  name: string;
+  options?: any;
+  clear?: (data: any) => any;
+  documents: any[];
+}> = [
   ROLES_COLLECTION,
   USER_INVITES_COLLECTION,
   FOLDERS_COLLECTION
