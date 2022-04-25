@@ -1,3 +1,10 @@
+# [5.23.0](https://github.com/jaspero/jms/compare/v5.22.0...v5.23.0) (2022-04-25)
+
+
+### Features
+
+* **cms:** connected show password on login closes [#324](https://github.com/jaspero/jms/issues/324) ([c7ba2ec](https://github.com/jaspero/jms/commit/c7ba2ec214bc504b33b60ff95879b079808b914e))
+
 # [5.22.0](https://github.com/jaspero/jms/compare/v5.21.0...v5.22.0) (2022-04-24)
 
 
