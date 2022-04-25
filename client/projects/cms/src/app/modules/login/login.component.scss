@@ -44,3 +44,13 @@
     transition: .25s;
   }
 }
+
+.show-button {
+	border: none;
+	background: none;
+	cursor: pointer;
+	
+	&:hover {
+		text-decoration: underline;
+	}
+}

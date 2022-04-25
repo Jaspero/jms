@@ -64,6 +64,7 @@ export class LoginComponent implements OnInit {
   verificationState: string;
   verificationId: string;
   deviceForm: FormGroup;
+  type = 'password';
 
   errorMap = {
     'auth/wrong-password': 'LOGIN.ERROR_MESSAGE',
@@ -94,6 +95,10 @@ export class LoginComponent implements OnInit {
       });
 
     this.buildForm();
+  }
+
+  showPassword() {
+    this.type = this.type === 'password' ? 'text' : 'password';
   }
 
   loginGoogle() {
