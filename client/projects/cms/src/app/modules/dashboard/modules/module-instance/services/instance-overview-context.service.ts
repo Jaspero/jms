@@ -2,8 +2,8 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {ChangeDetectorRef, Inject, Injectable, Optional, TemplateRef} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatBottomSheet} from '@angular/material/bottom-sheet';
-import {MatDialog} from '@angular/material/dialog';
 import {DomSanitizer} from '@angular/platform-browser';
+import {parseTemplate, safeEval} from '@jaspero/utils';
 import {MaybeArray, TranslocoScope, TranslocoService, TRANSLOCO_LANG, TRANSLOCO_SCOPE} from '@ngneat/transloco';
 import {notify} from '@shared/utils/notify.operator';
 import {InstanceSort, Module, ModuleLayoutTableColumn} from 'definitions';
@@ -22,7 +22,6 @@ export class InstanceOverviewContextService {
   constructor(
     private state: StateService,
     private domSanitizer: DomSanitizer,
-    private dialog: MatDialog,
     private bottomSheet: MatBottomSheet,
     private dbService: DbService,
     private transloco: TranslocoService,
@@ -55,7 +54,8 @@ export class InstanceOverviewContextService {
   subHeaderTemplate$ = new Subject<TemplateRef<any>>();
   pageSize: FormControl;
 
-  deleteSelection(moduleId: string) {
+  deleteSelection(moduleId: string, items: any[]) {
+    const module = this.module$.getValue();
     confirmation(
       [
         switchMap(() =>
@@ -71,10 +71,10 @@ export class InstanceOverviewContextService {
         notify()
       ],
       {
-        description: this.selection.selected.reduce((acc, cur) =>
-          acc + cur + '\n',
-          `${this.transloco.translate('REMOVE_ITEMS_WARNING')}\n`
-        )
+        description: this.selection.selected.reduce((acc, cur) => {
+          const found = items.find(it => it.id === cur);
+          return acc + `<li><b>${this.display(moduleId, found ? {id: cur, ...found.data} : cur, module)}</b></li>`;
+        }, `<p class="m-b-s">${this.transloco.translate('REMOVE_ITEMS_WARNING')}</p><ul>`) + '</ul>'
       }
     );
   }
@@ -93,7 +93,7 @@ export class InstanceOverviewContextService {
       {
         description: 'REMOVE_ONE',
         variables: {
-          value: item.id
+          value: `<b>${this.display(moduleId, {id: item.id, ...item.data})}</b>`
         }
       }
     );
@@ -153,5 +153,26 @@ export class InstanceOverviewContextService {
     );
 
     this.columnPipe.ioc = this;
+  }
+
+  private display(moduleId: string, item: any, module?: Module) {
+    if (!module) {
+      module = this.module$.getValue();
+    }
+
+    if (typeof item === 'string') {
+      return item;
+    }
+
+    if (moduleId !== module.id || !module.layout?.editTitleKey) {
+      return item.id;
+    }
+
+    const evaluated = safeEval(module.layout.editTitleKey);
+    const proces =  typeof evaluated === 'function'
+      ? evaluated(item)
+      : parseTemplate(`{{${module.layout.editTitleKey}}}`, item);
+
+    return proces || item.id;
   }
 }

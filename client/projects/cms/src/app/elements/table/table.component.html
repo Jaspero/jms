@@ -1,4 +1,4 @@
-<div class='tablke-container'></div>
+<div class="tablke-container"></div>
 
 <ng-template #columnLayout let-column="column" let-row="row" let-index="index">
   <ng-container *ngIf="row[index]">
@@ -64,14 +64,11 @@
             </ng-container>
           </ng-container>
           <ng-container *ngIf="ioc.selection.hasValue()">
-            <button
-              *ngIf="!data.hideDelete"
-              mat-icon-button
-              [matTooltip]="'REMOVE_ITEMS' | transloco: {value: ioc.selection.selected.length}"
-              (click)="ioc.deleteSelection(data.moduleId)"
-            >
-              <mat-icon>delete_forever</mat-icon>
-            </button>
+            <ng-container *ngIf="ioc.items$ | async as items">
+              <button *ngIf="!data.hideDelete" mat-icon-button [matTooltip]="'REMOVE_ITEMS' | transloco: {value: ioc.selection.selected.length}" (click)="ioc.deleteSelection(data.moduleId, items)">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </ng-container>
 
             <ng-container *ngIf="data.selectionActions && data.selectionActions.length">
               <ng-container *ngFor="let action of data.selectionActions">
@@ -227,12 +224,7 @@
                       <mat-icon>{{ permission.write ? 'edit' : 'visibility' }}</mat-icon>
                       <span>{{ (permission.write ? 'EDIT' : 'VIEW') | transloco }}</span>
                     </a>
-                    <button
-                      *ngIf="showDelete"
-                      mat-menu-item
-                      [fDisable]="data.authorization"
-                      (click)="ioc.deleteOne(element.ref.parent.path, element)"
-                    >
+                    <button *ngIf="showDelete" mat-menu-item [fDisable]="data.authorization" (click)="ioc.deleteOne(element.ref.parent.path, element)">
                       <mat-icon>delete_forever</mat-icon>
                       <span>{{ 'DELETE' | transloco }}</span>
                     </button>
@@ -249,7 +241,7 @@
         <ng-container *ngIf="ioc.emptyState$ | async; else hasContent">
           <mat-toolbar class="jc-center" *ngIf="!data.hideAdd">
             <p class="m-r-s">{{ 'NO_ITEMS' | transloco }}</p>
-            <a mat-button color="primary" routerLink="/m/{{data.moduleId}}/new"> {{ 'ADD' | transloco }} {{ data.name | transloco }} </a>
+            <a mat-button color="primary" routerLink="/m/{{ data.moduleId }}/new"> {{ 'ADD' | transloco }} {{ data.name | transloco }} </a>
           </mat-toolbar>
         </ng-container>
 
