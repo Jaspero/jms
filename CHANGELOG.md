@@ -1,3 +1,10 @@
+# [5.24.0](https://github.com/jaspero/jms/compare/v5.23.0...v5.24.0) (2022-04-25)
+
+
+### Features
+
+* **cms:** using editTitleKey on delete closes [#366](https://github.com/jaspero/jms/issues/366) ([0b2d2f3](https://github.com/jaspero/jms/commit/0b2d2f381663fdf00729fc13ff93542d377d4abe))
+
 # [5.23.0](https://github.com/jaspero/jms/compare/v5.22.0...v5.23.0) (2022-04-25)
 
 
