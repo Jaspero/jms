@@ -1,0 +1,34 @@
+{
+	"IMAGE": {
+		"PREVIEW": "Pregled slike"
+	},
+	"FILE": {
+		"EMPTY": "Datoteka nije odabrana",
+		"ADD": "Odaberi datoteku",
+		"URL": "Putanja datoteke"
+	},
+	"GALLERY": {
+		"ENTER_URL": "Unesi URL",
+		"CHOOSE_FILES": "Odaberi datoteke",
+		"SORT_IMAGES": "Sortiraj slike",
+		"IMAGE_URL": "URL Slike",
+		"ADD_IMAGE": "Dodaj sliku",
+		"UPLOAD_ERROR": "Pogreška s učitavanjem slike."
+	},
+	"WYSIWYG": {
+		"EMBED_YOUTUBE": "Embed YouTube",
+		"VIDEO_ID": "Video ID",
+		"FULL_WIDTH": "Puna širina",
+		"SHOW_PLAYER_CONTROLS": "Prikaži kontrole video playera",
+		"PRIVACY_ENHANCED_MODE": "Privatni način",
+		"ALIGNMENT": "Poravnanje",
+		"LEFT": "Lijevo",
+		"CENTER": "Sredina",
+		"RIGHT": "Desno"
+	},
+	"REF": {
+		"SEARCH_BY": "Pretraži po",
+		"APPLY_VALUE": "Postavi vrijednost",
+		"LOAD_MORE": "Učitaj više"
+	}
+}
