@@ -1,3 +1,15 @@
+# [5.25.0](https://github.com/jaspero/jms/compare/v5.24.0...v5.25.0) (2022-05-02)
+
+
+### Bug Fixes
+
+* **cms:** passing $event to showPassword ([a7ce469](https://github.com/jaspero/jms/commit/a7ce46915bb7f2d23f592e33152291166a1407ed))
+
+
+### Features
+
+* configured transloco scopes ([2beeb97](https://github.com/jaspero/jms/commit/2beeb978af586560c257a34d6af467e539d5d1f4))
+
 # [5.24.0](https://github.com/jaspero/jms/compare/v5.23.0...v5.24.0) (2022-04-25)
 
 
