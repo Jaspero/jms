@@ -1,3 +1,10 @@
+# [5.26.0](https://github.com/jaspero/jms/compare/v5.25.0...v5.26.0) (2022-05-03)
+
+
+### Features
+
+* various translation updates ([657d203](https://github.com/jaspero/jms/commit/657d20391997ae9657091aeca4306fd25c117fe0))
+
 # [5.25.0](https://github.com/jaspero/jms/compare/v5.24.0...v5.25.0) (2022-05-02)
 
 
