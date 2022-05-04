@@ -255,14 +255,14 @@ export class FbDatabaseService extends DbService {
      */
     if (
       filters?.length &&
-      sort?.active &&
-      filters.some(it => it.key === sort.active)
+      (Array.isArray(sort) || sort?.active) &&
+      filters.some(it => Array.isArray(sort) ? sort.some(s => s.active === it.key) : it.key === sort.active)
     ) {
       sort = null;
     }
 
     const methods = [
-      sort && orderBy(sort.active, sort.direction),
+      ...sort ? Array.isArray(sort) ? sort.map(it => orderBy(it.active, it.direction)) : [orderBy(sort.active, sort.direction)] : [],
       ...this.filterMethod(filters || []),
       pageSize && limit(pageSize),
       cursor && startAfter(cursor)

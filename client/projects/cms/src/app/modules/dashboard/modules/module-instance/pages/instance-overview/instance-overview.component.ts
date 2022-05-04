@@ -147,10 +147,15 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
             }
 
             if (sort) {
-              routeData.sort = sort as InstanceSort;
-              routeData.sort.active = Parser.standardizeKey(
-                routeData.sort.active
-              );
+              routeData.sort = Array.isArray(sort) ? sort.map(it => ({
+                ...it,
+                active: Parser.standardizeKey(
+                  it.active
+                )
+              })) : {
+                active: Parser.standardizeKey(sort.active),
+                direction: sort.direction
+              };
             } else {
               routeData.sort = null;
             }
@@ -161,7 +166,7 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
             return this.dbService.getDocuments(
               module.id,
               pageSize,
-              sort,
+              routeData.sort,
               null,
               this.generateFilters(
                 module,

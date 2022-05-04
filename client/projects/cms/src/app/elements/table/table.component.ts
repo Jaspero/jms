@@ -57,7 +57,7 @@ interface TableData {
   originalColumns: ModuleLayoutTableColumn[];
   schema: JSONSchema7;
   stickyHeader: boolean;
-  sort?: InstanceSort;
+  sort?: InstanceSort | InstanceSort[];
   sortModule?: SortModule;
   filterModule?: FilterModule;
   searchModule?: SearchModule;
@@ -135,7 +135,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       let displayColumns: string[];
       let tableColumns: ModuleLayoutTableColumn[];
       let pColumns: ModuleLayoutTableColumn[];
-      let sort: InstanceSort;
+      let sort: InstanceSort | InstanceSort[];
       let addedData: any = {
         hideCheckbox: false,
         hideAdd: false,

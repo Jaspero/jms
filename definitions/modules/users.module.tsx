@@ -100,7 +100,13 @@ export const USERS_MODULE: Module = {
         }
       ]
     },
-    sort: CREATED_ON.sort,
+    sort: [
+      CREATED_ON.sort,
+      {
+        active: 'active',
+        direction: 'asc'
+      }
+    ],
     instance: {
       actions: [
         {

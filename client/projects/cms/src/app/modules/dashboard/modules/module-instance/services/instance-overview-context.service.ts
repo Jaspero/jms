@@ -45,7 +45,7 @@ export class InstanceOverviewContextService {
   allChecked$: Observable<{checked: boolean}>;
   emptyState$: BehaviorSubject<boolean>;
   filterChange$: BehaviorSubject<WhereFilter[]>;
-  sortChange$: BehaviorSubject<InstanceSort>;
+  sortChange$: BehaviorSubject<InstanceSort | InstanceSort[]>;
   hasMore$: BehaviorSubject<boolean>;
   loadMore$: Subject<boolean>;
   searchControl: FormControl;
