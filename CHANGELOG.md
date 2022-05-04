@@ -1,3 +1,15 @@
+# [5.27.0](https://github.com/jaspero/jms/compare/v5.26.0...v5.27.0) (2022-05-04)
+
+
+### Bug Fixes
+
+* **cms:** don't display undefined when value under editTitleKey is undefined ([a2aecc2](https://github.com/jaspero/jms/commit/a2aecc230291d32e1bf08131cd317e5882a55128))
+
+
+### Features
+
+* **cms:** sorting by multiple fields closes [#278](https://github.com/jaspero/jms/issues/278) ([421c758](https://github.com/jaspero/jms/commit/421c7588490639b4482fd2be648ccec06bb5f957))
+
 # [5.26.0](https://github.com/jaspero/jms/compare/v5.25.0...v5.26.0) (2022-05-03)
 
 
