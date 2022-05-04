@@ -121,9 +121,14 @@ export class InstanceSingleComponent implements OnInit {
             if (module.layout) {
               if (module.layout.editTitleKey) {
                 const evaluated = safeEval(module.layout.editTitleKey);
-                editTitleKey = typeof evaluated === 'function'
-                  ? evaluated(value)
-                  : parseTemplate(`{{${module.layout.editTitleKey}}}`, value);
+                const eValue = (
+                  typeof evaluated === 'function'
+                    ? evaluated(value)
+                    : parseTemplate(`{{${module.layout.editTitleKey}}}`, value)
+                );
+                editTitleKey = eValue !== undefined && eValue !== 'undefined' ?
+                  eValue :
+                  (module.layout.editTitleKeyFallback || '-');
               }
 
               if (module.layout.instance) {
