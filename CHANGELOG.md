@@ -1,3 +1,10 @@
+## [5.27.1](https://github.com/jaspero/jms/compare/v5.27.0...v5.27.1) (2022-05-05)
+
+
+### Bug Fixes
+
+* **cms:** long title breaking ui closes [#370](https://github.com/jaspero/jms/issues/370) ([6001202](https://github.com/jaspero/jms/commit/6001202aadf8f650435cff271016a7e6d1f8e2dc))
+
 # [5.27.0](https://github.com/jaspero/jms/compare/v5.26.0...v5.27.0) (2022-05-04)
 
 
