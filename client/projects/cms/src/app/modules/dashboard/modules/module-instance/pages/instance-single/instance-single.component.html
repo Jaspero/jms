@@ -1,13 +1,11 @@
 <form *ngIf="data$ | async as data" [ngSwitch]="currentState">
   <mat-toolbar role="heading" color="primary" class="sticky-header">
-    <span *ngSwitchCase="viewState.Edit">{{ 'EDITING' | transloco }} {{ data.module.editTitleKey }}</span>
-    <span *ngSwitchCase="viewState.New">{{ 'NEW' | transloco }} {{ data.module.name | transloco }}</span>
-    <span *ngSwitchCase="viewState.Copy">{{ 'COPY_OF' | transloco }} {{ util.docId }}</span>
-    <div class="flex-1"></div>
+    <span class="flex-1" *ngSwitchCase="viewState.Edit">{{ 'EDITING' | transloco }} {{ data.module.editTitleKey }}</span>
+    <span class="flex-1" *ngSwitchCase="viewState.New">{{ 'NEW' | transloco }} {{ data.module.name | transloco }}</span>
+    <span class="flex-1" *ngSwitchCase="viewState.Copy">{{ 'COPY_OF' | transloco }} {{ util.docId }}</span>
     <ng-container *ngIf="!data.directLink">
       <span class="hide-xs flex ai-center">
-        <a mat-button (click)="back()">{{ (data.autoSave ? 'BACK' : 'CANCEL') | transloco }}</a
-        >&nbsp;
+        <a mat-button (click)="back()">{{ (data.autoSave ? 'BACK' : 'CANCEL') | transloco }}</a>&nbsp;
       </span>
       <span class="show-xs flex ai-center">
         <a mat-icon-button (click)="back()" [matTooltip]="(data.autoSave ? 'BACK' : 'CANCEL') | transloco"> <mat-icon>cancel</mat-icon> </a>&nbsp;
