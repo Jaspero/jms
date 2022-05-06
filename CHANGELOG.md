@@ -1,3 +1,11 @@
+## [5.27.2](https://github.com/jaspero/jms/compare/v5.27.1...v5.27.2) (2022-05-06)
+
+
+### Bug Fixes
+
+* **cms:** less rebuilding between changes on overview closes [#326](https://github.com/jaspero/jms/issues/326) ([743ce0c](https://github.com/jaspero/jms/commit/743ce0cc3162587daa346512bbba76305abc169e))
+* **cms:** respecting sort order on newly inserted items [#356](https://github.com/jaspero/jms/issues/356) ([9033c6f](https://github.com/jaspero/jms/commit/9033c6f13601b931e40550d989b506feebc62eb0))
+
 ## [5.27.1](https://github.com/jaspero/jms/compare/v5.27.0...v5.27.1) (2022-05-05)
 
 
