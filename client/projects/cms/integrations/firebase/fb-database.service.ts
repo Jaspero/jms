@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {
   collection,
-  collectionChanges,
   collectionGroup,
   deleteDoc,
   doc,
@@ -12,6 +11,7 @@ import {
   getDocsFromCache,
   getDocsFromServer,
   limit,
+  onSnapshot,
   orderBy,
   query,
   setDoc,
@@ -87,16 +87,23 @@ export class FbDatabaseService extends DbService {
     filters?: WhereFilter[],
     collectionGroup?
   ) {
-    return collectionChanges(
-      this.collection(
-        moduleId,
-        pageSize,
-        sort,
-        cursor,
-        filters,
-        collectionGroup
-      )
-    );
+    return new Observable(observer =>
+      onSnapshot(
+        this.collection(
+          moduleId,
+          pageSize,
+          sort,
+          cursor,
+          filters,
+          collectionGroup
+        ),
+        snap => {
+          const docs = snap.docChanges().filter(it => !it.doc.metadata.hasPendingWrites);
+          if (docs.length) {
+            observer.next(docs);
+          }
+        })
+    ) as Observable<any>;
   }
 
   getValueChanges(

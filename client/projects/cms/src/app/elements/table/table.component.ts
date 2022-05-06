@@ -34,8 +34,8 @@ import {
 } from 'definitions';
 import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';
-import {AsyncSubject, BehaviorSubject, combineLatest, forkJoin, Observable, of, ReplaySubject, Subject} from 'rxjs';
-import {filter, map, shareReplay, startWith, switchMap, take} from 'rxjs/operators';
+import {AsyncSubject, BehaviorSubject, combineLatest, forkJoin, Observable, of, ReplaySubject, Subject, Subscription} from 'rxjs';
+import {filter, map, shareReplay, startWith, switchMap, take, tap} from 'rxjs/operators';
 import {InstanceOverviewContextService} from '../../modules/dashboard/modules/module-instance/services/instance-overview-context.service';
 import {Action} from '../../shared/interfaces/action.interface';
 import {DbService} from '../../shared/services/db/db.service';
@@ -113,6 +113,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   columnsSorted$ = new BehaviorSubject(false);
   data: TableData;
   parserCache: {[key: string]: Parser} = {};
+  controlCache: {[key: string]: any} = {};
   populateCache: {[key: string]: Observable<any>} = {};
   permission = {
     write: false,
@@ -473,7 +474,16 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         single: true
       });
 
-      field.control.valueChanges
+      try {
+        const update = get(rowData, key);
+        field.control.setValue(update, {emitEvent: false});
+      } catch(e) {}
+
+      if (this.controlCache[key]) {
+        this.controlCache[key].unsubscribe();
+      }
+
+      this.controlCache[key] = field.control.valueChanges
         .pipe(
           // @ts-ignore
           switchMap(value =>

@@ -203,17 +203,10 @@ export const USERS_MODULE: Module = {
     role: {
       label: 'ROLE',
       component: {
-        type: 'ref',
+        type: 'select',
         configuration: {
-          collection: Collections.Roles,
-          clearValue: null,
-          search: {key: '/name', label: 'NAME'},
-          display: {key: '/name', label: 'ROLE'},
-          table: {
-            tableColumns: [
-              {key: '/name', label: 'NAME'},
-              {key: '/id', label: 'ID'}
-            ]
+          populate: {
+            collection: Collections.Roles
           }
         }
       }
