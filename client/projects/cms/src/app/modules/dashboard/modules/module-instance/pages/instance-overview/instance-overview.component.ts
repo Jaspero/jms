@@ -211,7 +211,7 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
                     switch (snap.type) {
                       case 'added':
                         if (index === -1) {
-                          snapshots.push(snap.doc);
+                          snapshots.splice(snap.newIndex, 0, snap.doc);
                         }
                         break;
                       case 'modified':
