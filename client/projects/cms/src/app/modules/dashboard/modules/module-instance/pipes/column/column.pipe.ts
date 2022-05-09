@@ -186,6 +186,10 @@ export class ColumnPipe implements PipeTransform {
           return;
         }
 
+        if (!getDocumentsResponse.length) {
+          return of([]);
+        }
+
         return forkJoin(getDocumentsResponse.map(path => {
           const [module, document] = (path.startsWith('/') ? path.slice(1) : path).split('/');
 
