@@ -1,3 +1,10 @@
+## [5.27.3](https://github.com/jaspero/jms/compare/v5.27.2...v5.27.3) (2022-05-09)
+
+
+### Bug Fixes
+
+* **cms:** ColumnPipe hanging when value is an empty array in GetDocuments ([7d5b8b1](https://github.com/jaspero/jms/commit/7d5b8b1095d077aab81610e7d2d7ada07d37f531))
+
 ## [5.27.2](https://github.com/jaspero/jms/compare/v5.27.1...v5.27.2) (2022-05-06)
 
 
