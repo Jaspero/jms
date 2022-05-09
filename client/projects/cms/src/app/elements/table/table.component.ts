@@ -6,7 +6,6 @@ import {
   ChangeDetectorRef,
   Component,
   Injector,
-  OnDestroy,
   OnInit,
   QueryList,
   TemplateRef,
@@ -81,7 +80,7 @@ interface TableData {
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TableComponent implements OnInit, AfterViewInit {
   constructor(
     public ioc: InstanceOverviewContextService,
     private state: StateService,
@@ -290,10 +289,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.maxHeight$.next(`calc(100vh - ${maxHeight}px)`);
     }, 100);
-  }
-
-  ngOnDestroy() {
-    this.ioc.subHeaderTemplate$.next(null);
   }
 
   openFilterDialog(
