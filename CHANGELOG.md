@@ -1,3 +1,10 @@
+## [5.27.4](https://github.com/jaspero/jms/compare/v5.27.3...v5.27.4) (2022-05-09)
+
+
+### Bug Fixes
+
+* **cms:** don't delete views on table delete ([4fce2f9](https://github.com/jaspero/jms/commit/4fce2f95a384065cd37b30f5976a331ee40d01ad))
+
 ## [5.27.3](https://github.com/jaspero/jms/compare/v5.27.2...v5.27.3) (2022-05-09)
 
 
