@@ -1,3 +1,10 @@
+# [5.28.0](https://github.com/jaspero/jms/compare/v5.27.4...v5.28.0) (2022-05-13)
+
+
+### Features
+
+* **cms:** added close buttons to dialogs closes [#337](https://github.com/jaspero/jms/issues/337) ([92896d3](https://github.com/jaspero/jms/commit/92896d329a5d86c88cd90f26abd54314dbf3f0ca))
+
 ## [5.27.4](https://github.com/jaspero/jms/compare/v5.27.3...v5.27.4) (2022-05-09)
 
 
