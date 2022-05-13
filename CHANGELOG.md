@@ -1,3 +1,10 @@
+## [5.28.1](https://github.com/jaspero/jms/compare/v5.28.0...v5.28.1) (2022-05-13)
+
+
+### Bug Fixes
+
+* translations working for jms plugins ([46a3116](https://github.com/jaspero/jms/commit/46a3116b6de5c80e68ee1cff7c7f8e312b453904))
+
 # [5.28.0](https://github.com/jaspero/jms/compare/v5.27.4...v5.28.0) (2022-05-13)
 
 
