@@ -23,6 +23,7 @@
   </div>
 </mat-dialog-content>
 
-<mat-dialog-actions class="jc-end">
-  <button mat-raised-button color="primary" [jpLoadClick]="update()">{{'UPDATE_ORDER' | transloco}}</button>
+<mat-dialog-actions class="jc-between">
+  <button mat-flat-button mat-dialog-close>{{'CANCEL' | transloco}}</button>
+  <button mat-flat-button color="primary" [jpLoadClick]="update()">{{'UPDATE_ORDER' | transloco}}</button>
 </mat-dialog-actions>

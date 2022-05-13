@@ -50,7 +50,8 @@
 
     </mat-dialog-content>
 
-    <mat-dialog-actions class="jc-end">
+    <mat-dialog-actions class="jc-between">
+      <button mat-flat-button mat-dialog-close>{{'CANCEL' | transloco}}</button>
       <button type="submit" mat-flat-button color="primary" [disabled]="form.invalid" [jpLoadClick]="add()">{{'ADD' | transloco}}</button>
     </mat-dialog-actions>
   </form>

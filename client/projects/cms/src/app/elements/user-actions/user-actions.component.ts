@@ -115,7 +115,6 @@ export class UserActionsComponent implements OnInit {
   }
 
   openProvider(data: any, type = 'provider') {
-
     this.provider = {
       data: [],
       type,

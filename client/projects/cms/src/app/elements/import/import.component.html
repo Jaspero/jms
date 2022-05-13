@@ -28,6 +28,7 @@
       </div>
     </div>
     <div mat-dialog-actions class="jc-end">
+      <button mat-flat-button mat-dialog-close>{{'CANCEL' | transloco}}</button>
       <button mat-button mat-dialog-close>{{'OK' | transloco}}</button>
     </div>
   </div>
@@ -47,7 +48,8 @@
       <input matInput formControlName="delimiter">
     </mat-form-field>
 
-    <mat-dialog-actions class="jc-end">
+    <mat-dialog-actions class="jc-between">
+      <button mat-flat-button mat-dialog-close>{{'CANCEL' | transloco}}</button>
       <button mat-button type="submit">
         <mat-icon>vertical_align_bottom</mat-icon>
         <span>{{'IMPORT' | transloco}}</span>

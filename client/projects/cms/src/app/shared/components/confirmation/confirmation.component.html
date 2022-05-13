@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{options.header | transloco:options.variables}}</h1>
 <mat-dialog-content *ngIf="options.description" [innerHTML]="options.description | transloco:options.variables | transloco"></mat-dialog-content>
-<mat-dialog-actions class="jc-end">
+<mat-dialog-actions class="jc-between">
   <button
     mat-button
     [attr.aria-label]="options.negate | transloco:options.variables"

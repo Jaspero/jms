@@ -3,13 +3,13 @@
   <mat-dialog-content>
     <fb-form-builder #cForm [data]="data.module"></fb-form-builder>
   </mat-dialog-content>
-  <mat-dialog-actions class="jc-end">
+  <mat-dialog-actions class="jc-between">
     <ng-container *ngIf="data.module.clearFilters">
-      <button type="button" mat-raised-button [jpLoadClick]="apply(cForm.form, cForm.innerParser, data.module.clearFilters)">
+      <button type="button" mat-flat-button [jpLoadClick]="apply(cForm.form, cForm.innerParser, data.module.clearFilters)">
         {{data.module.clearFiltersLabel || 'Clear'}}
       </button>
     </ng-container>
-    <button type="submit" mat-raised-button color="primary" [loadClickPreventDefault]="true" [jpLoadClick]="apply(cForm.form, cForm.innerParser)">
+    <button type="submit" mat-flat-button color="primary" [loadClickPreventDefault]="true" [jpLoadClick]="apply(cForm.form, cForm.innerParser)">
       {{'APPLY' | transloco}}
     </button>
   </mat-dialog-actions>
