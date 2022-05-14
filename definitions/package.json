@@ -2,6 +2,7 @@
   "name": "definitions",
   "version": "0.0.1",
   "scripts": {
+    "process": "ts-node process.ts",
     "build": "rimraf dist && tsc",
     "start": "tsc --w",
     "setup": "cross-env FIRESTORE_EMULATOR_HOST=localhost:8080 ts-node setup.ts",
@@ -18,6 +19,7 @@
     "@google-cloud/storage": "5.19.3",
     "cross-env": "7.0.3",
     "firebase-admin": "10.1.0",
+    "csso": "4.2.0",
     "rimraf": "3.0.2",
     "ts-node": "10.7.0",
     "typescript": "4.6.3"

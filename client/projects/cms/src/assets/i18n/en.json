@@ -190,5 +190,15 @@
   },
 
   "MODULES": "Modules",
-  "DOCUMENTS": "Documents"
+  "DOCUMENTS": "Documents",
+
+  "WEBSITE": "Website",
+  "LAYOUT": "Layout",
+  "PAGES": "Pages",
+  "HEADER_NAVIGATION": "Header Navigation",
+  "TITLE": "Title",
+  "URL": "URL",
+  "ID_HINT": "Created from title if left empty",
+  "GENERAL": "General",
+  "LINK": "Link"
 }

@@ -46,6 +46,25 @@ export const STATIC_CONFIG = {
         value: '/dashboard'
       },
       {
+        icon: 'language',
+        label: 'WEBSITE',
+        type: 'expandable',
+        children: [
+          {
+            icon: 'settings',
+            label: 'LAYOUT',
+            type: 'link',
+            value: '/m/settings/layout'
+          },
+          {
+            icon: 'pages',
+            label: 'PAGES',
+            type: 'link',
+            value: '/m/pages'
+          },
+        ]
+      },
+      {
         children: [
           {
             icon: 'supervised_user_circle',

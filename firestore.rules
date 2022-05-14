@@ -58,6 +58,21 @@ service cloud.firestore {
       allow read, write: if admin() || hasId(resource);
     }
 
+    match /settings/{item} {
+      allow read: if true;
+      allow write: if admin();
+    }
+
+    match /posts/{item} {
+      allow read: if resource.data.published || admin();
+      allow write: if admin();
+    }    
+
+    match /pages/{item=**} {
+      allow read: if true;
+      allow write: if admin();
+    }
+
     match /drive/{item=**} {
       allow read: if driveItemPublicRead() || driveItemPublicWrite() || driveItemRoleRead() || driveItemRoleWrite() || driveItemUserRead() || driveItemUserWrite();
       allow write: if driveItemPublicWrite() || driveItemRoleWrite() || driveItemUserWrite();
