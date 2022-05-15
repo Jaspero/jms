@@ -1,8 +1,9 @@
 import * as cors from 'cors';
+import {SHARED_CONFIG} from 'definitions';
 
 export const CORS = cors({
   origin: [
-    'https://jaspero-jms.web.app',
+    `https://${SHARED_CONFIG.projectId}.web.app`,
     ...process.env.NODE_ENV !== 'production' ? ['http://localhost:4200'] : []
   ],
   optionsSuccessStatus: 200,

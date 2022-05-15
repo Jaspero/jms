@@ -1,297 +1,178 @@
 {
-  "GENERAL": {
-    "NEW": "New",
-    "ADD": "Add",
-    "DELETE": "Delete",
-    "REMOVE": "Remove",
-    "EDIT": "Edit",
-    "VIEW": "View",
-    "ACTIONS": "Actions",
-    "SORT": "Sort",
-    "FILTER": "Filter",
-    "IMPORT": "Import",
-    "EXPORT": "Export",
-    "SELECT": "Select",
-    "OK": "Ok",
-    "ERROR": "Error",
-    "SUCCESS": "Success",
-    "OR": "Or",
-    "PASSWORD": "Password",
-    "SEARCH": "Search",
-    "DUPLICATE": "Duplicate",
-    "PREVIOUS": "Previous",
-    "NEXT": "Next",
-    "CANCEL": "Cancel",
-    "SAVE": "Save",
-    "PAGE_SIZE": "Page size",
-    "DISMISS": "Dismiss",
-    "OPERATION_COMPLETED": "Operation completed",
-    "OPERATION_FAILED": "Operation failed",
-    "USERS": "Users",
-    "USER": "User",
-    "ROLES": "Roles",
-    "LABEL": "Label",
-    "LINK": "Link",
-    "SUBMIT": "Submit",
-    "DISABLED": "Disabled",
-    "ENABLED": "Enabled",
-    "ACTIVE": "Active",
-    "IN_ACTIVE": "Inactive",
-    "BACK": "Back",
+  "NEW": "New",
+  "ADD": "Add",
+  "DELETE": "Delete",
+  "REMOVE": "Remove",
+  "EDIT": "Edit",
+  "VIEW": "View",
+  "ACTIONS": "Actions",
+  "SORT": "Sort",
+  "FILTER": "Filter",
+  "IMPORT": "Import",
+  "EXPORT": "Export",
+  "SELECT": "Select",
+  "OK": "Ok",
+  "ERROR": "Error",
+  "SUCCESS": "Success",
+  "OR": "Or",
+  "PASSWORD": "Password",
+  "SEARCH": "Search",
+  "DUPLICATE": "Duplicate",
+  "PREVIOUS": "Previous",
+  "NEXT": "Next",
+  "CANCEL": "Cancel",
+  "SAVE": "Save",
+  "PAGE_SIZE": "Page size",
+  "DISMISS": "Dismiss",
+  "OPERATION_COMPLETED": "Operation completed",
+  "OPERATION_FAILED": "Operation failed",
+  "USERS": "Users",
+  "USER": "User",
+  "ROLES": "Roles",
+  "LABEL": "Label",
+  "SUBMIT": "Submit",
+  "DISABLED": "Disabled",
+  "ENABLED": "Enabled",
+  "ACTIVE": "Active",
+  "IN_ACTIVE": "Inactive",
+  "BACK": "Back",
 
-    "COUNTRY": "Country",
-    "CREATED_ON": "Created On",
-    "DATE": "Date",
-    "HOURS": "Hours",
-    "MINUTES": "Minutes",
+  "COUNTRY": "Country",
+  "CREATED_ON": "Created On",
+  "DATE": "Date",
+  "HOURS": "Hours",
+  "MINUTES": "Minutes",
 
-    "ID": "ID",
-    "NAME": "Name",
-    "ROLE": "Role",
-    "EMAIL": "Email",
-    "DESCRIPTION": "Description",
-    "KEY": "Key",
-    "GENERAL": "General",
-    "YES": "Yes",
-    "NO": "No",
-    "PHOTO": "Photo"
-  },
-  "LOGIN": {
-    "LOGIN": "Login",
-    "LOGIN_WITH": "Log in with {{value}}",
-    "FORGOT_PASSWORD": "Forgot password?",
-    "ERROR_MESSAGE": "The email and password you entered did not match our records. Please double-check and try again.",
-    "MFA_VERIFICATION": "Multi-factor Verification",
-    "MFA_AUTHENTICATION": "Authenticate",
-    "MFA_SELECT_DEVICE": "Device",
-    "TOO_MANY_ATTEMPTS_TRY_LATER": "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.",
-    "USER_NOT_FOUND": "There is no user record corresponding to this identifier.",
-    "REMEMBER": "Stay logged in?"
-  },
-  "RESET_PASSWORD": {
-    "REPEAT_PASSWORD": "Repeat Password",
-    "MIN_LENGTH": "Password needs to be at least 6 characters long.",
-    "PASSWORD_RESET": "Password Reset",
-    "EMAIL_DOESNT_EXIST": "Email doesn't exist",
-    "GO_BACK": "Go back",
-    "RESET_MY_PASSWORD": "Reset my password",
-    "SUCCESS_MESSAGE": "Password reset email has been sent to your email",
-    "ERROR_MESSAGE": "Email is invalid",
-    "RESET_SUCCESSFUL": "Your password has been reset successfully. You can now log in.",
-    "INVALID_OOB_CODE": "Your code has expired. Please restart the process of resetting your password."
-  },
-  "FINISH_SIGN_UP": {
-    "TITLE": "Finish Sign Up",
-    "SIGN_UP_SUCCESSFUL": "Account created successfully"
-  },
-  "MFA": {
-    "CONNECT": "Connect Multi-Factor Authentication",
-    "PHONE": "Phone number",
-    "VERIFICATION": "Verification",
-    "DESCRIPTION": "A code has been sent to you",
-    "AUTHENTICATE": "Authenticate",
-    "VERIFICATION_CODE": "Code"
-  },
-  "LAYOUT": {
-    "MENU": "Menu",
-    "DASHBOARD": "Dashboard",
-    "INVITES": "Invites",
-    "LOG_OUT": "Log out",
-    "MANAGEMENT": "Management",
-    "SYSTEM": "System",
-    "RESET_PASSWORD": "Please reset your password",
-    "FILE_MANAGER": "File Manager",
-    "WEBSITE": "Website"
-  },
-  "MODULES": {
-    "REMOVE_ITEMS": "Remove {{value}} items",
-    "REMOVE_ONE": "This action will remove {{value}} permanently",
-    "EXPORT_SELECTED_FILES": "Export selected files",
-    "NAME_ID": "Name/ID",
-    "CREATED_ON": "Created on",
-    "DESCRIPTION": "Description",
-    "GO_TO": "Go to",
-    "NAME": "Name",
-    "ROLES": "Roles",
-    "ROLES_DESCRIPTION": "Collection of roles that can be assigned to users",
-    "USER_INVITES": "Invites",
-    "USER_INVITES_DESCRIPTION": "Invites sent to new users",
-    "USERS": "Users",
-    "USERS_DESCRIPTION": "App Users",
-    "AUTOMATIC_EMAILS": "Automatic Emails",
-    "SENT_EMAILS": "Sent Emails",
-    "FORMS": "Forms",
-    "PAGES": "Pages"
-  },
-  "INSTANCE_OVERVIEW": {
-    "REMOVE_ITEMS": "Remove {{value}} items",
-    "REMOVE_ONE": "This action will remove {{value}} permanently",
-    "REMOVE_ITEMS_WARNING": "This action will remove all of the following documents:",
-    "NO_ITEMS": "No data yet.",
-    "LOAD_MORE": "More...",
-    "APPLY": "Apply",
-    "UPDATE_ORDER": "Update Order",
-    "TABLE": {
-      "COLUMNS": "Columns"
-    }
-  },
-  "INSTANCE_SINGLE": {
-    "EDITING": "Editing",
-    "COPY_OF": "Copy of"
-  },
-  "FIELDS": {
-    "IMAGE": {
-      "PREVIEW": "Image preview"
-    },
-    "FILE": {
-      "EMPTY": "No file selected",
-      "ADD": "Add File",
-      "URL": "File URL"
-    },
-    "GALLERY": {
-      "ENTER_URL": "Enter URL",
-      "CHOOSE_FILES": "Choose files",
-      "SORT_IMAGES": "Sort images",
-      "IMAGE_URL": "Image URL",
-      "ADD_IMAGE": "Add image",
-      "UPLOAD_ERROR": "Error on uploading image."
-    },
-    "WYSIWYG": {
-      "EMBED_YOUTUBE": "Embed YouTube",
-      "VIDEO_ID": "Video ID",
-      "FULL_WIDTH": "Full Width",
-      "SHOW_PLAYER_CONTROLS": "Show Player Controls",
-      "PRIVACY_ENHANCED_MODE": "Privacy Enhanced Mode",
-      "ALIGNMENT": "Alignment",
-      "LEFT": "Left",
-      "CENTER": "Center",
-      "RIGHT": "Right"
-    },
-    "REF": {
-      "SEARCH_BY": "Search By",
-      "APPLY_VALUE": "Apply Value",
-      "LOAD_MORE": "Load More"
-    }
-  },
-  "IMPORT": {
-    "TYPE": "Type",
-    "DELIMITER": "Delimiter",
-    "PROBLEM_UPLOADING": "Problem uploading",
-    "SUCCESS_MESSAGE": "You have successfully uploaded {{value}} items",
-    "ERROR": "There was an error while importing data."
-  },
-  "EXPORT": {
-    "TITLE": "Export Options",
-    "USE_FILTERS": "Use filters",
-    "ROWS_TO_SKIP": "Rows to skip",
-    "ADJUST_COLUMNS": "Adjust columns",
-    "LIMIT": "Limit",
-    "ERROR": "Unknown export error"
-  },
-  "CONFIRMATION": {
-    "TITLE": "Are you sure?",
-    "TOUCHED_DESCRIPTION": "There are unsaved changes in the document which will be disposed!"
-  },
-  "PROFILE": {
-    "TITLE": "Profile",
-    "INFORMATION": "Information",
-    "SECURITY": "Security",
-    "CHANGE_PASSWORD": "Change Password",
-    "CHANGE_PASSWORD_DESCRIPTION": "You don't have password authentication on this account. However, you can still use this form and an additional password authentication will be attached to your account.",
-    "NEW_PASSWORD": "New Password",
-    "REPEAT_PASSWORD": "Repeat Password",
-    "CHANGE_EMAIL": "Change Email",
-    "REMOVE_MFA_TRIGGER": "Remove MFA",
-    "CONNECT_MFA_TRIGGER": "Connect MFA",
-    "REMOVE_PASSWORD_AUTHENTICATION": "Remove Password Authentication",
-    "REMOVE_GOOGLE_AUTHENTICATION": "Remove Google Authentication",
-    "REMOVE_ACCOUNT": "Remove Account",
-    "OTHER": "Other",
-    "NAME": "Name",
-    "IMAGE": "Profile Image",
-    "CONNECT_MFA": "An email with the verification link has been sent to your account.",
-    "REMOVE_MFA": "Your MFA connection has been removed successfully."
-  },
-  "USERS": {
-    "ADD": "Add User",
-    "METHOD": "Method",
-    "ROLE": "Role",
-    "PASSWORD_RULES": "Must be at least 6 characters",
+  "ID": "ID",
+  "NAME": "Name",
+  "ROLE": "Role",
+  "EMAIL": "Email",
+  "DESCRIPTION": "Description",
 
-    "FIELDS": {
-      "PROFILE_PHOTO": "Profile Photo"
-    },
-    "FILTERS": {
-      "START_DATE": "Created On Start Date",
-      "END_DATE": "Created On End Date"
-    }
-  },
-  "USER_INVITES": {
-    "FIELDS": {
-      "REQUIRE_RESET": "Require Reset",
-      "SEND_INVITE": "Send Invite",
-      "ACCEPTED_ON": "Accepted"
-    }
-  },
-  "AUTOMATIC_EMAILS": {
-    "FIELDS": {
-      "RECIPIENT": "Recipient",
-      "SUBJECT": "Subject",
-      "SEND_TO": "Send To"
-    },
-    "TEMPLATES": {
-      "SECTION": "Section"
-    }
-  },
-  "ELEMENTS": {
-    "CHANGE_PASSWORD": {
-      "TITLE": "Change Password",
-      "DIALOG_TITLE": "Change Users Password"
-    },
-    "USER_ACTIONS": {
-      "LOADING": "Loading Information...",
-      "PROVIDERS": "Providers",
-      "GOOGLE": "Google",
-      "EMAIL_PASSWORD": "Email and Password",
-      "MULTI_FACTORS": "MFA",
-      "PROVIDER_INFORMATION": "Provider Information",
-      "KEY": "Key",
-      "VALUE": "Value",
-      "PHONE": "Phone",
-      "CREATION_TIME": "Creation Time",
-      "LAST_SIGN_IN_TIME": "Last Sign In",
-      "LAST_REFRESH_TIME": "Last Refresh",
-      "REMOVE_PROVIDER_TITLE": "Remove Provider",
-      "REMOVE_PROVIDER_DESCRIPTION": "Are you sure you want to remove this provider? This action can't be reverted."
-    },
-    "TRIGGER_PASSWORD_RESET": {
-      "TITLE": "Send password reset email"
-    },
-    "CHANGE_EMAIL": {
-      "TITLE": "Change Email",
-      "DIALOG_TITLE": "Change Users Email"
-    },
-    "SAMPLE_EMAIL": {
-      "BUTTON": "Send sample email",
-      "DIALOG_TITLE": "Sample email",
-      "DIALOG_BUTTON": "Send",
-      "RECEIVER_EMAIL": "Receiver email",
-      "DYNAMIC_DATA": "Dynamic data"
-    },
-    "IMPERSONATE": "Impersonate"
-  },
-  "COMPONENTS": {
-    "EMAIL_TEMPLATE": {
-      "COPY_KEY": "Copy Key"
-    }
-  },
-  "NOTES": {
-    "TITLE": "Notes",
-    "LABEL": "Note"
-  },
-  "ERRORS": {
-    "DASHBOARD_ACCESS": "You don't have access to the dashboard."
-  },
+  "YES": "Yes",
+  "NO": "No",
+  "PHOTO": "Photo",
+
+  "SHOW_HIDE_PASSWORD": "Show/Hide Password",
+  
+  "LOGIN": "Login",
+  "LOGIN_WITH": "Log in with {{value}}",
+  "FORGOT_PASSWORD": "Forgot password?",
+  "LOGIN.ERROR_MESSAGE": "The email and password you entered did not match our records. Please double-check and try again.",
+  "MFA_VERIFICATION": "Multi-factor Verification",
+  "MFA_AUTHENTICATION": "Authenticate",
+  "MFA_SELECT_DEVICE": "Device",
+  "TOO_MANY_ATTEMPTS_TRY_LATER": "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.",
+  "USER_NOT_FOUND": "There is no user record corresponding to this identifier.",
+  "STAY_LOGGED_IN": "Stay logged in?",
+
+  "REPEAT_PASSWORD": "Repeat Password",
+  "PASSWORD_MIN_LENGTH": "Password needs to be at least 6 characters long.",
+  "PASSWORD_RESET": "Password Reset",
+  "EMAIL_DOESNT_EXIST": "Email doesn't exist",
+  "GO_BACK": "Go back",
+  "RESET_MY_PASSWORD": "Reset my password",
+  "RESET_PASSWORD.SUCCESS_MESSAGE": "Password reset email has been sent to your email",
+  "RESET_PASSWORD.ERROR_MESSAGE": "Email is invalid",
+  "RESET_SUCCESSFUL": "Your password has been reset successfully. You can now log in.",
+  "INVALID_OOB_CODE": "Your code has expired. Please restart the process of resetting your password.",
+
+  "FINISH_SIGN_UP": "Finish Sign Up",
+  "SIGN_UP_SUCCESSFUL": "Account created successfully",
+  "REQUIRE_RECENT_LOGIN": "For security reasons please login to your account again before changing your password.",
+
+  "MFA.CONNECT": "Connect Multi-Factor Authentication",
+  "MFA.DESCRIPTION": "A code has been sent to you",
+  "PHONE": "Phone",
+  "VERIFICATION": "Verification",
+  "AUTHENTICATE": "Authenticate",
+  "VERIFICATION_CODE": "Code",
+
+  "MENU": "Menu",
+  "DASHBOARD": "Dashboard",
+  "INVITES": "Invites",
+  "LOG_OUT": "Log out",
+  "MANAGEMENT": "Management",
+  "SYSTEM": "System",
+  "RESET_PASSWORD": "Please reset your password",
+
+  "REMOVE_ITEMS": "Remove {{value}} items",
+  "REMOVE_ONE": "This action will remove {{value}} permanently",
+  "REMOVE_ITEMS_WARNING": "This action will remove all of the following documents:",
+  "EXPORT_SELECTED_FILES": "Export selected files",
+  "NAME_ID": "Name/ID",
+  "GO_TO": "Go to",
+  "USER_INVITES": "Invites",
+
+  "NO_ITEMS": "No data yet.",
+  "LOAD_MORE": "More...",
+  "APPLY": "Apply",
+  "UPDATE_ORDER": "Update Order",
+  "COLUMNS": "Columns",
+
+  "EDITING": "Editing",
+  "COPY_OF": "Copy of",
+
+  "TYPE": "Type",
+  "DELIMITER": "Delimiter",
+  "PROBLEM_UPLOADING": "Problem uploading",
+  "IMPORT.SUCCESS_MESSAGE": "You have successfully uploaded {{value}} items",
+  "IMPORT.ERROR": "There was an error while importing data.",
+
+  "EXPORT_OPTIONS": "Export Options",
+  "USE_FILTERS": "Use filters",
+  "ROWS_TO_SKIP": "Rows to skip",
+  "ADJUST_COLUMNS": "Adjust columns",
+  "LIMIT": "Limit",
+  "EXPORT.ERROR": "Unknown export error",
+
+  "ARE_YOU_SURE": "Are you sure?",
+  "TOUCHED_DESCRIPTION": "There are unsaved changes in the document which will be disposed!",
+
+  "PROFILE": "Profile",
+  "INFORMATION": "Information",
+  "SECURITY": "Security",
+  "CHANGE_PASSWORD": "Change Password",
+  "CHANGE_PASSWORD_DESCRIPTION": "You don't have password authentication on this account. However, you can still use this form and an additional password authentication will be attached to your account.",
+  "NEW_PASSWORD": "New Password",
+  "CHANGE_EMAIL": "Change Email",
+  "REMOVE_MFA_TRIGGER": "Remove MFA",
+  "CONNECT_MFA_TRIGGER": "Connect MFA",
+  "REMOVE_PASSWORD_AUTHENTICATION": "Remove Password Authentication",
+  "REMOVE_GOOGLE_AUTHENTICATION": "Remove Google Authentication",
+  "REMOVE_ACCOUNT": "Remove Account",
+  "OTHER": "Other",
+  "PROFILE_IMAGE": "Profile Image",
+  "CONNECT_MFA": "An email with the verification link has been sent to your account.",
+  "REMOVE_MFA": "Your MFA connection has been removed successfully.",
+
+  "ADD_USER": "Add User",
+  "METHOD": "Method",
+  "START_DATE": "Start Date",
+  "END_DATE": "End Date",
+
+  "REQUIRE_RESET": "Require Reset",
+  "SEND_INVITE": "Send Invite",
+  "ACCEPTED_ON": "Accepted",
+  "SEND_PASSWORD_RESET_EMAIL": "Send password reset email",
+  "IMPERSONATE": "Impersonate",
+
+  "LOADING": "Loading Information...",
+  "PROVIDERS": "Providers",
+  "GOOGLE": "Google",
+  "EMAIL_PASSWORD": "Email and Password",
+  "MULTI_FACTORS": "MFA",
+  "PROVIDER_INFORMATION": "Provider Information",
+  "KEY": "Key",
+  "VALUE": "Value",
+  "CREATION_TIME": "Creation Time",
+  "LAST_SIGN_IN_TIME": "Last Sign In",
+  "LAST_REFRESH_TIME": "Last Refresh",
+  "REMOVE_PROVIDER_TITLE": "Remove Provider",
+  "REMOVE_PROVIDER_DESCRIPTION": "Are you sure you want to remove this provider? This action can't be reverted.",
+
+  "DASHBOARD_ACCESS_DENIED": "You don't have access to the dashboard.",
+
   "FILE_MANAGER": {
     "TITLE": "File Manager",
     "DELETE_FILE": {
@@ -307,111 +188,50 @@
       "ERROR": "Could not copy"
     }
   },
-  "PB": {
-    "START": "Start",
-    "CLOSE": "Close",
-    "OPEN_ADD": "Add segments",
-    "ADD": "Add",
-    "SEGMENT": "Segment",
-    "FORM": {
-      "TITLE": "Title",
-      "ID_HINT": "Created from title if empty",
-      "COMMON": {
-        "CONTENT": "Content"
-      },
-      "BLOCKS": {
-        "SHARED": {
-          "STANDARD_OPTIONS": "Standard Options",
-          "ADVANCED_OPTIONS": "Advanced Options",
-          "BLOCK_OPTIONS": "Segment Options",
-          "SIZE": "Size",
-          "SIZE_SMALL": "Small",
-          "SIZE_REGULAR": "Medium",
-          "SIZE_LARGE": "Big",
-          "SIZE_FULL_SCREEN": "Full Screen",
-          "CONTAINED": "Contained",
-          "BACKGROUND": "Background",
-          "BACKGROUND_REPEAT": "Background Repeat",
-          "BACKGROUND_SIZE": "Background Size",
-          "BACKGROUND_SIZE_COVER": "Cover",
-          "BACKGROUND_SIZE_CONTAIN": "Contain",
-          "VERTICAL_ALIGNMENT": "Vertical Align",
-          "VERTICAL_ALIGNMENT_CENTER": "Center",
-          "VERTICAL_ALIGNMENT_TOP": "Top",
-          "VERTICAL_ALIGNMENT_BOTTOM": "Bottom",
-          "ADDITIONAL_STYLE": "Custom Style",
-          "CUSTOM_CLASS": "Custom Class",
-          "ELEMENT_ID": "Element ID"
-        },
-        "CONTENT": {
-          "TITLE": "Content"
-        },
-        "FORM": {
-          "TITLE": "Form",
-          "FIELDS": {
-            "FORM": "Form"
-          }
-        }
-      }
-    }
-  },
-  "FU": {
-    "ID": "ID",
-    "LABEL": "Label",
-    "VALUE": "Value",
-    "HINT": "Hint",
-    "ORGANIZE": "Organize",
-    "PLACEHOLDER": "Placeholder",
-    "ADJUST_SIZE": "Adjust Size",
-    "ADD_FIELD": "Add Field",
-    "REQUIRED": "Required",
-    "CHANGE_TYPE": "Change Type",
-    "EDIT": "Edit",
-    "REMOVE": "Remove",
-    "OPTIONS": "Options",
-    "SETTINGS": "Settings",
-    "DEFAULT_PLACEHOLDER": "There are no fields currently. Add your first field by pressing the button below.",
-    "SIZE": {
-      "DESKTOP": "Desktop",
-      "TABLET": "Tablet",
-      "MOBILE": "Mobile"
-    },
-    "TYPE": {
-      "checkbox": "Checkbox",
-      "email": "Email",
-      "number": "Number",
-      "select": "Select",
-      "text": "Text",
-      "textarea": "Textarea",
-      "content": "Content",
-      "date": "Date",
-      "tel": "Tel",
-      "color": "Color"
-    },
-    "CONDITIONS": {
-      "TITLE": "Conditions",
-      "CONDITION": "Condition",
-      "VALUE": "Value",
-      "TYPE": "Type",
-      "EQUAL": "Equal",
-      "NOT_EQUAL": "Not Equal",
-      "LARGER_THEN": "Larger Then",
-      "SMALLER_THEN": "Smaller Then",
-      "FORM": "Form"
-    }
-  },
-  "SPOTLIGHT": {
-    "MODULES": "Modules",
-    "DOCUMENTS": "Documents",
-    "ACTIONS": "Actions"
-  },
-  "TEMPLATE_EDITOR": {
-    "ADD_SEGMENT": "Add Segment"
-  },
-  "WEBSITE": {
-    "LAYOUT": {
-      "LAYOUT": "Layout",
-      "HEADER_NAVIGATION": "Header Navigation"
-    }
-  }
+
+  "MODULES": "Modules",
+  "DOCUMENTS": "Documents",
+  "AUTOMATIC_EMAILS": "Automatic Emails",
+  "GENERAL": "General",
+  "RECIPIENT": "Recipient",
+  "SUBJECT": "Subject",
+  "SEND_TO": "Send To",
+  "CONTENT": "Content",
+  "SECTION": "Section",
+  "SENT_EMAILS": "Sent Emails",
+  "EMAILS": "Emails",
+  "MISC": "Misc",
+  "STATUS": "Status",
+  "TEMPLATE_ID": "Template ID",
+  "PAGES": "Pages",
+  "TITLE": "Title",
+  "ID_HINT": "Generate from title if left empty.",
+  "LAYOUT": "Layout",
+  "HEADER_NAVIGATION": "Header Navigation",
+  "LINK": "Link",
+  "FORMS": "Forms",
+  "SUBMISSION": "Submission",
+  "SUCCESS_MESSAGE": "Success Message",
+  "ERROR_MESSAGE": "Error Message",
+  "WEBSITE": "Website",
+  "ACTION": "Action",
+  "SEGMENT_OPTIONS": "Segment Options",
+  "FORM": "Form",
+  "STANDARD_OPTIONS": "Standard Options",
+  "ADVANCED_OPTIONS": "Advanced Options",
+  "SIZE": "Size",
+  "SMALL": "Small",
+  "MEDIUM": "Medium",
+  "REGULAR": "Regular",
+  "LARGE": "Large",
+  "FULL_SCREEN": "Full Screen",
+  "CONTAINED": "Contained",
+  "BACKGROUND": "Background",
+  "CUSTOM_CLASS": "Custom Class",
+  "ELEMENT_ID": "Element ID",
+  "VERTICAL_ALIGNMENT": "Vertical Alignment",
+  "CENTER": "Center",
+  "TOP": "Top",
+  "BOTTOM": "Bottom",
+  "ADDITIONAL_STYLE": "Additional Style"
 }

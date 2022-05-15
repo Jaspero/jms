@@ -1,11 +1,13 @@
 import {PipeType} from '../enums/pipe-type.enum';
+import {Collections} from '../interfaces/collections';
 import {Module} from '../interfaces/module.interface';
 import {CREATED_ON} from './shared/created-on';
 
 export const USER_HISTORY_MODULE: Module = {
-	id: 'users/{docId}/history',
+	id: Collections.UserHistory,
 	name: 'User History',
 	layout: {
+		sort: CREATED_ON.sort,
 		filterModule: {
 			schema: {
 				properties: {
@@ -36,8 +38,26 @@ export const USER_HISTORY_MODULE: Module = {
 			tableColumns: [
 				CREATED_ON.column(),
 				{key: '/type', label: 'Type', pipe: [PipeType.Titlecase]},
-				{key: '/before', label: 'Before', pipe: [PipeType.Json]},
-				{key: '/after', label: 'After', pipe: [PipeType.Json]},
+				{
+					key: '/before',
+					label: 'Before',
+					pipe: [PipeType.Json, PipeType.Custom, PipeType.Sanitize],
+					pipeArguments: {
+						1: (item) => {
+							return `<pre style="background-color: #f2f2f2; padding: 5px; border-radius: 4px;">${item}</pre>`
+						}
+					}
+				},
+				{
+					key: '/after',
+					label: 'After',
+					pipe: [PipeType.Json, PipeType.Custom, PipeType.Sanitize],
+					pipeArguments: {
+						1: (item) => {
+							return `<pre style="background-color: #f2f2f2; padding: 5px; border-radius: 4px;">${item}</pre>`
+						}
+					}
+				},
 			]
 		}
 	},

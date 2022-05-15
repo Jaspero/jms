@@ -1,11 +1,11 @@
 import * as functions from 'firebase-functions';
 import {auth} from 'firebase-admin';
-import {STATIC_CONFIG} from '../consts/static-config.const';
+import {SHARED_CONFIG} from 'definitions';
 import {EmailService} from '../services/email/email.service';
 import {hasRole} from '../utils/auth';
 
 export const triggerPasswordReset = functions
-  .region(STATIC_CONFIG.cloudRegion)
+  .region(SHARED_CONFIG.cloudRegion)
   .https
   .onCall(async (data, context) => {
     hasRole(context, 'admin');

@@ -46,6 +46,11 @@ const routes: Routes = [{
         .then(m => m.FileManagerModule)
     },
     {
+      path: 'drive',
+      loadChildren: () => import('./modules/drive/drive-routing.module')
+        .then(m => m.DriveRoutingModule)
+    },
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full'

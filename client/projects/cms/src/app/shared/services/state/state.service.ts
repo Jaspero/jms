@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MODULES, Module} from 'definitions';
 import {TranslocoService} from '@ngneat/transloco';
+import {Module, MODULES} from 'definitions';
 import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 import {shareReplay} from 'rxjs/operators';
-import {User} from '../../interfaces/user.interface';
+import {User} from 'definitions';
 
 @Injectable({
   providedIn: 'root'
@@ -93,8 +93,7 @@ export class StateService {
 
       try {
         filter = JSON.parse(queryParams.filter);
-      } catch (e) {
-      }
+      } catch (e) {}
 
       if (filter) {
         this.routerData[url] = {

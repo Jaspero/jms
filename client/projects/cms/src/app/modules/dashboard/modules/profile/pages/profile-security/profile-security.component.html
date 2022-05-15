@@ -1,20 +1,20 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>{{'PROFILE.CHANGE_PASSWORD' | transloco}}</mat-card-title>
+    <mat-card-title>{{'CHANGE_PASSWORD' | transloco}}</mat-card-title>
     <mat-card-subtitle *ngIf="(passwordProvider$ | async) === undefined">
-      {{'PROFILE.CHANGE_PASSWORD_DESCRIPTION' | transloco}}
+      {{'CHANGE_PASSWORD_DESCRIPTION' | transloco}}
     </mat-card-subtitle>
   </mat-card-header>
 
   <form [formGroup]="pwForm" #nForm="ngForm" autocomplete="off">
     <mat-card-content>
       <mat-form-field class="w-full">
-        <mat-label>{{'PROFILE.NEW_PASSWORD' | transloco}}</mat-label>
+        <mat-label>{{'NEW_PASSWORD' | transloco}}</mat-label>
         <input type="password" matInput formControlName="password">
-        <mat-hint>{{'RESET_PASSWORD.MIN_LENGTH' | transloco}}</mat-hint>
+        <mat-hint>{{'PASSWORD_MIN_LENGTH' | transloco}}</mat-hint>
       </mat-form-field>
       <mat-form-field class="w-full">
-        <mat-label>{{'PROFILE.REPEAT_PASSWORD' | transloco}}</mat-label>
+        <mat-label>{{'REPEAT_PASSWORD' | transloco}}</mat-label>
         <input type="password" matInput formControlName="repeatPassword">
       </mat-form-field>
     </mat-card-content>
@@ -25,7 +25,7 @@
         type="submit"
         [disabled]="pwForm.invalid"
         [jpLoadClick]="changePassword(nForm)">
-        {{'GENERAL.SAVE' | transloco}}
+        {{'SAVE' | transloco}}
       </button>
     </mat-card-actions>
   </form>
@@ -36,13 +36,13 @@
 <ng-container *ngIf="passwordProvider$ | async">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>{{'PROFILE.CHANGE_EMAIL' | transloco}}</mat-card-title>
+      <mat-card-title>{{'CHANGE_EMAIL' | transloco}}</mat-card-title>
     </mat-card-header>
 
     <form [formGroup]="emailForm">
       <mat-card-content>
         <mat-form-field class="w-full">
-          <mat-label>{{'GENERAL.EMAIL' | transloco}}</mat-label>
+          <mat-label>{{'EMAIL' | transloco}}</mat-label>
           <input type="email" matInput formControlName="email">
         </mat-form-field>
       </mat-card-content>
@@ -53,7 +53,7 @@
           type="submit"
           [disabled]="emailForm.invalid"
           [jpLoadClick]="changeEmail()">
-          {{'GENERAL.SAVE' | transloco}}
+          {{'SAVE' | transloco}}
         </button>
       </mat-card-actions>
     </form>
@@ -64,20 +64,20 @@
 
 <mat-card>
   <mat-card-header>
-    <mat-card-title>{{'PROFILE.OTHER' | transloco}}</mat-card-title>
+    <mat-card-title>{{'OTHER' | transloco}}</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
     <button mat-button [color]="(hasTwoFactor$ | async) ? 'warn' : 'default'" [jpLoadClick]="toggleTwoFactor()">
-      {{((hasTwoFactor$ | async) ? 'PROFILE.REMOVE_MFA_TRIGGER' : 'PROFILE.CONNECT_MFA_TRIGGER') | transloco}}
+      {{((hasTwoFactor$ | async) ? 'REMOVE_MFA_TRIGGER' : 'CONNECT_MFA_TRIGGER') | transloco}}
     </button>
     <br>
     <ng-container *ngIf="multipleProviders$ | async">
-      <button mat-button color="warn" *ngIf="passwordProvider$ | async" (click)="removeProvider('password')">{{'PROFILE.REMOVE_PASSWORD_AUTHENTICATION' | transloco}}</button>
+      <button mat-button color="warn" *ngIf="passwordProvider$ | async" (click)="removeProvider('password')">{{'REMOVE_PASSWORD_AUTHENTICATION' | transloco}}</button>
       <br>
-      <button mat-button color="warn" *ngIf="googleProvider$ | async" (click)="removeProvider('google.com')">{{'PROFILE.REMOVE_GOOGLE_AUTHENTICATION' | transloco}}</button>
+      <button mat-button color="warn" *ngIf="googleProvider$ | async" (click)="removeProvider('google.com')">{{'REMOVE_GOOGLE_AUTHENTICATION' | transloco}}</button>
       <br>
     </ng-container>
-    <button mat-button color="warn" (click)="removeAccount()">{{'PROFILE.REMOVE_ACCOUNT' | transloco}}</button>
+    <button mat-button color="warn" (click)="removeAccount()">{{'REMOVE_ACCOUNT' | transloco}}</button>
   </mat-card-content>
 </mat-card>

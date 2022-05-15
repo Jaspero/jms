@@ -2,7 +2,7 @@ import {Module} from '../../interfaces/module.interface';
 
 export const LAYOUT_MODULE: Module = {
 	id: 'settings',
-	name: 'WEBSITE.LAYOUT.LAYOUT',
+	name: 'LAYOUT',
 	authorization: {
 		write: ['admin']
 	},
@@ -11,7 +11,7 @@ export const LAYOUT_MODULE: Module = {
 		instance: {
 			segments: [
 				{
-					title: 'WEBSITE.LAYOUT.HEADER_NAVIGATION',
+					title: 'HEADER_NAVIGATION',
 					array: '/headerLinks',
 					fields: ['/link', '/label'],
 					columnsDesktop: 12
@@ -36,11 +36,11 @@ export const LAYOUT_MODULE: Module = {
 	},
 	definitions: {
 		'headerLinks/link': {
-			label: 'GENERAL.LINK',
+			label: 'LINK',
 			columnsDesktop: 6
 		},
 		'headerLinks/label': {
-			label: 'GENERAL.LABEL',
+			label: 'LABEL',
 			columnsDesktop: 6
 		}
 	}

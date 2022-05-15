@@ -1,5 +1,6 @@
 import {FilterMethod} from '../enums/filter-method.enum';
 import {PipeType} from '../enums/pipe-type.enum';
+import {Collections} from '../interfaces/collections';
 import {Module} from '../interfaces/module.interface';
 import JSX from '../jsx.compiler';
 import {CREATED_ON} from './shared/created-on';
@@ -7,9 +8,8 @@ import {EMAIL_PIPE} from './shared/email-pipe';
 import {YES_NO_FILTER_PIPE} from './shared/yes-no-pipe';
 
 export const USERS_MODULE: Module = {
-  id: 'users',  
-  name: 'MODULES.USERS',
-  description: 'MODULES.USERS_DESCRIPTION',
+  id: Collections.Users,  
+  name: 'USERS',
   layout: {
     editTitleKey: 'name',
     filterModule: {
@@ -25,7 +25,7 @@ export const USERS_MODULE: Module = {
       },
       definitions: {
         start: {
-          label: 'USERS.FILTERS.START_DATE',
+          label: 'START_DATE',
           columnsDesktop: 6,
           filterKey: 'createdOn',
           filterMethod: FilterMethod.GreaterThen,
@@ -39,7 +39,7 @@ export const USERS_MODULE: Module = {
           }
         },
         end: {
-          label: 'USERS.FILTERS.END_DATE',
+          label: 'END_DATE',
           columnsDesktop: 6,
           filterMethod: FilterMethod.LessThen,
           filterKey: 'createdOn',
@@ -53,7 +53,7 @@ export const USERS_MODULE: Module = {
           }
         },
         role: {
-          label: 'GENERAL.ROLE',
+          label: 'ROLE',
           filterValuePipe: [PipeType.GetDocuments, PipeType.Custom],
           filterValuePipeArguments: {
             0: role => [`roles/${role}`],
@@ -64,27 +64,27 @@ export const USERS_MODULE: Module = {
             configuration: {
               reset: true,
               populate: {
-                collection: 'roles'
+                collection: Collections.Roles
               }
             }
           }
         },
         active: {
-          label: 'GENERAL.ACTIVE',
+          label: 'ACTIVE',
           ...YES_NO_FILTER_PIPE,
           component: {
             type: 'select',
             configuration: {
               reset: true,
               dataSet: [
-                {name: 'GENERAL.ACTIVE', value: true},
-                {name: 'GENERAL.IN_ACTIVE', value: false},
+                {name: 'ACTIVE', value: true},
+                {name: 'IN_ACTIVE', value: false},
               ]
             }
           }
         },
         email: {
-          label: 'GENERAL.EMAIL',
+          label: 'EMAIL',
           component: {
             type: 'input',
             configuration: {
@@ -100,7 +100,13 @@ export const USERS_MODULE: Module = {
         }
       ]
     },
-    sort: CREATED_ON.sort,
+    sort: [
+      CREATED_ON.sort,
+      {
+        active: 'active',
+        direction: 'asc'
+      }
+    ],
     instance: {
       actions: [
         {
@@ -140,7 +146,7 @@ export const USERS_MODULE: Module = {
       tableColumns: [
         {
           key: '/photo',
-          label: 'GENERAL.PHOTO',
+          label: 'PHOTO',
           pipe: [PipeType.Custom, PipeType.Sanitize],
           pipeArguments: {
             0: v => `<img src="${v || '/assets/images/profile-placeholder.png'}" width="50" height="50" style="border-radius:50px" />`
@@ -149,19 +155,19 @@ export const USERS_MODULE: Module = {
         CREATED_ON.column(),
         {
           key: '/name',
-          label: 'GENERAL.NAME',
+          label: 'NAME',
           nestedColumns: [
-            {key: '/email', label: 'GENERAL.EMAIL', ...EMAIL_PIPE}
+            {key: '/email', label: 'EMAIL', ...EMAIL_PIPE}
           ]
         },
         {
           key: '/role',
-          label: 'GENERAL.ROLE',
+          label: 'ROLE',
           control: true
         },
         {
           key: '/active',
-          label: 'GENERAL.ACTIVE',
+          label: 'ACTIVE',
           control: true
         }
       ]
@@ -182,10 +188,10 @@ export const USERS_MODULE: Module = {
     }
   },
   definitions: {
-    id: {label: 'GENERAL.ID', disableOn: 'edit'},
-    name: {label: 'GENERAL.NAME'},
+    id: {label: 'ID', disableOn: 'edit'},
+    name: {label: 'NAME'},
     email: {
-      label: 'GENERAL.EMAIL',
+      label: 'EMAIL',
       component: {
         type: 'input',
         configuration: {
@@ -193,27 +199,20 @@ export const USERS_MODULE: Module = {
         }
       }
     },
-    active: {label: 'GENERAL.ACTIVE'},
+    active: {label: 'ACTIVE'},
     role: {
-      label: 'GENERAL.ROLE',
+      label: 'ROLE',
       component: {
-        type: 'ref',
+        type: 'select',
         configuration: {
-          collection: 'roles',
-          clearValue: null,
-          search: {key: '/name', label: 'GENERAL.NAME'},
-          display: {key: '/name', label: 'GENERAL.ROLE'},
-          table: {
-            tableColumns: [
-              {key: '/name', label: 'GENERAL.NAME'},
-              {key: '/id', label: 'GENERAL.ID'}
-            ]
+          populate: {
+            collection: Collections.Roles
           }
         }
       }
     },
     photo: {
-      label: 'USERS.FIELDS.PROFILE_PHOTO',
+      label: 'PROFILE_IMAGE',
       component: {
         type: 'image',
         configuration: () => {

@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {
   collection,
-  collectionChanges,
   collectionGroup,
   deleteDoc,
   doc,
@@ -12,6 +11,7 @@ import {
   getDocsFromCache,
   getDocsFromServer,
   limit,
+  onSnapshot,
   orderBy,
   query,
   setDoc,
@@ -21,11 +21,11 @@ import {
 import {Functions, httpsCallableData} from '@angular/fire/functions';
 import {from, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {FilterMethod} from 'definitions';
+import {FilterMethod, SHARED_CONFIG} from 'definitions';
 import {WhereFilter} from '../../src/app/shared/interfaces/where-filter.interface';
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
-import {STATIC_CONFIG} from '../../src/environments/static-config';
+import {collectionData} from 'rxfire/firestore';
 
 @Injectable()
 export class FbDatabaseService extends DbService {
@@ -42,12 +42,12 @@ export class FbDatabaseService extends DbService {
       return [
         environment.origin,
         environment.firebase.projectId,
-        STATIC_CONFIG.cloudRegion,
+        SHARED_CONFIG.cloudRegion,
         url
       ]
         .join('/');
     } else {
-      return `https://${STATIC_CONFIG.cloudRegion}-${environment.firebase.projectId}.cloudfunctions.net/${url}`;
+      return `https://${SHARED_CONFIG.cloudRegion}-${environment.firebase.projectId}.cloudfunctions.net/${url}`;
     }
   }
 
@@ -87,7 +87,34 @@ export class FbDatabaseService extends DbService {
     filters?: WhereFilter[],
     collectionGroup?
   ) {
-    return collectionChanges(
+    return new Observable(observer =>
+      onSnapshot(
+        this.collection(
+          moduleId,
+          pageSize,
+          sort,
+          cursor,
+          filters,
+          collectionGroup
+        ),
+        snap => {
+          const docs = snap.docChanges().filter(it => !it.doc.metadata.hasPendingWrites);
+          if (docs.length) {
+            observer.next(docs);
+          }
+        })
+    ) as Observable<any>;
+  }
+
+  getValueChanges(
+    moduleId,
+    pageSize?,
+    sort?,
+    cursor?,
+    filters?: WhereFilter[],
+    collectionGroup?
+  ) {
+    return collectionData(
       this.collection(
         moduleId,
         pageSize,
@@ -95,7 +122,10 @@ export class FbDatabaseService extends DbService {
         cursor,
         filters,
         collectionGroup
-      )
+      ),
+      {
+        idField: 'id'
+      }
     );
   }
 
@@ -232,14 +262,14 @@ export class FbDatabaseService extends DbService {
      */
     if (
       filters?.length &&
-      sort?.active &&
-      filters.some(it => it.key === sort.active)
+      (Array.isArray(sort) || sort?.active) &&
+      filters.some(it => Array.isArray(sort) ? sort.some(s => s.active === it.key) : it.key === sort.active)
     ) {
       sort = null;
     }
 
     const methods = [
-      sort && orderBy(sort.active, sort.direction),
+      ...sort ? Array.isArray(sort) ? sort.map(it => orderBy(it.active, it.direction)) : [orderBy(sort.active, sort.direction)] : [],
       ...this.filterMethod(filters || []),
       pageSize && limit(pageSize),
       cursor && startAfter(cursor)

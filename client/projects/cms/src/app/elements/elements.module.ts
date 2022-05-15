@@ -22,7 +22,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {RouterModule} from '@angular/router';
-import {LoadClickModule, SanitizeModule} from '@jaspero/ng-helpers';
+import {LoadClickModule, SanitizeModule, StopPropagationModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
 import {STATIC_CONFIG} from '../../environments/static-config';
 import {FileManagerModule} from '../modules/dashboard/modules/file-manager/file-manager.module';
@@ -85,6 +85,7 @@ import {UserAddComponent} from './user-add/user-add.component';
 		DragDropModule,
 
 		LoadClickModule,
+		StopPropagationModule,
 		SanitizeModule
 	],
 	exports: [],

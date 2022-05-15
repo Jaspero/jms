@@ -6,7 +6,6 @@ import {
   ChangeDetectorRef,
   Component,
   Injector,
-  OnDestroy,
   OnInit,
   QueryList,
   TemplateRef,
@@ -16,7 +15,6 @@ import {
 } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
-import {Router} from '@angular/router';
 import {Definitions, Parser, State} from '@jaspero/form-builder';
 import {parseTemplate, random, safeEval, toLabel} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
@@ -35,8 +33,8 @@ import {
 } from 'definitions';
 import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';
-import {AsyncSubject, BehaviorSubject, combineLatest, forkJoin, Observable, of, ReplaySubject, Subject} from 'rxjs';
-import {filter, map, shareReplay, startWith, switchMap, take} from 'rxjs/operators';
+import {AsyncSubject, BehaviorSubject, combineLatest, forkJoin, Observable, of, ReplaySubject, Subject, Subscription} from 'rxjs';
+import {filter, map, shareReplay, startWith, switchMap, take, tap} from 'rxjs/operators';
 import {InstanceOverviewContextService} from '../../modules/dashboard/modules/module-instance/services/instance-overview-context.service';
 import {Action} from '../../shared/interfaces/action.interface';
 import {DbService} from '../../shared/services/db/db.service';
@@ -48,10 +46,6 @@ import {Element} from '../element.decorator';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 import {SortDialogComponent} from '../sort-dialog/sort-dialog.component';
 
-interface MenuAction extends Action {
-  menuStyle?: boolean;
-}
-
 interface TableData {
   moduleId: string;
   authorization?: ModuleAuthorization;
@@ -62,7 +56,7 @@ interface TableData {
   originalColumns: ModuleLayoutTableColumn[];
   schema: JSONSchema7;
   stickyHeader: boolean;
-  sort?: InstanceSort;
+  sort?: InstanceSort | InstanceSort[];
   sortModule?: SortModule;
   filterModule?: FilterModule;
   searchModule?: SearchModule;
@@ -86,7 +80,7 @@ interface TableData {
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TableComponent implements OnInit, AfterViewInit {
   constructor(
     public ioc: InstanceOverviewContextService,
     private state: StateService,
@@ -94,7 +88,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     private viewContainerRef: ViewContainerRef,
     private dbService: DbService,
     private dialog: MatDialog,
-    private router: Router,
     private cdr: ChangeDetectorRef,
     private transloco: TranslocoService
   ) {
@@ -119,6 +112,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   columnsSorted$ = new BehaviorSubject(false);
   data: TableData;
   parserCache: {[key: string]: Parser} = {};
+  controlCache: {[key: string]: any} = {};
   populateCache: {[key: string]: Observable<any>} = {};
   permission = {
     write: false,
@@ -136,19 +130,12 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    /**
-     * Component isn't necessarily destroyed
-     * before it's instantiated again
-     */
-    setTimeout(() => {
-      this.ioc.subHeaderTemplate$.next(this.subHeaderTemplate);
-    }, 100);
-
+    this.ioc.subHeaderTemplate$.next(this.subHeaderTemplate);
     this.ioc.module$.pipe(untilDestroyed(this)).subscribe(data => {
       let displayColumns: string[];
       let tableColumns: ModuleLayoutTableColumn[];
       let pColumns: ModuleLayoutTableColumn[];
-      let sort: InstanceSort;
+      let sort: InstanceSort | InstanceSort[];
       let addedData: any = {
         hideCheckbox: false,
         hideAdd: false,
@@ -302,10 +289,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.maxHeight$.next(`calc(100vh - ${maxHeight}px)`);
     }, 100);
-  }
-
-  ngOnDestroy() {
-    this.ioc.subHeaderTemplate$.next(null);
   }
 
   openFilterDialog(
@@ -486,7 +469,16 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         single: true
       });
 
-      field.control.valueChanges
+      try {
+        const update = get(rowData, key);
+        field.control.setValue(update, {emitEvent: false});
+      } catch(e) {}
+
+      if (this.controlCache[key]) {
+        this.controlCache[key].unsubscribe();
+      }
+
+      this.controlCache[key] = field.control.valueChanges
         .pipe(
           // @ts-ignore
           switchMap(value =>

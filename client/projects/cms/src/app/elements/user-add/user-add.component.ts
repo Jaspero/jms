@@ -4,10 +4,9 @@ import {MatDialog} from '@angular/material/dialog';
 import {random} from '@jaspero/utils';
 import {UntilDestroy} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
+import {Collections, Role} from 'definitions';
 import {Observable, of} from 'rxjs';
 import {shareReplay, switchMap, tap} from 'rxjs/operators';
-import {FirestoreCollection} from '../../../../integrations/firebase/firestore-collection.enum';
-import {Role} from '../../shared/interfaces/role.interface';
 import {DbService} from '../../shared/services/db/db.service';
 import {Element} from '../element.decorator';
 
@@ -40,7 +39,7 @@ export class UserAddComponent implements OnInit {
   accountType = new FormControl('invite');
 
   ngOnInit() {
-    this.roles$ = this.dbService.getDocumentsSimple(FirestoreCollection.Roles)
+    this.roles$ = this.dbService.getDocumentsSimple(Collections.Roles)
       .pipe(
         shareReplay(1)
       );
@@ -96,7 +95,7 @@ export class UserAddComponent implements OnInit {
       }
 
       return this.dbService.setDocument(
-        'user-invites',
+        Collections.UserInvites,
         data.email,
         {
           createdOn: Date.now(),

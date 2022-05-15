@@ -23,7 +23,6 @@ export const STATIC_CONFIG = {
      */
     selectorPrefix: 'jms-e-',
   },
-  cloudRegion: 'us-central1',
   login: {
     email: true,
     google: true,
@@ -42,30 +41,30 @@ export const STATIC_CONFIG = {
     items: [
       {
         icon: 'dashboard',
-        label: 'LAYOUT.DASHBOARD',
+        label: 'DASHBOARD',
         type: 'link',
         value: '/dashboard'
       },
       {
         icon: 'language',
-        label: 'LAYOUT.WEBSITE',
+        label: 'WEBSITE',
         type: 'expandable',
         children: [
           {
             icon: 'settings',
-            label: 'WEBSITE.LAYOUT.LAYOUT',
+            label: 'LAYOUT',
             type: 'link',
-            value: '/m/settings/single/layout'
+            value: '/m/settings/layout'
           },
           {
             icon: 'pages',
-            label: 'MODULES.PAGES',
+            label: 'PAGES',
             type: 'link',
             value: '/m/pages'
           },
           {
             icon: 'list_alt',
-            label: 'MODULES.FORMS',
+            label: 'FORMS',
             type: 'link',
             value: '/m/forms'
           },
@@ -75,44 +74,44 @@ export const STATIC_CONFIG = {
         children: [
           {
             icon: 'supervised_user_circle',
-            label: 'GENERAL.USERS',
+            label: 'USERS',
             type: 'link',
             value: '/m/users'
           },
           {
             icon: 'vpn_key',
-            label: 'GENERAL.ROLES',
+            label: 'ROLES',
             type: 'link',
             value: '/m/roles'
           },
           {
            icon: 'email',
-           label: 'MODULES.AUTOMATIC_EMAILS',
+           label: 'AUTOMATIC_EMAILS',
            type: 'link',
            value: '/m/automatic-emails'
           },
           {
             icon: 'send',
-            label: 'MODULES.SENT_EMAILS',
+            label: 'SENT_EMAILS',
             type: 'link',
             value: '/m/sent-emails'
           }
         ],
         icon: 'account_box',
-        label: 'LAYOUT.MANAGEMENT',
+        label: 'MANAGEMENT',
         type: 'expandable'
       },
       {
         children: [
           {
             icon: 'send',
-            label: 'LAYOUT.INVITES',
+            label: 'INVITES',
             type: 'link',
             value: '/m/user-invites'
           }
         ],
         icon: 'dns',
-        label: 'LAYOUT.SYSTEM',
+        label: 'SYSTEM',
         type: 'expandable'
       }
     ] as NavigationItemWithActive[]

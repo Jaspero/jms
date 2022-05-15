@@ -25,7 +25,7 @@ export const COMMON_OPTIONS: {
       icon: 'settings',
       configuration: [
         {
-          title: 'PB.FORM.BLOCKS.SHARED.STANDARD_OPTIONS',
+          title: 'STANDARD_OPTIONS',
           fields: [
             '/box',
             '/size',
@@ -35,7 +35,7 @@ export const COMMON_OPTIONS: {
           ]
         },
         {
-          title: 'PB.FORM.BLOCKS.SHARED.ADVANCED_OPTIONS',
+          title: 'ADVANCED_OPTIONS',
           fields: [
             '/addedClasses',
             '/elementId',
@@ -47,20 +47,20 @@ export const COMMON_OPTIONS: {
   ],
   definitions: {
     size: {
-      label: 'PB.FORM.BLOCKS.SHARED.SIZE',
+      label: 'SIZE',
       component: {
         type: 'select',
         configuration: {
           dataSet: [
-            {name: 'PB.FORM.BLOCKS.SHARED.SIZE_SMALL', value: 'small'},
-            {name: 'PB.FORM.BLOCKS.SHARED.SIZE_REGULAR', value: 'regular'},
-            {name: 'PB.FORM.BLOCKS.SHARED.SIZE_LARGE', value: 'large'},
-            {name: 'PB.FORM.BLOCKS.SHARED.SIZE_FULL_SCREEN', value: 'full-screen'},
+            {name: 'SMALL', value: 'small'},
+            {name: 'REGULAR', value: 'regular'},
+            {name: 'LARGE', value: 'large'},
+            {name: 'FULL_SCREEN', value: 'full-screen'},
           ]
         }
       }
     },
-    contained: {label: 'PB.FORM.BLOCKS.SHARED.CONTAINED'},
+    contained: {label: 'CONTAINED'},
     box: {
       component: {
         type: 'pb-mbp',
@@ -68,7 +68,7 @@ export const COMMON_OPTIONS: {
           presets: {
             margin: [
               {
-                name: 'Small',
+                name: 'SMALL',
                 sides: {
                   top: {size: 10, unit: 'px'},
                   right: {size: 10, unit: 'px'},
@@ -77,7 +77,7 @@ export const COMMON_OPTIONS: {
                 }
               },
               {
-                name: 'Medium',
+                name: 'MEDIUM',
                 sides: {
                   top: {size: 20, unit: 'px'},
                   right: {size: 20, unit: 'px'},
@@ -86,7 +86,7 @@ export const COMMON_OPTIONS: {
                 }
               },
               {
-                name: 'Large',
+                name: 'LARGE',
                 sides: {
                   top: {size: 30, unit: 'px'},
                   right: {size: 30, unit: 'px'},
@@ -100,28 +100,28 @@ export const COMMON_OPTIONS: {
       }
     },
     background: {
-      label: 'PB.FORM.BLOCKS.SHARED.BACKGROUND',
+      label: 'BACKGROUND',
       component: {
         type: 'pb-background'
       }
     },
-    addedClasses: {label: 'PB.FORM.BLOCKS.SHARED.CUSTOM_CLASS'},
-    elementId: {label: 'PB.FORM.BLOCKS.SHARED.ELEMENT_ID'},
+    addedClasses: {label: 'CUSTOM_CLASS'},
+    elementId: {label: 'ELEMENT_ID'},
     verticalAlignment: {
-      label: 'PB.FORM.BLOCKS.SHARED.VERTICAL_ALIGNMENT',
+      label: 'VERTICAL_ALIGNMENT',
       component: {
         type: 'select',
         configuration: {
           dataSet: [
-            {name: 'PB.FORM.BLOCKS.SHARED.VERTICAL_ALIGNMENT_CENTER', value: 'center'},
-            {name: 'PB.FORM.BLOCKS.SHARED.VERTICAL_ALIGNMENT_TOP', value: 'top'},
-            {name: 'PB.FORM.BLOCKS.SHARED.VERTICAL_ALIGNMENT_BOTTOM', value: 'bottom'},
+            {name: 'CENTER', value: 'center'},
+            {name: 'TOP', value: 'top'},
+            {name: 'BOTTOM', value: 'bottom'},
           ]
         }
       }
     },
     additionalStyle: {
-      label: 'PB.FORM.BLOCKS.SHARED.ADDITIONAL_STYLE',
+      label: 'ADDITIONAL_STYLE',
       component: {
         type: 'monaco',
         configuration: {

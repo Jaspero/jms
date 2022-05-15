@@ -6,7 +6,7 @@ import {FORMAT_SEARCH} from './shared/format-search';
 
 export const FORMS_MODULE: Module = {
   id: 'forms',
-  name: 'MODULES.FORMS',
+  name: 'FORMS',
   description: '',
   authorization: {
     write: ['admin']
@@ -16,7 +16,7 @@ export const FORMS_MODULE: Module = {
     instance: {
       segments: [
         {
-          title: 'GENERAL.GENERAL',
+          title: 'GENERAL',
           fields: [
             '/name',
             '/success',
@@ -33,11 +33,11 @@ export const FORMS_MODULE: Module = {
       hideImport: true,
       tableColumns: [
         CREATED_ON.column(),
-        {key: '/id', label: 'GENERAL.ID'},
-        {key: '/name', label: 'GENERAL.NAME'},
+        {key: '/id', label: 'ID'},
+        {key: '/name', label: 'NAME'},
         {
           key: '/id',
-          label: 'Submission',
+          label: 'SUBMISSION',
           pipe: [PipeType.Custom, PipeType.Sanitize],
           pipeArguments: {
             0: id => JSX(<jms-e-link link={'/m/forms/' + id + '/submissions'}>View</jms-e-link>)
@@ -58,13 +58,13 @@ export const FORMS_MODULE: Module = {
   },
   definitions: {
     id: {formatOnSave: FORMAT_SEARCH('name')},
-    name: {label: 'GENERAL.NAME'},
+    name: {label: 'NAME'},
     success: {
-      label: 'Success message',
+      label: 'SUCCESS_MESSAGE',
       placeholder: 'Application submitted successfully. Thank you!'
     },
     error: {
-      label: 'Error message',
+      label: 'ERROR_MESSAGE',
       placeholder:
         'There was an error submitting your form, please try again later.'
     },

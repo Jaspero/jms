@@ -1,0 +1,9 @@
+<div *ngIf="packet$ | async as packet" class="p-a-s p-b-0 container" (click)="selectItem($event)">
+  <div class="flex jc-start ai-center">
+    <ng-container *ngIf="packet.data | fileIcon as icon">
+      <mat-icon [style]="'color: ' + icon.color">{{packet.data.type === 'folder' ? 'folder' : icon.name}}</mat-icon>
+    </ng-container>
+
+    <div class="p-l-s">{{packet.data.name}}</div>
+  </div>
+</div>

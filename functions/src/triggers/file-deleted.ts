@@ -1,16 +1,38 @@
 import {Storage} from '@google-cloud/storage';
+import {SHARED_CONFIG} from 'definitions';
+import {firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
+import {ObjectMetadata} from 'firebase-functions/lib/providers/storage';
 import {basename, dirname, join} from 'path';
-import {STATIC_CONFIG} from '../consts/static-config.const';
 import {unpackGenerateImageString} from '../utils/unpack-generate-image-string';
 
 export const fileDeleted = functions
-  .region(STATIC_CONFIG.cloudRegion)
+  .region(SHARED_CONFIG.cloudRegion)
   .storage
   .object()
-  .onDelete(async (data: any) => {
+  .onDelete(async (data: ObjectMetadata) => {
+    
     const fileName = basename(data.name);
     const dirName = dirname(data.name);
+
+    /**
+     * Drive
+     */
+    const driveDocumentRef = await firestore()
+      .collection('drive')
+      .where('name', '==', fileName)
+      .where('path', '==', dirName).get().then(snapshot => {
+        if (snapshot.empty) {
+          return null;
+        }
+
+        return snapshot.docs[0].ref;
+      });
+
+    if (driveDocumentRef) {
+      await driveDocumentRef.delete();
+    }
+
     /**
      * Delete thumbnails for an image
      * Skip if the file is already a thumb

@@ -26,7 +26,9 @@
 }
 
 .mat-button-disabled {
-  color: var(--panel-tertiary) !important;
+  background-color: var(--panel-theme) !important;
+  color: var(--panel-primary) !important;
+  opacity: .4;
 }
 
 
@@ -225,6 +227,7 @@ tr.mat-row.mat-row {
 
 .ref-row:hover {
   background-color: var(--primary-theme) !important;
+  color: var(--primary-primary) !important
 }
 
 // Mobile layout

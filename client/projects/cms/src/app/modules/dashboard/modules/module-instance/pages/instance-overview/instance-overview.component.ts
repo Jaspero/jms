@@ -1,17 +1,17 @@
 import {SelectionModel} from '@angular/cdk/collections';
 import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {FilterMethod, InstanceSort, Module, ModuleOverviewView} from 'definitions';
 import {Parser} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {FilterMethod, InstanceSort, Module, ModuleOverviewView} from 'definitions';
 import {BehaviorSubject, combineLatest, merge, Subject} from 'rxjs';
 import {map, shareReplay, skip, startWith, switchMap, tap} from 'rxjs/operators';
+import {createSelector} from '../../../../../../elements/element.decorator';
 import {DEFAULT_PAGE_SIZE} from '../../../../../../shared/consts/page-sizes.const';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
 import {queue} from '../../../../../../shared/utils/queue.operator';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
-import {createSelector} from '../../../../../../elements/element.decorator';
 
 @UntilDestroy()
 @Component({
@@ -21,14 +21,6 @@ import {createSelector} from '../../../../../../elements/element.decorator';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InstanceOverviewComponent implements OnInit, AfterViewInit {
-  currentView: string;
-  activeView: string;
-  showViewSelector: boolean;
-  name: string;
-  views: ModuleOverviewView[];
-  toolbar: string[];
-  hideAdd = false;
-
   constructor(
     public ioc: InstanceOverviewContextService,
     private dbService: DbService,
@@ -37,13 +29,20 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
   ) {
   }
 
+  currentView: string;
+  activeView: string;
+  showViewSelector: boolean;
+  name: string;
+  views: ModuleOverviewView[];
+  toolbar: string[];
+  hideAdd = false;
+
   ngOnInit() {
     this.ioc.module$
       .pipe(
         untilDestroyed(this)
       )
       .subscribe(module => {
-
         const defaultData = {
           pageSize: null,
           sort: null,
@@ -148,10 +147,15 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
             }
 
             if (sort) {
-              routeData.sort = sort as InstanceSort;
-              routeData.sort.active = Parser.standardizeKey(
-                routeData.sort.active
-              );
+              routeData.sort = Array.isArray(sort) ? sort.map(it => ({
+                ...it,
+                active: Parser.standardizeKey(
+                  it.active
+                )
+              })) : {
+                active: Parser.standardizeKey(sort.active),
+                direction: sort.direction
+              };
             } else {
               routeData.sort = null;
             }
@@ -162,7 +166,7 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
             return this.dbService.getDocuments(
               module.id,
               pageSize,
-              sort,
+              routeData.sort,
               null,
               this.generateFilters(
                 module,
@@ -207,7 +211,7 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
                     switch (snap.type) {
                       case 'added':
                         if (index === -1) {
-                          snapshots.push(snap.doc);
+                          snapshots.splice(snap.newIndex, 0, snap.doc);
                         }
                         break;
                       case 'modified':
@@ -310,6 +314,7 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
   }
 
   changeCurrentView(view: string) {
+    this.ioc.subHeaderTemplate$.next(null);
     this.currentView = this.getCurrentView(view);
     this.cdr.markForCheck();
   }

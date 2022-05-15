@@ -1,13 +1,12 @@
 import {Storage} from '@google-cloud/storage';
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import {STATIC_CONFIG} from '../consts/static-config.const';
 import {deleteCollection} from '../utils/delete-collection';
-import {MODULES} from 'definitions';
+import {MODULES, SHARED_CONFIG} from 'definitions';
 import {parseTemplate} from '@jaspero/utils';
 
 export const documentDeleted = functions
-  .region(STATIC_CONFIG.cloudRegion)
+  .region(SHARED_CONFIG.cloudRegion)
   .firestore
   .document('{moduleId}/{documentId}')
   .onDelete(async (snap, context) => {

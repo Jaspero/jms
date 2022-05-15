@@ -4,13 +4,13 @@ import {PROCESSED} from './processed.const';
 
 export const AUTOMATIC_EMAILS_MODULE: Module = {
   id: 'automatic-emails',
-  name: 'MODULES.AUTOMATIC_EMAILS',
+  name: 'AUTOMATIC_EMAILS',
   layout: {
     editTitleKey: 'name',
     instance: {
       segments: [
         {
-          title: 'GENERAL.DESCRIPTION',
+          title: 'DESCRIPTION',
           components: [
             {
               selector: 'email-template-description'
@@ -18,7 +18,7 @@ export const AUTOMATIC_EMAILS_MODULE: Module = {
           ]
         },
         {
-          title: 'GENERAL.GENERAL',
+          title: 'GENERAL',
           fields: [
             '/id',
             '/name',
@@ -38,11 +38,11 @@ export const AUTOMATIC_EMAILS_MODULE: Module = {
       hideImport: true,
       hideExport: true,
       tableColumns: [
-        {key: '/name', label: 'GENERAL.NAME'},
-        {key: '/recipient', label: 'AUTOMATIC_EMAILS.FIELDS.RECIPIENT'},
-        {key: '/description', label: 'GENERAL.DESCRIPTION'},
-        {key: '/subject', label: 'AUTOMATIC_EMAILS.FIELDS.SUBJECT'},
-        {key: '/active', label: 'GENERAL.ACTIVE', control: true}
+        {key: '/name', label: 'NAME'},
+        {key: '/recipient', label: 'RECIPIENT'},
+        {key: '/description', label: 'DESCRIPTION'},
+        {key: '/subject', label: 'SUBJECT'},
+        {key: '/active', label: 'ACTIVE', control: true}
       ],
       actions: [
         {
@@ -69,8 +69,8 @@ export const AUTOMATIC_EMAILS_MODULE: Module = {
       },
       definitions: {
         recipient: {
-          label: 'AUTOMATIC_EMAILS.FIELDS.RECIPIENT',
-          filterLabel: 'AUTOMATIC_EMAILS.FIELDS.RECIPIENT',
+          label: 'RECIPIENT',
+          filterLabel: 'RECIPIENT',
           component: {
             type: 'select',
             configuration: {
@@ -99,16 +99,16 @@ export const AUTOMATIC_EMAILS_MODULE: Module = {
   },
   definitions: {
     id: {label: 'ID', disableOn: 'edit'},
-    sendTo: {label: 'AUTOMATIC_EMAILS.FIELDS.SEND_TO', component: {type: 'chips'}},
-    description: {label: 'GENERAL.DESCRIPTION'},
+    sendTo: {label: 'SEND_TO', component: {type: 'chips'}},
+    description: {label: 'DESCRIPTION'},
     subject: {
-      label: 'AUTOMATIC_EMAILS.FIELDS.SUBJECT',
+      label: 'SUBJECT',
       component: {
         type: 'textarea'
       }
     },
     recipient: {
-      label: 'AUTOMATIC_EMAILS.FIELDS.RECIPIENT',
+      label: 'RECIPIENT',
       component: {
         type: 'select',
         configuration: {
@@ -120,7 +120,7 @@ export const AUTOMATIC_EMAILS_MODULE: Module = {
       }
     },
     content: {
-      label: 'GENERAL.CONTENT',
+      label: 'CONTENT',
       component: {
         type: 'template-editor',
         configuration: {
@@ -135,7 +135,7 @@ export const AUTOMATIC_EMAILS_MODULE: Module = {
               segments: [
                 {
                   id: 'section',
-                  name: 'AUTOMATIC_EMAILS.TEMPLATES.SECTION',
+                  name: 'SECTION',
                   content: PROCESSED.segments['section']
                 }
               ]

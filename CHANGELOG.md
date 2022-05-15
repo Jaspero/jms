@@ -1,3 +1,225 @@
+## [5.28.1](https://github.com/jaspero/jms/compare/v5.28.0...v5.28.1) (2022-05-13)
+
+
+### Bug Fixes
+
+* translations working for jms plugins ([46a3116](https://github.com/jaspero/jms/commit/46a3116b6de5c80e68ee1cff7c7f8e312b453904))
+
+# [5.28.0](https://github.com/jaspero/jms/compare/v5.27.4...v5.28.0) (2022-05-13)
+
+
+### Features
+
+* **cms:** added close buttons to dialogs closes [#337](https://github.com/jaspero/jms/issues/337) ([92896d3](https://github.com/jaspero/jms/commit/92896d329a5d86c88cd90f26abd54314dbf3f0ca))
+
+## [5.27.4](https://github.com/jaspero/jms/compare/v5.27.3...v5.27.4) (2022-05-09)
+
+
+### Bug Fixes
+
+* **cms:** don't delete views on table delete ([4fce2f9](https://github.com/jaspero/jms/commit/4fce2f95a384065cd37b30f5976a331ee40d01ad))
+
+## [5.27.3](https://github.com/jaspero/jms/compare/v5.27.2...v5.27.3) (2022-05-09)
+
+
+### Bug Fixes
+
+* **cms:** ColumnPipe hanging when value is an empty array in GetDocuments ([7d5b8b1](https://github.com/jaspero/jms/commit/7d5b8b1095d077aab81610e7d2d7ada07d37f531))
+
+## [5.27.2](https://github.com/jaspero/jms/compare/v5.27.1...v5.27.2) (2022-05-06)
+
+
+### Bug Fixes
+
+* **cms:** less rebuilding between changes on overview closes [#326](https://github.com/jaspero/jms/issues/326) ([743ce0c](https://github.com/jaspero/jms/commit/743ce0cc3162587daa346512bbba76305abc169e))
+* **cms:** respecting sort order on newly inserted items [#356](https://github.com/jaspero/jms/issues/356) ([9033c6f](https://github.com/jaspero/jms/commit/9033c6f13601b931e40550d989b506feebc62eb0))
+
+## [5.27.1](https://github.com/jaspero/jms/compare/v5.27.0...v5.27.1) (2022-05-05)
+
+
+### Bug Fixes
+
+* **cms:** long title breaking ui closes [#370](https://github.com/jaspero/jms/issues/370) ([6001202](https://github.com/jaspero/jms/commit/6001202aadf8f650435cff271016a7e6d1f8e2dc))
+
+# [5.27.0](https://github.com/jaspero/jms/compare/v5.26.0...v5.27.0) (2022-05-04)
+
+
+### Bug Fixes
+
+* **cms:** don't display undefined when value under editTitleKey is undefined ([a2aecc2](https://github.com/jaspero/jms/commit/a2aecc230291d32e1bf08131cd317e5882a55128))
+
+
+### Features
+
+* **cms:** sorting by multiple fields closes [#278](https://github.com/jaspero/jms/issues/278) ([421c758](https://github.com/jaspero/jms/commit/421c7588490639b4482fd2be648ccec06bb5f957))
+
+# [5.26.0](https://github.com/jaspero/jms/compare/v5.25.0...v5.26.0) (2022-05-03)
+
+
+### Features
+
+* various translation updates ([657d203](https://github.com/jaspero/jms/commit/657d20391997ae9657091aeca4306fd25c117fe0))
+
+# [5.25.0](https://github.com/jaspero/jms/compare/v5.24.0...v5.25.0) (2022-05-02)
+
+
+### Bug Fixes
+
+* **cms:** passing $event to showPassword ([a7ce469](https://github.com/jaspero/jms/commit/a7ce46915bb7f2d23f592e33152291166a1407ed))
+
+
+### Features
+
+* configured transloco scopes ([2beeb97](https://github.com/jaspero/jms/commit/2beeb978af586560c257a34d6af467e539d5d1f4))
+
+# [5.24.0](https://github.com/jaspero/jms/compare/v5.23.0...v5.24.0) (2022-04-25)
+
+
+### Features
+
+* **cms:** using editTitleKey on delete closes [#366](https://github.com/jaspero/jms/issues/366) ([0b2d2f3](https://github.com/jaspero/jms/commit/0b2d2f381663fdf00729fc13ff93542d377d4abe))
+
+# [5.23.0](https://github.com/jaspero/jms/compare/v5.22.0...v5.23.0) (2022-04-25)
+
+
+### Features
+
+* **cms:** connected show password on login closes [#324](https://github.com/jaspero/jms/issues/324) ([c7ba2ec](https://github.com/jaspero/jms/commit/c7ba2ec214bc504b33b60ff95879b079808b914e))
+
+# [5.22.0](https://github.com/jaspero/jms/compare/v5.21.0...v5.22.0) (2022-04-24)
+
+
+### Features
+
+* **cms:** added transloco optimizer ([e54db1c](https://github.com/jaspero/jms/commit/e54db1c4d7d1fbd92c4136ec891a32084b268d77))
+* **cms:** improved subHeaderTemplate handling ([0a66fa5](https://github.com/jaspero/jms/commit/0a66fa5dd78516589fa9bcbb27af58408adcaee2))
+* **cms:** simplified and flattened translations ([cf2689e](https://github.com/jaspero/jms/commit/cf2689e033c3563bb761e884f707b696bca5e0ce))
+
+# [5.21.0](https://github.com/jaspero/jms/compare/v5.20.0...v5.21.0) (2022-04-24)
+
+
+### Features
+
+* **definitions:** connected clear method for collections ([0429002](https://github.com/jaspero/jms/commit/04290027ae4db87a83eca13005d3bfb8dba29ed3))
+
+# [5.20.0](https://github.com/jaspero/jms/compare/v5.19.0...v5.20.0) (2022-04-23)
+
+
+### Features
+
+* updated versions; moved user and role interfaces to definitions; ([050bb93](https://github.com/jaspero/jms/commit/050bb933d3de7cc1d71a49ae72f4d845d4f537a9))
+
+# [5.19.0](https://github.com/jaspero/jms/compare/v5.18.4...v5.19.0) (2022-04-21)
+
+
+### Features
+
+* added scriptSetup util ([7e33d1b](https://github.com/jaspero/jms/commit/7e33d1bd79404e366c45c0e723236e5fea5a4371))
+
+## [5.18.4](https://github.com/jaspero/jms/compare/v5.18.3...v5.18.4) (2022-04-20)
+
+
+### Bug Fixes
+
+* **functions:** extract correct url path from proxy ([4b4131d](https://github.com/jaspero/jms/commit/4b4131d273f8391e702cb0d93d263fd236928fb5))
+
+## [5.18.3](https://github.com/jaspero/jms/compare/v5.18.2...v5.18.3) (2022-04-15)
+
+
+### Bug Fixes
+
+* **functions:** removed api ref ([f3e9d55](https://github.com/jaspero/jms/commit/f3e9d55aca26800cde73803b065ea873612cca00))
+
+## [5.18.2](https://github.com/jaspero/jms/compare/v5.18.1...v5.18.2) (2022-04-15)
+
+
+### Bug Fixes
+
+* **functions:** definitions source ([517d12a](https://github.com/jaspero/jms/commit/517d12a29e7a9439aa31cf082641ae4e5ad89d2e))
+
+## [5.18.1](https://github.com/jaspero/jms/compare/v5.18.0...v5.18.1) (2022-04-15)
+
+
+### Bug Fixes
+
+* **functions:** remove firestore calls before initialization. redeploy storage trigger functions ([e4dec69](https://github.com/jaspero/jms/commit/e4dec69ffcf7b17770e6698e07f35878c631099b))
+
+# [5.18.0](https://github.com/jaspero/jms/compare/v5.17.1...v5.18.0) (2022-04-15)
+
+
+### Bug Fixes
+
+* **cms:** detect drive route changes ([556aa83](https://github.com/jaspero/jms/commit/556aa83998c3f45ca4ae7a98996da19486eeb38e))
+
+
+### Features
+
+* **cms:** drive service dedicated for drive actions. preview pdfs. cancel downloads ([c371323](https://github.com/jaspero/jms/commit/c371323888d8c3530651e57be7fe1e14a6e90cf2))
+* **cms:** drive style cleanup. color icons for specific file types. preview video. download files through functions proxy ([20b56d7](https://github.com/jaspero/jms/commit/20b56d74157763f37ee56aac1c24942c0f6639bb))
+* **cms:** file manager rewrite to drive. list files in grid view. display folders and files. file selection and contextmenu actions. full item preview. jms logo update ([875f1bf](https://github.com/jaspero/jms/commit/875f1bf7ce04b0ffc788abcc9b5e339dcd7576fb))
+* **drive:** forbid upload to unauthorized users. apply permissions to spotlight search results ([215f4cb](https://github.com/jaspero/jms/commit/215f4cb2633a5189ee72aba444a52d185b4b1c10))
+* **drive:** implement permissions per folders and files. share drive items to specific users, roles or public ([25f5a4a](https://github.com/jaspero/jms/commit/25f5a4a291282698d7a77e56a352ea806af43710))
+* **drive:** navigate using params and refresh ui accordingly. show upload process. delete items ([1eccfb3](https://github.com/jaspero/jms/commit/1eccfb3afeda9f84be057805b4516319107b8623))
+
+## [5.17.1](https://github.com/jaspero/jms/compare/v5.17.0...v5.17.1) (2022-04-14)
+
+
+### Bug Fixes
+
+* fallback to default fix ([8caa69e](https://github.com/jaspero/jms/commit/8caa69e68223f3fac8e434f9ae757c8f99ed4359))
+
+# [5.17.0](https://github.com/jaspero/jms/compare/v5.16.0...v5.17.0) (2022-04-11)
+
+
+### Features
+
+* **cms:** support for providing methods where primitives are expected in column pipe ([6f387b1](https://github.com/jaspero/jms/commit/6f387b1f4c4ecae497a686d598cf203394fdc56c))
+
+# [5.16.0](https://github.com/jaspero/jms/compare/v5.15.0...v5.16.0) (2022-04-10)
+
+
+### Bug Fixes
+
+* **functions:** copy definitions without node_modules ([3073565](https://github.com/jaspero/jms/commit/3073565b2003afbe0bbcd7fa5bb354155f1538d2))
+
+
+### Features
+
+* added collections.ts and replaced throughout ([90e363f](https://github.com/jaspero/jms/commit/90e363f43c5e7093337f7043096addf7f85f9dbe))
+* added SHARED_CONFIG to definitions and moved cloudRegion there ([41da52f](https://github.com/jaspero/jms/commit/41da52fb2031d6779050152470d34f6526831fbb))
+
+# [5.15.0](https://github.com/jaspero/jms/compare/v5.14.5...v5.15.0) (2022-04-08)
+
+
+### Features
+
+* **cms:** allow for raw html in overview views ([f6c3fa8](https://github.com/jaspero/jms/commit/f6c3fa8e4e149320090e23bc17bb8bb74980782e))
+* **cms:** better css for view switching ([b8f73c9](https://github.com/jaspero/jms/commit/b8f73c994b3f603585647d17107ac74d02dc2485))
+
+## [5.14.5](https://github.com/jaspero/jms/compare/v5.14.4...v5.14.5) (2022-04-06)
+
+
+### Bug Fixes
+
+* **cms:** module loading before route changed ([f1f581c](https://github.com/jaspero/jms/commit/f1f581cffcf531ad28004a197eb16c57d8de4dfe))
+
+## [5.14.4](https://github.com/jaspero/jms/compare/v5.14.3...v5.14.4) (2022-04-05)
+
+
+### Bug Fixes
+
+* **cms:** fixed contrast color for ref component highlight closes [#355](https://github.com/jaspero/jms/issues/355) ([91ab89c](https://github.com/jaspero/jms/commit/91ab89c405f18befd94f97af0f9ce5198e2e6a12))
+* **cms:** fixed contrast color on disabled buttons closes [#358](https://github.com/jaspero/jms/issues/358) ([a944532](https://github.com/jaspero/jms/commit/a9445324bfb845dfff0957803cdb37367a0d6e47))
+* **cms:** google login is now up to google guidelines closes [#354](https://github.com/jaspero/jms/issues/354) ([2d9035d](https://github.com/jaspero/jms/commit/2d9035d37af912cd5220d6f97bd1d9552451e165))
+* **cms:** menu expand now works on right side closes [#359](https://github.com/jaspero/jms/issues/359) ([df06504](https://github.com/jaspero/jms/commit/df065045c70673cf9dcb9f870222c117f2cb51eb))
+
+## [5.14.3](https://github.com/jaspero/jms/compare/v5.14.2...v5.14.3) (2022-04-04)
+
+
+### Bug Fixes
+
+* **definitions:** disableOn and onlyOn can be provided as arrays ([2f349d5](https://github.com/jaspero/jms/commit/2f349d59e57dbd977c545bdc5f8b62637c012017))
+
 ## [5.14.2](https://github.com/jaspero/jms/compare/v5.14.1...v5.14.2) (2022-04-03)
 
 

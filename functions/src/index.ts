@@ -7,7 +7,6 @@ import {sampleEmail} from './callable/sample-email';
 import {triggerPasswordReset} from './callable/trigger-password-reset';
 import {updateEmail} from './callable/update-email';
 import {updateUser} from './callable/update-user';
-import {api} from './rest/api';
 import {exportData} from './rest/export-data';
 import {importData} from './rest/import-data';
 import {documentDeleted} from './triggers/document-deleted';
@@ -21,6 +20,8 @@ import {userDeleted} from './triggers/user-deleted';
 import {impersonate} from './callable/impersonate';
 import {userDocumentUpdated} from './triggers/user-document-updated';
 import {documentWrite} from './triggers/document-write';
+import {proxy} from './rest/proxy';
+import {fileMetadataUpdated} from './triggers/file-metadata-updated';
 
 initializeApp();
 
@@ -33,6 +34,7 @@ export const cms = {
   userDocumentUpdated,
   fileCreated,
   fileDeleted,
+  fileMetadataUpdated,
   documentDeleted,
   documentWrite,
   triggerPasswordReset,
@@ -54,5 +56,5 @@ export const cms = {
   // Rest
   exportData,
   importData,
-  api
+  proxy
 };

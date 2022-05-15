@@ -16,8 +16,8 @@ madge('functions/src/index.ts', {
   fileExtensions: ['js', 'ts']
 }).then(index => {
   const changes = [
-    ...JSON.parse(process.argv[2] || []),
-    ...JSON.parse(process.argv[3] || [])
+    ...JSON.parse(process.argv[2] || '[]'),
+    ...JSON.parse(process.argv[3] || '[]')
   ].reduce((acc, change) => {
     const depends = index.depends(change.replace('functions/src/', '')).map(item => `functions/src/${item}`);
     acc.push(...depends);

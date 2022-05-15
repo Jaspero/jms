@@ -12,7 +12,7 @@ interface FormOptions extends CommonOptions {
 }
 
 @Block({
-  label: 'PB.FORM.BLOCKS.FORM.TITLE',
+  label: 'FORM',
   icon: 'contact_mail',
   previewValue: {
     title: '<h2>Form Title</h2>',
@@ -23,7 +23,7 @@ interface FormOptions extends CommonOptions {
     segments: [
       {
         type: 'empty',
-        title: 'Segment Options',
+        title: 'SEGMENT_OPTIONS',
         icon: 'tune',
         fields: [
           '/form',
@@ -49,11 +49,11 @@ interface FormOptions extends CommonOptions {
           type: 'ref',
           configuration: {
             collection: 'forms',
-            searchBy: {key: '/name', label: 'GENERAL.NAME'},
-            display: {key: '/name', label: 'PB.FORM.BLOCKS.FORM.FIELDS.FORM'},
+            searchBy: {key: '/name', label: 'NAME'},
+            display: {key: '/name', label: 'FORM'},
             table: {
               tableColumns: [
-                {key: '/name', label: 'GENERAL.NAME'}
+                {key: '/name', label: 'NAME'}
               ]
             }
           }
@@ -64,18 +64,18 @@ interface FormOptions extends CommonOptions {
           type: 'ref',
           configuration: {
             collection: 'automatic-emails',
-            searchBy: {key: '/name', label: 'GENERAL.NAME'},
-            display: {key: '/name', label: 'GENERAL.EMAIL'},
+            searchBy: {key: '/name', label: 'NAME'},
+            display: {key: '/name', label: 'EMAIL'},
             table: {
               tableColumns: [
-                {key: '/name', label: 'GENERAL.NAME'},
-                {key: '/description', label: 'GENERAL.DESCRIPTION'},
+                {key: '/name', label: 'NAME'},
+                {key: '/description', label: 'DESCRIPTION'},
               ]
             }
           }
         }
       },
-      action: {label: 'Action'},
+      action: {label: 'ACTION'},
       ...COMMON_OPTIONS.definitions
     }
   }

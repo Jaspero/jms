@@ -7,6 +7,7 @@ declare global {
 }
 
 export * from './modules/modules';
+export * from './interfaces/collections/collections';
 
 /**
  * Types
@@ -31,8 +32,13 @@ export type {FilterModuleDefinition} from './interfaces/filter-module.interface'
 export type {ModuleLayoutTableSelectionAction} from './interfaces/module-layout-table.interface';
 export type {ModuleLayoutTableColumn} from './interfaces/module-layout-table.interface';
 export type {ModuleDefinitions} from './interfaces/module.interface';
+export type {DriveItem} from './interfaces/drive-item.interface';
+
+export {Collections} from './interfaces/collections';
 
 export {PipeType} from './enums/pipe-type.enum';
 export {FilterMethod} from './enums/filter-method.enum';
+
+export {SHARED_CONFIG} from './consts/shared-config.const';
 
 export {JSX} from './jsx.compiler';

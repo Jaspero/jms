@@ -15,7 +15,12 @@ import {ComponentDefinition} from './component-definition.type';
 
 export interface ModuleLayout {
   icon?: string;
-  editTitleKey?: string;
+  editTitleKey?: string | ((row: any) => any);
+  /**
+   * Used when editTitleKey is undefined.
+   * Defaults to "-".
+   */
+  editTitleKeyFallback?: string;
   order?: number;
 
   /**
@@ -24,7 +29,7 @@ export interface ModuleLayout {
    * directly to the provided id.
    */
   directLink?: string;
-  sort?: InstanceSort;
+  sort?: InstanceSort | InstanceSort[];
   pageSize?: number;
   table?: ModuleLayoutTable;
   sortModule?: SortModule;
@@ -45,8 +50,8 @@ export interface ModuleDefinition {
   hint?: string;
   defaultValue?: any;
   placeholder?: string;
-  onlyOn?: State | string;
-  disableOn?: State | string;
+  onlyOn?: State | string | string[] | State[];
+  disableOn?: State | string | string[] | State[];
 
   columnsDesktop?: number;
   columnsMobile?: number;

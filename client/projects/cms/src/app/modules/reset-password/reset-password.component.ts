@@ -54,7 +54,7 @@ export class ResetPasswordComponent implements OnInit {
       )
         .pipe(
           notify({
-            success: 'RESET_PASSWORD.RESET_SUCCESSFUL'
+            success: 'RESET_SUCCESSFUL'
           }),
           tap(() =>
             this.router.navigate(STATIC_CONFIG.loginRoute)

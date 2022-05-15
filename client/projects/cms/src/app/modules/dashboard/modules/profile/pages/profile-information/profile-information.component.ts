@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FormBuilderComponent, FormBuilderData} from '@jaspero/form-builder';
+import {notify} from '@shared/utils/notify.operator';
+import {Collections} from 'definitions';
 import {switchMap} from 'rxjs/operators';
-import {FirestoreCollection} from '../../../../../../../../integrations/firebase/firestore-collection.enum';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
-import {notify} from '@shared/utils/notify.operator';
 
 @Component({
   selector: 'jms-profile-information',
@@ -33,10 +33,10 @@ export class ProfileInformationComponent {
     },
     definitions: {
       name: {
-        label: 'PROFILE.NAME'
+        label: 'NAME'
       },
       profileImage: {
-        label: 'PROFILE.IMAGE',
+        label: 'PROFILE_IMAGE',
         class: 'profile',
         component: {
           type: 'image',
@@ -59,11 +59,11 @@ export class ProfileInformationComponent {
 
   save(form: FormBuilderComponent) {
     return () =>
-      form.save(FirestoreCollection.Users, this.state.user.id)
+      form.save(Collections.Users, this.state.user.id)
         .pipe(
           switchMap(() =>
             this.db.setDocument(
-              FirestoreCollection.Users,
+              Collections.Users,
               this.state.user.id,
               form.form.getRawValue(),
               {

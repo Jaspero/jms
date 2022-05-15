@@ -1,28 +1,26 @@
 import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ModuleAuthorization} from 'definitions';
 import {
-  Definitions,
   FormBuilderComponent,
   FormBuilderContextService,
-  Segment,
+  FormBuilderData,
   State
 } from '@jaspero/form-builder';
-import {random, safeEval} from '@jaspero/utils';
+import {parseTemplate, random, safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
-import {JSONSchema7} from 'json-schema';
+import {ModuleAuthorization} from 'definitions';
 import {interval, Observable, of, Subject, Subscription} from 'rxjs';
 import {debounceTime, map, shareReplay, switchMap, tap} from 'rxjs/operators';
 import {ViewState} from '../../../../../../shared/enums/view-state.enum';
-import {DbService} from '../../../../../../shared/services/db/db.service';
-import {UtilService} from '../../../../../../shared/services/util/util.service';
-import {queue} from '../../../../../../shared/utils/queue.operator';
-import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
 import {Action} from '../../../../../../shared/interfaces/action.interface';
-import {processActions} from '../../../../../../shared/utils/process-actions';
+import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
+import {UtilService} from '../../../../../../shared/services/util/util.service';
+import {processActions} from '../../../../../../shared/utils/process-actions';
+import {queue} from '../../../../../../shared/utils/queue.operator';
 import {toObservable} from '../../../../../../shared/utils/to-observable';
+import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
 
 interface Instance {
   module: {
@@ -40,12 +38,7 @@ interface Instance {
   formatOnEdit: (data: any) => any;
   formatOnCreate: (data: any) => any;
   authorization?: ModuleAuthorization;
-  formBuilder: {
-    schema: JSONSchema7;
-    definitions: Definitions;
-    value: any;
-    segments?: Segment[];
-  };
+  formBuilder: FormBuilderData;
 }
 
 @UntilDestroy()
@@ -137,7 +130,15 @@ export class InstanceSingleComponent implements OnInit {
 
             if (module.layout) {
               if (module.layout.editTitleKey) {
-                editTitleKey = module.layout.editTitleKey;
+                const evaluated = safeEval(module.layout.editTitleKey);
+                const eValue = (
+                  typeof evaluated === 'function'
+                    ? evaluated(value)
+                    : parseTemplate(`{{${module.layout.editTitleKey}}}`, value)
+                );
+                editTitleKey = eValue !== undefined && eValue !== 'undefined' ?
+                  eValue :
+                  (module.layout.editTitleKeyFallback || '-');
               }
 
               if (module.layout.instance) {

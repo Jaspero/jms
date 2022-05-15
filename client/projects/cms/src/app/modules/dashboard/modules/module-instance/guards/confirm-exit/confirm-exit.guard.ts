@@ -15,8 +15,8 @@ export class ConfirmExitGuard implements CanDeactivate<InstanceSingleComponent> 
       confirmation([
         tap((confirm) => resolve(!!confirm))
       ], {
-        description: 'CONFIRMATION.TOUCHED_DESCRIPTION',
-        confirm: 'GENERAL.YES'
+        description: 'TOUCHED_DESCRIPTION',
+        confirm: 'YES'
       });
     });
   }

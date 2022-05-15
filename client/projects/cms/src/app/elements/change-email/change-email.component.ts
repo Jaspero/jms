@@ -14,7 +14,6 @@ import {Element} from '../element.decorator';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChangeEmailComponent implements OnInit {
-
   constructor(
     private el: ElementRef,
     private dialog: MatDialog,

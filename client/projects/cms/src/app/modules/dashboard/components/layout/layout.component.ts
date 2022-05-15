@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {Auth, authState, signOut, updatePassword} from '@angular/fire/auth';
+import {Auth, authState, signOut, updatePassword, User} from '@angular/fire/auth';
 import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {NavigationEnd, Router} from '@angular/router';
@@ -7,6 +7,7 @@ import {safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
+import {Collections} from 'definitions';
 import {BehaviorSubject, from, Observable, throwError} from 'rxjs';
 import {catchError, filter, map, shareReplay, startWith, switchMap, take, tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../../../environments/static-config';
@@ -25,17 +26,6 @@ import {SpotlightComponent} from '../../modules/spotlight/spotlight.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LayoutComponent implements OnInit {
-  @ViewChild('reset')
-  resetDialog: TemplateRef<any>;
-  currentUser$: Observable<any>;
-  links$: Observable<NavigationItemWithActive[]>;
-  staticConfig = STATIC_CONFIG;
-  navigationExpanded = false;
-  navigationItemType = NavigationItemType;
-  resetPassword: FormGroup;
-  spotlightDialogRef: MatDialogRef<any>;
-  activeExpand$ = new BehaviorSubject(null);
-
   constructor(
     public state: StateService,
     private auth: Auth,
@@ -45,6 +35,17 @@ export class LayoutComponent implements OnInit {
     private dbService: DbService
   ) {
   }
+
+  @ViewChild('reset')
+  resetDialog: TemplateRef<any>;
+  currentUser$: Observable<User | null>;
+  links$: Observable<NavigationItemWithActive[]>;
+  staticConfig = STATIC_CONFIG;
+  navigationExpanded = false;
+  navigationItemType = NavigationItemType;
+  resetPassword: FormGroup;
+  spotlightDialogRef: MatDialogRef<any>;
+  activeExpand$ = new BehaviorSubject(null);
 
   ngOnInit() {
     document.addEventListener('keydown', (event) => {
@@ -243,7 +244,7 @@ export class LayoutComponent implements OnInit {
           }),
           switchMap(() =>
             this.dbService.setDocument(
-              'users',
+              Collections.Users,
               this.state.user.id,
               {requireReset: false},
               {merge: true}

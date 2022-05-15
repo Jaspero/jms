@@ -64,11 +64,12 @@ export class LoginComponent implements OnInit {
   verificationState: string;
   verificationId: string;
   deviceForm: FormGroup;
+  type = 'password';
 
   errorMap = {
     'auth/wrong-password': 'LOGIN.ERROR_MESSAGE',
-    'auth/too-many-requests': 'LOGIN.TOO_MANY_ATTEMPTS_TRY_LATER',
-    'auth/user-not-found': 'LOGIN.USER_NOT_FOUND'
+    'auth/too-many-requests': 'TOO_MANY_ATTEMPTS_TRY_LATER',
+    'auth/user-not-found': 'USER_NOT_FOUND'
   };
 
   ngOnInit() {
@@ -94,6 +95,10 @@ export class LoginComponent implements OnInit {
       });
 
     this.buildForm();
+  }
+
+  showPassword() {
+    this.type = this.type === 'password' ? 'text' : 'password';
   }
 
   loginGoogle() {

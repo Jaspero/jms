@@ -27,7 +27,7 @@ export class NewPrepopulateComponent {
   @Input() method: () => any;
 
   prepopulate() {
-    const url = `/m/${this.collection}/new`;
+    const url = `/m/${this.collection}`;
 
     let data: any;
 

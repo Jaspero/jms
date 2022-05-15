@@ -1,6 +1,6 @@
 import {PipeType} from '../../enums/pipe-type.enum';
 
-const method = it => it ? 'GENERAL.YES' : 'GENERAL.NO';
+const method = it => it ? 'YES' : 'NO';
 
 export const YES_NO_PIPE = {
 	pipe: [PipeType.Custom, PipeType.Transloco],

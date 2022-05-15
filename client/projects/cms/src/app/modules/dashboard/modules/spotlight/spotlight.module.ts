@@ -9,9 +9,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SanitizeModule} from '@jaspero/ng-helpers';
 import {createCustomElement} from '@angular/elements';
 import {SpotlightResultComponent} from './spotlight-result/spotlight-result.component';
+import {SpotlightDriveResultComponent} from './spotlight-drive-result/spotlight-drive-result.component';
+import {DriveModule} from '../drive/drive.module';
 
 @NgModule({
-  declarations: [SpotlightComponent, SpotlightResultComponent],
+  declarations: [SpotlightComponent, SpotlightResultComponent, SpotlightDriveResultComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -25,14 +27,26 @@ import {SpotlightResultComponent} from './spotlight-result/spotlight-result.comp
     MatListModule,
 
     TranslocoModule,
-    SanitizeModule
+    SanitizeModule,
+    DriveModule
   ]
 })
 export class SpotlightModule {
   constructor(
     private injector: Injector
   ) {
-    const element = createCustomElement(SpotlightResultComponent, {injector});
-    customElements.define(`jms-spotlight-result`, element);
+    [
+      {
+        selector: 'jms-spotlight-result',
+        component: SpotlightResultComponent
+      },
+      {
+        selector: 'jms-spotlight-drive-result',
+        component: SpotlightDriveResultComponent
+      }
+    ].forEach(item => {
+      const element = createCustomElement(item.component, {injector});
+      customElements.define(item.selector, element);
+    });
   }
 }

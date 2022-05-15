@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {InstanceSort} from 'definitions';
 import {Observable, of} from 'rxjs';
 import {WhereFilter} from '../../interfaces/where-filter.interface';
 
@@ -12,10 +13,7 @@ export abstract class DbService {
   getDocuments(
     moduleId: string,
     pageSize?: number,
-    sort?: {
-      active: string;
-      direction: string;
-    },
+    sort?: InstanceSort | InstanceSort[],
     cursor?: any,
     filters?: WhereFilter[],
     source?: string,
@@ -43,10 +41,18 @@ export abstract class DbService {
   getStateChanges(
     moduleId: string,
     pageSize?: number,
-    sort?: {
-      active: string;
-      direction: string;
-    },
+    sort?: InstanceSort | InstanceSort[],
+    cursor?: any,
+    filters?: WhereFilter[],
+    collectionGroup?: boolean
+  ): Observable<any[]> {
+    return of([]);
+  }
+
+  getValueChanges(
+    moduleId: string,
+    pageSize?: number,
+    sort?: InstanceSort | InstanceSort[],
     cursor?: any,
     filters?: WhereFilter[],
     collectionGroup?: boolean

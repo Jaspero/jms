@@ -3,7 +3,7 @@ import {Module} from '../../interfaces/module.interface';
 import {CREATED_ON} from '../shared/created-on';
 
 const STATUS_DEFINITION: any = {
-  label: 'Status',
+  label: 'STATUS',
   component: {
     type: 'select',
     configuration: {
@@ -22,7 +22,7 @@ const STATUS_DEFINITION: any = {
 };
 
 const TEMPLATE_ID_DEFINITION: any = {
-  label: 'Template ID',
+  label: 'TEMPLATE_ID',
   component: {
     type: 'select',
     configuration: {
@@ -36,7 +36,7 @@ const TEMPLATE_ID_DEFINITION: any = {
 
 export const SENT_EMAILS_MODULE: Module = {
   id: 'sent-emails',
-  name: 'MODULES.SENT_EMAILS',
+  name: 'SENT_EMAILS',
   layout: {
     editTitleKey: 'subject',
     sort: CREATED_ON.sort,
@@ -66,11 +66,11 @@ export const SENT_EMAILS_MODULE: Module = {
     instance: {
       segments: [
         {
-          title: 'GENERAL.EMAILS',
+          title: 'EMAILS',
           fields: ['/to', '/subject', '/html']
         },
         {
-          title: 'Misc',
+          title: 'MISC',
           fields: [
             '/status',
             '/createdOn',
@@ -91,12 +91,12 @@ export const SENT_EMAILS_MODULE: Module = {
       hideAdd: true,
       hideImport: true,
       tableColumns: [
-        {key: '/to', label: 'Receiver'},
-        {key: '/subject', label: 'Subject'},
+        {key: '/to', label: 'RECEIVER'},
+        {key: '/subject', label: 'SUBJECT'},
         CREATED_ON.column(true, 'YYYY/MM/dd hh:mm'),
         {
           key: '/status',
-          label: 'Status',
+          label: 'STATUS',
           pipe: [PipeType.Custom],
           pipeArguments: {
             0: `v => v ? 'Sent' : 'Failed'`
@@ -118,16 +118,16 @@ export const SENT_EMAILS_MODULE: Module = {
     }
   },
   definitions: {
-    to: {label: 'Receiver'},
+    to: {label: 'RECEIVER'},
     status: STATUS_DEFINITION,
     html: {
-      label: 'Content',
+      label: 'CONTENT',
       component: {
         type: 'tinymce'
       }
     },
     templateId: TEMPLATE_ID_DEFINITION,
-    subject: {label: 'Subject'},
-    error: {label: 'Error'}
+    subject: {label: 'SUBJECT'},
+    error: {label: 'ERROR'}
   }
 };

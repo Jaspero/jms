@@ -1,0 +1,45 @@
+{
+  "ID": "ID",
+  "LABEL": "Label",
+  "VALUE": "Value",
+  "HINT": "Hint",
+  "ORGANIZE": "Organize",
+  "PLACEHOLDER": "Placeholder",
+  "ADJUST_SIZE": "Adjust Size",
+  "ADD_FIELD": "Add Field",
+  "REQUIRED": "Required",
+  "CHANGE_TYPE": "Change Type",
+  "EDIT": "Edit",
+  "REMOVE": "Remove",
+  "OPTIONS": "Options",
+  "SETTINGS": "Settings",
+  "DEFAULT_PLACEHOLDER": "There are no fields currently. Add your first field by pressing the button below.",
+  "SIZE": {
+    "DESKTOP": "Desktop",
+    "TABLET": "Tablet",
+    "MOBILE": "Mobile"
+  },
+  "TYPE": {
+    "checkbox": "Checkbox",
+    "email": "Email",
+    "number": "Number",
+    "select": "Select",
+    "text": "Text",
+    "textarea": "Textarea",
+    "content": "Content",
+    "date": "Date",
+    "tel": "Tel",
+    "color": "Color"
+  },
+  "CONDITIONS": {
+    "TITLE": "Conditions",
+    "CONDITION": "Condition",
+    "VALUE": "Value",
+    "TYPE": "Type",
+    "EQUAL": "Equal",
+    "NOT_EQUAL": "Not Equal",
+    "LARGER_THEN": "Larger Then",
+    "SMALLER_THEN": "Smaller Then",
+    "FORM": "Form"
+  }
+}

@@ -20,15 +20,15 @@ declare global {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
-  loading$: Observable<boolean>;
-
   constructor(
     private state: StateService,
     private util: UtilService
-  ) {
-  }
+  ) {}
+
+  loading$: Observable<boolean>;
 
   ngOnInit() {
+
     this.util.init();
 
     this.loading$ = this.state.loadingQue$.pipe(

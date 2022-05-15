@@ -9,7 +9,7 @@ import JSX from '../../jsx.compiler';
 
 export const PAGES_MODULE: Module = {
   id: 'pages',
-  name: 'MODULES.PAGES',
+  name: 'PAGES',
   authorization: {
     write: ['admin']
   },
@@ -19,7 +19,7 @@ export const PAGES_MODULE: Module = {
     instance: {
       segments: [
         {
-          title: 'GENERAL.GENERAL',
+          title: 'GENERAL',
           type: 'card',
           fields: [
             '/title',
@@ -39,7 +39,7 @@ export const PAGES_MODULE: Module = {
     table: {
       tableColumns: [
         CREATED_ON.column(),
-        {key: '/title', label: 'PB.FORM.TITLE'},
+        {key: '/title', label: 'TITLE'},
         {
           key: '/id',
           label: 'URL',
@@ -48,7 +48,7 @@ export const PAGES_MODULE: Module = {
             0: id => JSX(<a class="link" target="_blank" href={STATIC_CONFIG.webUrl + id}>{id}</a>)
           }
         },
-        {key: '/active', label: 'GENERAL.ACTIVE', control: true}
+        {key: '/active', label: 'ACTIVE', control: true}
       ],
       actions: [
         {
@@ -87,9 +87,9 @@ export const PAGES_MODULE: Module = {
       label: 'URL',
       disableOn: 'edit',
       formatOnSave: FORMAT_SEARCH(),
-      hint: 'PB.FORM.ID_HINT'
+      hint: 'ID_HINT'
     },
-    title: {label: 'PB.FORM.TITLE'},
+    title: {label: 'TITLE'},
     active: {label: ''},
     blocks: {
       component: {

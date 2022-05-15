@@ -18,3 +18,28 @@
     padding: 0;
   }
 }
+
+.contextmenu-dialog {
+  > mat-dialog-container {
+    padding: 0;
+  }
+
+  &-item {
+    text-align: left;
+    width: 100%;
+  }
+
+  &-item.mat-button {
+    text-align: left;
+  }
+}
+
+.full-screen-dialog {
+  mat-dialog-container.mat-dialog-container {
+    border-radius: 0;
+
+    background-color: transparent;
+
+    padding: 0;
+  }
+}
