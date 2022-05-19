@@ -1,0 +1,3 @@
+<ng-container *ngIf="status$ | async as stat">
+  <span class="status" [style.background]="stat.color" [matTooltip]="stat.message | transloco"></span> {{updated | date:'HH:mm M/d/yy'}}
+</ng-container>

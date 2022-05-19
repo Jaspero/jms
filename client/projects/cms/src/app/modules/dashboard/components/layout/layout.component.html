@@ -62,6 +62,12 @@
     </ng-container>
   </div>
 
+  <a class="dashboard-nav-footer" [class.disabled]="lastPublishDisabled$ | async" [jpLoadClick]="publish()">
+    <mat-icon aria-hidden="true" class="dashboard-nav-footer-icon">publish</mat-icon>
+    <span class="dashboard-nav-footer-text">{{'PUBLISH' | transloco}}</span>
+    <span class="dashboard-nav-footer-tooltip" [matTooltip]="('LAST_PUBLISH_ON' | transloco) + ': ' + (state.lastPublished$ | async | date:'M/d/yy HH:mm')" matTooltipPosition="right"></span>
+  </a>
+
   <a class="dashboard-nav-footer" *ngIf="state.role === 'admin'" routerLink="/drive" routerLinkActive="active">
     <mat-icon aria-hidden="true" class="dashboard-nav-footer-icon">storage</mat-icon>
     <span class="dashboard-nav-footer-text">Drive</span>

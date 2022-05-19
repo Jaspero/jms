@@ -1,0 +1,34 @@
+name: Update Web
+on:
+  workflow_dispatch:
+    inputs:
+      description:
+        description: 'Release description'
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Build
+        if: contains(github.ref, 'build')
+        run: |
+          echo $SV > web/key.json
+          npm run copy:web:prod -- true
+          npm run rebuild:html --prefix web
+        env:
+          SV: ${{ secrets.SERVICE_ACCOUNT }}
+      - name: Deploy to Firebase
+        if: contains(github.ref, 'build')
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting:website
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_ID: glycan-age
+      - name: Update Firestore
+        if: contains(github.ref, 'build')
+        run: |
+          cd web
+          node update-release.js

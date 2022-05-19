@@ -23,4 +23,6 @@ export const ENV_CONFIG = config as {
    * Secret for email token HMAC
    */
   esecret: string;
+
+  ghtoken: string;
 };

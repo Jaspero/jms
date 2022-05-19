@@ -41,6 +41,7 @@ import {ImportComponent} from './import/import.component';
 import {LinkComponent} from './link/link.component';
 import {NewPrepopulateComponent} from './new-prepopulate/new-prepopulate.component';
 import {ParseTemplatePipe} from './pipes/parse-template/parse-template.pipe';
+import {ReleaseStatusComponent} from './release-status/release-status.component';
 import {SortDialogComponent} from './sort-dialog/sort-dialog.component';
 import {TableComponent} from './table/table.component';
 import {TriggerPasswordResetComponent} from './trigger-password-reset/trigger-password-reset.component';
@@ -114,6 +115,7 @@ import {UserAddComponent} from './user-add/user-add.component';
 		NewPrepopulateComponent,
 		FileManagerSelectComponent,
 		ImpersonateComponent,
+		ReleaseStatusComponent
 	],
 	providers: [
 		{

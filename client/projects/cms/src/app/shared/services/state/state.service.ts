@@ -38,6 +38,7 @@ export class StateService {
   entryPath: string;
 
   page$ = new BehaviorSubject<{module?: {id: string, name: string}}>({});
+  lastPublished$ = new BehaviorSubject<number>(null);
 
   /**
    * Holds state information for all

@@ -2,14 +2,16 @@ import {ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild} from
 import {Auth, authState, signOut, updatePassword, User} from '@angular/fire/auth';
 import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {NavigationEnd, Router} from '@angular/router';
 import {safeEval} from '@jaspero/utils';
+import {TranslocoService} from '@ngneat/transloco';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
 import {Collections} from 'definitions';
 import {BehaviorSubject, from, Observable, throwError} from 'rxjs';
-import {catchError, filter, map, shareReplay, startWith, switchMap, take, tap} from 'rxjs/operators';
+import {catchError, distinctUntilChanged, filter, map, shareReplay, startWith, switchMap, take, tap, skip} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../../../environments/static-config';
 import {NavigationItemType} from '../../../../shared/enums/navigation-item-type.enum';
 import {NavigationItemWithActive} from '../../../../shared/interfaces/navigation-item-with-active.interface';
@@ -32,7 +34,9 @@ export class LayoutComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private dbService: DbService
+    private dbService: DbService,
+    private snackBar: MatSnackBar,
+    private transloco: TranslocoService
   ) {
   }
 
@@ -46,6 +50,7 @@ export class LayoutComponent implements OnInit {
   resetPassword: FormGroup;
   spotlightDialogRef: MatDialogRef<any>;
   activeExpand$ = new BehaviorSubject(null);
+  lastPublishDisabled$ = new BehaviorSubject(false);
 
   ngOnInit() {
     document.addEventListener('keydown', (event) => {
@@ -72,6 +77,34 @@ export class LayoutComponent implements OnInit {
     });
 
     this.currentUser$ = authState(this.auth);
+
+    this.dbService.getDocument('settings', 'status', true)
+      .pipe(
+        distinctUntilChanged(),
+        untilDestroyed(this)
+      )
+      .subscribe(({lastPublished}) =>
+        this.state.lastPublished$.next(lastPublished)
+      );
+
+    this.state.lastPublished$
+      .pipe(
+        skip(2),
+        distinctUntilChanged()
+      )
+      .subscribe(data => {
+        this.lastPublishDisabled$.next(false);
+
+        if (!data) {
+          return
+        }
+
+        this.snackBar.open(
+          this.transloco.translate('NEW_RELEASE_IS_NOW_LIVE'),
+          this.transloco.translate('DISMISS'),
+          {duration: 5000}
+        );
+      });  
 
     if (this.state.user.requireReset) {
 
@@ -257,5 +290,14 @@ export class LayoutComponent implements OnInit {
             this.dialog.closeAll();
           })
         );
+  }
+
+  publish() {
+    return () =>
+      this.dbService.setDocument('settings', 'status', {publishStart: Date.now()}, {merge: true})
+        .pipe(
+          notify({success: 'RELEASE_TRIGGERED_SUCCESSFULLY'}),
+          tap(() => this.lastPublishDisabled$.next(true))
+        )
   }
 }

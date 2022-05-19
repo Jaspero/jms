@@ -200,5 +200,13 @@
   "URL": "URL",
   "ID_HINT": "Created from title if left empty",
   "GENERAL": "General",
-  "LINK": "Link"
+  "LINK": "Link",
+  "STATUS": "Status",
+  "LIVE": "Live",
+  "NOT_LIVE": "Not Live",
+  "NOT_CONFIGURED": "Not Configured",
+  "RELEASE_TRIGGERED_SUCCESSFULLY": "Release triggered successfully",
+  "NEW_RELEASE_IS_NOW_LIVE": "New release is now live!",
+  "LAST_PUBLISHED_ON": "Last published on",
+  "PUBLISH": "Publish"
 }

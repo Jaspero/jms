@@ -6,6 +6,7 @@ import {Module} from '../../interfaces/module.interface';
 import {PipeType} from '../../enums/pipe-type.enum';
 import JSX from '../../jsx.compiler';
 import {SHARED_CONFIG} from '../../consts/shared-config.const';
+import {STATUS} from '../shared/status';
 
 export const PAGES_MODULE: Module = {
   id: 'pages',
@@ -48,7 +49,8 @@ export const PAGES_MODULE: Module = {
             0: id => JSX(<a class="link" target="_blank" href={SHARED_CONFIG.webUrl + id}>{id}</a>)
           }
         },
-        {key: '/active', label: 'ACTIVE', control: true}
+        {key: '/active', label: 'ACTIVE', control: true},
+        STATUS.column
       ],
       actions: [
         {
@@ -80,6 +82,7 @@ export const PAGES_MODULE: Module = {
       blocks: {type: 'array'},
       ...CREATED_ON.property,
       ...META.property(),
+      ...STATUS.property
     }
   },
   definitions: {
@@ -102,6 +105,7 @@ export const PAGES_MODULE: Module = {
       }
     },
     ...CREATED_ON.definition(),
-    ...META.definitions()
+    ...META.definitions(),
+    ...STATUS.definition
   }
 };
