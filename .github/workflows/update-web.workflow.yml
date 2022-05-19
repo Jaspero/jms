@@ -11,14 +11,15 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
+      - name: Install Dependencies
+        run: |
+          cd web
+          echo $SERVICE_ACCOUNT > key.json
+        env:
+          SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
       - name: Build
         if: contains(github.ref, 'build')
-        run: |
-          echo $SV > web/key.json
-          npm run copy:web:prod -- true
-          npm run rebuild:html --prefix web
-        env:
-          SV: ${{ secrets.SERVICE_ACCOUNT }}
+        run: npm run build:web
       - name: Deploy to Firebase
         if: contains(github.ref, 'build')
         uses: w9jds/firebase-action@master
