@@ -1,10 +1,8 @@
-/**
- * Intended for updating release status from firestore
- */
-const admin = require('firebase-admin');
+import admin from 'firebase-admin';
+import {join} from 'path';
 
 admin.initializeApp({
-  credential: admin.credential.cert(require('./key.json'))
+  credential: admin.credential.cert(admin.credential.cert(join(process.cwd(), 'key.json')))
 });
 
 async function exec() {
