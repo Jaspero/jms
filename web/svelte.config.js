@@ -10,7 +10,10 @@ const config = {
 	kit: {
 		adapter: adapter({
 			pages: '../public/web'
-		})
+		}),
+		prerender: {
+      default: true
+    }
 	}
 };
 

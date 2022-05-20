@@ -1,6 +1,20 @@
 import admin from 'firebase-admin';
+import {join} from 'path';
 
-admin.initializeApp({projectId: 'jaspero-jms'});
+let environment: any;
+
+if (environment === 'd') {
+	environment = {
+		projectId: 'jaspero-jms'
+	};
+} else {
+	environment = {
+		credential: admin.credential.cert(join(process.cwd(), 'key.json')),
+		databaseURL: `https://jaspero-jms.firebaseio.com`
+	};
+}
+
+admin.initializeApp(environment);
 
 const fs = admin.firestore();
 
