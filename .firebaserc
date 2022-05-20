@@ -4,6 +4,9 @@
       "hosting": {
         "cms": [
           "jaspero-jms"
+        ],
+        "web": [
+          "jaspero-jms-web"
         ]
       }
     }
