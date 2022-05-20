@@ -1,3 +1,10 @@
+## [5.28.2](https://github.com/jaspero/jms/compare/v5.28.1...v5.28.2) (2022-05-20)
+
+
+### Bug Fixes
+
+* **cms:** controls in table rows not saving when there is more then one row ([e29a91a](https://github.com/jaspero/jms/commit/e29a91aaa3de0057d3fd4e086bb3b22ad8e6d907))
+
 ## [5.28.1](https://github.com/jaspero/jms/compare/v5.28.0...v5.28.1) (2022-05-13)
 
 
