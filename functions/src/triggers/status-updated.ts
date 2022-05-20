@@ -17,7 +17,7 @@ export const statusUpdated = functions
 
     if (after.publishStart !== before.publishStart && ENV_CONFIG.ghtoken) {
       await fetch(
-        `https://api.github.com/repos/${SHARED_CONFIG.github.organization}/${SHARED_CONFIG.github.organization}/actions/workflows/update-web.workflow.yml/dispatches`,
+        `https://api.github.com/repos/${SHARED_CONFIG.github.organization}/${SHARED_CONFIG.github.repository}/actions/workflows/update-web.workflow.yml/dispatches`,
         {
           method: 'POST',
           headers: {
