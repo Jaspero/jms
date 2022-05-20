@@ -474,11 +474,13 @@ export class TableComponent implements OnInit, AfterViewInit {
         field.control.setValue(update, {emitEvent: false});
       } catch(e) {}
 
-      if (this.controlCache[key]) {
-        this.controlCache[key].unsubscribe();
+      const ccKey = `${rowData.id}/${key}`;
+
+      if (this.controlCache[ccKey]) {
+        this.controlCache[ccKey].unsubscribe();
       }
 
-      this.controlCache[key] = field.control.valueChanges
+      this.controlCache[ccKey] = field.control.valueChanges
         .pipe(
           // @ts-ignore
           switchMap(value =>
