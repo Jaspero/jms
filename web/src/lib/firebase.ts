@@ -48,6 +48,7 @@ export async function getPage(id: string) {
 	return {
 		body: {
 			page: {
+				id,
 				content,
 				meta,
 				title,
