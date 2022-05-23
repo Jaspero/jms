@@ -10,7 +10,7 @@ export function scriptSetup() {
 		};
 	} else {
 		environment = {
-			credential: admin.credential.cert('../serviceAccountKey.json'),
+			credential: admin.credential.cert('serviceAccountKey.json'),
 			databaseURL: `https://${SHARED_CONFIG.projectId}.firebaseio.com`
 		};
 	}
@@ -18,4 +18,4 @@ export function scriptSetup() {
 	admin.initializeApp(environment);
 
 	return admin;
-};
+}
