@@ -80,6 +80,7 @@ export class LayoutComponent implements OnInit {
 
     this.dbService.getDocument('settings', 'status', true)
       .pipe(
+        filter(it => it),
         distinctUntilChanged(),
         untilDestroyed(this)
       )
@@ -96,7 +97,7 @@ export class LayoutComponent implements OnInit {
         this.lastPublishDisabled$.next(false);
 
         if (!data) {
-          return
+          return;
         }
 
         this.snackBar.open(
@@ -104,7 +105,7 @@ export class LayoutComponent implements OnInit {
           this.transloco.translate('DISMISS'),
           {duration: 5000}
         );
-      });  
+      });
 
     if (this.state.user.requireReset) {
 
@@ -298,6 +299,6 @@ export class LayoutComponent implements OnInit {
         .pipe(
           notify({success: 'RELEASE_TRIGGERED_SUCCESSFULLY'}),
           tap(() => this.lastPublishDisabled$.next(true))
-        )
+        );
   }
 }
