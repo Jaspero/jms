@@ -37,12 +37,12 @@ export async function getPage(id: string) {
 		}
 	}
 
-	const {blocks, meta, title, globalStyle} = page;
+	const {blocks, meta, title, globalStyles} = page;
 	
 	let content = blocks.reduce((acc: string, cur: any) => acc + cur.compiled || '', '');
 
-	if (globalStyle) {
-		content += `<style>${globalStyle}</style>`;
+	if (globalStyles) {
+		content += `<style>${globalStyles}</style>`;
 	}
 
 	return {

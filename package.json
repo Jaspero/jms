@@ -25,7 +25,7 @@
     "deploy": "firebase deploy --only storage,firestore,functions:cms,hosting",
     "semantic-release": "semantic-release",
     "config:set": "firebase functions:config:set",
-    "dev": "concurrently \"npm run start:emulator\" \"npm run start:cms\"",
+    "dev": "concurrently \"npm run start:emulator\" \"npm run start:cms\" \"npm run start:web\"",
     "setup": "npm ci && npm --prefix definitions ci && npm --prefix functions ci && npm --prefix client ci && npm --prefix .github/utils ci && npm --prefix web ci",
     "write:indexes": "firebase firestore:indexes > firestore.indexes.json"
   },
