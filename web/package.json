@@ -12,7 +12,7 @@
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "eslint --ignore-path .gitignore .",
-    "copy:elements": "rm -rf static/elements && cp -r ../client/dist static/elements"
+    "copy:elements": "rm -rf static/elements && cp -r ../web-components/dist static/elements"
   },
   "devDependencies": {
     "@playwright/test": "1.22.0",

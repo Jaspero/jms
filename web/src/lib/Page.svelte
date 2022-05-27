@@ -13,7 +13,7 @@
 {@html page.content || ''}
 
 {#each page.scripts as script}
-  <script async defer src={script}></script>
+  <script async defer src={script} type="module"></script>
 {/each}
 
 <svelte:head>

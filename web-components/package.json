@@ -1,0 +1,13 @@
+{
+  "name": "web-components",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "dev": "http-server --watch",
+    "build": "rm -rf dist && mkdir dist && uglifyjs -o dist/submit-button.min.js -- src/submit-button.js"
+  },
+  "devDependencies": {
+    "http-server": "14.1.0",
+    "uglify-js": "3.15.5"
+  }
+}

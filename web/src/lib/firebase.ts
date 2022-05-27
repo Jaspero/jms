@@ -51,14 +51,15 @@ export async function getPage(id: string) {
 			if (compiled.includes(element.selector)) {
 				if (!hasPolyfills) {
 
-					scripts.push(
-						`/elements/${element.script}/runtime.js`
-					);
+					/**
+					 * TODO:
+					 * Polyfils are loaded here if needed.
+					 */
 
 					hasPolyfills = true;
 				}
 
-				scripts.push(`/elements/${element.script}/main.js`);
+				scripts.push(`/elements/${element.script}.min.js`);
 			}
 		})
 
