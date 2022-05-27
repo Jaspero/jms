@@ -1,5 +1,6 @@
 import admin from 'firebase-admin';
 import {join} from 'path';
+import {ELEMENTS} from './consts/elements.const';
 
 let environment: any;
 
@@ -38,8 +39,31 @@ export async function getPage(id: string) {
 	}
 
 	const {blocks, meta, title, globalStyles} = page;
+	const scripts: string[] = [];
 	
-	let content = blocks.reduce((acc: string, cur: any) => acc + cur.compiled || '', '');
+	let content = blocks.reduce((acc: string, cur: any) => {
+
+		const {compiled = ''} = cur;
+
+		let hasPolyfills = false;
+
+		ELEMENTS.forEach(element => {
+			if (compiled.includes(element.selector)) {
+				if (!hasPolyfills) {
+
+					scripts.push(
+						`/elements/${element.script}/runtime.js`
+					);
+
+					hasPolyfills = true;
+				}
+
+				scripts.push(`/elements/${element.script}/main.js`);
+			}
+		})
+
+		return acc + compiled;
+	}, '');
 
 	if (globalStyles) {
 		content += `<style>${globalStyles}</style>`;
@@ -52,6 +76,7 @@ export async function getPage(id: string) {
 				content,
 				meta,
 				title,
+				scripts
 			}
 		}
 	}

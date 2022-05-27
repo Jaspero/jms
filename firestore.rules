@@ -73,6 +73,11 @@ service cloud.firestore {
       allow write: if admin();
     }
 
+    match /inquiries/{item} {
+      allow read: if admin();
+      allow write: if true;
+    }
+
     match /drive/{item=**} {
       allow read: if driveItemPublicRead() || driveItemPublicWrite() || driveItemRoleRead() || driveItemRoleWrite() || driveItemUserRead() || driveItemUserWrite();
       allow write: if driveItemPublicWrite() || driveItemRoleWrite() || driveItemUserWrite();

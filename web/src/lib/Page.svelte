@@ -12,6 +12,10 @@
 
 {@html page.content || ''}
 
+{#each page.scripts as script}
+  <script async defer src={script}></script>
+{/each}
+
 <svelte:head>
   <title>{title}</title>
   <meta property="og:title" content="{title}" />

@@ -8,6 +8,7 @@
     "transloco:optimize": "transloco-optimize ../public/cms/assets/i18n",
     "transloco:extract-scoped-libs": "transloco-scoped-libs --skip-gitignore",
     "build": "node timestamp.js && ng build --project=cms --configuration=production && npm run transloco:optimize",
+    "build:elements": "ng build submit-button",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
