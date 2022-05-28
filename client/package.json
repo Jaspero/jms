@@ -11,7 +11,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "rimraf": "rimraf"
+    "rimraf": "rimraf",
+    "copy:elements": "cp ../web-components/dist/elements.min.js projects/cms/src/assets/vendor/elements.min.js"
   },
   "private": true,
   "dependencies": {

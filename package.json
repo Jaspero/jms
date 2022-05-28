@@ -17,6 +17,7 @@
     "build:web": "npm --prefix web run build",
     "build:functions": "npm --prefix functions run build",
     "build:definitions": "npm --prefix definitions run build",
+    "build:elements": "npm --prefix web-components run build && npm --prefix web copy:elements && && npm --prefix web-components run build:bundled && npm --prefix client copy:elements",
     "build": "npm run build:definitions && npm run build:cms && npm run build:functions",
     "lint:client": "npm --prefix client run lint",
     "lint:functions": "npm --prefix functions run lint",

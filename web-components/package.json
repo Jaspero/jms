@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "http-server --watch",
-    "build": "rm -rf dist && mkdir dist && uglifyjs -o dist/submit-button.min.js -- src/submit-button.js"
+    "build": "node uglify.js",
+    "build:bundled": "node uglify.js b"
   },
   "devDependencies": {
     "http-server": "14.1.0",
