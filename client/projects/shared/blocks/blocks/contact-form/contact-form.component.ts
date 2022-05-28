@@ -1,10 +1,14 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Block} from '@jaspero/fb-page-builder';
 import {COMMON_OPTIONS} from '../common-options.const';
+import {CommonBlockComponent, CommonOptions} from '../common.block';
+
+interface FormOptions extends CommonOptions {}
 
 @Block({
-  label: 'Contact Form',
+  label: 'CONTACT_FORM',
   icon: 'view_agenda',
+  module: ['pages', 'posts'],
   previewValue: {
     ...COMMON_OPTIONS.defaults
   },
@@ -28,4 +32,4 @@ import {COMMON_OPTIONS} from '../common-options.const';
   styleUrls: ['./contact-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContactFormComponent {}
+export class ContactFormComponent extends CommonBlockComponent<FormOptions> {}

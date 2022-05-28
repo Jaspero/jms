@@ -62,6 +62,12 @@ export const STATIC_CONFIG = {
             type: 'link',
             value: '/m/pages'
           },
+          {
+            icon: 'rss_feed',
+            label: 'BLOG',
+            type: 'link',
+            value: '/m/posts'
+          }
         ]
       },
       {

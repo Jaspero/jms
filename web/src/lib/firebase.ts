@@ -29,8 +29,8 @@ export async function getDocument<T = any>(collection: string, id: string): Prom
 	return null;
 }
 
-export async function getPage(id: string) {
-	const page = await getDocument('pages', id);
+export async function getPage(id: string, collection = 'pages') {
+	const page = await getDocument(collection, id);
 
 	if (!page || !page.active) {
 		return {

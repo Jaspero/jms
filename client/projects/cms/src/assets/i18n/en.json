@@ -208,5 +208,12 @@
   "RELEASE_TRIGGERED_SUCCESSFULLY": "Release triggered successfully",
   "NEW_RELEASE_IS_NOW_LIVE": "New release is now live!",
   "LAST_PUBLISHED_ON": "Last published on",
-  "PUBLISH": "Publish"
+  "PUBLISH": "Publish",
+  "AUTHOR": "Author",
+  "FEATURED_IMAGE": "Featured Image",
+  "POSTS": "Posts",
+  "BLOG": "Blog",
+  "CONTACT_FORM": "Contact Form",
+  "CONTENT": "Content",
+  "PUBLISHED_ON": "Published on"
 }

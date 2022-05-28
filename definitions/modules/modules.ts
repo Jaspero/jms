@@ -5,6 +5,7 @@ import {USERS_MODULE} from './users.module';
 import {PAGES_MODULE} from './pages/pages.module';
 import {DRIVE_MODULE} from './drive.module';
 import {LAYOUT_MODULE} from './website/layout.module';
+import {POSTS_MODULE} from './pages/posts.module';
 
 /**
  * Schemas for all of the modules
@@ -21,4 +22,5 @@ export const MODULES = [
    */
   LAYOUT_MODULE,
   PAGES_MODULE,
+  POSTS_MODULE
 ];

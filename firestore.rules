@@ -64,7 +64,7 @@ service cloud.firestore {
     }
 
     match /posts/{item} {
-      allow read: if resource.data.published || admin();
+      allow read: if resource.data.active || admin();
       allow write: if admin();
     }    
 
