@@ -4,8 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "http-server --watch",
-    "build": "node uglify.js",
-    "build:bundled": "node uglify.js b"
+    "build": "node uglify.js"
   },
   "devDependencies": {
     "http-server": "14.1.0",
