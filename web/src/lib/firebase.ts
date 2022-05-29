@@ -1,23 +1,4 @@
-import admin from 'firebase-admin';
-import {join} from 'path';
-import {ELEMENTS} from './consts/elements.const';
-
-let environment: any;
-
-if (environment === 'd') {
-	environment = {
-		projectId: 'jaspero-jms'
-	};
-} else {
-	environment = {
-		credential: admin.credential.cert(join(process.cwd(), 'key.json')),
-		databaseURL: `https://jaspero-jms.firebaseio.com`
-	};
-}
-
-admin.initializeApp(environment);
-
-const fs = admin.firestore();
+import {fs} from './firebase-admin';
 
 export async function getDocument<T = any>(collection: string, id: string): Promise<T | null> {
 	const ref = await fs.collection(collection).doc(id).get();
@@ -47,21 +28,22 @@ export async function getPage(id: string, collection = 'pages') {
 
 		let hasPolyfills = false;
 
-		ELEMENTS.forEach(element => {
-			if (compiled.includes(element.selector)) {
-				if (!hasPolyfills) {
+		const elementRegex = /<jpe-([\w-]*)/g;
+		const matches = compiled.matchAll(elementRegex);
 
-					/**
-					 * TODO:
-					 * Polyfils are loaded here if needed.
-					 */
+		for (const match of matches) {
+			if (!hasPolyfills) {
 
-					hasPolyfills = true;
-				}
+				/**
+				 * TODO:
+				 * Polyfils are loaded here if needed.
+				 */
 
-				scripts.push(`/elements/${element.script}.min.js`);
+				hasPolyfills = true;
 			}
-		})
+
+			scripts.push(`/elements/${match[1]}.min.js`);
+		}
 
 		return acc + compiled;
 	}, '');
