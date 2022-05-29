@@ -62,7 +62,13 @@ export default (() => {
                     booleanValue: true,
                 	}
 								}
-							}
+							},
+							orderBy: [{
+								field: {
+									fieldPath: 'publishedOn'
+								},
+								direction: 'DESCENDING'
+							}]
 						}
 					})
 				}
