@@ -42,6 +42,16 @@
                 "glob": "**/*",
                 "input": "node_modules/tinymce/skins/content/default",
                 "output": "/skins/content/default"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce/plugins",
+                "output": "/plugins"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce/icons",
+                "output": "/icons"
               }
             ],
             "styles": [
