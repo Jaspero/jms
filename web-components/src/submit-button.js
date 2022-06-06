@@ -65,11 +65,11 @@ export default (() => {
 						successEl.classList.add('success');
 						successEl.innerText = this.success;
 
-						this.appendChild(successEl);
+						this.shadowRoot.appendChild(successEl);
 
 						setTimeout(() => {
-							this.removeChild(successEl);
-						}, 5000);
+							this.shadowRoot.removeChild(successEl);
+						}, 50000);
 					})
 					.finally(() => 
 						this.output.removeAttribute('disabled')
