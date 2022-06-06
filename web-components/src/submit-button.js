@@ -9,7 +9,15 @@ export default (() => {
 		constructor() {
 			super()
 			this.attachShadow({ mode: 'open' })
-			this.shadowRoot.innerHTML = `<style>:host{display:block;}</style>`
+			this.shadowRoot.innerHTML = `<style>
+				:host {display:block;}
+				.success {
+					padding: 10px;
+					background-color: #79f547;
+					color: #fff;
+					margin: 10px 0;
+				}
+			</style>`;
 			
 			this.output = document.createElement('button');
 			this.output.setAttribute('type', 'submit');
@@ -46,6 +54,23 @@ export default (() => {
 						body: JSON.stringify({fields})
 					}
 				)
+					.then(() => {
+						form.reset();
+
+						if (!this.success) {
+							return;
+						}
+						
+						const successEl = document.createElement('p');
+						successEl.classList.add('success');
+						successEl.innerText = this.success;
+
+						this.appendChild(successEl);
+
+						setTimeout(() => {
+							this.removeChild(successEl);
+						}, 5000);
+					})
 					.finally(() => 
 						this.output.removeAttribute('disabled')
 					);
@@ -55,11 +80,12 @@ export default (() => {
 		}
 
 		static get observedAttributes() {
-			return ['label'];
+			return ['label', 'success'];
 		}
 
 		connectedCallback() {
 			this.output.innerText = this.getAttribute('label');
+			this.success = this.getAttribute('success');
 		}
 
 		attributeChangedCallback() {

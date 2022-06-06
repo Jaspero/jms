@@ -6,6 +6,7 @@ import {PAGES_MODULE} from './pages/pages.module';
 import {DRIVE_MODULE} from './drive.module';
 import {LAYOUT_MODULE} from './website/layout.module';
 import {POSTS_MODULE} from './pages/posts.module';
+import {INQUIRIES_MODULE} from './inquiries.module';
 
 /**
  * Schemas for all of the modules
@@ -16,6 +17,7 @@ export const MODULES = [
   USER_INVITES_MODULE,
   USER_HISTORY_MODULE,
   DRIVE_MODULE,
+  INQUIRIES_MODULE,
 
   /**
    * Website

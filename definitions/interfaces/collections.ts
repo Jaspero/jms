@@ -2,6 +2,7 @@ export class Collections {
   static Users = 'users';
   static Roles = 'roles';
 	static UserInvites = 'user-invites';
+	static Inquiries = 'inquiries';
 
 	/**
 	 * Subcollections

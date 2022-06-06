@@ -71,6 +71,12 @@ export const STATIC_CONFIG = {
         ]
       },
       {
+        icon: 'mail',
+        label: 'INQUIRIES',
+        type: 'link',
+        value: '/m/inquiries'
+      },
+      {
         children: [
           {
             icon: 'supervised_user_circle',

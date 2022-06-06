@@ -1,11 +1,15 @@
 <form ngNativeValidate>
 	<label>
-		<span>First Name</span>
-		<input name="firstName" required />
+		<span>Name</span>
+		<input name="name" required />
 	</label>
 	<label>
-		<span>Last Name</span>
-		<input name="lastName" required />
+		<span>Email</span>
+		<input name="email" type="email" required />
+	</label>
+	<label>
+		<span>Message</span>
+		<textarea name="message" rows="5" required></textarea>
 	</label>
 	<jpe-submit-button label="Submit"></jpe-submit-button>
 </form>

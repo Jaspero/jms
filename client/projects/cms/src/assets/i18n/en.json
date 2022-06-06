@@ -215,5 +215,7 @@
   "BLOG": "Blog",
   "CONTACT_FORM": "Contact Form",
   "CONTENT": "Content",
-  "PUBLISHED_ON": "Published on"
+  "PUBLISHED_ON": "Published on",
+  "INQUIRIES": "Inquiries",
+  "MESSAGE": "Message"
 }
