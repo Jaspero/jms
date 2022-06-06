@@ -15,13 +15,15 @@ export class StateService {
     private activatedRoute: ActivatedRoute,
     private transloco: TranslocoService
   ) {
-    this.language = localStorage.getItem('language');
+    const language = localStorage.getItem('language');
 
-    if (this.language) {
-      this.transloco.setActiveLang(this.language);
-    } else {
-      this.language = this.transloco.getActiveLang();
+    if (language) {
+      this.transloco.setActiveLang(language);
     }
+
+    this.transloco.langChanges$.subscribe(lang => {
+      localStorage.setItem('language', lang);
+    });
 
     // @ts-ignore
     this.modules$ = of(MODULES)
@@ -34,7 +36,6 @@ export class StateService {
   user: User;
   loadingQue$ = new Subject<Array<string | boolean>>();
   modules$: Observable<Module[]>;
-  language: string;
   entryPath: string;
 
   page$ = new BehaviorSubject<{module?: {id: string, name: string}}>({});
