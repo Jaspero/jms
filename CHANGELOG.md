@@ -1,3 +1,10 @@
+## [5.28.3](https://github.com/jaspero/jms/compare/v5.28.2...v5.28.3) (2022-06-08)
+
+
+### Bug Fixes
+
+* **workflows:** deploy firebase functions using node 14. form-builder incompatible dependencies ([e4577f8](https://github.com/jaspero/jms/commit/e4577f86a3372d7c5a2e9173d9001210baabd341))
+
 ## [5.28.2](https://github.com/jaspero/jms/compare/v5.28.1...v5.28.2) (2022-05-20)
 
 
