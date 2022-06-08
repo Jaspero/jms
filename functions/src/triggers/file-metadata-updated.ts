@@ -12,10 +12,8 @@ export const fileMetadataUpdated = functions
   })
   .storage.object()
   .onMetadataUpdate(async ({name, metadata}: ObjectMetadata) => {
-
     const fileName = basename(name);
     const filePath = dirname(name);
-
     const storageDocument = await firestore()
       .collection('storage')
       .where('name', '==', fileName)

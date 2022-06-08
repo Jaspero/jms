@@ -34,7 +34,6 @@ export const fileCreated = functions
       createdOn: new Date(timeCreated).getTime(),
       size: Number(size || 0)
     };
-
     const previousStorageDocument = await firestore()
       .collection('storage')
       .where('name', '==', storageDocument.name)

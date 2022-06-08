@@ -37,7 +37,7 @@
     "json2csv": "5.0.1",
     "jsonwebtoken": "8.5.1",
     "proxy-from-env": "^1.1.0",
-    "sharp": "0.30.5",
+    "sharp": "0.30.6",
     "xlsx": "0.17.0"
   },
   "devDependencies": {
@@ -50,7 +50,7 @@
     "@types/json-pointer": "1.0.30",
     "@types/json2csv": "5.0.1",
     "@types/jsonwebtoken": "8.5.6",
-    "@types/sharp": "0.28.0",
+    "@types/sharp": "0.30.4",
     "tslint": "6.1.2",
     "typescript": "4.2.4"
   }
