@@ -1,5 +1,6 @@
 <script lang="ts">
   import {BASE_TITLE, DELIMITER, URL} from '$lib/consts/title.const.ts';
+  import {browser} from '$app/env';
 
   export let page: any;
 
@@ -8,14 +9,23 @@
   if (BASE_TITLE) {
     title += ` ${DELIMITER} ${BASE_TITLE}`;
   }
+
+  $: if (page.scripts && browser) {
+    (page.scripts || []).forEach((s: string) => {
+      const script = document.createElement('script');
+
+      script.setAttribute('async', 'true');
+      script.setAttribute('defer', 'true');
+      script.setAttribute('type', 'module');
+
+      script.src = s;
+
+      document.head.appendChild(script);
+    });
+  }
 </script>
 
 {@html page.content || ''}
-
-{#each page.scripts as script}
-  <script async defer src={script} type="module"></script>
-{/each}
-
 <svelte:head>
   <title>{title}</title>
   <meta property="og:title" content="{title}" />
