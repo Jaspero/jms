@@ -23,8 +23,7 @@ export class SpotlightStorageResultComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private dialog: MatDialog
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.packet$ = this.http.get(this.url);
