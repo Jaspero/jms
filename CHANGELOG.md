@@ -1,3 +1,10 @@
+## [5.28.4](https://github.com/jaspero/jms/compare/v5.28.3...v5.28.4) (2022-06-08)
+
+
+### Bug Fixes
+
+* **workflows:** missing correct package-lock ([a2729c2](https://github.com/jaspero/jms/commit/a2729c25aaeb970aa130abd41421fc43cd96dd06))
+
 ## [5.28.3](https://github.com/jaspero/jms/compare/v5.28.2...v5.28.3) (2022-06-08)
 
 
