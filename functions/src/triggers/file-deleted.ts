@@ -11,15 +11,15 @@ export const fileDeleted = functions
   .storage
   .object()
   .onDelete(async (data: ObjectMetadata) => {
-    
+
     const fileName = basename(data.name);
     const dirName = dirname(data.name);
 
     /**
-     * Drive
+     * Storage
      */
-    const driveDocumentRef = await firestore()
-      .collection('drive')
+    const storageDocumentRef = await firestore()
+      .collection('storage')
       .where('name', '==', fileName)
       .where('path', '==', dirName).get().then(snapshot => {
         if (snapshot.empty) {
@@ -29,8 +29,8 @@ export const fileDeleted = functions
         return snapshot.docs[0].ref;
       });
 
-    if (driveDocumentRef) {
-      await driveDocumentRef.delete();
+    if (storageDocumentRef) {
+      await storageDocumentRef.delete();
     }
 
     /**

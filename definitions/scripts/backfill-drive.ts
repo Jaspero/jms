@@ -11,7 +11,7 @@ async function exec() {
   /**
    * Remove previous data to avoid duplication
    */
-  await firestore.collection('drive').get().then(snapshot => {
+  await firestore.collection('storage').get().then(snapshot => {
     return Promise.all(snapshot.docs.map(doc => doc.ref.delete()));
   });
 
@@ -31,7 +31,7 @@ async function exec() {
       const fileName = basename(file.name);
       const dirName = dirname(file.name);
 
-      const driveDocument = {
+      const storageDocument = {
         name: fileName,
         path: dirName,
         type: file.name.endsWith('/') ? 'folder' : 'file',
@@ -44,7 +44,7 @@ async function exec() {
       /**
        * Mimic folder documents since they are not created by Firebase
        */
-      const paths = driveDocument.path.split('/');
+      const paths = storageDocument.path.split('/');
       for (let i = 0; i < paths.length; i++) {
         const parentPath = paths.slice(0, i + 1).join('/');
 
@@ -60,17 +60,17 @@ async function exec() {
             type: 'folder',
             metadata: {},
             contentType: 'text/plain',
-            createdOn: driveDocument.createdOn,
+            createdOn: storageDocument.createdOn,
             size: 0
           };
         }
 
-        if (driveDocument.createdOn < folders[parentPath].createdOn) {
-          folders[parentPath].createdOn = driveDocument.createdOn;
+        if (storageDocument.createdOn < folders[parentPath].createdOn) {
+          folders[parentPath].createdOn = storageDocument.createdOn;
         }
       }
 
-      await firestore.collection('drive').add(driveDocument);
+      await firestore.collection('storage').add(storageDocument);
     }
 
     if (!(response[1] as any)?.pageToken) {
@@ -83,13 +83,13 @@ async function exec() {
   await getFile();
 
   for (const [_, folder] of Object.entries(folders)) {
-    await firestore.collection('drive').add(folder);
+    await firestore.collection('storage').add(folder);
   }
 }
 
 exec()
   .then(() => {
-    console.log('Backfill Drive completely successfully');
+    console.log('Backfill Storage completely successfully');
     process.exit(0);
   })
   .catch(error => {

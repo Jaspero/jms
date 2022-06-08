@@ -11,7 +11,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {BehaviorSubject, combineLatest, from, map, Observable, of, startWith} from 'rxjs';
-import {DriveItem, FilterMethod} from 'definitions';
+import {StorageItem, FilterMethod} from 'definitions';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {FormControl, Validators} from '@angular/forms';
 import {filter, shareReplay, switchMap, take, tap} from 'rxjs/operators';
@@ -19,7 +19,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {NoopScrollStrategy} from '@angular/cdk/overlay';
 import {disableScroll, enableScroll} from '@shared/utils/scroll';
 import {FullFilePreviewComponent} from '../full-file-preview/full-file-preview.component';
-import {DriveService} from '../../services/drive/drive.service';
+import {StorageService} from '../../services/storage/storage.service';
 import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {StateService} from '../../../../../../shared/services/state/state.service';
@@ -29,18 +29,18 @@ import {ref, Storage, updateMetadata} from '@angular/fire/storage';
 
 @UntilDestroy()
 @Component({
-  selector: 'jms-drive',
-  templateUrl: './drive.component.html',
-  styleUrls: ['./drive.component.scss'],
+  selector: 'jms-storage',
+  templateUrl: './storage.component.html',
+  styleUrls: ['./storage.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DriveComponent implements OnInit {
+export class StorageComponent implements OnInit {
 
   @Input()
-  title = 'Drive';
+  title = 'Storage';
   items$ = new BehaviorSubject<{
-    folders: DriveItem[],
-    files: DriveItem[]
+    folders: StorageItem[],
+    files: StorageItem[]
   }>(null);
   routeControl: FormControl;
 
@@ -67,7 +67,7 @@ export class DriveComponent implements OnInit {
   writeAccess$ = new BehaviorSubject(true);
 
   constructor(
-    public drive: DriveService,
+    public storage: StorageService,
     public activatedRoute: ActivatedRoute,
     private db: DbService,
     private dialog: MatDialog,
@@ -76,7 +76,7 @@ export class DriveComponent implements OnInit {
     private ngZone: NgZone,
     private renderer: Renderer2,
     private state: StateService,
-    private storage: Storage
+    private fbStorage: Storage
   ) {
   }
 
@@ -85,9 +85,9 @@ export class DriveComponent implements OnInit {
     if (event.button !== 0) {
       return;
     }
-    const isItem = (event.target as HTMLElement).closest('.drive-item');
+    const isItem = (event.target as HTMLElement).closest('.storage-item');
     if (!isItem) {
-      document.querySelectorAll('.drive-item.active').forEach(element => {
+      document.querySelectorAll('.storage-item.active').forEach(element => {
         element.classList.remove('active');
       });
     }
@@ -119,7 +119,7 @@ export class DriveComponent implements OnInit {
           const parentPath = route.split('/').slice(0, -1).join('/') || '.';
           const parentName = route.split('/').slice(-1)[0];
 
-          return this.db.getValueChanges('drive', undefined, undefined, undefined, [
+          return this.db.getValueChanges('storage', undefined, undefined, undefined, [
             {
               key: 'path',
               operator: FilterMethod.Equal,
@@ -133,7 +133,7 @@ export class DriveComponent implements OnInit {
           ]).pipe(
             switchMap((docs) => {
 
-              this.writeAccess$.next(docs[0] && this.drive.hasPermission(docs[0], 'write'));
+              this.writeAccess$.next(docs[0] && this.storage.hasPermission(docs[0], 'write'));
 
               return items$;
             })
@@ -170,7 +170,7 @@ export class DriveComponent implements OnInit {
     ).subscribe();
   }
 
-  getItems(route: string, type: 'public' | 'roles' | 'users', permission?: 'read' | 'write'): Observable<DriveItem[]> {
+  getItems(route: string, type: 'public' | 'roles' | 'users', permission?: 'read' | 'write'): Observable<StorageItem[]> {
     if (!permission) {
       return combineLatest([
         this.getItems(route, type, 'read'),
@@ -227,7 +227,7 @@ export class DriveComponent implements OnInit {
     }
 
     return this.db.getValueChanges(
-      'drive',
+      'storage',
       undefined,
       undefined,
       undefined,
@@ -239,7 +239,7 @@ export class DriveComponent implements OnInit {
     this.view = this.view === 'grid' ? 'list' : 'grid';
   }
 
-  openItemContextMenu(event: MouseEvent, item: DriveItem) {
+  openItemContextMenu(event: MouseEvent, item: StorageItem) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -268,7 +268,7 @@ export class DriveComponent implements OnInit {
     ).subscribe();
   }
 
-  previewItem(item: DriveItem) {
+  previewItem(item: StorageItem) {
     disableScroll();
 
     this.dialog.open(FullFilePreviewComponent, {
@@ -289,7 +289,7 @@ export class DriveComponent implements OnInit {
     ).subscribe();
   }
 
-  navigateTo(item: DriveItem | string, append = false) {
+  navigateTo(item: StorageItem | string, append = false) {
     const name = typeof item === 'string' ? item : item.name;
 
     const route = this.routeControl.value;
@@ -300,10 +300,10 @@ export class DriveComponent implements OnInit {
     const extras: NavigationExtras = {};
 
     if (append) {
-      path.unshift('drive');
+      path.unshift('storage');
     } else {
       path.splice(0, path.length);
-      path.push('drive');
+      path.push('storage');
       if (name) {
         path.push(name);
       }
@@ -312,19 +312,19 @@ export class DriveComponent implements OnInit {
     this.router.navigate(path, extras);
   }
 
-  mouseEnterDownload(download: DriveItem) {
+  mouseEnterDownload(download: StorageItem) {
     (download as any).hover = true;
     (download as any).icon = 'cancel';
     (download as any).iconColor = '#757575';
   }
 
-  mouseLeaveDownload(download: DriveItem) {
+  mouseLeaveDownload(download: StorageItem) {
     (download as any).hover = false;
     (download as any).icon = '';
     (download as any).iconColor = '';
   }
 
-  trackByPath(index: number, item: DriveItem) {
+  trackByPath(index: number, item: StorageItem) {
     return item.path + '/' + item.name;
   }
 
@@ -351,7 +351,7 @@ export class DriveComponent implements OnInit {
           return of(false);
         }
 
-        return this.db.setDocument('drive', random.string(20), {
+        return this.db.setDocument('storage', random.string(20), {
           name: control.value,
           path: this.routeControl.value || '.',
           type: 'folder',
@@ -376,7 +376,7 @@ export class DriveComponent implements OnInit {
     input.multiple = true;
 
     input.onchange = () => {
-      this.drive.uploadFiles(this.routeControl.value, input.files);
+      this.storage.uploadFiles(this.routeControl.value, input.files);
 
       input.remove();
     };
@@ -390,15 +390,15 @@ export class DriveComponent implements OnInit {
     }
 
     if (!event.shiftKey) {
-      document.querySelectorAll('.drive-item.active').forEach(element => {
+      document.querySelectorAll('.storage-item.active').forEach(element => {
         element.classList.remove('active');
       });
     }
 
-    (event.target as HTMLElement).closest('.drive-item').classList.toggle('active');
+    (event.target as HTMLElement).closest('.storage-item').classList.toggle('active');
   }
 
-  async openInfoDialog(item: DriveItem) {
+  async openInfoDialog(item: StorageItem) {
 
     const parsePermission = async (key: string) => {
       if (key.startsWith('permissions_public_')) {
@@ -465,7 +465,7 @@ export class DriveComponent implements OnInit {
     ).subscribe();
   }
 
-  async openShareDialog(item: DriveItem) {
+  async openShareDialog(item: StorageItem) {
     const typeControl = new FormControl('read');
     const inputControl = new FormControl('');
     const shares = await Promise.all(
@@ -611,13 +611,13 @@ export class DriveComponent implements OnInit {
         const path = item.path === '.' ? item.name : `${item.path}/${item.name}`;
         try {
           await updateMetadata(
-            ref(this.storage, path),
+            ref(this.fbStorage, path),
             {
               customMetadata: metadata
             }
           );
         } catch (e) {
-          const itemDocument = await this.db.getDocuments('drive', undefined, undefined, undefined, [
+          const itemDocument = await this.db.getDocuments('storage', undefined, undefined, undefined, [
             {
               key: 'path',
               operator: FilterMethod.Equal,
@@ -634,7 +634,7 @@ export class DriveComponent implements OnInit {
           ).toPromise();
 
           if (itemDocument?.id) {
-            await this.db.setDocument('drive', itemDocument.id, {
+            await this.db.setDocument('storage', itemDocument.id, {
               ...itemDocument.data(),
               metadata
             });
@@ -649,6 +649,6 @@ export class DriveComponent implements OnInit {
       return;
     }
 
-    return this.drive.uploadFiles(route, event);
+    return this.storage.uploadFiles(route, event);
   }
 }

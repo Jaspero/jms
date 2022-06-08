@@ -1,4 +1,4 @@
-export interface DriveItem {
+export interface StorageItem {
   id: string;
   name: string;
   path: string;

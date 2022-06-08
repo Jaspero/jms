@@ -1,12 +1,12 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {DriveItem} from 'definitions';
+import {StorageItem} from 'definitions';
 
 @Pipe({
   name: 'fileIcon'
 })
 export class FileIconPipe implements PipeTransform {
 
-  transform(file: string | DriveItem): { name: string, color: string } {
+  transform(file: string | StorageItem): { name: string, color: string } {
     const type = typeof file === 'string' ? file : file?.contentType;
 
     const defaultColor = 'rgba(0, 0, 0, 0.65)';

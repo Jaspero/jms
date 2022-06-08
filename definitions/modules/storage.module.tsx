@@ -1,9 +1,9 @@
 import {Module} from '../interfaces/module.interface';
 import JSX from '../jsx.compiler';
 
-export const DRIVE_MODULE: Module = {
-  id: 'drive',
-  name: 'Drive',
+export const STORAGE_MODULE: Module = {
+  id: 'storage',
+  name: 'Storage',
   schema: {
     properties: {
       id: {type: 'string'},
@@ -23,7 +23,7 @@ export const DRIVE_MODULE: Module = {
     queryFields: ['name', 'path', 'contentType'],
     template: (packet) => {
       const url = URL.createObjectURL(new Blob([JSON.stringify(packet)], {type: 'application/json'}));
-      return JSX(<jms-spotlight-drive-result url={url} />)
+      return JSX(<jms-spotlight-storage-result url={url} />)
     }
   },
 };

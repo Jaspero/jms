@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, Component, Inject, Input, OnInit} from '@angular/core';
-import {DriveItem} from 'definitions';
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
+import {StorageItem} from 'definitions';
 import {PreviewType} from '../../types/preview.type';
 import {detectPreviewType} from '../../utils/detect-preview-type';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {DriveService} from '../../services/drive/drive.service';
+import {StorageService} from '../../services/storage/storage.service';
 
 @Component({
   selector: 'jms-full-file-preview',
@@ -16,8 +16,8 @@ export class FullFilePreviewComponent implements OnInit {
   type: PreviewType = 'other';
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { item: DriveItem },
-    public drive: DriveService,
+    @Inject(MAT_DIALOG_DATA) public data: {item: StorageItem},
+    public storage: StorageService,
     public dialogRef: MatDialogRef<FullFilePreviewComponent>
   ) {
   }

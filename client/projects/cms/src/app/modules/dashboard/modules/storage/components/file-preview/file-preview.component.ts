@@ -1,5 +1,5 @@
 import {Component, OnInit, ChangeDetectionStrategy, Input} from '@angular/core';
-import {DriveItem} from 'definitions';
+import {StorageItem} from 'definitions';
 import {detectPreviewType} from '../../utils/detect-preview-type';
 import {PreviewType} from '../../types/preview.type';
 
@@ -11,7 +11,7 @@ import {PreviewType} from '../../types/preview.type';
 })
 export class FilePreviewComponent implements OnInit {
 
-  @Input() file: DriveItem;
+  @Input() file: StorageItem;
 
   type: PreviewType = 'other';
 

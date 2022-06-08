@@ -1,5 +1,5 @@
 import {Injectable, NgZone} from '@angular/core';
-import {DriveItem, FilterMethod} from 'definitions';
+import {StorageItem, FilterMethod} from 'definitions';
 import {deleteObject, getStorage, ref, uploadBytesResumable, UploadTask} from '@angular/fire/storage';
 import {random} from '@jaspero/utils';
 import {map, take, tap} from 'rxjs/operators';
@@ -13,7 +13,7 @@ import {StateService} from '../../../../../../shared/services/state/state.servic
 @Injectable({
   providedIn: 'root'
 })
-export class DriveService {
+export class StorageService {
 
   uploads$ = new BehaviorSubject([]);
   downloads$ = new BehaviorSubject([]);
@@ -29,7 +29,7 @@ export class DriveService {
   ) {
   }
 
-  downloadItem(item: DriveItem) {
+  downloadItem(item: StorageItem) {
     if (item.type === 'folder') {
       return console.log('Cannot download folder');
     }
@@ -159,7 +159,7 @@ export class DriveService {
           }
         ]);
 
-        const folders = await this.db.getDocuments('drive', undefined, undefined, undefined, [
+        const folders = await this.db.getDocuments('storage', undefined, undefined, undefined, [
           {
             key: 'path',
             operator: FilterMethod.Equal,
@@ -205,14 +205,14 @@ export class DriveService {
     }
   }
 
-  async removeItem(item: DriveItem) {
+  async removeItem(item: StorageItem) {
     const storageInstance = getStorage();
 
     const path = item.path === '.' ? item.name : `${item.path}/${item.name}`;
     try {
       await deleteObject(ref(storageInstance, path));
     } catch (e) {
-      const itemDocument = await this.db.getDocuments('drive', undefined, undefined, undefined, [
+      const itemDocument = await this.db.getDocuments('storage', undefined, undefined, undefined, [
         {
           key: 'path',
           operator: FilterMethod.Equal,
@@ -229,12 +229,12 @@ export class DriveService {
       ).toPromise();
 
       if (itemDocument?.id) {
-        await this.db.removeDocument('drive', itemDocument.id);
+        await this.db.removeDocument('storage', itemDocument.id);
       }
     }
   }
 
-  hasPermission(item: DriveItem, permission?: 'read' | 'write') {
+  hasPermission(item: StorageItem, permission?: 'read' | 'write') {
 
     const userId = this.state.user.id;
     const userRole = this.state.user.role;

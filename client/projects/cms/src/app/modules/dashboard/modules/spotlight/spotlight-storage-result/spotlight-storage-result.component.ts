@@ -1,18 +1,18 @@
-import {Component, OnInit, ChangeDetectionStrategy, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {take, tap} from 'rxjs/operators';
-import {DriveItem} from 'definitions';
+import {StorageItem} from 'definitions';
 import {Router} from '@angular/router';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
-  selector: 'jms-spotlight-drive-result',
-  templateUrl: './spotlight-drive-result.component.html',
-  styleUrls: ['./spotlight-drive-result.component.scss'],
+  selector: 'jms-spotlight-storage-result',
+  templateUrl: './spotlight-storage-result.component.html',
+  styleUrls: ['./spotlight-storage-result.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SpotlightDriveResultComponent implements OnInit {
+export class SpotlightStorageResultComponent implements OnInit {
 
   @Input()
   url: string;
@@ -37,7 +37,7 @@ export class SpotlightDriveResultComponent implements OnInit {
     this.packet$.pipe(
       take(1),
       tap((item: {
-        data: DriveItem,
+        data: StorageItem,
         module: string,
         moduleName: string
       }) => {
@@ -46,7 +46,7 @@ export class SpotlightDriveResultComponent implements OnInit {
         this.dialog.closeAll();
 
         const path = item.data.path.split('/').map(it => it === '.' ? '' : it).filter(it => !!it).join('/');
-        this.router.navigateByUrl('drive/' + path);
+        this.router.navigateByUrl('storage/' + path);
       })
     ).subscribe();
 

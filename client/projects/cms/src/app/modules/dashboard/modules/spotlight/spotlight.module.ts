@@ -9,11 +9,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SanitizeModule} from '@jaspero/ng-helpers';
 import {createCustomElement} from '@angular/elements';
 import {SpotlightResultComponent} from './spotlight-result/spotlight-result.component';
-import {SpotlightDriveResultComponent} from './spotlight-drive-result/spotlight-drive-result.component';
-import {DriveModule} from '../drive/drive.module';
+import {SpotlightStorageResultComponent} from './spotlight-storage-result/spotlight-storage-result.component';
+import {StorageModule} from '../storage/storage.module';
 
 @NgModule({
-  declarations: [SpotlightComponent, SpotlightResultComponent, SpotlightDriveResultComponent],
+  declarations: [SpotlightComponent, SpotlightResultComponent, SpotlightStorageResultComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -28,7 +28,7 @@ import {DriveModule} from '../drive/drive.module';
 
     TranslocoModule,
     SanitizeModule,
-    DriveModule
+    StorageModule
   ]
 })
 export class SpotlightModule {
@@ -41,8 +41,8 @@ export class SpotlightModule {
         component: SpotlightResultComponent
       },
       {
-        selector: 'jms-spotlight-drive-result',
-        component: SpotlightDriveResultComponent
+        selector: 'jms-spotlight-storage-result',
+        component: SpotlightStorageResultComponent
       }
     ].forEach(item => {
       const element = createCustomElement(item.component, {injector});

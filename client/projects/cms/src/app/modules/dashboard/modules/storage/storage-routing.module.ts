@@ -1,13 +1,13 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {DriveComponent} from './components/drive/drive.component';
-import {DriveModule} from './drive.module';
+import {StorageComponent} from './components/storage/storage.component';
+import {StorageModule} from './storage.module';
 import {RouteResolver} from './resolvers/route/route.resolver';
 
 const routes: Routes = [
   {
     path: '**',
-    component: DriveComponent,
+    component: StorageComponent,
     resolve: {
       route: RouteResolver
     }
@@ -17,9 +17,9 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forChild(routes),
-    DriveModule
+    StorageModule
   ],
   exports: [RouterModule]
 })
-export class DriveRoutingModule {
+export class StorageRoutingModule {
 }

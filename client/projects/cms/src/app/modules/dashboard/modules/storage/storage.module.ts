@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DriveComponent} from './components/drive/drive.component';
+import {StorageComponent} from './components/storage/storage.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
@@ -28,7 +28,7 @@ import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
-    DriveComponent,
+    StorageComponent,
     FilePreviewComponent,
     FullFilePreviewComponent,
     FileIconPipe,
@@ -63,9 +63,9 @@ import {MatSelectModule} from '@angular/material/select';
     MatSelectModule
   ],
   exports: [
-    DriveComponent,
+    StorageComponent,
     FileIconPipe
   ]
 })
-export class DriveModule {
+export class StorageModule {
 }

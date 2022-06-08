@@ -2,7 +2,7 @@
   <span>{{title}}</span>
   <div class="flex-1"></div>
 </mat-toolbar>
-<section class="drive">
+<section class="storage">
   <div class="container">
     <mat-card style="padding: 4px">
       <mat-card-title>
@@ -27,9 +27,9 @@
           <button mat-icon-button (click)="openNewFolderDialog()">
             <mat-icon>create_new_folder</mat-icon>
           </button>
-          <button mat-icon-button (click)="toggleView()">
-            <mat-icon>{{view === 'grid' ? 'list' : 'calendar_view_month'}}</mat-icon>
-          </button>
+<!--          <button mat-icon-button (click)="toggleView()">-->
+<!--            <mat-icon>{{view === 'grid' ? 'list' : 'calendar_view_month'}}</mat-icon>-->
+<!--          </button>-->
         </div>
       </mat-card-title>
     </mat-card>
@@ -53,17 +53,17 @@
         <ng-container [ngSwitch]="view">
           <ng-container *ngSwitchCase="'grid'">
             <!-- Folders -->
-            <p class="drive-subheader m-t-s" *ngIf="items.folders.length">Folders</p>
+            <p class="storage-subheader m-t-s" *ngIf="items.folders.length">Folders</p>
             <div class="grid jc-start p-a-0">
               <div *ngFor="let folder of items.folders; trackBy: trackByPath; index as index"
                    class="col-3 col-s-6 col-xs-12">
-                <mat-card class="drive-item" [tabIndex]="index + 1"
+                <mat-card class="storage-item" [tabIndex]="index + 1"
                           (mousedown)="focusItem($event)"
                           (dblclick)="navigateTo(folder, true)"
                           (contextmenu)="openItemContextMenu($event, folder)">
                   <div class="flex jc-start ai-center">
-                    <mat-icon class="drive-item-icon">{{folder | folderIcon}}</mat-icon>
-                    <div class="drive-item-name" [matTooltip]="folder.name" matTooltipShowDelay="1000">
+                    <mat-icon class="storage-item-icon">{{folder | folderIcon}}</mat-icon>
+                    <div class="storage-item-name" [matTooltip]="folder.name" matTooltipShowDelay="1000">
                       {{folder.name}}
                     </div>
                   </div>
@@ -72,23 +72,23 @@
             </div>
 
             <!-- Files -->
-            <p class="drive-subheader m-t-s" *ngIf="items.files.length">Files</p>
+            <p class="storage-subheader m-t-s" *ngIf="items.files.length">Files</p>
             <div class="grid jc-start p-a-0">
               <div *ngFor="let file of items.files; trackBy: trackByPath; index as index"
                    class="col-3 col-s-6 col-xs-12">
-                <mat-card class="drive-item file" [tabIndex]="items.folders.length + index + 1" style="padding: 0;"
+                <mat-card class="storage-item file" [tabIndex]="items.folders.length + index + 1" style="padding: 0;"
                           (mousedown)="focusItem($event)"
                           (contextmenu)="openItemContextMenu($event, file)"
                           (dblclick)="previewItem(file)">
-                  <div class="drive-item-file flex fd-col">
-                    <div class="drive-item-preview w-full" style="height: calc(100% - 48px);">
+                  <div class="storage-item-file flex fd-col">
+                    <div class="storage-item-preview w-full" style="height: calc(100% - 48px);">
                       <jms-file-preview [file]="file"></jms-file-preview>
                     </div>
                     <div style="height: 48px;" class="flex jc-start ai-center p-x-s">
                       <ng-container *ngIf="file | fileIcon as icon">
-                        <mat-icon class="drive-item-icon" [style]="'color: ' + icon.color">{{icon.name}}</mat-icon>
+                        <mat-icon class="storage-item-icon" [style]="'color: ' + icon.color">{{icon.name}}</mat-icon>
                       </ng-container>
-                      <div class="drive-item-name" [matTooltip]="file.name" matTooltipShowDelay="1000">
+                      <div class="storage-item-name" [matTooltip]="file.name" matTooltipShowDelay="1000">
                         {{file.name}}
                       </div>
                     </div>
@@ -105,13 +105,13 @@
   </div>
 </section>
 
-<div class="drive-actions">
-  <ng-container *ngIf="drive.downloads$ | async as downloads">
+<div class="storage-actions">
+  <ng-container *ngIf="storage.downloads$ | async as downloads">
     <mat-card *ngIf="downloads.length" class="downloads">
       <mat-card-title>
         <div class="flex jc-between ai-center m-t-s">
           <div>Downloads</div>
-          <button mat-icon-button (click)="drive.closeDownloads()">
+          <button mat-icon-button (click)="storage.closeDownloads()">
             <mat-icon>close</mat-icon>
           </button>
         </div>
@@ -123,7 +123,7 @@
           <div class="flex ai-center"
                (mouseenter)="mouseEnterDownload(download)"
                (mouseleave)="mouseLeaveDownload(download)">
-            <div (click)="drive.stopDownload(download)" style="height: 20px;">
+            <div (click)="storage.stopDownload(download)" style="height: 20px;">
               <ng-container *ngIf="download.percent$ | async as percent">
 
 
@@ -146,12 +146,12 @@
     </mat-card>
   </ng-container>
 
-  <ng-container *ngIf="drive.uploads$ | async as uploads">
+  <ng-container *ngIf="storage.uploads$ | async as uploads">
     <mat-card *ngIf="uploads.length" class="uploads">
       <mat-card-title>
         <div class="flex jc-between ai-center m-t-s">
           <div>Uploads</div>
-          <button mat-icon-button (click)="drive.closeUploads()">
+          <button mat-icon-button (click)="storage.closeUploads()">
             <mat-icon>close</mat-icon>
           </button>
         </div>
@@ -163,7 +163,7 @@
           <div class="flex ai-center"
                (mouseenter)="mouseEnterDownload(upload)"
                (mouseleave)="mouseLeaveDownload(upload)">
-            <div (click)="drive.stopUpload(upload)" style="height: 20px;">
+            <div (click)="storage.stopUpload(upload)" style="height: 20px;">
               <ng-container *ngIf="upload.percent$ | async as percent">
                 <ng-container *ngIf="upload.hover || percent === 100; else progress">
                   <mat-icon class="downloads-icon"
@@ -208,7 +208,7 @@
       class="contextmenu-dialog-item"
       mat-button
       mat-dialog-close
-      (click)="drive.downloadItem(data.item)">
+      (click)="storage.downloadItem(data.item)">
       <mat-icon>file_download</mat-icon>
       <span class="p-l-s">Download</span>
     </button>
@@ -217,7 +217,7 @@
       class="contextmenu-dialog-item"
       mat-button
       color="warn"
-      mat-dialog-close (click)="drive.removeItem(data.item)">
+      mat-dialog-close (click)="storage.removeItem(data.item)">
       <mat-icon>delete</mat-icon>
       <span class="p-l-s">Remove</span>
     </button>
@@ -244,7 +244,7 @@
       class="contextmenu-dialog-item"
       mat-button
       color="warn"
-      mat-dialog-close (click)="drive.removeItem(data.item)">
+      mat-dialog-close (click)="storage.removeItem(data.item)">
       <mat-icon>delete</mat-icon>
       <span class="p-l-s">Remove</span>
     </button>
@@ -330,7 +330,7 @@
             <div style="color: #7c7c7c;">
               <b>Location</b>
             </div>
-            <div>{{data.item.path === '.' ? 'My Drive' : data.item.path}}</div>
+            <div>{{data.item.path === '.' ? 'My Storage' : data.item.path}}</div>
           </div>
         </mat-list-item>
 
