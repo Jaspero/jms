@@ -206,6 +206,5 @@ export const fileCreated = functions
     const unLink = promisify(unlink);
 
     await Promise.all(toGenerate.map(it => unLink(it.tmpDir)));
-
     return true;
   });

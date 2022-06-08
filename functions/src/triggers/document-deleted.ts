@@ -46,30 +46,30 @@ export const documentDeleted = functions
           )
       );
 
-      if (moduleDoc.metadata) {
+    if (moduleDoc.metadata) {
 
-        const {deletedAuthUser, subCollections} = moduleDoc.metadata;
+      const {deletedAuthUser, subCollections} = moduleDoc.metadata;
 
-        if (deletedAuthUser) {
-          toExec.push(
-            admin.auth().deleteUser(documentId)
-          )
-        }
-
-        if (subCollections) {
-          subCollections.forEach(
-            ({name, batch}: {name: string; batch?: number}) => {
-              toExec.push(
-                deleteCollection(
-                  firestore,
-                  `${moduleId}/${documentId}/${name}`,
-                  batch || 100
-                )
-              );
-            }
-          );
-        }
+      if (deletedAuthUser) {
+        toExec.push(
+          admin.auth().deleteUser(documentId)
+        );
       }
+
+      if (subCollections) {
+        subCollections.forEach(
+          ({name, batch}: {name: string; batch?: number}) => {
+            toExec.push(
+              deleteCollection(
+                firestore,
+                `${moduleId}/${documentId}/${name}`,
+                batch || 100
+              )
+            );
+          }
+        );
+      }
+    }
 
     if (toExec.length) {
       await Promise.all(toExec);
