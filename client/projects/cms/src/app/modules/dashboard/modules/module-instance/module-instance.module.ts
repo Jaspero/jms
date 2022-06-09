@@ -27,7 +27,6 @@ import {ElementsModule} from '../../../../elements/elements.module';
 import {FormBuilderSharedModule} from '../../../../shared/modules/fb/form-builder-shared.module';
 import {SearchInputModule} from '../../../../shared/modules/search-input/search-input.module';
 import {FileManagerModule} from '../file-manager/file-manager.module';
-import {ForceDisableDirective} from './directives/force-disable/force-disable.directive';
 import {CanReadModuleGuard} from './guards/can-read-module/can-read-module.guard';
 import {ConfirmExitGuard} from './guards/confirm-exit/confirm-exit.guard';
 import {CustomModuleGuard} from './guards/custom-module/custom-module.guard';
@@ -36,6 +35,7 @@ import {InstanceSingleComponent} from './pages/instance-single/instance-single.c
 import {ColumnPipe} from './pipes/column/column.pipe';
 import {EllipsisPipe} from './pipes/ellipsis/ellipsis.pipe';
 import {InstanceOverviewContextService} from './services/instance-overview-context.service';
+import {ForceDisableModule} from '../../../../shared/modules/force-disable/force-disable.module';
 
 export function moduleProvider(ic: InstanceOverviewContextService) {
   return ic.module$;
@@ -81,12 +81,7 @@ function routes(deep = 10) {
      * Pipes
      */
     EllipsisPipe,
-    ColumnPipe,
-
-    /**
-     * Directives
-     */
-    ForceDisableDirective
+    ColumnPipe
   ],
   providers: [
     InstanceOverviewContextService,
@@ -117,6 +112,7 @@ function routes(deep = 10) {
      */
     FormBuilderSharedModule,
     SearchInputModule,
+    ForceDisableModule,
     ElementsModule,
 
     /**

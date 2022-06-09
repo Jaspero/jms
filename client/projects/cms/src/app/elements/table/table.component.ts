@@ -68,8 +68,8 @@ interface TableData {
   hideExport?: boolean;
   hideImport?: boolean;
   hasActions: boolean;
-  actions?: Observable<Action[]>;
-  selectionActions?: Observable<Action<SelectionModel<string>>[]>;
+  actions?: Action[];
+  selectionActions?: Action<SelectionModel<string>>[];
 }
 
 @Element()
@@ -119,7 +119,9 @@ export class TableComponent implements OnInit, AfterViewInit {
     read: false
   };
   maxHeight$ = new Subject<string>();
-  actions = {};
+  actions: {
+    [key: string]: Observable<any>
+  } = {};
 
   get showDelete() {
     return !this.data.hideDelete && this.permission.write;

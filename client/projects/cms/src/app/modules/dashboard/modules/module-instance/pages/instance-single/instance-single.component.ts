@@ -66,7 +66,9 @@ export class InstanceSingleComponent implements OnInit {
   saveBuffer$ = new Subject<Instance>();
   first = true;
   confirmExitOnTouched: boolean;
-  actions = {};
+  actions: {
+    [key: string]: Observable<any>
+  } = {};
   private autoSaveListener: Subscription;
 
   ngOnInit() {

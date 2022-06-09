@@ -194,10 +194,10 @@
             <ng-container *ngIf="!data.hideEdit || !data.hideDelete || data.actions?.length" matColumnDef="actions" stickyEnd>
               <th class="cta-column-last" mat-header-cell *matHeaderCellDef></th>
               <td class="cta-column-last" mat-cell *matCellDef="let element" [attr.data-label]="'ACTIONS' | transloco">
-                <button mat-icon-button [matMenuTriggerFor]="menu" [attr.aria-label]="'ACTIONS' | transloco" [matTooltip]="'ACTIONS' | transloco">
+                <button mat-icon-button [matMenuTriggerFor]="actionsMenu" [attr.aria-label]="'ACTIONS' | transloco" [matTooltip]="'ACTIONS' | transloco">
                   <mat-icon>more_vert</mat-icon>
                 </button>
-                <mat-menu #menu="matMenu">
+                <mat-menu #actionsMenu="matMenu">
                   <ng-template matMenuContent>
                     <ng-container *ngIf="data.actions && data.actions.length">
                       <ng-container *ngFor="let action of data.actions; index as i">
