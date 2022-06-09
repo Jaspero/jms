@@ -13,5 +13,5 @@ export const SHARED_CONFIG: {
 	},
 	projectId: 'jaspero-jms',
 	cloudRegion: 'us-central1',
-	webUrl: 'https://jaspero-jms.firebaseapp.com',
+	webUrl: 'https://jaspero-jms.web.app',
 };

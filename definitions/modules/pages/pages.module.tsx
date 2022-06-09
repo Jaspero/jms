@@ -46,7 +46,7 @@ export const PAGES_MODULE: Module = {
           label: 'URL',
           pipe: [PipeType.Custom],
           pipeArguments: {
-            0: id => JSX(<a class="link" target="_blank" href={SHARED_CONFIG.webUrl + id}>{id}</a>)
+            0: id => JSX(<a class="link" target="_blank" href={SHARED_CONFIG.webUrl + '/' + id}>{id}</a>)
           }
         },
         {key: '/active', label: 'ACTIVE', control: true},
