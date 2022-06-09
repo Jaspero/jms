@@ -11,4 +11,5 @@ export interface ModuleInstanceAction {
    */
   criteria?: string;
   menuStyle?: boolean;
+  children?: ModuleInstanceAction[];
 }

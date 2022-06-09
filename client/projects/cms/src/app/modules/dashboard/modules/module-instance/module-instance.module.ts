@@ -36,6 +36,7 @@ import {ColumnPipe} from './pipes/column/column.pipe';
 import {EllipsisPipe} from './pipes/ellipsis/ellipsis.pipe';
 import {InstanceOverviewContextService} from './services/instance-overview-context.service';
 import {ForceDisableModule} from '../../../../shared/modules/force-disable/force-disable.module';
+import {EvalModule} from '../../../../shared/modules/eval/eval.module';
 
 export function moduleProvider(ic: InstanceOverviewContextService) {
   return ic.module$;
@@ -148,7 +149,8 @@ function routes(deep = 10) {
      * External
      */
     TranslocoModule,
-    FileManagerModule
+    FileManagerModule,
+    EvalModule
   ]
 })
 export class ModuleInstanceModule { }

@@ -66,9 +66,6 @@ export class InstanceSingleComponent implements OnInit {
   saveBuffer$ = new Subject<Instance>();
   first = true;
   confirmExitOnTouched: boolean;
-  actions: {
-    [key: string]: Observable<any>
-  } = {};
   private autoSaveListener: Subscription;
 
   ngOnInit() {
@@ -292,11 +289,8 @@ export class InstanceSingleComponent implements OnInit {
     }
   }
 
-  toActionObservable(value, data, index) {
-    const observable = toObservable(value({id: this.util.docId, data}))
-      .pipe(shareReplay(1));
-
-    this.actions[data.id + '/' + index] = observable;
-    return observable;
+  toActionObservable(value, data) {
+    return toObservable(value({id: this.util.docId, data}))
+      .pipe(shareReplay(1)) as Observable<string>;
   }
 }
