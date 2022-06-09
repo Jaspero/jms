@@ -37,6 +37,7 @@
     {
       "target": "web",
       "public": "public/web",
+      "cleanUrls": true,
       "ignore": [
         "firebase.json",
         "**/.*",
@@ -49,6 +50,24 @@
             {
               "key": "x-frame-options",
               "value": "DENY"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|eot|otf|ttf|ttc|woff|woff2|font.css)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "max-age=31556926"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(js|css)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "max-age=3600"
             }
           ]
         }
