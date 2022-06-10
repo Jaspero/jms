@@ -4,8 +4,8 @@ import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angul
 import {ActivatedRoute, Router} from '@angular/router';
 import {notify} from '@shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
-import {from} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {from, throwError} from 'rxjs';
+import {catchError, tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../environments/static-config';
 
 @Component({
@@ -27,6 +27,9 @@ export class ResetPasswordComponent implements OnInit {
   staticConfig = STATIC_CONFIG;
   code: string;
   loginUrl = STATIC_CONFIG.loginRoute;
+  errorMap = {
+    'auth/invalid-action-code': 'INVALID_ACTION_CODE',
+  };
 
   ngOnInit() {
 
@@ -34,13 +37,15 @@ export class ResetPasswordComponent implements OnInit {
 
     this.form = this.fb.group(
       {
-        password: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(6)]],
         repeatPassword: ['', Validators.required]
       },
       {
         validator: RepeatPasswordValidator('')
       } as AbstractControlOptions
     );
+
+    this.form.valueChanges.subscribe(a => console.log(this.form))
   }
 
   reset() {
@@ -53,6 +58,11 @@ export class ResetPasswordComponent implements OnInit {
         )
       )
         .pipe(
+          catchError(error => 
+            throwError(() => ({
+              message: this.errorMap[error.code] || 'RESET_PASSWORD.ERROR_MESSAGE'
+            }))
+          ),
           notify({
             success: 'RESET_SUCCESSFUL'
           }),

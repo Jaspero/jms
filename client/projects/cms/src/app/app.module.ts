@@ -13,6 +13,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ConfirmationComponent} from './shared/components/confirmation/confirmation.component';
 import {MathPipe} from './shared/pipes/math/math-pipe.';
+import {StateService} from './shared/services/state/state.service';
 import {appInit} from './shared/utils/app-init';
 import {TranslocoRootModule} from './transloco-root.module';
 
@@ -75,6 +76,10 @@ const PIPES = [
       useFactory: init,
       deps: [Injector],
       multi: true
+    },
+    {
+      provide: 'MAIN_STATE',
+      useExisting: StateService
     }
   ],
   bootstrap: [AppComponent]
