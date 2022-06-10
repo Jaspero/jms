@@ -10,7 +10,7 @@ const server = createServer({
  * Request proxy href with query parameter 'url' containing the URL to be proxied.
  *
  * Example:
- * https://us-central1-jp-site-tracker.cloudfunctions.net/cms-proxy?url=https://www.google.com
+ * https://us-central1-jaspero-jms.cloudfunctions.net/cms-proxy?url=https://www.google.com
  */
 export const proxy = functions
   .region(SHARED_CONFIG.cloudRegion)

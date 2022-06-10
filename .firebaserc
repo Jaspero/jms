@@ -1,14 +1,14 @@
 {
   "targets": {
-    "jp-site-tracker": {
+    "jaspero-jms": {
       "hosting": {
         "cms": [
-          "jp-site-tracker"
+          "jaspero-jms"
         ]
       }
     }
   },
   "projects": {
-    "default": "jp-site-tracker"
+    "default": "jaspero-jms"
   }
 }
