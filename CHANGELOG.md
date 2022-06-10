@@ -1,3 +1,24 @@
+## [5.28.4](https://github.com/jaspero/jms/compare/v5.28.3...v5.28.4) (2022-06-08)
+
+
+### Bug Fixes
+
+* **workflows:** missing correct package-lock ([a2729c2](https://github.com/jaspero/jms/commit/a2729c25aaeb970aa130abd41421fc43cd96dd06))
+
+## [5.28.3](https://github.com/jaspero/jms/compare/v5.28.2...v5.28.3) (2022-06-08)
+
+
+### Bug Fixes
+
+* **workflows:** deploy firebase functions using node 14. form-builder incompatible dependencies ([e4577f8](https://github.com/jaspero/jms/commit/e4577f86a3372d7c5a2e9173d9001210baabd341))
+
+## [5.28.2](https://github.com/jaspero/jms/compare/v5.28.1...v5.28.2) (2022-05-20)
+
+
+### Bug Fixes
+
+* **cms:** controls in table rows not saving when there is more then one row ([e29a91a](https://github.com/jaspero/jms/commit/e29a91aaa3de0057d3fd4e086bb3b22ad8e6d907))
+
 ## [5.28.1](https://github.com/jaspero/jms/compare/v5.28.0...v5.28.1) (2022-05-13)
 
 

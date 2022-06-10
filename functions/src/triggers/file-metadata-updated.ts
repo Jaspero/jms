@@ -12,12 +12,10 @@ export const fileMetadataUpdated = functions
   })
   .storage.object()
   .onMetadataUpdate(async ({name, metadata}: ObjectMetadata) => {
-
     const fileName = basename(name);
     const filePath = dirname(name);
-
-    const driveDocument = await firestore()
-      .collection('drive')
+    const storageDocument = await firestore()
+      .collection('storage')
       .where('name', '==', fileName)
       .where('path', '==', filePath).get().then(snapshot => {
         if (snapshot.empty) {
@@ -29,8 +27,8 @@ export const fileMetadataUpdated = functions
         };
       });
 
-    if (driveDocument) {
-      await firestore().collection('drive').doc(driveDocument.id).set({
+    if (storageDocument) {
+      await firestore().collection('storage').doc(storageDocument.id).set({
         metadata
       }, {merge: true});
     }

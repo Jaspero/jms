@@ -21,11 +21,11 @@ export const fileCreated = functions
     const fileName = basename(name);
     const dirName = dirname(name);
     const folders = {};
-    
+
     /**
-     * Drive
+     * Storage
      */
-    const driveDocument = {
+    const storageDocument = {
       name: fileName,
       path: dirName,
       type: name.endsWith('/') ? 'folder' : 'file',
@@ -34,11 +34,10 @@ export const fileCreated = functions
       createdOn: new Date(timeCreated).getTime(),
       size: Number(size || 0)
     };
-
-    const previousDriveDocument = await firestore()
-      .collection('drive')
-      .where('name', '==', driveDocument.name)
-      .where('path', '==', driveDocument.path).get().then(snapshot => {
+    const previousStorageDocument = await firestore()
+      .collection('storage')
+      .where('name', '==', storageDocument.name)
+      .where('path', '==', storageDocument.path).get().then(snapshot => {
         if (snapshot.empty) {
           return null;
         }
@@ -48,16 +47,16 @@ export const fileCreated = functions
         };
       });
 
-    if (previousDriveDocument) {
-      await firestore().collection('drive').doc(previousDriveDocument.id).set(driveDocument, {merge: true});
+    if (previousStorageDocument) {
+      await firestore().collection('storage').doc(previousStorageDocument.id).set(storageDocument, {merge: true});
     } else {
-      await firestore().collection('drive').add(driveDocument);
+      await firestore().collection('storage').add(storageDocument);
     }
 
     /**
      * Mimic folder documents since they are not created by the Firebase
      */
-    const paths = driveDocument.path.split('/');
+    const paths = storageDocument.path.split('/');
     for (let i = 0; i < paths.length; i++) {
       const parentPath = paths.slice(0, i + 1).join('/');
 
@@ -73,23 +72,23 @@ export const fileCreated = functions
           type: 'folder',
           metadata: {},
           contentType: 'text/plain',
-          createdOn: driveDocument.createdOn,
+          createdOn: storageDocument.createdOn,
           size: 0
         };
       }
 
-      if (driveDocument.createdOn < folders[parentPath].createdOn) {
-        folders[parentPath].createdOn = driveDocument.createdOn;
+      if (storageDocument.createdOn < folders[parentPath].createdOn) {
+        folders[parentPath].createdOn = storageDocument.createdOn;
       }
     }
 
     for (const [_, folder] of Object.entries(folders)) {
-      const previousFolder = await firestore().collection('drive')
+      const previousFolder = await firestore().collection('storage')
         .where('name', '==', (folder as any).name)
         .where('path', '==', (folder as any).path).get();
 
       if (previousFolder.empty) {
-        await firestore().collection('drive').add(folder);
+        await firestore().collection('storage').add(folder);
       }
     }
 
@@ -206,6 +205,5 @@ export const fileCreated = functions
     const unLink = promisify(unlink);
 
     await Promise.all(toGenerate.map(it => unLink(it.tmpDir)));
-
     return true;
   });

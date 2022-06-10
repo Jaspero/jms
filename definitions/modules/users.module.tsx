@@ -8,7 +8,7 @@ import {EMAIL_PIPE} from './shared/email-pipe';
 import {YES_NO_FILTER_PIPE} from './shared/yes-no-pipe';
 
 export const USERS_MODULE: Module = {
-  id: Collections.Users,  
+  id: Collections.Users,
   name: 'USERS',
   layout: {
     editTitleKey: 'name',
@@ -215,28 +215,8 @@ export const USERS_MODULE: Module = {
       label: 'PROFILE_IMAGE',
       component: {
         type: 'image',
-        configuration: () => {
-          const route = `/users/${window.jms.util.docId}`;
-          const minPath = window.jms.util.state.role !== 'admin' ? route : `/`;
-
-          return {
-            filePrefix: route + '/',
-            uploadMethods: [{
-              id: 'file-manager',
-              label: 'FILE_MANAGER.TITLE',
-              component: JSX(<jms-e-file-manager-select/>),
-              configuration: {
-                hidePath: false,
-                hideFolders: false,
-                allowUpload: true,
-                minPath,
-                route,
-                filters: [{
-                  value: file => file.contentType.startsWith('image/')
-                }]
-              }
-            }]
-          }
+        configuration: {
+          allowedImageTypes: []
         }
       }
     },
