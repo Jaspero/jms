@@ -1,3 +1,10 @@
+# [5.30.0](https://github.com/jaspero/jms/compare/v5.29.0...v5.30.0) (2022-06-10)
+
+
+### Features
+
+* **cms:** waiting for transloco to load before showing notifications; showing passwords not matching error; ([85c293e](https://github.com/jaspero/jms/commit/85c293e91a63e82268f310b48b8cc0fdd4760719))
+
 # [5.29.0](https://github.com/jaspero/jms/compare/v5.28.4...v5.29.0) (2022-06-10)
 
 
