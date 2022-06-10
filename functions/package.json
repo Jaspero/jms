@@ -14,7 +14,7 @@
     "config": "firebase functions:config:get > .runtimeconfig.json"
   },
   "engines": {
-    "node": "10"
+    "node": "16"
   },
   "main": "lib/index.js",
   "dependencies": {

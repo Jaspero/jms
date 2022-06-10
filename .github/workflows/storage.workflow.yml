@@ -11,7 +11,7 @@ on:
 jobs:
   deploy:
     env: 
-      project: 'jaspero-jms'
+      project: 'jp-site-tracker'
     name: Deploy
     runs-on: ubuntu-latest
     steps:
