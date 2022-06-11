@@ -1,16 +1,16 @@
 import {SelectionModel} from '@angular/cdk/collections';
-import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Parser} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {FilterMethod, InstanceSort, Module, ModuleOverviewView} from 'definitions';
-import {BehaviorSubject, combineLatest, merge, Subject} from 'rxjs';
-import {map, shareReplay, skip, startWith, switchMap, tap} from 'rxjs/operators';
+import {ModuleOverviewView} from 'definitions';
+import {BehaviorSubject, combineLatest, Subject} from 'rxjs';
+import {map, shareReplay, startWith, switchMap} from 'rxjs/operators';
 import {createSelector} from '../../../../../../elements/element.decorator';
 import {DEFAULT_PAGE_SIZE} from '../../../../../../shared/consts/page-sizes.const';
-import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
-import {queue} from '../../../../../../shared/utils/queue.operator';
+import {OverviewService} from '../../interfaces/overview-service.interface';
+import {DefaultOverviewService} from '../../services/default-overview.service';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
 
 @UntilDestroy()
@@ -23,9 +23,9 @@ import {InstanceOverviewContextService} from '../../services/instance-overview-c
 export class InstanceOverviewComponent implements OnInit, AfterViewInit {
   constructor(
     public ioc: InstanceOverviewContextService,
-    private dbService: DbService,
     private state: StateService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private injector: Injector
   ) {
   }
 
@@ -36,6 +36,7 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
   views: ModuleOverviewView[];
   toolbar: string[];
   hideAdd = false;
+  overviewService: OverviewService;
 
   ngOnInit() {
     this.ioc.module$
@@ -50,6 +51,7 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
           search: ''
         };
 
+        this.overviewService = this.injector.get(module.layout?.overview?.service || DefaultOverviewService);
         this.ioc.setUp(this.cdr);
         this.state.restoreRouteData(defaultData);
         this.ioc.routeData = this.state.getRouterData(defaultData);
@@ -163,120 +165,13 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
             this.state.setRouteData(routeData);
             this.ioc.routeData = routeData;
 
-            return this.dbService.getDocuments(
-              module.id,
+            return this.overviewService.get(
+              module,
               pageSize,
-              routeData.sort,
-              null,
-              this.generateFilters(
-                module,
-                search,
-                filter
-              ),
-              null,
-              module.collectionGroup
-            )
-              .pipe(
-                queue()
-              );
-          }),
-          switchMap(snapshots => {
-            let cursor;
-
-            this.ioc.hasMore$.next(snapshots.length === this.ioc.routeData.pageSize);
-
-            if (snapshots.length) {
-              cursor = snapshots[snapshots.length - 1];
-              this.ioc.emptyState$.next(false);
-            } else {
-              this.ioc.emptyState$.next(true);
-            }
-
-            const changeListener = (cu = null) => {
-              return this.dbService.getStateChanges(
-                module.id,
-                this.ioc.routeData.pageSize,
-                this.ioc.routeData.sort,
-                cu,
-                this.generateFilters(module),
-                module.collectionGroup
-              ).pipe(
-                skip(1),
-                tap(snaps => {
-                  snaps.forEach(snap => {
-                    const index = snapshots.findIndex(
-                      sp => sp.id === snap.doc.id
-                    );
-
-                    switch (snap.type) {
-                      case 'added':
-                        if (index === -1) {
-                          snapshots.splice(snap.newIndex, 0, snap.doc);
-                        }
-                        break;
-                      case 'modified':
-                        if (index !== -1) {
-                          snapshots[index] = snap.doc;
-                        }
-                        break;
-                      case 'removed':
-                        if (index !== -1) {
-                          snapshots.splice(index, 1);
-                        }
-                        break;
-                    }
-                  });
-                })
-              );
-            };
-
-            return merge(
-              this.ioc.loadMore$
-                .pipe(
-                  switchMap(() =>
-                    merge(
-                      this.dbService
-                        .getDocuments(
-                          module.id,
-                          this.ioc.routeData.pageSize,
-                          this.ioc.routeData.sort,
-                          cursor,
-                          this.generateFilters(module),
-                          null,
-                          module.collectionGroup
-                        )
-                        .pipe(
-                          queue(),
-                          tap(snaps => {
-                            if (snaps.length < this.ioc.routeData.pageSize) {
-                              this.ioc.hasMore$.next(false);
-                            }
-
-                            if (snaps.length) {
-                              cursor = snaps[snaps.length - 1];
-
-                              snapshots.push(
-                                ...snaps
-                              );
-                            }
-                          })
-                        ),
-                      changeListener(cursor)
-                    )
-                  )
-                ),
-              changeListener(null)
-            )
-              .pipe(
-                startWith({}),
-                map(() =>
-                  snapshots.map(it => ({
-                    data: it.data(),
-                    ref: it.ref,
-                    id: it.id
-                  }))
-                )
-              );
+              filter,
+              search,
+              sort
+            );
           }),
           shareReplay(1)
         );
@@ -317,19 +212,5 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
     this.ioc.subHeaderTemplate$.next(null);
     this.currentView = this.getCurrentView(view);
     this.cdr.markForCheck();
-  }
-
-  generateFilters(
-    module: Module,
-    search = this.ioc.searchControl.value,
-    filter = this.ioc.routeData.filter
-  ) {
-    return search && search.trim() ?
-      [{
-        key: module.layout.searchModule.key,
-        operator: module.layout.searchModule.simple ? FilterMethod.Equal : FilterMethod.ArrayContains,
-        value: search.trim().toLowerCase()
-      }] :
-      filter;
   }
 }

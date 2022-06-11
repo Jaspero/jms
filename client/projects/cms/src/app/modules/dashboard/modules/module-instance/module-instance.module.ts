@@ -36,6 +36,8 @@ import {ColumnPipe} from './pipes/column/column.pipe';
 import {EllipsisPipe} from './pipes/ellipsis/ellipsis.pipe';
 import {InstanceOverviewContextService} from './services/instance-overview-context.service';
 import {ForceDisableModule} from '../../../../shared/modules/force-disable/force-disable.module';
+import {DefaultOverviewService} from './services/default-overview.service';
+import {DefaultSingleService} from './services/default-single.service';
 
 export function moduleProvider(ic: InstanceOverviewContextService) {
   return ic.module$;
@@ -88,6 +90,13 @@ function routes(deep = 10) {
     CustomModuleGuard,
     CanReadModuleGuard,
     ConfirmExitGuard,
+
+    /**
+     * Provide any additional overview and single services here
+     * https://github.com/Jaspero/jms/wiki/Common-Tasks#custom-services-for-modules
+     */
+    DefaultOverviewService,
+    DefaultSingleService,
 
     /**
      * We register a few general providers for

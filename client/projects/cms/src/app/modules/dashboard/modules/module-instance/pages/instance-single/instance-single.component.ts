@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ModuleAuthorization} from 'definitions';
 import {FormBuilderData, FormBuilderComponent, State} from '@jaspero/form-builder';
@@ -8,7 +8,6 @@ import {notify} from '@shared/utils/notify.operator';
 import {interval, Observable, of, Subject, Subscription} from 'rxjs';
 import {debounceTime, map, shareReplay, switchMap, tap} from 'rxjs/operators';
 import {ViewState} from '../../../../../../shared/enums/view-state.enum';
-import {DbService} from '../../../../../../shared/services/db/db.service';
 import {UtilService} from '../../../../../../shared/services/util/util.service';
 import {queue} from '../../../../../../shared/utils/queue.operator';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
@@ -16,6 +15,8 @@ import {Action} from '../../../../../../shared/interfaces/action.interface';
 import {processActions} from '../../../../../../shared/utils/process-actions';
 import {StateService} from '../../../../../../shared/services/state/state.service';
 import {toObservable} from '../../../../../../shared/utils/to-observable';
+import {SingleService} from '../../interfaces/single-service.interface';
+import {DefaultSingleService} from '../../services/default-single.service';
 
 interface Instance {
   module: {
@@ -47,10 +48,10 @@ export class InstanceSingleComponent implements OnInit {
   constructor(
     public ioc: InstanceOverviewContextService,
     public util: UtilService,
-    private dbService: DbService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private state: StateService
+    private state: StateService,
+    private injector: Injector
   ) {
   }
 
@@ -69,12 +70,16 @@ export class InstanceSingleComponent implements OnInit {
   actions: {
     [key: string]: Observable<any>
   } = {};
+  singleService: SingleService;
   private autoSaveListener: Subscription;
 
   ngOnInit() {
     this.data$ = this.ioc.module$.pipe(
-      switchMap(module =>
-        this.activatedRoute.params.pipe(
+      switchMap(module => {
+
+        this.singleService = this.injector.get(module.layout?.instance?.service || DefaultSingleService);
+
+        return this.activatedRoute.params.pipe(
           switchMap(params => {
 
             const id = Object.entries(params).reduce((acc, [key, value]) => {
@@ -97,14 +102,14 @@ export class InstanceSingleComponent implements OnInit {
             } else if (id.endsWith('--copy')) {
               this.currentState = ViewState.Copy;
               this.formState = State.Create;
-              return this.dbService
-                .getDocument(module.id, id.replace('--copy', ''))
+              return this.singleService
+                .get(module.id, id.replace('--copy', ''))
                 .pipe(queue());
             } else {
               this.currentState = ViewState.Edit;
               this.formState = State.Edit;
-              return this.dbService
-                .getDocument(module.id, id)
+              return this.singleService
+                .get(module.id, id)
                 .pipe(queue());
             }
           }),
@@ -201,7 +206,7 @@ export class InstanceSingleComponent implements OnInit {
             };
           })
         )
-      )
+      })
     );
 
     this.saveBuffer$
@@ -241,7 +246,7 @@ export class InstanceSingleComponent implements OnInit {
 
           delete data.id;
 
-          return this.dbService.setDocument(instance.module.id, id, data);
+          return this.singleService.save(instance.module.id, id, data);
         })
       ];
 
