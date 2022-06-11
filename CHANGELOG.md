@@ -1,3 +1,10 @@
+# [5.31.0](https://github.com/jaspero/jms/compare/v5.30.0...v5.31.0) (2022-06-11)
+
+
+### Features
+
+* **cms:** providing different services for overview and single closes [#381](https://github.com/jaspero/jms/issues/381) ([e1acfc0](https://github.com/jaspero/jms/commit/e1acfc0f9d14c4cbfbf467d869bbf83577dfc96d))
+
 # [5.30.0](https://github.com/jaspero/jms/compare/v5.29.0...v5.30.0) (2022-06-10)
 
 
