@@ -1,3 +1,25 @@
+# [5.31.0](https://github.com/jaspero/jms/compare/v5.30.0...v5.31.0) (2022-06-11)
+
+
+### Features
+
+* **cms:** providing different services for overview and single closes [#381](https://github.com/jaspero/jms/issues/381) ([e1acfc0](https://github.com/jaspero/jms/commit/e1acfc0f9d14c4cbfbf467d869bbf83577dfc96d))
+
+# [5.30.0](https://github.com/jaspero/jms/compare/v5.29.0...v5.30.0) (2022-06-10)
+
+
+### Features
+
+* **cms:** waiting for transloco to load before showing notifications; showing passwords not matching error; ([85c293e](https://github.com/jaspero/jms/commit/85c293e91a63e82268f310b48b8cc0fdd4760719))
+
+# [5.29.0](https://github.com/jaspero/jms/compare/v5.28.4...v5.29.0) (2022-06-10)
+
+
+### Features
+
+* initial setup ([c7bbca1](https://github.com/jaspero/jms/commit/c7bbca1b0508562dc12ea44f3398b4f4e62dce63))
+* initial setup ([ad65190](https://github.com/jaspero/jms/commit/ad65190de776f2f6ff61d03d41961d6b3d144fb7))
+
 ## [5.28.4](https://github.com/jaspero/jms/compare/v5.28.3...v5.28.4) (2022-06-08)
 
 

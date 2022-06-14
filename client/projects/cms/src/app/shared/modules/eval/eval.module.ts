@@ -1,8 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {EvalPipe} from '../eval.pipe';
-
-
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {EvalPipe} from './eval.pipe';
 
 @NgModule({
   declarations: [

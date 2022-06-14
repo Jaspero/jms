@@ -20,4 +20,5 @@ export interface ModuleInstance {
   formatOnLoad?: string | FormatMethod;
   segments: Segment[];
   actions?: ModuleInstanceAction[];
+  service?: string;
 }
