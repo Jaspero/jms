@@ -48,6 +48,7 @@ import {UserActionsComponent} from './user-actions/user-actions.component';
 import {UserAddComponent} from './user-add/user-add.component';
 import {SearchInputModule} from '../shared/modules/search-input/search-input.module';
 import {ForceDisableModule} from '../shared/modules/force-disable/force-disable.module';
+import {EvalModule} from '../shared/modules/eval/eval.module';
 
 @NgModule({
   imports: [
@@ -89,7 +90,8 @@ import {ForceDisableModule} from '../shared/modules/force-disable/force-disable.
     StopPropagationModule,
     SanitizeModule,
     SearchInputModule,
-    ForceDisableModule
+    ForceDisableModule,
+    EvalModule
   ],
   exports: [],
   declarations: [

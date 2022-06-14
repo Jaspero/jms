@@ -1,7 +1,6 @@
 <ng-template #columnLayout let-column="column" let-row="row" let-index="index">
   <ng-container *ngIf="row[index]">
     <ng-template [cdkPortalOutlet]="row[index].value"></ng-template>
-
     <ng-container *ngFor="let nested of column.nestedColumns || []; index as nestedIndex">
       <ng-container *ngTemplateOutlet="columnLayout; context: {column: nested, row: row[index].nested, index: nestedIndex}"></ng-container>
     </ng-container>
@@ -97,7 +96,7 @@
             </span>
           </ng-container>
 
-          <jms-import *ngIf="!data.hideImport" [collection]="data.moduleId" [importModule]="data.importModule" [schema]="data.schema"> </jms-import>
+          <jms-import *ngIf="!data.hideImport" [collection]="data.moduleId" [importModule]="data.importModule" [schema]="data.schema"></jms-import>
 
           <ng-container *ngIf="data.filterModule && !data.filterModule.hidden">
             <span class="hide-xs">
@@ -154,7 +153,7 @@
               <ng-container matColumnDef="check" sticky>
                 <th class="cta-column" mat-header-cell *matHeaderCellDef></th>
                 <td class="cta-column" mat-cell *matCellDef="let row" [attr.data-label]="'SELECT' | transloco">
-                  <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? ioc.selection.toggle(row.id) : null" [checked]="ioc.selection.isSelected(row.id)" color="primary"> </mat-checkbox>
+                  <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? ioc.selection.toggle(row.id) : null" [checked]="ioc.selection.isSelected(row.id)" color="primary"></mat-checkbox>
                 </td>
               </ng-container>
             </ng-container>
@@ -199,20 +198,38 @@
                 </button>
                 <mat-menu #actionsMenu="matMenu">
                   <ng-template matMenuContent>
-                    <ng-container *ngIf="data.actions && data.actions.length">
-                      <ng-container *ngFor="let action of data.actions; index as i">
-                        <ng-container *ngIf="action.criteria | async as criteria">
-                          <ng-container *ngIf="criteria.value === undefined || criteria.value">
-                            <ng-container *ngIf="action.value | async as value">
+                    <ng-template #actionTemplate let-action="action">
+                      <ng-container *ngIf="action.criteria | async as criteria">
+                        <ng-container *ngIf="criteria.value === undefined || criteria.value">
+                          <ng-container *ngIf="action.value | async as value">
+                            <ng-container *ngIf="action.children?.length; else regular">
+                              <button mat-menu-item [matMenuTriggerFor]="nestedMenu" [innerHTML]="toActionObservable | eval: value:element | async | jpSanitize"></button>
+
+                              <mat-menu #nestedMenu>
+                                <ng-template matMenuContent>
+                                  <ng-container *ngFor="let subAction of action.children">
+                                    <ng-container *ngTemplateOutlet="actionTemplate; context: {action: subAction}"></ng-container>
+                                  </ng-container>
+                                </ng-template>
+                              </mat-menu>
+                            </ng-container>
+
+                            <ng-template #regular>
                               <ng-container *ngIf="action.menuStyle === false; else menuAction">
-                                <div [innerHTML]="actions[element.id + '/' + i] || toActionObservable(value, element, i) | async | jpSanitize"></div>
+                                <div [innerHTML]="toActionObservable | eval: value:element | async | jpSanitize"></div>
                               </ng-container>
                               <ng-template #menuAction>
-                                <div mat-menu-item [innerHTML]="actions[element.id + '/' + i] || toActionObservable(value, element, i) | async | jpSanitize"></div>
+                                <div mat-menu-item [innerHTML]="toActionObservable | eval: value:element | async | jpSanitize"></div>
                               </ng-template>
-                            </ng-container>
+                            </ng-template>
                           </ng-container>
                         </ng-container>
+                      </ng-container>
+                    </ng-template>
+
+                    <ng-container *ngIf="data.actions && data.actions.length">
+                      <ng-container *ngFor="let action of data.actions; index as index">
+                        <ng-container *ngTemplateOutlet="actionTemplate; context: {action: action, index: index}"></ng-container>
                       </ng-container>
 
                       <hr *ngIf="showDelete || !data.hideEdit" />

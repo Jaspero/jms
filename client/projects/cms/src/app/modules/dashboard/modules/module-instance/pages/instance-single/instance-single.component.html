@@ -27,15 +27,15 @@
       </button>
       <mat-menu #actionsMenu="matMenu">
         <ng-template matMenuContent>
-          <ng-container *ngFor="let action of data.actions; index as i">
+          <ng-container *ngFor="let action of data.actions">
             <ng-container *ngIf="action.criteria | async as criteria">
               <ng-container *ngIf="criteria.value === undefined || criteria.value">
                 <ng-container *ngIf="action.value | async as value">
                   <ng-container *ngIf="action.menuStyle === false; else menuAction">
-                    <div [innerHTML]="actions[util.docId + '/' + i] || toActionObservable(value, formBuilderComponent?.form.value, i) | async | jpSanitize"></div>
+                    <div [innerHTML]="(toActionObservable | eval : value : formBuilderComponent?.form.value) | async | jpSanitize"></div>
                   </ng-container>
                   <ng-template #menuAction>
-                    <div mat-menu-item [innerHTML]="actions[util.docId + '/' + i] || toActionObservable(value, formBuilderComponent?.form.value, i) | async | jpSanitize"></div>
+                    <div mat-menu-item [innerHTML]="(toActionObservable | eval : value : formBuilderComponent?.form.value) | async | jpSanitize"></div>
                   </ng-template>
                 </ng-container>
               </ng-container>

@@ -121,9 +121,6 @@ export class TableComponent implements OnInit, AfterViewInit {
     read: false
   };
   maxHeight$ = new Subject<string>();
-  actions: {
-    [key: string]: Observable<any>
-  } = {};
 
   singleService: SingleService;
   overviewService: OverviewService;
@@ -376,11 +373,8 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.columnsSorted$.next(true);
   }
 
-  toActionObservable(value, element, index) {
-    const observable = toObservable(value(element)).pipe(shareReplay(1));
-
-    this.actions[element.id + '/' + index] = observable;
-    return observable;
+  toActionObservable(value, element) {
+    return toObservable(value(element)).pipe(shareReplay(1)) as Observable<string>;
   }
 
   private mapRow(overview: TableData, rowData: any) {
@@ -727,5 +721,9 @@ export class TableComponent implements OnInit, AfterViewInit {
         );
       }
     }
+  }
+
+  log(message) {
+    console.log(message);
   }
 }
