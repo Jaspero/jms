@@ -1,3 +1,10 @@
+# [5.32.0](https://github.com/jaspero/jms/compare/v5.31.0...v5.32.0) (2022-06-14)
+
+
+### Features
+
+* add sub menu to actions [#380](https://github.com/jaspero/jms/issues/380) ([08c0dac](https://github.com/jaspero/jms/commit/08c0dac8de8c2dc3752e684eb8aed86863ad97be))
+
 # [5.31.0](https://github.com/jaspero/jms/compare/v5.30.0...v5.31.0) (2022-06-11)
 
 
