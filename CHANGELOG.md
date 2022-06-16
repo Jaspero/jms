@@ -1,3 +1,10 @@
+# [5.33.0](https://github.com/jaspero/jms/compare/v5.32.0...v5.33.0) (2022-06-16)
+
+
+### Features
+
+* **cms:** updated versions; nested menu working closes [#380](https://github.com/jaspero/jms/issues/380) ([ae6753c](https://github.com/jaspero/jms/commit/ae6753cfc19a4603c31a6fd1444c63a2961b841f))
+
 # [5.32.0](https://github.com/jaspero/jms/compare/v5.31.0...v5.32.0) (2022-06-14)
 
 
