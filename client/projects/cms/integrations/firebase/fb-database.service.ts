@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {
   collection,
+  collectionData,
   collectionGroup,
   deleteDoc,
   doc,
@@ -25,7 +26,7 @@ import {FilterMethod, SHARED_CONFIG} from 'definitions';
 import {WhereFilter} from '../../src/app/shared/interfaces/where-filter.interface';
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
-import {collectionData} from 'rxfire/firestore';
+import {Parser} from '@jaspero/form-builder';
 
 @Injectable()
 export class FbDatabaseService extends DbService {
@@ -255,6 +256,15 @@ export class FbDatabaseService extends DbService {
     filters?: any[],
     cg?
   ) {
+
+    if (Array.isArray(sort)) {
+      sort = [...sort].map(s => {
+        s.active = Parser.standardizeKey(s.active);
+        return s;
+      })
+    } else if (sort?.active) {
+      sort.active = Parser.standardizeKey(sort.active);
+    }
 
     /**
      * In firebase we can't sort by the

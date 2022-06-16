@@ -722,8 +722,4 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
   }
-
-  log(message) {
-    console.log(message);
-  }
 }
