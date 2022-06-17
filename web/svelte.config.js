@@ -14,13 +14,13 @@ const config = {
 			pages: '../public/web'
 		}),
 		prerender: {
-      default: true,
+			default: true,
 			/**
 			 * You can add any pages that should be rendered
-			 * but aren't accessable through links on the website here.
+			 * but aren't accessible through links on the website here.
 			 */
-			entries: ['/404']
-    }
+			entries: []
+		}
 	}
 };
 
