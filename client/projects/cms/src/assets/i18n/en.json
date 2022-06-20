@@ -227,5 +227,9 @@
   "CONTENT": "Content",
   "PUBLISHED_ON": "Published on",
   "INQUIRIES": "Inquiries",
-  "MESSAGE": "Message"
+  "MESSAGE": "Message",
+  "SECTION": "Section",
+  "TEMPLATE_ID": "Template ID",
+  "SAMPLE_EMAIL": "Sample Email",
+  "DYNAMIC_DATA": "Dynamic Data"
 }

@@ -49,6 +49,7 @@ import {UserActionsComponent} from './user-actions/user-actions.component';
 import {UserAddComponent} from './user-add/user-add.component';
 import {SearchInputModule} from '../shared/modules/search-input/search-input.module';
 import {ForceDisableModule} from '../shared/modules/force-disable/force-disable.module';
+import {SampleEmailComponent} from './sample-email/sample-email.component';
 
 @NgModule({
   imports: [
@@ -119,7 +120,8 @@ import {ForceDisableModule} from '../shared/modules/force-disable/force-disable.
     NewPrepopulateComponent,
     FileManagerSelectComponent,
     ImpersonateComponent,
-		ReleaseStatusComponent
+		ReleaseStatusComponent,
+    SampleEmailComponent
 	],
 	providers: [
 		{

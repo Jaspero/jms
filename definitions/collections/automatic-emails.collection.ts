@@ -23,20 +23,20 @@ export const AUTOMATIC_EMAILS_COLLECTION = {
         template: 'newsletter',
         segments: [
           {
-            id: 'intro',
+            id: 'section',
+            name: 'Section',
             content:
               '<h1>Dear admin,</h1>\n<p>Someone just reached out from the website.</p>',
-            name: 'Intro'
           },
           {
+            id: 'section',
+            name: 'Section',
             content:
               [
-								'<p>Name: <b>{{name}}</b></p>',
-								'<p>Email: <b>{{email}}</b></p>',
-								'<p>Message: <b>{{message}}</b></p>',
-							].join('\n'),
-            name: 'Section',
-            id: 'section'
+                '<p>Name: <b>{{name}}</b></p>',
+                '<p>Email: <b>{{email}}</b></p>',
+                '<p>Message: <b>{{message}}</b></p>',
+              ].join('\n'),
           },
         ]
       },

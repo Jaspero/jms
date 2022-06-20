@@ -78,6 +78,14 @@ service cloud.firestore {
       allow write: if true;
     }
 
+    match /automatic-emails/{item=**} {
+      allow read, write: if admin();
+    }
+
+    match /sent-emails/{item=**} {
+      allow read, write: if admin();
+    }    
+
     match /storage/{item=**} {
       allow read: if storageItemPublicRead() || storageItemPublicWrite() || storageItemRoleRead() || storageItemRoleWrite() || storageItemUserRead() || storageItemUserWrite();
       allow write: if storageItemPublicWrite() || storageItemRoleWrite() || storageItemUserWrite();

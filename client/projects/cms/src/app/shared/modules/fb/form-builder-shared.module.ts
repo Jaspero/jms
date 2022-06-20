@@ -12,7 +12,7 @@ import {
   ROLE, StorageService, STORAGE_URL
 } from '@jaspero/form-builder';
 import {TranslocoModule} from '@ngneat/transloco';
-import {TinymceModule} from '@jaspero/fb-tinymce';
+import {TinymceModule, TemplateEditorModule} from '@jaspero/fb-tinymce';
 import {BlocksModule} from '@shared/blocks/blocks.module';
 import {FbStorageService} from '../../../../../integrations/firebase/fb-storage.service';
 import {environment} from '../../../../environments/environment';
@@ -32,6 +32,7 @@ export function roleFactory(state: StateService) {
     FbSegmentsMatModule.forRoot({prefix: ''}),
     PageBuilderModule,
     TinymceModule,
+    TemplateEditorModule,
 
     /**
      * Custom fields and component dependencies

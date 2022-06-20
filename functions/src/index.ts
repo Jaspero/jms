@@ -20,6 +20,7 @@ import {proxy} from './rest/proxy';
 import {fileMetadataUpdated} from './triggers/file-metadata-updated';
 import {statusUpdated} from './triggers/status-updated';
 import {inquiryCreated} from './triggers/inquiry-created';
+import {sampleEmail} from './callable/sample-email';
 
 initializeApp();
 
@@ -45,6 +46,7 @@ export const cms = {
   updateUser,
   getUser,
   updateEmail,
+  sampleEmail,
   exchangeToken,
   impersonate,
 
