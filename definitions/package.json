@@ -12,6 +12,7 @@
   "dependencies": {
     "@jaspero/fb-fields-mat": "1.12.0",
     "@jaspero/form-builder": "5.7.2",
+    "@jaspero/fb-tinymce": "2.8.3",
     "adv-firestore-functions": "2.0.9",
     "json-schema": "0.4.0"
   },

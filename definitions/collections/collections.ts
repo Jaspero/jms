@@ -1,4 +1,6 @@
+import {AUTOMATIC_EMAILS_COLLECTION} from './automatic-emails.collection';
 import {FOLDERS_COLLECTION} from './folders.collection';
+import {PAGES_COLLECTION} from './pages.collection';
 import {ROLES_COLLECTION} from './roles.collection';
 import {USER_INVITES_COLLECTION} from './user-invites.collection';
 
@@ -13,5 +15,7 @@ export const COLLECTIONS: Array<{
 }> = [
   ROLES_COLLECTION,
   USER_INVITES_COLLECTION,
-  FOLDERS_COLLECTION
+  FOLDERS_COLLECTION,
+  PAGES_COLLECTION,
+  AUTOMATIC_EMAILS_COLLECTION
 ];

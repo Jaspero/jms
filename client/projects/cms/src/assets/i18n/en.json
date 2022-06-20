@@ -192,6 +192,16 @@
   "MODULES": "Modules",
   "DOCUMENTS": "Documents",
 
+  "AUTOMATIC_EMAILS": "Automatic Emails",
+  "RECIPIENT": "Recipient",
+  "SUBJECT": "Subject",
+  "SEND_TO": "Send To",
+  "CONTENT": "Content",
+  "SECTION": "Section",
+  "SENT_EMAILS": "Sent Emails",
+  "EMAILS": "Emails",
+  "RECEIVER": "Receiver",
+
   "WEBSITE": "Website",
   "LAYOUT": "Layout",
   "PAGES": "Pages",

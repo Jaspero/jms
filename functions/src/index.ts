@@ -19,6 +19,7 @@ import {documentWrite} from './triggers/document-write';
 import {proxy} from './rest/proxy';
 import {fileMetadataUpdated} from './triggers/file-metadata-updated';
 import {statusUpdated} from './triggers/status-updated';
+import {inquiryCreated} from './triggers/inquiry-created';
 
 initializeApp();
 
@@ -36,6 +37,7 @@ export const cms = {
   documentWrite,
   triggerPasswordReset,
   statusUpdated,
+  inquiryCreated,
 
   // Callable
   createUser,
