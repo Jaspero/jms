@@ -1,3 +1,10 @@
+## [5.33.1](https://github.com/jaspero/jms/compare/v5.33.0...v5.33.1) (2022-06-21)
+
+
+### Bug Fixes
+
+* added --legacy-peer-deps for cms deployment ([7be0a02](https://github.com/jaspero/jms/commit/7be0a02c4692839feb29eee8544f9dacd4271093))
+
 # [5.33.0](https://github.com/jaspero/jms/compare/v5.32.0...v5.33.0) (2022-06-16)
 
 
