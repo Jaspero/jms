@@ -8,6 +8,17 @@
  *
  *============================================================================*/
 
+/**
+ * This prevents material icon text from showing when font 
+ * fails to load.
+ */
+.mat-icon {
+  visibility: hidden;
+}
+
+.fonts-loaded .mat-icon {
+  visibility: unset;
+}
 
 
 /* Buttons

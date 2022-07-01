@@ -30,10 +30,26 @@ export class AppComponent implements OnInit {
   ngOnInit() {
 
     this.util.init();
+    this.fontHandler();
 
     this.loading$ = this.state.loadingQue$.pipe(
       debounceTime(200),
       map(items => !!items.length)
     );
+  }
+
+  fontHandler() {
+
+    const cls = 'fonts-loaded';
+
+    if (!document.fonts?.ready) {
+      document.body.classList.add(cls);
+      return;
+    }
+
+    document.fonts.ready
+      .then(() =>
+        document.body.classList.add(cls)
+      );
   }
 }
