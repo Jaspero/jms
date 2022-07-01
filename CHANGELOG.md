@@ -1,3 +1,10 @@
+# [5.34.0](https://github.com/jaspero/jms/compare/v5.33.1...v5.34.0) (2022-07-01)
+
+
+### Features
+
+* better handling for material font loading ([a439614](https://github.com/jaspero/jms/commit/a4396145c714b9c2fd890e7109cbda595569cb7c))
+
 ## [5.33.1](https://github.com/jaspero/jms/compare/v5.33.0...v5.33.1) (2022-06-21)
 
 
