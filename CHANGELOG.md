@@ -1,3 +1,10 @@
+# [5.35.0](https://github.com/jaspero/jms/compare/v5.34.0...v5.35.0) (2022-07-08)
+
+
+### Features
+
+* added automatic-emails and sent-emails to cms by default ([3d26341](https://github.com/jaspero/jms/commit/3d26341cab3906a42a0485b4b7c383eea9373718))
+
 # [5.34.0](https://github.com/jaspero/jms/compare/v5.33.1...v5.34.0) (2022-07-01)
 
 
