@@ -38,6 +38,7 @@ export {Collections} from './interfaces/collections';
 
 export {PipeType} from './enums/pipe-type.enum';
 export {FilterMethod} from './enums/filter-method.enum';
+export {EmailTemplates} from './enums/email-templates.enum';
 
 export {SHARED_CONFIG} from './consts/shared-config.const';
 

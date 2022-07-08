@@ -4,3 +4,13 @@
   left: 0;
   width: 100%;
 }
+
+::ng-deep {
+  /**
+   * Template Editor Overrides
+   */
+  fb-tm-template-editor {
+    background: white !important;
+    border-radius: 4px;
+  }
+}

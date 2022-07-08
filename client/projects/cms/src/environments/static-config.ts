@@ -58,7 +58,19 @@ export const STATIC_CONFIG = {
             label: 'ROLES',
             type: 'link',
             value: '/m/roles'
-          }
+          },
+          {
+            icon: 'email',
+            label: 'AUTOMATIC_EMAILS',
+            type: 'link',
+            value: '/m/automatic-emails'
+           },
+           {
+             icon: 'send',
+             label: 'SENT_EMAILS',
+             type: 'link',
+             value: '/m/sent-emails'
+           }
         ],
         icon: 'account_box',
         label: 'MANAGEMENT',

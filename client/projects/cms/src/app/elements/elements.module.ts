@@ -49,6 +49,7 @@ import {UserAddComponent} from './user-add/user-add.component';
 import {SearchInputModule} from '../shared/modules/search-input/search-input.module';
 import {ForceDisableModule} from '../shared/modules/force-disable/force-disable.module';
 import {EvalModule} from '../shared/modules/eval/eval.module';
+import {SampleEmailComponent} from './sample-email/sample-email.component';
 
 @NgModule({
   imports: [
@@ -119,7 +120,8 @@ import {EvalModule} from '../shared/modules/eval/eval.module';
     ChangeEmailComponent,
     NewPrepopulateComponent,
     FileManagerSelectComponent,
-    ImpersonateComponent
+    ImpersonateComponent,
+    SampleEmailComponent
   ],
   providers: [
     {

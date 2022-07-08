@@ -36,6 +36,7 @@
   "ACTIVE": "Active",
   "IN_ACTIVE": "Inactive",
   "BACK": "Back",
+  "GENERAL": "General",
 
   "COUNTRY": "Country",
   "CREATED_ON": "Created On",
@@ -192,5 +193,19 @@
   },
 
   "MODULES": "Modules",
-  "DOCUMENTS": "Documents"
+  "DOCUMENTS": "Documents",
+
+  "AUTOMATIC_EMAILS": "Automatic Emails",
+  "RECIPIENT": "Recipient",
+  "SUBJECT": "Subject",
+  "SEND_TO": "Send To",
+  "CONTENT": "Content",
+  "SECTION": "Section",
+  "SENT_EMAILS": "Sent Emails",
+  "EMAILS": "Emails",
+  "RECEIVER": "Receiver",
+
+  "SAMPLE_EMAIL": "Sample Email",
+  "SEND_SAMPLE_EMAIL": "Send Sample Email",
+  "DYNAMIC_DATA": "Dynamic Data"
 }
