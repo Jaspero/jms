@@ -3,14 +3,14 @@ import {Auth, signOut} from '@angular/fire/auth';
 import {FormControl} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Router} from '@angular/router';
+import {safeEval} from '@jaspero/utils';
 import {JSX, Module} from 'definitions';
 import {BehaviorSubject, combineLatest, forkJoin, from, Observable, of} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, take, tap} from 'rxjs/operators';
+import {STATIC_CONFIG} from '../../../../../environments/static-config';
 import {DbService} from '../../../../shared/services/db/db.service';
 import {StateService} from '../../../../shared/services/state/state.service';
 import {relevantSearch} from '../../../../shared/utils/relevant-search';
-import {safeEval} from '@jaspero/utils';
-import {STATIC_CONFIG} from '../../../../../environments/static-config';
 
 @Component({
   selector: 'jms-spotlight',
@@ -19,22 +19,20 @@ import {STATIC_CONFIG} from '../../../../../environments/static-config';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SpotlightComponent implements OnInit {
-
-  searchControl: FormControl;
-  results$: Observable<any>;
-  modules$ = new BehaviorSubject<Module[]>([]);
-
   constructor(
     private state: StateService,
     private router: Router,
-    private dialog: MatDialog,
     private db: DbService,
     private auth: Auth,
     private dialogRef: MatDialogRef<SpotlightComponent>
   ) {
   }
 
-  ngOnInit(): void {
+  searchControl: FormControl;
+  results$: Observable<any>;
+  modules$ = new BehaviorSubject<Module[]>([]);
+
+  ngOnInit() {
     this.state.modules$.pipe(
       take(1),
       tap((modules) => {
@@ -63,7 +61,7 @@ export class SpotlightComponent implements OnInit {
 
             result.push(
               of({
-                title: 'SPOTLIGHT.MODULES',
+                title: 'MODULES',
                 items: MODULES.filter(module => {
                   return !module.id.includes('{docId}')
                     && !module?.spotlight?.hide
@@ -74,7 +72,7 @@ export class SpotlightComponent implements OnInit {
                 }).map(module => {
                   return {
                     type: 'link',
-                    href: `/m/${module.id}/overview`,
+                    href: `/m/${module.id}`,
                     label: module.name,
                     description: module.id
                   };
@@ -173,7 +171,7 @@ export class SpotlightComponent implements OnInit {
                 }),
                 map((results) => {
                   return {
-                    title: 'SPOTLIGHT.DOCUMENTS',
+                    title: 'DOCUMENTS',
                     items: results.filter(item => !!item).map(item => {
                       return {
                         ...item,
@@ -187,7 +185,7 @@ export class SpotlightComponent implements OnInit {
             );
 
             result.push(of({
-              title: 'SPOTLIGHT.ACTIONS',
+              title: 'ACTIONS',
               items: [
                 {
                   label: 'Profile',
