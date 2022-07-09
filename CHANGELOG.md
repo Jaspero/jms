@@ -1,3 +1,11 @@
+# [5.36.0](https://github.com/jaspero/jms/compare/v5.35.0...v5.36.0) (2022-07-09)
+
+
+### Features
+
+* added page-builder for automatic emails ([550aa7c](https://github.com/jaspero/jms/commit/550aa7cd3c9931932cb91f9ec754875842e35779))
+* connected sending emails in page builder format ([3cfbedc](https://github.com/jaspero/jms/commit/3cfbedc0bb94c23a1968cabfa80893f97c078493))
+
 # [5.35.0](https://github.com/jaspero/jms/compare/v5.34.0...v5.35.0) (2022-07-08)
 
 
