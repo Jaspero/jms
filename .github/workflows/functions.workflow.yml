@@ -32,13 +32,13 @@ jobs:
       - name: Prepare definitions package
         if: ${{ steps.changes.outputs.CHANGES }}
         run: |
-            npm --prefix definitions ci
+            npm --prefix definitions ci --legacy-peer-deps
             npm --prefix functions run build:definitions
       - name: Install Dependencies
         if: ${{ steps.changes.outputs.CHANGES }}
         run: |
           npm install firebase-tools
-          npm --prefix functions install
+          npm --prefix functions ci --legacy-peer-deps
           npm --prefix functions run build
       - name: Set project
         if: ${{ steps.changes.outputs.CHANGES }}
