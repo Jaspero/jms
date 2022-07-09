@@ -117,11 +117,14 @@ export const AUTOMATIC_EMAILS_MODULE: Module = {
       component: {
         type: 'pb-blocks',
         configuration: {
+          intro: `<p style="margin-bottom:10px"><b>Template Editor</b></p><p style="margin-bottom:10px">Edit the email template here.</p>`,
           layout: {
             selector: '.main-content',
             content: PROCESSED.layout
           },
-          saveCompiled: true,
+          saveCompiled: {
+            removeWrapper: true
+          },
           styles: PROCESSED.css,
           styleUrls: []
         }
