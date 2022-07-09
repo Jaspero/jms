@@ -40,7 +40,14 @@ export class TranslocoHttpLoader implements TranslocoLoader {
       })
     },
     {provide: TRANSLOCO_LOADER, useClass: TranslocoHttpLoader},
-    {provide: TRANSLOCO_SCOPE, useValue: ['fb-fields-mat', 'jmsp-notes', 'fb-t']}
+    {
+      provide: TRANSLOCO_SCOPE,
+      useValue: [
+        'fb-fields-mat',
+        'fb-pb',
+        'jmsp-notes'
+      ]
+    }
   ]
 })
 export class TranslocoRootModule { }

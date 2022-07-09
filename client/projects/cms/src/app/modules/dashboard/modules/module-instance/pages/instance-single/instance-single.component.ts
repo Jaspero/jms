@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ModuleAuthorization} from 'definitions';
-import {FormBuilderData, FormBuilderComponent, State} from '@jaspero/form-builder';
+import {FormBuilderData, FormBuilderComponent, State, FormBuilderContextService} from '@jaspero/form-builder';
 import {parseTemplate, random, safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
@@ -51,7 +51,8 @@ export class InstanceSingleComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private state: StateService,
-    private injector: Injector
+    private injector: Injector,
+    private formCtx: FormBuilderContextService
   ) {
   }
 
@@ -78,6 +79,8 @@ export class InstanceSingleComponent implements OnInit {
     this.data$ = this.ioc.module$.pipe(
       switchMap(module => {
 
+        // @ts-ignore
+        this.formCtx.module = module.id;
         this.singleService = this.injector.get(module.layout?.instance?.service || DefaultSingleService);
 
         return this.activatedRoute.params.pipe(

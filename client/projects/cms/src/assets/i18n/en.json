@@ -207,5 +207,8 @@
 
   "SAMPLE_EMAIL": "Sample Email",
   "SEND_SAMPLE_EMAIL": "Send Sample Email",
-  "DYNAMIC_DATA": "Dynamic Data"
+  "DYNAMIC_DATA": "Dynamic Data",
+
+  "PARAGRAPH": "Paragraph",
+  "SEGMENT_OPTIONS": "Segment Options"
 }

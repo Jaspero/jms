@@ -7,6 +7,16 @@
 
 ::ng-deep {
   /**
+   * Page Builder Overrides
+   */
+   .pb {
+    .pb-intro {
+      background: white;
+      border-radius: 4px;
+    }
+  }
+
+  /**
    * Template Editor Overrides
    */
   fb-tm-template-editor {

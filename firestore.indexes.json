@@ -1,6 +1,20 @@
 {
   "indexes": [
     {
+      "collectionGroup": "automatic-emails",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "createdOn",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "active",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "user-invites",
       "queryScope": "COLLECTION",
       "fields": [

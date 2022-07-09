@@ -30,7 +30,9 @@ export const AUTOMATIC_EMAILS_MODULE: Module = {
         },
         {
           type: 'empty',
-          fields: ['/content']
+          fields: [
+            '/blocks'
+          ]
         }
       ]
     },
@@ -81,7 +83,7 @@ export const AUTOMATIC_EMAILS_MODULE: Module = {
       id: {type: 'string'},
       name: {type: 'string'},
       subject: {type: 'string'},
-      content: {type: 'string'},
+      blocks: {type: 'array'},
       description: {type: 'string'},
       active: {type: 'boolean'},
       dynamicValues: {type: 'string'},
@@ -111,30 +113,19 @@ export const AUTOMATIC_EMAILS_MODULE: Module = {
         }
       }
     },
-    content: {
-      label: 'CONTENT',
+    blocks: {
       component: {
-        type: 'template-editor',
+        type: 'pb-blocks',
         configuration: {
-          defaultTemplate: 'newsletter',
-          templates: [
-            {
-              id: 'newsletter',
-              name: 'Newsletter',
-              layout: PROCESSED.layout,
-              defaultSegments: ['section'],
-              style: PROCESSED.css,
-              segments: [
-                {
-                  id: 'section',
-                  name: 'SECTION',
-                  content: PROCESSED.segments['section']
-                }
-              ]
-            }
-          ]
+          layout: {
+            selector: '.main-content',
+            content: PROCESSED.layout
+          },
+          saveCompiled: true,
+          styles: PROCESSED.css,
+          styleUrls: []
         }
       }
-    }
+    },
   }
 };

@@ -1,0 +1,48 @@
+{
+  "START": "Start",
+  "CLOSE": "Close",
+  "OPEN_ADD": "Add segments",
+  "ADD": "Add",
+  "SEGMENT": "Segment",
+  "FORM": {
+    "TITLE": "Title",
+    "ID_HINT": "Created from title if empty",
+    "COMMON": {
+      "CONTENT": "Content"
+    },
+    "BLOCKS": {
+      "SHARED": {
+        "STANDARD_OPTIONS": "Standard Options",
+        "ADVANCED_OPTIONS": "Advanced Options",
+        "BLOCK_OPTIONS": "Segment Options",
+        "SIZE": "Size",
+        "SIZE_SMALL": "Small",
+        "SIZE_REGULAR": "Medium",
+        "SIZE_LARGE": "Big",
+        "SIZE_FULL_SCREEN": "Full Screen",
+        "CONTAINED": "Contained",
+        "BACKGROUND": "Background",
+        "BACKGROUND_REPEAT": "Background Repeat",
+        "BACKGROUND_SIZE": "Background Size",
+        "BACKGROUND_SIZE_COVER": "Cover",
+        "BACKGROUND_SIZE_CONTAIN": "Contain",
+        "VERTICAL_ALIGNMENT": "Vertical Align",
+        "VERTICAL_ALIGNMENT_CENTER": "Center",
+        "VERTICAL_ALIGNMENT_TOP": "Top",
+        "VERTICAL_ALIGNMENT_BOTTOM": "Bottom",
+        "ADDITIONAL_STYLE": "Custom Style",
+        "CUSTOM_CLASS": "Custom Class",
+        "ELEMENT_ID": "Element ID"
+      },
+      "CONTENT": {
+        "TITLE": "Content"
+      },
+      "FORM": {
+        "TITLE": "Form",
+        "FIELDS": {
+          "FORM": "Form"
+        }
+      }
+    }
+  }
+}
