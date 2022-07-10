@@ -21,6 +21,7 @@ import {DbService} from '../../services/db/db.service';
 import {StateService} from '../../services/state/state.service';
 import {DuplicateComponent} from './custom-components/duplicate/duplicate.component';
 import {BlocksModule} from '../blocks/blocks.module';
+import {EmailTemplateDescriptionComponent} from './custom-components/email-template-description/email-template-description.component';
 
 export function roleFactory(state: StateService) {
   return state.role;
@@ -66,7 +67,8 @@ export function roleFactory(state: StateService) {
     {
       provide: CUSTOM_COMPONENTS,
       useValue: {
-        duplicate: DuplicateComponent
+        duplicate: DuplicateComponent,
+        'email-template-description': EmailTemplateDescriptionComponent
       }
     },
     {
@@ -80,6 +82,9 @@ export function roleFactory(state: StateService) {
       }
     },
   ],
-  declarations: [DuplicateComponent]
+  declarations: [
+    DuplicateComponent,
+    EmailTemplateDescriptionComponent
+  ]
 })
 export class FormBuilderSharedModule {}
