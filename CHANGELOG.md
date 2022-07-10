@@ -1,3 +1,10 @@
+## [5.36.1](https://github.com/jaspero/jms/compare/v5.36.0...v5.36.1) (2022-07-10)
+
+
+### Bug Fixes
+
+* missing email-template-description ([745e8f7](https://github.com/jaspero/jms/commit/745e8f78368399f503987c2681b66b5070b5ea59))
+
 # [5.36.0](https://github.com/jaspero/jms/compare/v5.35.0...v5.36.0) (2022-07-09)
 
 
