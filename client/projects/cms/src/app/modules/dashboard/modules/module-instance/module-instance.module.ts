@@ -24,7 +24,9 @@ import {JMSPNotesModule} from '@jaspero/jmsp-notes';
 import {LoadClickModule, SanitizeModule, StopPropagationModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
 import {ElementsModule} from '../../../../elements/elements.module';
+import {EvalModule} from '../../../../shared/modules/eval/eval.module';
 import {FormBuilderSharedModule} from '../../../../shared/modules/fb/form-builder-shared.module';
+import {ForceDisableModule} from '../../../../shared/modules/force-disable/force-disable.module';
 import {SearchInputModule} from '../../../../shared/modules/search-input/search-input.module';
 import {FileManagerModule} from '../file-manager/file-manager.module';
 import {CanReadModuleGuard} from './guards/can-read-module/can-read-module.guard';
@@ -34,8 +36,9 @@ import {InstanceOverviewComponent} from './pages/instance-overview/instance-over
 import {InstanceSingleComponent} from './pages/instance-single/instance-single.component';
 import {ColumnPipe} from './pipes/column/column.pipe';
 import {EllipsisPipe} from './pipes/ellipsis/ellipsis.pipe';
+import {DefaultOverviewService} from './services/default-overview.service';
+import {DefaultSingleService} from './services/default-single.service';
 import {InstanceOverviewContextService} from './services/instance-overview-context.service';
-import {ForceDisableModule} from '../../../../shared/modules/force-disable/force-disable.module';
 
 export function moduleProvider(ic: InstanceOverviewContextService) {
   return ic.module$;
@@ -88,6 +91,13 @@ function routes(deep = 10) {
     CustomModuleGuard,
     CanReadModuleGuard,
     ConfirmExitGuard,
+
+    /**
+     * Provide any additional overview and single services here
+     * https://github.com/Jaspero/jms/wiki/Common-Tasks#custom-services-for-modules
+     */
+    DefaultOverviewService,
+    DefaultSingleService,
 
     /**
      * We register a few general providers for
@@ -148,7 +158,8 @@ function routes(deep = 10) {
      * External
      */
     TranslocoModule,
-    FileManagerModule
+    FileManagerModule,
+    EvalModule
   ]
 })
 export class ModuleInstanceModule { }

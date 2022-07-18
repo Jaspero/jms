@@ -5,4 +5,5 @@ export interface ModuleOverview {
   defaultView?: string;
   views?: ModuleOverviewView[];
   toolbar?: Array<string | {item: string, roles?: string[]}>;
+  service?: string;
 }

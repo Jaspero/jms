@@ -36,6 +36,7 @@
   "ACTIVE": "Active",
   "IN_ACTIVE": "Inactive",
   "BACK": "Back",
+  "GENERAL": "General",
 
   "COUNTRY": "Country",
   "CREATED_ON": "Created On",
@@ -64,6 +65,8 @@
   "MFA_SELECT_DEVICE": "Device",
   "TOO_MANY_ATTEMPTS_TRY_LATER": "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.",
   "USER_NOT_FOUND": "There is no user record corresponding to this identifier.",
+  "WEAK_PASSWORD": "Please provide a stronger password.",
+  "INVALID_ACTION_CODE": "The action code you're providing is invalid. Please try to generate a new code.",
   "STAY_LOGGED_IN": "Stay logged in?",
 
   "REPEAT_PASSWORD": "Repeat Password",
@@ -75,7 +78,7 @@
   "RESET_PASSWORD.SUCCESS_MESSAGE": "Password reset email has been sent to your email",
   "RESET_PASSWORD.ERROR_MESSAGE": "Email is invalid",
   "RESET_SUCCESSFUL": "Your password has been reset successfully. You can now log in.",
-  "INVALID_OOB_CODE": "Your code has expired. Please restart the process of resetting your password.",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
 
   "FINISH_SIGN_UP": "Finish Sign Up",
   "SIGN_UP_SUCCESSFUL": "Account created successfully",
@@ -231,5 +234,11 @@
   "SECTION": "Section",
   "TEMPLATE_ID": "Template ID",
   "SAMPLE_EMAIL": "Sample Email",
-  "DYNAMIC_DATA": "Dynamic Data"
+  "DYNAMIC_DATA": "Dynamic Data",
+  "SAMPLE_EMAIL": "Sample Email",
+  "SEND_SAMPLE_EMAIL": "Send Sample Email",
+  "DYNAMIC_DATA": "Dynamic Data",
+
+  "PARAGRAPH": "Paragraph",
+  "SEGMENT_OPTIONS": "Segment Options"
 }

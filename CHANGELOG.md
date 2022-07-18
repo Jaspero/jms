@@ -1,3 +1,75 @@
+## [5.36.1](https://github.com/jaspero/jms/compare/v5.36.0...v5.36.1) (2022-07-10)
+
+
+### Bug Fixes
+
+* missing email-template-description ([745e8f7](https://github.com/jaspero/jms/commit/745e8f78368399f503987c2681b66b5070b5ea59))
+
+# [5.36.0](https://github.com/jaspero/jms/compare/v5.35.0...v5.36.0) (2022-07-09)
+
+
+### Features
+
+* added page-builder for automatic emails ([550aa7c](https://github.com/jaspero/jms/commit/550aa7cd3c9931932cb91f9ec754875842e35779))
+* connected sending emails in page builder format ([3cfbedc](https://github.com/jaspero/jms/commit/3cfbedc0bb94c23a1968cabfa80893f97c078493))
+
+# [5.35.0](https://github.com/jaspero/jms/compare/v5.34.0...v5.35.0) (2022-07-08)
+
+
+### Features
+
+* added automatic-emails and sent-emails to cms by default ([3d26341](https://github.com/jaspero/jms/commit/3d26341cab3906a42a0485b4b7c383eea9373718))
+
+# [5.34.0](https://github.com/jaspero/jms/compare/v5.33.1...v5.34.0) (2022-07-01)
+
+
+### Features
+
+* better handling for material font loading ([a439614](https://github.com/jaspero/jms/commit/a4396145c714b9c2fd890e7109cbda595569cb7c))
+
+## [5.33.1](https://github.com/jaspero/jms/compare/v5.33.0...v5.33.1) (2022-06-21)
+
+
+### Bug Fixes
+
+* added --legacy-peer-deps for cms deployment ([7be0a02](https://github.com/jaspero/jms/commit/7be0a02c4692839feb29eee8544f9dacd4271093))
+
+# [5.33.0](https://github.com/jaspero/jms/compare/v5.32.0...v5.33.0) (2022-06-16)
+
+
+### Features
+
+* **cms:** updated versions; nested menu working closes [#380](https://github.com/jaspero/jms/issues/380) ([ae6753c](https://github.com/jaspero/jms/commit/ae6753cfc19a4603c31a6fd1444c63a2961b841f))
+
+# [5.32.0](https://github.com/jaspero/jms/compare/v5.31.0...v5.32.0) (2022-06-14)
+
+
+### Features
+
+* add sub menu to actions [#380](https://github.com/jaspero/jms/issues/380) ([08c0dac](https://github.com/jaspero/jms/commit/08c0dac8de8c2dc3752e684eb8aed86863ad97be))
+
+# [5.31.0](https://github.com/jaspero/jms/compare/v5.30.0...v5.31.0) (2022-06-11)
+
+
+### Features
+
+* **cms:** providing different services for overview and single closes [#381](https://github.com/jaspero/jms/issues/381) ([e1acfc0](https://github.com/jaspero/jms/commit/e1acfc0f9d14c4cbfbf467d869bbf83577dfc96d))
+
+# [5.30.0](https://github.com/jaspero/jms/compare/v5.29.0...v5.30.0) (2022-06-10)
+
+
+### Features
+
+* **cms:** waiting for transloco to load before showing notifications; showing passwords not matching error; ([85c293e](https://github.com/jaspero/jms/commit/85c293e91a63e82268f310b48b8cc0fdd4760719))
+
+# [5.29.0](https://github.com/jaspero/jms/compare/v5.28.4...v5.29.0) (2022-06-10)
+
+
+### Features
+
+* initial setup ([c7bbca1](https://github.com/jaspero/jms/commit/c7bbca1b0508562dc12ea44f3398b4f4e62dce63))
+* initial setup ([ad65190](https://github.com/jaspero/jms/commit/ad65190de776f2f6ff61d03d41961d6b3d144fb7))
+
 ## [5.28.4](https://github.com/jaspero/jms/compare/v5.28.3...v5.28.4) (2022-06-08)
 
 

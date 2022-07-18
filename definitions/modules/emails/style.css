@@ -1,13 +1,17 @@
+body {
+	margin: 0;
+}
+
 .body {
 	font-size: 18px;
 	color: #212121;
-	background: wheat;
+	background: #3f50b5;
 }
 
 .footer-content, .header-content, .main-content {
 	padding: 3ch 2ch;
 	max-width: 52ch;
-	margin: 1ch auto
+	margin: auto;
 }
 
 .main-content {
@@ -41,7 +45,7 @@ hr {
 .button {
 	display: inline-block;
 	margin: 2ch 0;
-	background: wheat;
+	background: #3f50b5;
 	color: #fff !important;
 	font-size: .875rem;
 	font-family: inherit;

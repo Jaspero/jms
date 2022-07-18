@@ -50,8 +50,8 @@
               },
               {
                 "glob": "**/*",
-                "input": "node_modules/tinymce/icons",
-                "output": "/icons"
+                "input": "node_modules/tinymce/icons/default",
+                "output": "/icons/default"
               }
             ],
             "styles": [

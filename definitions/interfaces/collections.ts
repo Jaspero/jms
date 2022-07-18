@@ -4,6 +4,9 @@ export class Collections {
 	static UserInvites = 'user-invites';
 	static Inquiries = 'inquiries';
 
+	static AutomaticEmails = 'automatic-emails';
+	static SentEmails = 'sent-emails';
+
 	/**
 	 * Subcollections
 	 */

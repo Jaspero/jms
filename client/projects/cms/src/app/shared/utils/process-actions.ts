@@ -27,6 +27,8 @@ export function processActions(
         );
       }
 
+      const children = processActions(role, cur.children || [], ioc);
+
       const criteria = cur.criteria &&
         (
           ioc.selection &&
@@ -45,7 +47,8 @@ export function processActions(
         acc.push({
           menuStyle: cur.menuStyle,
           value: toObservable(parsed).pipe(shareReplay(1)),
-          criteria
+          criteria,
+          children
         });
       }
     }

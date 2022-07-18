@@ -38,7 +38,13 @@ export {Collections} from './interfaces/collections';
 
 export {PipeType} from './enums/pipe-type.enum';
 export {FilterMethod} from './enums/filter-method.enum';
+export {EmailTemplates} from './enums/email-templates.enum';
 
 export {SHARED_CONFIG} from './consts/shared-config.const';
 
 export {JSX} from './jsx.compiler';
+
+import {PROCESSED} from './modules/emails/processed.const';
+
+export const EMAIL_LAYOUT = PROCESSED.layout;
+export const EMAIL_STYLE = PROCESSED.css;

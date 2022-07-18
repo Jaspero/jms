@@ -50,6 +50,7 @@ import {UserAddComponent} from './user-add/user-add.component';
 import {SearchInputModule} from '../shared/modules/search-input/search-input.module';
 import {ForceDisableModule} from '../shared/modules/force-disable/force-disable.module';
 import {SampleEmailComponent} from './sample-email/sample-email.component';
+import {EvalModule} from '../shared/modules/eval/eval.module';
 
 @NgModule({
   imports: [
@@ -91,7 +92,8 @@ import {SampleEmailComponent} from './sample-email/sample-email.component';
     StopPropagationModule,
     SanitizeModule,
     SearchInputModule,
-    ForceDisableModule
+    ForceDisableModule,
+    EvalModule
   ],
   exports: [],
   declarations: [

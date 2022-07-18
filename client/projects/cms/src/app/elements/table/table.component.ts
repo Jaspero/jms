@@ -35,9 +35,12 @@ import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';
 import {AsyncSubject, BehaviorSubject, combineLatest, forkJoin, Observable, of, ReplaySubject, Subject, Subscription} from 'rxjs';
 import {filter, map, shareReplay, startWith, switchMap, take, tap} from 'rxjs/operators';
+import {OverviewService} from '../../modules/dashboard/modules/module-instance/interfaces/overview-service.interface';
+import {SingleService} from '../../modules/dashboard/modules/module-instance/interfaces/single-service.interface';
+import {DefaultOverviewService} from '../../modules/dashboard/modules/module-instance/services/default-overview.service';
+import {DefaultSingleService} from '../../modules/dashboard/modules/module-instance/services/default-single.service';
 import {InstanceOverviewContextService} from '../../modules/dashboard/modules/module-instance/services/instance-overview-context.service';
 import {Action} from '../../shared/interfaces/action.interface';
-import {DbService} from '../../shared/services/db/db.service';
 import {StateService} from '../../shared/services/state/state.service';
 import {processActions} from '../../shared/utils/process-actions';
 import {toObservable} from '../../shared/utils/to-observable';
@@ -86,7 +89,6 @@ export class TableComponent implements OnInit, AfterViewInit {
     private state: StateService,
     private injector: Injector,
     private viewContainerRef: ViewContainerRef,
-    private dbService: DbService,
     private dialog: MatDialog,
     private cdr: ChangeDetectorRef,
     private transloco: TranslocoService
@@ -119,9 +121,9 @@ export class TableComponent implements OnInit, AfterViewInit {
     read: false
   };
   maxHeight$ = new Subject<string>();
-  actions: {
-    [key: string]: Observable<any>
-  } = {};
+
+  singleService: SingleService;
+  overviewService: OverviewService;
 
   get showDelete() {
     return !this.data.hideDelete && this.permission.write;
@@ -227,6 +229,9 @@ export class TableComponent implements OnInit, AfterViewInit {
 
       this.permission.write = !data.authorization?.write || data.authorization.write.includes(this.state.role);
       this.permission.read = !data.authorization?.read || data.authorization.read.includes(this.state.role);
+
+      this.singleService = this.injector.get(data.layout?.instance?.service || DefaultSingleService);
+      this.overviewService = this.injector.get(data.layout?.overview?.service || DefaultOverviewService);
 
       this.data = {
         moduleId: data.id,
@@ -368,11 +373,8 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.columnsSorted$.next(true);
   }
 
-  toActionObservable(value, element, index) {
-    const observable = toObservable(value(element)).pipe(shareReplay(1));
-
-    this.actions[element.id + '/' + index] = observable;
-    return observable;
+  toActionObservable(value, element) {
+    return toObservable(value(element)).pipe(shareReplay(1)) as Observable<string>;
   }
 
   private mapRow(overview: TableData, rowData: any) {
@@ -486,7 +488,7 @@ export class TableComponent implements OnInit, AfterViewInit {
         .pipe(
           // @ts-ignore
           switchMap(value =>
-            this.dbService.setDocument(
+            this.singleService.save(
               overview.moduleId,
               rowData.id,
               {
@@ -613,8 +615,8 @@ export class TableComponent implements OnInit, AfterViewInit {
           ].join('-')
           : id
           }`;
-        const populateMethod = itId => this.dbService
-          .getDocument(parsedCollection, itId)
+        const populateMethod = itId => this.singleService
+          .get(parsedCollection, itId)
           .pipe(
             map(populated => {
               if (
@@ -634,8 +636,8 @@ export class TableComponent implements OnInit, AfterViewInit {
             }),
             shareReplay(1)
           );
-        const populateLookupMethod = itId => this.dbService
-          .getDocuments(parsedCollection, 1, undefined, undefined, [
+        const populateLookupMethod = itId => this.overviewService
+          .getDocuments(parsedCollection, 1, [
             {
               ...column.populate.lookUp,
               value: itId

@@ -1,16 +1,16 @@
 import {CommonModule} from '@angular/common';
 import {Injector, NgModule} from '@angular/core';
+import {createCustomElement} from '@angular/elements';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
-import {SpotlightComponent} from './spotlight.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
-import {TranslocoModule} from '@ngneat/transloco';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SanitizeModule} from '@jaspero/ng-helpers';
-import {createCustomElement} from '@angular/elements';
+import {TranslocoModule} from '@ngneat/transloco';
+import {StorageModule} from '../storage/storage.module';
 import {SpotlightResultComponent} from './spotlight-result/spotlight-result.component';
 import {SpotlightStorageResultComponent} from './spotlight-storage-result/spotlight-storage-result.component';
-import {StorageModule} from '../storage/storage.module';
+import {SpotlightComponent} from './spotlight.component';
 
 @NgModule({
   declarations: [SpotlightComponent, SpotlightResultComponent, SpotlightStorageResultComponent],

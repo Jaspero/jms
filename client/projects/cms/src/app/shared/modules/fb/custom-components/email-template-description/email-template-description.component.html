@@ -1,0 +1,12 @@
+<div [innerHTML]="description"></div>
+
+<table>
+  <tr>
+    <th>{{'KEY' | transloco}}</th>
+    <th>{{'DESCRIPTION' | transloco}}</th>
+  </tr>
+  <tr *ngFor="let value of dynamic" (click)="copy(value.key)" [matTooltip]="'COPY_KEY' | transloco">
+    <td>{{value.key}}</td>
+    <td>{{value.description | transloco}}</td>
+  </tr>
+</table>

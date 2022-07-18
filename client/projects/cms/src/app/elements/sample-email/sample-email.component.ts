@@ -1,8 +1,9 @@
-import {Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, TemplateRef} from '@angular/core';
+import {Component, ChangeDetectionStrategy, Input, ViewChild, TemplateRef} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {notify} from '@shared/utils/notify.operator';
 import {tap} from 'rxjs/operators';
+import {Collections} from 'definitions';
 import {DbService} from '../../shared/services/db/db.service';
 import {Element} from '../element.decorator';
 
@@ -27,7 +28,7 @@ export class SampleEmailComponent {
   fields: Array<{id: string; name: string}>;
 
   open() {
-    return () => this.db.getDocument('automatic-emails', this.id)
+    return () => this.db.getDocument(Collections.AutomaticEmails, this.id)
       .pipe(
         tap(data => {
 

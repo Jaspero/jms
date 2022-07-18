@@ -11,16 +11,17 @@
   "main": "dist/index.js",
   "dependencies": {
     "@jaspero/fb-fields-mat": "1.12.0",
+    "@jaspero/fb-page-builder": "3.26.0",
+    "@jaspero/fb-tinymce": "2.9.1",
     "@jaspero/form-builder": "5.7.2",
-    "@jaspero/fb-tinymce": "2.8.3",
     "adv-firestore-functions": "2.0.9",
     "json-schema": "0.4.0"
   },
   "devDependencies": {
     "@google-cloud/storage": "5.19.3",
     "cross-env": "7.0.3",
+    "csso": "5.0.3",
     "firebase-admin": "10.1.0",
-    "csso": "4.2.0",
     "rimraf": "3.0.2",
     "ts-node": "10.7.0",
     "typescript": "4.6.3"

@@ -12,13 +12,14 @@ import {
   ROLE, StorageService, STORAGE_URL
 } from '@jaspero/form-builder';
 import {TranslocoModule} from '@ngneat/transloco';
-import {TinymceModule, TemplateEditorModule} from '@jaspero/fb-tinymce';
+import {TinymceModule} from '@jaspero/fb-tinymce';
 import {BlocksModule} from '@shared/blocks/blocks.module';
 import {FbStorageService} from '../../../../../integrations/firebase/fb-storage.service';
 import {environment} from '../../../../environments/environment';
 import {DbService} from '../../services/db/db.service';
 import {StateService} from '../../services/state/state.service';
 import {DuplicateComponent} from './custom-components/duplicate/duplicate.component';
+import {EmailTemplateDescriptionComponent} from './custom-components/email-template-description/email-template-description.component';
 
 export function roleFactory(state: StateService) {
   return state.role;
@@ -32,7 +33,6 @@ export function roleFactory(state: StateService) {
     FbSegmentsMatModule.forRoot({prefix: ''}),
     PageBuilderModule,
     TinymceModule,
-    TemplateEditorModule,
 
     /**
      * Custom fields and component dependencies
@@ -65,7 +65,8 @@ export function roleFactory(state: StateService) {
     {
       provide: CUSTOM_COMPONENTS,
       useValue: {
-        duplicate: DuplicateComponent
+        duplicate: DuplicateComponent,
+        'email-template-description': EmailTemplateDescriptionComponent
       }
     },
     {
@@ -79,6 +80,9 @@ export function roleFactory(state: StateService) {
       }
     },
   ],
-  declarations: [DuplicateComponent]
+  declarations: [
+    DuplicateComponent,
+    EmailTemplateDescriptionComponent
+  ]
 })
 export class FormBuilderSharedModule {}

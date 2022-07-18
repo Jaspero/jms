@@ -3,6 +3,7 @@ import {firestore} from 'firebase-admin';
 import {compile} from 'handlebars';
 import {ENV_CONFIG} from '../../consts/env-config.const';
 import {EmailTemplate} from './email-template.interface';
+import {Collections, EMAIL_STYLE, EMAIL_LAYOUT} from 'definitions';
 
 /**
  * SendGrid docs
@@ -21,7 +22,8 @@ export class EmailService {
   async parseEmail(
     templateId: string,
     context?: any,
-    receiver?: string
+    receiver?: string | string[],
+    addedData?: any
   ) {
 
     const fs = firestore();
@@ -36,24 +38,50 @@ export class EmailService {
     }
 
     const template = compile(
-      (message.content.style ? `<style>${message.content.style}</style>` : '') +
-      message.content.layout
-        .replace(
-          `<div class="main-content"></div>`,
-          `<div class="main-content">${message.content.segments.reduce((acc, seg) => acc + seg.content, '')}</div>`
-        )
+      `
+        <!doctype html>
+        <html>
+          <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <style>${EMAIL_STYLE || ''}</style>
+          </head>
+          <body>${
+            EMAIL_LAYOUT
+              .replace(
+                `<div class="main-content"></div>`,
+                `<div class="main-content">${
+                  message
+                    .blocks
+                    .reduce((acc, seg) =>
+                      acc + seg.compiled
+                        .replace(/\[\[/g, '{{')
+                        .replace(/\]\]/g, '}}'),
+                      ''
+                    )
+                }</div>`
+              )
+          }</body>
+        </html>
+      `
     );
     const html = template(context);
     const to = receiver ? receiver : message.sendTo || ENV_CONFIG.email;
 
     const res = await this.sendEmail({
       to,
-      subject: message.subject,
-      html
+      subject: compile(message.subject)(context),
+      html,
+      ...addedData || {}
     });
 
+    let sentEmail;
+
     try {
-      await firestore().collection('sent-emails').doc().create({
+
+      const emailDoc = firestore().collection(Collections.SentEmails).doc();
+
+      await emailDoc.create({
         createdOn: Date.now(),
         to,
         html,
@@ -61,12 +89,21 @@ export class EmailService {
         templateId,
         ...res === true ? {status: true} : {status: false, error: res}
       });
+
+      sentEmail = emailDoc.id
     } catch (e) {
       console.error(e);
     }
+
+    return sentEmail;
   }
 
   async sendEmail(data: Partial<sgMail.MailDataRequired>) {
+
+    if (!this.token) {
+      return 'No email token provided.';
+    }
+
     if (!data.to) {
       console.error('No receiving email provided.');
       return 'No receiver email provided.'

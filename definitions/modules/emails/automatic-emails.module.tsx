@@ -30,7 +30,9 @@ export const AUTOMATIC_EMAILS_MODULE: Module = {
         },
         {
           type: 'empty',
-          fields: ['/content']
+          fields: [
+            '/blocks'
+          ]
         }
       ]
     },
@@ -53,14 +55,6 @@ export const AUTOMATIC_EMAILS_MODULE: Module = {
     filterModule: {
       persist: true,
       clearFilters: [],
-      value: [
-        {
-          key: 'recipient',
-          operator: '==',
-          value: 'Admin',
-          label: 'Admin'
-        }
-      ],
       segments: [{type: 'empty', fields: ['/recipient']}],
       schema: {
         properties: {
@@ -76,7 +70,7 @@ export const AUTOMATIC_EMAILS_MODULE: Module = {
             configuration: {
               dataSet: [
                 {name: 'Admin', value: 'Admin'},
-                {name: 'Client', value: 'Client'}
+                {name: 'User', value: 'User'}
               ]
             }
           }
@@ -89,7 +83,7 @@ export const AUTOMATIC_EMAILS_MODULE: Module = {
       id: {type: 'string'},
       name: {type: 'string'},
       subject: {type: 'string'},
-      content: {type: 'string'},
+      blocks: {type: 'array'},
       description: {type: 'string'},
       active: {type: 'boolean'},
       dynamicValues: {type: 'string'},
@@ -119,30 +113,22 @@ export const AUTOMATIC_EMAILS_MODULE: Module = {
         }
       }
     },
-    content: {
-      label: 'CONTENT',
+    blocks: {
       component: {
-        type: 'template-editor',
+        type: 'pb-blocks',
         configuration: {
-          defaultTemplate: 'newsletter',
-          templates: [
-            {
-              id: 'newsletter',
-              name: 'Newsletter',
-              layout: PROCESSED.layout,
-              defaultSegments: ['section'],
-              style: PROCESSED.css,
-              segments: [
-                {
-                  id: 'section',
-                  name: 'SECTION',
-                  content: PROCESSED.segments['section']
-                }
-              ]
-            }
-          ]
+          intro: `<p style="margin-bottom:10px"><b>Template Editor</b></p><p style="margin-bottom:10px">Edit the email template here.</p>`,
+          layout: {
+            selector: '.main-content',
+            content: PROCESSED.layout
+          },
+          saveCompiled: {
+            removeWrapper: true
+          },
+          styles: PROCESSED.css,
+          styleUrls: []
         }
       }
-    }
+    },
   }
 };
