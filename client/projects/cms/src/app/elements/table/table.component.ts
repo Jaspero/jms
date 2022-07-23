@@ -607,25 +607,27 @@ export class TableComponent implements OnInit, AfterViewInit {
           (key, entry) => get(entry, key),
           true
         );
-        const popKey = `${parsedCollection}-${column.populate.lookUp
-          ? [
-            column.populate.lookUp.key,
-            column.populate.lookUp.operator,
-            id
+        const displayKey = column.populate.displayKey || 'name';
+        const popKey = `${parsedCollection}-${
+          [
+            column.populate.lookUp?.key || '',
+            column.populate.lookUp?.operator || '',
+            id,
+            displayKey
           ].join('-')
-          : id
-          }`;
+        }`;
+        
         const populateMethod = itId => this.singleService
           .get(parsedCollection, itId)
           .pipe(
             map(populated => {
               if (
                 populated.hasOwnProperty(
-                  column.populate.displayKey || 'name'
+                  displayKey
                 )
               ) {
                 return this.ioc.columnPipe.transform(
-                  populated[column.populate.displayKey || 'name'],
+                  populated[displayKey],
                   column.pipe,
                   column.pipeArguments,
                   {rowData, populated}
@@ -651,11 +653,11 @@ export class TableComponent implements OnInit, AfterViewInit {
                 if (
                   populated &&
                   populated.hasOwnProperty(
-                    column.populate.displayKey || 'name'
+                    displayKey
                   )
                 ) {
                   return this.ioc.columnPipe.transform(
-                    populated[column.populate.displayKey || 'name'],
+                    populated[displayKey],
                     column.pipe,
                     column.pipeArguments,
                     {rowData, populated}
