@@ -1,3 +1,10 @@
+## [5.36.2](https://github.com/jaspero/jms/compare/v5.36.1...v5.36.2) (2022-07-23)
+
+
+### Bug Fixes
+
+* **cms:** populate caching now considers displayKey ([2ba4ebb](https://github.com/jaspero/jms/commit/2ba4ebb2cc20bc9247b4b64a40ac4e7d11418ad0))
+
 ## [5.36.1](https://github.com/jaspero/jms/compare/v5.36.0...v5.36.1) (2022-07-10)
 
 
