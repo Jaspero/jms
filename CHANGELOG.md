@@ -1,3 +1,10 @@
+## [5.36.5](https://github.com/jaspero/jms/compare/v5.36.4...v5.36.5) (2022-08-03)
+
+
+### Bug Fixes
+
+* package-lock update on functions ([9c4981d](https://github.com/jaspero/jms/commit/9c4981d69d461a3382be8751de3fea829e18c2c3))
+
 ## [5.36.4](https://github.com/jaspero/jms/compare/v5.36.3...v5.36.4) (2022-08-03)
 
 
