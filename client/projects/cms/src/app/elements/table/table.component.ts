@@ -377,6 +377,10 @@ export class TableComponent implements OnInit, AfterViewInit {
     return toObservable(value(element)).pipe(shareReplay(1)) as Observable<string>;
   }
 
+  editPath(element: any) {
+    return ['/m', ...element.ref.parent.path.split('/'), element.id];
+  }
+
   private mapRow(overview: TableData, rowData: any) {
     const {id, ref, data} = rowData;
 
