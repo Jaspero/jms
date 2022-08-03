@@ -5,7 +5,7 @@ import {CREATED_ON} from './shared/created-on';
 
 export const USER_HISTORY_MODULE: Module = {
 	id: Collections.UserHistory,
-	name: 'User History',
+	name: 'USER_HISTORY',
 	layout: {
 		sort: CREATED_ON.sort,
 		filterModule: {
@@ -20,9 +20,9 @@ export const USER_HISTORY_MODULE: Module = {
 						type: 'select',
 						configuration: {
 							dataSet: [
-								{name: 'Create', value: 'create'},
-								{name: 'Edit', value: 'edit'},
-								{name: 'Delete', value: 'delete'}
+								{name: 'CREATE', value: 'create'},
+								{name: 'EDIT', value: 'edit'},
+								{name: 'DELETE', value: 'delete'}
 							]
 						}
 					}
@@ -37,10 +37,10 @@ export const USER_HISTORY_MODULE: Module = {
 			hideCheckbox: true,
 			tableColumns: [
 				CREATED_ON.column(),
-				{key: '/type', label: 'Type', pipe: [PipeType.Titlecase]},
+				{key: '/type', label: 'TYPE', pipe: [PipeType.Titlecase]},
 				{
 					key: '/before',
-					label: 'Before',
+					label: 'BEFORE',
 					pipe: [PipeType.Json, PipeType.Custom, PipeType.Sanitize],
 					pipeArguments: {
 						1: (item) => {
@@ -50,7 +50,7 @@ export const USER_HISTORY_MODULE: Module = {
 				},
 				{
 					key: '/after',
-					label: 'After',
+					label: 'AFTER',
 					pipe: [PipeType.Json, PipeType.Custom, PipeType.Sanitize],
 					pipeArguments: {
 						1: (item) => {

@@ -210,5 +210,13 @@
   "DYNAMIC_DATA": "Dynamic Data",
 
   "PARAGRAPH": "Paragraph",
-  "SEGMENT_OPTIONS": "Segment Options"
+  "SEGMENT_OPTIONS": "Segment Options",
+
+  "USER_HISTORY": "User History",
+  "CREATE": "Create",
+  "EDIT": "Edit",
+  "DELETE": "Delete",
+  "TYPE": "Type",
+  "BEFORE": "Before",
+  "AFTER": "After"
 }
