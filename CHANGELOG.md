@@ -1,3 +1,11 @@
+## [5.36.3](https://github.com/jaspero/jms/compare/v5.36.2...v5.36.3) (2022-08-03)
+
+
+### Bug Fixes
+
+* missing translations on user-history module ([3d9e1d0](https://github.com/jaspero/jms/commit/3d9e1d038f74d65baa909a8f006b544c3fc56963))
+* removed example from users module ([4daeb86](https://github.com/jaspero/jms/commit/4daeb868983123a22dc5a72d19fadcccba4372f4))
+
 ## [5.36.2](https://github.com/jaspero/jms/compare/v5.36.1...v5.36.2) (2022-07-23)
 
 
