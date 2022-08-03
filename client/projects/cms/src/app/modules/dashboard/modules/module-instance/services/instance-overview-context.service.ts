@@ -169,10 +169,10 @@ export class InstanceOverviewContextService {
     }
 
     const evaluated = safeEval(module.layout.editTitleKey);
-    const proces =  typeof evaluated === 'function'
+    const proces = typeof evaluated === 'function'
       ? evaluated(item)
       : parseTemplate(`{{${module.layout.editTitleKey}}}`, item);
 
-    return proces || item.id;
+    return proces && proces !== 'undefined' ? proces : item.id;
   }
 }

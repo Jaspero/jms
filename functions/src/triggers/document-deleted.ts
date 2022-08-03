@@ -10,45 +10,50 @@ export const documentDeleted = functions
   .firestore
   .document('{moduleId}/{documentId}')
   .onDelete(async (snap, context) => {
+    const firestore = admin.firestore();
     const {moduleId, documentId} = context.params;
     const moduleDoc = MODULES.find(item => item.id === moduleId);
+    const toExec: Array<Promise<any>> = [];
 
-    if (!moduleDoc || !moduleDoc.metadata?.attachedFiles?.containes) {
+    if (!moduleDoc) {
       return;
     }
 
-    const storage = new Storage().bucket(admin.storage().bucket().name);
-    const firestore = admin.firestore();
-
-    const [files] = await storage.getFiles({
-      delimiter: '/',
-      ...moduleDoc.metadata?.attachedFiles.prefix && {
-        prefix: parseTemplate(moduleDoc.metadata?.attachedFiles.prefix, context.params)
-      },
-      autoPaginate: true
-    });
-
-    const toExec: Array<Promise<any>> = files
-      .filter(file =>
-        (file.metadata.moduleId === moduleId && file.metadata.documentId === documentId) ||
-        file.name.startsWith(`${moduleId}-${documentId}-`)
-      )
-      .map(
-        file =>
-          new Promise(resolve =>
-            file
-              .delete()
-              .then(resolve)
-              .catch(error => {
-                console.error(error);
-                resolve(false);
-              })
-          )
-      );
-
     if (moduleDoc.metadata) {
 
-      const {deletedAuthUser, subCollections} = moduleDoc.metadata;
+      const {deletedAuthUser, subCollections, attachedFiles} = moduleDoc.metadata;
+
+      if (attachedFiles) {
+        const storage = new Storage().bucket(admin.storage().bucket().name);
+
+        const [files] = await storage.getFiles({
+          delimiter: '/',
+          ...moduleDoc.metadata?.attachedFiles.prefix && {
+            prefix: parseTemplate(moduleDoc.metadata?.attachedFiles.prefix, context.params)
+          },
+          autoPaginate: true
+        });
+
+        toExec.push(
+          ...files
+            .filter(file =>
+              (file.metadata.moduleId === moduleId && file.metadata.documentId === documentId) ||
+              file.name.startsWith(`${moduleId}-${documentId}-`)
+            )
+            .map(
+              file =>
+                new Promise(resolve =>
+                  file
+                    .delete()
+                    .then(resolve)
+                    .catch(error => {
+                      console.error(error);
+                      resolve(false);
+                    })
+                )
+            )
+        )
+      }
 
       if (deletedAuthUser) {
         toExec.push(
