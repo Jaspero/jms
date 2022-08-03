@@ -1,3 +1,10 @@
+## [5.36.4](https://github.com/jaspero/jms/compare/v5.36.3...v5.36.4) (2022-08-03)
+
+
+### Bug Fixes
+
+* document-delete working properly ([325d74a](https://github.com/jaspero/jms/commit/325d74a3884e34bd82f663c24731376333a63528))
+
 ## [5.36.3](https://github.com/jaspero/jms/compare/v5.36.2...v5.36.3) (2022-08-03)
 
 
