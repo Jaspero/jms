@@ -1,3 +1,10 @@
+## [5.36.6](https://github.com/jaspero/jms/compare/v5.36.5...v5.36.6) (2022-08-03)
+
+
+### Bug Fixes
+
+* **cms:** edit path not working on nested documents ([049692f](https://github.com/jaspero/jms/commit/049692fb5815136534f3d3973698d6e5486a94af))
+
 ## [5.36.5](https://github.com/jaspero/jms/compare/v5.36.4...v5.36.5) (2022-08-03)
 
 
