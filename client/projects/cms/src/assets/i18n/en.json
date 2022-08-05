@@ -217,6 +217,7 @@
   "THIRD_PARTY": "Third Party",
   "GENERATE_RANDOM_PASSWORD": "Generate Random Password",
   "REQUIRE_RESET_ON_FIRST_LOGIN": "Require reset on first login.",
+  "TOGGLE_ALL": "Toggle All",
 
   "USER_HISTORY": "User History",
   "CREATE": "Create",

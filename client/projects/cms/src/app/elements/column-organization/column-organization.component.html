@@ -3,7 +3,7 @@
     [checked]="allComplete()"
     [indeterminate]="someComplete()"
     (change)="toggleAll($event.checked)">
-    Toggle All
+    {{'TOGGLE_ALL' | transloco}}
   </mat-checkbox>
 </div>
 <div class="columns" cdkDropList (cdkDropListDropped)="drop($event)">
