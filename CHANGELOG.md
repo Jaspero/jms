@@ -1,3 +1,10 @@
+# [5.38.0](https://github.com/jaspero/jms/compare/v5.37.1...v5.38.0) (2022-08-05)
+
+
+### Features
+
+* select all checkbox on column organization [#388](https://github.com/jaspero/jms/issues/388) ([2c52b36](https://github.com/jaspero/jms/commit/2c52b36d21230bbbe690081421645b758d222fa3))
+
 ## [5.37.1](https://github.com/jaspero/jms/compare/v5.37.0...v5.37.1) (2022-08-05)
 
 
