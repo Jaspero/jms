@@ -10,6 +10,7 @@ export const documentDeleted = functions
   .firestore
   .document('{moduleId}/{documentId}')
   .onDelete(async (snap, context) => {
+    
     const firestore = admin.firestore();
     const {moduleId, documentId} = context.params;
     const moduleDoc = MODULES.find(item => item.id === moduleId);
