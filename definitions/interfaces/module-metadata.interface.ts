@@ -1,3 +1,4 @@
+import {ModuleDeleteCollection} from './module-delete-collection.interface';
 import {ModuleSubCollection} from './module-sub-collection.interface';
 
 export interface ModuleMetadata {
@@ -19,6 +20,11 @@ export interface ModuleMetadata {
     prefix?: string;
   };
 
+  /**
+   * Collections and sub collections that should be deleted
+   * when the document is deleted.
+   */
+  collections?: ModuleDeleteCollection[];
   subCollections?: ModuleSubCollection[];
 
   /**

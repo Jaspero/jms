@@ -235,9 +235,15 @@ export const USERS_MODULE: Module = {
       prefix: '/users/{{documentId}}/'
     },
     history: true,
+    collections: [
+      {
+        name: Collections.UserInvites,
+        filter: (_, data) => data.email
+      }
+    ],
     subCollections: [
-      {name: 'history'},
-      {name: 'notes'}
+      {name: Collections.History},
+      {name: Collections.Notes}
     ]
   }
 };

@@ -10,6 +10,7 @@ export class Collections {
 	 * Subcollections
 	 */
 	static History = 'history';
+	static Notes = 'notes';
 
 	static HistorySub(collection: string, docId?: string) {
 		return `${collection}/${docId || '{{docId}}'}/${Collections.History}`;
