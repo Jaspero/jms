@@ -1,3 +1,11 @@
+# [5.37.0](https://github.com/jaspero/jms/compare/v5.36.6...v5.37.0) (2022-08-05)
+
+
+### Features
+
+* added collection delete approach ([a14e759](https://github.com/jaspero/jms/commit/a14e75912fe432b695670ac5118bb222d0df7a9c))
+* creating user when using third party authentication ([dcd6dc6](https://github.com/jaspero/jms/commit/dcd6dc69601854ccfc22ad65e85a7cbebfbcf01b))
+
 ## [5.36.6](https://github.com/jaspero/jms/compare/v5.36.5...v5.36.6) (2022-08-03)
 
 
