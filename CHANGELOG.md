@@ -1,3 +1,10 @@
+## [5.37.1](https://github.com/jaspero/jms/compare/v5.37.0...v5.37.1) (2022-08-05)
+
+
+### Bug Fixes
+
+* function deployment ([ce49f96](https://github.com/jaspero/jms/commit/ce49f963dd7def7a197d1f5829eae99a3fa0eb0f))
+
 # [5.37.0](https://github.com/jaspero/jms/compare/v5.36.6...v5.37.0) (2022-08-05)
 
 
