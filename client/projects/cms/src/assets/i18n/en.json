@@ -212,11 +212,14 @@
   "PARAGRAPH": "Paragraph",
   "SEGMENT_OPTIONS": "Segment Options",
 
+  "MANUALLY_SET_PASSWORD": "Manually set password",
+  "SEND_AN_INVITE": "Send An Invite",
+  "THIRD_PARTY": "Third Party",
+  "GENERATE_RANDOM_PASSWORD": "Generate Random Password",
+  "REQUIRE_RESET_ON_FIRST_LOGIN": "Require reset on first login.",
+
   "USER_HISTORY": "User History",
   "CREATE": "Create",
-  "EDIT": "Edit",
-  "DELETE": "Delete",
-  "TYPE": "Type",
   "BEFORE": "Before",
   "AFTER": "After"
 }
