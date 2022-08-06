@@ -79,7 +79,7 @@
       <hr *ngIf="showDelete || !data.hideEdit" />
     </ng-container>
 
-    <a *ngIf="!data.hideEdit" mat-menu-item [routerLink]="['/m', element.ref.parent.path, element.id]">
+    <a *ngIf="!data.hideEdit" mat-menu-item [routerLink]="editPath(element)">
       <mat-icon>{{ permission.write ? 'edit' : 'visibility' }}</mat-icon>
       <span>{{ (permission.write ? 'EDIT' : 'VIEW') | transloco }}</span>
     </a>

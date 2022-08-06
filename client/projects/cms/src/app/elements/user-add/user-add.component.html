@@ -10,7 +10,7 @@
         <mat-label>{{'METHOD' | transloco}}</mat-label>
         <mat-select [formControl]="accountType">
           <mat-option *ngFor="let option of accountTypes" [value]="option.value">
-            {{option.label}}
+            {{option.label | transloco}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -30,14 +30,14 @@
                 <mat-icon>{{type === 'password' ? 'visibility' : 'visibility_off'}}</mat-icon>
               </button>
               &nbsp;
-              <button type="button" tabindex="-1" mat-icon-button matTooltip="Generate Random Password" (click)="generateRandomPassword()">
+              <button type="button" tabindex="-1" mat-icon-button [matTooltip]="'GENERATE_RANDOM_PASSWORD' | transloco" (click)="generateRandomPassword()">
                 <mat-icon>cached</mat-icon>
               </button>
             </div>
             <mat-error>{{'PASSWORD_MIN_LENGTH' | transloco}}</mat-error>
           </mat-form-field>
 
-          <mat-checkbox class="m-b-m" formControlName="requireReset">Require reset on first login.</mat-checkbox>
+          <mat-checkbox class="m-b-m" formControlName="requireReset">{{'REQUIRE_RESET_ON_FIRST_LOGIN' | transloco}}</mat-checkbox>
         </ng-container>
 
         <mat-form-field class="w-full">

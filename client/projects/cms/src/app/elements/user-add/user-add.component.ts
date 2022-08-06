@@ -32,9 +32,9 @@ export class UserAddComponent implements OnInit {
   form: FormGroup;
   type = 'password';
   accountTypes = [
-    {value: 'manual', label: 'Manually set password'},
-    {value: 'invite', label: 'Send an invite'},
-    {value: 'third-party', label: 'Third Party'}
+    {value: 'manual', label: 'MANUALLY_SET_PASSWORD'},
+    {value: 'invite', label: 'SEND_AN_INVITE'},
+    {value: 'third-party', label: 'THIRD_PARTY'}
   ];
   accountType = new FormControl('invite');
 
@@ -82,7 +82,7 @@ export class UserAddComponent implements OnInit {
 
       const type = this.accountType.value;
 
-      if (type === 'invite') {
+      if (type !== 'manual') {
         this.generateRandomPassword();
       }
 
@@ -106,14 +106,9 @@ export class UserAddComponent implements OnInit {
         {merge: true}
       )
         .pipe(
-          switchMap(() => {
-            if (data.password) {
-              return this.dbService
-                .createUserAccount(data.email, data.password);
-            }
-
-            return of(true);
-          }),
+          switchMap(() => this.dbService
+            .createUserAccount(data.email, data.password)
+          ),
           notify({
             showThrownError: true
           }),

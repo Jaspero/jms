@@ -240,5 +240,17 @@
   "DYNAMIC_DATA": "Dynamic Data",
 
   "PARAGRAPH": "Paragraph",
-  "SEGMENT_OPTIONS": "Segment Options"
+  "SEGMENT_OPTIONS": "Segment Options",
+
+  "MANUALLY_SET_PASSWORD": "Manually set password",
+  "SEND_AN_INVITE": "Send An Invite",
+  "THIRD_PARTY": "Third Party",
+  "GENERATE_RANDOM_PASSWORD": "Generate Random Password",
+  "REQUIRE_RESET_ON_FIRST_LOGIN": "Require reset on first login.",
+  "TOGGLE_ALL": "Toggle All",
+
+  "USER_HISTORY": "User History",
+  "CREATE": "Create",
+  "BEFORE": "Before",
+  "AFTER": "After"
 }

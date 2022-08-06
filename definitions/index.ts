@@ -25,6 +25,7 @@ export type {ModuleMetadata} from './interfaces/module-metadata.interface';
 export type {ModuleOverviewView} from './interfaces/module-overview-view.interface';
 export type {ModuleOverview} from './interfaces/module-overview.interface';
 export type {ModuleSubCollection} from './interfaces/module-sub-collection.interface';
+export type {ModuleDeleteCollection} from './interfaces/module-delete-collection.interface';
 export type {Module} from './interfaces/module.interface';
 export type {SearchModule} from './interfaces/search-module.interface';
 export type {SortModule} from './interfaces/sort-module.interface';

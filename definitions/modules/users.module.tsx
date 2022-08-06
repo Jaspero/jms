@@ -115,17 +115,6 @@ export const USERS_MODULE: Module = {
           menuStyle: false
         },
         {
-          value: () => JSX(<h2>Hello World!</h2>),
-          children: [
-            {
-              value: () => JSX(<div>I'm first</div>)
-            },
-            {
-              value: () => JSX(<div>I'm third</div>)
-            }
-          ]
-        },
-        {
           value: it => JSX(<jms-e-notes data-id={it.id}/>)
         },
         {
@@ -246,9 +235,15 @@ export const USERS_MODULE: Module = {
       prefix: '/users/{{documentId}}/'
     },
     history: true,
+    collections: [
+      {
+        name: Collections.UserInvites,
+        filter: (_, data) => data.email
+      }
+    ],
     subCollections: [
-      {name: 'history'},
-      {name: 'notes'}
+      {name: Collections.History},
+      {name: Collections.Notes}
     ]
   }
 };
