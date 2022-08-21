@@ -44,6 +44,7 @@ export class TranslocoHttpLoader implements TranslocoLoader {
       provide: TRANSLOCO_SCOPE,
       useValue: [
         'fb-fields-mat',
+        'fb-fu',
         'fb-pb',
         'jmsp-notes'
       ]

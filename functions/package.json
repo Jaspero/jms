@@ -36,7 +36,8 @@
     "json-pointer": "0.6.2",
     "json2csv": "5.0.1",
     "jsonwebtoken": "8.5.1",
-    "proxy-from-env": "^1.1.0",
+    "node-fetch": "2.6.1",
+    "proxy-from-env": "1.1.0",
     "sharp": "0.30.6",
     "xlsx": "0.17.0"
   },
@@ -49,6 +50,7 @@
     "@types/handlebars": "4.1.0",
     "@types/json-pointer": "1.0.30",
     "@types/json2csv": "5.0.1",
+    "@types/node-fetch": "2.5.7",
     "@types/jsonwebtoken": "8.5.6",
     "@types/sharp": "0.30.4",
     "tslint": "6.1.2",

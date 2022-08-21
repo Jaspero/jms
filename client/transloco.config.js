@@ -9,6 +9,10 @@ module.exports = {
       dist: ['./projects/cms/src/assets/i18n/']
     },
     {
+      src: './node_modules/@jaspero/fb-form-ui',
+      dist: ['./projects/cms/src/assets/i18n/']
+    },
+    {
       src: './node_modules/@jaspero/fb-page-builder',
       dist: ['./projects/cms/src/assets/i18n/']
     },

@@ -46,6 +46,31 @@ export const STATIC_CONFIG = {
         value: '/dashboard'
       },
       {
+        icon: 'language',
+        label: 'WEBSITE',
+        type: 'expandable',
+        children: [
+          {
+            icon: 'settings',
+            label: 'LAYOUT',
+            type: 'link',
+            value: '/m/settings/layout'
+          },
+          {
+            icon: 'pages',
+            label: 'PAGES',
+            type: 'link',
+            value: '/m/pages'
+          },
+          {
+            icon: 'list_alt',
+            label: 'FORMS',
+            type: 'link',
+            value: '/m/forms'
+          },
+        ]
+      },
+      {
         children: [
           {
             icon: 'supervised_user_circle',
@@ -60,17 +85,17 @@ export const STATIC_CONFIG = {
             value: '/m/roles'
           },
           {
-            icon: 'email',
-            label: 'AUTOMATIC_EMAILS',
+           icon: 'email',
+           label: 'AUTOMATIC_EMAILS',
+           type: 'link',
+           value: '/m/automatic-emails'
+          },
+          {
+            icon: 'send',
+            label: 'SENT_EMAILS',
             type: 'link',
-            value: '/m/automatic-emails'
-           },
-           {
-             icon: 'send',
-             label: 'SENT_EMAILS',
-             type: 'link',
-             value: '/m/sent-emails'
-           }
+            value: '/m/sent-emails'
+          }
         ],
         icon: 'account_box',
         label: 'MANAGEMENT',

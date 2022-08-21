@@ -1,10 +1,13 @@
+import {AUTOMATIC_EMAILS_MODULE} from './emails/automatic-emails.module';
+import {SENT_EMAILS_MODULE} from './emails/sent-emails.module';
+import {FORMS_MODULE} from './forms.module';
+import {PAGES_MODULE} from './pages/pages.module';
 import {ROLES_MODULE} from './roles.module';
 import {USER_HISTORY_MODULE} from './user-history.module';
 import {USER_INVITES_MODULE} from './user-invites.module';
 import {USERS_MODULE} from './users.module';
+import {LAYOUT_MODULE} from './website/layout.module';
 import {STORAGE_MODULE} from './storage.module';
-import {AUTOMATIC_EMAILS_MODULE} from './emails/automatic-emails.module';
-import {SENT_EMAILS_MODULE} from './emails/sent-emails.module';
 
 /**
  * Schemas for all of the modules
@@ -18,4 +21,11 @@ export const MODULES = [
 
   AUTOMATIC_EMAILS_MODULE,
   SENT_EMAILS_MODULE,
+
+  /**
+   * Website
+   */
+  PAGES_MODULE,
+  FORMS_MODULE,
+  LAYOUT_MODULE,
 ];

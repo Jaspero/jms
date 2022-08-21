@@ -1,0 +1,4 @@
+<div *ngIf="data.title" [fbPbSingleLineIE]="{pointer: '/title'}" [innerHTML]="data.title | jpSanitize"></div>
+<div *ngIf="data.description" [fbPbSingleLineIE]="{pointer: '/description'}" [innerHTML]="data.description | jpSanitize"></div>
+
+<jms-form-ui-renderer *ngIf="data.form" [data]="{id: data.form, email: data.email, action: data.action}"></jms-form-ui-renderer>

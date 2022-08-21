@@ -3,6 +3,7 @@ import {createUser} from './callable/create-user';
 import {exchangeToken} from './callable/exchange-token';
 import {getUser} from './callable/get-user';
 import {removeUser} from './callable/remove-user';
+import {sampleEmail} from './callable/sample-email';
 import {triggerPasswordReset} from './callable/trigger-password-reset';
 import {updateEmail} from './callable/update-email';
 import {updateUser} from './callable/update-user';
@@ -11,6 +12,9 @@ import {importData} from './rest/import-data';
 import {documentDeleted} from './triggers/document-deleted';
 import {fileCreated} from './triggers/file-created';
 import {fileDeleted} from './triggers/file-deleted';
+import {formSubmissionCreated} from './triggers/form-submission-created';
+import {updateDynamicOnCreate} from './triggers/update-dynamic-on-create';
+import {updateDynamicOnUpdate} from './triggers/update-dynamic-on-update';
 import {userCreated} from './triggers/user-created';
 import {userDeleted} from './triggers/user-deleted';
 import {impersonate} from './callable/impersonate';
@@ -34,6 +38,10 @@ export const cms = {
   documentDeleted,
   documentWrite,
   triggerPasswordReset,
+  formSubmissionCreated,
+
+  updateDynamicOnCreate,
+  updateDynamicOnUpdate,
 
   // Callable
   createUser,
@@ -41,6 +49,7 @@ export const cms = {
   updateUser,
   getUser,
   updateEmail,
+  sampleEmail,
   exchangeToken,
   impersonate,
 

@@ -33,6 +33,26 @@
           ]
         }
       ]
+    },
+    {
+      "target": "web",
+      "public": "public/web",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "headers": [
+        {
+          "source": "**",
+          "headers": [
+            {
+              "key": "x-frame-options",
+              "value": "DENY"
+            }
+          ]
+        }
+      ]
     }
   ],
   "storage": {

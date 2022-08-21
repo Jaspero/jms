@@ -222,5 +222,24 @@
   "USER_HISTORY": "User History",
   "CREATE": "Create",
   "BEFORE": "Before",
-  "AFTER": "After"
+  "AFTER": "After",
+
+  "FORM": "Form",
+  "STANDARD_OPTIONS": "Standard Options",
+  "ADVANCED_OPTIONS": "Advanced Options",
+  "SIZE": "Size",
+  "SMALL": "Small",
+  "MEDIUM": "Medium",
+  "REGULAR": "Regular",
+  "LARGE": "Large",
+  "FULL_SCREEN": "Full Screen",
+  "CONTAINED": "Contained",
+  "BACKGROUND": "Background",
+  "CUSTOM_CLASS": "Custom Class",
+  "ELEMENT_ID": "Element ID",
+  "VERTICAL_ALIGNMENT": "Vertical Alignment",
+  "CENTER": "Center",
+  "TOP": "Top",
+  "BOTTOM": "Bottom",
+  "ADDITIONAL_STYLE": "Additional Style"
 }

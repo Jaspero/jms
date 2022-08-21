@@ -32,6 +32,7 @@ import {FileManagerModule} from '../file-manager/file-manager.module';
 import {CanReadModuleGuard} from './guards/can-read-module/can-read-module.guard';
 import {ConfirmExitGuard} from './guards/confirm-exit/confirm-exit.guard';
 import {CustomModuleGuard} from './guards/custom-module/custom-module.guard';
+import {FormSubmissionGuard} from './guards/form-submission/form-submission.guard';
 import {InstanceOverviewComponent} from './pages/instance-overview/instance-overview.component';
 import {InstanceSingleComponent} from './pages/instance-single/instance-single.component';
 import {ColumnPipe} from './pipes/column/column.pipe';
@@ -91,6 +92,7 @@ function routes(deep = 10) {
     CustomModuleGuard,
     CanReadModuleGuard,
     ConfirmExitGuard,
+    FormSubmissionGuard,
 
     /**
      * Provide any additional overview and single services here
@@ -111,7 +113,14 @@ function routes(deep = 10) {
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes()),
+    RouterModule.forChild([
+      {
+        path: 'forms/:id/submissions',
+        component: InstanceOverviewComponent,
+        canActivate: [FormSubmissionGuard]
+      },
+      ...routes()
+    ]),
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,

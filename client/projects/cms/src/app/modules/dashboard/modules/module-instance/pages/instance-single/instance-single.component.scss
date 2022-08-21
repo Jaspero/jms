@@ -6,10 +6,22 @@
 }
 
 ::ng-deep {
+
+  /**
+   * Form UI Overrides
+   */
+  .fb-fields {
+    .fields-footer,
+    .field {
+      background: white;
+      border-radius: 4px;
+    }
+  }
+
   /**
    * Page Builder Overrides
    */
-   .pb {
+  .pb {
     .pb-intro {
       background: white;
       border-radius: 4px;

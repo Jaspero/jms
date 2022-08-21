@@ -58,15 +58,52 @@ service cloud.firestore {
       allow read, write: if admin() || hasId(resource);
     }
 
+    match /automatic-emails/{item=**} {
+      allow read, write: if admin();
+    }
+
+    match /sent-emails/{item=**} {
+      allow read, write: if admin();
+    }
+
+    match /forms/{item} {
+      allow write: if admin();
+      allow read: if true;
+
+      match /submissions/{sub} {
+        allow read: if admin();
+        allow write: if true;
+      }
+    }
+
+    match /settings/{item} {
+      allow read: if true;
+      allow write: if admin();
+    }
+
+    match /posts/{item} {
+      allow read: if resource.data.published || admin();
+      allow write: if admin();
+    }    
+
+    match /pages/{item=**} {
+      allow read: if true;
+      allow write: if admin();
+    }
+
     match /storage/{item=**} {
       allow read: if storageItemPublicRead() || storageItemPublicWrite() || storageItemRoleRead() || storageItemRoleWrite() || storageItemUserRead() || storageItemUserWrite();
       allow write: if storageItemPublicWrite() || storageItemRoleWrite() || storageItemUserWrite();
-      allow create: if hasRoles(['admin', 'user']);
     }
 
     match /_search/{item=**} {
       allow read: if hasRoles(['admin', 'user']);
       allow write: if false;
+    }
+
+    match /{module}/{document=**} {
+      allow read: if hasRoles(['user', 'admin']) || hasId(resource);
+      allow write: if hasRoles(['admin']) || hasId(resource);
     }
   }
 }
