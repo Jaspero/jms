@@ -84,6 +84,7 @@ export interface ModuleLayoutTableSelectionAction {
    */
   criteria?: string;
   menuStyle?: boolean;
+  children?: ModuleLayoutTableSelectionAction[];
 }
 
 export interface ModuleLayoutTable {

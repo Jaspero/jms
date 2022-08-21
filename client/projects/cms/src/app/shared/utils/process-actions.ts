@@ -1,7 +1,9 @@
 import {safeEval} from '@jaspero/utils';
 import {map, shareReplay, startWith, switchMap} from 'rxjs/operators';
-import {ModuleLayoutTableSelectionAction, ModuleInstanceAction} from 'definitions';
-import {InstanceOverviewContextService} from '../../modules/dashboard/modules/module-instance/services/instance-overview-context.service';
+import {ModuleInstanceAction, ModuleLayoutTableSelectionAction} from 'definitions';
+import {
+  InstanceOverviewContextService
+} from '../../modules/dashboard/modules/module-instance/services/instance-overview-context.service';
 import {Action} from '../interfaces/action.interface';
 import {toObservable} from './to-observable';
 import {BehaviorSubject} from 'rxjs';
@@ -25,25 +27,28 @@ export function processActions(
         );
       }
 
+      const children = processActions(role, cur.children || [], ioc);
+
       const criteria = cur.criteria &&
         (
           ioc.selection &&
           ioc.selection.changed.pipe(
             startWith(ioc.selection.selected),
             switchMap(selection =>
-              toObservable((cur.criteria && safeEval(cur.criteria))?.(selection))  
+              toObservable((cur.criteria && safeEval(cur.criteria))?.(selection))
             ),
             map(value => ({value})),
             shareReplay(1)
           )
-        ) || new BehaviorSubject({value: safeEval(cur.criteria || undefined)}); 
+        ) || new BehaviorSubject({value: safeEval(cur.criteria || undefined)});
       const parsed = safeEval(cur.value);
 
       if (parsed) {
         acc.push({
           menuStyle: cur.menuStyle,
           value: toObservable(parsed).pipe(shareReplay(1)),
-          criteria
+          criteria,
+          children
         });
       }
     }

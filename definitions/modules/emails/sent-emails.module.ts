@@ -59,7 +59,7 @@ export const SENT_EMAILS_MODULE: Module = {
         status: STATUS_DEFINITION,
         templateId: TEMPLATE_ID_DEFINITION,
         to: {
-          label: 'Receiver'
+          label: 'RECEIVER'
         }
       }
     },

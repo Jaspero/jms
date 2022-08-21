@@ -1,19 +1,19 @@
 import {CommonModule} from '@angular/common';
 import {Injector, NgModule} from '@angular/core';
+import {createCustomElement} from '@angular/elements';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
-import {SpotlightComponent} from './spotlight.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
-import {TranslocoModule} from '@ngneat/transloco';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SanitizeModule} from '@jaspero/ng-helpers';
-import {createCustomElement} from '@angular/elements';
+import {TranslocoModule} from '@ngneat/transloco';
+import {StorageModule} from '../storage/storage.module';
 import {SpotlightResultComponent} from './spotlight-result/spotlight-result.component';
-import {SpotlightDriveResultComponent} from './spotlight-drive-result/spotlight-drive-result.component';
-import {DriveModule} from '../drive/drive.module';
+import {SpotlightStorageResultComponent} from './spotlight-storage-result/spotlight-storage-result.component';
+import {SpotlightComponent} from './spotlight.component';
 
 @NgModule({
-  declarations: [SpotlightComponent, SpotlightResultComponent, SpotlightDriveResultComponent],
+  declarations: [SpotlightComponent, SpotlightResultComponent, SpotlightStorageResultComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -28,7 +28,7 @@ import {DriveModule} from '../drive/drive.module';
 
     TranslocoModule,
     SanitizeModule,
-    DriveModule
+    StorageModule
   ]
 })
 export class SpotlightModule {
@@ -41,8 +41,8 @@ export class SpotlightModule {
         component: SpotlightResultComponent
       },
       {
-        selector: 'jms-spotlight-drive-result',
-        component: SpotlightDriveResultComponent
+        selector: 'jms-spotlight-storage-result',
+        component: SpotlightStorageResultComponent
       }
     ].forEach(item => {
       const element = createCustomElement(item.component, {injector});

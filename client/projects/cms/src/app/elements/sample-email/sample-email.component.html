@@ -1,14 +1,14 @@
 <div class="action-inset" [jpLoadClick]="open()" [loadClickStopPropagation]="true">
-  <mat-icon>send</mat-icon> {{'ELEMENTS.SAMPLE_EMAIL.BUTTON' | transloco}}
+  <mat-icon>send</mat-icon> {{'SEND_SAMPLE_EMAIL' | transloco}}
 </div>
 
 <ng-template #dg>
-  <h4 mat-dialog-title>{{'ELEMENTS.SAMPLE_EMAIL.DIALOG_TITLE' | transloco}}</h4>
+  <h4 mat-dialog-title>{{'SAMPLE_EMAIL' | transloco}}</h4>
 
   <form [formGroup]="form">
     <mat-dialog-content>
       <mat-form-field class="w-full">
-        <mat-label>{{'ELEMENTS.SAMPLE_EMAIL.RECEIVER_EMAIL' | transloco}}</mat-label>
+        <mat-label>{{'RECEIVER' | transloco}}</mat-label>
         <input type="email" matInput formControlName="email">
       </mat-form-field>
 
@@ -16,7 +16,7 @@
 
         <hr>
 
-        <h5 class="m-b-m m-t-m">{{'ELEMENTS.SAMPLE_EMAIL.DYNAMIC_DATA' | transloco}}</h5>
+        <h5 class="m-b-m m-t-m">{{'DYNAMIC_DATA' | transloco}}</h5>
 
         <mat-form-field class="w-full" *ngFor="let field of fields">
           <mat-label>{{field.name}}</mat-label>
@@ -32,7 +32,7 @@
         color="primary"
         [disabled]="form.invalid"
         [jpLoadClick]="send()">
-        {{'ELEMENTS.SAMPLE_EMAIL.DIALOG_BUTTON' | transloco}}
+        {{'SUBMIT' | transloco}}
       </button>
     </mat-dialog-actions>
   </form>

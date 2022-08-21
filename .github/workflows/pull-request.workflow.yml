@@ -1,20 +1,22 @@
+
 name: Pull Request on Push
 on:
   push:
     branches-ignore:
-      - dev
       - main
+      - dev
 jobs:
   auto-pull-request:
     name: PullRequestAction
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        prefix: ['feat', 'fix', 'chore', 'hotfix']
+    env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
     steps:
-      - name: Pull Request - ${{ matrix.prefix }}/
-        uses: vsoch/pull-request-action@1.0.12
+      - name: PullRequestAction
+        uses: vsoch/pull-request-action@1.0.19
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH_PREFIX: '${{ matrix.prefix }}/'
           PULL_REQUEST_BRANCH: 'main'
+          PASS_IF_EXISTS: true
+          PULL_REQUEST_TITLE: '${{env.BRANCH_NAME}}'
+          PULL_REQUEST_BODY: '${{env.BRANCH_NAME}}'

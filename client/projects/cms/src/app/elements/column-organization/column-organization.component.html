@@ -1,3 +1,11 @@
+<div class="m-b-m m-t-s m-l-s">
+  <mat-checkbox
+    [checked]="allComplete()"
+    [indeterminate]="someComplete()"
+    (change)="toggleAll($event.checked)">
+    {{'TOGGLE_ALL' | transloco}}
+  </mat-checkbox>
+</div>
 <div class="columns" cdkDropList (cdkDropListDropped)="drop($event)">
   <div class="column" *ngFor="let column of columns; index as index;" cdkDrag>
     <div>

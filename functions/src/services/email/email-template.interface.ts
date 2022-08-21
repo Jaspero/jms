@@ -4,16 +4,11 @@ export interface EmailTemplate {
   dynamicValues: any;
   name: string;
   recipient: string;
-  content: {
-    template: string;
-    segments: Array<{
-      id: string;
-      name: string;
-      content: string;
-    }>;
-    layout: string;
-    style?: string;
-  };
+  blocks: Array<{
+    compiled: string;
+    type: string;
+    value: any;
+  }>;
   subject: string;
   sendTo: string;
 }

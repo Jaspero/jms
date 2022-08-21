@@ -12,9 +12,9 @@
   "dependencies": {
     "@jaspero/fb-form-ui": "2.5.16",
     "@jaspero/fb-monaco-editor": "2.5.13",
-    "@jaspero/fb-page-builder": "3.21.8",
-    "@jaspero/fb-tinymce": "2.6.8",
     "@jaspero/fb-fields-mat": "1.8.0",
+    "@jaspero/fb-page-builder": "3.26.0",
+    "@jaspero/fb-tinymce": "2.9.1",
     "@jaspero/form-builder": "5.7.2",
     "adv-firestore-functions": "^2.0.9",
     "json-schema": "0.4.0"
@@ -23,6 +23,7 @@
     "@google-cloud/storage": "5.19.3",
     "csso": "4.2.0",
     "cross-env": "7.0.3",
+    "csso": "5.0.3",
     "firebase-admin": "10.1.0",
     "rimraf": "3.0.2",
     "ts-node": "10.7.0",

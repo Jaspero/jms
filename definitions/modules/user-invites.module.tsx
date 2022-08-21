@@ -68,10 +68,5 @@ export const USER_INVITES_MODULE: Module = {
       accepted: {type: 'boolean'},
       acceptedOn: {type: 'number'}
     }
-  },
-  metadata: {
-    attachedFiles: {
-      containes: false
-    }
   }
 };

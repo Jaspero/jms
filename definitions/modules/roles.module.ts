@@ -49,10 +49,5 @@ export const ROLES_MODULE: Module = {
       }
     },
     ...CREATED_ON.definition()
-  },
-  metadata: {
-    attachedFiles: {
-      containes: false
-    }
   }
 };

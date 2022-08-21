@@ -1,3 +1,154 @@
+# [5.38.0](https://github.com/jaspero/jms/compare/v5.37.1...v5.38.0) (2022-08-05)
+
+
+### Features
+
+* select all checkbox on column organization [#388](https://github.com/jaspero/jms/issues/388) ([2c52b36](https://github.com/jaspero/jms/commit/2c52b36d21230bbbe690081421645b758d222fa3))
+
+## [5.37.1](https://github.com/jaspero/jms/compare/v5.37.0...v5.37.1) (2022-08-05)
+
+
+### Bug Fixes
+
+* function deployment ([ce49f96](https://github.com/jaspero/jms/commit/ce49f963dd7def7a197d1f5829eae99a3fa0eb0f))
+
+# [5.37.0](https://github.com/jaspero/jms/compare/v5.36.6...v5.37.0) (2022-08-05)
+
+
+### Features
+
+* added collection delete approach ([a14e759](https://github.com/jaspero/jms/commit/a14e75912fe432b695670ac5118bb222d0df7a9c))
+* creating user when using third party authentication ([dcd6dc6](https://github.com/jaspero/jms/commit/dcd6dc69601854ccfc22ad65e85a7cbebfbcf01b))
+
+## [5.36.6](https://github.com/jaspero/jms/compare/v5.36.5...v5.36.6) (2022-08-03)
+
+
+### Bug Fixes
+
+* **cms:** edit path not working on nested documents ([049692f](https://github.com/jaspero/jms/commit/049692fb5815136534f3d3973698d6e5486a94af))
+
+## [5.36.5](https://github.com/jaspero/jms/compare/v5.36.4...v5.36.5) (2022-08-03)
+
+
+### Bug Fixes
+
+* package-lock update on functions ([9c4981d](https://github.com/jaspero/jms/commit/9c4981d69d461a3382be8751de3fea829e18c2c3))
+
+## [5.36.4](https://github.com/jaspero/jms/compare/v5.36.3...v5.36.4) (2022-08-03)
+
+
+### Bug Fixes
+
+* document-delete working properly ([325d74a](https://github.com/jaspero/jms/commit/325d74a3884e34bd82f663c24731376333a63528))
+
+## [5.36.3](https://github.com/jaspero/jms/compare/v5.36.2...v5.36.3) (2022-08-03)
+
+
+### Bug Fixes
+
+* missing translations on user-history module ([3d9e1d0](https://github.com/jaspero/jms/commit/3d9e1d038f74d65baa909a8f006b544c3fc56963))
+* removed example from users module ([4daeb86](https://github.com/jaspero/jms/commit/4daeb868983123a22dc5a72d19fadcccba4372f4))
+
+## [5.36.2](https://github.com/jaspero/jms/compare/v5.36.1...v5.36.2) (2022-07-23)
+
+
+### Bug Fixes
+
+* **cms:** populate caching now considers displayKey ([2ba4ebb](https://github.com/jaspero/jms/commit/2ba4ebb2cc20bc9247b4b64a40ac4e7d11418ad0))
+
+## [5.36.1](https://github.com/jaspero/jms/compare/v5.36.0...v5.36.1) (2022-07-10)
+
+
+### Bug Fixes
+
+* missing email-template-description ([745e8f7](https://github.com/jaspero/jms/commit/745e8f78368399f503987c2681b66b5070b5ea59))
+
+# [5.36.0](https://github.com/jaspero/jms/compare/v5.35.0...v5.36.0) (2022-07-09)
+
+
+### Features
+
+* added page-builder for automatic emails ([550aa7c](https://github.com/jaspero/jms/commit/550aa7cd3c9931932cb91f9ec754875842e35779))
+* connected sending emails in page builder format ([3cfbedc](https://github.com/jaspero/jms/commit/3cfbedc0bb94c23a1968cabfa80893f97c078493))
+
+# [5.35.0](https://github.com/jaspero/jms/compare/v5.34.0...v5.35.0) (2022-07-08)
+
+
+### Features
+
+* added automatic-emails and sent-emails to cms by default ([3d26341](https://github.com/jaspero/jms/commit/3d26341cab3906a42a0485b4b7c383eea9373718))
+
+# [5.34.0](https://github.com/jaspero/jms/compare/v5.33.1...v5.34.0) (2022-07-01)
+
+
+### Features
+
+* better handling for material font loading ([a439614](https://github.com/jaspero/jms/commit/a4396145c714b9c2fd890e7109cbda595569cb7c))
+
+## [5.33.1](https://github.com/jaspero/jms/compare/v5.33.0...v5.33.1) (2022-06-21)
+
+
+### Bug Fixes
+
+* added --legacy-peer-deps for cms deployment ([7be0a02](https://github.com/jaspero/jms/commit/7be0a02c4692839feb29eee8544f9dacd4271093))
+
+# [5.33.0](https://github.com/jaspero/jms/compare/v5.32.0...v5.33.0) (2022-06-16)
+
+
+### Features
+
+* **cms:** updated versions; nested menu working closes [#380](https://github.com/jaspero/jms/issues/380) ([ae6753c](https://github.com/jaspero/jms/commit/ae6753cfc19a4603c31a6fd1444c63a2961b841f))
+
+# [5.32.0](https://github.com/jaspero/jms/compare/v5.31.0...v5.32.0) (2022-06-14)
+
+
+### Features
+
+* add sub menu to actions [#380](https://github.com/jaspero/jms/issues/380) ([08c0dac](https://github.com/jaspero/jms/commit/08c0dac8de8c2dc3752e684eb8aed86863ad97be))
+
+# [5.31.0](https://github.com/jaspero/jms/compare/v5.30.0...v5.31.0) (2022-06-11)
+
+
+### Features
+
+* **cms:** providing different services for overview and single closes [#381](https://github.com/jaspero/jms/issues/381) ([e1acfc0](https://github.com/jaspero/jms/commit/e1acfc0f9d14c4cbfbf467d869bbf83577dfc96d))
+
+# [5.30.0](https://github.com/jaspero/jms/compare/v5.29.0...v5.30.0) (2022-06-10)
+
+
+### Features
+
+* **cms:** waiting for transloco to load before showing notifications; showing passwords not matching error; ([85c293e](https://github.com/jaspero/jms/commit/85c293e91a63e82268f310b48b8cc0fdd4760719))
+
+# [5.29.0](https://github.com/jaspero/jms/compare/v5.28.4...v5.29.0) (2022-06-10)
+
+
+### Features
+
+* initial setup ([c7bbca1](https://github.com/jaspero/jms/commit/c7bbca1b0508562dc12ea44f3398b4f4e62dce63))
+* initial setup ([ad65190](https://github.com/jaspero/jms/commit/ad65190de776f2f6ff61d03d41961d6b3d144fb7))
+
+## [5.28.4](https://github.com/jaspero/jms/compare/v5.28.3...v5.28.4) (2022-06-08)
+
+
+### Bug Fixes
+
+* **workflows:** missing correct package-lock ([a2729c2](https://github.com/jaspero/jms/commit/a2729c25aaeb970aa130abd41421fc43cd96dd06))
+
+## [5.28.3](https://github.com/jaspero/jms/compare/v5.28.2...v5.28.3) (2022-06-08)
+
+
+### Bug Fixes
+
+* **workflows:** deploy firebase functions using node 14. form-builder incompatible dependencies ([e4577f8](https://github.com/jaspero/jms/commit/e4577f86a3372d7c5a2e9173d9001210baabd341))
+
+## [5.28.2](https://github.com/jaspero/jms/compare/v5.28.1...v5.28.2) (2022-05-20)
+
+
+### Bug Fixes
+
+* **cms:** controls in table rows not saving when there is more then one row ([e29a91a](https://github.com/jaspero/jms/commit/e29a91aaa3de0057d3fd4e086bb3b22ad8e6d907))
+
 ## [5.28.1](https://github.com/jaspero/jms/compare/v5.28.0...v5.28.1) (2022-05-13)
 
 

@@ -3,7 +3,7 @@ import * as functions from 'firebase-functions';
 import {STATIC_CONFIG} from '../consts/static-config.const';
 import {EmailService} from '../services/email/email.service';
 import {createJwt} from '../utils/create-jwt';
-import {SHARED_CONFIG, Collections} from 'definitions';
+import {SHARED_CONFIG, Collections, EmailTemplates} from 'definitions';
 
 export const userCreated = functions
   .region(SHARED_CONFIG.cloudRegion)
@@ -43,14 +43,11 @@ export const userCreated = functions
         const token = await createJwt({id: user.uid});
         const link = `${STATIC_CONFIG.url}finish-sign-up?t=${token}`;
 
-        await new EmailService().sendEmail({
-          to: user.email,
-          subject: `Application Invite`,
-          html: `
-            <p>Please follow the link below to create your account</p>
-            <a target="_blank" href="${link}">${link}</a>
-           `
-        });
+        await new EmailService().parseEmail(EmailTemplates.UserSignUpInvite, {
+          link,
+          email: user.email,
+          role: role.role
+        }, user.email);
       }
     }
 

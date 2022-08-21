@@ -1,26 +1,22 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {
-  FormBuilderComponent,
-  FormBuilderContextService,
-  FormBuilderData,
-  State
-} from '@jaspero/form-builder';
+import {ModuleAuthorization} from 'definitions';
+import {FormBuilderData, FormBuilderComponent, State, FormBuilderContextService} from '@jaspero/form-builder';
 import {parseTemplate, random, safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
-import {ModuleAuthorization} from 'definitions';
 import {interval, Observable, of, Subject, Subscription} from 'rxjs';
 import {debounceTime, map, shareReplay, switchMap, tap} from 'rxjs/operators';
 import {ViewState} from '../../../../../../shared/enums/view-state.enum';
-import {Action} from '../../../../../../shared/interfaces/action.interface';
-import {DbService} from '../../../../../../shared/services/db/db.service';
-import {StateService} from '../../../../../../shared/services/state/state.service';
 import {UtilService} from '../../../../../../shared/services/util/util.service';
-import {processActions} from '../../../../../../shared/utils/process-actions';
 import {queue} from '../../../../../../shared/utils/queue.operator';
-import {toObservable} from '../../../../../../shared/utils/to-observable';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
+import {Action} from '../../../../../../shared/interfaces/action.interface';
+import {processActions} from '../../../../../../shared/utils/process-actions';
+import {StateService} from '../../../../../../shared/services/state/state.service';
+import {toObservable} from '../../../../../../shared/utils/to-observable';
+import {SingleService} from '../../interfaces/single-service.interface';
+import {DefaultSingleService} from '../../services/default-single.service';
 
 interface Instance {
   module: {
@@ -52,10 +48,10 @@ export class InstanceSingleComponent implements OnInit {
   constructor(
     public ioc: InstanceOverviewContextService,
     public util: UtilService,
-    private dbService: DbService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private state: StateService,
+    private injector: Injector,
     private formCtx: FormBuilderContextService
   ) {
   }
@@ -72,7 +68,11 @@ export class InstanceSingleComponent implements OnInit {
   saveBuffer$ = new Subject<Instance>();
   first = true;
   confirmExitOnTouched: boolean;
-  actions = {};
+  actions: {
+    [key: string]: Observable<any>
+  } = {};
+  singleService: SingleService;
+  
   private autoSaveListener: Subscription;
 
   ngOnInit() {
@@ -81,6 +81,7 @@ export class InstanceSingleComponent implements OnInit {
 
         // @ts-ignore
         this.formCtx.module = module.id;
+        this.singleService = this.injector.get(module.layout?.instance?.service || DefaultSingleService);
 
         return this.activatedRoute.params.pipe(
           switchMap(params => {
@@ -105,14 +106,14 @@ export class InstanceSingleComponent implements OnInit {
             } else if (id.endsWith('--copy')) {
               this.currentState = ViewState.Copy;
               this.formState = State.Create;
-              return this.dbService
-                .getDocument(module.id, id.replace('--copy', ''))
+              return this.singleService
+                .get(module.id, id.replace('--copy', ''))
                 .pipe(queue());
             } else {
               this.currentState = ViewState.Edit;
               this.formState = State.Edit;
-              return this.dbService
-                .getDocument(module.id, id)
+              return this.singleService
+                .get(module.id, id)
                 .pipe(queue());
             }
           }),
@@ -208,7 +209,7 @@ export class InstanceSingleComponent implements OnInit {
               ...autoSave && {autoSave: true}
             };
           })
-        );
+        )
       })
     );
 
@@ -249,7 +250,7 @@ export class InstanceSingleComponent implements OnInit {
 
           delete data.id;
 
-          return this.dbService.setDocument(instance.module.id, id, data);
+          return this.singleService.save(instance.module.id, id, data);
         })
       ];
 
@@ -300,11 +301,8 @@ export class InstanceSingleComponent implements OnInit {
     }
   }
 
-  toActionObservable(value, data, index) {
-    const observable = toObservable(value({id: this.util.docId, data}))
-      .pipe(shareReplay(1));
-
-    this.actions[data.id + '/' + index] = observable;
-    return observable;
+  toActionObservable(value, data) {
+    return toObservable(value({id: this.util.docId, data}))
+      .pipe(shareReplay(1)) as Observable<string>;
   }
 }

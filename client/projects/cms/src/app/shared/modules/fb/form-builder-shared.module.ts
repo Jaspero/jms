@@ -2,20 +2,18 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-import {FbFieldsMatModule} from '@jaspero/fb-fields-mat';
-import {FbSegmentsMatModule} from '@jaspero/fb-segments-mat';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {FbFieldsMatModule} from '@jaspero/fb-fields-mat';
 import {FormUiModule} from '@jaspero/fb-form-ui';
 import {MonacoEditorModule} from '@jaspero/fb-monaco-editor';
 import {FB_PAGE_BUILDER_OPTIONS, PageBuilderModule} from '@jaspero/fb-page-builder';
+import {FbSegmentsMatModule} from '@jaspero/fb-segments-mat';
 import {TemplateEditorModule, TinymceModule} from '@jaspero/fb-tinymce';
 import {
   CUSTOM_COMPONENTS, CUSTOM_FIELDS,
   DbService as FDbService,
   FormBuilderModule,
-  ROLE,
-  STORAGE_URL,
-  StorageService
+  ROLE, StorageService, STORAGE_URL
 } from '@jaspero/form-builder';
 import {TranslocoModule} from '@ngneat/transloco';
 import {BlocksModule} from '@shared/blocks/blocks.module';
@@ -99,4 +97,4 @@ export function roleFactory(state: StateService) {
     EmailTemplateDescriptionComponent
   ]
 })
-export class FormBuilderSharedModule {}
+export class FormBuilderSharedModule { }

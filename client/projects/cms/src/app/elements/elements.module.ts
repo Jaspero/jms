@@ -41,107 +41,112 @@ import {ImportComponent} from './import/import.component';
 import {LinkComponent} from './link/link.component';
 import {NewPrepopulateComponent} from './new-prepopulate/new-prepopulate.component';
 import {ParseTemplatePipe} from './pipes/parse-template/parse-template.pipe';
-import {SampleEmailComponent} from './sample-email/sample-email.component';
 import {SortDialogComponent} from './sort-dialog/sort-dialog.component';
 import {TableComponent} from './table/table.component';
 import {TriggerPasswordResetComponent} from './trigger-password-reset/trigger-password-reset.component';
 import {UserActionsComponent} from './user-actions/user-actions.component';
 import {UserAddComponent} from './user-add/user-add.component';
+import {SearchInputModule} from '../shared/modules/search-input/search-input.module';
+import {ForceDisableModule} from '../shared/modules/force-disable/force-disable.module';
+import {EvalModule} from '../shared/modules/eval/eval.module';
+import {SampleEmailComponent} from './sample-email/sample-email.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		ReactiveFormsModule,
-		RouterModule,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
 
-		/**
-		 * Anything the elements use
-		 * needs to be imported here
-		 */
-		FileManagerModule,
+    /**
+     * Anything the elements use
+     * needs to be imported here
+     */
+    FileManagerModule,
 
-		FormBuilderSharedModule,
+    FormBuilderSharedModule,
 
-		TranslocoModule,
+    TranslocoModule,
 
-		MatIconModule,
-		MatFormFieldModule,
-		MatInputModule,
-		MatButtonModule,
-		MatCardModule,
-		MatToolbarModule,
-		MatDialogModule,
-		MatCheckboxModule,
-		MatTableModule,
-		MatSelectModule,
-		MatSortModule,
-		MatMenuModule,
-		MatChipsModule,
-		MatTooltipModule,
-		MatListModule,
-		PortalModule,
-		MatSlideToggleModule,
-		MatExpansionModule,
-		DragDropModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatTableModule,
+    MatSelectModule,
+    MatSortModule,
+    MatMenuModule,
+    MatChipsModule,
+    MatTooltipModule,
+    MatListModule,
+    PortalModule,
+    MatSlideToggleModule,
+    MatExpansionModule,
+    DragDropModule,
 
-		LoadClickModule,
-		StopPropagationModule,
-		SanitizeModule
-	],
-	exports: [],
-	declarations: [
-		/**
-		 * Element Dependencies
-		 */
-		ColumnOrganizationComponent,
-		ImportComponent,
-		ExportComponent,
-		SortDialogComponent,
-		FilterTagsComponent,
-		FilterDialogComponent,
+    LoadClickModule,
+    StopPropagationModule,
+    SanitizeModule,
+    SearchInputModule,
+    ForceDisableModule,
+    EvalModule
+  ],
+  exports: [],
+  declarations: [
+    /**
+     * Element Dependencies
+     */
+    ColumnOrganizationComponent,
+    ImportComponent,
+    ExportComponent,
+    SortDialogComponent,
+    FilterTagsComponent,
+    FilterDialogComponent,
 
-		ParseTemplatePipe,
+    ParseTemplatePipe,
 
-		/**
-		 * Elements
-		 */
-		LinkComponent,
-		TableComponent,
-		TriggerPasswordResetComponent,
-		UserAddComponent,
-		ChangePasswordComponent,
-		UserActionsComponent,
-		ChangeEmailComponent,
-		NewPrepopulateComponent,
-		FileManagerSelectComponent,
-		ImpersonateComponent,
-		SampleEmailComponent
-	],
-	providers: [
-		{
-			provide: 'elementsPrefix',
-			useValue: STATIC_CONFIG.elements.selectorPrefix
-		}
-	],
+    /**
+     * Elements
+     */
+    LinkComponent,
+    TableComponent,
+    TriggerPasswordResetComponent,
+    UserAddComponent,
+    ChangePasswordComponent,
+    UserActionsComponent,
+    ChangeEmailComponent,
+    NewPrepopulateComponent,
+    FileManagerSelectComponent,
+    ImpersonateComponent,
+    SampleEmailComponent
+  ],
+  providers: [
+    {
+      provide: 'elementsPrefix',
+      useValue: STATIC_CONFIG.elements.selectorPrefix
+    }
+  ]
 })
 export class ElementsModule {
-	constructor(
-		private injector: Injector,
-		private state: StateService
-	) {
-		/**
-		 * Register custom elements
-		 */
-		if (!this.state.elementsRegistered) {
-			for (const selector in ELEMENTS) {
-				const component = ELEMENTS[selector];
+  constructor(
+    private injector: Injector,
+    private state: StateService
+  ) {
+    /**
+     * Register custom elements
+     */
+    if (!this.state.elementsRegistered) {
+      for (const selector of Object.keys(ELEMENTS)) {
+        const component = ELEMENTS[selector];
 
-				const element = createCustomElement(component, {injector});
-				customElements.define(selector, element);
-			}
+        const element = createCustomElement(component, {injector});
+        customElements.define(selector, element);
+      }
 
-
-			this.state.elementsRegistered = true;
-		}
-	}
+      this.state.elementsRegistered = true;
+    }
+  }
 }

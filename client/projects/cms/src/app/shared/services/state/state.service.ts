@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslocoService} from '@ngneat/transloco';
-import {Module, MODULES} from 'definitions';
+import {Module, MODULES, User} from 'definitions';
 import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
-import {shareReplay} from 'rxjs/operators';
-import {User} from 'definitions';
+import {distinctUntilChanged, filter, map, shareReplay} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +14,25 @@ export class StateService {
     private activatedRoute: ActivatedRoute,
     private transloco: TranslocoService
   ) {
-    this.language = localStorage.getItem('language');
+    const language = localStorage.getItem('language');
 
-    if (this.language) {
-      this.transloco.setActiveLang(this.language);
-    } else {
-      this.language = this.transloco.getActiveLang();
+    if (language) {
+      this.transloco.setActiveLang(language);
     }
+
+    this.transloco.langChanges$.subscribe(lang => {
+      localStorage.setItem('language', lang);
+    });
+
+    this.translationsReady$ = this.transloco.events$
+      .pipe(
+        filter(e => e.type === 'translationLoadSuccess'),
+        map(() => true),
+        distinctUntilChanged(),
+        shareReplay()
+      );
+
+    this.translationsReady$.subscribe();
 
     // @ts-ignore
     this.modules$ = of(MODULES)
@@ -34,10 +45,10 @@ export class StateService {
   user: User;
   loadingQue$ = new Subject<Array<string | boolean>>();
   modules$: Observable<Module[]>;
-  language: string;
   entryPath: string;
 
   page$ = new BehaviorSubject<{module?: {id: string, name: string}}>({});
+  translationsReady$: Observable<boolean>;
 
   /**
    * Holds state information for all

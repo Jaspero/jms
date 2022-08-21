@@ -46,9 +46,9 @@ const routes: Routes = [{
         .then(m => m.FileManagerModule)
     },
     {
-      path: 'drive',
-      loadChildren: () => import('./modules/drive/drive-routing.module')
-        .then(m => m.DriveRoutingModule)
+      path: 'storage',
+      loadChildren: () => import('./modules/storage/storage-routing.module')
+        .then(m => m.StorageRoutingModule)
     },
     {
       path: '',

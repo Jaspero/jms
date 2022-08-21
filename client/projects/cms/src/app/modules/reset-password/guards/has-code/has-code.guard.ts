@@ -1,18 +1,27 @@
 import {Injectable} from '@angular/core';
 import {Auth} from '@angular/fire/auth';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRouteSnapshot, CanActivate, Router} from '@angular/router';
-import {notify} from '@shared/utils/notify.operator';
+import {TranslocoService} from '@ngneat/transloco';
 import {verifyPasswordResetCode} from 'firebase/auth';
 import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 import {from, of} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
+import {catchError, map, take} from 'rxjs/operators';
+import {StateService} from '../../../../shared/services/state/state.service';
 
 @Injectable()
 export class HasCodeGuard implements CanActivate {
   constructor(
     private router: Router,
-    private auth: Auth
+    private auth: Auth,
+    private snackBar: MatSnackBar,
+    private transloco: TranslocoService,
+    private state: StateService
   ) {}
+
+  errorMap = {
+    'auth/invalid-action-code': 'INVALID_ACTION_CODE',
+  };
 
   canActivate(route: ActivatedRouteSnapshot) {
     if (route.queryParams.oobCode) {
@@ -21,18 +30,35 @@ export class HasCodeGuard implements CanActivate {
       )
         .pipe(
           map(() => true),
-          notify({
-            success: false,
-            error: 'INVALID_OOB_CODE'
-          }),
-          catchError(() => {
+          catchError(error => {
+
+            /**
+             * SnackBar invoked directly rather then through notify
+             * because an error is thrown before route change.
+             */
+            this.state.translationsReady$
+              .pipe(
+                take(1)
+              )
+              .subscribe(() =>
+                this.snackBar.open(
+                  this.transloco.translate(this.errorMap[error.code] || 'INVALID_ACTION_CODE'),
+                  this.transloco.translate('DISMISS'),
+                  {
+                    panelClass: 'snack-bar-error',
+                    duration: 5000
+                  }
+                )
+              );
+
             this.router.navigate(STATIC_CONFIG.loginRoute);
-            return of(false)
+            return of(true);
           })
         );
     }
 
     this.router.navigate(STATIC_CONFIG.loginRoute);
+
     return of(false)
   }
 }

@@ -16,10 +16,10 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-      - name: Use Node.js 12.x
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 16.x
       - name: Install GitHub Utils Dependencies
         run: |
           npm ci --prefix .github/utils
@@ -32,13 +32,13 @@ jobs:
       - name: Prepare definitions package
         if: ${{ steps.changes.outputs.CHANGES }}
         run: |
-            npm --prefix definitions ci
+            npm --prefix definitions ci --legacy-peer-deps
             npm --prefix functions run build:definitions
       - name: Install Dependencies
         if: ${{ steps.changes.outputs.CHANGES }}
         run: |
           npm install firebase-tools
-          npm --prefix functions install
+          npm --prefix functions ci --legacy-peer-deps
           npm --prefix functions run build
       - name: Set project
         if: ${{ steps.changes.outputs.CHANGES }}
