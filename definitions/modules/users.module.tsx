@@ -217,7 +217,7 @@ export const USERS_MODULE: Module = {
       component: {
         type: 'image',
         configuration: {
-          allowedImageTypes: []
+          filePrefix: '/users'
         }
       }
     },
@@ -229,7 +229,7 @@ export const USERS_MODULE: Module = {
           collection: Collections.Users,
           display: {
             key: '/name',
-            label: 'NAME'
+            label: 'INVITED_BY'
           },
           table: {
             tableColumns: [
