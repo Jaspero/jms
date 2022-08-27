@@ -8,6 +8,7 @@ import {Collections, Role} from 'definitions';
 import {Observable, of} from 'rxjs';
 import {shareReplay, switchMap, tap} from 'rxjs/operators';
 import {DbService} from '../../shared/services/db/db.service';
+import {StateService} from '../../shared/services/state/state.service';
 import {Element} from '../element.decorator';
 
 @Element()
@@ -23,7 +24,8 @@ export class UserAddComponent implements OnInit {
     private dialog: MatDialog,
     private fb: FormBuilder,
     private dbService: DbService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private state: StateService
   ) { }
 
   @ViewChild('addDialog', {static: true})
@@ -102,6 +104,7 @@ export class UserAddComponent implements OnInit {
           role: data.role,
           requireReset: data.requireReset,
           sendInvite: type === 'invite',
+          createdBy: this.state.user.id
         },
         {merge: true}
       )

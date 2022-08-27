@@ -10,10 +10,10 @@
   },
   "main": "dist/index.js",
   "dependencies": {
-    "@jaspero/fb-fields-mat": "1.12.0",
+    "@jaspero/fb-fields-mat": "1.14.1",
     "@jaspero/fb-page-builder": "3.26.0",
     "@jaspero/fb-tinymce": "2.9.1",
-    "@jaspero/form-builder": "5.7.2",
+    "@jaspero/form-builder": "5.8.2",
     "adv-firestore-functions": "2.0.9",
     "json-schema": "0.4.0"
   },
