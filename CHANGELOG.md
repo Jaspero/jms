@@ -1,3 +1,10 @@
+# [5.39.0](https://github.com/jaspero/jms/compare/v5.38.0...v5.39.0) (2022-08-27)
+
+
+### Features
+
+* added createdBy to users; connected search in ref; ([ba75348](https://github.com/jaspero/jms/commit/ba7534804667af241203d8407323d63d9fb05022))
+
 # [5.38.0](https://github.com/jaspero/jms/compare/v5.37.1...v5.38.0) (2022-08-05)
 
 
