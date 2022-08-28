@@ -1,3 +1,10 @@
+## [5.39.2](https://github.com/jaspero/jms/compare/v5.39.1...v5.39.2) (2022-08-28)
+
+
+### Bug Fixes
+
+* jsx values not applied properly if they have spaces ([1ca1c0a](https://github.com/jaspero/jms/commit/1ca1c0a742ea57d359969d181e01570c7fd996d6))
+
 ## [5.39.1](https://github.com/jaspero/jms/compare/v5.39.0...v5.39.1) (2022-08-28)
 
 
