@@ -1,3 +1,10 @@
+## [5.39.1](https://github.com/jaspero/jms/compare/v5.39.0...v5.39.1) (2022-08-28)
+
+
+### Bug Fixes
+
+* **cms:** showing `id` when editTitleKey is undefined ([82e9561](https://github.com/jaspero/jms/commit/82e9561452f4dcd60911d77e9d397abd0c7af22b))
+
 # [5.39.0](https://github.com/jaspero/jms/compare/v5.38.0...v5.39.0) (2022-08-27)
 
 
