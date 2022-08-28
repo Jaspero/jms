@@ -1,3 +1,10 @@
+## [5.39.3](https://github.com/jaspero/jms/compare/v5.39.2...v5.39.3) (2022-08-28)
+
+
+### Bug Fixes
+
+* **definitions:** missing properties on user ([7ac75f2](https://github.com/jaspero/jms/commit/7ac75f214ab055b299955cb7c890b177c37f8783))
+
 ## [5.39.2](https://github.com/jaspero/jms/compare/v5.39.1...v5.39.2) (2022-08-28)
 
 
