@@ -12,15 +12,18 @@
 </script>
 
 <script lang="ts">
+	import { page } from '$app/stores';
 	import Header from '$lib/header/Header.svelte';
 	import '../app.css';
 	
 	export let links: Array<{label: string; link: string;}>;
+
+	$: mainClass = $page.url.pathname.slice(1) ? $page.url.pathname.slice(1) : 'home';
 </script>
 
 <Header {links} />
 
-<main>
+<main data-sveltekit-prefetch class={mainClass}>
 	<slot />
 </main>
 
