@@ -18,6 +18,7 @@ import {userDocumentUpdated} from './triggers/user-document-updated';
 import {documentWrite} from './triggers/document-write';
 import {proxy} from './rest/proxy';
 import {fileMetadataUpdated} from './triggers/file-metadata-updated';
+import {sampleEmail} from './callable/sample-email';
 
 initializeApp();
 
@@ -43,6 +44,7 @@ export const cms = {
   updateEmail,
   exchangeToken,
   impersonate,
+  sampleEmail,
 
   // Rest
   exportData,
