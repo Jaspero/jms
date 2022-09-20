@@ -1,6 +1,6 @@
 <div [innerHTML]="description"></div>
 
-<table>
+<table *ngIf="dynamic.length">
   <tr>
     <th>{{'KEY' | transloco}}</th>
     <th>{{'DESCRIPTION' | transloco}}</th>
