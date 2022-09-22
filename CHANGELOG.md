@@ -1,3 +1,10 @@
+## [5.39.6](https://github.com/jaspero/jms/compare/v5.39.5...v5.39.6) (2022-09-22)
+
+
+### Bug Fixes
+
+* **scripts:** backfill search not creating documents ([9cf1b54](https://github.com/jaspero/jms/commit/9cf1b548973cd2d969e3de6d3229ed9ce6944b09))
+
 ## [5.39.5](https://github.com/jaspero/jms/compare/v5.39.4...v5.39.5) (2022-09-22)
 
 
