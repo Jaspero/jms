@@ -1,3 +1,10 @@
+## [5.39.5](https://github.com/jaspero/jms/compare/v5.39.4...v5.39.5) (2022-09-22)
+
+
+### Bug Fixes
+
+* **jms:** message format ([be1121b](https://github.com/jaspero/jms/commit/be1121bb935aa0366880cb4262ad6fb2d953041a))
+
 ## [5.39.4](https://github.com/jaspero/jms/compare/v5.39.3...v5.39.4) (2022-09-20)
 
 
