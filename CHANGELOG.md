@@ -1,3 +1,13 @@
+## [5.39.4](https://github.com/jaspero/jms/compare/v5.39.3...v5.39.4) (2022-09-20)
+
+
+### Bug Fixes
+
+* **cms:** don't show Dynamic Values on sample email if there aren't any fields ([dc553f9](https://github.com/jaspero/jms/commit/dc553f9a4d7527a3c87f5e944f852b70591834b8))
+* **cms:** missing role on permissions ([93779a9](https://github.com/jaspero/jms/commit/93779a9bcc79e3f2c03a1129417d174bd6dd625d))
+* **cms:** showing empty dynamic values on email component ([caaac37](https://github.com/jaspero/jms/commit/caaac37338423459c6655f9c8f0d73a38da7fd8e))
+* **functions:** sample-email missing ([f2501ea](https://github.com/jaspero/jms/commit/f2501eaef771e6e940bd0d48ea4cc644447228ca))
+
 ## [5.39.3](https://github.com/jaspero/jms/compare/v5.39.2...v5.39.3) (2022-08-28)
 
 
