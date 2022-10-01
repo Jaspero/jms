@@ -1,3 +1,10 @@
+## [5.39.7](https://github.com/jaspero/jms/compare/v5.39.6...v5.39.7) (2022-10-01)
+
+
+### Bug Fixes
+
+* **cms:** keys in email templates properly represented with [[ ]] ([94f902f](https://github.com/jaspero/jms/commit/94f902f1b4bcfb5cb0079a19f76fcc55804cedc7))
+
 ## [5.39.6](https://github.com/jaspero/jms/compare/v5.39.5...v5.39.6) (2022-09-22)
 
 

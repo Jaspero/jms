@@ -1,6 +1,6 @@
 {
   "name": "@jaspero/jms",
-  "version": "5.39.6",
+  "version": "5.39.7",
   "license": "MIT",
   "scripts": {
     "start:emulator": "firebase emulators:start --export-on-exit=.emulator-export --import=.emulator-export",
