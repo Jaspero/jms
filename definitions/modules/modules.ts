@@ -9,6 +9,9 @@ import {POSTS_MODULE} from './pages/posts.module';
 import {INQUIRIES_MODULE} from './inquiries.module';
 import {AUTOMATIC_EMAILS_MODULE} from './emails/automatic-emails.module';
 import {SENT_EMAILS_MODULE} from './emails/sent-emails.module';
+import {PRODUCTS_MODULE} from './shop/products.module';
+import {PRODUCT_CATEGORIES_MODULE} from './shop/product-categories.module';
+import {PRODUCT_TAGS_MODULE} from './shop/product-tags.module';
 
 /**
  * Schemas for all of the modules
@@ -30,6 +33,13 @@ export const MODULES = [
   LAYOUT_MODULE,
   PAGES_MODULE,
   POSTS_MODULE,
+
+  /**
+   * Shop
+   */
+  PRODUCTS_MODULE,
+  PRODUCT_CATEGORIES_MODULE,
+  PRODUCT_TAGS_MODULE,
 
   AUTOMATIC_EMAILS_MODULE,
   SENT_EMAILS_MODULE,

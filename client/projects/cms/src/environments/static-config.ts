@@ -71,6 +71,31 @@ export const STATIC_CONFIG = {
         ]
       },
       {
+        icon: 'language',
+        label: 'SHOP',
+        type: 'expandable',
+        children: [
+          {
+            icon: 'settings',
+            label: 'Products',
+            type: 'link',
+            value: '/m/products'
+          },
+          {
+            icon: 'settings',
+            label: 'Categories',
+            type: 'link',
+            value: '/m/product-categories'
+          },
+          {
+            icon: 'settings',
+            label: 'Tags',
+            type: 'link',
+            value: '/m/product-tags'
+          }
+        ]
+      },
+      {
         icon: 'mail',
         label: 'INQUIRIES',
         type: 'link',

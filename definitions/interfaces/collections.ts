@@ -8,6 +8,15 @@ export class Collections {
 	static SentEmails = 'sent-emails';
 
 	/**
+	 * Shop
+	 */
+	static Products = 'products';
+	static ProductCategories = 'product-categories';
+	static ProductTags = 'product-tags';
+	static Carts = 'carts';
+	static Orders = 'orders';
+
+	/**
 	 * Subcollections
 	 */
 	static History = 'history';
