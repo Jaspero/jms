@@ -38,7 +38,7 @@ export const updateUser = functions
     try {
       await ah.updateUser(id, update);
     } catch (e) {
-      console.error(e);
-      throw new functions.https.HttpsError('internal', e.message);
+      functions.logger.error(e);
+      throw new functions.https.HttpsError('internal', e.toString());
     }
   });
