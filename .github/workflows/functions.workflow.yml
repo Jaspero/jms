@@ -36,13 +36,13 @@ jobs:
         run: |
           echo ::set-output name=CHANGES::$(node ./.github/utils/function-changes.js '${{ steps.file_changes.outputs.files_modified}}' '${{ steps.file_changes.outputs.files_added}}')
         if: github.event_name != 'workflow_dispatch'
-      - name: Prepare definitions package
+      - name: Prepare definitions package || github.event_name == 'workflow_dispatch'
         if: steps.changes.outputs.CHANGES
         run: |
             npm --prefix definitions ci --legacy-peer-deps
             npm --prefix functions run build:definitions
       - name: Install Dependencies
-        if: steps.changes.outputs.CHANGES
+        if: steps.changes.outputs.CHANGES || github.event_name == 'workflow_dispatch'
         run: |
           npm install firebase-tools
           npm --prefix functions ci --legacy-peer-deps
