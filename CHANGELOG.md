@@ -1,3 +1,10 @@
+# [5.41.0](https://github.com/jaspero/jms/compare/v5.40.0...v5.41.0) (2022-10-04)
+
+
+### Features
+
+* extended functions workflow with options for running all functions ([75f4156](https://github.com/jaspero/jms/commit/75f4156e292a0178d7b347abfb079f15092e3eda))
+
 # [5.40.0](https://github.com/jaspero/jms/compare/v5.39.7...v5.40.0) (2022-10-04)
 
 
