@@ -1,3 +1,10 @@
+# [5.40.0](https://github.com/jaspero/jms/compare/v5.39.7...v5.40.0) (2022-10-04)
+
+
+### Features
+
+* **functions:** replaced all console logs with functions.logs closes [#411](https://github.com/jaspero/jms/issues/411) ([db0f183](https://github.com/jaspero/jms/commit/db0f183b193a5a19e06d8ac39adf5e13a112b409))
+
 ## [5.39.7](https://github.com/jaspero/jms/compare/v5.39.6...v5.39.7) (2022-10-01)
 
 
