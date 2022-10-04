@@ -1,6 +1,11 @@
 name: Deploy Functions
 on:
   workflow_dispatch:
+    inputs:
+      functions:
+        description: 'List of functions to run'
+        default: 'all'
+        required: true
   push:
     branches:
       - main
@@ -25,29 +30,42 @@ jobs:
           npm ci --prefix .github/utils
       - id: file_changes
         uses: trilom/file-changes-action@v1.2.4
+        if: github.event_name != 'workflow_dispatch'
       - name: Detect file changes
         id: changes
         run: |
           echo ::set-output name=CHANGES::$(node ./.github/utils/function-changes.js '${{ steps.file_changes.outputs.files_modified}}' '${{ steps.file_changes.outputs.files_added}}')
+        if: github.event_name != 'workflow_dispatch'
       - name: Prepare definitions package
-        if: ${{ steps.changes.outputs.CHANGES }}
+        if: steps.changes.outputs.CHANGES
         run: |
             npm --prefix definitions ci --legacy-peer-deps
             npm --prefix functions run build:definitions
       - name: Install Dependencies
-        if: ${{ steps.changes.outputs.CHANGES }}
+        if: steps.changes.outputs.CHANGES
         run: |
           npm install firebase-tools
           npm --prefix functions ci --legacy-peer-deps
           npm --prefix functions run build
       - name: Set project
-        if: ${{ steps.changes.outputs.CHANGES }}
+        if: steps.changes.outputs.CHANGES || github.event_name == 'workflow_dispatch'
         run: npm run firebase -- use ${{ env.project }} --token $FIREBASE_TOKEN
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      - name: Deploy
-        if: ${{ steps.changes.outputs.CHANGES }}
+      - name: Deploy Changed Functions
+        if: steps.changes.outputs.CHANGES
         run: npm run firebase -- deploy --only $FILES --token $FIREBASE_TOKEN --force
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FILES: ${{ steps.changes.outputs.CHANGES }}
+      - name: Deploy All Functions
+        if: github.event.inputs.functions == 'all'
+        run: npm run firebase -- deploy --only functions --token $FIREBASE_TOKEN --force
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Deploy Some Functions
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.functions != 'all'
+        run: npm run firebase -- deploy --only $FUNCTIONS --token $FIREBASE_TOKEN --force
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}        
+          FUNCTIONS: ${{ inputs.functions }}  
