@@ -26,19 +26,19 @@ jobs:
         with:
           node-version: 16.x
       - name: Install GitHub Utils Dependencies
+        if: github.event_name != 'workflow_dispatch'      
         run: |
           npm ci --prefix .github/utils
-        if: github.event_name != 'workflow_dispatch'
       - id: file_changes
+        if: github.event_name != 'workflow_dispatch'      
         uses: trilom/file-changes-action@v1.2.4
-        if: github.event_name != 'workflow_dispatch'
       - name: Detect file changes
+        if: github.event_name != 'workflow_dispatch'
         id: changes
         run: |
           echo ::set-output name=CHANGES::$(node ./.github/utils/function-changes.js '${{ steps.file_changes.outputs.files_modified}}' '${{ steps.file_changes.outputs.files_added}}')
-        if: github.event_name != 'workflow_dispatch'
-      - name: Prepare definitions package || github.event_name == 'workflow_dispatch'
-        if: steps.changes.outputs.CHANGES
+      - name: Prepare definitions package
+        if: steps.changes.outputs.CHANGES || github.event_name == 'workflow_dispatch'
         run: |
             npm --prefix definitions ci --legacy-peer-deps
             npm --prefix functions run build:definitions
