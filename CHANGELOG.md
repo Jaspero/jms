@@ -1,3 +1,10 @@
+## [5.41.2](https://github.com/jaspero/jms/compare/v5.41.1...v5.41.2) (2022-10-04)
+
+
+### Bug Fixes
+
+* functions workflow ([662e5cc](https://github.com/jaspero/jms/commit/662e5ccd1c7ec20704c77b438ea31c14069047c1))
+
 ## [5.41.1](https://github.com/jaspero/jms/compare/v5.41.0...v5.41.1) (2022-10-04)
 
 
