@@ -129,8 +129,7 @@ export class InstanceSingleComponent implements OnInit {
             this.confirmExitOnTouched = module.metadata?.hasOwnProperty('confirmExitOnTouched')
               && module.metadata?.confirmExitOnTouched && this.currentState === ViewState.Edit;
 
-            if (module.layout) {
-              if (module.layout.editTitleKey) {
+              if (module.layout?.editTitleKey) {
                 const evaluated = safeEval(module.layout.editTitleKey);
                 const eValue = (
                   typeof evaluated === 'function'
@@ -140,8 +139,11 @@ export class InstanceSingleComponent implements OnInit {
                 editTitleKey = eValue !== undefined && eValue !== 'undefined' ?
                   eValue :
                   (module.layout.editTitleKeyFallback || '-');
+              } else {
+                editTitleKey = value[editTitleKey];
               }
 
+            if (module.layout) {
               if (module.layout.instance) {
 
                 if (module.layout.instance.actions) {

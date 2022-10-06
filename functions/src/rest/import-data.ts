@@ -102,7 +102,7 @@ app.post('/', authenticated(['admin']), (req, res) => {
     exec()
       .then(data => res.json(data))
       .catch(error => {
-        console.error(error);
+        functions.logger.error(error);
         return res
           .status(constants.HTTP_STATUS_BAD_REQUEST)
           .send({error: error.toString()});

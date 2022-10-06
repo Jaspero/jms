@@ -12,7 +12,7 @@
         <input type="email" matInput formControlName="email">
       </mat-form-field>
 
-      <ng-container formGroupName="data">
+      <ng-container *ngIf="fields.length" formGroupName="data">
 
         <hr>
 

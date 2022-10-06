@@ -194,7 +194,7 @@ app.post('/:module', authenticated(), (req, res) => {
       return res.send(data);
     })
     .catch(error => {
-      console.error(error);
+      functions.logger.error(error);
       res
         .status(constants.HTTP_STATUS_BAD_REQUEST)
         .send({error: error.toString()});

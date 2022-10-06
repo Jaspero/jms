@@ -138,7 +138,7 @@ export const USERS_MODULE: Module = {
         }
       ],
       segments: [{
-        fields: ['/id', '/name', '/email', '/role', '/photo']
+        fields: ['/id', '/name', '/email', '/role', '/photo', '/invitedBy']
       }]
     },
     table: {
@@ -184,6 +184,7 @@ export const USERS_MODULE: Module = {
       role: {type: 'string'},
       photo: {type: 'string'},
       active: {type: 'boolean'},
+      invitedBy: {type: 'string'},
       ...CREATED_ON.property
     }
   },
@@ -216,7 +217,38 @@ export const USERS_MODULE: Module = {
       component: {
         type: 'image',
         configuration: {
-          allowedImageTypes: []
+          filePrefix: '/users'
+        }
+      }
+    },
+    invitedBy: {
+      label: 'INVITED_BY',
+      component: {
+        type: 'ref',
+        configuration: {
+          collection: Collections.Users,
+          display: {
+            key: '/name',
+            label: 'INVITED_BY'
+          },
+          table: {
+            tableColumns: [
+              {key: '/name', label: 'NAME'},
+              {key: '/email', label: 'EMAIL'}
+            ]
+          },
+          search: {
+            key: '/name',
+            label: 'NAME',
+            method: ({configuration, search, cursor}) =>
+              window.jms.util.refSearch(
+                configuration.collection,
+                search,
+                configuration.limit,
+                cursor,
+                configuration
+              )
+          }
         }
       }
     },

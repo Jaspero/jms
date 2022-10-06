@@ -25,6 +25,7 @@ export const userCreated = functions
       email: string;
       requireReset: boolean;
       sendInvite: boolean;
+      createdBy?: string;
     } = inviteRef.exists ? inviteRef.data() as any : null;
 
     if (role) {
@@ -60,7 +61,8 @@ export const userCreated = functions
         active: true,
         ...role ? {
           role: role.role,
-          requireReset: role.requireReset || false
+          requireReset: role.requireReset || false,
+          ...role.createdBy && {invitedBy: role.createdBy}
         } : {
           role: '',
           requireReset: false

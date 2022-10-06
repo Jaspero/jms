@@ -47,6 +47,7 @@ export interface ModuleDefinition {
   formatOnEdit?: string | FormatMethod;
   formatOnLoad?: string | FormatMethod;
   label?: string;
+  roles?: string[];
   hint?: string;
   defaultValue?: any;
   placeholder?: string;

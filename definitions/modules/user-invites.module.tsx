@@ -66,7 +66,8 @@ export const USER_INVITES_MODULE: Module = {
       requireReset: {type: 'boolean'},
       sendInvite: {type: 'boolean'},
       accepted: {type: 'boolean'},
-      acceptedOn: {type: 'number'}
+      acceptedOn: {type: 'number'},
+      createdBy: {type: 'string'}
     }
   }
 };

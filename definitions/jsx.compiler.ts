@@ -27,7 +27,7 @@ JSX.createElement = (name: string, props: {[id: string]: string}, ...content: st
       prop = 'class';
     }
 
-    proccessed.push(`${prop}=${value}`);
+    proccessed.push(`${prop}="${value}"`);
   }
 
   return `<${name} ${proccessed.join(' ')}> ${content.join('')}</${name}>`;

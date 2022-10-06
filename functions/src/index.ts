@@ -49,6 +49,7 @@ export const cms = {
   sampleEmail,
   exchangeToken,
   impersonate,
+  sampleEmail,
 
   // Rest
   exportData,
