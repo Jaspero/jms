@@ -6,5 +6,15 @@
 				<mat-checkbox [formControlName]="perm.value">{{perm.name | transloco}}</mat-checkbox>
 			</td>
 		</tr>
+		<tr *ngFor="let module of addedModules" [formGroupName]="module.id">
+			<th>{{module.name | transloco}}</th>
+			<td *ngFor="let perm of permissions">
+				<mat-checkbox
+					*ngIf="module.permissions.includes(perm.value)"
+					[formControlName]="perm.value">
+					{{perm.name | transloco}}
+				</mat-checkbox>
+			</td>
+		</tr>
 	</table>
 </div>

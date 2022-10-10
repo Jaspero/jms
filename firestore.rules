@@ -12,13 +12,9 @@ service cloud.firestore {
     return request.auth.token != null;
   }
 
-  function admin() {
-    return request.auth.token.role == 'admin';
-  }
-
-  function user() {
-    return request.auth.token.role == 'user';
-  }
+   function hasPermission(module, permission) {
+    return authenticated() && request.auth.token.permissions.get([module, permission]) == true;
+  } 
 
   function storageItemPublicRead() {
     return 'metadata' in resource.data && resource.data.metadata.keys().hasAny(['permissions_public_read']) && resource.data.metadata['permissions_public_read'] == 'true';
@@ -45,27 +41,22 @@ service cloud.firestore {
   }
 
   match /databases/{database}/documents {
-
-    match /users/{item=**} {
-      allow read, write: if admin() || user() || hasId(resource);
-    }
-
-    match /roles/{item=**} {
-      allow read, write: if admin() || hasId(resource);
-    }
-
-    match /user-invites/{item=**} {
-      allow read, write: if admin() || hasId(resource);
+    match /{module}/{item} {
+      allow get: hasPermission(module, 'get') || hasId(resource);
+      allow list: hasPermission(module, 'list');
+      allow create: hasPermission(module, 'create');
+      allow update: hasPermission(module, 'update');
+      allow delete: hasPermission(module, 'delete');
     }
 
     match /storage/{item=**} {
       allow read: if storageItemPublicRead() || storageItemPublicWrite() || storageItemRoleRead() || storageItemRoleWrite() || storageItemUserRead() || storageItemUserWrite();
       allow write: if storageItemPublicWrite() || storageItemRoleWrite() || storageItemUserWrite();
-      allow create: if hasRoles(['admin', 'user']);
+      allow create: if hasPermission('storage', 'create');
     }
 
     match /_search/{item=**} {
-      allow read: if hasRoles(['admin', 'user']);
+      allow read: if hasPermission('search', 'list');
       allow write: if false;
     }
   }
