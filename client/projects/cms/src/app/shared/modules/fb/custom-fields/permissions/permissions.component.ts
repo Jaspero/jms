@@ -21,12 +21,13 @@ export class PermissionsComponent extends FieldComponent<FieldData> implements O
     {name: 'UPDATE', value: 'update'},
     {name: 'DELETE', value: 'delete'}
   ];
+  addedModules = [{id: 'search', name: 'SEARCH', permissions: ['list']}];
 
   ngOnInit() {
     const {value} = this.cData.control
 
     this.group = new FormGroup(
-      MODULES.reduce((acc, cur) => {
+      [...MODULES, ...this.addedModules].reduce((acc, cur) => {
         acc[cur.id] = new FormGroup({
           get: new FormControl(value[cur.id]?.get || false),
           list: new FormControl(value[cur.id]?.list || false),
@@ -45,12 +46,17 @@ export class PermissionsComponent extends FieldComponent<FieldData> implements O
         this.cData.control.setValue(
           Object.entries(value)
             .reduce((acc, [k, v]) => {
+              const final = this.permissions.reduce((a, c) => {
 
-              /**
-               * Only store permissions where at least one is true
-               */
-              if (this.permissions.some(it => v[it.value])) {
-                acc[k] = v;
+                if (v[c.value]) {
+                  a[c.value] = true;
+                }
+
+                return a;
+              }, {});
+
+              if (Object.keys(final).length) {
+                acc[k] = final;
               }
 
               return acc;
