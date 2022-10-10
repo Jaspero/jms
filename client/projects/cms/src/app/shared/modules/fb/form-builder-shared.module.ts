@@ -1,27 +1,28 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from '@angular/material/icon';
 import {FbFieldsMatModule} from '@jaspero/fb-fields-mat';
 import {FB_PAGE_BUILDER_OPTIONS, PageBuilderModule} from '@jaspero/fb-page-builder';
 import {FbSegmentsMatModule} from '@jaspero/fb-segments-mat';
+import {TinymceModule} from '@jaspero/fb-tinymce';
 import {
   CUSTOM_COMPONENTS, CUSTOM_FIELDS,
   DbService as FDbService,
   FormBuilderModule,
-  ROLE,
-  STORAGE_URL,
-  StorageService
+  ROLE, StorageService, STORAGE_URL
 } from '@jaspero/form-builder';
 import {TranslocoModule} from '@ngneat/transloco';
-import {TinymceModule} from '@jaspero/fb-tinymce';
 import {FbStorageService} from '../../../../../integrations/firebase/fb-storage.service';
 import {environment} from '../../../../environments/environment';
 import {DbService} from '../../services/db/db.service';
 import {StateService} from '../../services/state/state.service';
-import {DuplicateComponent} from './custom-components/duplicate/duplicate.component';
 import {BlocksModule} from '../blocks/blocks.module';
+import {DuplicateComponent} from './custom-components/duplicate/duplicate.component';
 import {EmailTemplateDescriptionComponent} from './custom-components/email-template-description/email-template-description.component';
+import {PermissionsComponent} from './custom-fields/permissions/permissions.component';
 
 export function roleFactory(state: StateService) {
   return state.role;
@@ -30,6 +31,8 @@ export function roleFactory(state: StateService) {
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+
     FormBuilderModule.forRoot(),
     FbFieldsMatModule.forRoot({prefix: ''}),
     FbSegmentsMatModule.forRoot({prefix: ''}),
@@ -41,6 +44,8 @@ export function roleFactory(state: StateService) {
      */
     MatButtonModule,
     MatIconModule,
+    MatCheckboxModule,
+
     TranslocoModule
   ],
   exports: [
@@ -73,7 +78,9 @@ export function roleFactory(state: StateService) {
     },
     {
       provide: CUSTOM_FIELDS,
-      useValue: {}
+      useValue: {
+        permissions: PermissionsComponent
+      }
     },
     {
       provide: FB_PAGE_BUILDER_OPTIONS,
@@ -83,8 +90,17 @@ export function roleFactory(state: StateService) {
     },
   ],
   declarations: [
+
+    /**
+     * Custom Components
+     */
     DuplicateComponent,
-    EmailTemplateDescriptionComponent
+    EmailTemplateDescriptionComponent,
+
+    /**
+     * Custom Fields
+     */
+    PermissionsComponent
   ]
 })
-export class FormBuilderSharedModule {}
+export class FormBuilderSharedModule { }

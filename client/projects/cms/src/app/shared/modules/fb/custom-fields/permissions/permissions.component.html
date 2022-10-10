@@ -1,0 +1,10 @@
+<div>
+	<table [formGroup]="group">
+		<tr *ngFor="let module of modules" [formGroupName]="module.id">
+			<th>{{module.name | transloco}}</th>
+			<td *ngFor="let perm of permissions">
+				<mat-checkbox [formControlName]="perm.value">{{perm.name | transloco}}</mat-checkbox>
+			</td>
+		</tr>
+	</table>
+</div>

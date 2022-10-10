@@ -1,24 +1,30 @@
 import {Collections} from '../interfaces/collections';
 import {Module} from '../interfaces/module.interface';
+import {MODULES} from './modules';
 import {CREATED_ON} from './shared/created-on';
 
 export const ROLES_MODULE: Module = {
   id: Collections.Roles,
   name: 'ROLES',
-  authorization: {
-    read: ['admin'],
-    write: ['admin']
-  },
   layout: {
     editTitleKey: 'name',
     sort: CREATED_ON.sort,
     instance: {
-      segments: [{
-        fields: [
-          '/name',
-          '/description'
-        ]
-      }]
+      segments: [
+        {
+          title: 'GENERAL',
+          fields: [
+            '/name',
+            '/description',
+          ]
+        },
+        {
+          title: 'PERMISSIONS',
+          fields: [
+            '/permissions'
+          ]
+        }
+      ]
     },
     table: {
       tableColumns: [
@@ -31,8 +37,9 @@ export const ROLES_MODULE: Module = {
   schema: {
     properties: {
       id: {type: 'string'},
-      name: {type: 'string',},
-      description: {type: 'string',},
+      name: {type: 'string'},
+      description: {type: 'string'},
+      permissions: {type: 'object'},
       ...CREATED_ON.property
     },
     required: [
@@ -46,6 +53,11 @@ export const ROLES_MODULE: Module = {
       label: 'DESCRIPTION',
       component: {
         type: 'textarea'
+      }
+    },
+    permissions: {
+      component: {
+        type: 'permissions'
       }
     },
     ...CREATED_ON.definition()
