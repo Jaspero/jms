@@ -1,3 +1,10 @@
+## [6.0.2](https://github.com/jaspero/jms/compare/v6.0.1...v6.0.2) (2022-10-11)
+
+
+### Bug Fixes
+
+* **functions:** ajd definition ([0c7fcad](https://github.com/jaspero/jms/commit/0c7fcad2d66e751fd91a7fa561768b34a54df7ca))
+
 ## [6.0.1](https://github.com/jaspero/jms/compare/v6.0.0...v6.0.1) (2022-10-11)
 
 
