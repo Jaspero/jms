@@ -4,7 +4,7 @@ import {Auth, getIdToken} from '@angular/fire/auth';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef} from '@angular/material/bottom-sheet';
 import {MatDialog} from '@angular/material/dialog';
-import {FilterModule, InstanceSort, ModuleLayoutTableColumn} from 'definitions';
+import {FilterModule, InstanceSort, ModuleLayoutTableColumn} from '@definitions';
 import {TranslocoService} from '@ngneat/transloco';
 import {notify} from '@shared/utils/notify.operator';
 import {saveAs} from 'file-saver';

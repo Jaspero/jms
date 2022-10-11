@@ -9,13 +9,14 @@ import {
   TranslocoModule,
   TRANSLOCO_SCOPE
 } from '@ngneat/transloco';
+import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
 
 @Injectable({providedIn: 'root'})
 export class TranslocoHttpLoader implements TranslocoLoader {
   constructor(private http: HttpClient) { }
 
-  getTranslation(lang: string) {
+  getTranslation(lang: string): any {
     return this.http.get<Translation>(`/assets/i18n/${lang}.json`);
   }
 }

@@ -21,10 +21,10 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-      - name: Use Node.js 18.x
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: 18.x
+          node-version: 16.x
       - name: Install GitHub Utils Dependencies
         if: github.event_name != 'workflow_dispatch'      
         run: |
@@ -40,14 +40,14 @@ jobs:
       - name: Prepare definitions package
         if: steps.changes.outputs.CHANGES || github.event_name == 'workflow_dispatch'
         run: |
-            npm --prefix definitions ci --legacy-peer-deps
+            npm --prefix definitions ci
             npm --prefix functions run build:definitions
       - name: Install Firebase Tools      
         if: steps.changes.outputs.CHANGES || github.event_name == 'workflow_dispatch'
-        run: npm install firebase-tools@11.10.0
+        run: npm install firebase-tools
       - name: Install Dependencies
         if: steps.changes.outputs.CHANGES || github.event_name == 'workflow_dispatch'
-        run: npm --prefix functions ci --legacy-peer-deps
+        run: npm --prefix functions ci
       - name: Build
         if: steps.changes.outputs.CHANGES || github.event_name == 'workflow_dispatch'
         run: npm --prefix functions run build

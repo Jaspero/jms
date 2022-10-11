@@ -3,7 +3,7 @@ import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, In
 import {FormControl} from '@angular/forms';
 import {Parser} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {ModuleOverviewView} from 'definitions';
+import {ModuleOverviewView} from '@definitions';
 import {BehaviorSubject, combineLatest, Subject} from 'rxjs';
 import {map, shareReplay, startWith, switchMap} from 'rxjs/operators';
 import {createSelector} from '../../../../../../elements/element.decorator';

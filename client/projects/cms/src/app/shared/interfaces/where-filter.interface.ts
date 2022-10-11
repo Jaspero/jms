@@ -1,4 +1,4 @@
-import {FilterMethod} from 'definitions';
+import {FilterMethod} from '@definitions';
 
 export interface WhereFilter {
   key: string;

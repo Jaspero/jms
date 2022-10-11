@@ -1,4 +1,4 @@
-import {Collections} from 'definitions';
+import {Collections} from '@definitions';
 import {NavigationItemWithActive} from '../app/shared/interfaces/navigation-item-with-active.interface';
 
 /**

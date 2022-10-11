@@ -10,7 +10,7 @@ import {
 } from '@angular/common';
 import {ChangeDetectorRef, Inject, Optional, Pipe, PipeTransform} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
-import {PipeType} from 'definitions';
+import {PipeType} from '@definitions';
 import {SanitizePipe} from '@jaspero/ng-helpers';
 import {safeEval} from '@jaspero/utils';
 import {

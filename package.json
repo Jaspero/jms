@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start:emulator": "firebase emulators:start --export-on-exit=.emulator-export --import=.emulator-export",
-    "start:cms": "cd definitions && tsc-watch --onSuccess \"node run-client.js start:cms\"",
-    "start:cms:live": "cd definitions && tsc-watch --onSuccess \"node run-client.js start:cms:live\"",
+    "start:cms": "npm run start:cms --prefix client",
+    "start:cms:live": "npm run start:cms:live --prefix client",
     "start:functions": "npm --prefix functions run serve",
     "start:functions:watch": "npm --prefix functions run watch",
     "start:setup": "npm --prefix definitions setup",

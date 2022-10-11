@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {StorageItem} from 'definitions';
+import {StorageItem} from '@definitions';
 import {FbStorageService} from '../../../../../../../../integrations/firebase/fb-storage.service';
 import {ref, Storage} from '@angular/fire/storage';
 import {from, Observable} from 'rxjs';

@@ -3,7 +3,7 @@ import {Auth, authState, getIdTokenResult, signOut} from '@angular/fire/auth';
 import {CanActivate, Router} from '@angular/router';
 import {TranslocoService} from '@ngneat/transloco';
 import {notify} from '@shared/utils/notify.operator';
-import {Collections} from 'definitions';
+import {Collections} from '@definitions';
 import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 import {Observable, of, throwError} from 'rxjs';
 import {catchError, map, switchMap, take} from 'rxjs/operators';

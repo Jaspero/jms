@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {FieldComponent, FieldData} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {MODULES} from 'definitions';
+import {MODULES} from '@definitions';
 
 @UntilDestroy()
 @Component({

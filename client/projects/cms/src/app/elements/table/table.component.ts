@@ -29,7 +29,7 @@ import {
   PipeType,
   SearchModule,
   SortModule
-} from 'definitions';
+} from '@definitions';
 import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';
 import {AsyncSubject, BehaviorSubject, combineLatest, forkJoin, Observable, of, ReplaySubject, Subject, Subscription} from 'rxjs';

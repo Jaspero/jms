@@ -4,7 +4,7 @@ import {FormControl} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {safeEval} from '@jaspero/utils';
-import {JSX, Module} from 'definitions';
+import {JSX, Module} from '@definitions';
 import {BehaviorSubject, combineLatest, forkJoin, from, Observable, of} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, take, tap} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../../../environments/static-config';
