@@ -42,11 +42,11 @@ service cloud.firestore {
 
   match /databases/{database}/documents {
     match /{module}/{item} {
-      allow get: hasPermission(module, 'get') || hasId(resource);
-      allow list: hasPermission(module, 'list');
-      allow create: hasPermission(module, 'create');
-      allow update: hasPermission(module, 'update');
-      allow delete: hasPermission(module, 'delete');
+      allow get: if hasPermission(module, 'get') || hasId(resource);
+      allow list: if hasPermission(module, 'list');
+      allow create: if hasPermission(module, 'create');
+      allow update: if hasPermission(module, 'update');
+      allow delete: if hasPermission(module, 'delete');
     }
 
     match /storage/{item=**} {
