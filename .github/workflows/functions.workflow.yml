@@ -47,7 +47,7 @@ jobs:
         run: npm install firebase-tools
       - name: Install Dependencies
         if: steps.changes.outputs.CHANGES || github.event_name == 'workflow_dispatch'
-        run: npm --prefix functions ci
+        run: npm --prefix functions ci --legacy-peer-deps
       - name: Build
         if: steps.changes.outputs.CHANGES || github.event_name == 'workflow_dispatch'
         run: npm --prefix functions run build
