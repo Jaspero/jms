@@ -44,7 +44,7 @@ jobs:
             npm --prefix functions run build:definitions
       - name: Install Firebase Tools      
         if: steps.changes.outputs.CHANGES || github.event_name == 'workflow_dispatch'
-        run: npm install firebase-tools
+        run: npm install firebase-tools@11.10.0
       - name: Install Dependencies
         if: steps.changes.outputs.CHANGES || github.event_name == 'workflow_dispatch'
         run: npm --prefix functions ci --legacy-peer-deps
