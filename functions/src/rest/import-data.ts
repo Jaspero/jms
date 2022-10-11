@@ -1,12 +1,12 @@
+import Ajv from 'ajv';
 import * as Busboy from 'busboy';
-import * as express from 'express';
 import * as csv from 'csvtojson';
-import * as functions from 'firebase-functions';
-import * as ajv from 'ajv';
+import {SHARED_CONFIG} from 'definitions';
+import * as express from 'express';
 import * as admin from 'firebase-admin';
+import * as functions from 'firebase-functions';
 import {constants} from 'http2';
 import {CORS} from '../consts/cors-whitelist.const';
-import {SHARED_CONFIG} from 'definitions';
 import {safeEval} from '../utils/safe-eval';
 import {authenticated} from './middlewares/authenticated';
 
@@ -14,7 +14,7 @@ const app = express();
 app.use(CORS);
 
 app.post('/', authenticated(), (req, res) => {
-  const ajvInstance = new ajv();
+  const ajvInstance = new Ajv();
   const busboy = new Busboy({headers: req.headers});
   const parsedData: any = {};
   let fileData = '';
@@ -39,7 +39,7 @@ app.post('/', authenticated(), (req, res) => {
       const type = parsedData.type || 'csv';
       const afs = admin.firestore();
 
-        // @ts-ignore
+      // @ts-ignore
       const {permissions} = req['user'];
 
       if (permissions?.[parsedData.collection]?.create) {

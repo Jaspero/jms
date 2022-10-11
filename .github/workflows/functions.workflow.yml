@@ -42,12 +42,15 @@ jobs:
         run: |
             npm --prefix definitions ci --legacy-peer-deps
             npm --prefix functions run build:definitions
+      - name: Install Firebase Tools      
+        if: steps.changes.outputs.CHANGES || github.event_name == 'workflow_dispatch'
+        run: npm install firebase-tools
       - name: Install Dependencies
         if: steps.changes.outputs.CHANGES || github.event_name == 'workflow_dispatch'
-        run: |
-          npm install firebase-tools
-          npm --prefix functions ci
-          npm --prefix functions run build
+        run: npm --prefix functions ci
+      - name: Build
+        if: steps.changes.outputs.CHANGES || github.event_name == 'workflow_dispatch'
+        run: npm --prefix functions run build
       - name: Set project
         if: steps.changes.outputs.CHANGES || github.event_name == 'workflow_dispatch'
         run: npm run firebase -- use ${{ env.project }} --token $FIREBASE_TOKEN
