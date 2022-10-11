@@ -1,3 +1,10 @@
+## [6.0.4](https://github.com/jaspero/jms/compare/v6.0.3...v6.0.4) (2022-10-11)
+
+
+### Bug Fixes
+
+* **functions:** running on node v18 ([32cb81a](https://github.com/jaspero/jms/commit/32cb81ad8c2bbfd29cb43678daca2301445801ad))
+
 ## [6.0.3](https://github.com/jaspero/jms/compare/v6.0.2...v6.0.3) (2022-10-11)
 
 
