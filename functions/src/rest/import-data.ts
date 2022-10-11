@@ -13,7 +13,7 @@ import {authenticated} from './middlewares/authenticated';
 const app = express();
 app.use(CORS);
 
-app.post('/', authenticated(['admin']), (req, res) => {
+app.post('/', authenticated(), (req, res) => {
   const ajvInstance = new ajv();
   const busboy = new Busboy({headers: req.headers});
   const parsedData: any = {};
@@ -38,6 +38,13 @@ app.post('/', authenticated(['admin']), (req, res) => {
       const validator = ajvInstance.compile(JSON.parse(parsedData.schema));
       const type = parsedData.type || 'csv';
       const afs = admin.firestore();
+
+        // @ts-ignore
+      const {permissions} = req['user'];
+
+      if (permissions?.[parsedData.collection]?.create) {
+        throw new Error('User does not have permission to import data to this module');
+      }
 
       let jsonObj: any;
 

@@ -12,12 +12,12 @@
       </span>
     </ng-container>
     <span class="hide-xs flex ai-center">
-      <button *ngIf="!data.autoSave" type="submit" mat-flat-button [disabled]="formBuilderComponent?.form.invalid" [fDisable]="data.authorization" [jpLoadClick]="save(data)">
+      <button *ngIf="!data.autoSave" type="submit" mat-flat-button [disabled]="formBuilderComponent?.form.invalid" [jpLoadClick]="save(data)">
         {{ 'SAVE' | transloco }}
       </button>
     </span>
     <span *ngIf="!data.autoSave" class="show-xs flex ai-center">
-      <button type="submit" mat-icon-button [disabled]="formBuilderComponent?.form.invalid" [fDisable]="data.authorization" [jpLoadClick]="save(data)" [matTooltip]="'SAVE' | transloco">
+      <button type="submit" mat-icon-button [disabled]="formBuilderComponent?.form.invalid" [jpLoadClick]="save(data)" [matTooltip]="'SAVE' | transloco">
         <mat-icon>save</mat-icon>
       </button>
     </span>

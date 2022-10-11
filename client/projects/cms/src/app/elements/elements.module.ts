@@ -47,7 +47,6 @@ import {TriggerPasswordResetComponent} from './trigger-password-reset/trigger-pa
 import {UserActionsComponent} from './user-actions/user-actions.component';
 import {UserAddComponent} from './user-add/user-add.component';
 import {SearchInputModule} from '../shared/modules/search-input/search-input.module';
-import {ForceDisableModule} from '../shared/modules/force-disable/force-disable.module';
 import {EvalModule} from '../shared/modules/eval/eval.module';
 import {SampleEmailComponent} from './sample-email/sample-email.component';
 
@@ -91,7 +90,6 @@ import {SampleEmailComponent} from './sample-email/sample-email.component';
     StopPropagationModule,
     SanitizeModule,
     SearchInputModule,
-    ForceDisableModule,
     EvalModule
   ],
   exports: [],

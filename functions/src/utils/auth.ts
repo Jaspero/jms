@@ -30,3 +30,18 @@ export function hasRole(
     throw new functions.https.HttpsError('failed-precondition', message);
   }
 }
+
+export function hasPermission(
+  context: functions.https.CallableContext,
+  module: string, 
+  permission: 'get' | 'list' | 'create' | 'update' | 'delete'
+) {
+
+  isAuthenticated(context);
+
+  const {permissions} = context.auth.token;
+
+  if (!permissions?.[module]?.[permission]) {
+    throw new functions.https.HttpsError('failed-precondition', message);
+  }
+}

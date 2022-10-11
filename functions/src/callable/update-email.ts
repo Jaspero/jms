@@ -1,13 +1,13 @@
 import {Collections, SHARED_CONFIG} from 'definitions';
 import {auth, firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import {hasRole} from '../utils/auth';
+import {hasPermission} from '../utils/auth';
 import {schemaValidation} from '../utils/schema-validation';
 
 export const updateEmail = functions
   .region(SHARED_CONFIG.cloudRegion)
   .https.onCall(async (data, context) => {
-    hasRole(context, 'admin');
+    hasPermission(context, Collections.Users, 'update');
     schemaValidation(
       data,
       {

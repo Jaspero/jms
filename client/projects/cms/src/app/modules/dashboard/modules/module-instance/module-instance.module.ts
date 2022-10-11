@@ -26,7 +26,6 @@ import {TranslocoModule} from '@ngneat/transloco';
 import {ElementsModule} from '../../../../elements/elements.module';
 import {EvalModule} from '../../../../shared/modules/eval/eval.module';
 import {FormBuilderSharedModule} from '../../../../shared/modules/fb/form-builder-shared.module';
-import {ForceDisableModule} from '../../../../shared/modules/force-disable/force-disable.module';
 import {SearchInputModule} from '../../../../shared/modules/search-input/search-input.module';
 import {FileManagerModule} from '../file-manager/file-manager.module';
 import {CanReadModuleGuard} from './guards/can-read-module/can-read-module.guard';
@@ -122,7 +121,6 @@ function routes(deep = 10) {
      */
     FormBuilderSharedModule,
     SearchInputModule,
-    ForceDisableModule,
     ElementsModule,
 
     /**

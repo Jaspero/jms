@@ -1,13 +1,13 @@
+import {Collections, SHARED_CONFIG} from 'definitions';
 import {auth} from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import {SHARED_CONFIG} from 'definitions';
-import {hasRole} from '../utils/auth';
+import {hasPermission} from '../utils/auth';
 
 export const updateUser = functions
   .region(SHARED_CONFIG.cloudRegion)
   .https
   .onCall(async (data, context) => {
-    hasRole(context, 'admin');
+    hasPermission(context, Collections.Users, 'update');
 
     const ah = auth();
     const {id, ...update} = data;
