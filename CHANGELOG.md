@@ -1,3 +1,10 @@
+## [6.0.5](https://github.com/jaspero/jms/compare/v6.0.4...v6.0.5) (2022-10-11)
+
+
+### Bug Fixes
+
+* **functions:** installing ci with legacy-peer-deps ([3896ca1](https://github.com/jaspero/jms/commit/3896ca1a83e8bd4135af3cf1102ef01047c3476e))
+
 ## [6.0.4](https://github.com/jaspero/jms/compare/v6.0.3...v6.0.4) (2022-10-11)
 
 
