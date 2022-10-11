@@ -1,3 +1,17 @@
+# [6.0.0](https://github.com/jaspero/jms/compare/v5.41.3...v6.0.0) (2022-10-11)
+
+
+### Features
+
+* **cms:** created permissions component [#227](https://github.com/jaspero/jms/issues/227) ([d4d6d6b](https://github.com/jaspero/jms/commit/d4d6d6b98ae1d4c401d69a96440e0d5c61aa1cd0))
+* **cms:** only store values that are true in permissions [#227](https://github.com/jaspero/jms/issues/227) ([d907f62](https://github.com/jaspero/jms/commit/d907f627be9a32f661df3f2e39c4ea4c790e8a24))
+* connected new permissioning closes [#227](https://github.com/jaspero/jms/issues/227) ([a0794cf](https://github.com/jaspero/jms/commit/a0794cf9ad5254d1b5411c3ecbdc0102e9b63561))
+
+
+### BREAKING CHANGES
+
+* The authorization property on modules has been depriciated. Permissions are now controlled exclusively through the permissions object on roles.
+
 ## [5.41.3](https://github.com/jaspero/jms/compare/v5.41.2...v5.41.3) (2022-10-04)
 
 
