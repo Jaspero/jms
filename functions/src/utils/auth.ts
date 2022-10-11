@@ -34,7 +34,8 @@ export function hasRole(
 export function hasPermission(
   context: functions.https.CallableContext,
   module: string, 
-  permission: 'get' | 'list' | 'create' | 'update' | 'delete'
+  permission: 'get' | 'list' | 'create' | 'update' | 'delete',
+  message = `You don't have permission to perform this operation.`
 ) {
 
   isAuthenticated(context);
