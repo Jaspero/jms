@@ -1,6 +1,6 @@
-import {SHARED_CONFIG, Collections} from 'definitions';
+import {Collections, SHARED_CONFIG} from 'definitions';
+import {auth, firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import {auth} from 'firebase-admin';
 
 /**
  * Updates users custom claims when
@@ -14,12 +14,16 @@ export const userDocumentUpdated = functions
     const after: any = change.after.data();
     const before: any = change.before.data();
     const ah = auth();
+    const fs = firestore();
 
     if (after.role !== before.role) {
+
+      const roleRef = await fs.collection(Collections.Roles).doc(after.role).get();
+
       await ah.setCustomUserClaims(
         change.after.id,
         {
-          role: after.role
+          permissions: roleRef.data()?.permissions || {}
         }
       )
     }

@@ -42,6 +42,15 @@ export class StateService {
   }
 
   role: string;
+  permissions: {
+    [key: string]: {
+      get: boolean;
+      list: boolean;
+      create: boolean;
+      update: boolean;
+      delete: boolean;
+    }
+  };
   user: User;
   loadingQue$ = new Subject<Array<string | boolean>>();
   modules$: Observable<Module[]>;

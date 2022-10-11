@@ -23,20 +23,15 @@ app.post('/:module', authenticated(), (req, res) => {
   async function exec() {
     const {module} = req.params;
     // @ts-ignore
-    const role = req['user'].role;
+    const {permissions, role} = req['user'];
     const moduleDoc = MODULES.find(item => item.id === module);
 
     if (!moduleDoc) {
       throw new Error('Requested module not found.')
     }
 
-    if (
-      moduleDoc.authorization &&
-      moduleDoc.authorization.read &&
-      // @ts-ignore
-      !moduleDoc.authorization.read.includes(role)
-    ) {
-      throw new Error('User does not have permission to export this module')
+    if (permissions?.[module]?.list) {
+      throw new Error('User does not have permission to export this module');
     }
 
     const {
