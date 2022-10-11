@@ -1,3 +1,10 @@
+## [6.0.1](https://github.com/jaspero/jms/compare/v6.0.0...v6.0.1) (2022-10-11)
+
+
+### Bug Fixes
+
+* firestore.rules missing "if" ([2f7cab8](https://github.com/jaspero/jms/commit/2f7cab814da1a71c3eb46a4de89b3e5a47776543))
+
 # [6.0.0](https://github.com/jaspero/jms/compare/v5.41.3...v6.0.0) (2022-10-11)
 
 
