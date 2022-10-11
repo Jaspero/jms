@@ -1,3 +1,10 @@
+## [6.0.3](https://github.com/jaspero/jms/compare/v6.0.2...v6.0.3) (2022-10-11)
+
+
+### Bug Fixes
+
+* **functiond:** deployment ([38cc293](https://github.com/jaspero/jms/commit/38cc2936a27f7fdbcbf186fa352830f27786a175))
+
 ## [6.0.2](https://github.com/jaspero/jms/compare/v6.0.1...v6.0.2) (2022-10-11)
 
 
