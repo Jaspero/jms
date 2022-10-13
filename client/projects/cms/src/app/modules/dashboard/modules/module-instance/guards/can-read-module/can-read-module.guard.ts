@@ -26,7 +26,15 @@ export class CanReadModuleGuard implements CanActivate {
       map(modules => {
         const module = findModule(modules, route.params);
 
-        if (!this.state.permissions[module.id]?.list) {
+        const documentParams = Object.keys(route.params).reduce((acc, cur) => acc + (cur.startsWith('document') ? 1 : 0), 0);
+        /**
+         * If there is an even number of document params
+         * we're looking at a single document and need to check the
+         * get permission. 
+         */
+        const permission = documentParams % 2 ? 'list' : 'get';
+
+        if (!this.state.permissions[module.id]?.[permission]) {
           this.router.navigate(STATIC_CONFIG.dashboardRoute);
           return false;
         }

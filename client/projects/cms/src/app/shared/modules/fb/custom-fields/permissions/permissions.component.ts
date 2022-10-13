@@ -13,7 +13,14 @@ import {MODULES} from '@definitions';
 })
 export class PermissionsComponent extends FieldComponent<FieldData> implements OnInit {
   group: FormGroup;
-  modules = MODULES;
+  modules = MODULES.filter(it =>
+    /**
+     * Check that it's not a subcollection
+     * currently we only handle permissions
+     * for top level collections.
+     */
+    !it.id.includes('{{')
+  );
   permissions = [
     {name: 'GET', value: 'get'},
     {name: 'LIST', value: 'list'},

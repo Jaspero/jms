@@ -1,6 +1,5 @@
 import {Collections} from '../interfaces/collections';
 import {Module} from '../interfaces/module.interface';
-import {MODULES} from './modules';
 import {CREATED_ON} from './shared/created-on';
 
 export const ROLES_MODULE: Module = {

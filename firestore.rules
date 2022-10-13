@@ -12,8 +12,8 @@ service cloud.firestore {
     return request.auth.token != null;
   }
 
-   function hasPermission(module, permission) {
-    return authenticated() && request.auth.token.permissions.get([module, permission]) == true;
+  function hasPermission(module, permission) {
+    return authenticated() && request.auth.token.permissions.get([module, permission], false) == true;
   } 
 
   function storageItemPublicRead() {
@@ -41,7 +41,7 @@ service cloud.firestore {
   }
 
   match /databases/{database}/documents {
-    match /{module}/{item} {
+    match /{module}/{item=**} {
       allow get: if hasPermission(module, 'get') || hasId(resource);
       allow list: if hasPermission(module, 'list');
       allow create: if hasPermission(module, 'create');
