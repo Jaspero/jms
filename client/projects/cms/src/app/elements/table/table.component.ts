@@ -228,7 +228,13 @@ export class TableComponent implements OnInit, AfterViewInit {
         displayColumns.push('actions');
       }
 
-      this.permission = this.state.permissions[data.id];
+      /**
+       * Permissions are based on the
+       * root collection
+       */
+      const collection = data.id.split('/')[0];
+
+      this.permission = this.state.permissions[collection];
 
       this.singleService = this.injector.get(data.layout?.instance?.service || DefaultSingleService);
       this.overviewService = this.injector.get(data.layout?.overview?.service || DefaultOverviewService);

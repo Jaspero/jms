@@ -5,7 +5,7 @@ import {Parser} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {ModuleOverviewView} from '@definitions';
 import {BehaviorSubject, combineLatest, Subject} from 'rxjs';
-import {map, shareReplay, startWith, switchMap} from 'rxjs/operators';
+import {map, shareReplay, startWith, switchMap, take} from 'rxjs/operators';
 import {createSelector} from '../../../../../../elements/element.decorator';
 import {DEFAULT_PAGE_SIZE} from '../../../../../../shared/consts/page-sizes.const';
 import {StateService} from '../../../../../../shared/services/state/state.service';
@@ -41,6 +41,7 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.ioc.module$
       .pipe(
+        take(1),
         untilDestroyed(this)
       )
       .subscribe(module => {
@@ -78,7 +79,7 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
           }
 
           if (module.layout.sort && !this.ioc.routeData.sort) {
-            this.ioc.sortChange$.next(module.layout.sort);
+            this.ioc.sortChange$.next(JSON.parse(JSON.stringify(module.layout.sort)));
           }
 
           if (module.layout.filterModule && module.layout.filterModule.value && !this.ioc.routeData.filter) {
@@ -137,53 +138,56 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
               startWith(this.ioc.searchControl.value)
             ),
           this.ioc.sortChange$
-        ]).pipe(
-          switchMap(([pageSize, filter, search, sort]: any) => {
-            const routeData = {...this.ioc.routeData};
+        ])
+          .pipe(
+            switchMap(([pageSize, filter, search, sort]: any) => {
+              const routeData = {...this.ioc.routeData};
 
-            routeData.pageSize = pageSize as number;
-            routeData.filter = filter;
+              routeData.pageSize = pageSize as number;
+              routeData.filter = filter;
 
-            if (search) {
-              routeData.search = search;
-            }
+              if (search) {
+                routeData.search = search;
+              }
 
-            if (sort) {
-              routeData.sort = Array.isArray(sort) ? sort.map(it => ({
-                ...it,
-                active: Parser.standardizeKey(
-                  it.active
-                )
-              })) : {
-                active: Parser.standardizeKey(sort.active),
-                direction: sort.direction
-              };
-            } else {
-              routeData.sort = null;
-            }
+              if (sort) {
+                routeData.sort = Array.isArray(sort) ? sort.map(it => ({
+                  ...it,
+                  active: Parser.standardizeKey(
+                    it.active
+                  )
+                })) : {
+                  active: Parser.standardizeKey(sort.active),
+                  direction: sort.direction
+                };
+              } else {
+                routeData.sort = null;
+              }
 
-            this.state.setRouteData(routeData);
-            this.ioc.routeData = routeData;
+              this.state.setRouteData(routeData);
+              this.ioc.routeData = routeData;
 
-            return this.overviewService.get(
-              module,
-              pageSize,
-              filter,
-              search,
-              sort
-            );
-          }),
-          shareReplay(1)
-        );
+              return this.overviewService.get(
+                module,
+                pageSize,
+                filter,
+                search,
+                sort
+              );
+            }),
+            shareReplay(1),
+            untilDestroyed(this)
+          );
 
         this.ioc.allChecked$ = combineLatest([
           this.ioc.items$,
           this.ioc.selection.changed.pipe(startWith({}))
-        ]).pipe(
-          map(([items]) => ({
-            checked: this.ioc.selection.selected.length === items.length
-          }))
-        );
+        ])
+          .pipe(
+            map(([items]) => ({
+              checked: this.ioc.selection.selected.length === items.length
+            }))
+          );
 
         this.cdr.markForCheck();
       });
@@ -193,11 +197,12 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
     this.ioc.allChecked$ = combineLatest([
       this.ioc.items$,
       this.ioc.selection.changed.pipe(startWith({}))
-    ]).pipe(
-      map(([items]) => ({
-        checked: this.ioc.selection.selected.length === items.length
-      }))
-    );
+    ])
+      .pipe(
+        map(([items]) => ({
+          checked: this.ioc.selection.selected.length === items.length
+        }))
+      );
   }
 
   getCurrentView(selector: string) {

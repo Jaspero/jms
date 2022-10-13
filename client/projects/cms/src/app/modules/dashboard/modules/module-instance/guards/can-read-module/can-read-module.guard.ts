@@ -58,7 +58,6 @@ export class CanReadModuleGuard implements CanActivate {
 
         if (!this.ioc.module$.getValue()) {
           this.ioc.module$.next(mToUse);
-          this.state.page$.next({module: {id: mToUse.id, name: mToUse.name}});
           loaded = true;
         }
 
@@ -70,11 +69,7 @@ export class CanReadModuleGuard implements CanActivate {
           return;
         }
 
-        setTimeout(() => {
-          this.ioc.module$.next(mToUse);
-          this.state.page$.next({module: {id: mToUse.id, name: mToUse.name}});
-        });
-
+        this.ioc.module$.next(mToUse);
       })
     );
   }

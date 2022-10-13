@@ -61,7 +61,6 @@ export class FbDatabaseService extends DbService {
     source?,
     collectionGroup?
   ) {
-
     const sources = {
       server: getDocsFromServer,
       cache: getDocsFromCache

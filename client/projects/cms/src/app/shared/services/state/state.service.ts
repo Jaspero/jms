@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TranslocoEvents, TranslocoService} from '@ngneat/transloco';
+import {TranslocoService} from '@ngneat/transloco';
 import {Module, MODULES, User} from '@definitions';
-import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {distinctUntilChanged, filter, map, shareReplay} from 'rxjs/operators';
 
 @Injectable({
@@ -58,7 +58,6 @@ export class StateService {
   modules$: Observable<Module[]>;
   entryPath: string;
 
-  page$ = new BehaviorSubject<{module?: {id: string, name: string}}>({});
   translationsReady$: Observable<boolean>;
 
   /**
