@@ -16,6 +16,7 @@
     "noImplicitAny": false,
     "jsx": "react",
     "reactNamespace": "JSX",
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "allowSyntheticDefaultImports": true
   }
 }

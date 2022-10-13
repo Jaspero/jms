@@ -1,4 +1,4 @@
-import {initializeApp} from 'firebase-admin';
+import * as admin from 'firebase-admin';
 import {createUser} from './callable/create-user';
 import {exchangeToken} from './callable/exchange-token';
 import {getUser} from './callable/get-user';
@@ -21,7 +21,7 @@ import {userCreated} from './triggers/user-created';
 import {userDeleted} from './triggers/user-deleted';
 import {userDocumentUpdated} from './triggers/user-document-updated';
 
-initializeApp();
+admin.initializeApp();
 
 export {actionController} from './standalone/action-controller';
 

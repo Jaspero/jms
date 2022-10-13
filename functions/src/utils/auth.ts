@@ -1,4 +1,4 @@
-import * as functions from 'firebase-functions';
+import functions from 'firebase-functions';
 
 export function isAuthenticated(
   context: functions.https.CallableContext,

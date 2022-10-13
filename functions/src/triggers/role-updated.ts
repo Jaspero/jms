@@ -39,7 +39,10 @@ export const roleUpdated = functions
 				docs.map(doc =>
 					ah.setCustomUserClaims(
 						doc.id,
-						{permissions: after.permissions}
+						{
+							permissions: after.permissions,
+							role: change.after.id
+						}
 					)
 				)
 			)

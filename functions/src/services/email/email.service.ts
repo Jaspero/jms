@@ -1,4 +1,4 @@
-import * as sgMail from '@sendgrid/mail';
+import sgMail from '@sendgrid/mail';
 import {Collections, EMAIL_LAYOUT, EMAIL_STYLE} from 'definitions';
 import {firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';

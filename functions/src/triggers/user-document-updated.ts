@@ -23,7 +23,8 @@ export const userDocumentUpdated = functions
       await ah.setCustomUserClaims(
         change.after.id,
         {
-          permissions: roleRef.data()?.permissions || {}
+          permissions: roleRef.data()?.permissions || {},
+          role: after.role
         }
       )
     }

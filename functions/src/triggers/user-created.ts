@@ -37,7 +37,10 @@ export const userCreated = functions
       await Promise.all([
         auth().setCustomUserClaims(
           user.uid,
-          {permissions: roleRef.data().permissions || {}}
+          {
+            permissions: roleRef.data()?.permissions || {},
+            role: role.role
+          }
         ),
         inviteRef.ref.update({
           accepted: true,

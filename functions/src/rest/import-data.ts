@@ -1,9 +1,9 @@
 import Ajv from 'ajv';
-import * as Busboy from 'busboy';
-import * as csv from 'csvtojson';
+import Busboy from 'busboy';
+import csv from 'csvtojson';
 import {SHARED_CONFIG} from 'definitions';
 import * as express from 'express';
-import * as admin from 'firebase-admin';
+import admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {constants} from 'http2';
 import {CORS} from '../consts/cors-whitelist.const';

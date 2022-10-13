@@ -26,7 +26,7 @@ export class CanReadModuleGuard implements CanActivate {
       map(modules => {
         const module = findModule(modules, route.params);
 
-        if (this.state.permissions[module.id]?.list) {
+        if (!this.state.permissions[module.id]?.list) {
           this.router.navigate(STATIC_CONFIG.dashboardRoute);
           return false;
         }

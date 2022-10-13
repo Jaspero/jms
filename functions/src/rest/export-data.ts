@@ -1,10 +1,10 @@
 import * as express from 'express';
-import * as admin from 'firebase-admin';
+import admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {constants} from 'http2';
 import {get, has} from 'json-pointer';
 import {Parser} from 'json2csv';
-import * as XLSX from 'xlsx';
+import XLSX from 'xlsx';
 import {CORS} from '../consts/cors-whitelist.const';
 import {authenticated} from './middlewares/authenticated';
 import {MODULES, SHARED_CONFIG} from 'definitions';
