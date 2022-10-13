@@ -1,3 +1,15 @@
+# [6.2.0](https://github.com/jaspero/jms/compare/v6.1.0...v6.2.0) (2022-10-13)
+
+
+### Bug Fixes
+
+* **cms:** properly loading each overview page without state interference ([5d4dff0](https://github.com/jaspero/jms/commit/5d4dff04e245cf86c33083600e22474a60f8f4a0))
+
+
+### Features
+
+* **cms:** permissions for sub collections and accessing single pages ([ca30f17](https://github.com/jaspero/jms/commit/ca30f17004a71013982b575f6a002cae4046d9aa))
+
 # [6.1.0](https://github.com/jaspero/jms/compare/v6.0.5...v6.1.0) (2022-10-13)
 
 
