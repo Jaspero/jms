@@ -1,3 +1,11 @@
+# [6.1.0](https://github.com/jaspero/jms/compare/v6.0.5...v6.1.0) (2022-10-13)
+
+
+### Features
+
+* better approach for definitions folder ([0b4ed58](https://github.com/jaspero/jms/commit/0b4ed58f0149c6adee924c77c7b2af820a44ae94))
+* storing role and permissions on claim ([291f911](https://github.com/jaspero/jms/commit/291f91158a2b4bdb055f8990b30104cef6ce1cde))
+
 ## [6.0.5](https://github.com/jaspero/jms/compare/v6.0.4...v6.0.5) (2022-10-11)
 
 
