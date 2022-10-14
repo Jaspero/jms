@@ -37,6 +37,8 @@ export const roleUpdated = functions
 			return false;
 		});
 
+    console.log('No difference detected. No need for update.');
+
     if (diff) {
       const {docs} = await fs.collection(Collections.Users)
         .where('role', '==', change.after.id)
