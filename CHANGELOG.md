@@ -1,3 +1,10 @@
+## [6.3.2](https://github.com/jaspero/jms/compare/v6.3.1...v6.3.2) (2022-10-14)
+
+
+### Bug Fixes
+
+* **functions:** role updated detect changes ([26442e4](https://github.com/jaspero/jms/commit/26442e483c1d1d51516879667da795d6600b7a10))
+
 ## [6.3.1](https://github.com/jaspero/jms/compare/v6.3.0...v6.3.1) (2022-10-14)
 
 
