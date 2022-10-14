@@ -64,12 +64,12 @@ export class CanReadModuleGuard implements CanActivate {
         return true;
       }),
       tap(() => {
-        
+
         if (loaded) {
           return;
         }
 
-        this.ioc.module$.next(mToUse);
+        this.ioc.module$.next(mToUse)
       })
     );
   }
