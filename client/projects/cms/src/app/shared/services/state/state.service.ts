@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslocoService} from '@ngneat/transloco';
 import {Module, MODULES, User} from '@definitions';
-import {Observable, of, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 import {distinctUntilChanged, filter, map, shareReplay} from 'rxjs/operators';
 
 @Injectable({
@@ -112,6 +112,7 @@ export class StateService {
 
     if (queryParams.filter) {
 
+      // tslint:disable-next-line:no-shadowed-variable
       let filter;
 
       try {

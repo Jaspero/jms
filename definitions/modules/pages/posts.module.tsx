@@ -12,9 +12,6 @@ import {Collections} from '../../interfaces/collections';
 export const POSTS_MODULE: Module = {
   id: 'posts',
   name: 'POSTS',
-  authorization: {
-    write: ['admin']
-  },
   layout: {
     editTitleKey: 'title',
     sort: {
