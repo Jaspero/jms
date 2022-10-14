@@ -14,7 +14,9 @@
     "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "composite": true,
+    "types": []
   },
   "exclude": ["setup.ts", "dist"]
 }

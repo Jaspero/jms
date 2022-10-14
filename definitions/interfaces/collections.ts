@@ -23,7 +23,7 @@ export class Collections {
 	static Notes = 'notes';
 
 	static HistorySub(collection: string, docId?: string) {
-		return `${collection}/${docId || '{{docId}}'}/${Collections.History}`;
+		return `${collection}/${docId || '{docId}'}/${Collections.History}`;
 	}
 
 	static get UserHistory() {

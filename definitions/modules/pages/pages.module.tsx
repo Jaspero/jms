@@ -11,9 +11,7 @@ import {STATUS} from '../shared/status';
 export const PAGES_MODULE: Module = {
   id: 'pages',
   name: 'PAGES',
-  authorization: {
-    write: ['admin']
-  },
+
   layout: {
     editTitleKey: 'title',
     sort: CREATED_ON.sort,

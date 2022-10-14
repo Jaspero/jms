@@ -20,13 +20,13 @@ import {
   where
 } from '@angular/fire/firestore';
 import {Functions, httpsCallableData} from '@angular/fire/functions';
+import {FilterMethod, SHARED_CONFIG} from '@definitions';
+import {Parser} from '@jaspero/form-builder';
 import {from, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {FilterMethod, SHARED_CONFIG} from 'definitions';
 import {WhereFilter} from '../../src/app/shared/interfaces/where-filter.interface';
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
-import {Parser} from '@jaspero/form-builder';
 
 @Injectable()
 export class FbDatabaseService extends DbService {
@@ -61,7 +61,6 @@ export class FbDatabaseService extends DbService {
     source?,
     collectionGroup?
   ) {
-
     const sources = {
       server: getDocsFromServer,
       cache: getDocsFromCache

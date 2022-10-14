@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {take, tap} from 'rxjs/operators';
-import {StorageItem} from 'definitions';
+import {StorageItem} from '@definitions';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 

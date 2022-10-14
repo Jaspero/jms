@@ -80,10 +80,10 @@
     </ng-container>
 
     <a *ngIf="!data.hideEdit" mat-menu-item [routerLink]="editPath(element)">
-      <mat-icon>{{ permission.write ? 'edit' : 'visibility' }}</mat-icon>
-      <span>{{ (permission.write ? 'EDIT' : 'VIEW') | transloco }}</span>
+      <mat-icon>{{ permission.update ? 'edit' : 'visibility' }}</mat-icon>
+      <span>{{ (permission.update ? 'EDIT' : 'VIEW') | transloco }}</span>
     </a>
-    <button *ngIf="showDelete" mat-menu-item [fDisable]="data.authorization" (click)="ioc.deleteOne(element.ref.parent.path, element)">
+    <button *ngIf="showDelete" mat-menu-item (click)="ioc.deleteOne(element.ref.parent.path, element)">
       <mat-icon>delete_forever</mat-icon>
       <span>{{ 'DELETE' | transloco }}</span>
     </button>

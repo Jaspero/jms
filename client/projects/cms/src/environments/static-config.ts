@@ -1,3 +1,4 @@
+import {Collections} from '@definitions';
 import {NavigationItemWithActive} from '../app/shared/interfaces/navigation-item-with-active.interface';
 
 /**
@@ -107,25 +108,29 @@ export const STATIC_CONFIG = {
             icon: 'supervised_user_circle',
             label: 'USERS',
             type: 'link',
-            value: '/m/users'
+            value: '/m/users',
+            hasPermission: Collections.Users
           },
           {
             icon: 'vpn_key',
             label: 'ROLES',
             type: 'link',
-            value: '/m/roles'
+            value: '/m/roles',
+            hasPermission: Collections.Roles
           },
           {
             icon: 'email',
             label: 'AUTOMATIC_EMAILS',
             type: 'link',
-            value: '/m/automatic-emails'
+            value: '/m/automatic-emails',
+            hasPermission: Collections.AutomaticEmails
            },
            {
              icon: 'send',
              label: 'SENT_EMAILS',
              type: 'link',
-             value: '/m/sent-emails'
+             value: '/m/sent-emails',
+             hasPermission: Collections.SentEmails
            }
         ],
         icon: 'account_box',
@@ -138,7 +143,8 @@ export const STATIC_CONFIG = {
             icon: 'send',
             label: 'INVITES',
             type: 'link',
-            value: '/m/user-invites'
+            value: '/m/user-invites',
+            hasPermission: Collections.UserInvites
           }
         ],
         icon: 'dns',

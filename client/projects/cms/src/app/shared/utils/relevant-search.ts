@@ -100,6 +100,7 @@ export async function relevantSearch(
 
   // get queries for each field
   const s: any = [];
+
   for (const field of opts.fields) {
     const query = getDocs(
       fsQuery(
@@ -111,6 +112,7 @@ export async function relevantSearch(
 
     s.push(query);
   }
+  
   const docsSnaps: any = await Promise.all(s);
   const ids: any = {};
   let i = 0;
@@ -124,20 +126,23 @@ export async function relevantSearch(
       const relevance = data._term[exp];
       return {id, relevance};
     });
-  })).filter((r: any) => {
-    // filter duplicates
-    if (ids[r.id]) {
-      ids[r.id] += r.relevance;
-      return;
-    }
-    ids[r.id] = r.relevance;
-    return r;
-  }).map((r: any) => {
-    // merge relevances
-    r.relevance = ids[r.id];
-    return r;
-    // sort by relevance again
-  }).sort((a: any, b: any) => b.relevance < a.relevance ? -1 : a.relevance ? 1 : 0)
+  }))
+    .filter((r: any) => {
+      // filter duplicates
+      if (ids[r.id]) {
+        ids[r.id] += r.relevance;
+        return;
+      }
+      ids[r.id] = r.relevance;
+      return r;
+    })
+    .map((r: any) => {
+      // merge relevances
+      r.relevance = ids[r.id];
+      return r;
+      // sort by relevance again
+    })
+    .sort((a: any, b: any) => b.relevance < a.relevance ? -1 : a.relevance ? 1 : 0)
     .filter((r: any) => {
       // limit opts.limit
       if (i < opts.limit) {

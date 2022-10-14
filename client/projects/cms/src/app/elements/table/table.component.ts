@@ -24,13 +24,12 @@ import {
   FilterModule,
   ImportModule,
   InstanceSort,
-  ModuleAuthorization,
   ModuleDefinitions,
   ModuleLayoutTableColumn,
   PipeType,
   SearchModule,
   SortModule
-} from 'definitions';
+} from '@definitions';
 import {get, has} from 'json-pointer';
 import {JSONSchema7} from 'json-schema';
 import {AsyncSubject, BehaviorSubject, combineLatest, forkJoin, Observable, of, ReplaySubject, Subject, Subscription} from 'rxjs';
@@ -51,7 +50,6 @@ import {SortDialogComponent} from '../sort-dialog/sort-dialog.component';
 
 interface TableData {
   moduleId: string;
-  authorization?: ModuleAuthorization;
   name: string;
   displayColumns: string[];
   definitions: ModuleDefinitions;
@@ -117,8 +115,11 @@ export class TableComponent implements OnInit, AfterViewInit {
   controlCache: {[key: string]: any} = {};
   populateCache: {[key: string]: Observable<any>} = {};
   permission = {
-    write: false,
-    read: false
+    get: false,
+    list: false,
+    create: false,
+    update: false,
+    delete: false
   };
   maxHeight$ = new Subject<string>();
 
@@ -126,7 +127,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   overviewService: OverviewService;
 
   get showDelete() {
-    return !this.data.hideDelete && this.permission.write;
+    return !this.data.hideDelete && this.permission.delete;
   }
 
   get showActionsColumn() {
@@ -227,15 +228,19 @@ export class TableComponent implements OnInit, AfterViewInit {
         displayColumns.push('actions');
       }
 
-      this.permission.write = !data.authorization?.write || data.authorization.write.includes(this.state.role);
-      this.permission.read = !data.authorization?.read || data.authorization.read.includes(this.state.role);
+      /**
+       * Permissions are based on the
+       * root collection
+       */
+      const collection = data.id.split('/')[0];
+
+      this.permission = this.state.permissions[collection];
 
       this.singleService = this.injector.get(data.layout?.instance?.service || DefaultSingleService);
       this.overviewService = this.injector.get(data.layout?.overview?.service || DefaultOverviewService);
 
       this.data = {
         moduleId: data.id,
-        moduleAuthorization: data.authorization,
         name: data.name,
         schema: data.schema,
         displayColumns,

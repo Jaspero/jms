@@ -52,9 +52,7 @@ export function notify(
       catchError(err => {
         if (finalOptions.error || finalOptions.showThrownError) {
           createSnack(
-            finalOptions.showThrownError && (err || err.message) ?
-              (err || err.message) :
-              transloco.translate(err?.message || finalOptions.error as string),
+            transloco.translate(finalOptions.showThrownError && (err?.message) ? err.message : finalOptions.error as string),
             true
           );
         }

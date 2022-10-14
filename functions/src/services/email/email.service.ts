@@ -1,9 +1,10 @@
-import * as sgMail from '@sendgrid/mail';
+import sgMail from '@sendgrid/mail';
+import {Collections, EMAIL_LAYOUT, EMAIL_STYLE} from 'definitions';
 import {firestore} from 'firebase-admin';
+import * as functions from 'firebase-functions';
 import {compile} from 'handlebars';
 import {ENV_CONFIG} from '../../consts/env-config.const';
 import {EmailTemplate} from './email-template.interface';
-import {Collections, EMAIL_STYLE, EMAIL_LAYOUT} from 'definitions';
 
 /**
  * SendGrid docs
@@ -46,22 +47,20 @@ export class EmailService {
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
             <style>${EMAIL_STYLE || ''}</style>
           </head>
-          <body>${
-            EMAIL_LAYOUT
-              .replace(
-                `<div class="main-content"></div>`,
-                `<div class="main-content">${
-                  message
-                    .blocks
-                    .reduce((acc, seg) =>
-                      acc + seg.compiled
-                        .replace(/\[\[/g, '{{')
-                        .replace(/\]\]/g, '}}'),
-                      ''
-                    )
-                }</div>`
-              )
-          }</body>
+          <body>${EMAIL_LAYOUT
+        .replace(
+          `<div class="main-content"></div>`,
+          `<div class="main-content">${message
+            .blocks
+            .reduce((acc, seg) =>
+              acc + seg.compiled
+                .replace(/\[\[/g, '{{')
+                .replace(/\]\]/g, '}}'),
+              ''
+            )
+          }</div>`
+        )
+      }</body>
         </html>
       `
     );
@@ -92,7 +91,7 @@ export class EmailService {
 
       sentEmail = emailDoc.id
     } catch (e) {
-      console.error(e);
+      functions.logger.error(e);
     }
 
     return sentEmail;
@@ -105,12 +104,12 @@ export class EmailService {
     }
 
     if (!data.to) {
-      console.error('No receiving email provided.');
+      functions.logger.error('No receiving email provided.');
       return 'No receiver email provided.'
     }
 
     if (!ENV_CONFIG.email) {
-      console.error('No sender email provided.');
+      functions.logger.error('No sender email provided.');
       return 'No sender email provided.';
     }
 
@@ -120,7 +119,7 @@ export class EmailService {
         ...data
       });
     } catch (e) {
-      console.error('Failed sending email', e.toString());
+      functions.logger.error('Failed sending email', e);
       return e.toString();
     }
 

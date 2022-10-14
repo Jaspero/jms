@@ -1,3 +1,166 @@
+# [6.2.0](https://github.com/jaspero/jms/compare/v6.1.0...v6.2.0) (2022-10-13)
+
+
+### Bug Fixes
+
+* **cms:** properly loading each overview page without state interference ([5d4dff0](https://github.com/jaspero/jms/commit/5d4dff04e245cf86c33083600e22474a60f8f4a0))
+
+
+### Features
+
+* **cms:** permissions for sub collections and accessing single pages ([ca30f17](https://github.com/jaspero/jms/commit/ca30f17004a71013982b575f6a002cae4046d9aa))
+
+# [6.1.0](https://github.com/jaspero/jms/compare/v6.0.5...v6.1.0) (2022-10-13)
+
+
+### Features
+
+* better approach for definitions folder ([0b4ed58](https://github.com/jaspero/jms/commit/0b4ed58f0149c6adee924c77c7b2af820a44ae94))
+* storing role and permissions on claim ([291f911](https://github.com/jaspero/jms/commit/291f91158a2b4bdb055f8990b30104cef6ce1cde))
+
+## [6.0.5](https://github.com/jaspero/jms/compare/v6.0.4...v6.0.5) (2022-10-11)
+
+
+### Bug Fixes
+
+* **functions:** installing ci with legacy-peer-deps ([3896ca1](https://github.com/jaspero/jms/commit/3896ca1a83e8bd4135af3cf1102ef01047c3476e))
+
+## [6.0.4](https://github.com/jaspero/jms/compare/v6.0.3...v6.0.4) (2022-10-11)
+
+
+### Bug Fixes
+
+* **functions:** running on node v18 ([32cb81a](https://github.com/jaspero/jms/commit/32cb81ad8c2bbfd29cb43678daca2301445801ad))
+
+## [6.0.3](https://github.com/jaspero/jms/compare/v6.0.2...v6.0.3) (2022-10-11)
+
+
+### Bug Fixes
+
+* **functiond:** deployment ([38cc293](https://github.com/jaspero/jms/commit/38cc2936a27f7fdbcbf186fa352830f27786a175))
+
+## [6.0.2](https://github.com/jaspero/jms/compare/v6.0.1...v6.0.2) (2022-10-11)
+
+
+### Bug Fixes
+
+* **functions:** ajd definition ([0c7fcad](https://github.com/jaspero/jms/commit/0c7fcad2d66e751fd91a7fa561768b34a54df7ca))
+
+## [6.0.1](https://github.com/jaspero/jms/compare/v6.0.0...v6.0.1) (2022-10-11)
+
+
+### Bug Fixes
+
+* firestore.rules missing "if" ([2f7cab8](https://github.com/jaspero/jms/commit/2f7cab814da1a71c3eb46a4de89b3e5a47776543))
+
+# [6.0.0](https://github.com/jaspero/jms/compare/v5.41.3...v6.0.0) (2022-10-11)
+
+
+### Features
+
+* **cms:** created permissions component [#227](https://github.com/jaspero/jms/issues/227) ([d4d6d6b](https://github.com/jaspero/jms/commit/d4d6d6b98ae1d4c401d69a96440e0d5c61aa1cd0))
+* **cms:** only store values that are true in permissions [#227](https://github.com/jaspero/jms/issues/227) ([d907f62](https://github.com/jaspero/jms/commit/d907f627be9a32f661df3f2e39c4ea4c790e8a24))
+* connected new permissioning closes [#227](https://github.com/jaspero/jms/issues/227) ([a0794cf](https://github.com/jaspero/jms/commit/a0794cf9ad5254d1b5411c3ecbdc0102e9b63561))
+
+
+### BREAKING CHANGES
+
+* The authorization property on modules has been depriciated. Permissions are now controlled exclusively through the permissions object on roles.
+
+## [5.41.3](https://github.com/jaspero/jms/compare/v5.41.2...v5.41.3) (2022-10-04)
+
+
+### Bug Fixes
+
+* functions workflow ([1b932e2](https://github.com/jaspero/jms/commit/1b932e2d32e5be7342d0b484e13669cc65a5e33d))
+
+## [5.41.2](https://github.com/jaspero/jms/compare/v5.41.1...v5.41.2) (2022-10-04)
+
+
+### Bug Fixes
+
+* functions workflow ([662e5cc](https://github.com/jaspero/jms/commit/662e5ccd1c7ec20704c77b438ea31c14069047c1))
+
+## [5.41.1](https://github.com/jaspero/jms/compare/v5.41.0...v5.41.1) (2022-10-04)
+
+
+### Bug Fixes
+
+* functions workflow ([6bbe80c](https://github.com/jaspero/jms/commit/6bbe80cdbdf025ba2f2ee55283a669c724ba2be1))
+
+# [5.41.0](https://github.com/jaspero/jms/compare/v5.40.0...v5.41.0) (2022-10-04)
+
+
+### Features
+
+* extended functions workflow with options for running all functions ([75f4156](https://github.com/jaspero/jms/commit/75f4156e292a0178d7b347abfb079f15092e3eda))
+
+# [5.40.0](https://github.com/jaspero/jms/compare/v5.39.7...v5.40.0) (2022-10-04)
+
+
+### Features
+
+* **functions:** replaced all console logs with functions.logs closes [#411](https://github.com/jaspero/jms/issues/411) ([db0f183](https://github.com/jaspero/jms/commit/db0f183b193a5a19e06d8ac39adf5e13a112b409))
+
+## [5.39.7](https://github.com/jaspero/jms/compare/v5.39.6...v5.39.7) (2022-10-01)
+
+
+### Bug Fixes
+
+* **cms:** keys in email templates properly represented with [[ ]] ([94f902f](https://github.com/jaspero/jms/commit/94f902f1b4bcfb5cb0079a19f76fcc55804cedc7))
+
+## [5.39.6](https://github.com/jaspero/jms/compare/v5.39.5...v5.39.6) (2022-09-22)
+
+
+### Bug Fixes
+
+* **scripts:** backfill search not creating documents ([9cf1b54](https://github.com/jaspero/jms/commit/9cf1b548973cd2d969e3de6d3229ed9ce6944b09))
+
+## [5.39.5](https://github.com/jaspero/jms/compare/v5.39.4...v5.39.5) (2022-09-22)
+
+
+### Bug Fixes
+
+* **jms:** message format ([be1121b](https://github.com/jaspero/jms/commit/be1121bb935aa0366880cb4262ad6fb2d953041a))
+
+## [5.39.4](https://github.com/jaspero/jms/compare/v5.39.3...v5.39.4) (2022-09-20)
+
+
+### Bug Fixes
+
+* **cms:** don't show Dynamic Values on sample email if there aren't any fields ([dc553f9](https://github.com/jaspero/jms/commit/dc553f9a4d7527a3c87f5e944f852b70591834b8))
+* **cms:** missing role on permissions ([93779a9](https://github.com/jaspero/jms/commit/93779a9bcc79e3f2c03a1129417d174bd6dd625d))
+* **cms:** showing empty dynamic values on email component ([caaac37](https://github.com/jaspero/jms/commit/caaac37338423459c6655f9c8f0d73a38da7fd8e))
+* **functions:** sample-email missing ([f2501ea](https://github.com/jaspero/jms/commit/f2501eaef771e6e940bd0d48ea4cc644447228ca))
+
+## [5.39.3](https://github.com/jaspero/jms/compare/v5.39.2...v5.39.3) (2022-08-28)
+
+
+### Bug Fixes
+
+* **definitions:** missing properties on user ([7ac75f2](https://github.com/jaspero/jms/commit/7ac75f214ab055b299955cb7c890b177c37f8783))
+
+## [5.39.2](https://github.com/jaspero/jms/compare/v5.39.1...v5.39.2) (2022-08-28)
+
+
+### Bug Fixes
+
+* jsx values not applied properly if they have spaces ([1ca1c0a](https://github.com/jaspero/jms/commit/1ca1c0a742ea57d359969d181e01570c7fd996d6))
+
+## [5.39.1](https://github.com/jaspero/jms/compare/v5.39.0...v5.39.1) (2022-08-28)
+
+
+### Bug Fixes
+
+* **cms:** showing `id` when editTitleKey is undefined ([82e9561](https://github.com/jaspero/jms/commit/82e9561452f4dcd60911d77e9d397abd0c7af22b))
+
+# [5.39.0](https://github.com/jaspero/jms/compare/v5.38.0...v5.39.0) (2022-08-27)
+
+
+### Features
+
+* added createdBy to users; connected search in ref; ([ba75348](https://github.com/jaspero/jms/commit/ba7534804667af241203d8407323d63d9fb05022))
+
 # [5.38.0](https://github.com/jaspero/jms/compare/v5.37.1...v5.38.0) (2022-08-05)
 
 

@@ -48,7 +48,7 @@ export const documentDeleted = functions
                     .delete()
                     .then(resolve)
                     .catch(error => {
-                      console.error(error);
+                      functions.logger.error(error);
                       resolve(false);
                     })
                 )

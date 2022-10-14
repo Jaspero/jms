@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FormBuilderComponent, FormBuilderData} from '@jaspero/form-builder';
 import {notify} from '@shared/utils/notify.operator';
-import {Collections} from 'definitions';
+import {Collections} from '@definitions';
 import {switchMap} from 'rxjs/operators';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';

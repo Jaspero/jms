@@ -11,7 +11,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {BehaviorSubject, combineLatest, from, map, Observable, of, startWith} from 'rxjs';
-import {StorageItem, FilterMethod} from 'definitions';
+import {StorageItem, FilterMethod} from '@definitions';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {FormControl, Validators} from '@angular/forms';
 import {filter, shareReplay, switchMap, take, tap} from 'rxjs/operators';

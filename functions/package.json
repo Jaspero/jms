@@ -14,31 +14,31 @@
     "config": "firebase functions:config:get > .runtimeconfig.json"
   },
   "engines": {
-    "node": "14"
+    "node": "16"
   },
   "main": "lib/index.js",
   "dependencies": {
     "@google-cloud/storage": "5.8.3",
-    "@jaspero/utils": "1.7.0",
-    "@sendgrid/mail": "7.4.2",
+    "@jaspero/utils": "1.7.1",
+    "@sendgrid/mail": "7.7.0",
     "adv-firestore-functions": "2.0.9",
-    "ajv": "6.12.3",
+    "ajv": "8.11.0",
     "busboy": "0.3.1",
     "cors": "2.8.5",
-    "cors-anywhere": "^0.4.4",
+    "cors-anywhere": "0.4.4",
     "csvtojson": "2.0.10",
     "definitions": "file:definitions",
     "express": "4.17.1",
-    "firebase-admin": "10.0.2",
-    "firebase-functions": "3.16.0",
+    "firebase-admin": "11.1.0",
+    "firebase-functions": "3.24.1",
     "handlebars": "4.7.7",
-    "http-proxy": "^1.18.1",
+    "http-proxy": "1.18.1",
     "json-pointer": "0.6.2",
-    "json2csv": "5.0.1",
+    "json2csv": "5.0.7",
     "jsonwebtoken": "8.5.1",
-    "proxy-from-env": "^1.1.0",
+    "proxy-from-env": "1.1.0",
     "sharp": "0.30.6",
-    "xlsx": "0.17.0"
+    "xlsx": "0.18.5"
   },
   "devDependencies": {
     "@types/ajv": "1.0.0",
@@ -48,10 +48,11 @@
     "@types/express": "4.17.1",
     "@types/handlebars": "4.1.0",
     "@types/json-pointer": "1.0.30",
+    "@types/json-schema": "7.0.11",
     "@types/json2csv": "5.0.1",
     "@types/jsonwebtoken": "8.5.6",
     "@types/sharp": "0.30.4",
     "tslint": "6.1.2",
-    "typescript": "4.2.4"
+    "typescript": "4.7.3"
   }
 }

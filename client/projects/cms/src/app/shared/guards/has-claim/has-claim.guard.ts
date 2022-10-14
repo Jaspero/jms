@@ -3,7 +3,7 @@ import {Auth, authState, getIdTokenResult, signOut} from '@angular/fire/auth';
 import {CanActivate, Router} from '@angular/router';
 import {TranslocoService} from '@ngneat/transloco';
 import {notify} from '@shared/utils/notify.operator';
-import {Collections} from 'definitions';
+import {Collections} from '@definitions';
 import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 import {Observable, of, throwError} from 'rxjs';
 import {catchError, map, switchMap, take} from 'rxjs/operators';
@@ -33,21 +33,22 @@ export class HasClaimGuard implements CanActivate {
         switchMap(user => getIdTokenResult(user)),
         switchMap(data => {
           /**
-           * It's assumed that any user with a role claim
+           * It's assumed that any user with a permissions claim
            * is allowed to access tha dashboard
            */
-          if (!data || !data.claims.role) {
+          if (!data || !Object.keys(data.claims.permissions || {}).length) {
             return throwError(
               () =>
                 this.transloco.translate('DASHBOARD_ACCESS_DENIED')
             );
           }
 
-          this.state.role = data.claims.role as string;
+          this.state.permissions = data.claims.permissions as any;
 
           return this.db.getDocument(Collections.Users, data.claims.user_id as string);
         }),
         map(user => {
+          this.state.role = user.role;
           this.state.user = user;
           return true;
         }),
