@@ -17,7 +17,6 @@ export type {FilterModule} from './interfaces/filter-module.interface';
 export type {FormatMethod} from './interfaces/format-method.interface';
 export type {ImportModule} from './interfaces/import-module.interface';
 export type {InstanceSort} from './interfaces/instance-sort.interface';
-export type {ModuleAuthorization} from './interfaces/module-authorization.interface';
 export type {ModuleInstance} from './interfaces/module-instance.interface';
 export type {ModuleInstanceAction} from './interfaces/module-instance-action.interface';
 export type {ModuleLayoutTable} from './interfaces/module-layout-table.interface';

@@ -3,7 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {notify} from '@shared/utils/notify.operator';
 import {tap} from 'rxjs/operators';
-import {Collections} from 'definitions';
+import {Collections} from '@definitions';
 import {DbService} from '../../shared/services/db/db.service';
 import {Element} from '../element.decorator';
 

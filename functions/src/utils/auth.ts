@@ -1,4 +1,4 @@
-import * as functions from 'firebase-functions';
+import functions from 'firebase-functions';
 
 export function isAuthenticated(
   context: functions.https.CallableContext,
@@ -27,6 +27,22 @@ export function hasRole(
   const {role} = context.auth.token
 
   if (!role || (check.length && !check.includes(role))) {
+    throw new functions.https.HttpsError('failed-precondition', message);
+  }
+}
+
+export function hasPermission(
+  context: functions.https.CallableContext,
+  module: string, 
+  permission: 'get' | 'list' | 'create' | 'update' | 'delete',
+  message = `You don't have permission to perform this operation.`
+) {
+
+  isAuthenticated(context);
+
+  const {permissions} = context.auth.token;
+
+  if (!permissions?.[module]?.[permission]) {
     throw new functions.https.HttpsError('failed-precondition', message);
   }
 }

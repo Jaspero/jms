@@ -1,6 +1,14 @@
 import {scriptSetup} from './scripts/script-setup';
 import {COLLECTIONS} from './collections/collections';
 
+declare global {
+  interface Window {
+    jms: {
+      util: any;
+    };
+  }
+}
+
 const admin = scriptSetup();
 
 async function exec() {

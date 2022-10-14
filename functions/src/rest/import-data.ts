@@ -1,20 +1,20 @@
-import * as Busboy from 'busboy';
+import Ajv from 'ajv';
+import Busboy from 'busboy';
+import csv from 'csvtojson';
+import {SHARED_CONFIG} from 'definitions';
 import * as express from 'express';
-import * as csv from 'csvtojson';
+import admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import * as ajv from 'ajv';
-import * as admin from 'firebase-admin';
 import {constants} from 'http2';
 import {CORS} from '../consts/cors-whitelist.const';
-import {SHARED_CONFIG} from 'definitions';
 import {safeEval} from '../utils/safe-eval';
 import {authenticated} from './middlewares/authenticated';
 
 const app = express();
 app.use(CORS);
 
-app.post('/', authenticated(['admin']), (req, res) => {
-  const ajvInstance = new ajv();
+app.post('/', authenticated(), (req, res) => {
+  const ajvInstance = new Ajv();
   const busboy = new Busboy({headers: req.headers});
   const parsedData: any = {};
   let fileData = '';
@@ -38,6 +38,13 @@ app.post('/', authenticated(['admin']), (req, res) => {
       const validator = ajvInstance.compile(JSON.parse(parsedData.schema));
       const type = parsedData.type || 'csv';
       const afs = admin.firestore();
+
+      // @ts-ignore
+      const {permissions} = req['user'];
+
+      if (permissions?.[parsedData.collection]?.create) {
+        throw new Error('User does not have permission to import data to this module');
+      }
 
       let jsonObj: any;
 

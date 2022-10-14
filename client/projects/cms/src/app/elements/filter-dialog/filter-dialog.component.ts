@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {FilterMethod, FilterModule, FilterModuleDefinition, PipeType} from 'definitions';
+import {FilterMethod, FilterModule, FilterModuleDefinition, PipeType} from '@definitions';
 import {Parser, State} from '@jaspero/form-builder';
 import {safeEval} from '@jaspero/utils';
 import {AsyncSubject, BehaviorSubject, Observable, of, ReplaySubject, Subject} from 'rxjs';

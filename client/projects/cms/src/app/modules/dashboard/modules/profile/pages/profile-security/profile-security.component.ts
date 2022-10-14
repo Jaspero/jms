@@ -4,7 +4,7 @@ import {AbstractControlOptions, FormBuilder, FormGroup, FormGroupDirective, Vali
 import {Router} from '@angular/router';
 import {notify} from '@shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
-import {Collections} from 'definitions';
+import {Collections} from '@definitions';
 import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
 import {combineLatest, from, Observable, throwError} from 'rxjs';
 import {catchError, map, shareReplay, switchMap, take, tap} from 'rxjs/operators';

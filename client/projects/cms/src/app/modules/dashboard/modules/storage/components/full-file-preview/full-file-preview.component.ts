@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
-import {StorageItem} from 'definitions';
+import {StorageItem} from '@definitions';
 import {PreviewType} from '../../types/preview.type';
 import {detectPreviewType} from '../../utils/detect-preview-type';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';

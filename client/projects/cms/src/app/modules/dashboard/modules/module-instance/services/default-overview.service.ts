@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {InstanceSort, Module} from 'definitions';
+import {InstanceSort, Module} from '@definitions';
 import {merge, Observable} from 'rxjs';
 import {map, skip, startWith, switchMap, tap} from 'rxjs/operators';
 import {WhereFilter} from '../../../../../shared/interfaces/where-filter.interface';

@@ -26,12 +26,15 @@ export class CanReadModuleGuard implements CanActivate {
       map(modules => {
         const module = findModule(modules, route.params);
 
-        if (
-          !module ||
-          module.authorization &&
-          module.authorization.read &&
-          !module.authorization.read.includes(this.state.role)
-        ) {
+        const documentParams = Object.keys(route.params).reduce((acc, cur) => acc + (cur.startsWith('document') ? 1 : 0), 0);
+        /**
+         * If there is an even number of document params
+         * we're looking at a single document and need to check the
+         * get permission. 
+         */
+        const permission = documentParams % 2 ? 'list' : 'get';
+
+        if (!this.state.permissions[module.id]?.[permission]) {
           this.router.navigate(STATIC_CONFIG.dashboardRoute);
           return false;
         }
@@ -55,7 +58,6 @@ export class CanReadModuleGuard implements CanActivate {
 
         if (!this.ioc.module$.getValue()) {
           this.ioc.module$.next(mToUse);
-          this.state.page$.next({module: {id: mToUse.id, name: mToUse.name}});
           loaded = true;
         }
 
@@ -67,11 +69,7 @@ export class CanReadModuleGuard implements CanActivate {
           return;
         }
 
-        setTimeout(() => {
-          this.ioc.module$.next(mToUse);
-          this.state.page$.next({module: {id: mToUse.id, name: mToUse.name}});
-        });
-
+        this.ioc.module$.next(mToUse);
       })
     );
   }
