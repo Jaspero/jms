@@ -1,3 +1,17 @@
+# [6.3.0](https://github.com/jaspero/jms/compare/v6.2.0...v6.3.0) (2022-10-14)
+
+
+### Bug Fixes
+
+* run release on ubuntu-latest ([7b49dd4](https://github.com/jaspero/jms/commit/7b49dd4426d86e46b0fa47a8253031236e316766))
+* tables loading properly ([a5d92d1](https://github.com/jaspero/jms/commit/a5d92d1c6c676aceb82c0a08125c7d45afcffa9b))
+
+
+### Features
+
+* storage translations ([7f7c73e](https://github.com/jaspero/jms/commit/7f7c73e60d67bcce62125ff289fe584dff2ebb8f))
+* storage translations and ui ([64a6904](https://github.com/jaspero/jms/commit/64a6904e5755c34ff177e7301e40442d076df835))
+
 # [6.2.0](https://github.com/jaspero/jms/compare/v6.1.0...v6.2.0) (2022-10-13)
 
 
