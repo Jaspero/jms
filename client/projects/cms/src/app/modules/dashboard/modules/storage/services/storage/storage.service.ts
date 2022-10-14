@@ -1,5 +1,5 @@
 import {Injectable, NgZone} from '@angular/core';
-import {StorageItem, FilterMethod} from 'definitions';
+import {StorageItem, FilterMethod} from '@definitions';
 import {deleteObject, getStorage, ref, uploadBytesResumable, UploadTask} from '@angular/fire/storage';
 import {random} from '@jaspero/utils';
 import {map, take, tap} from 'rxjs/operators';

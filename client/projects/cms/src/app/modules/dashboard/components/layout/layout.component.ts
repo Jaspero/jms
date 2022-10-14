@@ -4,12 +4,12 @@ import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angul
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {NavigationEnd, Router} from '@angular/router';
+import {Collections} from '@definitions';
 import {safeEval} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
-import {Collections} from 'definitions';
 import {BehaviorSubject, from, Observable, throwError} from 'rxjs';
 import {catchError, distinctUntilChanged, filter, map, shareReplay, startWith, switchMap, take, tap, skip} from 'rxjs/operators';
 import {STATIC_CONFIG} from '../../../../../environments/static-config';
@@ -110,9 +110,9 @@ export class LayoutComponent implements OnInit {
     if (this.state.user.requireReset) {
 
       this.resetPassword = this.fb.group({
-          password: ['', Validators.required],
-          repeatPassword: ['', Validators.required]
-        },
+        password: ['', Validators.required],
+        repeatPassword: ['', Validators.required]
+      },
         {
           validator: RepeatPasswordValidator(`Passwords don't match`)
         } as AbstractControlOptions);
@@ -140,8 +140,14 @@ export class LayoutComponent implements OnInit {
           if (user) {
             return STATIC_CONFIG.navigation.items.reduce((acc, item) => {
               if (
-                !item.authorized ||
-                item.authorized.includes(this.state.role)
+                (
+                  !item.hasPermission ||
+                  this.state.permissions[item.hasPermission]?.list
+                ) &&
+                (
+                  !item.authorized ||
+                  item.authorized.includes(this.state.role)
+                )
               ) {
 
                 if (item.function) {
@@ -151,35 +157,68 @@ export class LayoutComponent implements OnInit {
                   }
                 }
 
-                acc.push({
-                  ...item,
-                  ...item.children ?
-                    {
-                      children: item.children
-                        .reduce((a, c) => {
-                          if (!c.authorized || c.authorized.includes(this.state.role)) {
-                            if (c.function) {
-                              const value = safeEval(c.value);
-                              if (value) {
-                                c.value = value(this.state.user, this.state.role);
+                const children = (item.children || [])
+                  .reduce((a, c) => {
+                    if (
+                      (!c.hasPermission || this.state.permissions[c.hasPermission]?.list) &&
+                      (!c.authorized || c.authorized.includes(this.state.role))
+                    ) {
+                      if (c.function) {
+                        const value = safeEval(c.value);
+                        if (value) {
+                          c.value = value(this.state.user, this.state.role);
+                        }
+                      }
+
+                      a.push({
+                        ...c,
+                        routerOptions: {
+                          exact: c.matchExact || false
+                        }
+                      });
+                    }
+
+                    return a;
+                  }, [])
+
+                /**
+                 * Don's show items where all the children
+                 * have been filtered out
+                 */
+                if (!item.children || children.length) {
+                  acc.push({
+                    ...item,
+                    ...item.children ?
+                      {
+                        children: item.children
+                          .reduce((a, c) => {
+                            if (
+                              (!c.hasPermission || this.state.permissions[c.hasPermission]?.list) &&
+                              (!c.authorized || c.authorized.includes(this.state.role))
+                            ) {
+                              if (c.function) {
+                                const value = safeEval(c.value);
+                                if (value) {
+                                  c.value = value(this.state.user, this.state.role);
+                                }
                               }
+
+                              a.push({
+                                ...c,
+                                routerOptions: {
+                                  exact: c.matchExact || false
+                                }
+                              });
                             }
 
-                            a.push({
-                              ...c,
-                              routerOptions: {
-                                exact: c.matchExact || false
-                              }
-                            });
-                          }
-
-                          return a;
-                        }, [])
-                    } : {},
-                  routerOptions: {
-                    exact: item.matchExact || false
-                  }
-                });
+                            return a;
+                          }, [])
+                      } : {},
+                    routerOptions: {
+                      exact: item.matchExact || false
+                    }
+                  });
+                }
               }
 
               return acc;

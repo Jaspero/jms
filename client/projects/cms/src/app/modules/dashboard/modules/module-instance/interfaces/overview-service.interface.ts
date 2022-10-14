@@ -1,4 +1,4 @@
-import {InstanceSort, Module} from 'definitions';
+import {InstanceSort, Module} from '@definitions';
 import {Observable} from 'rxjs';
 import {WhereFilter} from '../../../../../shared/interfaces/where-filter.interface';
 

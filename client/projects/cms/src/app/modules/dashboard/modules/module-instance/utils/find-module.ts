@@ -1,4 +1,4 @@
-import {Module} from 'definitions';
+import {Module} from '@definitions';
 
 export function findModule(
   modules: Module[],

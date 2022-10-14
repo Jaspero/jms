@@ -7,9 +7,6 @@ import {CREATED_ON} from './shared/created-on';
 export const INQUIRIES_MODULE: Module = {
   id: Collections.Inquiries,
   name: 'INQUIRIES',
-  authorization: {
-    read: ['admin']
-  },
   layout: {
     editTitleKey: 'name',
     sort: CREATED_ON.sort,

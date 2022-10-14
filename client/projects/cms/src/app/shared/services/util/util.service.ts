@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {TranslocoService} from '@ngneat/transloco';
-import {FilterMethod} from 'definitions';
+import {FilterMethod} from '@definitions';
 import {forkJoin, from} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 import {relevantSearch} from '../../utils/relevant-search';

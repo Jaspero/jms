@@ -1,3 +1,72 @@
+# [6.2.0](https://github.com/jaspero/jms/compare/v6.1.0...v6.2.0) (2022-10-13)
+
+
+### Bug Fixes
+
+* **cms:** properly loading each overview page without state interference ([5d4dff0](https://github.com/jaspero/jms/commit/5d4dff04e245cf86c33083600e22474a60f8f4a0))
+
+
+### Features
+
+* **cms:** permissions for sub collections and accessing single pages ([ca30f17](https://github.com/jaspero/jms/commit/ca30f17004a71013982b575f6a002cae4046d9aa))
+
+# [6.1.0](https://github.com/jaspero/jms/compare/v6.0.5...v6.1.0) (2022-10-13)
+
+
+### Features
+
+* better approach for definitions folder ([0b4ed58](https://github.com/jaspero/jms/commit/0b4ed58f0149c6adee924c77c7b2af820a44ae94))
+* storing role and permissions on claim ([291f911](https://github.com/jaspero/jms/commit/291f91158a2b4bdb055f8990b30104cef6ce1cde))
+
+## [6.0.5](https://github.com/jaspero/jms/compare/v6.0.4...v6.0.5) (2022-10-11)
+
+
+### Bug Fixes
+
+* **functions:** installing ci with legacy-peer-deps ([3896ca1](https://github.com/jaspero/jms/commit/3896ca1a83e8bd4135af3cf1102ef01047c3476e))
+
+## [6.0.4](https://github.com/jaspero/jms/compare/v6.0.3...v6.0.4) (2022-10-11)
+
+
+### Bug Fixes
+
+* **functions:** running on node v18 ([32cb81a](https://github.com/jaspero/jms/commit/32cb81ad8c2bbfd29cb43678daca2301445801ad))
+
+## [6.0.3](https://github.com/jaspero/jms/compare/v6.0.2...v6.0.3) (2022-10-11)
+
+
+### Bug Fixes
+
+* **functiond:** deployment ([38cc293](https://github.com/jaspero/jms/commit/38cc2936a27f7fdbcbf186fa352830f27786a175))
+
+## [6.0.2](https://github.com/jaspero/jms/compare/v6.0.1...v6.0.2) (2022-10-11)
+
+
+### Bug Fixes
+
+* **functions:** ajd definition ([0c7fcad](https://github.com/jaspero/jms/commit/0c7fcad2d66e751fd91a7fa561768b34a54df7ca))
+
+## [6.0.1](https://github.com/jaspero/jms/compare/v6.0.0...v6.0.1) (2022-10-11)
+
+
+### Bug Fixes
+
+* firestore.rules missing "if" ([2f7cab8](https://github.com/jaspero/jms/commit/2f7cab814da1a71c3eb46a4de89b3e5a47776543))
+
+# [6.0.0](https://github.com/jaspero/jms/compare/v5.41.3...v6.0.0) (2022-10-11)
+
+
+### Features
+
+* **cms:** created permissions component [#227](https://github.com/jaspero/jms/issues/227) ([d4d6d6b](https://github.com/jaspero/jms/commit/d4d6d6b98ae1d4c401d69a96440e0d5c61aa1cd0))
+* **cms:** only store values that are true in permissions [#227](https://github.com/jaspero/jms/issues/227) ([d907f62](https://github.com/jaspero/jms/commit/d907f627be9a32f661df3f2e39c4ea4c790e8a24))
+* connected new permissioning closes [#227](https://github.com/jaspero/jms/issues/227) ([a0794cf](https://github.com/jaspero/jms/commit/a0794cf9ad5254d1b5411c3ecbdc0102e9b63561))
+
+
+### BREAKING CHANGES
+
+* The authorization property on modules has been depriciated. Permissions are now controlled exclusively through the permissions object on roles.
+
 ## [5.41.3](https://github.com/jaspero/jms/compare/v5.41.2...v5.41.3) (2022-10-04)
 
 

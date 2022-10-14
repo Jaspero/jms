@@ -35,6 +35,7 @@ export const USER_HISTORY_MODULE: Module = {
 			hideImport: true,
 			hideDelete: true,
 			hideCheckbox: true,
+			hideEdit: true,
 			tableColumns: [
 				CREATED_ON.column(),
 				{key: '/type', label: 'TYPE', pipe: [PipeType.Titlecase]},

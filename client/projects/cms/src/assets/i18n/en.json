@@ -251,7 +251,11 @@
   "TOGGLE_ALL": "Toggle All",
 
   "USER_HISTORY": "User History",
+  "PERMISSIONS": "Permissions",
   "CREATE": "Create",
+  "UPDATE": "Update",
+  "GET": "Get",
+  "LIST": "List",
   "BEFORE": "Before",
   "AFTER": "After"
 }

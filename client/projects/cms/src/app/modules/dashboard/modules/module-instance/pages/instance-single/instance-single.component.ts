@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ModuleAuthorization} from 'definitions';
 import {FormBuilderData, FormBuilderComponent, State, FormBuilderContextService} from '@jaspero/form-builder';
 import {parseTemplate, random, safeEval} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
@@ -33,7 +32,6 @@ interface Instance {
   formatOnSave: (data: any) => any;
   formatOnEdit: (data: any) => any;
   formatOnCreate: (data: any) => any;
-  authorization?: ModuleAuthorization;
   formBuilder: FormBuilderData;
 }
 
@@ -197,7 +195,6 @@ export class InstanceSingleComponent implements OnInit {
                 editTitleKey
               },
               directLink: !!(module.layout && module.layout.directLink),
-              authorization: module.authorization,
               ...actions && {actions},
               ...formatOn,
               formBuilder: {

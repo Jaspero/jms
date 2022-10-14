@@ -12,6 +12,12 @@ export interface NavigationItem {
   function?: boolean;
 
   /**
+   * Only shown if the user has list permission for the
+   * specified collection
+   */
+  hasPermission?: string;
+
+  /**
    * Defaults to 'empty' if unassigned
    */
   type?: NavigationItemType;
