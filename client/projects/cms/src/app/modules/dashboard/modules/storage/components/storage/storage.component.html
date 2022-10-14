@@ -1,5 +1,5 @@
 <mat-toolbar role="heading" color="primary">
-  <span>{{title}}</span>
+  <span>{{title | transloco}}</span>
   <div class="flex-1"></div>
 </mat-toolbar>
 <section class="storage">
@@ -27,9 +27,9 @@
           <button mat-icon-button (click)="openNewFolderDialog()">
             <mat-icon>create_new_folder</mat-icon>
           </button>
-<!--          <button mat-icon-button (click)="toggleView()">-->
-<!--            <mat-icon>{{view === 'grid' ? 'list' : 'calendar_view_month'}}</mat-icon>-->
-<!--          </button>-->
+          <!--          <button mat-icon-button (click)="toggleView()">-->
+          <!--            <mat-icon>{{view === 'grid' ? 'list' : 'calendar_view_month'}}</mat-icon>-->
+          <!--          </button>-->
         </div>
       </mat-card-title>
     </mat-card>
@@ -45,22 +45,20 @@
         <ng-container *ngIf="!items.folders.length && !items.files.length">
           <div class="flex jc-center ai-center fd-col" style="height: 90%; color: rgba(0, 0, 0, 0.65)">
             <mat-icon style="font-size: 80px; width: 80px; height: 80px;">folder</mat-icon>
-            <h2>Folder empty</h2>
-            <h4>Drop files here or click 'Upload'</h4>
+            <h2>{{'FOLDER_EMPTY' | transloco}}</h2>
+            <h4>{{"DROP_FILES_HERE_OR_CLICK_UPLOAD" | transloco}}</h4>
           </div>
         </ng-container>
 
         <ng-container [ngSwitch]="view">
           <ng-container *ngSwitchCase="'grid'">
             <!-- Folders -->
-            <p class="storage-subheader m-t-s" *ngIf="items.folders.length">Folders</p>
+            <p class="storage-subheader m-t-s" *ngIf="items.folders.length">{{'FOLDERS' | transloco}}</p>
             <div class="grid jc-start p-a-0">
               <div *ngFor="let folder of items.folders; trackBy: trackByPath; index as index"
-                   class="col-3 col-s-6 col-xs-12">
-                <mat-card class="storage-item" [tabIndex]="index + 1"
-                          (mousedown)="focusItem($event)"
-                          (dblclick)="navigateTo(folder, true)"
-                          (contextmenu)="openItemContextMenu($event, folder)">
+                class="col-3 col-s-6 col-xs-12">
+                <mat-card class="storage-item" [tabIndex]="index + 1" (mousedown)="focusItem($event)"
+                  (dblclick)="navigateTo(folder, true)" (contextmenu)="openItemContextMenu($event, folder)">
                   <div class="flex jc-start ai-center">
                     <mat-icon class="storage-item-icon">{{folder | folderIcon}}</mat-icon>
                     <div class="storage-item-name" [matTooltip]="folder.name" matTooltipShowDelay="1000">
@@ -72,14 +70,13 @@
             </div>
 
             <!-- Files -->
-            <p class="storage-subheader m-t-s" *ngIf="items.files.length">Files</p>
+            <p class="storage-subheader m-t-s" *ngIf="items.files.length">{{'FILES' | transloco}}</p>
             <div class="grid jc-start p-a-0">
               <div *ngFor="let file of items.files; trackBy: trackByPath; index as index"
-                   class="col-3 col-s-6 col-xs-12">
+                class="col-3 col-s-6 col-xs-12">
                 <mat-card class="storage-item file" [tabIndex]="items.folders.length + index + 1" style="padding: 0;"
-                          (mousedown)="focusItem($event)"
-                          (contextmenu)="openItemContextMenu($event, file)"
-                          (dblclick)="previewItem(file)">
+                  (mousedown)="focusItem($event)" (contextmenu)="openItemContextMenu($event, file)"
+                  (dblclick)="previewItem(file)">
                   <div class="storage-item-file flex fd-col">
                     <div class="storage-item-preview w-full" style="height: calc(100% - 48px);">
                       <jms-file-preview [file]="file"></jms-file-preview>
@@ -98,7 +95,7 @@
             </div>
 
           </ng-container>
-          <ng-container *ngSwitchCase="'list'">LIST</ng-container>
+          <ng-container *ngSwitchCase="'list'">{{'LIST' | transloco}}</ng-container>
         </ng-container>
       </ng-container>
     </div>
@@ -110,7 +107,7 @@
     <mat-card *ngIf="downloads.length" class="downloads">
       <mat-card-title>
         <div class="flex jc-between ai-center m-t-s">
-          <div>Downloads</div>
+          <div>{{'DOWNLOADS' | transloco}}</div>
           <button mat-icon-button (click)="storage.closeDownloads()">
             <mat-icon>close</mat-icon>
           </button>
@@ -120,22 +117,17 @@
       <div *ngFor="let download of downloads; index as index">
         <div class="flex jc-between p-a-s">
           <div class="wrap-text" [matTooltip]="download.name" matTooltipShowDelay="1000">{{download.name}}</div>
-          <div class="flex ai-center"
-               (mouseenter)="mouseEnterDownload(download)"
-               (mouseleave)="mouseLeaveDownload(download)">
+          <div class="flex ai-center" (mouseenter)="mouseEnterDownload(download)"
+            (mouseleave)="mouseLeaveDownload(download)">
             <div (click)="storage.stopDownload(download)" style="height: 20px;">
               <ng-container *ngIf="download.percent$ | async as percent">
-
-
                 <ng-container *ngIf="download.hover || percent === 100; else progress">
-                  <mat-icon class="downloads-icon"
-                            [style]="'color: ' + (download.iconColor || '#7cb342')">{{download.icon || 'check_circle'}}</mat-icon>
+                  <mat-icon class="downloads-icon" [style]="'color: ' + (download.iconColor || '#7cb342')">
+                    {{download.icon || 'check_circle'}}</mat-icon>
                 </ng-container>
                 <ng-template #progress>
-                  <mat-progress-spinner diameter="20" mode="determinate"
-                                        [value]="percent"></mat-progress-spinner>
+                  <mat-progress-spinner diameter="20" mode="determinate" [value]="percent"></mat-progress-spinner>
                 </ng-template>
-
               </ng-container>
             </div>
           </div>
@@ -150,7 +142,7 @@
     <mat-card *ngIf="uploads.length" class="uploads">
       <mat-card-title>
         <div class="flex jc-between ai-center m-t-s">
-          <div>Uploads</div>
+          <div>{{'UPLOADS' | transloco}}</div>
           <button mat-icon-button (click)="storage.closeUploads()">
             <mat-icon>close</mat-icon>
           </button>
@@ -160,20 +152,17 @@
       <div *ngFor="let upload of uploads; index as index">
         <div class="flex jc-between p-a-s">
           <div class="wrap-text" [matTooltip]="upload.name" matTooltipShowDelay="1000">{{upload.name}}</div>
-          <div class="flex ai-center"
-               (mouseenter)="mouseEnterDownload(upload)"
-               (mouseleave)="mouseLeaveDownload(upload)">
+          <div class="flex ai-center" (mouseenter)="mouseEnterDownload(upload)"
+            (mouseleave)="mouseLeaveDownload(upload)">
             <div (click)="storage.stopUpload(upload)" style="height: 20px;">
               <ng-container *ngIf="upload.percent$ | async as percent">
                 <ng-container *ngIf="upload.hover || percent === 100; else progress">
-                  <mat-icon class="downloads-icon"
-                            [style]="'color: ' + (upload.iconColor || '#7cb342')">{{upload.icon || 'check_circle'}}</mat-icon>
+                  <mat-icon class="downloads-icon" [style]="'color: ' + (upload.iconColor || '#7cb342')">{{upload.icon
+                    || 'check_circle'}}</mat-icon>
                 </ng-container>
                 <ng-template #progress>
-                  <mat-progress-spinner diameter="20" mode="determinate"
-                                        [value]="percent"></mat-progress-spinner>
+                  <mat-progress-spinner diameter="20" mode="determinate" [value]="percent"></mat-progress-spinner>
                 </ng-template>
-
               </ng-container>
             </div>
           </div>
@@ -187,72 +176,46 @@
 
 <ng-template #context let-data>
   <ng-container *ngIf="data.item.type === 'file'">
-    <button
-      class="contextmenu-dialog-item"
-      mat-button
-      mat-dialog-close
-      (click)="previewItem(data.item)">
+    <button class="contextmenu-dialog-item" mat-button mat-dialog-close (click)="previewItem(data.item)">
       <mat-icon>visibility</mat-icon>
-      <span class="p-l-s">Preview</span>
+      <span class="p-l-s">{{'PREVIEW' | transloco}}</span>
     </button>
-    <button
-      class="contextmenu-dialog-item"
-      mat-button
-      mat-dialog-close
-      (click)="openShareDialog(data.item)">
+    <button class="contextmenu-dialog-item" mat-button mat-dialog-close (click)="openShareDialog(data.item)">
       <mat-icon>person_add_alt</mat-icon>
-      <span class="p-l-s">Share</span>
+      <span class="p-l-s">{{'SHARE' | transloco}}</span>
     </button>
     <hr>
-    <button
-      class="contextmenu-dialog-item"
-      mat-button
-      mat-dialog-close
-      (click)="storage.downloadItem(data.item)">
+    <button class="contextmenu-dialog-item" mat-button mat-dialog-close (click)="storage.downloadItem(data.item)">
       <mat-icon>file_download</mat-icon>
-      <span class="p-l-s">Download</span>
+      <span class="p-l-s">{{'DOWNLOAD' | transloco}}</span>
     </button>
     <hr>
-    <button
-      class="contextmenu-dialog-item"
-      mat-button
-      color="warn"
-      mat-dialog-close (click)="storage.removeItem(data.item)">
+    <button class="contextmenu-dialog-item" mat-button color="warn" mat-dialog-close
+      (click)="storage.removeItem(data.item)">
       <mat-icon>delete</mat-icon>
-      <span class="p-l-s">Remove</span>
+      <span class="p-l-s">{{'REMOVE' | transloco}}</span>
     </button>
   </ng-container>
 
   <ng-container *ngIf="data.item.type === 'folder'">
-    <button
-      class="contextmenu-dialog-item"
-      mat-button
-      mat-dialog-close
-      (click)="openShareDialog(data.item)">
+    <button class="contextmenu-dialog-item" mat-button mat-dialog-close (click)="openShareDialog(data.item)">
       <mat-icon>person_add_alt</mat-icon>
-      <span class="p-l-s">Share</span>
+      <span class="p-l-s">{{'SHARE' | transloco}}</span>
     </button>
-    <button
-      class="contextmenu-dialog-item"
-      mat-button
-      mat-dialog-close
-      (click)="openInfoDialog(data.item)">
+    <button class="contextmenu-dialog-item" mat-button mat-dialog-close (click)="openInfoDialog(data.item)">
       <mat-icon style="color: rgba(0, 0, 0, 0.65)">info</mat-icon>
-      <span class="p-l-s">View details</span>
+      <span class="p-l-s">{{'VIEW_DETAILS' | transloco}}</span>
     </button>
-    <button
-      class="contextmenu-dialog-item"
-      mat-button
-      color="warn"
-      mat-dialog-close (click)="storage.removeItem(data.item)">
+    <button class="contextmenu-dialog-item" mat-button color="warn" mat-dialog-close
+      (click)="storage.removeItem(data.item)">
       <mat-icon>delete</mat-icon>
-      <span class="p-l-s">Remove</span>
+      <span class="p-l-s">{{'REMOVE' | transloco}}</span>
     </button>
   </ng-container>
 </ng-template>
 
 <ng-template #newFolder let-data>
-  <div mat-dialog-title>New Folder</div>
+  <div mat-dialog-title>{{'NEW_FOLDER' | transloco}}</div>
 
   <mat-form-field class="w-full">
     <mat-label>Name</mat-label>
@@ -261,10 +224,11 @@
 
   <div class="flex jc-end">
     <div class="p-x-xs">
-      <button mat-raised-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button mat-dialog-close>{{'CANCEL' | transloco}}</button>
     </div>
     <div class="p-x-xs">
-      <button mat-raised-button color="primary" [disabled]="data.control.invalid" [mat-dialog-close]="true">Create
+      <button mat-raised-button color="primary" [disabled]="data.control.invalid" [mat-dialog-close]="true">
+        {{'CREATE' | transloco}}
       </button>
     </div>
   </div>
@@ -285,12 +249,12 @@
     <hr>
 
     <div class="p-a-m p-t-0">
-      <h3>Who has access</h3>
+      <h3>{{'WHO_HAS_ACCESS' | transloco}}</h3>
       <br>
 
       <ng-container *ngIf="data.permissions$ | async as permissions; else loading">
         <mat-list>
-          <div mat-subheader>Write</div>
+          <div mat-subheader>{{'WRITE' | transloco}}</div>
           <mat-chip-list>
             <mat-chip color="primary" selected *ngFor="let permission of permissions.write" style="max-width: 90%">
               <div class="wrap-text" style="width: 100%">
@@ -307,19 +271,19 @@
           </mat-chip>
         </mat-list>
         <div class="flex jc-end m-y-xs">
-          <button mat-flat-button>Manage access</button>
+          <button mat-flat-button>{{'MANAGE_ACCESS' | transloco}}</button>
         </div>
       </ng-container>
 
       <hr>
 
-      <h3 class="m-t-m">System properties</h3>
+      <h3 class="m-t-m">{{'SYSTEM_PROPERTIES' | transloco}}</h3>
 
       <mat-list>
         <mat-list-item>
           <div class="w-full flex jc-between ai-center">
             <div style="color: #7c7c7c;">
-              <b>Name</b>
+              <b>{{'NAME' | transloco}}</b>
             </div>
             <div>{{data.item.name}}</div>
           </div>
@@ -328,16 +292,16 @@
         <mat-list-item>
           <div class="w-full flex jc-between ai-center">
             <div style="color: #7c7c7c;">
-              <b>Location</b>
+              <b>{{'LOCATION' | transloco}}</b>
             </div>
-            <div>{{data.item.path === '.' ? 'My Storage' : data.item.path}}</div>
+            <div>{{data.item.path === '.' ? ('MY_STORAGE' | transloco) : data.item.path}}</div>
           </div>
         </mat-list-item>
 
         <mat-list-item>
           <div class="w-full flex jc-between ai-center">
             <div style="color: #7c7c7c;">
-              <b>Size</b>
+              <b>{{'SIZE' | transloco}}</b>
             </div>
             <div>{{data.item.size | fileSize}}</div>
           </div>
@@ -346,7 +310,7 @@
         <mat-list-item>
           <div class="w-full flex jc-between ai-center">
             <div style="color: #7c7c7c;">
-              <b>Created</b>
+              <b>{{'CREATED' | transloco}}</b>
             </div>
             <div>{{data.item.createdOn | date}}</div>
           </div>
@@ -355,7 +319,7 @@
         <mat-list-item>
           <div class="w-full flex jc-between ai-center">
             <div style="color: #7c7c7c;">
-              <b>Type</b>
+              <b>{{'TYPE' | transloco}}</b>
             </div>
             <div>{{data.item.type | titlecase}}</div>
           </div>
@@ -364,7 +328,7 @@
         <mat-list-item>
           <div class="w-full flex jc-between ai-center">
             <div style="color: #7c7c7c;">
-              <b>Content Type</b>
+              <b>{{'CONTENT_TYPE' | transloco}}</b>
             </div>
             <div>{{data.item.contentType}}</div>
           </div>
@@ -375,20 +339,16 @@
 </ng-template>
 
 <ng-template #share let-data>
-  <div mat-dialog-title>Share with users and roles</div>
+  <div mat-dialog-title>{{'SHARE_WITH_USERS_AND_ROLES' | transloco}}</div>
 
   <mat-form-field class="w-full">
-    <mat-label>Users and roles</mat-label>
-    <input
-      #input
-      (blur)="data.select(data.inputControl.value, 'users')"
+    <mat-label>{{'USERS_AND_ROLES' | transloco}}</mat-label>
+    <input #input (blur)="data.select(data.inputControl.value, 'users')"
       (submit)="data.select(data.inputControl.value, 'users')"
-      (keydown.enter)="data.select(data.inputControl.value, 'users')"
-      matInput
-      placeholder="Add user or role"
-      [formControl]="data.inputControl"
-      [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="data.select($event.option.value, $event.option?.group?.label || 'public'); input.blur()">
+      (keydown.enter)="data.select(data.inputControl.value, 'users')" matInput [placeholder]="'ADD_USERS_OR_ROLE' | transloco"
+      [formControl]="data.inputControl" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete"
+      (optionSelected)="data.select($event.option.value, $event.option?.group?.label || 'public'); input.blur()">
       <ng-container *ngFor="let autocomplete of data.autocomplete$ | async">
         <ng-container *ngIf="autocomplete.type === 'group'">
           <mat-optgroup [label]="autocomplete.label">
@@ -416,8 +376,8 @@
       </div>
       <div class="col-4 col-s-8">
         <mat-select [formControl]="share.permission">
-          <mat-option value="read">Read</mat-option>
-          <mat-option value="write">Write</mat-option>
+          <mat-option value="read">{{'READ' | transloco}}</mat-option>
+          <mat-option value="write">{{'WRITE' | transloco}}</mat-option>
         </mat-select>
       </div>
       <div class="col-2 col-s-4 flex jc-center">
@@ -433,10 +393,10 @@
 
   <div class="w-full flex jc-end">
     <div class="m-r-s">
-      <button mat-raised-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button mat-dialog-close>{{'CANCEL' | transloco}}</button>
     </div>
     <div>
-      <button mat-raised-button color="primary" [mat-dialog-close]="true">Save</button>
+      <button mat-raised-button color="primary" [mat-dialog-close]="true">{{'SAVE' | transloco}}</button>
     </div>
   </div>
 </ng-template>

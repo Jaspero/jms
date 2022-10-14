@@ -37,7 +37,7 @@ import {ref, Storage, updateMetadata} from '@angular/fire/storage';
 export class StorageComponent implements OnInit {
 
   @Input()
-  title = 'Storage';
+  title = 'STORAGE';
   items$ = new BehaviorSubject<{
     folders: StorageItem[],
     files: StorageItem[]
