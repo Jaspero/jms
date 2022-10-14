@@ -215,27 +215,27 @@
 </ng-template>
 
 <ng-template #newFolder let-data>
-  <div mat-dialog-title>{{'NEW_FOLDER' | transloco}}</div>
+  <h4 mat-dialog-title>{{'NEW_FOLDER' | transloco}}</h4>
 
-  <mat-form-field class="w-full">
-    <mat-label>Name</mat-label>
-    <input matInput [formControl]="data.control" autocomplete="off">
-  </mat-form-field>
+  <form>
+    <mat-dialog-content>
+      <mat-form-field class="w-full">
+        <mat-label>{{'NAME' | transloco}}</mat-label>
+        <input matInput [formControl]="data.control" autocomplete="off">
+      </mat-form-field>
+    </mat-dialog-content>
 
-  <div class="flex jc-end">
-    <div class="p-x-xs">
-      <button mat-raised-button mat-dialog-close>{{'CANCEL' | transloco}}</button>
-    </div>
-    <div class="p-x-xs">
-      <button mat-raised-button color="primary" [disabled]="data.control.invalid" [mat-dialog-close]="true">
+    <mat-dialog-actions class="jc-between">
+      <button tabindex="-1" type="button" mat-flat-button mat-dialog-close>{{'CANCEL' | transloco}}</button>
+      <button type="submit" mat-flat-button color="primary" [disabled]="data.control.invalid" [mat-dialog-close]="true">
         {{'CREATE' | transloco}}
       </button>
-    </div>
-  </div>
+    </mat-dialog-actions>
+  </form>
 </ng-template>
 
 <ng-template #details let-data>
-  <div style="background-color: white; max-height: 80vh; overflow-y: scroll;" class="w-full h-full br-rounded">
+  <div style="background-color: white; max-height: 80vh; overflow-y: auto;" class="w-full h-full br-rounded">
     <div style="height: 80px; background-color: white;" class="flex jc-center ai-center">
       <ng-container *ngIf="data.item.type === 'folder'">
         <mat-icon style="transform: scale(2.5); color: rgba(0, 0, 0, 0.65)">{{data.item | folderIcon}}</mat-icon>
@@ -339,66 +339,66 @@
 </ng-template>
 
 <ng-template #share let-data>
-  <div mat-dialog-title>{{'SHARE_WITH_USERS_AND_ROLES' | transloco}}</div>
+  <h4 mat-dialog-title>{{'SHARE_WITH_USERS_AND_ROLES' | transloco}}</h4>
 
-  <mat-form-field class="w-full">
-    <mat-label>{{'USERS_AND_ROLES' | transloco}}</mat-label>
-    <input #input (blur)="data.select(data.inputControl.value, 'users')"
-      (submit)="data.select(data.inputControl.value, 'users')"
-      (keydown.enter)="data.select(data.inputControl.value, 'users')" matInput [placeholder]="'ADD_USERS_OR_ROLE' | transloco"
-      [formControl]="data.inputControl" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete"
-      (optionSelected)="data.select($event.option.value, $event.option?.group?.label || 'public'); input.blur()">
-      <ng-container *ngFor="let autocomplete of data.autocomplete$ | async">
-        <ng-container *ngIf="autocomplete.type === 'group'">
-          <mat-optgroup [label]="autocomplete.label">
-            <mat-option *ngFor="let item of autocomplete.items" [value]="item.value">
-              {{item.label}}
-            </mat-option>
-          </mat-optgroup>
-        </ng-container>
+  <form>
+    <mat-dialog-content>
+      <mat-form-field class="w-full">
+        <mat-label>{{'USERS_AND_ROLES' | transloco}}</mat-label>
+        <input #input (blur)="data.select(data.inputControl.value, 'users')"
+          (submit)="data.select(data.inputControl.value, 'users')"
+          (keydown.enter)="data.select(data.inputControl.value, 'users')" matInput
+          [placeholder]="'ADD_USERS_OR_ROLE' | transloco" [formControl]="data.inputControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete"
+          (optionSelected)="data.select($event.option.value, $event.option?.group?.label || 'public'); input.blur()">
+          <ng-container *ngFor="let autocomplete of data.autocomplete$ | async">
+            <ng-container *ngIf="autocomplete.type === 'group'">
+              <mat-optgroup [label]="autocomplete.label">
+                <mat-option *ngFor="let item of autocomplete.items" [value]="item.value">
+                  {{item.label}}
+                </mat-option>
+              </mat-optgroup>
+            </ng-container>
 
-        <ng-container *ngIf="autocomplete.type === 'single'">
-          <mat-option *ngFor="let item of autocomplete.items" [value]="item">
-            {{item}}
-          </mat-option>
-        </ng-container>
-      </ng-container>
-    </mat-autocomplete>
-  </mat-form-field>
+            <ng-container *ngIf="autocomplete.type === 'single'">
+              <mat-option *ngFor="let item of autocomplete.items" [value]="item">
+                {{item}}
+              </mat-option>
+            </ng-container>
+          </ng-container>
+        </mat-autocomplete>
+      </mat-form-field>
 
-  <div class="w-full">
-    <div *ngFor="let share of data.shares; index as index" class="grid ai-center">
-      <div class="col-6 col-s-12">
-        <b>
-          {{share.label}}
-        </b>
+      <div class="w-full">
+        <div *ngFor="let share of data.shares; index as index" class="grid ai-center">
+          <div class="col-6 col-s-12">
+            <b>{{share.label}}</b>
+          </div>
+          <div class="col-4 col-s-8">
+            <mat-form-field class="w-full mat-form-field-no-hint">
+              <mat-select [formControl]="share.permission">
+                <mat-option value="read">{{'READ' | transloco}}</mat-option>
+                <mat-option value="write">{{'WRITE' | transloco}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-2 col-s-4 flex jc-center">
+            <button color="warn" mat-icon-button (click)="data.remove(share.label)">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </div>
+          <div class="col-12">
+            <hr *ngIf="index !== data.shares.length - 1">
+          </div>
+        </div>
       </div>
-      <div class="col-4 col-s-8">
-        <mat-select [formControl]="share.permission">
-          <mat-option value="read">{{'READ' | transloco}}</mat-option>
-          <mat-option value="write">{{'WRITE' | transloco}}</mat-option>
-        </mat-select>
-      </div>
-      <div class="col-2 col-s-4 flex jc-center">
-        <button mat-icon-button (click)="data.remove(share.label)">
-          <mat-icon>cancel</mat-icon>
-        </button>
-      </div>
-      <div class="col-12">
-        <hr *ngIf="index !== data.shares.length - 1">
-      </div>
-    </div>
-  </div>
+    </mat-dialog-content>
 
-  <div class="w-full flex jc-end">
-    <div class="m-r-s">
-      <button mat-raised-button mat-dialog-close>{{'CANCEL' | transloco}}</button>
-    </div>
-    <div>
-      <button mat-raised-button color="primary" [mat-dialog-close]="true">{{'SAVE' | transloco}}</button>
-    </div>
-  </div>
+    <mat-dialog-actions class="jc-between">
+      <button tabindex="-1" type="button" mat-flat-button mat-dialog-close>{{'CANCEL' | transloco}}</button>
+      <button type="submit" mat-flat-button color="primary" [mat-dialog-close]="true">{{'SAVE' | transloco}}</button>
+    </mat-dialog-actions>
+  </form>
 </ng-template>
 
 <ng-template #loading>

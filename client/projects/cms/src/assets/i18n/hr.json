@@ -252,5 +252,6 @@
   "CREATED": "Kreiran",
   "CONTENT_TYPE": "Content Type",
   "USERS_AND_ROLES": "Korisnici i role",
-  "ADD_USERS_OR_ROLE": "Dodaj korisnike i role"
+  "ADD_USERS_OR_ROLE": "Dodaj korisnike i role",
+  "SHARE_WITH_USERS_AND_ROLES": "Podijeli sa korisnicima i ulogama"
 }

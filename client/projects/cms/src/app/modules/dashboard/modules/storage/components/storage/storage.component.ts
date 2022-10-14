@@ -453,7 +453,7 @@ export class StorageComponent implements OnInit {
         item,
         permissions$
       },
-      width: '256px',
+      width: '500px',
       panelClass: 'full-screen-dialog'
     }).afterClosed().pipe(
       take(1),
@@ -565,31 +565,31 @@ export class StorageComponent implements OnInit {
         return from(
           Promise.all(shares.map(async (it) => {
 
-              if (it.type === 'users') {
-                const userId = await this.db.getDocuments('users', undefined, undefined, undefined, [
-                  {
-                    key: 'email',
-                    operator: FilterMethod.Equal,
-                    value: it.label
-                  }
-                ]).pipe(
-                  take(1),
-                  map(users => users[0]?.id)
-                ).toPromise();
-
-                if (!userId) {
-                  return null;
+            if (it.type === 'users') {
+              const userId = await this.db.getDocuments('users', undefined, undefined, undefined, [
+                {
+                  key: 'email',
+                  operator: FilterMethod.Equal,
+                  value: it.label
                 }
+              ]).pipe(
+                take(1),
+                map(users => users[0]?.id)
+              ).toPromise();
 
-                it.label = userId;
+              if (!userId) {
+                return null;
               }
 
-              return {
-                permission: it.permission.value,
-                label: it.label,
-                type: it.type
-              };
-            })
+              it.label = userId;
+            }
+
+            return {
+              permission: it.permission.value,
+              label: it.label,
+              type: it.type
+            };
+          })
           ).then(items => {
             return items.filter(it => !!it);
           })
