@@ -136,22 +136,43 @@ export async function compileRules() {
 		`);
 	}
 
-	for (const key in COLLECTIONS) {
-		if (modules.some(it => it.id === key)) {
+	for (const id in COLLECTIONS) {
+		if (modules.some(it => it.id === id)) {
 			continue;
 		}
 
-		const allowed = KEYS
-			.filter(k => COLLECTIONS[key]?.[k])
-			.map(k => `allow ${k}: if ${COLLECTIONS[key][k].join(' || ')};`);
+		const collection = COLLECTIONS[id];
 
-		if (allowed.length) {
-			source.push(`
-				match /${key}/{item=**} {
-					${allowed.join('\n')}
-				}
-			`);
-		}
+		KEYS.forEach(key => {
+
+			const allowedRoles = roles
+				.filter(it => it.permissions[id]?.[key])
+				.map(it => it.id);
+
+			if (!collection[key]) {
+				collection[key] = [];
+			}
+
+			if (allowedRoles.length) {
+				collection[key].push(`hasRoles(${JSON.stringify(allowedRoles).replace(/"/g, `'`)})`);
+			}
+
+			if (key === 'get') {
+				collection[key].push('hasId(resource)');
+			}
+
+			if (collection[key].length > 1) {
+				collection[key] = collection[key].filter(Boolean);
+			}
+
+			collection[key] = collection[key].join(' || ')
+		});
+
+		source.push(`
+			match /${id}/{item=**} {
+				${KEYS.map(key => `allow ${key}: if ${collection[key]};`).join('\n')}
+			}
+		`);
 	}
 
 	const final = RULES_BASE.replace('[[R]]', source.join('\n'));
