@@ -15,6 +15,11 @@ export const PAGES_MODULE: Module = {
     editTitleKey: 'title',
     sort: CREATED_ON.sort,
     instance: {
+      actions: [
+        {
+          value: it => JSX(<jms-e-change-url id={it.id} collection="pages" />)
+        }
+      ],
       segments: [
         {
           title: 'GENERAL',

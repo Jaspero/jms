@@ -50,6 +50,7 @@ import {UserAddComponent} from './user-add/user-add.component';
 import {SearchInputModule} from '../shared/modules/search-input/search-input.module';
 import {EvalModule} from '../shared/modules/eval/eval.module';
 import {SampleEmailComponent} from './sample-email/sample-email.component';
+import { ChangeUrlComponent } from './change-url/change-url.component';
 
 @NgModule({
   imports: [
@@ -121,7 +122,8 @@ import {SampleEmailComponent} from './sample-email/sample-email.component';
     FileManagerSelectComponent,
     ImpersonateComponent,
     ReleaseStatusComponent,
-    SampleEmailComponent
+    SampleEmailComponent,
+    ChangeUrlComponent
   ],
   providers: [
     {

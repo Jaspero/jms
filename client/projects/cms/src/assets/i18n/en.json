@@ -284,5 +284,7 @@
   "CONTENT_TYPE": "Content Type",
   "USERS_AND_ROLES": "Users and Roles",
   "ADD_USERS_OR_ROLE": "Add Users and Roles",
-  "SHARE_WITH_USERS_AND_ROLES": "Share with users and roles"
+  "SHARE_WITH_USERS_AND_ROLES": "Share with users and roles",
+  "CHANGE_URL": "Change URL",
+  "URL_CHANGED_SUCCESSFULLY": "URL changed successfully!"
 }

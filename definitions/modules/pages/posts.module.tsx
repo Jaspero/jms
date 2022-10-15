@@ -19,6 +19,11 @@ export const POSTS_MODULE: Module = {
 			direction: 'desc'
 		},
     instance: {
+      actions: [
+        {
+          value: it => JSX(<jms-e-change-url id={it.id} collection="posts" />)
+        }
+      ],
       segments: [
         {
           title: 'GENERAL',
