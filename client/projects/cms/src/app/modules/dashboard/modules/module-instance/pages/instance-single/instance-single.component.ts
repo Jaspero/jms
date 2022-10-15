@@ -138,7 +138,7 @@ export class InstanceSingleComponent implements OnInit {
                   eValue :
                   (module.layout.editTitleKeyFallback || '-');
               } else {
-                editTitleKey = value[editTitleKey];
+                editTitleKey = value?.[editTitleKey] || '';
               }
 
             if (module.layout) {
