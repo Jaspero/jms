@@ -1,3 +1,74 @@
+## [6.6.2](https://github.com/jaspero/jms/compare/v6.6.1...v6.6.2) (2022-10-15)
+
+
+### Bug Fixes
+
+* **functions:** deploying definitions ([6740632](https://github.com/jaspero/jms/commit/6740632ac455a13b5d9fe651ea6d04ccd11035c1))
+
+## [6.6.1](https://github.com/jaspero/jms/compare/v6.6.0...v6.6.1) (2022-10-15)
+
+
+### Bug Fixes
+
+* **functions:** rule building ([adab7ff](https://github.com/jaspero/jms/commit/adab7ffe60a2a1968fe7a6106384aec62df0fc44))
+
+# [6.6.0](https://github.com/jaspero/jms/compare/v6.5.0...v6.6.0) (2022-10-15)
+
+
+### Features
+
+* added history for roles ([ca838d0](https://github.com/jaspero/jms/commit/ca838d0d93b5ead77af43543f9b63f49a93bccd4))
+
+# [6.5.0](https://github.com/jaspero/jms/compare/v6.4.1...v6.5.0) (2022-10-15)
+
+
+### Features
+
+* **functions:** compiling firestore rules on change ([a816a44](https://github.com/jaspero/jms/commit/a816a446cdb7135e9bedb332d438f3dd7608c2ca))
+
+## [6.4.1](https://github.com/jaspero/jms/compare/v6.4.0...v6.4.1) (2022-10-15)
+
+
+### Bug Fixes
+
+* deploying rules for production ([573eec6](https://github.com/jaspero/jms/commit/573eec6f607645fad2c1396ce4802674adcf16ee))
+
+# [6.4.0](https://github.com/jaspero/jms/compare/v6.3.2...v6.4.0) (2022-10-15)
+
+
+### Features
+
+* storing permissions on user sub-collection [#227](https://github.com/jaspero/jms/issues/227) ([ad78d98](https://github.com/jaspero/jms/commit/ad78d98dfd715a653b1d8dffdd258b82cee4ab37))
+* workflow for rules ([bffc7ee](https://github.com/jaspero/jms/commit/bffc7ee2344639fb1e96436f719e4c08c8b34f5c))
+
+## [6.3.2](https://github.com/jaspero/jms/compare/v6.3.1...v6.3.2) (2022-10-14)
+
+
+### Bug Fixes
+
+* **functions:** role updated detect changes ([26442e4](https://github.com/jaspero/jms/commit/26442e483c1d1d51516879667da795d6600b7a10))
+
+## [6.3.1](https://github.com/jaspero/jms/compare/v6.3.0...v6.3.1) (2022-10-14)
+
+
+### Bug Fixes
+
+* **functions:** role updated detect changes ([cc5673d](https://github.com/jaspero/jms/commit/cc5673d3f3105393af83e5513966882a0ba8311a))
+
+# [6.3.0](https://github.com/jaspero/jms/compare/v6.2.0...v6.3.0) (2022-10-14)
+
+
+### Bug Fixes
+
+* run release on ubuntu-latest ([7b49dd4](https://github.com/jaspero/jms/commit/7b49dd4426d86e46b0fa47a8253031236e316766))
+* tables loading properly ([a5d92d1](https://github.com/jaspero/jms/commit/a5d92d1c6c676aceb82c0a08125c7d45afcffa9b))
+
+
+### Features
+
+* storage translations ([7f7c73e](https://github.com/jaspero/jms/commit/7f7c73e60d67bcce62125ff289fe584dff2ebb8f))
+* storage translations and ui ([64a6904](https://github.com/jaspero/jms/commit/64a6904e5755c34ff177e7301e40442d076df835))
+
 # [6.2.0](https://github.com/jaspero/jms/compare/v6.1.0...v6.2.0) (2022-10-13)
 
 

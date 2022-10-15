@@ -1,38 +1,36 @@
-<ng-container>
-  <mat-toolbar role="heading" color="primary" class="sticky-header" data-include-max-height>
-    <span>{{name | transloco}}</span>
-    <div class="flex-1"></div>
-    <div class="flex">
-      <ng-container *ngFor="let item of toolbar">
-        <div *ngIf="item === 'add'; else element;" class="m-l-xs">
-          <a *ngIf="!hideAdd"
-             mat-flat-button
-             [routerLink]="['new']">
-            {{'ADD' | transloco}} {{name | transloco}}
-          </a>
-        </div>
-        <ng-template #element>
-          <div [innerHTML]="item | jpSanitize" class="m-l-xs"></div>
-        </ng-template>
-      </ng-container>
-    </div>
-  </mat-toolbar>
-
-  <div class="flex ai-center jc-between fd-row-rev" data-include-max-height>
-    <div class="m-r-s" *ngIf="views && views.length">
-      <button
-        *ngFor="let view of views"
-        [matTooltip]="view.title"
-        [color]="activeView === view.selector ? 'primary' : 'default'"
-        (click)="changeCurrentView(view.selector)"
-        mat-icon-button>
-        <mat-icon>{{view.icon}}</mat-icon>
-      </button>
-    </div>
-    <ng-container *ngIf="ioc.subHeaderTemplate$ | async as subHeaderTemplate">
-      <ng-container *ngTemplateOutlet="subHeaderTemplate"></ng-container>
+<mat-toolbar role="heading" color="primary" class="sticky-header" data-include-max-height>
+  <span>{{name | transloco}}</span>
+  <div class="flex-1"></div>
+  <div class="flex">
+    <ng-container *ngFor="let item of toolbar">
+      <div *ngIf="item === 'add'; else element;" class="m-l-xs">
+        <a *ngIf="!hideAdd"
+           mat-flat-button
+           [routerLink]="['new']">
+          {{'ADD' | transloco}} {{name | transloco}}
+        </a>
+      </div>
+      <ng-template #element>
+        <div [innerHTML]="item | jpSanitize" class="m-l-xs"></div>
+      </ng-template>
     </ng-container>
   </div>
+</mat-toolbar>
 
-  <div class="contents" [innerHtml]="currentView | jpSanitize"></div>
-</ng-container>
+<div class="flex ai-center jc-between fd-row-rev" data-include-max-height>
+  <div class="m-r-s" *ngIf="views && views.length">
+    <button
+      *ngFor="let view of views"
+      [matTooltip]="view.title"
+      [color]="activeView === view.selector ? 'primary' : 'default'"
+      (click)="changeCurrentView(view.selector)"
+      mat-icon-button>
+      <mat-icon>{{view.icon}}</mat-icon>
+    </button>
+  </div>
+  <ng-container *ngIf="ioc.subHeaderTemplate$ | async as subHeaderTemplate">
+    <ng-container *ngTemplateOutlet="subHeaderTemplate"></ng-container>
+  </ng-container>
+</div>
+
+<div class="contents" [innerHtml]="currentView | jpSanitize"></div>

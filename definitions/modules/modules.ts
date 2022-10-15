@@ -9,6 +9,7 @@ import {POSTS_MODULE} from './pages/posts.module';
 import {INQUIRIES_MODULE} from './inquiries.module';
 import {AUTOMATIC_EMAILS_MODULE} from './emails/automatic-emails.module';
 import {SENT_EMAILS_MODULE} from './emails/sent-emails.module';
+import {ROLE_HISTORY_MODULE} from './role-history.module';
 
 /**
  * Schemas for all of the modules
@@ -18,9 +19,9 @@ export const MODULES = [
   ROLES_MODULE,
   USER_INVITES_MODULE,
   USER_HISTORY_MODULE,
-  INQUIRIES_MODULE,
+  ROLE_HISTORY_MODULE,
   STORAGE_MODULE,
-  
+
   AUTOMATIC_EMAILS_MODULE,
   SENT_EMAILS_MODULE,
 
@@ -33,4 +34,6 @@ export const MODULES = [
 
   AUTOMATIC_EMAILS_MODULE,
   SENT_EMAILS_MODULE,
+
+  INQUIRIES_MODULE
 ];

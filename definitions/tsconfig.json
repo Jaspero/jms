@@ -16,7 +16,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "composite": true,
-    "types": []
+    "types": ["node"]
   },
   "exclude": ["setup.ts", "dist"]
 }

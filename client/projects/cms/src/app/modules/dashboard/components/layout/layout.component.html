@@ -70,8 +70,8 @@
 
   <a class="dashboard-nav-footer" *ngIf="state.role === 'admin'" routerLink="/storage" routerLinkActive="active">
     <mat-icon aria-hidden="true" class="dashboard-nav-footer-icon">storage</mat-icon>
-    <span class="dashboard-nav-footer-text">Storage</span>
-    <span class="dashboard-nav-footer-tooltip" [matTooltip]="'Storage'" matTooltipPosition="right"></span>
+    <span class="dashboard-nav-footer-text">{{'STORAGE' | transloco}}</span>
+    <span class="dashboard-nav-footer-tooltip" [matTooltip]="'STORAGE' | transloco" matTooltipPosition="right"></span>
   </a>
 
   <a class="dashboard-nav-footer" *ngIf="currentUser$ | async as user" routerLink="/profile/information" routerLinkActive="active">

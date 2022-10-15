@@ -5,7 +5,7 @@ import {TranslocoService} from '@ngneat/transloco';
 import {notify} from '@shared/utils/notify.operator';
 import {Collections} from '@definitions';
 import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
-import {Observable, of, throwError} from 'rxjs';
+import {forkJoin, Observable, of, throwError} from 'rxjs';
 import {catchError, map, switchMap, take} from 'rxjs/operators';
 import {DbService} from '../../services/db/db.service';
 import {StateService} from '../../services/state/state.service';
@@ -32,23 +32,27 @@ export class HasClaimGuard implements CanActivate {
         take(1),
         switchMap(user => getIdTokenResult(user)),
         switchMap(data => {
-          /**
-           * It's assumed that any user with a permissions claim
-           * is allowed to access tha dashboard
-           */
-          if (!data || !Object.keys(data.claims.permissions || {}).length) {
+          if (
+            STATIC_CONFIG.dashboardRoles.length &&
+            (!data || !data.claims.role || !STATIC_CONFIG.dashboardRoles.includes(data.claims.role))
+          ) {
             return throwError(
               () =>
                 this.transloco.translate('DASHBOARD_ACCESS_DENIED')
             );
           }
 
-          this.state.permissions = data.claims.permissions as any;
+          const {user_id, role} = data.claims as any;
 
-          return this.db.getDocument(Collections.Users, data.claims.user_id as string);
+          this.state.role = role;
+
+          return forkJoin([
+            this.db.getDocument(Collections.Users, user_id),
+            this.db.getDocument([Collections.Users, user_id, 'authorization'].join('/'), 'permissions')
+          ]);
         }),
-        map(user => {
-          this.state.role = user.role;
+        map(([user, permissions]) => {
+          this.state.permissions = permissions;
           this.state.user = user;
           return true;
         }),

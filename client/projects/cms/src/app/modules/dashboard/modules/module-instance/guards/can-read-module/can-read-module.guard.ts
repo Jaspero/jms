@@ -34,7 +34,7 @@ export class CanReadModuleGuard implements CanActivate {
          */
         const permission = documentParams % 2 ? 'list' : 'get';
 
-        if (!this.state.permissions[module.id]?.[permission]) {
+        if (!this.state.permissions[route.params.module]?.[permission]) {
           this.router.navigate(STATIC_CONFIG.dashboardRoute);
           return false;
         }
@@ -64,12 +64,12 @@ export class CanReadModuleGuard implements CanActivate {
         return true;
       }),
       tap(() => {
-        
+
         if (loaded) {
           return;
         }
 
-        this.ioc.module$.next(mToUse);
+        this.ioc.module$.next(mToUse)
       })
     );
   }

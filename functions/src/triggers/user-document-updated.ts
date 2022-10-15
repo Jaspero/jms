@@ -20,13 +20,13 @@ export const userDocumentUpdated = functions
 
       const roleRef = await fs.collection(Collections.Roles).doc(after.role).get();
 
-      await ah.setCustomUserClaims(
-        change.after.id,
-        {
-          permissions: roleRef.data()?.permissions || {},
-          role: after.role
-        }
-      )
+      await Promise.all([
+        ah.setCustomUserClaims(
+          change.after.id,
+          {role: after.role}
+        ),
+        change.after.ref.collection('authorization').doc('permissions').set(roleRef.data()?.permissions || {})
+      ])
     }
 
     if (after.active !== before.active) {

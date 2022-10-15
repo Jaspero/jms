@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'firestore.rules'
+      - 'definitions/rules.ts'
       - '.github/workflows/rules.workflow.yml'
 
 jobs:
@@ -17,10 +17,17 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
+      - name: Use Node.js 17.1.0
+        uses: actions/setup-node@v1
         with:
-          args: deploy --only firestore:rules
+          node-version: 17.1.0
+      - name: Install Dependencies
+        run: npm --prefix definitions ci
+      - name: Create Service Account
+        run: |
+          cd definitions
+          echo $SERVICE_ACCOUNT > serviceAccountKey.json
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_ID: ${{ env.project }}
+          SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}                     
+      - name: Deploy Rules
+        run: npm --prefix definitions run deploy:rules -- p

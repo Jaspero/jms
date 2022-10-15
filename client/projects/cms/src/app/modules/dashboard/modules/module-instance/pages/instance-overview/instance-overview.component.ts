@@ -5,7 +5,7 @@ import {Parser} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {ModuleOverviewView} from '@definitions';
 import {BehaviorSubject, combineLatest, Subject} from 'rxjs';
-import {map, shareReplay, startWith, switchMap, take} from 'rxjs/operators';
+import {map, shareReplay, startWith, switchMap} from 'rxjs/operators';
 import {createSelector} from '../../../../../../elements/element.decorator';
 import {DEFAULT_PAGE_SIZE} from '../../../../../../shared/consts/page-sizes.const';
 import {StateService} from '../../../../../../shared/services/state/state.service';
@@ -41,7 +41,6 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.ioc.module$
       .pipe(
-        take(1),
         untilDestroyed(this)
       )
       .subscribe(module => {
@@ -79,7 +78,7 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
           }
 
           if (module.layout.sort && !this.ioc.routeData.sort) {
-            this.ioc.sortChange$.next(JSON.parse(JSON.stringify(module.layout.sort)));
+            this.ioc.sortChange$.next(module.layout.sort);
           }
 
           if (module.layout.filterModule && module.layout.filterModule.value && !this.ioc.routeData.filter) {
@@ -175,8 +174,7 @@ export class InstanceOverviewComponent implements OnInit, AfterViewInit {
                 sort
               );
             }),
-            shareReplay(1),
-            untilDestroyed(this)
+            shareReplay(1)
           );
 
         this.ioc.allChecked$ = combineLatest([

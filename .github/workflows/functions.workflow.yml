@@ -21,10 +21,10 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-      - name: Use Node.js 16.x
+      - name: Use Node.js 17.1.0
         uses: actions/setup-node@v1
         with:
-          node-version: 16.x
+          node-version: 17.1.0
       - name: Install GitHub Utils Dependencies
         if: github.event_name != 'workflow_dispatch'      
         run: |
