@@ -6,7 +6,7 @@ import {ObjectMetadata} from 'firebase-functions/lib/providers/storage';
 import {unlink} from 'fs';
 import {tmpdir} from 'os';
 import {basename, dirname, join} from 'path';
-import * as sharp from 'sharp';
+import sharp from 'sharp';
 import {promisify} from 'util';
 import {unpackGenerateImageString} from '../utils/unpack-generate-image-string';
 

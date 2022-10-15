@@ -3,9 +3,6 @@ import {Module} from '../../interfaces/module.interface';
 export const LAYOUT_MODULE: Module = {
 	id: 'settings',
 	name: 'LAYOUT',
-	authorization: {
-		write: ['admin']
-	},
 	layout: {
 		directLink: 'layout',
 		instance: {

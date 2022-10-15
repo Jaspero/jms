@@ -25,15 +25,15 @@ export const AUTOMATIC_EMAILS_COLLECTION = {
         {
           type: 'jms-paragraph',
           compiled:[
-            '<p>Name: <b>{{name}}</b></p>',
-            '<p>Email: <b>{{email}}</b></p>',
-            '<p>Message: <b>{{message}}</b></p>',
+            '<p>Name: <b>[[name]]</b></p>',
+            '<p>Email: <b>[[email]]</b></p>',
+            '<p>Message: <b>[[message]]</b></p>',
           ].join(''),
           value: {
             value: [
-              '<p>Name: <b>{{name}}</b></p>',
-              '<p>Email: <b>{{email}}</b></p>',
-              '<p>Message: <b>{{message}}</b></p>',
+              '<p>Name: <b>[[name]]</b></p>',
+              '<p>Email: <b>[[email]]</b></p>',
+              '<p>Message: <b>[[message]]</b></p>',
             ].join('')
           }
         }

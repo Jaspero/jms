@@ -32,7 +32,7 @@ export class EmailTemplateDescriptionComponent implements OnInit {
 
     this.description = description;
     this.dynamic = Object.entries(dynamicValues).map(([key, value]: [string, string]) => ({
-      key: `{{${key}}}`,
+      key: `[[${key}]]`,
       description: value
     }));
   }

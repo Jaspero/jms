@@ -7,13 +7,11 @@ import {PipeType} from '../../enums/pipe-type.enum';
 import JSX from '../../jsx.compiler';
 import {SHARED_CONFIG} from '../../consts/shared-config.const';
 import {STATUS} from '../shared/status';
+import {Collections} from '../../interfaces/collections';
 
 export const POSTS_MODULE: Module = {
   id: 'posts',
   name: 'POSTS',
-  authorization: {
-    write: ['admin']
-  },
   layout: {
     editTitleKey: 'title',
     sort: {
@@ -152,22 +150,36 @@ export const POSTS_MODULE: Module = {
         }
       }
 		},
-		author: {
-			label: 'AUTHORS',
-			component: {
-				type: 'ref',
-				configuration: {
-					collection: 'users',
-          display: 'Author',
+    author: {
+      component: {
+        type: 'ref',
+        configuration: {
+          collection: Collections.Users,
+          display: {
+            key: '/name',
+            label: 'AUTHOR'
+          },
           table: {
             tableColumns: [
               {key: '/name', label: 'NAME'},
               {key: '/email', label: 'EMAIL'}
             ]
+          },
+          search: {
+            key: '/name',
+            label: 'NAME',
+            method: ({configuration, search, cursor}) =>
+              window.jms.util.refSearch(
+                configuration.collection,
+                search,
+                configuration.limit,
+                cursor,
+                configuration
+              )
           }
-				}
-			}
-		},
+        }
+      }
+    },
     blocks: {
       component: {
         type: 'pb-blocks',

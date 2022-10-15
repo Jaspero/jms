@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslocoService} from '@ngneat/transloco';
-import {Module, MODULES, User} from 'definitions';
+import {Module, MODULES, User} from '@definitions';
 import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 import {distinctUntilChanged, filter, map, shareReplay} from 'rxjs/operators';
 
@@ -24,8 +24,10 @@ export class StateService {
       localStorage.setItem('language', lang);
     });
 
+    // @ts-ignore
     this.translationsReady$ = this.transloco.events$
       .pipe(
+        // @ts-ignore
         filter(e => e.type === 'translationLoadSuccess'),
         map(() => true),
         distinctUntilChanged(),
@@ -42,6 +44,15 @@ export class StateService {
   }
 
   role: string;
+  permissions: {
+    [key: string]: {
+      get: boolean;
+      list: boolean;
+      create: boolean;
+      update: boolean;
+      delete: boolean;
+    }
+  };
   user: User;
   loadingQue$ = new Subject<Array<string | boolean>>();
   modules$: Observable<Module[]>;
@@ -101,6 +112,7 @@ export class StateService {
 
     if (queryParams.filter) {
 
+      // tslint:disable-next-line:no-shadowed-variable
       let filter;
 
       try {

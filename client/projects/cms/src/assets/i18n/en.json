@@ -146,6 +146,7 @@
   "REMOVE_ACCOUNT": "Remove Account",
   "OTHER": "Other",
   "PROFILE_IMAGE": "Profile Image",
+  "INVITED_BY": "Invited By",
   "CONNECT_MFA": "An email with the verification link has been sent to your account.",
   "REMOVE_MFA": "Your MFA connection has been removed successfully.",
 
@@ -250,7 +251,11 @@
   "TOGGLE_ALL": "Toggle All",
 
   "USER_HISTORY": "User History",
+  "PERMISSIONS": "Permissions",
   "CREATE": "Create",
+  "UPDATE": "Update",
+  "GET": "Get",
+  "LIST": "List",
   "BEFORE": "Before",
   "AFTER": "After"
 }

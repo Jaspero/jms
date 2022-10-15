@@ -10,10 +10,5 @@ import {Collections} from '../interfaces/collections';
  */
 export const USER_INVITES_COLLECTION = {
   name: Collections.UserInvites,
-  documents: [
-    {
-      id: 'info@jaspero.co',
-      role: 'admin'
-    }
-  ]
+  documents: []
 };

@@ -3,7 +3,6 @@ import {JSONSchema7} from 'json-schema';
 import {FilterModule} from './filter-module.interface';
 import {ImportModule} from './import-module.interface';
 import {InstanceSort} from './instance-sort.interface';
-import {ModuleAuthorization} from './module-authorization.interface';
 import {ModuleInstance} from './module-instance.interface';
 import {ModuleLayoutTable} from './module-layout-table.interface';
 import {ModuleMetadata} from './module-metadata.interface';
@@ -47,6 +46,7 @@ export interface ModuleDefinition {
   formatOnEdit?: string | FormatMethod;
   formatOnLoad?: string | FormatMethod;
   label?: string;
+  roles?: string[];
   hint?: string;
   defaultValue?: any;
   placeholder?: string;
@@ -70,7 +70,6 @@ export interface Module {
   schema: JSONSchema7;
   layout?: ModuleLayout;
   definitions?: ModuleDefinitions;
-  authorization?: ModuleAuthorization;
   metadata?: ModuleMetadata;
   subCollectionPath?: string;
   collectionGroup?: boolean;

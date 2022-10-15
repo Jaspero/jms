@@ -62,4 +62,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ env.build }}
           force: true
+      - name: Update Firestore
+        run: |
+          cd web
+          node update-release.js    
 

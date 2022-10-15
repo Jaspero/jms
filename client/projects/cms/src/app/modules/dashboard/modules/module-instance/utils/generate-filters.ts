@@ -1,4 +1,4 @@
-import {FilterMethod, Module} from 'definitions';
+import {FilterMethod, Module} from '@definitions';
 import {WhereFilter} from '../../../../../shared/interfaces/where-filter.interface';
 
 export function generateFilters(

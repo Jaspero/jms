@@ -6,7 +6,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {parseTemplate, safeEval} from '@jaspero/utils';
 import {MaybeArray, TranslocoScope, TranslocoService, TRANSLOCO_LANG, TRANSLOCO_SCOPE} from '@ngneat/transloco';
 import {notify} from '@shared/utils/notify.operator';
-import {InstanceSort, Module, ModuleLayoutTableColumn} from 'definitions';
+import {InstanceSort, Module, ModuleLayoutTableColumn} from '@definitions';
 import {BehaviorSubject, combineLatest, forkJoin, Observable, Subject} from 'rxjs';
 import {map, switchMap, take, tap} from 'rxjs/operators';
 import {ExportComponent} from '../../../../../elements/export/export.component';

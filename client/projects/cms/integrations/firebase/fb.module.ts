@@ -1,15 +1,15 @@
 import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
+import {getAnalytics, provideAnalytics} from '@angular/fire/analytics';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {connectAuthEmulator, getAuth, provideAuth} from '@angular/fire/auth';
 import {connectFirestoreEmulator, enableMultiTabIndexedDbPersistence, getFirestore, provideFirestore} from '@angular/fire/firestore';
 import {connectFunctionsEmulator, getFunctions, provideFunctions} from '@angular/fire/functions';
 import {connectStorageEmulator, getStorage, provideStorage} from '@angular/fire/storage';
-import {getAnalytics, provideAnalytics} from '@angular/fire/analytics';
+import {SHARED_CONFIG} from '@definitions';
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
 import {FbDatabaseService} from './fb-database.service';
 import {FbStorageService} from './fb-storage.service';
-import {SHARED_CONFIG} from 'definitions';
 
 @NgModule({
   imports: [

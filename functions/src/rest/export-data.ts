@@ -1,10 +1,10 @@
 import * as express from 'express';
-import * as admin from 'firebase-admin';
+import admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {constants} from 'http2';
 import {get, has} from 'json-pointer';
 import {Parser} from 'json2csv';
-import * as XLSX from 'xlsx';
+import XLSX from 'xlsx';
 import {CORS} from '../consts/cors-whitelist.const';
 import {authenticated} from './middlewares/authenticated';
 import {MODULES, SHARED_CONFIG} from 'definitions';
@@ -23,20 +23,15 @@ app.post('/:module', authenticated(), (req, res) => {
   async function exec() {
     const {module} = req.params;
     // @ts-ignore
-    const role = req['user'].role;
+    const {permissions, role} = req['user'];
     const moduleDoc = MODULES.find(item => item.id === module);
 
     if (!moduleDoc) {
       throw new Error('Requested module not found.')
     }
 
-    if (
-      moduleDoc.authorization &&
-      moduleDoc.authorization.read &&
-      // @ts-ignore
-      !moduleDoc.authorization.read.includes(role)
-    ) {
-      throw new Error('User does not have permission to export this module')
+    if (permissions?.[module]?.list) {
+      throw new Error('User does not have permission to export this module');
     }
 
     const {
@@ -194,7 +189,7 @@ app.post('/:module', authenticated(), (req, res) => {
       return res.send(data);
     })
     .catch(error => {
-      console.error(error);
+      functions.logger.error(error);
       res
         .status(constants.HTTP_STATUS_BAD_REQUEST)
         .send({error: error.toString()});

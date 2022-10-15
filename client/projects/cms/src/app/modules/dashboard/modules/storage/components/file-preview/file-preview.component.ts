@@ -1,5 +1,5 @@
 import {Component, OnInit, ChangeDetectionStrategy, Input} from '@angular/core';
-import {StorageItem} from 'definitions';
+import {StorageItem} from '@definitions';
 import {detectPreviewType} from '../../utils/detect-preview-type';
 import {PreviewType} from '../../types/preview.type';
 

@@ -15,7 +15,9 @@ export const userCreated = functions
       return;
     }
 
-    const inviteRef = await firestore()
+    const fs = firestore();
+
+    const inviteRef = await fs
       .collection(Collections.UserInvites)
       .doc(user.email as string)
       .get();
@@ -25,13 +27,20 @@ export const userCreated = functions
       email: string;
       requireReset: boolean;
       sendInvite: boolean;
+      createdBy?: string;
     } = inviteRef.exists ? inviteRef.data() as any : null;
 
     if (role) {
+
+      const roleRef = await fs.collection(Collections.Roles).doc(role.role).get();
+
       await Promise.all([
         auth().setCustomUserClaims(
           user.uid,
-          {role: role.role}
+          {
+            permissions: roleRef.data()?.permissions || {},
+            role: role.role
+          }
         ),
         inviteRef.ref.update({
           accepted: true,
@@ -60,7 +69,8 @@ export const userCreated = functions
         active: true,
         ...role ? {
           role: role.role,
-          requireReset: role.requireReset || false
+          requireReset: role.requireReset || false,
+          ...role.createdBy && {invitedBy: role.createdBy}
         } : {
           role: '',
           requireReset: false

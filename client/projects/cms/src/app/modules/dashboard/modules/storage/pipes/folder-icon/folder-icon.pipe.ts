@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {StorageItem} from 'definitions';
+import {StorageItem} from '@definitions';
 import {StateService} from '../../../../../../shared/services/state/state.service';
 
 @Pipe({
