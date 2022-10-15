@@ -1,3 +1,10 @@
+# [6.5.0](https://github.com/jaspero/jms/compare/v6.4.1...v6.5.0) (2022-10-15)
+
+
+### Features
+
+* **functions:** compiling firestore rules on change ([a816a44](https://github.com/jaspero/jms/commit/a816a446cdb7135e9bedb332d438f3dd7608c2ca))
+
 ## [6.4.1](https://github.com/jaspero/jms/compare/v6.4.0...v6.4.1) (2022-10-15)
 
 
