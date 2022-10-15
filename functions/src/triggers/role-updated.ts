@@ -1,4 +1,5 @@
 import {Collections, SHARED_CONFIG} from 'definitions';
+import {compileRules} from 'definitions/rules';
 import {firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
@@ -35,8 +36,6 @@ export const roleUpdated = functions
 			return false;
 		});
 
-    console.log('No difference detected. No need for update.');
-
     if (diff) {
       const {docs} = await fs.collection(Collections.Users)
         .where('role', '==', change.after.id)
@@ -48,5 +47,7 @@ export const roleUpdated = functions
         )
       );
     }
+
+    await compileRules();
   });
 
