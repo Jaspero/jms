@@ -1,3 +1,10 @@
+# [6.6.0](https://github.com/jaspero/jms/compare/v6.5.0...v6.6.0) (2022-10-15)
+
+
+### Features
+
+* added history for roles ([ca838d0](https://github.com/jaspero/jms/commit/ca838d0d93b5ead77af43543f9b63f49a93bccd4))
+
 # [6.5.0](https://github.com/jaspero/jms/compare/v6.4.1...v6.5.0) (2022-10-15)
 
 
