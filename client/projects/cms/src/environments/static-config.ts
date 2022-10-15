@@ -77,6 +77,18 @@ export const STATIC_CONFIG = {
         type: 'expandable',
         children: [
           {
+            icon: 'mail',
+            label: 'Orders',
+            type: 'link',
+            value: '/m/orders'
+          },
+          {
+            icon: 'mail',
+            label: 'Carts',
+            type: 'link',
+            value: '/m/carts'
+          },
+          {
             icon: 'settings',
             label: 'Products',
             type: 'link',

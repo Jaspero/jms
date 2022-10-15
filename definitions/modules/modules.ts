@@ -12,6 +12,8 @@ import {SENT_EMAILS_MODULE} from './emails/sent-emails.module';
 import {PRODUCTS_MODULE} from './shop/products.module';
 import {PRODUCT_CATEGORIES_MODULE} from './shop/product-categories.module';
 import {PRODUCT_TAGS_MODULE} from './shop/product-tags.module';
+import {CARTS_MODULE} from './shop/carts.module';
+import {ORDERS_MODULE} from './shop/orders.module';
 
 /**
  * Schemas for all of the modules
@@ -40,6 +42,9 @@ export const MODULES = [
   PRODUCTS_MODULE,
   PRODUCT_CATEGORIES_MODULE,
   PRODUCT_TAGS_MODULE,
+
+  CARTS_MODULE,
+  ORDERS_MODULE,
 
   AUTOMATIC_EMAILS_MODULE,
   SENT_EMAILS_MODULE,
