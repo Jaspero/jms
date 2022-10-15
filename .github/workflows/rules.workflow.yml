@@ -30,4 +30,4 @@ jobs:
         env:
           SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}                     
       - name: Deploy Rules
-        run: npm run deploy:rules --prefix definitions
+        run: npm --prefix definitions run deploy:rules -- p
