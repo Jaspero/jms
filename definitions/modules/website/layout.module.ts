@@ -3,7 +3,6 @@ import {Module} from '../../interfaces/module.interface';
 export const LAYOUT_MODULE: Module = {
 	id: 'settings',
 	name: 'LAYOUT',
-
 	layout: {
 		directLink: 'layout',
 		instance: {
