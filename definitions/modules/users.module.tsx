@@ -118,7 +118,7 @@ export const USERS_MODULE: Module = {
           value: it => JSX(<jms-e-notes data-id={it.id}/>)
         },
         {
-          value: it => JSX(<jms-e-link link={'/m/users/' + it.id + '/history'}>History</jms-e-link>)
+          value: it => JSX(<jms-e-link icon="history" link={'/m/users/' + it.id + '/history'}>History</jms-e-link>)
         },
         {
           value: it => JSX(<jms-e-tpr data-email={it.data.email}/>),

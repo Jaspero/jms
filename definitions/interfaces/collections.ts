@@ -23,4 +23,12 @@ export class Collections {
 	static UserHistorySub(docId: string) {
 		return Collections.HistorySub('users', docId);
 	}
+
+	static get RoleHistory() {
+		return Collections.HistorySub('roles');
+	}
+
+	static RoleHistorySub(docId: string) {
+		return Collections.HistorySub('roles', docId);
+	}
 }

@@ -48,3 +48,8 @@ import {PROCESSED} from './modules/emails/processed.const';
 
 export const EMAIL_LAYOUT = PROCESSED.layout;
 export const EMAIL_STYLE = PROCESSED.css;
+
+/**
+ * Scripts
+ */
+export {compileRules} from './rules';

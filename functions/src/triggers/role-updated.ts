@@ -1,5 +1,4 @@
-import {Collections, SHARED_CONFIG} from 'definitions';
-import {compileRules} from 'definitions/rules';
+import {Collections, SHARED_CONFIG, compileRules} from 'definitions';
 import {firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
 

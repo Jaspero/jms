@@ -221,6 +221,7 @@
   "TOGGLE_ALL": "Toggle All",
 
   "USER_HISTORY": "User History",
+  "ROLE_HISTORY": "Role History",
   "PERMISSIONS": "Permissions",
   "CREATE": "Create",
   "UPDATE": "Update",

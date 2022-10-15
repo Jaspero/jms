@@ -19,7 +19,7 @@ export class LinkComponent {
   link: string;
 
   @Input()
-  color: ThemePalette;
+  icon = 'arrow_forward';
 
   open() {
     this.router.navigateByUrl(this.link);

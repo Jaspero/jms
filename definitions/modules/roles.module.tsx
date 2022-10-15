@@ -1,5 +1,6 @@
 import {Collections} from '../interfaces/collections';
 import {Module} from '../interfaces/module.interface';
+import JSX from '../jsx.compiler';
 import {CREATED_ON} from './shared/created-on';
 
 export const ROLES_MODULE: Module = {
@@ -7,8 +8,16 @@ export const ROLES_MODULE: Module = {
   name: 'ROLES',
   layout: {
     editTitleKey: 'name',
-    sort: CREATED_ON.sort,
+    sort: {
+      active: 'name',
+      direction: 'desc'
+    },
     instance: {
+      actions: [
+        {
+          value: it => JSX(<jms-e-link icon="history" link={'/m/roles/' + it.id + '/history'}>History</jms-e-link>)
+        }
+      ],
       segments: [
         {
           title: 'GENERAL',
@@ -60,5 +69,11 @@ export const ROLES_MODULE: Module = {
       }
     },
     ...CREATED_ON.definition()
+  },
+  metadata: {
+    history: true,
+    subCollections: [
+      {name: Collections.History}
+    ]
   }
 };
