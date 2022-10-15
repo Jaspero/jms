@@ -1,5 +1,5 @@
 import {Collections, SHARED_CONFIG} from 'definitions';
-import {auth, firestore} from 'firebase-admin';
+import {firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
 export const roleUpdated = functions
@@ -9,12 +9,10 @@ export const roleUpdated = functions
   .onUpdate(async change => {
     const after: any = change.after.data();
     const before: any = change.before.data();
-
-    const ah = auth();
     const fs = firestore();
     const keys = ['get', 'list', 'create', 'update', 'delete'];
-
     const permissionsKeys = new Set<string>();
+
     for (const key of Object.keys(after.permissions)) {
       permissionsKeys.add(key);
     }
@@ -46,13 +44,7 @@ export const roleUpdated = functions
 
       await Promise.allSettled(
         docs.map(doc =>
-          ah.setCustomUserClaims(
-            doc.id,
-            {
-              permissions: after.permissions,
-              role: change.after.id
-            }
-          )
+          doc.ref.collection('authorization').doc('permissions').set(after.permissions)
         )
       );
     }

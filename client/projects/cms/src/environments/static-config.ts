@@ -29,6 +29,13 @@ export const STATIC_CONFIG = {
     google: true,
     facebook: true
   },
+
+  /**
+   * Controls which roles can access the dashboard
+   * if empty any user with a role can access
+   */
+  dashboardRoles: [],
+
   /**
    * We use this to redirect all unauthenticated users
    */

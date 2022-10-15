@@ -1,4 +1,4 @@
-import {auth, firestore} from 'firebase-admin';
+import {firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {STATIC_CONFIG} from '../consts/static-config.const';
 import {EmailService} from '../services/email/email.service';
@@ -21,6 +21,9 @@ export const userCreated = functions
       .collection(Collections.UserInvites)
       .doc(user.email as string)
       .get();
+    const userRef = fs
+      .collection(Collections.Users)
+      .doc(user.uid);
 
     const role: {
       role: string;
@@ -35,17 +38,16 @@ export const userCreated = functions
       const roleRef = await fs.collection(Collections.Roles).doc(role.role).get();
 
       await Promise.all([
-        auth().setCustomUserClaims(
-          user.uid,
-          {
-            permissions: roleRef.data()?.permissions || {},
-            role: role.role
-          }
-        ),
-        inviteRef.ref.update({
-          accepted: true,
-          acceptedOn: Date.now()
-        })
+        userRef
+          .collection('authorization')
+          .doc('permissions')
+          .set(roleRef.data()?.permissions || {}),
+        inviteRef
+          .ref
+          .update({
+            accepted: true,
+            acceptedOn: Date.now()
+          })
       ]);
 
       if (role.sendInvite) {
@@ -60,9 +62,7 @@ export const userCreated = functions
       }
     }
 
-    await firestore()
-      .collection(Collections.Users)
-      .doc(user.uid)
+    await userRef
       .set({
         createdOn: Date.now(),
         email: user.email,

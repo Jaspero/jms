@@ -275,7 +275,8 @@ export const USERS_MODULE: Module = {
     ],
     subCollections: [
       {name: Collections.History},
-      {name: Collections.Notes}
+      {name: Collections.Notes},
+      {name: 'authorization'}
     ]
   }
 };
