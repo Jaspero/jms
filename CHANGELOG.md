@@ -1,3 +1,10 @@
+## [6.6.3](https://github.com/jaspero/jms/compare/v6.6.2...v6.6.3) (2022-10-15)
+
+
+### Bug Fixes
+
+* **functions:** custom permissions not applying properly ([468b7ae](https://github.com/jaspero/jms/commit/468b7aee206fd9dd15f4ad4aa6a3688bd53129c1))
+
 ## [6.6.2](https://github.com/jaspero/jms/compare/v6.6.1...v6.6.2) (2022-10-15)
 
 
