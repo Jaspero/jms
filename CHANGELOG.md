@@ -1,3 +1,10 @@
+## [6.6.2](https://github.com/jaspero/jms/compare/v6.6.1...v6.6.2) (2022-10-15)
+
+
+### Bug Fixes
+
+* **functions:** deploying definitions ([6740632](https://github.com/jaspero/jms/commit/6740632ac455a13b5d9fe651ea6d04ccd11035c1))
+
 ## [6.6.1](https://github.com/jaspero/jms/compare/v6.6.0...v6.6.1) (2022-10-15)
 
 
