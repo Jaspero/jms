@@ -19,7 +19,7 @@ export class PermissionsComponent extends FieldComponent<FieldData> implements O
      * currently we only handle permissions
      * for top level collections.
      */
-    !it.id.includes('{{')
+    !it.id.includes('{')
   );
   permissions = [
     {name: 'GET', value: 'get'},
@@ -28,13 +28,15 @@ export class PermissionsComponent extends FieldComponent<FieldData> implements O
     {name: 'UPDATE', value: 'update'},
     {name: 'DELETE', value: 'delete'}
   ];
-  addedModules = [{id: 'search', name: 'SEARCH', permissions: ['list']}];
+  addedModules = [
+    {id: '_search', name: 'SEARCH', permissions: ['list']}
+  ];
 
   ngOnInit() {
     const {value} = this.cData.control
 
     this.group = new FormGroup(
-      [...MODULES, ...this.addedModules].reduce((acc, cur) => {
+      [...this.modules, ...this.addedModules].reduce((acc, cur) => {
         acc[cur.id] = new FormGroup({
           get: new FormControl(value[cur.id]?.get || false),
           list: new FormControl(value[cur.id]?.list || false),
