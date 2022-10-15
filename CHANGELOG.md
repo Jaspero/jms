@@ -1,3 +1,10 @@
+## [6.4.1](https://github.com/jaspero/jms/compare/v6.4.0...v6.4.1) (2022-10-15)
+
+
+### Bug Fixes
+
+* deploying rules for production ([573eec6](https://github.com/jaspero/jms/commit/573eec6f607645fad2c1396ce4802674adcf16ee))
+
 # [6.4.0](https://github.com/jaspero/jms/compare/v6.3.2...v6.4.0) (2022-10-15)
 
 
