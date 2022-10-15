@@ -110,6 +110,10 @@ export async function compileRules() {
 				.filter(it => it.permissions[id]?.[key])
 				.map(it => it.id);
 
+			if (!collection[key]) {
+				collection[key] = [];
+			}
+
 			if (allowedRoles.length) {
 				collection[key].push(`hasRoles(${JSON.stringify(allowedRoles).replace(/"/g, `'`)})`);
 			}
@@ -138,7 +142,7 @@ export async function compileRules() {
 		}
 
 		const allowed = KEYS
-			.filter(k => COLLECTIONS[key][k])
+			.filter(k => COLLECTIONS[key]?.[k])
 			.map(k => `allow ${k}: if ${COLLECTIONS[key][k].join(' || ')};`);
 
 		if (allowed.length) {
