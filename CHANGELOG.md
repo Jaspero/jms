@@ -1,3 +1,11 @@
+# [6.4.0](https://github.com/jaspero/jms/compare/v6.3.2...v6.4.0) (2022-10-15)
+
+
+### Features
+
+* storing permissions on user sub-collection [#227](https://github.com/jaspero/jms/issues/227) ([ad78d98](https://github.com/jaspero/jms/commit/ad78d98dfd715a653b1d8dffdd258b82cee4ab37))
+* workflow for rules ([bffc7ee](https://github.com/jaspero/jms/commit/bffc7ee2344639fb1e96436f719e4c08c8b34f5c))
+
 ## [6.3.2](https://github.com/jaspero/jms/compare/v6.3.1...v6.3.2) (2022-10-14)
 
 
