@@ -1,3 +1,10 @@
+## [6.6.1](https://github.com/jaspero/jms/compare/v6.6.0...v6.6.1) (2022-10-15)
+
+
+### Bug Fixes
+
+* **functions:** rule building ([adab7ff](https://github.com/jaspero/jms/commit/adab7ffe60a2a1968fe7a6106384aec62df0fc44))
+
 # [6.6.0](https://github.com/jaspero/jms/compare/v6.5.0...v6.6.0) (2022-10-15)
 
 
