@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "svelte-kit dev",
     "dev:emulator": "node emulator.js",
-    "build": "svelte-kit build",
+    "build": "node pull-blogs.js && svelte-kit build",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",
     "prepare": "svelte-kit sync",
@@ -23,6 +23,7 @@
     "eslint": "8.12.0",
     "eslint-plugin-svelte3": "4.0.0",
     "firebase-admin": "10.2.0",
+    "node-fetch": "3.2.10",
     "svelte": "3.48.0",
     "svelte-check": "2.7.1",
     "svelte-preprocess": "4.10.6",
