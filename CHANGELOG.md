@@ -1,3 +1,10 @@
+## [6.6.4](https://github.com/jaspero/jms/compare/v6.6.3...v6.6.4) (2022-10-15)
+
+
+### Bug Fixes
+
+* **cms:** editTitleKey no longer required closes [#422](https://github.com/jaspero/jms/issues/422) ([1e2fce3](https://github.com/jaspero/jms/commit/1e2fce39457c7a88b9fc1da5a14f81fc72634f65))
+
 ## [6.6.3](https://github.com/jaspero/jms/compare/v6.6.2...v6.6.3) (2022-10-15)
 
 
