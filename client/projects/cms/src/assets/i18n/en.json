@@ -257,5 +257,7 @@
   "GET": "Get",
   "LIST": "List",
   "BEFORE": "Before",
-  "AFTER": "After"
+  "AFTER": "After",
+
+  "MEDIA_TEXT": "Media / Text"
 }

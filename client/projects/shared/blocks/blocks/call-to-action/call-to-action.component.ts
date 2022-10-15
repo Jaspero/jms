@@ -1,12 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Block} from '@jaspero/fb-page-builder';
 import {COMMON_OPTIONS} from '../common-options.const';
-import {CommonBlockComponent, CommonOptions} from '../common.block';
-
-interface FormOptions extends CommonOptions {}
 
 @Block({
-  label: 'CONTACT_FORM',
+  label: 'CTA',
   icon: 'view_agenda',
   module: ['pages', 'posts', 'products'],
   previewValue: {
@@ -27,9 +24,16 @@ interface FormOptions extends CommonOptions {}
   }
 })
 @Component({
-  selector: 'jms-contact-form',
-  templateUrl: './contact-form.component.html',
-  styleUrls: ['./contact-form.component.scss'],
+  selector: 'jms-call-to-action',
+  templateUrl: './call-to-action.component.html',
+  styleUrls: ['./call-to-action.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContactFormComponent extends CommonBlockComponent<FormOptions> {}
+export class CallToActionComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}

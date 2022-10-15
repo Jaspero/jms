@@ -10,7 +10,7 @@ interface ContentOptions extends CommonOptions {
 @Block({
   label: 'CONTENT',
   icon: 'article',
-  module: ['pages', 'posts'],
+  module: ['pages', 'posts', 'products'],
   previewValue: {
     content: '<h1>Custom Title</h1><h2>Custom Subtitle</h2><p>Custom content</p>',
     ...COMMON_OPTIONS.defaults

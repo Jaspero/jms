@@ -1,0 +1,12 @@
+<h1>Shop</h1>
+
+<aside>
+	<jpe-shop-search *ngIf="data.search"></jpe-shop-search>
+	<jpe-shop-sort *ngIf="data.sort"></jpe-shop-sort>
+	<jpe-shop-categories *ngIf="data.categories"></jpe-shop-categories>
+	<jpe-shop-tags *ngIf="data.tags"></jpe-shop-tags>
+</aside>
+
+<main>
+	<jpe-shop-products></jpe-shop-products>
+</main>
