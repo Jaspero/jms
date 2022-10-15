@@ -15,5 +15,7 @@ readdir(source, (err, files) => {
 		}
   });
 
-	exec(`cp definitions/index.functions.ts definitions/index.ts`)
+	exec(`cp definitions/index.functions.ts definitions/index.ts`);
+	exec(`cp definitions/dist/index.functions.d.ts definitions/dist/index.d.ts`);
+	exec(`cp definitions/dist/index.functions.js definitions/dist/index.js`);
 });
