@@ -100,7 +100,7 @@ export const POSTS_MODULE: Module = {
   },
   schema: {
     properties: {
-      id: {type: 'string'},
+      id: {type: 'string', pattern: '^[A-Za-z0-9\-\_]*$'},
       title: {type: 'string'},
       active: {type: 'boolean'},
       blocks: {type: 'array'},
@@ -110,7 +110,8 @@ export const POSTS_MODULE: Module = {
       ...CREATED_ON.property,
       ...META.property(),
       ...STATUS.property
-    }
+    },
+    required: ['title']
   },
   definitions: {
     id: {

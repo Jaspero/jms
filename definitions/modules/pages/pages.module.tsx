@@ -73,14 +73,15 @@ export const PAGES_MODULE: Module = {
   },
   schema: {
     properties: {
-      id: {type: 'string'},
+      id: {type: 'string', pattern: '^[A-Za-z0-9\-\_]*$'},
       title: {type: 'string'},
       active: {type: 'boolean'},
       blocks: {type: 'array'},
       ...CREATED_ON.property,
       ...META.property(),
       ...STATUS.property
-    }
+    },
+    required: ['title']
   },
   definitions: {
     id: {
