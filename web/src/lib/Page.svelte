@@ -4,11 +4,7 @@
 
   export let page: any;
 
-  let title = page.meta?.title || page.title;
-
-  if (BASE_TITLE) {
-    title += ` ${DELIMITER} ${BASE_TITLE}`;
-  }
+  $: title = ( page.meta?.title || page.title) + (BASE_TITLE ? ` ${DELIMITER} ${BASE_TITLE}` : '');
 
   $: if (page.scripts && browser) {
     (page.scripts || []).forEach((s: string) => {
@@ -26,6 +22,7 @@
 </script>
 
 {@html page.content || ''}
+
 <svelte:head>
   <title>{title}</title>
   <meta property="og:title" content="{title}" />
