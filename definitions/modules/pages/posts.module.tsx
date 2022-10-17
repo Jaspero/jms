@@ -31,6 +31,7 @@ export const POSTS_MODULE: Module = {
           fields: [
             '/title',
             '/id',
+            '/description',
 						'/author',
 						'/featuredImage',
             '/publishedOn',
@@ -107,6 +108,7 @@ export const POSTS_MODULE: Module = {
     properties: {
       id: {type: 'string', pattern: '^[A-Za-z0-9\-\_]*$'},
       title: {type: 'string'},
+      description: {type: 'string'},
       active: {type: 'boolean'},
       blocks: {type: 'array'},
 			author: {type: 'string'},
@@ -127,6 +129,15 @@ export const POSTS_MODULE: Module = {
     },
     title: {label: 'TITLE'},
     active: {label: ''},
+    description: {
+      label: 'DESCRIPTION',
+      component: {
+        type: 'textarea',
+        configuration: {
+          rows: 5
+        }
+      }
+    },
 		featuredImage: {
 			label: 'FEATURED_IMAGE',
 			component: {

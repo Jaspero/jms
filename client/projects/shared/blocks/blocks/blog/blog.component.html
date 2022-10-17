@@ -1,3 +1,15 @@
 <h2 *ngIf="data.title">{{data.title}}</h2>
 <p *ngIf="data.subtitle">{{data.subtitle}}</p>
-<jpe-blog></jpe-blog>
+
+<jpe-blog limit="10">
+	<template id="blog-card">
+		<div [innerHTML]="templateStyle | jpSanitize"></div>
+		<div class="card">
+			<img blog-card-img />
+			<h3 blog-card-title></h3>
+			<p blog-card-published></p>
+			<div class="description" blog-card-description></div>
+		</div>
+	</template>
+	<button slot="load-more">Load More</button>	
+</jpe-blog>

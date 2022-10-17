@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {Block} from '@jaspero/fb-page-builder';
 import {COMMON_OPTIONS} from '../common-options.const';
 import {CommonBlockComponent, CommonOptions} from '../common.block';
@@ -56,4 +56,6 @@ interface BlogOptions extends CommonOptions {
   styleUrls: ['./blog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BlogComponent extends CommonBlockComponent<BlogOptions> {}
+export class BlogComponent extends CommonBlockComponent<BlogOptions> {
+  templateStyle = `<style>.card {color: green}</style>`
+}
