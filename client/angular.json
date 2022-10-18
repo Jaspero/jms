@@ -28,6 +28,11 @@
               "projects/cms/src/favicon.ico",
               "projects/cms/src/assets",
               {
+                "glob": "*.min.js",
+                "input": "node_modules/tinymce",
+                "output": "/"
+              },
+              {
                 "glob": "**/*",
                 "input": "node_modules/tinymce/themes/silver",
                 "output": "/themes/silver"
