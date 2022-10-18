@@ -27,7 +27,7 @@
     "@angular/platform-browser-dynamic": "14.0.2",
     "@angular/router": "14.0.2",
     "@jaspero/fb-fields-mat": "1.15.6",
-    "@jaspero/fb-page-builder": "3.29.9",
+    "@jaspero/fb-page-builder": "3.30.0",
     "@jaspero/fb-segments-mat": "1.4.5",
     "@jaspero/fb-tinymce": "2.12.5",
     "@jaspero/form-builder": "5.9.1",
