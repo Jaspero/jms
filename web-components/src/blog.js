@@ -121,7 +121,7 @@ export default (() => {
 				title: blog.title.stringValue,
 				publishedOn: new Date(
 					parseInt(blog.publishedOn.integerValue, 10)
-				).toDateString(),
+				).toLocaleDateString(),
 				description: blog.meta?.mapValue?.fields?.description?.stringValue || ''
 			};
 
