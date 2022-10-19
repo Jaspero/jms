@@ -146,10 +146,7 @@ export class SpotlightComponent implements OnInit {
                   }
 
                   return forkJoin(results.map(item => this.db.getDocument(item.module, item.id).pipe(
-                    catchError(() => {
-                      console.log(item);
-                      return of(null);
-                    }),
+                    catchError(() => of(null)),
                     map((data) => {
                       if (!data) {
                         return null;

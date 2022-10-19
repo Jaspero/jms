@@ -19,7 +19,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSortModule} from '@angular/material/sort';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {RouterModule} from '@angular/router';
+import {RouteReuseStrategy, RouterModule} from '@angular/router';
 import {JMSPNotesModule} from '@jaspero/jmsp-notes';
 import {LoadClickModule, SanitizeModule, StopPropagationModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
@@ -35,6 +35,7 @@ import {InstanceOverviewComponent} from './pages/instance-overview/instance-over
 import {InstanceSingleComponent} from './pages/instance-single/instance-single.component';
 import {ColumnPipe} from './pipes/column/column.pipe';
 import {EllipsisPipe} from './pipes/ellipsis/ellipsis.pipe';
+import {OverviewResolver} from './resolvers/overview/overview.resolver';
 import {DefaultOverviewService} from './services/default-overview.service';
 import {DefaultSingleService} from './services/default-single.service';
 import {InstanceOverviewContextService} from './services/instance-overview-context.service';
@@ -58,7 +59,10 @@ function routes(deep = 10) {
       {
         path: module,
         canActivate: [CanReadModuleGuard],
-        component: InstanceOverviewComponent
+        resolve: {
+          data: OverviewResolver
+        },
+        component: InstanceOverviewComponent,
       },
       {
         path: document,
@@ -97,6 +101,8 @@ function routes(deep = 10) {
      */
     DefaultOverviewService,
     DefaultSingleService,
+
+    OverviewResolver,
 
     /**
      * We register a few general providers for

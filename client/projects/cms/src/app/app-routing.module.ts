@@ -1,9 +1,10 @@
 import {NgModule} from '@angular/core';
 import {AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
-import {RouterModule, Routes} from '@angular/router';
+import {RouteReuseStrategy, RouterModule, Routes} from '@angular/router';
 import {STATIC_CONFIG} from '../environments/static-config';
 import {HasClaimGuard} from './shared/guards/has-claim/has-claim.guard';
 import {RedirectGuard} from './shared/guards/redirect/redirect.guard';
+import {AppReuseStrategy} from './shared/utils/app-reuse.strategy';
 
 const redirectUnauthorized = () => redirectUnauthorizedTo(STATIC_CONFIG.loginRoute);
 const redirectLoggedInToDashboard = () => redirectLoggedInTo(STATIC_CONFIG.dashboardRoute);
@@ -84,6 +85,12 @@ const routes: Routes = [
       scrollPositionRestoration: 'top'
     })
   ],
+  providers: [
+    {
+      provide: RouteReuseStrategy,
+      useClass: AppReuseStrategy
+    }
+  ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

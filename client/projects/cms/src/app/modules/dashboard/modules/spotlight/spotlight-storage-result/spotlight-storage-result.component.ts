@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {take, tap} from 'rxjs/operators';
-import {StorageItem} from '@definitions';
-import {Router} from '@angular/router';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import {Router} from '@angular/router';
+import {StorageItem} from '@definitions';
+import {Observable} from 'rxjs';
+import {take, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'jms-spotlight-storage-result',
@@ -26,7 +26,7 @@ export class SpotlightStorageResultComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.packet$ = this.http.get(this.url);
   }
 
@@ -41,15 +41,12 @@ export class SpotlightStorageResultComponent implements OnInit {
         module: string,
         moduleName: string
       }) => {
-        console.log(item);
-
         this.dialog.closeAll();
 
         const path = item.data.path.split('/').map(it => it === '.' ? '' : it).filter(it => !!it).join('/');
         this.router.navigateByUrl('storage/' + path);
       })
-    ).subscribe();
-
-    console.log('selectItem');
+    )
+      .subscribe();
   }
 }

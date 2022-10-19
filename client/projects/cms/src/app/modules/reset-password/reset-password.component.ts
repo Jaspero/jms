@@ -44,8 +44,6 @@ export class ResetPasswordComponent implements OnInit {
         validator: RepeatPasswordValidator('')
       } as AbstractControlOptions
     );
-
-    this.form.valueChanges.subscribe(a => console.log(this.form))
   }
 
   reset() {
