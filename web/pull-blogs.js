@@ -41,7 +41,7 @@ async function exec() {
 			.toString()
 			.replace(
 				`const BLOGS = [];`,
-				`const BLOGS = ${JSON.stringify(items.map(doc => `/blog/${doc.document.name.split('/').pop()}`))};`
+				`const BLOGS = ${JSON.stringify(items.filter(doc => doc.document?.name).map(doc => `/blog/${doc.document.name.split('/').pop()}`))};`
 			)
 	)
 
