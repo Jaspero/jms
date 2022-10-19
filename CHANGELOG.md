@@ -1,3 +1,10 @@
+# [6.9.0](https://github.com/jaspero/jms/compare/v6.8.0...v6.9.0) (2022-10-19)
+
+
+### Features
+
+* refreshing instance overview component when navigating between pages ([0e46763](https://github.com/jaspero/jms/commit/0e467632570654c760920a9668129d18e9019cd7))
+
 # [6.8.0](https://github.com/jaspero/jms/compare/v6.7.0...v6.8.0) (2022-10-19)
 
 
