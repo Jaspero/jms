@@ -1,3 +1,10 @@
+# [6.8.0](https://github.com/jaspero/jms/compare/v6.7.0...v6.8.0) (2022-10-19)
+
+
+### Features
+
+* version sync ([ecf9064](https://github.com/jaspero/jms/commit/ecf9064bdb645e6c99b00000b1db6221bd87c402))
+
 # [6.7.0](https://github.com/jaspero/jms/compare/v6.6.4...v6.7.0) (2022-10-18)
 
 
