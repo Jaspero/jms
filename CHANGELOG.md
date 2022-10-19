@@ -1,3 +1,10 @@
+# [6.7.0](https://github.com/jaspero/jms/compare/v6.6.4...v6.7.0) (2022-10-18)
+
+
+### Features
+
+* **cms:** added new page builder inline editor ([150a1bb](https://github.com/jaspero/jms/commit/150a1bb5de125330198037edbe5862391574b366))
+
 ## [6.6.4](https://github.com/jaspero/jms/compare/v6.6.3...v6.6.4) (2022-10-15)
 
 
