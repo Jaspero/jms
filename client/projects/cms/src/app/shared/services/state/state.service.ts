@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterStateSnapshot} from '@angular/router';
 import {TranslocoService} from '@ngneat/transloco';
 import {Module, MODULES, User} from '@definitions';
 import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
@@ -95,21 +95,22 @@ export class StateService {
       filters: {
         search: ''
       }
-    }
+    },
+    url = this.router.routerState.snapshot.url
   ): T {
-    const {url} = this.router.routerState.snapshot;
 
     if (this.routerData[url]) {
       return this.routerData[url];
-    } else {
-      return defaultData;
     }
+
+    return defaultData;
   }
 
-  restoreRouteData(defaultData = {}) {
-    const {url} = this.router.routerState.snapshot;
-    const {queryParams} = this.activatedRoute.snapshot;
-
+  restoreRouteData(
+    defaultData = {},
+    url = this.router.routerState.snapshot.url,
+    queryParams = this.activatedRoute.snapshot.queryParams
+  ) {
     if (queryParams.filter) {
 
       // tslint:disable-next-line:no-shadowed-variable

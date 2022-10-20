@@ -140,24 +140,8 @@ export class StorageService {
 
       if (path && path !== '.') {
 
-        console.log(1);
         const parentPath = path.split('/').slice(0, -1).join('/') || '.';
         const parentName = path.split('/').slice(-1)[0];
-
-        console.log({parentPath, parentName});
-
-        console.log([
-          {
-            key: 'path',
-            operator: FilterMethod.Equal,
-            value: parentPath
-          },
-          {
-            key: 'name',
-            operator: FilterMethod.Equal,
-            value: parentName
-          }
-        ]);
 
         const folders = await this.db.getDocuments('storage', undefined, undefined, undefined, [
           {
@@ -170,9 +154,8 @@ export class StorageService {
             operator: FilterMethod.Equal,
             value: parentName
           }
-        ]).toPromise();
-
-        console.log(2);
+        ])
+          .toPromise();
 
         const folder = folders[0]?.data?.();
 
