@@ -119,6 +119,7 @@ export default (() => {
 			const item = {
 				image: blog.featuredImage.stringValue,
 				title: blog.title.stringValue,
+				link: '/blog/' + id,
 				publishedOn: new Date(
 					parseInt(blog.publishedOn.integerValue, 10)
 				).toLocaleDateString(),
@@ -131,6 +132,7 @@ export default (() => {
 			const imgEl = el.querySelector('[blog-card-img]');
 			const publishedEl = el.querySelector('[blog-card-published]');
 			const descriptionEl = el.querySelector('[blog-card-description]');
+			const linkEl = el.querySelector('[blog-card-link]');
 
 			if (titleEl && item.title) {
 				titleEl.innerText = item.title;
@@ -147,6 +149,10 @@ export default (() => {
 			if (descriptionEl && item.description) {
 				descriptionEl.innerHTML = item.description;
 			}
+
+			if (linkEl && item.link) {
+        linkEl.href = item.link;
+      }
 
 			this.postsEl.append(el);
 		}
