@@ -1,3 +1,10 @@
+## [6.9.1](https://github.com/jaspero/jms/compare/v6.9.0...v6.9.1) (2022-10-22)
+
+
+### Bug Fixes
+
+* **functions:** export working closes [#427](https://github.com/jaspero/jms/issues/427) ([7d80d32](https://github.com/jaspero/jms/commit/7d80d326ae650b37354ff6c5312b1a24da061ad3))
+
 # [6.9.0](https://github.com/jaspero/jms/compare/v6.8.0...v6.9.0) (2022-10-19)
 
 
