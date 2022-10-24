@@ -48,7 +48,7 @@ export default (() => {
 				});
 	
 				fetch(
-					`https://firestore.googleapis.com/v1/projects/jaspero-jms/databases/(default)/documents/inquiries`,
+					`https://firestore.googleapis.com/v1/projects/jaspero-jms/databases/(default)/documents/${this.collection}`,
 					{
 						method: 'POST',
 						body: JSON.stringify({fields})
@@ -80,12 +80,13 @@ export default (() => {
 		}
 
 		static get observedAttributes() {
-			return ['label', 'success'];
+			return ['label', 'success', 'collection'];
 		}
 
 		connectedCallback() {
 			this.output.innerText = this.getAttribute('label');
 			this.success = this.getAttribute('success');
+			this.collection = this.getAttribute('collection') || 'inquiries'
 		}
 
 		attributeChangedCallback() {
