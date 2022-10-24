@@ -19,12 +19,17 @@ enum Type {
 const app = express();
 app.use(CORS);
 
-app.post('/:module', authenticated(), (req, res) => {
+function getModules(url: string) {
+	return url.split('/').filter((v, index) => index % 2);
+}
+
+app.post('/**', authenticated(), (req, res) => {
   async function exec() {
-    const {module} = req.params;
+    const modules = getModules(req.url);
+
     // @ts-ignore
     const {permissions, role} = req['user'];
-    const moduleDoc = MODULES.find(item => item.id === module);
+    const moduleDoc = MODULES.find(mod => !modules.some(id => !mod.id.includes(id)));
 
     if (!moduleDoc) {
       throw new Error('Requested module not found.')
@@ -47,7 +52,7 @@ app.post('/:module', authenticated(), (req, res) => {
 
     let col: any = admin
       .firestore()
-      .collection(collectionRef || module);
+      .collection(collectionRef || req.url);
 
     if (filters && filters.length) {
       for (const item of filters) {

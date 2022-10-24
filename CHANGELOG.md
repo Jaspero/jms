@@ -1,3 +1,17 @@
+## [6.9.2](https://github.com/jaspero/jms/compare/v6.9.1...v6.9.2) (2022-10-24)
+
+
+### Bug Fixes
+
+* **definitions:** filtering rules when one is "if true" ([bbb7029](https://github.com/jaspero/jms/commit/bbb7029c97d3d95cf002a9d9b7f7e7dd65789dac))
+
+## [6.9.1](https://github.com/jaspero/jms/compare/v6.9.0...v6.9.1) (2022-10-22)
+
+
+### Bug Fixes
+
+* **functions:** export working closes [#427](https://github.com/jaspero/jms/issues/427) ([7d80d32](https://github.com/jaspero/jms/commit/7d80d326ae650b37354ff6c5312b1a24da061ad3))
+
 # [6.9.0](https://github.com/jaspero/jms/compare/v6.8.0...v6.9.0) (2022-10-19)
 
 
