@@ -1,3 +1,10 @@
+## [6.9.2](https://github.com/jaspero/jms/compare/v6.9.1...v6.9.2) (2022-10-24)
+
+
+### Bug Fixes
+
+* **definitions:** filtering rules when one is "if true" ([bbb7029](https://github.com/jaspero/jms/commit/bbb7029c97d3d95cf002a9d9b7f7e7dd65789dac))
+
 ## [6.9.1](https://github.com/jaspero/jms/compare/v6.9.0...v6.9.1) (2022-10-22)
 
 
