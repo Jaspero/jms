@@ -1,3 +1,10 @@
+## [6.9.3](https://github.com/jaspero/jms/compare/v6.9.2...v6.9.3) (2022-10-27)
+
+
+### Bug Fixes
+
+* **cms:** fix loader style ([5d0ecaf](https://github.com/jaspero/jms/commit/5d0ecafa6227e8eb811a1af52c3d2359eeb80c09))
+
 ## [6.9.2](https://github.com/jaspero/jms/compare/v6.9.1...v6.9.2) (2022-10-24)
 
 
