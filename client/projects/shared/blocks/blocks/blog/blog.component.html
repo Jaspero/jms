@@ -1,7 +1,7 @@
 <h2 *ngIf="data.title">{{data.title}}</h2>
 <p *ngIf="data.subtitle">{{data.subtitle}}</p>
 
-<jpe-blog limit="10">
+<jpe-blog limit="10" collection="posts" path="/blog/">
 	<template id="blog-card">
 		<div [innerHTML]="templateStyle | jpSanitize"></div>
 		<a class="card" blog-card-link>

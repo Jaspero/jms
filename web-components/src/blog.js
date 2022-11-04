@@ -21,30 +21,27 @@ export default (() => {
 		connectedCallback() {
 			this.loadMoreEl = this.querySelector('*[slot="load-more"]');
 
-			if (!this.setAttibutes() && !this.called) {
-				this.called = true;
-				this.getData().catch(console.error);
-			}
+			this.setAttibutes();
 
+			this.getData().catch(console.error);
+			
 			if (this.loadMoreEl) {
 				this.loadMoreEl.onclick = () =>
 					this.getData().catch(console.error)
 			}
 		}
 
-		static get observedAttributes() {
-			return ['limit', 'orderby'];
-		}
-
 		setAttibutes() {
 
 			const limit = this.getAttribute('limit');
 			const orderby = this.getAttribute('orderBy');
+			const collection = this.getAttribute('collection');
+			const path = this.getAttribute('path');
 
 			this.limit = parseInt(limit || '10', 10);
 			this.orderBy = orderby || 'publishedOn';
-
-			return limit || orderby;
+			this.collection = collection || 'posts';
+			this.path = path || '/blog/';
 		}
 
 		async getData() {
@@ -55,7 +52,7 @@ export default (() => {
 					body: JSON.stringify({
 						structuredQuery: {
 							from: [{
-								collectionId: 'posts'
+								collectionId: this.collection
 							}],
 							where: {
 								fieldFilter: {
@@ -105,21 +102,19 @@ export default (() => {
 
 			res
 				.slice(0, this.limit)
-				.forEach(doc => this.createCard(doc.document.fields));
+				.forEach(doc =>
+					this.createCard(
+						doc.document.fields,
+						doc.document.name.split('/').pop()
+					)
+				);
 		}
 
-		attributeChangedCallback() {
-			this.setAttibutes();
-			this.getData()
-				.catch(console.error);
-		}
-
-		createCard(blog) {
-
+		createCard(blog, id) {
 			const item = {
 				image: blog.featuredImage.stringValue,
 				title: blog.title.stringValue,
-				link: '/blog/' + id,
+				link: this.path + id,
 				publishedOn: new Date(
 					parseInt(blog.publishedOn.integerValue, 10)
 				).toLocaleDateString(),
