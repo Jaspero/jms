@@ -87,17 +87,13 @@
 
 .downloads, .uploads {
   width: 300px;
-
   max-height: 40vh;
-
-  overflow-y: scroll;
-
+  overflow-y: auto;
   padding-top: 0;
   margin-bottom: 10px;
 
   &-icon {
     cursor: pointer;
-
     width: 20px;
     height: 20px;
     font-size: 20px;
