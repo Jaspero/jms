@@ -1,3 +1,11 @@
+# [6.10.0](https://github.com/jaspero/jms/compare/v6.9.3...v6.10.0) (2022-11-11)
+
+
+### Features
+
+* **cms:** multiple selection on storage ([a53a4cc](https://github.com/jaspero/jms/commit/a53a4ccbabaaea53cc7199318c55fe477a81eab5))
+* **cms:** storage updates ([5a1acea](https://github.com/jaspero/jms/commit/5a1acea21b5b81b0f93b385e14eae49d5d921783))
+
 ## [6.9.3](https://github.com/jaspero/jms/compare/v6.9.2...v6.9.3) (2022-10-27)
 
 
