@@ -3,6 +3,7 @@
   "ADD": "Add",
   "DELETE": "Delete",
   "REMOVE": "Remove",
+  "REMOVE_SELECTION": "Remove Selection",
   "EDIT": "Edit",
   "VIEW": "View",
   "ACTIONS": "Actions",

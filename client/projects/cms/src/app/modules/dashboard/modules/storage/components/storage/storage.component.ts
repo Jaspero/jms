@@ -1,3 +1,4 @@
+import {SelectionModel} from '@angular/cdk/collections';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {NoopScrollStrategy} from '@angular/cdk/overlay';
 import {
@@ -20,7 +21,7 @@ import {FilterMethod, StorageItem} from '@definitions';
 import {random} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {disableScroll, enableScroll} from '@shared/utils/scroll';
-import {BehaviorSubject, combineLatest, from, map, Observable, of, startWith, distinctUntilChanged} from 'rxjs';
+import {BehaviorSubject, combineLatest, distinctUntilChanged, from, map, Observable, of, startWith} from 'rxjs';
 import {filter, shareReplay, switchMap, take, tap} from 'rxjs/operators';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
@@ -46,7 +47,7 @@ export class StorageComponent implements OnInit {
     private renderer: Renderer2,
     private state: StateService,
     private fbStorage: Storage
-  ) {}
+  ) { }
 
   @Input()
   title = 'STORAGE';
@@ -79,6 +80,8 @@ export class StorageComponent implements OnInit {
   writeAccess$ = new BehaviorSubject(true);
 
   _deletes = new Set();
+
+  selection = new SelectionModel<StorageItem>(true);
 
   @HostListener('document:mousedown', ['$event'])
   click(event: MouseEvent) {
@@ -145,7 +148,7 @@ export class StorageComponent implements OnInit {
 
           return items$;
         }),
-        map(([publicItems, roleItems, userItems]) => 
+        map(([publicItems, roleItems, userItems]) =>
           [...publicItems, ...roleItems, ...userItems].reduce((acc, item) => {
             if (item.type === 'folder') {
               if (acc.folders.every(folder => folder.id !== item.id)) {
@@ -182,10 +185,11 @@ export class StorageComponent implements OnInit {
           );
         }),
         shareReplay(1),
-        tap((items) => {
+        tap(items => {
           this.ngZone.run(() => {
             this.loading$.next(false);
             this.items$.next(items);
+            this._filterSelection();
             this.cdr.markForCheck();
           });
         }),
@@ -273,7 +277,7 @@ export class StorageComponent implements OnInit {
 
     this.dialog.open(this.contextTemplate, {
       autoFocus: false,
-      width: '140px',
+      width: '200px',
       position: {
         top: event.clientY + 'px',
         left: event.clientX + 'px'
@@ -398,7 +402,7 @@ export class StorageComponent implements OnInit {
             size: 0
           }, {})
             .pipe(
-              tap(() => 
+              tap(() =>
                 this.navigateTo(control.value, true)
               )
             );
@@ -421,7 +425,7 @@ export class StorageComponent implements OnInit {
     input.click();
   }
 
-  focusItem(event: MouseEvent) {
+  focusItem(event: MouseEvent, item: StorageItem) {
     if (event.button !== 0) {
       return;
     }
@@ -430,9 +434,12 @@ export class StorageComponent implements OnInit {
       document.querySelectorAll('.storage-item.active').forEach(element => {
         element.classList.remove('active');
       });
+
+      this.selection.clear();
     }
 
     (event.target as HTMLElement).closest('.storage-item').classList.toggle('active');
+    this.selection.select(item);
   }
 
   async openInfoDialog(item: StorageItem) {
@@ -526,10 +533,12 @@ export class StorageComponent implements OnInit {
         }
 
         if (type === 'users') {
-          label = await this.db.getDocument('users', label).pipe(
-            take(1),
-            map(user => user.email)
-          ).toPromise();
+          label = await this.db.getDocument('users', label)
+            .pipe(
+              take(1),
+              map(user => user.email)
+            )
+            .toPromise();
         }
 
         return {
@@ -565,8 +574,8 @@ export class StorageComponent implements OnInit {
     }
 
     const autocomplete$ = this.db.getDocumentsSimple('roles').pipe(
-      map((roles) => {
-        return [
+      map(roles =>
+        [
           {
             label: 'Roles',
             type: 'group',
@@ -581,8 +590,8 @@ export class StorageComponent implements OnInit {
             type: 'single',
             items: ['public']
           }
-        ];
-      }),
+        ]
+      ),
       shareReplay(1)
     );
 
@@ -637,7 +646,7 @@ export class StorageComponent implements OnInit {
             })
           );
         }),
-        switchMap(async (items) => {
+        switchMap(async items => {
 
           const metadata = Object.keys(item.metadata || {}).filter(key => {
             return !key.startsWith('permissions_');
@@ -659,21 +668,29 @@ export class StorageComponent implements OnInit {
               }
             );
           } catch (e) {
-            const itemDocument = await this.db.getDocuments('storage', undefined, undefined, undefined, [
-              {
-                key: 'path',
-                operator: FilterMethod.Equal,
-                value: item.path
-              },
-              {
-                key: 'name',
-                operator: FilterMethod.Equal,
-                value: item.name
-              }
-            ]).pipe(
-              take(1),
-              map(docs => docs[0])
-            ).toPromise();
+            const itemDocument = await this.db.getDocuments(
+              'storage',
+              undefined,
+              undefined,
+              undefined,
+              [
+                {
+                  key: 'path',
+                  operator: FilterMethod.Equal,
+                  value: item.path
+                },
+                {
+                  key: 'name',
+                  operator: FilterMethod.Equal,
+                  value: item.name
+                }
+              ]
+            )
+              .pipe(
+                take(1),
+                map(docs => docs[0])
+              )
+              .toPromise();
 
             if (itemDocument?.id) {
               await this.db.setDocument('storage', itemDocument.id, {
@@ -698,13 +715,54 @@ export class StorageComponent implements OnInit {
   async removeItem(data: {item: StorageItem, items: StorageItem[]}) {
     await this.storage.removeItem(data.item);
 
+    if (this.selection.isEmpty()) {
+      await this._removeItem(data);
+      this._filterSelection(data.item);
+      data.items = [...data.items];
+    } else {
+      await Promise.all(
+        this.selection.selected.map(item =>
+          this._removeItem({item, items: data.items})  
+        )
+      );
+      this.selection.clear();
+      data.items = [...data.items];
+    }
+
+    this.cdr.markForCheck();
+  }
+
+  private async _removeItem(data: {item: StorageItem, items: StorageItem[]}) {
+    await this.storage.removeItem(data.item);
+
     this._deletes.add(data.item.id);
 
     data.items.splice(
       data.items.findIndex(it => it.id === data.item.id),
       1
     );
-    data.items = [...data.items];
-    this.cdr.markForCheck();
+  }
+
+  private _filterSelection(selected?: StorageItem) {
+
+    if (this.selection.isEmpty()) {
+      return;
+    }
+
+    if (selected) {
+      this.selection.deselect(selected);
+      return;
+    }
+
+    const items = this.items$.getValue();
+
+    this.selection.selected.forEach(item => {
+
+      const key = item.type === 'folder' ? 'folders' : 'files';
+
+      if (!items[key].some(it => it.id === item.id)) {
+        this.selection.deselect(item);
+      }
+    })
   }
 }

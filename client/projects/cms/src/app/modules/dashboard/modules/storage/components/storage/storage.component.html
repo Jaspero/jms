@@ -57,7 +57,7 @@
             <div class="grid jc-start p-a-0">
               <div *ngFor="let folder of items.folders; trackBy: trackByPath; index as index"
                 class="col-3 col-s-6 col-xs-12">
-                <mat-card class="storage-item" [tabIndex]="index + 1" (mousedown)="focusItem($event)"
+                <mat-card class="storage-item" [tabIndex]="index + 1" (mousedown)="focusItem($event, file)"
                   (dblclick)="navigateTo(folder, true)" (contextmenu)="openItemContextMenu($event, folder, items.folders)">
                   <div class="flex jc-start ai-center">
                     <mat-icon class="storage-item-icon">{{folder | folderIcon}}</mat-icon>
@@ -75,7 +75,7 @@
               <div *ngFor="let file of items.files; trackBy: trackByPath; index as index"
                 class="col-3 col-s-6 col-xs-12">
                 <mat-card class="storage-item file" [tabIndex]="items.folders.length + index + 1" style="padding: 0;"
-                  (mousedown)="focusItem($event)" (contextmenu)="openItemContextMenu($event, file, items.files)"
+                  (mousedown)="focusItem($event, file)" (contextmenu)="openItemContextMenu($event, file, items.files)"
                   (dblclick)="previewItem(file)">
                   <div class="storage-item-file flex fd-col">
                     <div class="storage-item-preview w-full" style="height: calc(100% - 48px);">
@@ -192,7 +192,7 @@
     <hr>
     <button class="contextmenu-dialog-item" mat-button color="warn" mat-dialog-close (click)="removeItem(data)">
       <mat-icon>delete</mat-icon>
-      <span class="p-l-s">{{'REMOVE' | transloco}}</span>
+      <span class="p-l-s">{{(selection.isEmpty() ? 'REMOVE' : 'REMOVE_SELECTION') | transloco}}</span>
     </button>
   </ng-container>
 
@@ -207,7 +207,7 @@
     </button>
     <button class="contextmenu-dialog-item" mat-button color="warn" mat-dialog-close (click)="removeItem(data)">
       <mat-icon>delete</mat-icon>
-      <span class="p-l-s">{{'REMOVE' | transloco}}</span>
+      <span class="p-l-s">{{(selection.isEmpty() ? 'REMOVE' : 'REMOVE_SELECTION') | transloco}}</span>
     </button>
   </ng-container>
 </ng-template>
