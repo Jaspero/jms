@@ -15,9 +15,7 @@ export class FilePreviewComponent implements OnInit {
 
   type: PreviewType = 'other';
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnInit() {
     this.type = detectPreviewType(this.file.contentType);
   }
 }
