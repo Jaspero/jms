@@ -1,3 +1,10 @@
+# [6.11.0](https://github.com/jaspero/jms/compare/v6.10.0...v6.11.0) (2022-11-12)
+
+
+### Features
+
+* **cms:** don't highlight drop if there is nothing to drop ([3a39a14](https://github.com/jaspero/jms/commit/3a39a1464c9a9b83736d5287d846f6a985bc4255))
+
 # [6.10.0](https://github.com/jaspero/jms/compare/v6.9.3...v6.10.0) (2022-11-11)
 
 
