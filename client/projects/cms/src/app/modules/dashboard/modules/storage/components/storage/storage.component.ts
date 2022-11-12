@@ -57,8 +57,6 @@ export class StorageComponent implements OnInit {
   }>(null);
   routeControl: FormControl;
 
-  view: 'list' | 'grid' = 'grid';
-
   @ViewChild('context')
   contextTemplate: TemplateRef<any>;
 
@@ -72,16 +70,13 @@ export class StorageComponent implements OnInit {
   shareTemplate: TemplateRef<any>;
 
   loading$ = new BehaviorSubject(true);
-
   activeElement: HTMLElement;
-
   separatorKeysCodes: number[] = [ENTER, COMMA];
-
   writeAccess$ = new BehaviorSubject(true);
-
   _deletes = new Set();
-
   selection = new SelectionModel<StorageItem>(true);
+  filesOver$: Observable<boolean>;
+  filesOverNext$ = new BehaviorSubject(false);
 
   @HostListener('document:mousedown', ['$event'])
   click(event: MouseEvent) {
@@ -103,6 +98,11 @@ export class StorageComponent implements OnInit {
       const routes = (data as any)?.route || [];
       this.routeControl.setValue(routes.join('/'));
     });
+
+    this.filesOver$ = this.filesOverNext$
+      .pipe(
+        distinctUntilChanged()
+      );
 
     this.routeControl.valueChanges
       .pipe(
@@ -261,10 +261,6 @@ export class StorageComponent implements OnInit {
       undefined,
       filters
     );
-  }
-
-  toggleView() {
-    this.view = this.view === 'grid' ? 'list' : 'grid';
   }
 
   openItemContextMenu(event: MouseEvent, item: StorageItem, items: StorageItem[]) {
@@ -710,6 +706,10 @@ export class StorageComponent implements OnInit {
     }
 
     return this.storage.uploadFiles(route, event);
+  }
+
+  filesHovered(event: boolean | DragEvent) {
+    this.filesOverNext$.next(event ? (event as DragEvent).dataTransfer?.types.includes('Files') : false);
   }
 
   async removeItem(data: {item: StorageItem, items: StorageItem[]}) {

@@ -32,7 +32,7 @@
     "@jaspero/fb-tinymce": "2.12.5",
     "@jaspero/form-builder": "5.9.1",
     "@jaspero/jmsp-notes": "1.6.5",
-    "@jaspero/ng-helpers": "5.4.0",
+    "@jaspero/ng-helpers": "5.5.0",
     "@jaspero/utils": "1.7.1",
     "@ngneat/transloco": "4.1.1",
     "@ngneat/until-destroy": "9.2.2",
