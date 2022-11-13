@@ -52,7 +52,7 @@
         <div class="grid jc-start p-a-0">
           <div *ngFor="let folder of items.folders; trackBy: trackByPath; index as index"
             class="col-3 col-s-6 col-xs-12">
-            <mat-card class="storage-item" [tabIndex]="index + 1" (mousedown)="focusItem($event, file)"
+            <mat-card class="storage-item" [tabIndex]="index + 1" (mousedown)="focusItem($event, folder)"
               (dblclick)="navigateTo(folder, true)" (contextmenu)="openItemContextMenu($event, folder, items.folders)">
               <div class="flex jc-start ai-center">
                 <mat-icon class="storage-item-icon">{{folder | folderIcon}}</mat-icon>
@@ -182,7 +182,7 @@
     <hr>
     <button class="contextmenu-dialog-item" mat-button color="warn" mat-dialog-close (click)="removeItem(data)">
       <mat-icon>delete</mat-icon>
-      <span class="p-l-s">{{(selection.isEmpty() ? 'REMOVE' : 'REMOVE_SELECTION') | transloco}}</span>
+      <span class="p-l-s">{{(selection.selected.length < 1 ? 'REMOVE' : 'REMOVE_SELECTION') | transloco}}</span>
     </button>
   </ng-container>
 
@@ -197,7 +197,7 @@
     </button>
     <button class="contextmenu-dialog-item" mat-button color="warn" mat-dialog-close (click)="removeItem(data)">
       <mat-icon>delete</mat-icon>
-      <span class="p-l-s">{{(selection.isEmpty() ? 'REMOVE' : 'REMOVE_SELECTION') | transloco}}</span>
+      <span class="p-l-s">{{(selection.selected.length < 1 ? 'REMOVE' : 'REMOVE_SELECTION') | transloco}}</span>
     </button>
   </ng-container>
 </ng-template>

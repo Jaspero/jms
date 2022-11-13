@@ -142,18 +142,24 @@ export class StorageService {
         const parentPath = path.split('/').slice(0, -1).join('/') || '.';
         const parentName = path.split('/').slice(-1)[0];
 
-        const folders = await this.db.getDocuments('storage', undefined, undefined, undefined, [
-          {
-            key: 'path',
-            operator: FilterMethod.Equal,
-            value: parentPath
-          },
-          {
-            key: 'name',
-            operator: FilterMethod.Equal,
-            value: parentName
-          }
-        ])
+        const folders = await this.db.getDocuments(
+          'storage',
+          undefined,
+          undefined,
+          undefined,
+          [
+            {
+              key: 'path',
+              operator: FilterMethod.Equal,
+              value: parentPath
+            },
+            {
+              key: 'name',
+              operator: FilterMethod.Equal,
+              value: parentName
+            }
+          ]
+        )
           .toPromise();
 
         const folder = folders[0]?.data?.();
@@ -197,18 +203,24 @@ export class StorageService {
     try {
       await deleteObject(ref(storageInstance, path));
     } catch (e) {
-      const itemDocument = await this.db.getDocuments('storage', undefined, undefined, undefined, [
-        {
-          key: 'path',
-          operator: FilterMethod.Equal,
-          value: item.path
-        },
-        {
-          key: 'name',
-          operator: FilterMethod.Equal,
-          value: item.name
-        }
-      ])
+      const itemDocument = await this.db.getDocuments(
+        'storage',
+        undefined,
+        undefined,
+        undefined,
+        [
+          {
+            key: 'path',
+            operator: FilterMethod.Equal,
+            value: item.path
+          },
+          {
+            key: 'name',
+            operator: FilterMethod.Equal,
+            value: item.name
+          }
+        ]
+      )
         .pipe(
           take(1),
           map(docs => docs[0])

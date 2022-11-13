@@ -84,10 +84,12 @@ export class StorageComponent implements OnInit {
       return;
     }
     const isItem = (event.target as HTMLElement).closest('.storage-item');
+
     if (!isItem) {
-      document.querySelectorAll('.storage-item.active').forEach(element => {
-        element.classList.remove('active');
-      });
+      document.querySelectorAll('.storage-item.active').forEach(element =>
+        element.classList.remove('active')
+      );
+      this.selection.clear();
     }
   }
 
@@ -435,7 +437,8 @@ export class StorageComponent implements OnInit {
     }
 
     (event.target as HTMLElement).closest('.storage-item').classList.toggle('active');
-    this.selection.select(item);
+    
+    this.selection.toggle(item);
   }
 
   async openInfoDialog(item: StorageItem) {

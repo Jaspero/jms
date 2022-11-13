@@ -18,6 +18,7 @@ export const fileCreated = functions
   })
   .storage.object()
   .onFinalize(async ({bucket, name, contentType, metadata, timeCreated, size}: ObjectMetadata) => {
+    const storageColl = firestore().collection('storage');
     const fileName = basename(name);
     const dirName = dirname(name);
     const folders = {};
@@ -34,8 +35,7 @@ export const fileCreated = functions
       createdOn: new Date(timeCreated).getTime(),
       size: Number(size || 0)
     };
-    const previousStorageDocument = await firestore()
-      .collection('storage')
+    const previousStorageDocument = await storageColl
       .where('name', '==', storageDocument.name)
       .where('path', '==', storageDocument.path).get().then(snapshot => {
         if (snapshot.empty) {
@@ -48,9 +48,9 @@ export const fileCreated = functions
       });
 
     if (previousStorageDocument) {
-      await firestore().collection('storage').doc(previousStorageDocument.id).set(storageDocument, {merge: true});
+      await storageColl.doc(previousStorageDocument.id).set(storageDocument, {merge: true});
     } else {
-      await firestore().collection('storage').add(storageDocument);
+      await storageColl.add(storageDocument);
     }
 
     /**
@@ -83,12 +83,12 @@ export const fileCreated = functions
     }
 
     for (const [_, folder] of Object.entries(folders)) {
-      const previousFolder = await firestore().collection('storage')
+      const previousFolder = await storageColl
         .where('name', '==', (folder as any).name)
         .where('path', '==', (folder as any).path).get();
 
       if (previousFolder.empty) {
-        await firestore().collection('storage').add(folder);
+        await storageColl.add(folder);
       }
     }
 

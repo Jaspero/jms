@@ -17,6 +17,7 @@ import {fileCreated} from './triggers/file-created';
 import {fileDeleted} from './triggers/file-deleted';
 import {fileMetadataUpdated} from './triggers/file-metadata-updated';
 import {roleUpdated} from './triggers/role-updated';
+import {storageItemDeleted} from './triggers/storage-item-deleted';
 import {userCreated} from './triggers/user-created';
 import {userDeleted} from './triggers/user-deleted';
 import {userDocumentUpdated} from './triggers/user-document-updated';
@@ -37,6 +38,7 @@ export const cms = {
   documentWrite,
   triggerPasswordReset,
   roleUpdated,
+  storageItemDeleted,
 
   // Callable
   createUser,
