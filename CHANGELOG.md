@@ -1,3 +1,10 @@
+# [6.12.0](https://github.com/jaspero/jms/compare/v6.11.0...v6.12.0) (2022-11-13)
+
+
+### Features
+
+* deleting folders also deleted all files in folder ([3a28867](https://github.com/jaspero/jms/commit/3a28867c55698e36253087f0fa44ac1c177e078e))
+
 # [6.11.0](https://github.com/jaspero/jms/compare/v6.10.0...v6.11.0) (2022-11-12)
 
 
