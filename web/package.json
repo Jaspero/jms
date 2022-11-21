@@ -22,12 +22,15 @@
     "@typescript-eslint/parser": "5.10.1",
     "eslint": "8.12.0",
     "eslint-plugin-svelte3": "4.0.0",
-    "firebase-admin": "10.2.0",
     "svelte": "3.48.0",
     "svelte-check": "2.7.1",
     "svelte-preprocess": "4.10.6",
     "tslib": "2.4.0",
     "typescript": "4.6.4"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "firebase": "9.14.0",
+    "firebase-admin": "10.2.0"
+  }
 }

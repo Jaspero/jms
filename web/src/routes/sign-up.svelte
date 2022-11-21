@@ -29,6 +29,8 @@
     visible = !visible;
     document.querySelector('#confirm-password').type = visible ? 'text' : 'password';
   }
+
+
 </script>
 
 

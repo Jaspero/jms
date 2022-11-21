@@ -1,10 +1,18 @@
-<script lang="ts">
+<script type="module" lang="ts">
   import { onMount } from 'svelte'
+  import { signInWithEmailAndPassword } from "firebase/auth";
+  import { auth } from '$lib/firebase-client';
+
+
+  let email = '';
+  let password = '';
+
 
   let dialog;
   let show = false;
   onMount(() => {
     dialog = document.getElementById('password-reset-dialog');
+
   })
 
   const showDialogClick = (asModal = true) => {
@@ -20,21 +28,15 @@
   };
 
 
-  function onSubmit(e) {
-    const formData = new FormData(e.target);
-
-    const data = {};
-    for (let field of formData) {
-      const [key, value] = field;
-      data[key] = value;
-    }
-    console.log(data)
+  async function onSubmit() {
+    await signInWithEmailAndPassword(auth, email, password);
   }
 
   const toggle1 = () => {
     show = !show;
     document.querySelector('#password').type = show ? 'text' : 'password';
   }
+
 
 </script>
 
@@ -45,11 +47,11 @@
     <form on:submit|preventDefault={onSubmit}>
       <label for="email">Email</label>
       <div class="wrapper">
-        <input type="text" id="email" name="email" value="" required />
+        <input type="email" id="email" name="email" bind:value={email} required />
       </div>
       <label for="password">Password</label>
       <div class="wrapper">
-        <input  id="password" type="password" name="password" minlength="6" required/>
+        <input  id="password" type="password" name="password" minlength="6" bind:value={password} required/>
         <button class="show-hide-btn" type="button" on:click|preventDefault={toggle1}>
           {#if show}
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -67,6 +69,7 @@
       <button class="forgot-dialog" on:click={() => showDialogClick(true)}>Forgot your password?</button>
       </div>
       <button class="submit-btn" type="submit">Submit</button>
+<!--      <button class="submit-btn" type="submit" on:click={loginWithGoogle()}>google</button>-->
     </form>
   </div>
     <dialog id="password-reset-dialog">
