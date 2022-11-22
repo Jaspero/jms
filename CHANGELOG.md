@@ -1,3 +1,10 @@
+## [6.12.1](https://github.com/jaspero/jms/compare/v6.12.0...v6.12.1) (2022-11-22)
+
+
+### Bug Fixes
+
+* **cms:** getDocumentsSimple not setting sort properly ([eae85fb](https://github.com/jaspero/jms/commit/eae85fb52f86167b74c7d484d5277b68d93b6477))
+
 # [6.12.0](https://github.com/jaspero/jms/compare/v6.11.0...v6.12.0) (2022-11-13)
 
 
