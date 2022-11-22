@@ -169,7 +169,7 @@ export class FbDatabaseService extends DbService {
         query(
           collection(this.firestore, moduleId),
           ...[
-            sort && orderBy(sort.active, sort.direction),
+            sort && orderBy(sort, 'asc'),
             filter && where(filter.key, filter.operator, filter.value)
           ]
             .filter(it => it)
