@@ -1,3 +1,10 @@
+## [6.12.2](https://github.com/jaspero/jms/compare/v6.12.1...v6.12.2) (2022-11-23)
+
+
+### Bug Fixes
+
+* finding child module when main is requested ([a3b00b7](https://github.com/jaspero/jms/commit/a3b00b753d4fd100fa7c4dc3a8157b95b64f08b4))
+
 ## [6.12.1](https://github.com/jaspero/jms/compare/v6.12.0...v6.12.1) (2022-11-22)
 
 
