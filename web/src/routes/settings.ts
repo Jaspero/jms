@@ -1,5 +1,6 @@
 import type {RequestHandler} from '@sveltejs/kit';
 import {getDocument} from '$lib/firebase';
+import {writable} from 'svelte/store';
 
 export const get: RequestHandler = async () => {
 	const data = await getDocument('settings', 'layout');
@@ -9,3 +10,5 @@ export const get: RequestHandler = async () => {
 		}
 	}
 };
+
+export const isLoggedIn = writable(false);

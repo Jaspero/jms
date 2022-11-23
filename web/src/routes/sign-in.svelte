@@ -2,17 +2,16 @@
   import { onMount } from 'svelte'
   import { signInWithEmailAndPassword } from "firebase/auth";
   import { auth } from '$lib/firebase-client';
+  import {goto} from '$app/navigation';
 
 
-  let email = '';
-  let password = '';
-
-
-  let dialog;
+  let email = ''
+  let password = ''
+  let user = ''
+  let dialog = false;
   let show = false;
   onMount(() => {
     dialog = document.getElementById('password-reset-dialog');
-
   })
 
   const showDialogClick = (asModal = true) => {
@@ -29,7 +28,16 @@
 
 
   async function onSubmit() {
-    await signInWithEmailAndPassword(auth, email, password);
+    await signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        goto('/');
+        // ...
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   const toggle1 = () => {

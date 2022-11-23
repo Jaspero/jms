@@ -1,13 +1,38 @@
 <script lang="ts">
+  import {createUserWithEmailAndPassword, onAuthStateChanged} from 'firebase/auth';
+  import { auth } from '$lib/firebase-client';
+  import { goto } from '$app/navigation';
+  import {onMount} from 'svelte';
+
+
+
+
   let valid = false;
   let error = ''
   let fields = {password: '', passwordConfirm: ''}
-  let email = "";
+
+  let user = "";
   let show = false;
   let visible = false;
+  let email = ''
+  let password = ''
 
-  const onSubmit = () => {
-    valid = true
+
+
+
+  async function onSubmit ()  {
+
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      goto('/');
+      // ...
+    })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
     if (fields.password !== fields.passwordConfirm) {
       valid = false;
       error = "Password do not match.";
@@ -16,7 +41,6 @@
       valid = true
     }
     if (valid) {
-      console.log('valid', fields)
     }
   }
 
@@ -41,10 +65,10 @@
       <label for="name">Name</label>
       <input type="text" id="name" name="name" bind:value={fields.name} />
       <label for="email">Email</label>
-      <input type="text" id="email" name="email" bind:value={fields.email} required/>
+      <input type="text" id="email" name="email" bind:value={email} required/>
       <label for="password">Password</label>
       <div class="wrapper">
-        <input  id="password" type="password" name="password" bind:value={fields.password}  minlength="6" required/>
+        <input  id="password" type="password" name="password" bind:value={password}  minlength="6" required/>
         <button class="show-hide-btn" type="button" on:click|preventDefault={toggle1}>
           {#if show}
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
