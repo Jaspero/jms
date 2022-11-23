@@ -8,6 +8,7 @@ firebase-debug.log*
 .idea
 dist
 public
+misc
 
 # Firebase cache
 .firebase/

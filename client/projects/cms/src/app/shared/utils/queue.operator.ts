@@ -30,7 +30,7 @@ export function queue(
 ): <T>(source$: Observable<T>) => Observable<T> {
   return <T>(source$: Observable<T>) => {
     return defer(() => {
-      addToQueue(name);
+      name = addToQueue(name);
 
       return source$.pipe(
         finalize(() =>
