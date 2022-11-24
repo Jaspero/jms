@@ -1,16 +1,5 @@
 <div>
 	<table [formGroup]="group">
-<!--		<tr>-->
-<!--			<td></td>-->
-<!--			<td></td>-->
-<!--			<td *ngFor="let perm of permissions">-->
-<!--				<mat-checkbox-->
-<!--					[checked]="initialColumnValues[perm.value]"-->
-<!--					(change)="toggleColumn(perm.value, $event)">-->
-<!--					{{perm.name | transloco}}-->
-<!--				</mat-checkbox>-->
-<!--			</td>-->
-<!--		</tr>-->
 		<tr *ngFor="let module of modules" [formGroupName]="module.id">
 			<td>
 				<div *ngIf="rowValues$ | async as rows">
