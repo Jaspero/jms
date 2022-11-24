@@ -4,6 +4,7 @@ import {FieldComponent, FieldData} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {MODULES} from '@definitions';
 import {MatCheckboxChange} from '@angular/material/checkbox';
+import {BehaviorSubject} from 'rxjs';
 
 @UntilDestroy()
 @Component({
@@ -32,7 +33,7 @@ export class PermissionsComponent extends FieldComponent<FieldData> implements O
   addedModules = [
     {id: '_search', name: 'SEARCH', permissions: ['list']}
   ];
-  initialRowValues = {};
+  rowValues$ = new BehaviorSubject({});
 
   ngOnInit() {
     const {value} = this.cData.control;
@@ -44,54 +45,89 @@ export class PermissionsComponent extends FieldComponent<FieldData> implements O
           list: new FormControl(value[cur.id]?.list || false),
           create: new FormControl(value[cur.id]?.create || false),
           update: new FormControl(value[cur.id]?.update || false),
-          delete: new FormControl(value[cur.id]?.delete || false),
+          delete: new FormControl(value[cur.id]?.delete || false)
         });
         return acc;
       }, {})
     );
 
-    this.initialRowValues = this.modules.reduce((acc, cur) => {
-      acc[cur.id] = Object.values(value[cur.id]).every(it => it);
+    const modulesValues = this.modules.reduce((acc, cur) => {
+      acc[cur.id] = {
+        checked: Object.values(this.group.value[cur.id]).every(it => it),
+        indeterminate: Object.values(this.group.value[cur.id]).some(it => it) && !Object.values(this.group.value[cur.id]).every(it => it)
+      };
       return acc;
     }, {});
 
+    const addedModulesValues = {};
+
     this.addedModules.forEach(it => {
-      this.initialRowValues[it.id] = Object.values(value[it.id]).every(it => it);
+      addedModulesValues[it.id] = {
+        checked: Object.values(this.group.value[it.id]).every(it => it),
+        indeterminate: Object.values(this.group.value[it.id]).some(it => it) && !Object.values(this.group.value[it.id]).every(it => it)
+      };
+    });
+
+    this.rowValues$.next({
+      ...modulesValues,
+      ...addedModulesValues
     });
 
     this.group
       .valueChanges
       .pipe(untilDestroyed(this))
       .subscribe(value => {
-        this.cData.control.setValue(
-          Object.entries(value)
-            .reduce((acc, [k, v]) => {
-              const final = this.permissions.reduce((a, c) => {
+          this.cData.control.setValue(
+            Object.entries(value)
+              .reduce((acc, [k, v]) => {
+                const final = this.permissions.reduce((a, c) => {
 
-                if (v[c.value]) {
-                  a[c.value] = true;
+                  if (v[c.value]) {
+                    a[c.value] = true;
+                  }
+
+                  return a;
+                }, {});
+
+                if (Object.keys(final).length) {
+                  acc[k] = final;
                 }
 
-                return a;
-              }, {});
-
-              if (Object.keys(final).length) {
-                acc[k] = final;
-              }
-
-              return acc;
-            }, {})
-        );
+                return acc;
+              }, {})
+          );
         }
       );
   }
 
-  toggleRow(id: string, event: MatCheckboxChange) {
-    this.group.get(id).setValue(
-      this.permissions.reduce((acc, cur) => {
-        acc[cur.value] = event.checked;
-        return acc;
-      }, {})
-    );
+  toggleRow(event: MatCheckboxChange, collection: string) {
+      this.group.get(collection).setValue(
+        this.permissions.reduce((acc, cur) => {
+          acc[cur.value] = event.checked;
+          return acc;
+        }, {})
+      );
+
+      this.rowValues$.next({
+        ...this.rowValues$.value,
+        [collection]: {
+          checked: event.checked,
+          indeterminate: false
+        }
+      });
+  }
+
+  updateRow(collection: string) {
+    const values = Object.values(this.group.value[collection]);
+    const checked = values.every(it => it);
+    const indeterminate = values.some(it => it) && !values.every(it => it);
+
+    this.rowValues$.next({
+      ...this.rowValues$.value,
+      [collection]: {
+        checked,
+        indeterminate
+      }
+    });
   }
 }

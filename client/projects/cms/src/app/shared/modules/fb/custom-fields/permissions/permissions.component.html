@@ -1,22 +1,49 @@
 <div>
 	<table [formGroup]="group">
+<!--		<tr>-->
+<!--			<td></td>-->
+<!--			<td></td>-->
+<!--			<td *ngFor="let perm of permissions">-->
+<!--				<mat-checkbox-->
+<!--					[checked]="initialColumnValues[perm.value]"-->
+<!--					(change)="toggleColumn(perm.value, $event)">-->
+<!--					{{perm.name | transloco}}-->
+<!--				</mat-checkbox>-->
+<!--			</td>-->
+<!--		</tr>-->
 		<tr *ngFor="let module of modules" [formGroupName]="module.id">
 			<td>
-				<mat-checkbox [checked]="initialRowValues[module.id]" (change)="toggleRow(module.id, $event)"></mat-checkbox>
+				<div *ngIf="rowValues$ | async as rows">
+					<mat-checkbox
+						[checked]="rows[module.id].checked"
+						[indeterminate]="rows[module.id].indeterminate"
+						(change)="toggleRow($event, module.id)"
+					></mat-checkbox>
+				</div>
 			</td>
 			<th>{{module.name | transloco}}</th>
 			<td *ngFor="let perm of permissions">
-				<mat-checkbox [formControlName]="perm.value">{{perm.name | transloco}}</mat-checkbox>
+				<mat-checkbox
+					[formControlName]="perm.value"
+					(change)="updateRow(module.id)">
+					{{perm.name | transloco}}</mat-checkbox>
 			</td>
 		</tr>
 		<tr *ngFor="let module of addedModules" [formGroupName]="module.id">
 			<td>
-				<mat-checkbox [checked]="initialRowValues[module.id]" (change)="toggleRow(module.id, $event)"></mat-checkbox>
+				<div *ngIf="rowValues$ | async as rows">
+					<mat-checkbox
+						[checked]="rows[module.id].checked"
+						[indeterminate]="rows[module.id].indeterminate"
+						(change)="toggleRow($event, module.id)"
+					></mat-checkbox>
+				</div>
 			</td>
 			<th>{{module.name | transloco}}</th>
 			<td *ngFor="let perm of permissions">
 				<mat-checkbox
 					*ngIf="module.permissions.includes(perm.value)"
+					(change)="updateRow(module.id)"
 					[formControlName]="perm.value">
 					{{perm.name | transloco}}
 				</mat-checkbox>
