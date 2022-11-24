@@ -7,11 +7,11 @@
     <mat-card>
       <mat-card-title>
         <div class="flex ai-center">
-          <div class="flex jc-start ai-center" *ngIf="activatedRoute.data | async as data">
+          <div class="flex jc-start ai-center">
             <button mat-icon-button (click)="navigateTo('')">
               <mat-icon>home</mat-icon>
             </button>
-            <ng-container *ngIf="data.route as routes">
+            <ng-container *ngIf="storageState.routes | async as routes">
               <mat-icon>chevron_right</mat-icon>
               <div *ngFor="let route of routes; trackBy: trackByName; index as index" class="flex ai-center">
                 <button mat-flat-button (click)="navigateTo(route)">{{route}}</button>
@@ -71,6 +71,11 @@
             <mat-card class="storage-item file" [tabIndex]="items.folders.length + index + 1" style="padding: 0;"
               (mousedown)="focusItem($event, file)" (contextmenu)="openItemContextMenu($event, file, items.files)"
               (dblclick)="previewItem(file)">
+
+              <div class="storage-item-checkbox" *ngIf="configuration">
+                <mat-checkbox (click)="stopPropagation($event)" [checked]="fileSelection.isSelected(file)" (change)="toggleSelectedFile(file, $event)"></mat-checkbox>
+              </div>
+
               <div class="storage-item-file flex fd-col">
                 <div class="storage-item-preview w-full" style="height: calc(100% - 48px);">
                   <jms-file-preview [file]="file"></jms-file-preview>
@@ -88,6 +93,10 @@
           </div>
         </div>
       </ng-container>
+    </div>
+
+    <div *ngIf="configuration" class="flex jc-end">
+      <button mat-flat-button color="primary" (click)="select()">{{'SELECT' | transloco}}</button>
     </div>
   </div>
 </section>

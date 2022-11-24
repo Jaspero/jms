@@ -49,6 +49,7 @@
     height: 100%;
     overflow: hidden;
     color: rgba(0, 0, 0, 0.65);
+    position: relative;
 
     &.active {
       color: #1967d2;
@@ -74,6 +75,12 @@
     &-file {
       aspect-ratio: 1 / 1;
       width: 100%;
+    }
+
+    &-checkbox {
+      position: absolute;
+      top: 10px;
+      left: 15px;
     }
   }
 }

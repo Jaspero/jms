@@ -25,7 +25,6 @@ import {RouterModule} from '@angular/router';
 import {LoadClickModule, SanitizeModule, StopPropagationModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
 import {STATIC_CONFIG} from '../../environments/static-config';
-import {FileManagerModule} from '../modules/dashboard/modules/file-manager/file-manager.module';
 import {StorageModule} from '../modules/dashboard/modules/storage/storage.module';
 import {EvalModule} from '../shared/modules/eval/eval.module';
 import {FormBuilderSharedModule} from '../shared/modules/fb/form-builder-shared.module';
@@ -36,7 +35,6 @@ import {ChangePasswordComponent} from './change-password/change-password.compone
 import {ColumnOrganizationComponent} from './column-organization/column-organization.component';
 import {ELEMENTS} from './element.decorator';
 import {ExportComponent} from './export/export.component';
-import {FileManagerSelectComponent} from './file-manager-select/file-manager-select.component';
 import {FilterDialogComponent} from './filter-dialog/filter-dialog.component';
 import {FilterTagsComponent} from './filter-tags/filter-tags.component';
 import {ImpersonateComponent} from './impersonate/impersonate.component';
@@ -63,7 +61,6 @@ import {UserAddComponent} from './user-add/user-add.component';
      * needs to be imported here
      */
     StorageModule,
-    FileManagerModule,
 
     FormBuilderSharedModule,
 
@@ -120,7 +117,6 @@ import {UserAddComponent} from './user-add/user-add.component';
     UserActionsComponent,
     ChangeEmailComponent,
     NewPrepopulateComponent,
-    FileManagerSelectComponent,
     ImpersonateComponent,
     SampleEmailComponent,
     StorageSelectComponent

@@ -5,6 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -63,6 +64,7 @@ import {FolderIconPipe} from './pipes/folder-icon/folder-icon.pipe';
     MatAutocompleteModule,
     MatSelectModule,
     MatMenuModule,
+    MatCheckboxModule,
 
     TranslocoModule
   ],

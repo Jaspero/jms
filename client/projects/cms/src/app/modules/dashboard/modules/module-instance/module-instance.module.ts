@@ -19,7 +19,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSortModule} from '@angular/material/sort';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {RouteReuseStrategy, RouterModule} from '@angular/router';
+import {RouterModule} from '@angular/router';
 import {JMSPNotesModule} from '@jaspero/jmsp-notes';
 import {LoadClickModule, SanitizeModule, StopPropagationModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
@@ -27,7 +27,6 @@ import {ElementsModule} from '../../../../elements/elements.module';
 import {EvalModule} from '../../../../shared/modules/eval/eval.module';
 import {FormBuilderSharedModule} from '../../../../shared/modules/fb/form-builder-shared.module';
 import {SearchInputModule} from '../../../../shared/modules/search-input/search-input.module';
-import {FileManagerModule} from '../file-manager/file-manager.module';
 import {CanReadModuleGuard} from './guards/can-read-module/can-read-module.guard';
 import {ConfirmExitGuard} from './guards/confirm-exit/confirm-exit.guard';
 import {CustomModuleGuard} from './guards/custom-module/custom-module.guard';
@@ -162,7 +161,6 @@ function routes(deep = 10) {
      * External
      */
     TranslocoModule,
-    FileManagerModule,
     EvalModule
   ]
 })

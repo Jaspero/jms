@@ -15,7 +15,8 @@ import {
 } from '@angular/core';
 import {ref, Storage, updateMetadata} from '@angular/fire/storage';
 import {FormControl, Validators} from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
+import {MatCheckboxChange} from '@angular/material/checkbox';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import {FilterMethod, StorageItem} from '@definitions';
 import {random} from '@jaspero/utils';
@@ -25,8 +26,11 @@ import {BehaviorSubject, combineLatest, distinctUntilChanged, from, map, Observa
 import {filter, shareReplay, switchMap, take, tap} from 'rxjs/operators';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
+import {StorageStateEmulator} from '../../services/storage/storage-state-emulated';
+import {StorageStateRouter} from '../../services/storage/storage-state-router';
 import {StorageService} from '../../services/storage/storage.service';
 import {FileSelectConfiguration} from '../../types/file-select-configuration.interface';
+import {StorageState} from '../../types/storage-state';
 import {FullFilePreviewComponent} from '../full-file-preview/full-file-preview.component';
 
 @UntilDestroy()
@@ -39,7 +43,7 @@ import {FullFilePreviewComponent} from '../full-file-preview/full-file-preview.c
 export class StorageComponent implements OnInit {
   constructor(
     public storage: StorageService,
-    public activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private db: DbService,
     private dialog: MatDialog,
     private cdr: ChangeDetectorRef,
@@ -78,8 +82,11 @@ export class StorageComponent implements OnInit {
   selection = new SelectionModel<StorageItem>(true);
   filesOver$: Observable<boolean>;
   filesOverNext$ = new BehaviorSubject(false);
+  storageState: StorageState;
+  fileSelection = new SelectionModel<StorageItem>(true);
 
   @Input() configuration: FileSelectConfiguration;
+  @Input() dialogRef: MatDialogRef<any>;
 
   @HostListener('document:mousedown', ['$event'])
   click(event: MouseEvent) {
@@ -99,10 +106,18 @@ export class StorageComponent implements OnInit {
   ngOnInit() {
     this.routeControl = new FormControl('');
 
-    this.activatedRoute.data.pipe().subscribe((data) => {
-      const routes = (data as any)?.route || [];
-      this.routeControl.setValue(routes.join('/'));
-    });
+    this.storageState = this.configuration ? 
+      new StorageStateEmulator(this.routeControl) :
+      new StorageStateRouter(this.router, this.activatedRoute);
+
+    this.activatedRoute.data
+      .pipe(
+        untilDestroyed(this)
+      )
+      .subscribe(data => {
+        const routes = (data as any)?.route || [];
+        this.routeControl.setValue(routes.join('/'));
+      });
 
     this.filesOver$ = this.filesOverNext$
       .pipe(
@@ -346,7 +361,7 @@ export class StorageComponent implements OnInit {
       }
     }
 
-    this.router.navigate(path, extras);
+    this.storageState.navigateTo(path, extras);
   }
 
   mouseEnterDownload(download: StorageItem) {
@@ -716,6 +731,39 @@ export class StorageComponent implements OnInit {
 
   filesHovered(event: boolean | DragEvent) {
     this.filesOverNext$.next(event ? (event as DragEvent).dataTransfer?.types.includes('Files') : false);
+  }
+
+  async select() {
+    if (this.fileSelection.isEmpty()) {
+      return;
+    }
+
+    const urls = await Promise.all(
+      this.fileSelection.selected.map(item =>
+        this.storage.download(item)
+      )
+    );
+
+    this.dialogRef.close({
+      type: 'url',
+      url: urls[0],
+      name: this.fileSelection.selected[0].name,
+      direct: true
+    });
+  }
+
+  stopPropagation(e: MouseEvent) {
+    e.stopPropagation();
+  }
+
+  toggleSelectedFile(file: StorageItem, e: MatCheckboxChange) {
+    if (this.configuration.multiple) {
+      this.fileSelection.toggle(file);
+      return;
+    }
+
+    this.fileSelection.clear();
+    this.fileSelection[e.checked ? 'select' : 'deselect'](file);
   }
 
   async removeItem(data: {item: StorageItem, items: StorageItem[]}) {

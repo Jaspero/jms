@@ -41,11 +41,6 @@ const routes: Routes = [{
           .then(m => m.ModuleInstanceModule)
     },
     {
-      path: 'file-manager',
-      loadChildren: () => import('./modules/file-manager/file-manager.module')
-        .then(m => m.FileManagerModule)
-    },
-    {
       path: 'storage',
       loadChildren: () => import('./modules/storage/storage-routing.module')
         .then(m => m.StorageRoutingModule)

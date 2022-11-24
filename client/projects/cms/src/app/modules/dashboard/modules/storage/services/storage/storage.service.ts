@@ -28,16 +28,19 @@ export class StorageService {
   uploadProcesses: {[key: string]: UploadTask} = {};
   downloadProcesses: {[key: string]: Subscription} = {};
 
+  download(item: StorageItem) {
+    const storageInstance = getStorage();
+    const path = item.path === '.' ? item.name : `${item.path}/${item.name}`;
+
+    return this.storage.getDownloadURL(ref(storageInstance, path));
+  }
+
   downloadItem(item: StorageItem) {
     if (item.type === 'folder') {
       return console.log('Cannot download folder');
     }
 
-    const storageInstance = getStorage();
-    const path = item.path === '.' ? item.name : `${item.path}/${item.name}`;
-
     const id = random.string(8);
-
     const percent$ = new BehaviorSubject(0);
 
     this.ngZone.run(() => {
@@ -49,7 +52,7 @@ export class StorageService {
       }]);
     });
 
-    this.storage.getDownloadURL(ref(storageInstance, path)).then(async (url) => {
+    this.download(item).then(async url => {
 
       this.downloads$.next(
         this.downloads$.value.map(download => {

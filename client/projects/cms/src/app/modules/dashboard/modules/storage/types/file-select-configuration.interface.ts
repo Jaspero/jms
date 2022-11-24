@@ -3,4 +3,5 @@ export interface FileSelectConfiguration {
 	hidePath?: boolean;
 	filters?: any[];
 	allowUpload?: boolean;
+	multiple?: boolean;
 }
