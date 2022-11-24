@@ -217,7 +217,21 @@ export const USERS_MODULE: Module = {
       component: {
         type: 'image',
         configuration: {
-          filePrefix: '/users'
+          filePrefix: '/users',
+          maxSize: 10485760,
+          uploadMethods: [{
+            id: 'storage',
+            label: 'Storage',
+            component: JSX(<jms-e-storage-select />),
+            configuration: {
+              route: '/users',
+              hidePath: false,
+              filters: [{
+                value: (file) => file.contentType.startsWith('image/')
+              }],
+              allowUpload: false
+            }
+          }]
         }
       }
     },

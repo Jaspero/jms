@@ -26,6 +26,7 @@ import {filter, shareReplay, switchMap, take, tap} from 'rxjs/operators';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
 import {StorageService} from '../../services/storage/storage.service';
+import {FileSelectConfiguration} from '../../types/file-select-configuration.interface';
 import {FullFilePreviewComponent} from '../full-file-preview/full-file-preview.component';
 
 @UntilDestroy()
@@ -77,6 +78,8 @@ export class StorageComponent implements OnInit {
   selection = new SelectionModel<StorageItem>(true);
   filesOver$: Observable<boolean>;
   filesOverNext$ = new BehaviorSubject(false);
+
+  @Input() configuration: FileSelectConfiguration;
 
   @HostListener('document:mousedown', ['$event'])
   click(event: MouseEvent) {

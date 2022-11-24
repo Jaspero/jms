@@ -1,10 +1,10 @@
-<mat-toolbar role="heading" color="primary">
+<mat-toolbar role="heading" color="primary" *ngIf="!configuration">
   <span>{{title | transloco}}</span>
   <div class="flex-1"></div>
 </mat-toolbar>
 <section class="storage">
   <div class="container">
-    <mat-card style="padding: 4px">
+    <mat-card>
       <mat-card-title>
         <div class="flex ai-center">
           <div class="flex jc-start ai-center" *ngIf="activatedRoute.data | async as data">
@@ -49,9 +49,9 @@
 
         <!-- Folders -->
         <p class="storage-subheader m-t-s" *ngIf="items.folders.length">{{'FOLDERS' | transloco}}</p>
-        <div class="grid jc-start p-a-0">
+        <div class="c-grid jc-start p-a-0">
           <div *ngFor="let folder of items.folders; trackBy: trackByPath; index as index"
-            class="col-3 col-s-6 col-xs-12">
+            class="c-column">
             <mat-card class="storage-item" [tabIndex]="index + 1" (mousedown)="focusItem($event, folder)"
               (dblclick)="navigateTo(folder, true)" (contextmenu)="openItemContextMenu($event, folder, items.folders)">
               <div class="flex jc-start ai-center">
@@ -66,8 +66,8 @@
 
         <!-- Files -->
         <p class="storage-subheader m-t-s" *ngIf="items.files.length">{{'FILES' | transloco}}</p>
-        <div class="grid jc-start p-a-0">
-          <div *ngFor="let file of items.files; trackBy: trackByPath; index as index" class="col-3 col-s-6 col-xs-12">
+        <div class="c-grid jc-start p-a-0">
+          <div *ngFor="let file of items.files; trackBy: trackByPath; index as index" class="c-column">
             <mat-card class="storage-item file" [tabIndex]="items.folders.length + index + 1" style="padding: 0;"
               (mousedown)="focusItem($event, file)" (contextmenu)="openItemContextMenu($event, file, items.files)"
               (dblclick)="previewItem(file)">

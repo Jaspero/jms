@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FormBuilderComponent, FormBuilderData} from '@jaspero/form-builder';
 import {notify} from '@shared/utils/notify.operator';
-import {Collections} from '@definitions';
+import {Collections, JSX} from '@definitions';
 import {switchMap} from 'rxjs/operators';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
@@ -41,7 +41,21 @@ export class ProfileInformationComponent {
         component: {
           type: 'image',
           configuration: {
-            maxSize: 10485760
+            maxSize: 10485760,
+            filePrefix: '/users',
+            uploadMethods: [{
+              id: 'storage',
+              label: 'Storage',
+              component: JSX(<jms-e-storage-select />),
+              configuration: {
+                route: '/users',
+                hidePath: false,
+                filters: [{
+                  value: (file) => file.contentType.startsWith('image/')
+                }],
+                allowUpload: false
+              }
+            }]
           }
         }
       }
