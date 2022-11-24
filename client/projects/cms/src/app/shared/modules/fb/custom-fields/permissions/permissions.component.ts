@@ -35,6 +35,7 @@ export class PermissionsComponent extends FieldComponent<FieldData> implements O
   ];
   rowValues$ = new BehaviorSubject({});
   columnValues$ = new BehaviorSubject(null);
+  overallValues$ = new BehaviorSubject({});
 
   ngOnInit() {
     const {value} = this.cData.control;
@@ -54,6 +55,7 @@ export class PermissionsComponent extends FieldComponent<FieldData> implements O
 
     this.rowValues$.next(this.updateRows());
     this.columnValues$.next(this.updateColumns());
+    this.overallValues$.next(this.getOverallValues());
 
     this.group
       .valueChanges
@@ -81,6 +83,7 @@ export class PermissionsComponent extends FieldComponent<FieldData> implements O
 
           this.columnValues$.next(this.updateColumns());
           this.rowValues$.next(this.updateRows());
+          this.overallValues$.next(this.getOverallValues());
         }
       );
   }
@@ -169,5 +172,44 @@ export class PermissionsComponent extends FieldComponent<FieldData> implements O
       };
       return acc;
     }, {});
+  }
+
+  toggleAll(event: MatCheckboxChange) {
+    this.modules.forEach(it => {
+      this.group.get(it.id).setValue(
+        this.permissions.reduce((acc, cur) => {
+          acc[cur.value] = event.checked;
+          return acc;
+        }, {})
+      );
+    });
+
+    this.addedModules.forEach(it => {
+      this.group.get(it.id).setValue(
+        this.permissions.reduce((acc, cur) => {
+          acc[cur.value] = event.checked;
+          return acc;
+        }, {})
+      );
+    });
+
+    this.rowValues$.next(this.updateRows());
+    this.columnValues$.next(this.updateColumns());
+  }
+
+  getOverallValues() {
+    const values = [];
+    for (const module of this.modules) {
+      values.push(Object.values(this.group.value[module.id]).every(it => it));
+    }
+
+    for (const module of this.addedModules) {
+      values.push(module.permissions.every(p => this.group.value[module.id][p]));
+    }
+
+    return {
+      checked: values.every(it => it),
+      indeterminate: values.some(it => it) && !values.every(it => it)
+    };
   }
 }
