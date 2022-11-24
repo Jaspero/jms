@@ -1,3 +1,10 @@
+# [7.1.0](https://github.com/jaspero/jms/compare/v7.0.0...v7.1.0) (2022-11-24)
+
+
+### Features
+
+* **cms:** permission checkboxes closes [#426](https://github.com/jaspero/jms/issues/426) ([3e97953](https://github.com/jaspero/jms/commit/3e979530c362a9d295e86fb39d575182643d7446))
+
 # [7.0.0](https://github.com/jaspero/jms/compare/v6.14.0...v7.0.0) (2022-11-24)
 
 
