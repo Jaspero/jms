@@ -1,3 +1,17 @@
+# [6.14.0](https://github.com/jaspero/jms/compare/v6.13.1...v6.14.0) (2022-11-24)
+
+
+### Features
+
+* **permissions:** add toggle for collection row [#426](https://github.com/jaspero/jms/issues/426) ([ed5aaa2](https://github.com/jaspero/jms/commit/ed5aaa2f12c8f48c31e4dc798eb9be58aeba76ff))
+
+## [6.13.1](https://github.com/jaspero/jms/compare/v6.13.0...v6.13.1) (2022-11-24)
+
+
+### Bug Fixes
+
+* **cms:** fix storage item height ([78dbc87](https://github.com/jaspero/jms/commit/78dbc8721209957ece5add2257f008c9e357794a))
+
 # [6.13.0](https://github.com/jaspero/jms/compare/v6.12.2...v6.13.0) (2022-11-24)
 
 
