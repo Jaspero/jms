@@ -1,3 +1,15 @@
+# [6.13.0](https://github.com/jaspero/jms/compare/v6.12.2...v6.13.0) (2022-11-24)
+
+
+### Bug Fixes
+
+* **cms:** queue not emptying ([d522312](https://github.com/jaspero/jms/commit/d52231274b149f5c06d3ad8adae2630e8fe9f9b8))
+
+
+### Features
+
+* **cms:** storage adjustments for file selection ([684811b](https://github.com/jaspero/jms/commit/684811b9faff6fb3bcd54f8f65b8dc75d739f5c7))
+
 ## [6.12.2](https://github.com/jaspero/jms/compare/v6.12.1...v6.12.2) (2022-11-23)
 
 
