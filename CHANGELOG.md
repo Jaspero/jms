@@ -1,3 +1,10 @@
+## [6.13.1](https://github.com/jaspero/jms/compare/v6.13.0...v6.13.1) (2022-11-24)
+
+
+### Bug Fixes
+
+* **cms:** fix storage item height ([78dbc87](https://github.com/jaspero/jms/commit/78dbc8721209957ece5add2257f008c9e357794a))
+
 # [6.13.0](https://github.com/jaspero/jms/compare/v6.12.2...v6.13.0) (2022-11-24)
 
 
