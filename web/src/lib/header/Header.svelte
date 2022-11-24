@@ -2,7 +2,7 @@
 	import { auth } from '$lib/firebase-client';
 	import { signOut } from "firebase/auth";
 	import {goto} from '$app/navigation';
-	import {isLoggedIn} from '../../routes/settings';
+	import {isLoggedIn} from '../firebase-client';
 
 	export let links: Array<{label: string; link: string}>;
 
@@ -19,15 +19,23 @@
 <header>
 	<nav>
 		<ul>
-			{#each links as link}
-				<li>
-					<a href={link.link}>{link.label}</a>
-				</li>
-			{/each}
-			{#if $isLoggedIn}
+
+				{#if $isLoggedIn}
+				{#each links as link}
+					<li>
+						<a href={link.link}>{link.label}</a>
+					</li>
+				{/each}
 				<li class='sing-out'>
 					<a href='' on:click|preventDefault={logOut}>sign out</a>
 				</li>
+					{:else}
+					<li>
+						<a href="/sign-in">Sign in</a>
+					</li>
+					<li>
+						<a href="/sign-up">Sign up</a>
+					</li>
 			{/if}
 		</ul>
 	</nav>

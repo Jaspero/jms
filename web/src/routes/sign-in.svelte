@@ -1,30 +1,25 @@
 <script type="module" lang="ts">
   import { onMount } from 'svelte'
-  import { signInWithEmailAndPassword } from "firebase/auth";
+  import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
   import { auth } from '$lib/firebase-client';
   import {goto} from '$app/navigation';
+  import {notificationWrapper} from '../lib/notification/notification';
+  import Dialog from '$lib/Dialog.svelte';
+  import Button from '$lib/Button.svelte';
 
 
   let email = ''
   let password = ''
-  let user = ''
-  let dialog = false;
+  let loading = false;
+
+  let rEmail = '';
+  let rLoading = false;
+  let rDialog = false;
+
   let show = false;
-  onMount(() => {
-    dialog = document.getElementById('password-reset-dialog');
-  })
 
-  const showDialogClick = (asModal = true) => {
-    try {
-      dialog[asModal ? 'showModal' : 'show']();
-    } catch(e) {
-      (e.message);
-    }
-  };
 
-  const closeClick = () => {
-    dialog.close();
-  };
+
 
 
   async function onSubmit() {
@@ -38,6 +33,29 @@
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  async function resetPassword() {
+    rEmail = rEmail.trim().toLowerCase();
+
+    if (!rEmail) {
+      return;
+    }
+
+    rLoading = true;
+
+    try {
+      await notificationWrapper(
+        sendPasswordResetEmail(auth, email, {url: `${location.origin}/reset-password`}),
+        'A password reset link has been sent to your email.'
+      );
+
+      rDialog = false;
+    } catch (e) {
+      console.error(e);
+    }
+
+    rLoading = false;
   }
 
   const toggle1 = () => {
@@ -74,27 +92,17 @@
         </button>
       </div>
       <div class="btn-wrapper">
-      <button class="forgot-dialog" on:click={() => showDialogClick(true)}>Forgot your password?</button>
+        <button class="forgot-dialog"  on:click={() => rDialog = true}>Forgot your password?</button>
       </div>
-      <button class="submit-btn" type="submit">Submit</button>
-<!--      <button class="submit-btn" type="submit" on:click={loginWithGoogle()}>google</button>-->
+      <button class="submit-btn" type="submit" {loading}>Submit</button>
     </form>
   </div>
-    <dialog id="password-reset-dialog">
-      <h1>Forgot password ?</h1>
-      <p>Enter your registered email to reset your password.</p>
-      <form action="submit">
-        <input class="dialog-input" type="email" id="password-reset" name="password-reset" value="" required/>
-        <div on:click={closeClick} class="close">
-          <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-            <g data-name="Layer 2">
-              <path d="m13.41 12 4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z" data-name="close"/>
-            </g>
-          </svg>
-        </div>
-        <button class="forgot-psw-btn" type="submit">Send</button>
-      </form>
-    </dialog>
+  <Dialog bind:opened={rDialog} showConfirmation={false} title="Zaboravili lozinku?" subtitle="Upišite vaš email ispod i instrukcije za resetiranje će vam biti poslane.">
+    <form slot="content" on:submit|preventDefault={resetPassword}>
+      <input type="email" name="email" required bind:value={rEmail} />
+      <Button type='submit' loading={rLoading}>Reset password</Button>
+    </form>
+  </Dialog>
 </section>
 
 <style>
@@ -157,7 +165,7 @@
   }
 
   input{
-      border: 1px solid white;
+      border: 1px solid black;
       outline: none;
       border-radius: 8px;
       padding: 15px;
@@ -184,13 +192,6 @@
     font-size: 40px;
   }
 
-  .dialog-input {
-    width: 100%;
-    border: 1px solid black;
-    padding: 10px 15px;
-    margin: 10px 0;
-  }
-
   .forgot-dialog {
     background: none;
     outline: none;
@@ -201,41 +202,6 @@
 
   .forgot-dialog:hover {
     text-decoration: underline;
-  }
-
-  dialog {
-    border-radius: 5px;
-    border: none;
-    transition: all 2s;
-    background: white;
-    padding: 20px;
-      position: relative;
-  }
-  dialog::backdrop {
-      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7));
-      animation: fade-in 1s;
-  }
-
-  .forgot-psw-btn {
-      border: 1px solid #1C7ED6;
-      border-radius: 4px;
-      outline: none;
-      background: none;
-      font-size: 20px;
-      padding:10px 15px;
-      color: black;
-  }
-
-  .close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
   }
 
 

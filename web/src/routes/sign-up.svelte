@@ -4,18 +4,12 @@
   import { goto } from '$app/navigation';
   import {onMount} from 'svelte';
 
-
-
-
-  let valid = false;
   let error = ''
   let fields = {password: '', passwordConfirm: ''}
-
-  let user = "";
+  let email = '';
+  let password = '';
   let show = false;
   let visible = false;
-  let email = ''
-  let password = ''
 
 
 
@@ -29,19 +23,17 @@
       goto('/');
       // ...
     })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+      .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode == 'auth/weak-password') {
+          alert('The password is too weak.');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
       });
-    if (fields.password !== fields.passwordConfirm) {
-      valid = false;
-      error = "Password do not match.";
-    }else {
-      error = ''
-      valid = true
-    }
-    if (valid) {
-    }
   }
 
   const toggle1 = () => {
