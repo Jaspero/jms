@@ -46,9 +46,8 @@
   &-item {
     user-select: none;
     border-radius: 8px;
-
+    height: 100%;
     overflow: hidden;
-
     color: rgba(0, 0, 0, 0.65);
 
     &.active {
@@ -119,8 +118,8 @@
 
 .c-column {
   width: 25%;
+  height: 100%;
   padding: 10px;
-  container-type: inline-size;
 
   @container (max-width: $screen-s) {
     width: 50%;
