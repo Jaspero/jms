@@ -1,5 +1,17 @@
 <div>
 	<table [formGroup]="group">
+		<tr>
+			<td></td>
+			<td></td>
+			<td *ngFor="let permission of permissions">
+				<mat-checkbox
+					[checked]="(columnValues$ | async)[permission.value].checked"
+					[indeterminate]="(columnValues$ | async)[permission.value].indeterminate"
+					(change)="toggleColumn(permission.value, $event)"
+				>
+					{{permission.name}}</mat-checkbox>
+			</td>
+		</tr>
 		<tr *ngFor="let module of modules" [formGroupName]="module.id">
 			<td>
 				<div *ngIf="rowValues$ | async as rows">
@@ -12,9 +24,7 @@
 			</td>
 			<th>{{module.name | transloco}}</th>
 			<td *ngFor="let perm of permissions">
-				<mat-checkbox
-					[formControlName]="perm.value"
-					(change)="updateRow(module.id)">
+				<mat-checkbox [formControlName]="perm.value">
 					{{perm.name | transloco}}</mat-checkbox>
 			</td>
 		</tr>

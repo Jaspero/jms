@@ -34,6 +34,7 @@ export class PermissionsComponent extends FieldComponent<FieldData> implements O
     {id: '_search', name: 'SEARCH', permissions: ['list']}
   ];
   rowValues$ = new BehaviorSubject({});
+  columnValues$ = new BehaviorSubject(null);
 
   ngOnInit() {
     const {value} = this.cData.control;
@@ -51,27 +52,8 @@ export class PermissionsComponent extends FieldComponent<FieldData> implements O
       }, {})
     );
 
-    const modulesValues = this.modules.reduce((acc, cur) => {
-      acc[cur.id] = {
-        checked: Object.values(this.group.value[cur.id]).every(it => it),
-        indeterminate: Object.values(this.group.value[cur.id]).some(it => it) && !Object.values(this.group.value[cur.id]).every(it => it)
-      };
-      return acc;
-    }, {});
-
-    const addedModulesValues = {};
-
-    this.addedModules.forEach(it => {
-      addedModulesValues[it.id] = {
-        checked: Object.values(this.group.value[it.id]).every(it => it),
-        indeterminate: Object.values(this.group.value[it.id]).some(it => it) && !Object.values(this.group.value[it.id]).every(it => it)
-      };
-    });
-
-    this.rowValues$.next({
-      ...modulesValues,
-      ...addedModulesValues
-    });
+    this.rowValues$.next(this.updateRows());
+    this.columnValues$.next(this.updateColumns());
 
     this.group
       .valueChanges
@@ -96,38 +78,96 @@ export class PermissionsComponent extends FieldComponent<FieldData> implements O
                 return acc;
               }, {})
           );
+
+          this.columnValues$.next(this.updateColumns());
+          this.rowValues$.next(this.updateRows());
         }
       );
   }
 
   toggleRow(event: MatCheckboxChange, collection: string) {
-      this.group.get(collection).setValue(
-        this.permissions.reduce((acc, cur) => {
-          acc[cur.value] = event.checked;
-          return acc;
-        }, {})
-      );
+    this.group.get(collection).setValue(
+      this.permissions.reduce((acc, cur) => {
+        acc[cur.value] = event.checked;
+        return acc;
+      }, {})
+    );
 
-      this.rowValues$.next({
-        ...this.rowValues$.value,
-        [collection]: {
-          checked: event.checked,
-          indeterminate: false
-        }
-      });
-  }
-
-  updateRow(collection: string) {
-    const values = Object.values(this.group.value[collection]);
-    const checked = values.every(it => it);
-    const indeterminate = values.some(it => it) && !values.every(it => it);
+    this.columnValues$.next(this.updateColumns());
 
     this.rowValues$.next({
       ...this.rowValues$.value,
       [collection]: {
-        checked,
-        indeterminate
+        checked: event.checked,
+        indeterminate: false
       }
     });
+  }
+
+  toggleColumn(type: string, event: MatCheckboxChange) {
+    this.modules.forEach(it => {
+      this.group.get(`${it.id}.${type}`).setValue(event.checked);
+    });
+
+    this.addedModules.forEach(it => {
+      this.group.get(`${it.id}.${type}`).setValue(event.checked);
+    });
+
+    this.rowValues$.next(this.updateRows());
+
+    this.columnValues$.next({
+      ...this.columnValues$.value,
+      [type]: {
+        checked: event.checked,
+        indeterminate: false
+      }
+    });
+  }
+
+  updateRows() {
+    const modulesValuesRows = this.modules.reduce((acc, cur) => {
+      acc[cur.id] = {
+        checked: Object.values(this.group.value[cur.id]).every(it => it),
+        indeterminate: Object.values(this.group.value[cur.id]).some(it => it) && !Object.values(this.group.value[cur.id]).every(it => it)
+      };
+      return acc;
+    }, {});
+
+    const addedModulesValuesRows = {};
+
+    this.addedModules.forEach(it => {
+      addedModulesValuesRows[it.id] = {
+        checked: it.permissions.every(p => this.group.value[it.id][p]),
+        indeterminate: it.permissions.some(p => this.group.value[it.id][p]) && !it.permissions.every(p => this.group.value[it.id][p])
+      };
+    });
+
+    return {
+      ...modulesValuesRows,
+      ...addedModulesValuesRows
+    };
+  }
+
+  updateColumns() {
+    return this.permissions.reduce((acc, cur) => {
+      const values = [];
+      for (const module of this.modules) {
+        if (this.group.value[module.id][cur.value] !== undefined) {
+          values.push(this.group.value[module.id][cur.value]);
+        }
+      }
+
+      for (const module of this.addedModules) {
+        if (module.permissions.includes(cur.value)) {
+          values.push(this.group.value[module.id][cur.value]);
+        }
+      }
+
+      acc[cur.value] = {
+        checked: values.every(it => it),
+        indeterminate: values.some(it => it) && !values.every(it => it)
+      };
+      return acc;
+    }, {});
   }
 }
