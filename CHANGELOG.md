@@ -1,3 +1,15 @@
+# [7.0.0](https://github.com/jaspero/jms/compare/v6.14.0...v7.0.0) (2022-11-24)
+
+
+### Features
+
+* connected storage selection in schema-forms; completely removed file manager; ([7ba2d34](https://github.com/jaspero/jms/commit/7ba2d342dbe5dae691967189b17e587c70cf1710))
+
+
+### BREAKING CHANGES
+
+* The FileManager module has been completely removed. It should be replaced with StorageModule where needed. In schema forms "image" component we now use JSX(<jms-e-storage-select />) instead.
+
 # [6.14.0](https://github.com/jaspero/jms/compare/v6.13.1...v6.14.0) (2022-11-24)
 
 
