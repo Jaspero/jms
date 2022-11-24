@@ -3,6 +3,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {FieldComponent, FieldData} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {MODULES} from '@definitions';
+import {MatCheckboxChange} from '@angular/material/checkbox';
 
 @UntilDestroy()
 @Component({
@@ -31,9 +32,10 @@ export class PermissionsComponent extends FieldComponent<FieldData> implements O
   addedModules = [
     {id: '_search', name: 'SEARCH', permissions: ['list']}
   ];
+  initialRowValues = {};
 
   ngOnInit() {
-    const {value} = this.cData.control
+    const {value} = this.cData.control;
 
     this.group = new FormGroup(
       [...this.modules, ...this.addedModules].reduce((acc, cur) => {
@@ -43,15 +45,24 @@ export class PermissionsComponent extends FieldComponent<FieldData> implements O
           create: new FormControl(value[cur.id]?.create || false),
           update: new FormControl(value[cur.id]?.update || false),
           delete: new FormControl(value[cur.id]?.delete || false),
-        })
+        });
         return acc;
       }, {})
     );
 
+    this.initialRowValues = this.modules.reduce((acc, cur) => {
+      acc[cur.id] = Object.values(value[cur.id]).every(it => it);
+      return acc;
+    }, {});
+
+    this.addedModules.forEach(it => {
+      this.initialRowValues[it.id] = Object.values(value[it.id]).every(it => it);
+    });
+
     this.group
       .valueChanges
       .pipe(untilDestroyed(this))
-      .subscribe(value =>
+      .subscribe(value => {
         this.cData.control.setValue(
           Object.entries(value)
             .reduce((acc, [k, v]) => {
@@ -70,7 +81,17 @@ export class PermissionsComponent extends FieldComponent<FieldData> implements O
 
               return acc;
             }, {})
-        )
-      )
+        );
+        }
+      );
+  }
+
+  toggleRow(id: string, event: MatCheckboxChange) {
+    this.group.get(id).setValue(
+      this.permissions.reduce((acc, cur) => {
+        acc[cur.value] = event.checked;
+        return acc;
+      }, {})
+    );
   }
 }
