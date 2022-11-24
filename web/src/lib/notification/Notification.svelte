@@ -56,6 +56,7 @@
         background: white;
         overflow: hidden;
         border-radius: 1rem;
+        border: 1px solid black;
     }
 
     main {
@@ -109,8 +110,8 @@
 
     button:hover,
     button:focus {
-        background: red;
-        color: black;
+        background: black;
+        color: white;
     }
 
     button + button {

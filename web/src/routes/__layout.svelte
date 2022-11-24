@@ -17,6 +17,7 @@
 	import { onMount } from 'svelte'
 	import {auth, isLoggedIn} from '$lib/firebase-client';
 	import {onAuthStateChanged } from "firebase/auth";
+	import Notification from '$lib/notification/notification.svelte';
 	import { goto } from '$app/navigation';
 	import '../app.css';
 
@@ -30,15 +31,17 @@
 			if (user) {
 				const uid = user.uid;
 				isLoggedIn.update(() => true );
-				console.log(user);
+				console.log('user is logged in');
 			} else {
-				console.log('not logged in')
+				console.log('user is not logged in')
 				isLoggedIn.update(() => false );
 			}
 		});
 	})
 
 </script>
+
+<Notification />
 
 <Header {links} />
 

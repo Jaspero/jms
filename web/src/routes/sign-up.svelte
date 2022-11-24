@@ -1,39 +1,46 @@
 <script lang="ts">
-  import {createUserWithEmailAndPassword, onAuthStateChanged} from 'firebase/auth';
+  import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
   import { auth } from '$lib/firebase-client';
   import { goto } from '$app/navigation';
+  import {page} from '$app/stores';
   import {onMount} from 'svelte';
+  import {notificationWrapper} from '$lib/notification/notification';
 
+
+
+
+  let valid = false;
   let error = ''
   let fields = {password: '', passwordConfirm: ''}
-  let email = '';
-  let password = '';
+
+  let user = "";
   let show = false;
   let visible = false;
+  let email = ''
+  let password = ''
+  let loading = false;
 
 
 
 
   async function onSubmit ()  {
 
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      goto('/');
-      // ...
-    })
-      .catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        if (errorCode == 'auth/weak-password') {
-          alert('The password is too weak.');
-        } else {
-          alert(errorMessage);
-        }
-        console.log(error);
-      });
+    const {searchParams} = $page.url;
+
+    email = email.toLowerCase().trim();
+
+    loading = true;
+
+    try {
+      await notificationWrapper(createUserWithEmailAndPassword(auth, email, password));
+
+      goto(searchParams.has('f') ? decodeURIComponent(searchParams.get('f')) : '/');
+    } catch {
+      password = '';
+    }
+
+    loading = false;
+
   }
 
   const toggle1 = () => {

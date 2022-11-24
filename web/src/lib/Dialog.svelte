@@ -31,7 +31,7 @@
    * Specify confirm label
    * @type {string}
    */
-  export let confirm = 'Potvrdi';
+  export let confirm = 'Confirm';
 
   /**
    * Speficy confirm button type
@@ -45,7 +45,7 @@
    * Specify cancel label
    * @type {string}
    */
-  export let cancel = 'Odustani';
+  export let cancel = 'Cancel';
 
   export function open() {
     opened = true;
@@ -80,14 +80,14 @@
   <div class="dialog-backdrop" transition:fade={{duration: 200}}>
     <div class="dialog" use:clickOutside on:click_outside={handleClickOutside}>
       <div class="dialog-header p-a-s">
-        <div class="flex jc-between ai-center">
-          <h1 class="m-r-s">{title}</h1>
+        <div class="flex-wrapper">
+          <h1 class="dialog-title">{title}</h1>
           <button on:click={close} class="dialog-close">
             <img src="icons/close.svg" alt="Zatvori" />
           </button>
         </div>
         {#if subtitle}
-          <p class="m-t-xs c-theme-secondary">{subtitle}</p>
+          <p class="subtitle">{subtitle}</p>
         {/if}
       </div>
 
@@ -134,13 +134,27 @@
         background-color: rgba(0, 0, 0, 0.5);
     }
 
-    .dialog-header {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    .flex-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        position: relative;
+        padding: 20px;
     }
+
+    .dialog-title {
+        width: 100%;
+        text-align: center;
+    }
+
+    .subtitle {
+        padding: 0 20px;
+    }
+
     .dialog-content {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-        max-height: 60vh;
-        overflow-y: auto;
+      margin-top: 20px;
+      padding: 20px;
     }
     .dialog-close {
         border: none;
@@ -149,6 +163,9 @@
         height: 40px;
         border-radius: 50%;
         transition: 0.2s;
+        position: absolute;
+        top: 0;
+        right: 0;
     }
     .dialog-close:hover {
         background-color: rgba(0, 0, 0, 0.08);

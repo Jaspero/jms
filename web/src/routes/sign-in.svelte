@@ -3,6 +3,7 @@
   import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
   import { auth } from '$lib/firebase-client';
   import {goto} from '$app/navigation';
+  import {page} from '$app/stores';
   import {notificationWrapper} from '../lib/notification/notification';
   import Dialog from '$lib/Dialog.svelte';
   import Button from '$lib/Button.svelte';
@@ -23,16 +24,21 @@
 
 
   async function onSubmit() {
-    await signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        goto('/');
-        // ...
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const {searchParams} = $page.url;
+
+    email = email.toLowerCase().trim();
+
+    loading = true;
+
+    try {
+      await notificationWrapper(signInWithEmailAndPassword(auth, email, password));
+
+      goto(searchParams.has('f') ? decodeURIComponent(searchParams.get('f')) : '/');
+    } catch {
+      password = '';
+    }
+
+    loading = false;
   }
 
   async function resetPassword() {
@@ -46,7 +52,7 @@
 
     try {
       await notificationWrapper(
-        sendPasswordResetEmail(auth, email, {url: `${location.origin}/reset-password`}),
+        sendPasswordResetEmail(auth, rEmail, {url: `${location.origin}/reset-password`}),
         'A password reset link has been sent to your email.'
       );
 
@@ -63,7 +69,6 @@
     document.querySelector('#password').type = show ? 'text' : 'password';
   }
 
-
 </script>
 
 
@@ -73,11 +78,11 @@
     <form on:submit|preventDefault={onSubmit}>
       <label for="email">Email</label>
       <div class="wrapper">
-        <input type="email" id="email" name="email" bind:value={email} required />
+        <input placeholder="email" type="email" id="email" name="email" bind:value={email} required />
       </div>
       <label for="password">Password</label>
       <div class="wrapper">
-        <input  id="password" type="password" name="password" minlength="6" bind:value={password} required/>
+        <input placeholder="password"  id="password" type="password" name="password" minlength="6" bind:value={password} required/>
         <button class="show-hide-btn" type="button" on:click|preventDefault={toggle1}>
           {#if show}
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -97,9 +102,9 @@
       <button class="submit-btn" type="submit" {loading}>Submit</button>
     </form>
   </div>
-  <Dialog bind:opened={rDialog} showConfirmation={false} title="Zaboravili lozinku?" subtitle="Upišite vaš email ispod i instrukcije za resetiranje će vam biti poslane.">
+  <Dialog bind:opened={rDialog} showConfirmation={false} title="Forgot password?" subtitle="Write your email below and instruction for email reset will be sent to you">
     <form slot="content" on:submit|preventDefault={resetPassword}>
-      <input type="email" name="email" required bind:value={rEmail} />
+      <input placeholder="email" type="email" name="email" required bind:value={rEmail} />
       <Button type='submit' loading={rLoading}>Reset password</Button>
     </form>
   </Dialog>
