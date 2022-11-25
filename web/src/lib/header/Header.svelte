@@ -29,6 +29,9 @@
 				<li class='sing-out'>
 					<a href='' on:click|preventDefault={logOut}>sign out</a>
 				</li>
+					<li class="profile">
+						<a href="/profile">Profile</a>
+					</li>
 					{:else}
 					<li>
 						<a href="/sign-in">Sign in</a>

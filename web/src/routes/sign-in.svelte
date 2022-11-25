@@ -37,7 +37,7 @@
     } catch {
       password = '';
     }
-
+    email = ''
     loading = false;
   }
 
@@ -53,16 +53,18 @@
     try {
       await notificationWrapper(
         sendPasswordResetEmail(auth, rEmail, {url: `${location.origin}/reset-password`}),
-        'A password reset link has been sent to your email.'
+        'A password reset link has been sent to your email.',
       );
-
       rDialog = false;
     } catch (e) {
       console.error(e);
     }
 
+    rEmail = '';
     rLoading = false;
+
   }
+
 
   const toggle1 = () => {
     show = !show;
@@ -174,7 +176,7 @@
       outline: none;
       border-radius: 8px;
       padding: 15px;
-      color: #773434;
+      color: black;
       font-size: 16px;
       width: calc(100% - 30px);
   }
