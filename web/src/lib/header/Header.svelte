@@ -19,7 +19,6 @@
 <header>
 	<nav>
 		<ul>
-
 				{#if $isLoggedIn}
 				{#each links as link}
 					<li>
@@ -27,10 +26,12 @@
 					</li>
 				{/each}
 				<li class='sing-out'>
-					<a href='' on:click|preventDefault={logOut}>sign out</a>
+					<a href='/' on:click|preventDefault={logOut}>sign out</a>
 				</li>
 					<li class="profile">
-						<a href="/profile">Profile</a>
+						<a href="/profile">
+							<img src="icons/profile.svg" alt="">
+						</a>
 					</li>
 					{:else}
 					<li>

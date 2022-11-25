@@ -1,6 +1,6 @@
 <script type="module" lang="ts">
   import { onMount } from 'svelte'
-  import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+  import { signInWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider  } from "firebase/auth";
   import { auth } from '$lib/firebase-client';
   import {goto} from '$app/navigation';
   import {page} from '$app/stores';
@@ -18,10 +18,30 @@
   let rDialog = false;
 
   let show = false;
+  const provider = new GoogleAuthProvider();
+  provider.addScope('profile');
+  provider.addScope('email');
 
 
 
 
+  async function googleSignIn () {
+    const {searchParams} = $page.url;
+
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+        goto(searchParams.has('f') ? decodeURIComponent(searchParams.get('f')) : '/');
+        console.log(user)
+      }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      const email = error.customData.email;
+      const credential = GoogleAuthProvider.credentialFromError(error);
+    });
+  }
 
   async function onSubmit() {
     const {searchParams} = $page.url;
@@ -101,13 +121,17 @@
       <div class="btn-wrapper">
         <button class="forgot-dialog"  on:click={() => rDialog = true}>Forgot your password?</button>
       </div>
+      <div class="google-btn" on:click|preventDefault={googleSignIn}>
+        <img src="/icons/google.svg" alt="google icon" class="google-icon" width="23">
+        <span>Sign in with google</span>
+      </div>
       <button class="submit-btn" type="submit" {loading}>Submit</button>
     </form>
   </div>
   <Dialog bind:opened={rDialog} showConfirmation={false} title="Forgot password?" subtitle="Write your email below and instruction for email reset will be sent to you">
     <form slot="content" on:submit|preventDefault={resetPassword}>
       <input placeholder="email" type="email" name="email" required bind:value={rEmail} />
-      <Button type='submit' loading={rLoading}>Reset password</Button>
+      <Button type='button' loading={rLoading}>Reset password</Button>
     </form>
   </Dialog>
 </section>
@@ -129,6 +153,25 @@
       margin: 0 auto;
   }
 
+  .google-btn {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    border: 1px solid white;
+    border-radius: 4px;
+    outline: none;
+    background: none;
+    font-size: 20px;
+    padding:10px 15px;
+    color: white;
+    margin: 40px 0;
+    width: calc(100% - 40px);
+  }
+
+  .google-icon {
+      margin-right: 10px;
+  }
+
   .submit-btn {
      border: 1px solid white;
      border-radius: 4px;
@@ -137,7 +180,7 @@
      font-size: 20px;
      padding:10px 15px;
      color: white;
-     margin-top: 40px;
+     width: calc(100% - 40px);
   }
 
   form {
