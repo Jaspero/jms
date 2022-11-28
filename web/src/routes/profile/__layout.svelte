@@ -2,19 +2,19 @@
 <div class="grid">
 	<div class="aside">
 		<a href="/profile" class="profile-link">
-			<img src="icons/settings.svg" alt="" class="profile-link-icon">
+			<img src="/icons/settings.svg" alt="" class="profile-link-icon">
 			<p>Account settings</p>
 		</a>
 		<a href="/profile/update-email" class="profile-link">
-			<img src="icons/email.svg" alt="" class="profile-link-icon">
+			<img src="/icons/email.svg" alt="" class="profile-link-icon">
 			<p>Change email</p>
 		</a>
 		<a href="/profile/update-password" class="profile-link">
-			<img src="icons/password.svg" alt="" class="profile-link-icon">
+			<img src="/icons/password.svg" alt="" class="profile-link-icon">
 			<p>Update password</p>
 		</a>
 		<a href="/profile/delete-account" class="profile-link">
-			<img src="icons/delete-acc.svg" alt="" class="profile-link-icon">
+			<img src="/icons/delete-acc.svg" alt="" class="profile-link-icon">
 			<p >Delete account</p>
 		</a>
 		<a href="/profile/orders" class="profile-link">
