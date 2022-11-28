@@ -3,7 +3,6 @@
   import { auth } from '$lib/firebase-client';
   import { goto } from '$app/navigation';
   import {page} from '$app/stores';
-  import {onMount} from 'svelte';
   import {notificationWrapper} from '$lib/notification/notification';
 
 

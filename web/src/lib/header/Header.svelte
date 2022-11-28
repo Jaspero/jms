@@ -6,14 +6,17 @@
 
 	export let links: Array<{label: string; link: string}>;
 
+
+
 	function logOut() {
 		signOut(auth)
 			.then(() => {
-			goto('/sign-in')
+			goto('/sign-in');
 		}).catch((error) => {
 			console.error(error);
 		});
 	}
+
 </script>
 
 <header>

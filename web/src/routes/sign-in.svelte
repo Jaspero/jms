@@ -34,6 +34,7 @@
         const user = result.user;
         goto(searchParams.has('f') ? decodeURIComponent(searchParams.get('f')) : '/');
         console.log(user)
+        email = ''
       }).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
