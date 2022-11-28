@@ -19,8 +19,7 @@
 
   let show = false;
   const provider = new GoogleAuthProvider();
-  provider.addScope('profile');
-  provider.addScope('email');
+  provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 
 
 
