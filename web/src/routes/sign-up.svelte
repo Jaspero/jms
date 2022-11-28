@@ -66,7 +66,7 @@
         <input id="confirm-password" type="password" name="confirm-password" bind:value={passwordConfirm}  minlength="6" required/>
       </div>
       <div class="show-password">
-        <input type="checkbox" class="checkbox" on:click|preventDefault={togglePassword}>
+        <input type="checkbox" class="checkbox" on:change|preventDefault={togglePassword}>
         <p>Show/hide password</p>
       </div>
       {#if error}
