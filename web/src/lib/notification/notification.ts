@@ -4,8 +4,8 @@ import {writable} from 'svelte/store';
 const firebaseErrors = {
   'auth/wrong-password': 'This email and password combination is incorrect.',
   'auth/too-many-requests': 'Access to this account is currently disabled. You can retrieve access by reseting your password or by trying later.',
-  'auth/user-not-found': 'This email and password combination is incorrect.',
-  'auth/weak-password': 'Please enter better/stornger password.',
+  'auth/user-not-found': 'There is no user with tha email registered',
+  'auth/weak-password': 'Please enter better/stronger password.',
   'auth/missing-email': 'This email is not valid'
 }
 

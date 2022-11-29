@@ -3,16 +3,20 @@
   import { updatePassword   } from "firebase/auth";
   let password = '';
   let loading = false;
-  const user = auth.currentUser;
 
-  function onSubmit() {
-    updatePassword (user, password)
-      .then(() => {
 
-      }).catch((error) => {
-      // An error occurred
-      // ...
-    });
+
+  async function onSubmit() {
+    const user = auth.currentUser;
+    try {
+      await updatePassword (user, password);
+    }
+    catch(err) {
+      if (err) {
+        console.log('yup this is an error');
+      }
+      console.log(err);
+    }
     console.log(password);
   }
 </script>

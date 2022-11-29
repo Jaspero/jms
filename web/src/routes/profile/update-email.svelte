@@ -1,17 +1,18 @@
 <script lang="ts">
   import { auth } from '$lib/firebase-client';
-  import { updateEmail  } from "firebase/auth";
-  let email = ''
-  let loading = false
+  import {updateEmail, updatePassword} from 'firebase/auth';
+  let email = '';
+  let loading = false;
+  const user = auth.currentUser;
 
-  function onSubmit() {
-    updateEmail(auth.currentUser, email)
-      .then(() => {
-      console.log(email)
-    }).catch((error) => {
-      // An error occurred
-      // ...
-    });
+  async function onSubmit() {
+    try {
+      await updateEmail(user, email);
+    }
+    catch(err) {
+      console.log(err);
+    }
+    console.log(email)
   }
 </script>
 

@@ -33,7 +33,7 @@
 				</li>
 					<li class="profile">
 						<a href="/profile">
-							<img src="icons/profile.svg" alt="">
+							<img src="/icons/profile.svg" alt="">
 						</a>
 					</li>
 					{:else}

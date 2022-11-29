@@ -36,7 +36,7 @@
     }
 
     loading = false;
-
+    passwordConfirm = ''
   }
 
   const togglePassword = () => {
@@ -58,11 +58,11 @@
       <input type="text" id="email" name="email" bind:value={email} required/>
       <label for="password">Password</label>
       <div class="wrapper">
-        <input  id="password" type="password" name="password" bind:value={password}  minlength="6" required/>
+        <input  id="password" type="password" name="password" bind:value={password}  required/>
       </div>
       <label for="confirm-password">Confirm Password</label>
       <div class="wrapper">
-        <input id="confirm-password" type="password" name="confirm-password" bind:value={passwordConfirm}  minlength="6" required/>
+        <input id="confirm-password" type="password" name="confirm-password" bind:value={passwordConfirm}  required/>
       </div>
       <div class="show-password">
         <input type="checkbox" class="checkbox" on:change|preventDefault={togglePassword}>
