@@ -2,19 +2,11 @@
   import {auth} from '$lib/firebase-client';
   import {updatePassword} from 'firebase/auth';
   import SignInDialog from '../../lib/SignInDialog.svelte';
-  import Button from '../../lib/Button.svelte';
-  import {reLog} from '../../lib/sign-in';
-  import {googleSignIn} from '../../lib/sign-in';
-  import {page} from '$app/stores';
 
 
   let password = '';
-  let relogPassword = '';
   let loading = false;
-  let rLoading = false;
-  let email = '';
-  let passwordDialog = false;
-
+  let opened = false;
 
 
   async function onSubmit() {
@@ -23,12 +15,11 @@
       await updatePassword(user, password);
     } catch (err) {
       if (err) {
-        passwordDialog = true;
+        opened = true;
       }
       console.log(err);
     }
     password = '';
-    console.log(password);
   }
 </script>
 
@@ -36,30 +27,14 @@
 <div class="grid">
   <h1 class="title">Password update</h1>
   <form on:submit|preventDefault={onSubmit}>
-    <label for="password">Password</label>
+    <label for="password-reset">Password</label>
     <div class="wrapper">
-      <input placeholder="password" type="password" id="password" name="email" bind:value={password} required />
+      <input placeholder="password" type="password" id="password-reset" name="email" bind:value={password} required />
     </div>
     <button class="submit-btn" type="submit" {loading}>Submit</button>
   </form>
-  <SignInDialog bind:opened={passwordDialog} showConfirmation={false} title="Some title" subtitle="Please re log to update you password">
-    <form slot="content" on:submit|preventDefault={reLog}>
-      <label for="reEmail">Email</label>
-      <div class="wrapper">
-        <input placeholder="email" type="email" name="email" id="reEmail" required bind:value={email} />
-      </div>
-      <label for="rePassword">Password</label>
-      <div class="wrapper">
-        <input placeholder="password" type="password" name="password" id="rePassword" required bind:value={relogPassword} />
-      </div>
-      <div class="google-btn" on:click|preventDefault={googleSignIn}>
-        <img src="/icons/google.svg" alt="google icon" class="google-icon" width="23">
-        <span>Sign in with google</span>
-      </div>
-      <Button type='submit' loading={rLoading}>Submit</Button>
-    </form>
-  </SignInDialog>
 </div>
+<SignInDialog bind:opened={opened} />
 
 
 <style>
@@ -82,6 +57,7 @@
       border: 1px solid black;
       padding: 20px;
       border-radius: 8px;
+      text-align: left;
     }
 
     input{
@@ -109,9 +85,6 @@
       margin-top: 20px;
     }
 
-    form {
-      text-align: center;
-    }
     .wrapper {
         width: 100%;
         position: relative;

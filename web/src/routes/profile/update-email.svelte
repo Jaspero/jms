@@ -1,6 +1,9 @@
 <script lang="ts">
-  import { auth } from '$lib/firebase-client';
+  import {auth} from '$lib/firebase-client';
   import {updateEmail, updatePassword} from 'firebase/auth';
+  import SignInDialog from '../../lib/SignInDialog.svelte';
+
+  let opened = false;
   let email = '';
   let loading = false;
   const user = auth.currentUser;
@@ -8,11 +11,13 @@
   async function onSubmit() {
     try {
       await updateEmail(user, email);
-    }
-    catch(err) {
+    } catch (err) {
+      if (err) {
+        opened = true
+      }
       console.log(err);
     }
-    console.log(email)
+    email = '';
   }
 </script>
 
@@ -20,13 +25,14 @@
 <div class="grid">
   <h1 class="title">Email update</h1>
   <form on:submit|preventDefault={onSubmit}>
-    <label for="email">Email</label>
+    <label for="update-email">Email</label>
     <div class="wrapper">
-      <input placeholder="email" type="email" id="email" name="email" bind:value={email} required />
+      <input placeholder="email" type="email" id="update-email" name="email" bind:value={email} required />
     </div>
     <button class="submit-btn" type="submit" {loading}>Submit</button>
   </form>
 </div>
+<SignInDialog bind:opened={opened} />
 
 
 <style>

@@ -78,12 +78,12 @@
 
 {#if opened}
   <div class="dialog-backdrop" transition:fade={{duration: 200}}>
-    <div class="dialog" use:clickOutside on:click_outside={handleClickOutside}>
+    <div class="dialog {$$props.class}" use:clickOutside on:click_outside={handleClickOutside}>
       <div class="dialog-header p-a-s">
         <div class="flex-wrapper">
           <h1 class="dialog-title">{title}</h1>
           <button on:click={close} class="dialog-close">
-            <img src="icons/close.svg" alt="Zatvori" />
+            <img src="/icons/close.svg" alt="Close" />
           </button>
         </div>
         {#if subtitle}
