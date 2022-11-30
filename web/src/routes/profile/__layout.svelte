@@ -1,3 +1,15 @@
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import {goto} from '$app/navigation';
+	import {subscribe} from 'svelte/internal';
+	import {isLoggedIn} from '../../lib/firebase-client';
+
+
+	onMount( () => {
+
+	});
+
+</script>
 <p>Profile Layout</p>
 <div class="grid">
 	<div class="aside">

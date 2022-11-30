@@ -22,7 +22,7 @@
 <header>
 	<nav>
 		<ul>
-				{#if $isLoggedIn}
+			{#if $isLoggedIn}
 				{#each links as link}
 					<li>
 						<a href={link.link}>{link.label}</a>
