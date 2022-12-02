@@ -1,3 +1,4 @@
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {
   collection,
@@ -32,9 +33,18 @@ import {environment} from '../../src/environments/environment';
 export class MongoDatabaseService extends DbService {
   constructor(
     private firestore: Firestore,
-    private functions: Functions
+    private functions: Functions,
+    private http: HttpClient
   ) {
     super();
+  }
+
+  removeDocument(moduleId, id) {
+    return this.http.delete<any>(`/api/document/${moduleId}/${id}`);
+  }
+
+  setDocument(moduleId, id, data) {
+    return this.http.post<any>(`/api/document/${moduleId}`, data);
   }
 
   url(url: string) {
@@ -61,22 +71,8 @@ export class MongoDatabaseService extends DbService {
     source?,
     collectionGroup?
   ) {
-    const sources = {
-      server: getDocsFromServer,
-      cache: getDocsFromCache
-    };
-    const method = source ? sources[source] : getDocs;
-
-    return from(
-      method(
-        this.collection(moduleId, pageSize, sort, cursor, filters, collectionGroup)
-      )
-    )
-      .pipe(
-        map((res: any) =>
-          res.docs
-        )
-      );
+    console.log(moduleId);
+    return this.http.get<any>(`/api/documents/${moduleId}`);
   }
 
   getStateChanges(
@@ -209,31 +205,31 @@ export class MongoDatabaseService extends DbService {
       );
   }
 
-  setDocument(moduleId, documentId, data, options) {
-    return from(
-      setDoc(
-        doc(
-          this.firestore,
-          moduleId,
-          documentId
-        ),
-        data,
-        options || {}
-      )
-    );
-  }
+  // setDocument(moduleId, documentId, data, options) {
+  //   return from(
+  //     setDoc(
+  //       doc(
+  //         this.firestore,
+  //         moduleId,
+  //         documentId
+  //       ),
+  //       data,
+  //       options || {}
+  //     )
+  //   );
+  // }
 
-  removeDocument(moduleId, documentId) {
-    return from(
-      deleteDoc(
-        doc(
-          this.firestore,
-          moduleId,
-          documentId
-        )
-      )
-    );
-  }
+  // removeDocument(moduleId, documentId) {
+  //   return from(
+  //     deleteDoc(
+  //       doc(
+  //         this.firestore,
+  //         moduleId,
+  //         documentId
+  //       )
+  //     )
+  //   );
+  // }
 
   createUserAccount(email: string, password: string) {
     return this.callFunction('cms-createUser', {email, password}) as any;

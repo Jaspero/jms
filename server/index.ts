@@ -2,7 +2,7 @@ import * as express from "express";
 import {MongoClient, ObjectId} from 'mongodb';
 
 const app = express();
-const port = 5200;
+const port = 4200;
 
 app.use(express.json());
 
@@ -18,6 +18,18 @@ app.get('/api/document/:moduleId/:documentId', (req, res) => {
   return db.collection(req.params.moduleId).findOne({_id: new ObjectId(req.params.documentId)})
     .then((data) => res.json(data))
     .catch();
+});
+
+app.get('/api/documents/:moduleId', (req, res) => {
+  async function exec() {
+    const cursor = db.collection(req.params.moduleId).find({});
+    const data = await cursor.toArray();
+    console.log(data);
+    return data
+  }
+
+  exec().then((data) => res.json(data)).catch();
+
 });
 
 app.post('/api/document/:moduleId', (req, res) => {
@@ -40,12 +52,12 @@ app.put('/api/document/:moduleId', (req, res) => {
     .catch();
 });
 
-app.delete('/api/document/:moduleId', (req, res) => {
+app.delete('/api/document/:moduleId/:documentId', (req, res) => {
   return db.collection(req.params.moduleId).deleteOne({_id: new ObjectId(req.params.documentId)})
     .then((data) => res.json(data))
     .catch();
 });
 
 app.listen(port, () => {
-  console.log(`[server]: Server is running at https://localhost:${port}`);
+  console.log(`[server]: Server is running at http://localhost:${port}`);
 });
