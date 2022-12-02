@@ -36,7 +36,6 @@
     "json-pointer": "0.6.2",
     "json2csv": "5.0.7",
     "jsonwebtoken": "8.5.1",
-    "mongodb": "4.12.1",
     "proxy-from-env": "1.1.0",
     "sharp": "0.30.6",
     "xlsx": "0.18.5"
