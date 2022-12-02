@@ -72,8 +72,18 @@ export class MongoDatabaseService extends DbService {
     collectionGroup?
   ) {
     console.log(moduleId);
-    return this.http.get<any>(`/api/documents/${moduleId}`);
+    return this.http.get<any>(`/api/documents/${moduleId}`)
+      .pipe(
+        map((data) => {
+          return data.map(it => ({
+            id: it.id,
+            ref: it,
+            data: () => it
+          })
+          );
+        }))
   }
+
 
   getStateChanges(
     moduleId,
