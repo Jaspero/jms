@@ -1,16 +1,24 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import {onDestroy, onMount} from 'svelte';
 	import {goto} from '$app/navigation';
-	import {subscribe} from 'svelte/internal';
-	import {isLoggedIn} from '../../lib/firebase-client';
+	import {auth, isLoggedIn} from '../../lib/firebase-client';
 
 
 	onMount( () => {
+	isLoggedIn.subscribe((value => {
+			if (!value) {
+				goto('/sign-in');
+				}
+			}))
+	});
 
+	onDestroy( () => {
+		isLoggedIn;
+		console.log("Date Component removed");
 	});
 
 </script>
-<p>Profile Layout</p>
+
 <div class="grid">
 	<div class="aside">
 		<a href="/profile" class="profile-link">
@@ -37,6 +45,7 @@
 		<slot />
 	</div>
 </div>
+
 
 
 

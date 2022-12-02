@@ -19,4 +19,4 @@ export const firebaseApp = initializeApp({
 export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
 export const storage = getStorage(firebaseApp);
-export const isLoggedIn = writable(false);
+export let isLoggedIn = writable(false);

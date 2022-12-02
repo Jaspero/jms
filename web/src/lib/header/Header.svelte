@@ -8,14 +8,14 @@
 
 
 
-	function logOut() {
-		signOut(auth)
-			.then(() => {
-			goto('/sign-in');
-		}).catch((error) => {
-			console.error(error);
-		});
-	}
+function logOut() {
+	signOut(auth)
+		.then(() => {
+		goto('/sign-in');
+	}).catch((error) => {
+		console.error(error);
+	});
+}
 
 </script>
 

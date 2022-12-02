@@ -1,5 +1,6 @@
 <script lang="ts">
   import {auth} from '$lib/firebase-client';
+  import {FirebaseError} from 'firebase/app';
   import {updatePassword} from 'firebase/auth';
   import SignInDialog from '../../lib/SignInDialog.svelte';
 
@@ -29,7 +30,7 @@
   <form on:submit|preventDefault={onSubmit}>
     <label for="password-reset">Password</label>
     <div class="wrapper">
-      <input placeholder="password" type="password" id="password-reset" name="email" bind:value={password} required />
+      <input placeholder="password" type="password" id="password-reset" name="email" bind:value={password} minlength="6" required />
     </div>
     <button class="submit-btn" type="submit" {loading}>Submit</button>
   </form>
