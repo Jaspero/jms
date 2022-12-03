@@ -17,6 +17,7 @@ import {
   where
 } from '@angular/fire/firestore';
 import {Functions, httpsCallableData} from '@angular/fire/functions';
+import {Router} from '@angular/router';
 import {FilterMethod, SHARED_CONFIG} from '@definitions';
 import {Parser} from '@jaspero/form-builder';
 import {from, Observable, of} from 'rxjs';
@@ -33,7 +34,8 @@ export class MongoDatabaseService extends DbService {
   constructor(
     private firestore: Firestore,
     private functions: Functions,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {
     super();
   }
@@ -45,7 +47,11 @@ export class MongoDatabaseService extends DbService {
   }
 
   setDocument(moduleId, id, data) {
-    return this.http.post<any>(`/api/document/${moduleId}`, data);
+    if (this.router.url.includes('new')) {
+      return this.http.post<any>(`/api/document/${moduleId}`, data)
+    } else {
+      return this.http.put<any>(`/api/document/${moduleId}/${id}`, data)
+    }
   }
 
   url(url: string) {
@@ -82,8 +88,12 @@ export class MongoDatabaseService extends DbService {
           }
 
           return data.data.map(it => ({
-            id: it.id,
-            ref: it,
+            id: it._id,
+            ref: {
+              parent: {
+                path: moduleId
+              }
+            },
             data: () => it,
           }));
         }));

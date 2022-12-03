@@ -46,7 +46,7 @@ app.post('/api/document/:moduleId', (req, res) => {
     .catch();
 });
 
-app.put('/api/document/:moduleId', (req, res) => {
+app.put('/api/document/:moduleId/:documentId', (req, res) => {
   return db.collection(req.params.moduleId).updateOne({_id: new ObjectId(req.params.documentId)}, {
     $set: req.body
   })
