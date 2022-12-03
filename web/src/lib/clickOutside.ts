@@ -1,5 +1,5 @@
-export function clickOutside(node) {
-  const handleClick = event => {
+export function clickOutside(node: any) {
+  const handleClick = (event: any) => {
     if (node && !node.contains(event.target) && !event.defaultPrevented) {
       event.stopPropagation();
       node.dispatchEvent(

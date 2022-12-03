@@ -1,22 +1,16 @@
-<script>
-  /**
-   * Specify button type
-   * @type {"button" | "submit"}
-   */
-  export let type = undefined;
+<script lang="ts">
+  export let type: 'submit' | 'button' = 'button';
 
   /**
    * Specify if button should
-   take all available width
-   * @type {boolean}
+   * take all available width
    */
   export let wfull = false;
 
   /**
    * Specify button color
-   * @type {"primary" | "accent"}
    */
-  export let color = 'accent';
+  export let color: 'accent' | 'primary' = 'accent';
   export let href = '';
   export let loading = false;
   export let appearance = 'filled';

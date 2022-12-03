@@ -1,49 +1,33 @@
-<script>
+<script lang="ts">
   import {fade} from 'svelte/transition';
   import Button from './Button.svelte';
   import {clickOutside} from './clickOutside';
 
   /**
    * Toggles Dialog on/off
-   * @type {boolean}
    */
   export let opened = false;
 
   /**
    * Should the confirmation be shown
-   * @type {boolean}
    */
   export let showConfirmation = true;
-
-  /**
-   * Specify dialog title
-   * @type {string}
-   */
   export let title = '';
-
-  /**
-   * Specify dialog subtitle
-   * @type {string}
-   */
   export let subtitle = '';
 
   /**
    * Specify confirm label
-   * @type {string}
    */
   export let confirm = 'Confirm';
 
   /**
    * Speficy confirm button type
-   * @type {"button" | "submit"}
    */
-  export let confirmType = 'button';
-
+  export let confirmType: 'button' | 'submit' = 'button';
   export let confirmHref = '';
 
   /**
    * Specify cancel label
-   * @type {string}
    */
   export let cancel = 'Cancel';
 
@@ -51,17 +35,13 @@
     opened = true;
   }
 
-  function closeOnEscape(event) {
+  function closeOnEscape(event: KeyboardEvent) {
     if (event.key === 'Escape' && opened) {
       close();
     }
   }
 
   export function close() {
-    opened = false;
-  }
-
-  function handleClickOutside(event) {
     opened = false;
   }
 
@@ -78,7 +58,7 @@
 
 {#if opened}
   <div class="dialog-backdrop" transition:fade={{duration: 200}}>
-    <div class="dialog {$$props.class}" use:clickOutside on:click_outside={handleClickOutside}>
+    <div class="dialog {$$props.class}" use:clickOutside on:click_outside={close}>
       <div class="dialog-header p-a-s">
         <div class="flex-wrapper">
           <h1 class="dialog-title">{title}</h1>
@@ -91,9 +71,9 @@
         {/if}
       </div>
 
-      {#if $$slots.content}
+      {#if $$slots.default}
         <div class="dialog-content p-a-s">
-          <slot name="content" />
+          <slot />
         </div>
       {/if}
 
