@@ -1,5 +1,6 @@
 import * as express from "express";
 import {MongoClient, ObjectId} from 'mongodb';
+import * as MongoPaging from 'mongo-cursor-pagination';
 
 const app = express();
 const port = 4200;
@@ -22,10 +23,17 @@ app.get('/api/document/:moduleId/:documentId', (req, res) => {
 
 app.get('/api/documents/:moduleId', (req, res) => {
   async function exec() {
-    const cursor = db.collection(req.params.moduleId).find({});
-    const data = await cursor.toArray();
-    console.log(data);
-    return data
+    const data = await MongoPaging.find(db.collection(req.params.moduleId), {
+      limit: 10,
+      ...(req.query.next && {
+        next: req.query.next
+      })
+    });
+    return {
+      data: data.results,
+      next: data.next,
+      hasNext: data.hasNext,
+    }
   }
 
   exec().then((data) => res.json(data)).catch();
@@ -33,14 +41,8 @@ app.get('/api/documents/:moduleId', (req, res) => {
 });
 
 app.post('/api/document/:moduleId', (req, res) => {
-  async function exec() {
-    return db.collection(req.params.moduleId).insertOne(req.body)
-      .then((data) => res.json(data))
-      .catch();
-  }
-
-  exec()
-    .then(() => res.json({}))
+  return db.collection(req.params.moduleId).insertOne(req.body)
+    .then((data) => res.json(data))
     .catch();
 });
 

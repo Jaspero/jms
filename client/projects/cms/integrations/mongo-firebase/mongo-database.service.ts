@@ -4,27 +4,26 @@ import {
   collection,
   collectionData,
   collectionGroup,
-  deleteDoc,
   doc,
   docData,
   Firestore,
   getDoc,
   getDocs,
-  getDocsFromCache,
-  getDocsFromServer,
   limit,
   onSnapshot,
   orderBy,
   query,
-  setDoc,
   startAfter,
   where
 } from '@angular/fire/firestore';
 import {Functions, httpsCallableData} from '@angular/fire/functions';
 import {FilterMethod, SHARED_CONFIG} from '@definitions';
 import {Parser} from '@jaspero/form-builder';
-import {from, Observable} from 'rxjs';
+import {from, Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {
+  InstanceOverviewContextService
+} from '../../src/app/modules/dashboard/modules/module-instance/services/instance-overview-context.service';
 import {WhereFilter} from '../../src/app/shared/interfaces/where-filter.interface';
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
@@ -38,6 +37,8 @@ export class MongoDatabaseService extends DbService {
   ) {
     super();
   }
+
+  next = '';
 
   removeDocument(moduleId, id) {
     return this.http.delete<any>(`/api/document/${moduleId}/${id}`);
@@ -71,17 +72,21 @@ export class MongoDatabaseService extends DbService {
     source?,
     collectionGroup?
   ) {
-    console.log(moduleId);
-    return this.http.get<any>(`/api/documents/${moduleId}`)
+    return this.http.get<any>(`/api/documents/${moduleId}?next=${this.next}`)
       .pipe(
         map((data) => {
-          return data.map(it => ({
+          if (data.hasNext) {
+            this.next = data.next;
+          } else {
+            this.next = '';
+          }
+
+          return data.data.map(it => ({
             id: it.id,
             ref: it,
-            data: () => it
-          })
-          );
-        }))
+            data: () => it,
+          }));
+        }));
   }
 
 
@@ -93,23 +98,7 @@ export class MongoDatabaseService extends DbService {
     filters?: WhereFilter[],
     collectionGroup?
   ) {
-    return new Observable(observer =>
-      onSnapshot(
-        this.collection(
-          moduleId,
-          pageSize,
-          sort,
-          cursor,
-          filters,
-          collectionGroup
-        ),
-        snap => {
-          const docs = snap.docChanges().filter(it => !it.doc.metadata.hasPendingWrites);
-          if (docs.length) {
-            observer.next(docs);
-          }
-        })
-    ) as Observable<any>;
+    return of([]);
   }
 
   getValueChanges(
@@ -120,19 +109,7 @@ export class MongoDatabaseService extends DbService {
     filters?: WhereFilter[],
     collectionGroup?
   ) {
-    return collectionData(
-      this.collection(
-        moduleId,
-        pageSize,
-        sort,
-        cursor,
-        filters,
-        collectionGroup
-      ),
-      {
-        idField: 'id'
-      }
-    );
+    return of([]);
   }
 
   getDocument<T = any>(

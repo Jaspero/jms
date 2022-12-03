@@ -9,7 +9,6 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MongoFirebaseModule} from 'projects/cms/integrations/mongo-firebase/mongo-fb.module';
-import {FirebaseModule} from '../../integrations/firebase/fb.module';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ConfirmationComponent} from './shared/components/confirmation/confirmation.component';
