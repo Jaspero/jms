@@ -8,7 +8,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FirebaseModule} from '../../integrations/firebase/fb.module';
+import {MongoFirebaseModule} from 'projects/cms/integrations/mongo-firebase/mongo-fb.module';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ConfirmationComponent} from './shared/components/confirmation/confirmation.component';
@@ -42,7 +42,7 @@ const PIPES = [
      * Replace with another implementation
      * if necessary
      */
-    FirebaseModule.forRoot(),
+    MongoFirebaseModule.forRoot(),
 
     BrowserModule,
     AppRoutingModule,
