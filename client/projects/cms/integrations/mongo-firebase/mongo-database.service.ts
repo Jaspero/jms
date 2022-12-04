@@ -47,10 +47,12 @@ export class MongoDatabaseService extends DbService {
   }
 
   setDocument(moduleId, id, data) {
-    if (this.router.url.includes('new')) {
-      return this.http.post<any>(`/api/document/${moduleId}`, data)
+    console.log(id);
+    console.log(this.router.url);
+    if (this.router.url.includes('new') || this.router.url.includes('/m/users')) {
+      return this.http.post<any>(`/api/document/${moduleId}`, data);
     } else {
-      return this.http.put<any>(`/api/document/${moduleId}/${id}`, data)
+      return this.http.put<any>(`/api/document/${moduleId}/${id}`, data);
     }
   }
 

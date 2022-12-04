@@ -15,10 +15,18 @@ client.connect().catch();
 client.db("admin").command({ping: 1}).catch();
 const db = client.db("jms");
 
-app.get('/api/document/:moduleId/:documentId', (req, res) => {
-  return db.collection(req.params.moduleId).findOne({_id: new ObjectId(req.params.documentId)})
-    .then((data) => res.json(data))
-    .catch();
+app.get('/api/document/:moduleId', (req, res) => {
+  console.log(req.query);
+  if (req.query.field && req.query.fieldValue) {
+    console.log(11111);
+    return db.collection(req.params.moduleId).findOne({[req.query.field]: req.query.fieldValue})
+      .then((data) => res.json(data))
+      .catch();
+  } else {
+    return db.collection(req.params.moduleId).findOne({_id: new ObjectId(req.query.documentId)})
+      .then((data) => res.json(data))
+      .catch();
+  }
 });
 
 app.get('/api/documents/:moduleId', (req, res) => {

@@ -102,6 +102,7 @@ export class UserAddComponent implements OnInit {
         {
           createdOn: Date.now(),
           role: data.role,
+          email: data.email,
           requireReset: data.requireReset,
           sendInvite: type === 'invite',
           createdBy: this.state.user.id

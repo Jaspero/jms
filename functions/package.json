@@ -38,7 +38,9 @@
     "jsonwebtoken": "8.5.1",
     "proxy-from-env": "1.1.0",
     "sharp": "0.30.6",
-    "xlsx": "0.18.5"
+    "xlsx": "0.18.5",
+    "node-fetch": "2.6.1",
+    "mongodb": "4.12.1"
   },
   "devDependencies": {
     "@types/ajv": "1.0.0",
