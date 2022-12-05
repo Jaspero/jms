@@ -4,6 +4,7 @@
   import { goto } from '$app/navigation';
   import {page} from '$app/stores';
   import {notificationWrapper} from '$lib/notification/notification';
+  import Button from '$lib/Button.svelte';
 
 
 
@@ -15,13 +16,15 @@
   let password = ''
   let passwordConfirm = ''
   let loading = false;
+  let wfull = true;
+
+  let passwordEl: HTMLInputElement;
+  let confirmEl: HTMLInputElement;
 
 
 
 
-  async function onSubmit ()  {
-
-    const {searchParams} = $page.url;
+  async function signUp ()  {
 
     email = email.toLowerCase().trim();
 
@@ -29,8 +32,7 @@
 
     try {
       await notificationWrapper(createUserWithEmailAndPassword(auth, email, password));
-
-      goto(searchParams.has('f') ? decodeURIComponent(searchParams.get('f')) : '/');
+      navigate();
     } catch {
       password = '';
     }
@@ -39,10 +41,17 @@
     passwordConfirm = ''
   }
 
-  const togglePassword = () => {
-    show = !show;
-    document.querySelector('#password').type = show ? 'text' : 'password';
-    document.querySelector('#confirm-password').type = show ? 'text' : 'password';
+  function navigate() {
+    const {searchParams} = $page.url;
+    goto(searchParams.has('f') ? decodeURIComponent(searchParams.get('f') as string) : '/');
+  }
+
+
+
+
+  function togglePasswordType() {
+    passwordEl.type = passwordEl.type === 'password' ? 'text' : 'password';
+    confirmEl.type = confirmEl.type === 'password' ? 'text' : 'password';
   }
 
 </script>
@@ -51,27 +60,31 @@
 <section class="sign-up">
   <div class="form-container">
     <h2 class="title">Sign up</h2>
-    <form on:submit|preventDefault={onSubmit} method="POST" action="/login">
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" />
-      <label for="email">Email</label>
-      <input type="text" id="email" name="email" bind:value={email} required/>
-      <label for="password">Password</label>
-      <div class="wrapper">
-        <input  id="password" type="password" name="password" bind:value={password}  required/>
-      </div>
-      <label for="confirm-password">Confirm Password</label>
-      <div class="wrapper">
-        <input id="confirm-password" type="password" name="confirm-password" bind:value={passwordConfirm}  required/>
-      </div>
+    <form on:submit|preventDefault={signUp}>
+      <label>
+        <span>Name</span>
+        <input type="text" name="name" required />
+      </label>
+      <label>
+        <span>Email</span>
+        <input type="email" name="email" bind:value={email} required />
+      </label>
+      <label>
+        <span>Password</span>
+        <input type="password" name="password" required bind:value={password} bind:this={passwordEl} />
+      </label>
+      <label>
+        <span>Confirm password</span>
+        <input type="password" name="confirm-password" required bind:value={passwordConfirm} bind:this={confirmEl} />
+      </label>
       <div class="show-password">
-        <input type="checkbox" class="checkbox" on:change|preventDefault={togglePassword}>
+        <input type="checkbox" class="checkbox" on:change|preventDefault={togglePasswordType}>
         <p>Show/hide password</p>
       </div>
       {#if error}
         <div class="error">{error}</div>
       {/if}
-      <button class="submit-btn" type="submit">Submit</button>
+      <Button type="submit" {wfull} {loading}>Submit</Button>
     </form>
   </div>
 </section>
@@ -90,19 +103,12 @@
     .form-container {
         width: 500px;
         padding: 20px;
-        background: #1C7ED6;
+        background: white;
         margin: 0 auto;
-    }
-
-    .submit-btn {
-        border: 1px solid white;
-        border-radius: 4px;
-        outline: none;
-        background: none;
-        font-size: 20px;
-        padding:10px 15px;
-        color: white;
-        margin-top: 40px;
+        -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+        border-radius: 16px;
     }
 
     form {
@@ -112,34 +118,24 @@
         align-items: center;
     }
 
-    .wrapper {
-        width: calc(100% - 30px);
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
-
-    .wrapper input {
-        width: 100%;
-    }
-
     label {
-        margin-top: 20px;
         text-align: left;
         width: 100%;
-        padding: 10px 20px;
-        color: white;
+        padding: 10px 0;
+        color: black;
         font-weight: 600;
+        position: relative;
     }
 
     input{
-        border: 1px solid white;
+        border: 1px solid black;
         outline: none;
         border-radius: 8px;
         padding: 15px;
-        color: #773434;
+        color: black;
         font-size: 16px;
-        width: calc(100% - 30px);
+        width: 100%;
+        margin-top: 5px;
     }
 
     input::placeholder {
@@ -147,11 +143,11 @@
     }
 
     .show-password {
-        width: calc(100% - 20px);
+        width: 100%;
         justify-content: flex-start;
         display: flex;
         align-items: center;
-        color: white;
+        color: black;
         margin-top: 10px;
     }
 
@@ -164,7 +160,7 @@
 
     .title {
         text-align: center;
-        color: white;
+        color: black;
         font-size: 40px;
     }
 
@@ -173,15 +169,6 @@
         color: #773434;
         font-weight: 600;
         margin-top: 20px;
-    }
-
-    .show-hide-btn {
-        position: absolute;
-        right: 10px;
-        width: 30px;
-        border: none;
-        background: none;
-        outline: none;
     }
 
 </style>

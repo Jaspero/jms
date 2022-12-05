@@ -18,13 +18,14 @@
   let rDialog = false;
 
   let wfull = true;
+  let height = '25px'
+  let width = '25px'
 
   let passwordEl: HTMLInputElement;
 
   const provider = new GoogleAuthProvider();
 
-  let height = '25px'
-  let width = '25px'
+
 
   async function googleSignIn() {
     await notificationWrapper(signInWithPopup(auth, provider));
@@ -190,7 +191,7 @@
     color: black;
     font-size: 16px;
     width: 100%;
-      margin-top: 5px;
+    margin-top: 5px;
   }
   input::placeholder {
     color: black;
@@ -198,8 +199,8 @@
 
   .show-hide-btn {
     position: absolute;
-    right: 15px;
-    top: 40px;
+    right: 0px;
+    top: 45px;
     width: 50px;
     border: none;
     background: none;
