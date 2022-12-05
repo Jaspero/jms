@@ -77,6 +77,10 @@
       animation: 0.7s loading linear infinite;
   }
 
+  .w-full {
+      width: 100%;
+  }
+
   @keyframes loading {
       to {
           transform: rotate(360deg);

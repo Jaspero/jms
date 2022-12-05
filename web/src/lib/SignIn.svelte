@@ -17,9 +17,14 @@
   let rLoading = false;
   let rDialog = false;
 
+  let wfull = true;
+
   let passwordEl: HTMLInputElement;
 
   const provider = new GoogleAuthProvider();
+
+  let height = '25px'
+  let width = '25px'
 
   async function googleSignIn() {
     await notificationWrapper(signInWithPopup(auth, provider));
@@ -70,30 +75,34 @@
     const {searchParams} = $page.url;
     goto(searchParams.has('f') ? decodeURIComponent(searchParams.get('f') as string) : '/');
   }
+
 </script>
 
 <div class="form-container">
   <h2 class="title">Sign in</h2>
   <form on:submit|preventDefault={passwordSignIn}>
-    <label for="email">Email</label>
 
     <label>
       <span>Email</span>
       <input type="email" name="email" bind:value={email} required />
     </label>
 
+
     <label>
       <span>Password</span>
       <input type="password" name="password" minlength="6" required bind:value={password} bind:this={passwordEl} />
+      <button class="show-hide-btn" type="button" on:click|preventDefault={togglePasswordType}>
+        {#if passwordEl?.type === 'password'}
+          <Eye {height} {width} />
+        {:else}
+          <EyeOff {height} {width} />
+        {/if}
+      </button>
     </label>
 
-    <button type="button" on:click|preventDefault={togglePasswordType}>
-      {#if passwordEl?.type === 'password'}
-        <Eye />
-      {:else}
-        <EyeOff />
-      {/if}
-    </button>
+
+
+
 
     <div class="btn-wrapper">
       <button type="button" class="forgot-dialog" on:click={() => (rDialog = true)}>Forgot your password?</button>
@@ -102,11 +111,11 @@
       <img src="/icons/google.svg" alt="google icon" class="google-icon" width="23" />
       <span>Sign in with google</span>
     </div>
-    <Button type="submit" {loading}>Submit</Button>
+    <Button type="submit" {wfull} {loading}>Submit</Button>
   </form>
 </div>
 
-<Dialog bind:opened={rDialog} showConfirmation={false} title="Forgot password?" subtitle="Write your email below and instruction for email reset will be sent to you">
+<Dialog class="update-dialog" bind:opened={rDialog} showConfirmation={false} title="Forgot password?" subtitle="Write your email below and instruction for email reset will be sent to you">
   <form on:submit|preventDefault={resetPassword}>
     <label>
       <span>Email</span>
@@ -117,41 +126,39 @@
 </Dialog>
 
 <style>
+
+  :global(.update-dialog .dialog-content) {
+   margin-top: 0;
+  }
+
   .form-container {
     width: 500px;
     padding: 20px;
-    background: #67131e;
+    background: white;
     margin: 0 auto;
+    -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+    border-radius: 16px;
   }
 
   .google-btn {
     cursor: pointer;
     display: flex;
     justify-content: center;
-    border: 1px solid white;
+    border: 1px solid black;
     border-radius: 4px;
     outline: none;
     background: none;
     font-size: 20px;
     padding: 10px 15px;
-    color: white;
-    margin: 40px 0;
-    width: calc(100% - 40px);
+    color: black;
+    margin: 20px 0;
+    width: 100%;
   }
 
   .google-icon {
     margin-right: 10px;
-  }
-
-  .submit-btn {
-    border: 1px solid white;
-    border-radius: 4px;
-    outline: none;
-    background: none;
-    font-size: 20px;
-    padding: 10px 15px;
-    color: white;
-    width: calc(100% - 40px);
   }
 
   form {
@@ -165,24 +172,14 @@
     width: 100%;
     text-align: left;
   }
-  .wrapper {
-    width: calc(100% - 40px);
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-
-  .wrapper input {
-    width: 100%;
-  }
 
   label {
-    margin-top: 20px;
     text-align: left;
     width: 100%;
-    padding: 10px 20px;
-    color: white;
+    padding: 10px 0;
+    color: black;
     font-weight: 600;
+    position: relative;
   }
 
   input {
@@ -192,7 +189,8 @@
     padding: 15px;
     color: black;
     font-size: 16px;
-    width: calc(100% - 30px);
+    width: 100%;
+      margin-top: 5px;
   }
   input::placeholder {
     color: black;
@@ -200,8 +198,9 @@
 
   .show-hide-btn {
     position: absolute;
-    right: 0;
-    width: 35px;
+    right: 15px;
+    top: 40px;
+    width: 50px;
     border: none;
     background: none;
     outline: none;
@@ -209,16 +208,16 @@
 
   .title {
     text-align: center;
-    color: white;
+    color: black;
     font-size: 40px;
   }
 
   .forgot-dialog {
     background: none;
     outline: none;
-    color: white;
+    color: black;
     border: none;
-    padding: 10px 20px;
+    padding: 0;
   }
 
   .forgot-dialog:hover {
