@@ -2,6 +2,7 @@ import {Storage} from '@google-cloud/storage';
 import {parseTemplate} from '@jaspero/utils';
 import {ModuleDeleteCollection, MODULES, ModuleSubCollection, SHARED_CONFIG} from 'definitions';
 import * as admin from 'firebase-admin';
+import {database} from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {dbService} from '../consts/dbService.const';
 import {deleteCollection} from '../utils/delete-collection';
@@ -98,16 +99,18 @@ export const documentDeleted = functions
             }
 
             const method = async () => {
-              let col: any = firestore.collection(name);
-
+              let col;
               for (const f of filters) {
-                col = col.where(f.key, f.operator, f.value);
+                col = await dbService.getDocuments(name, {
+                  key: f.key,
+                  operator: f.operator,
+                  value: f.value
+                });
               }
 
-              const {docs} = await col.get();
-
+              const docs = col.docs;
               await Promise.all(
-                docs.map(doc => doc.ref.delete())
+                docs.map(doc => dbService.deleteDocument(name, doc.id))
               );
             }
 

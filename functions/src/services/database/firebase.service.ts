@@ -17,4 +17,12 @@ export class FirebaseDatabaseService extends DbService {
 	setDocument(moduleId, id, data, merge = false): Promise<any> {
 		return admin.firestore().collection(moduleId).doc(id).set(data, {merge});
 	}
+
+	addDocument(moduleId, data): Promise<any> {
+		return admin.firestore().collection(moduleId).add(data);
+	}
+
+	getDocuments(moduleId, data) {
+		return admin.firestore().collection(moduleId).where(data.key, data.operator, data.value).get();
+	}
 }

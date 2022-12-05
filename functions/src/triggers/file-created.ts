@@ -8,6 +8,7 @@ import {tmpdir} from 'os';
 import {basename, dirname, join} from 'path';
 import sharp from 'sharp';
 import {promisify} from 'util';
+import {dbService} from '../consts/dbService.const';
 import {unpackGenerateImageString} from '../utils/unpack-generate-image-string';
 
 export const fileCreated = functions
@@ -48,9 +49,9 @@ export const fileCreated = functions
       });
 
     if (previousStorageDocument) {
-      await storageColl.doc(previousStorageDocument.id).set(storageDocument, {merge: true});
+      await dbService.setDocument('storage', previousStorageDocument.id, storageDocument, true);
     } else {
-      await storageColl.add(storageDocument);
+      await dbService.addDocument('storage', storageDocument);
     }
 
     /**
@@ -88,7 +89,7 @@ export const fileCreated = functions
         .where('path', '==', (folder as any).path).get();
 
       if (previousFolder.empty) {
-        await storageColl.add(folder);
+        await dbService.addDocument('storage', folder);
       }
     }
 

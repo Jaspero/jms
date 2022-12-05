@@ -15,7 +15,6 @@ export const userDocumentUpdated = functions
     const after: any = change.after.data();
     const before: any = change.before.data();
     const ah = auth();
-    const fs = firestore();
 
     if (after.role !== before.role) {
 
@@ -27,7 +26,6 @@ export const userDocumentUpdated = functions
           {role: after.role}
         ),
         dbService.updateDocument('authorization', 'permissions', roleRef.data()?.permissions || {}),
-        // change.after.ref.collection('authorization').doc('permissions').set(roleRef.data()?.permissions || {})
       ])
     }
 

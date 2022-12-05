@@ -2,6 +2,7 @@ import {SHARED_CONFIG} from 'definitions';
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {Storage} from '@google-cloud/storage';
+import {dbService} from '../consts/dbService.const';
 
 export const storageItemDeleted = functions
 	.region(SHARED_CONFIG.cloudRegion)
@@ -32,7 +33,7 @@ export const storageItemDeleted = functions
 							return storage.file(filePath).delete();
 						}
 
-						return doc.ref.delete()
+						return dbService.deleteDocument('storage', doc.id);
 					})
 				);
 

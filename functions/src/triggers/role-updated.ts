@@ -38,9 +38,11 @@ export const roleUpdated = functions
 
     if (diff) {
 
-      const {docs} = await fs.collection(Collections.Users)
-        .where('role', '==', change.after.id)
-        .get();
+      const {docs} = await dbService.getDocuments(Collections.Users, {
+        key: 'role',
+        operator: '==',
+        value: change.after.id
+      })
 
       await Promise.allSettled(
         docs.map(() =>

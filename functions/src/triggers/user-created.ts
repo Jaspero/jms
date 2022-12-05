@@ -1,10 +1,9 @@
-import {firestore} from 'firebase-admin';
+import {Collections, EmailTemplates, SHARED_CONFIG} from 'definitions';
 import * as functions from 'firebase-functions';
+import {dbService} from '../consts/dbService.const';
 import {STATIC_CONFIG} from '../consts/static-config.const';
 import {EmailService} from '../services/email/email.service';
 import {createJwt} from '../utils/create-jwt';
-import {SHARED_CONFIG, Collections, EmailTemplates} from 'definitions';
-import {dbService} from '../consts/dbService.const';
 
 export const userCreated = functions
   .region(SHARED_CONFIG.cloudRegion)
@@ -17,7 +16,6 @@ export const userCreated = functions
     }
 
     const inviteRef = await dbService.getDocument(Collections.UserInvites, user.email as string);
-    const userRef = await dbService.getDocument(Collections.Users, user.uid);
 
     const role: {
       role: string;
@@ -51,18 +49,17 @@ export const userCreated = functions
       }
     }
 
-    await userRef
-      .set({
-        createdOn: Date.now(),
-        email: user.email,
-        active: true,
-        ...role ? {
-          role: role.role,
-          requireReset: role.requireReset || false,
-          ...role.createdBy && {invitedBy: role.createdBy}
-        } : {
-          role: '',
-          requireReset: false
-        }
-      });
+    await dbService.setDocument(Collections.Users, user.uid, {
+      createdOn: Date.now(),
+      email: user.email,
+      active: true,
+      ...role ? {
+        role: role.role,
+        requireReset: role.requireReset || false,
+        ...role.createdBy && {invitedBy: role.createdBy}
+      } : {
+        role: '',
+        requireReset: false
+      }
+    });
   });
