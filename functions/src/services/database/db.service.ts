@@ -7,4 +7,11 @@ export class DbService {
 		return Promise.resolve([]);
 	}
 
+	deleteDocument(moduleId, id): Promise<any> {
+		return Promise.resolve([]);
+	}
+
+	setDocument(moduleId, id, data, merge = false): Promise<any> {
+		return Promise.resolve([]);
+	}
 }

@@ -4,6 +4,7 @@ import {STATIC_CONFIG} from '../consts/static-config.const';
 import {EmailService} from '../services/email/email.service';
 import {createJwt} from '../utils/create-jwt';
 import {SHARED_CONFIG, Collections, EmailTemplates} from 'definitions';
+import {dbService} from '../consts/dbService.const';
 
 export const userCreated = functions
   .region(SHARED_CONFIG.cloudRegion)
@@ -15,15 +16,8 @@ export const userCreated = functions
       return;
     }
 
-    const fs = firestore();
-
-    const inviteRef = await fs
-      .collection(Collections.UserInvites)
-      .doc(user.email as string)
-      .get();
-    const userRef = fs
-      .collection(Collections.Users)
-      .doc(user.uid);
+    const inviteRef = await dbService.getDocument(Collections.UserInvites, user.email as string);
+    const userRef = await dbService.getDocument(Collections.Users, user.uid);
 
     const role: {
       role: string;
@@ -35,19 +29,14 @@ export const userCreated = functions
 
     if (role) {
 
-      const roleRef = await fs.collection(Collections.Roles).doc(role.role).get();
+      const roleRef = await dbService.getDocument(Collections.Roles, role.role);
 
       await Promise.all([
-        userRef
-          .collection('authorization')
-          .doc('permissions')
-          .set(roleRef.data()?.permissions || {}),
-        inviteRef
-          .ref
-          .update({
-            accepted: true,
-            acceptedOn: Date.now()
-          })
+        dbService.setDocument('authorization', 'permissions', roleRef.data()?.permissions || {}),
+        dbService.updateDocument(Collections.UserInvites, user.email, {
+          accepted: true,
+          acceptedOn: Date.now()
+        })
       ]);
 
       if (role.sendInvite) {

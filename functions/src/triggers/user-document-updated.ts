@@ -1,6 +1,7 @@
 import {Collections, SHARED_CONFIG} from 'definitions';
 import {auth, firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
+import {dbService} from '../consts/dbService.const';
 
 /**
  * Updates users custom claims when
@@ -18,14 +19,15 @@ export const userDocumentUpdated = functions
 
     if (after.role !== before.role) {
 
-      const roleRef = await fs.collection(Collections.Roles).doc(after.role).get();
+      const roleRef = await dbService.getDocument(Collections.Roles, after.role);
 
       await Promise.all([
         ah.setCustomUserClaims(
           change.after.id,
           {role: after.role}
         ),
-        change.after.ref.collection('authorization').doc('permissions').set(roleRef.data()?.permissions || {})
+        dbService.updateDocument('authorization', 'permissions', roleRef.data()?.permissions || {}),
+        // change.after.ref.collection('authorization').doc('permissions').set(roleRef.data()?.permissions || {})
       ])
     }
 

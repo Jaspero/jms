@@ -1,6 +1,7 @@
 import {Collections, SHARED_CONFIG, compileRules} from 'definitions';
 import {firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
+import {dbService} from '../consts/dbService.const';
 
 export const roleUpdated = functions
   .region(SHARED_CONFIG.cloudRegion)
@@ -21,29 +22,29 @@ export const roleUpdated = functions
       permissionsKeys.add(key);
     }
 
-		const diff = Array.from(permissionsKeys).some((key) => {
-			if (before[key] === undefined) {
-				return true;
-			}
+    const diff = Array.from(permissionsKeys).some((key) => {
+      if (before[key] === undefined) {
+        return true;
+      }
 
-			for (const k of keys) {
-				if (after.permissions?.[key]?.[k] !== before.permissions?.[key]?.[k]) {
-					return true;
-				}
-			}
+      for (const k of keys) {
+        if (after.permissions?.[key]?.[k] !== before.permissions?.[key]?.[k]) {
+          return true;
+        }
+      }
 
-			return false;
-		});
+      return false;
+    });
 
     if (diff) {
-      
+
       const {docs} = await fs.collection(Collections.Users)
         .where('role', '==', change.after.id)
         .get();
 
       await Promise.allSettled(
-        docs.map(doc =>
-          doc.ref.collection('authorization').doc('permissions').set(after.permissions)
+        docs.map(() =>
+          dbService.setDocument('authorization', 'permissions', after.permissions)
         )
       );
     }

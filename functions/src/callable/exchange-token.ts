@@ -17,7 +17,6 @@ export const exchangeToken = functions
     } catch (e) {
       throw new functions.https.HttpsError('unauthenticated', 'Token invalid');
     }
-    const firestore = admin.firestore();
     const auth = admin.auth();
 
     const [token, user] = await Promise.all([

@@ -3,6 +3,7 @@ import {parseTemplate} from '@jaspero/utils';
 import {ModuleDeleteCollection, MODULES, ModuleSubCollection, SHARED_CONFIG} from 'definitions';
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
+import {dbService} from '../consts/dbService.const';
 import {deleteCollection} from '../utils/delete-collection';
 
 export const documentDeleted = functions
@@ -10,7 +11,7 @@ export const documentDeleted = functions
   .firestore
   .document('{moduleId}/{documentId}')
   .onDelete(async (snap, context) => {
-    
+
     const firestore = admin.firestore();
     const {moduleId, documentId} = context.params;
     const moduleDoc = MODULES.find(item => item.id === moduleId);
@@ -82,7 +83,7 @@ export const documentDeleted = functions
 
             if (!filter) {
               toExec.push(
-                firestore.collection(name).doc(documentId).delete()
+                dbService.deleteDocument(name, documentId)
               );
               return;
             }
@@ -91,7 +92,7 @@ export const documentDeleted = functions
 
             if (typeof filters === 'string') {
               toExec.push(
-                firestore.collection(name).doc(filters).delete()
+                dbService.deleteDocument(name, filters)
               );
               return;
             }

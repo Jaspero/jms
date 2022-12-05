@@ -3,6 +3,7 @@ import {firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {ObjectMetadata} from 'firebase-functions/lib/providers/storage';
 import {basename, dirname} from 'path';
+import {dbService} from '../consts/dbService.const';
 
 export const fileMetadataUpdated = functions
   .region(SHARED_CONFIG.cloudRegion)
@@ -28,8 +29,6 @@ export const fileMetadataUpdated = functions
       });
 
     if (storageDocument) {
-      await firestore().collection('storage').doc(storageDocument.id).set({
-        metadata
-      }, {merge: true});
+      await dbService.setDocument('storage', storageDocument.id, {metadata}, true);
     }
   });
