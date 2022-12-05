@@ -1,9 +1,9 @@
 export class DbService {
-	getDocument(moduleId, id): Promise<any> {
+	static getDocument(moduleId, id): Promise<any> {
 		return Promise.resolve([]);
 	}
 
-	updateDocument(moduleId, id, data): Promise<any> {
+	static updateDocument(moduleId, id, data): Promise<any> {
 		return Promise.resolve([]);
 	}
 

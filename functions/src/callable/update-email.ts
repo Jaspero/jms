@@ -1,7 +1,7 @@
 import {Collections, SHARED_CONFIG} from 'definitions';
-import {auth, firestore} from 'firebase-admin';
+import {auth} from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import {DbService} from '../services/database/db.service';
+import {dbService} from '../consts/dbService.const';
 import {hasPermission} from '../utils/auth';
 import {schemaValidation} from '../utils/schema-validation';
 
@@ -28,7 +28,7 @@ export const updateEmail = functions
 
     try {
       await auth().updateUser(id, {email});
-      await new DbService().updateDocument(Collections.Users, id, {email});
+      await dbService.updateDocument(Collections.Users, id, {email});
       // await firestore().collection(Collections.Users).doc(id).update({
       //   email
       // });
