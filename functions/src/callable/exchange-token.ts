@@ -3,6 +3,8 @@ import * as functions from 'firebase-functions';
 import {verify} from 'jsonwebtoken';
 import {ENV_CONFIG} from '../consts/env-config.const';
 import {SHARED_CONFIG, Collections} from 'definitions';
+import {DbService} from '../services/database/db.service';
+
 
 export const exchangeToken = functions
   .region(SHARED_CONFIG.cloudRegion)
@@ -21,7 +23,7 @@ export const exchangeToken = functions
     const [token, user] = await Promise.all([
       auth.createCustomToken(decoded.id),
       (data.pullUser !== false ?
-        firestore.collection(Collections.Users).doc(decoded.id).get() :
+        new DbService().getDocument(Collections.Users, decoded.id) :
         Promise.resolve()) as any
     ]);
 
