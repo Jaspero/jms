@@ -23,6 +23,12 @@ export class FirebaseDatabaseService extends DbService {
 	}
 
 	getDocuments(moduleId, data) {
-		return admin.firestore().collection(moduleId).where(data.key, data.operator, data.value).get();
+		const coll = admin.firestore().collection(moduleId)
+
+		data.forEach((item) => {
+			coll.where(item.key, item.operator, item.value);
+		})
+		return coll.get()
+
 	}
 }

@@ -4,6 +4,7 @@ import {firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {ObjectMetadata} from 'firebase-functions/lib/providers/storage';
 import {basename, dirname, join} from 'path';
+import {dbService} from '../consts/dbService.const';
 import {unpackGenerateImageString} from '../utils/unpack-generate-image-string';
 
 export const fileDeleted = functions
@@ -17,16 +18,27 @@ export const fileDeleted = functions
     /**
      * Storage
      */
-    const storageDocumentRef = await firestore()
-      .collection('storage')
-      .where('name', '==', fileName)
-      .where('path', '==', dirName).get().then(snapshot => {
-        if (snapshot.empty) {
-          return null;
-        }
 
-        return snapshot.docs[0].ref;
-      });
+
+
+    const storageDocumentRef = await dbService.getDocument('storage', [
+      {
+        key: 'name',
+        operator: '==',
+        value: fileName
+      },
+      {
+        key: 'path',
+        operator: '==',
+        value: dirName
+      }
+    ]).then(snapshot => {
+      if (snapshot.empty) {
+        return null;
+      }
+
+      return snapshot.docs[0].ref;
+    });
 
     if (storageDocumentRef) {
       await storageDocumentRef.delete();
@@ -59,13 +71,13 @@ export const fileDeleted = functions
           if (filePrefix || width || height) {
             try {
               await storage.file(lookUpName(filePrefix)).delete();
-            } catch (e) {}
+            } catch (e) { }
           }
 
           if (webpVersion) {
             try {
               await storage.file(webpLookUp(filePrefix)).delete();
-            } catch (e) {}
+            } catch (e) { }
           }
         }
       }

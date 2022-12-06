@@ -36,17 +36,25 @@ export const fileCreated = functions
       createdOn: new Date(timeCreated).getTime(),
       size: Number(size || 0)
     };
-    const previousStorageDocument = await storageColl
-      .where('name', '==', storageDocument.name)
-      .where('path', '==', storageDocument.path).get().then(snapshot => {
-        if (snapshot.empty) {
-          return null;
-        }
-        return {
-          id: snapshot.docs[0].id,
-          ...snapshot.docs[0].data()
-        };
-      });
+    const previousStorageDocument = await dbService.getDocuments('storage', [
+      {
+        key: 'name',
+        operator: '==',
+        value: storageDocument.name
+      }, {
+        key: 'path',
+        operator: '==',
+        value: storageDocument.path
+      }
+    ]).then(snapshot => {
+      if (snapshot.empty) {
+        return null;
+      }
+      return {
+        id: snapshot.docs[0].id,
+        ...snapshot.docs[0].data()
+      };
+    });
 
     if (previousStorageDocument) {
       await dbService.setDocument('storage', previousStorageDocument.id, storageDocument, true);
@@ -84,9 +92,10 @@ export const fileCreated = functions
     }
 
     for (const [_, folder] of Object.entries(folders)) {
-      const previousFolder = await storageColl
-        .where('name', '==', (folder as any).name)
-        .where('path', '==', (folder as any).path).get();
+      const previousFolder = await dbService.getDocuments('storage', [
+        {key: 'name', operator: '==', value: (folder as any).name},
+        {key: 'path', operator: '==', value: (folder as any).path}
+      ])
 
       if (previousFolder.empty) {
         await dbService.addDocument('storage', folder);

@@ -23,7 +23,7 @@ export class DbService {
 		return Promise.resolve([]);
 	}
 
-	getDocuments(moduleId, data) {
+	getDocuments(moduleId, data): any {
 		return Promise.resolve([]);
 	}
 
