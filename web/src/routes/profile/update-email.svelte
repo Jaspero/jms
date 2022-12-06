@@ -1,16 +1,26 @@
 <script lang="ts">
   import {auth} from '$lib/firebase-client';
   import {updateEmail, updatePassword} from 'firebase/auth';
+  import {notification} from '../../lib/notification/notification';
   import SignInDialog from '../../lib/SignInDialog.svelte';
+  import Button from '$lib/Button.svelte';
 
   let opened = false;
   let email = '';
+  let error = '';
   let loading = false;
   const user = auth.currentUser;
+  let success = 'Email update successfull'
 
-  async function onSubmit() {
+  async function emailUpdate() {
+    error = 'Cant update to email that you are using already'
+    if (email === user.email) {
+      notification.set({content: error, type: 'error'});
+      return;
+    }
     try {
       await updateEmail(user, email);
+      notification.set({content: success, type: 'success'});
     } catch (err) {
       if (err) {
         opened = true
@@ -24,12 +34,13 @@
 
 <div class="grid">
   <h1 class="title">Email update</h1>
-  <form on:submit|preventDefault={onSubmit}>
-    <label for="update-email">Email</label>
-    <div class="wrapper">
-      <input placeholder="email" type="email" id="update-email" name="email" bind:value={email} required />
-    </div>
-    <button class="submit-btn" type="submit" {loading}>Submit</button>
+  <form on:submit|preventDefault={emailUpdate}>
+    <label>
+      <p>{auth.currentUser.email}</p>
+      <span>Update email</span>
+      <input type="email" name="update-email" required bind:value={email} />
+    </label>
+    <Button type="submit" {loading}>Submit</Button>
   </form>
 </div>
 <SignInDialog bind:opened={opened} />
@@ -50,11 +61,16 @@
  }
 
  form {
-   width: 400px;
-   background: white;
-   border: 1px solid black;
-   padding: 20px;
-   border-radius: 8px;
+     width: 400px;
+     background: white;
+     border: 1px solid black;
+     padding: 20px;
+     border-radius: 8px;
+     text-align: center;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
  }
 
  input{
@@ -64,22 +80,16 @@
      padding: 15px;
      color: black;
      font-size: 16px;
+     margin-top: 5px;
      width: 100%;
- }
- input::placeholder {
-     color: black;
  }
 
- .submit-btn {
-     border: 1px solid black;
-     border-radius: 8px;
-     outline: none;
-     background: none;
-     font-size: 20px;
-     padding:10px 15px;
-     color: black;
+ label {
+     text-align: left;
      width: 100%;
-     margin-top: 20px;
+     color: black;
+     font-weight: 600;
+     position: relative;
  }
 
 </style>

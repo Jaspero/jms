@@ -31,7 +31,7 @@
         <img src="/images/notification/info.svg" alt="Info" width="32" height="32">
       {/if}
       <section>
-        <h1>{$notification.title || 'Notifikacija'}</h1>
+        <h1>{$notification.title || 'Notification'}</h1>
         <p>{$notification.content}</p>
       </section>
     </main>
