@@ -19,7 +19,6 @@ export const fileCreated = functions
   })
   .storage.object()
   .onFinalize(async ({bucket, name, contentType, metadata, timeCreated, size}: ObjectMetadata) => {
-    const storageColl = firestore().collection('storage');
     const fileName = basename(name);
     const dirName = dirname(name);
     const folders = {};

@@ -10,7 +10,6 @@ export const roleUpdated = functions
   .onUpdate(async change => {
     const after: any = change.after.data();
     const before: any = change.before.data();
-    const fs = firestore();
     const keys = ['get', 'list', 'create', 'update', 'delete'];
     const permissionsKeys = new Set<string>();
 

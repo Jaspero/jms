@@ -3,6 +3,7 @@ import {Collections, EMAIL_LAYOUT, EMAIL_STYLE} from 'definitions';
 import {firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {compile} from 'handlebars';
+import {dbService} from '../../consts/dbService.const';
 import {ENV_CONFIG} from '../../consts/env-config.const';
 import {EmailTemplate} from './email-template.interface';
 
@@ -27,11 +28,7 @@ export class EmailService {
     addedData?: any
   ) {
 
-    const fs = firestore();
-
-    const messageSnap = await fs
-      .doc(`automatic-emails/${templateId}`)
-      .get();
+    const messageSnap = await dbService.getDocument('automatic-emails', templateId)
     const message: EmailTemplate = messageSnap.data() as any;
 
     if (!message.active) {
@@ -78,16 +75,14 @@ export class EmailService {
 
     try {
 
-      const emailDoc = firestore().collection(Collections.SentEmails).doc();
-
-      await emailDoc.create({
+      const emailDoc = await dbService.addDocument(Collections.SentEmails, {
         createdOn: Date.now(),
         to,
         html,
         subject: message.subject,
         templateId,
         ...res === true ? {status: true} : {status: false, error: res}
-      });
+      })
 
       sentEmail = emailDoc.id
     } catch (e) {
