@@ -104,6 +104,10 @@
         border-radius: 8px;
     }
 
+    .subtitle {
+        text-align: center;
+    }
+
     .dialog-backdrop {
         z-index: 10;
         position: fixed;

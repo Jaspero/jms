@@ -14,18 +14,17 @@
 
 
 <Dialog class="update-dialog" bind:opened={opened} {showConfirmation} title="{title}" subtitle="{subtitle}">
-    <div slot="content">
+    <slot>
       <SignIn />
-    </div>
+    </slot>
 </Dialog>
 
 
 
 <style>
-    :global(.update-dialog) {
-      background: #67131e!important;
-      text-align: center;
-      color: white;
+    :global(.update-dialog .form-container) {
+        box-shadow: none;
+        padding: 0;
     }
 
 </style>

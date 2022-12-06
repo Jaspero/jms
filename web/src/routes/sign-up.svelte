@@ -3,16 +3,18 @@
   import { auth } from '$lib/firebase-client';
   import { goto } from '$app/navigation';
   import {page} from '$app/stores';
-  import {notificationWrapper} from '$lib/notification/notification';
+  import {notification, notificationWrapper} from '$lib/notification/notification';
   import Button from '$lib/Button.svelte';
 
 
 
 
-  let error = ''
+
+  // let error = ''
 
   let show = false;
   let email = ''
+  let error = ''
   let password = ''
   let passwordConfirm = ''
   let loading = false;
@@ -23,10 +25,16 @@
 
 
 
-
   async function signUp ()  {
 
     email = email.toLowerCase().trim();
+    error = 'passwords do no match'
+    if (password !== passwordConfirm) {
+      notification.set({content: error, type: 'error'});
+      password = '';
+      passwordConfirm = '';
+      return;
+    }
 
     loading = true;
 
@@ -36,7 +44,6 @@
     } catch {
       password = '';
     }
-
     loading = false;
     passwordConfirm = ''
   }
@@ -45,7 +52,6 @@
     const {searchParams} = $page.url;
     goto(searchParams.has('f') ? decodeURIComponent(searchParams.get('f') as string) : '/');
   }
-
 
 
 
@@ -81,9 +87,6 @@
         <input type="checkbox" class="checkbox" on:change|preventDefault={togglePasswordType}>
         <p>Show/hide password</p>
       </div>
-      {#if error}
-        <div class="error">{error}</div>
-      {/if}
       <Button type="submit" {wfull} {loading}>Submit</Button>
     </form>
   </div>

@@ -101,10 +101,6 @@
       </button>
     </label>
 
-
-
-
-
     <div class="btn-wrapper">
       <button type="button" class="forgot-dialog" on:click={() => (rDialog = true)}>Forgot your password?</button>
     </div>
@@ -116,7 +112,7 @@
   </form>
 </div>
 
-<Dialog class="update-dialog" bind:opened={rDialog} showConfirmation={false} title="Forgot password?" subtitle="Write your email below and instruction for email reset will be sent to you">
+<Dialog class="forgot-password-dialog" bind:opened={rDialog} showConfirmation={false} title="Forgot password?" subtitle="Write your email below and instruction for email reset will be sent to you">
   <form on:submit|preventDefault={resetPassword}>
     <label>
       <span>Email</span>
@@ -128,7 +124,7 @@
 
 <style>
 
-  :global(.update-dialog .dialog-content) {
+  :global(.forgot-password-dialog .dialog-content) {
    margin-top: 0;
   }
 
@@ -193,6 +189,7 @@
     width: 100%;
     margin-top: 5px;
   }
+
   input::placeholder {
     color: black;
   }
