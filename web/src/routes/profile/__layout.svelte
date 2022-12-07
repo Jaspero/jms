@@ -14,7 +14,6 @@
 
 	onDestroy( () => {
 		isLoggedIn;
-		console.log("Date Component removed");
 	});
 
 </script>
@@ -46,16 +45,11 @@
 	</div>
 </div>
 
-
-
-
-
-
 <style>
 
 	.flex-wrapper	{
-		flex: 1;
 		padding: 0 20px;
+		margin-top: 20px;
 	}
 
 	.grid {
@@ -68,7 +62,8 @@
 		display: flex;
 		position: sticky;
 		height: fit-content;
-		top: 80px;
+		top: 0;
+		margin-top: 20px;
 		flex-direction: column;
 		align-items: center;
 		max-width: 400px;

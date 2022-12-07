@@ -6,12 +6,6 @@
   import {notification, notificationWrapper} from '$lib/notification/notification';
   import Button from '$lib/Button.svelte';
 
-
-
-
-
-  // let error = ''
-
   let show = false;
   let email = ''
   let error = ''

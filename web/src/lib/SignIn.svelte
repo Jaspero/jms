@@ -58,7 +58,8 @@
     rLoading = true;
 
     try {
-      await notificationWrapper(sendPasswordResetEmail(auth, rEmail, {url: `${location.origin}/reset-password`}), 'A password reset link has been sent to your email.');
+      await notificationWrapper(sendPasswordResetEmail(auth, rEmail, {url: `${location.origin}/reset-password`}),
+        'A password reset link has been sent to your email.');
       rDialog = false;
     } catch (e) {
       console.error(e);
