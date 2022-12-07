@@ -68,7 +68,7 @@ export const documentDeleted = functions
         subCollections.forEach(
           ({name, batch}: ModuleSubCollection) => {
             toExec.push(
-              deleteCollection(
+              dbService.deleteCollection(
                 firestore,
                 `${moduleId}/${documentId}/${name}`,
                 batch || 100

@@ -23,7 +23,11 @@ export class DbService {
 		return Promise.resolve([]);
 	}
 
-	getDocuments(moduleId, data): any {
+	getDocuments(moduleId, data, orderBy?, offset?, limit?): any {
+		return Promise.resolve([]);
+	}
+
+	deleteCollection(db, collectionPath, batchSize) {
 		return Promise.resolve([]);
 	}
 
