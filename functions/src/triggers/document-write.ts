@@ -2,6 +2,7 @@ import {random} from '@jaspero/utils';
 import {relevantIndex} from 'adv-firestore-functions';
 import {Collections, MODULES, SHARED_CONFIG} from 'definitions';
 import * as functions from 'firebase-functions';
+import {dbService} from '../consts/dbService.const';
 
 export const documentWrite = functions
   .region(SHARED_CONFIG.cloudRegion)
@@ -44,7 +45,7 @@ export const documentWrite = functions
           `${module.metadata?.docIdPrefix || module.id.slice(0, 2)}-${random.string(module.metadata?.docIdSize || 12)}`
       )
 
-      await change.after.ref.collection(Collections.History).doc(historyId).set({
+      await dbService.setDocument(Collections.History, historyId, {
         type: change.before.exists ? (change.after.exists ? 'update' : 'delete') : 'create',
         createdOn: Date.now(),
         ...change.before.exists && {before: change.before.data()},

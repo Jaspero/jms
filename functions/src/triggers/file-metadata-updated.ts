@@ -3,6 +3,7 @@ import {firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {ObjectMetadata} from 'firebase-functions/lib/providers/storage';
 import {basename, dirname} from 'path';
+import {dbService} from '../consts/dbService.const';
 
 export const fileMetadataUpdated = functions
   .region(SHARED_CONFIG.cloudRegion)
@@ -14,22 +15,31 @@ export const fileMetadataUpdated = functions
   .onMetadataUpdate(async ({name, metadata}: ObjectMetadata) => {
     const fileName = basename(name);
     const filePath = dirname(name);
-    const storageDocument = await firestore()
-      .collection('storage')
-      .where('name', '==', fileName)
-      .where('path', '==', filePath).get().then(snapshot => {
-        if (snapshot.empty) {
-          return null;
-        }
-        return {
-          id: snapshot.docs[0].id,
-          ...snapshot.docs[0].data()
-        };
-      });
+
+
+
+    const storageDocument = await dbService.getDocument('storage', [
+      {
+        key: 'name',
+        operator: '==',
+        value: fileName
+      },
+      {
+        key: 'path',
+        operator: '==',
+        value: filePath
+      }
+    ]).then(snapshot => {
+      if (snapshot.empty) {
+        return null;
+      }
+      return {
+        id: snapshot.docs[0].id,
+        ...snapshot.docs[0].data()
+      };
+    });
 
     if (storageDocument) {
-      await firestore().collection('storage').doc(storageDocument.id).set({
-        metadata
-      }, {merge: true});
+      await dbService.setDocument('storage', storageDocument.id, {metadata}, true);
     }
   });

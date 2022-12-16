@@ -8,6 +8,7 @@ import XLSX from 'xlsx';
 import {CORS} from '../consts/cors-whitelist.const';
 import {authenticated} from './middlewares/authenticated';
 import {MODULES, SHARED_CONFIG} from 'definitions';
+import {dbService} from '../consts/dbService.const';
 
 enum Type {
   csv = 'csv',
@@ -20,7 +21,7 @@ const app = express();
 app.use(CORS);
 
 function getModules(url: string) {
-	return url.split('/').filter((v, index) => index % 2);
+  return url.split('/').filter((v, index) => index % 2);
 }
 
 app.post('/**', authenticated(), (req, res) => {
@@ -74,22 +75,11 @@ app.post('/**', authenticated(), (req, res) => {
       }
     }
 
-    if (sort) {
-      col = col.orderBy(
-        sort.active,
-        sort.direction
-      )
-    }
-
-    if (skip) {
-      col = col.offset(skip);
-    }
-
-    if (limit) {
-      col = col.limit(limit);
-    }
-
-    let docs = (await col.get()).docs.reduce((acc: any[], doc: any) => {
+    let docs = (await dbService.getDocuments(collectionRef || req.url, [],
+      {active: sort.active || undefined, direction: sort.direction || undefined},
+      skip || undefined,
+      limit || undefined
+    )).docs.reduce((acc: any[], doc: any) => {
       if (!ids || ids.includes(doc.id)) {
         acc.push({
           ...doc.data(),

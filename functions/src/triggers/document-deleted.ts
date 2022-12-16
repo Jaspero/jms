@@ -2,7 +2,9 @@ import {Storage} from '@google-cloud/storage';
 import {parseTemplate} from '@jaspero/utils';
 import {ModuleDeleteCollection, MODULES, ModuleSubCollection, SHARED_CONFIG} from 'definitions';
 import * as admin from 'firebase-admin';
+import {database} from 'firebase-admin';
 import * as functions from 'firebase-functions';
+import {dbService} from '../consts/dbService.const';
 import {deleteCollection} from '../utils/delete-collection';
 
 export const documentDeleted = functions
@@ -10,7 +12,7 @@ export const documentDeleted = functions
   .firestore
   .document('{moduleId}/{documentId}')
   .onDelete(async (snap, context) => {
-    
+
     const firestore = admin.firestore();
     const {moduleId, documentId} = context.params;
     const moduleDoc = MODULES.find(item => item.id === moduleId);
@@ -66,7 +68,7 @@ export const documentDeleted = functions
         subCollections.forEach(
           ({name, batch}: ModuleSubCollection) => {
             toExec.push(
-              deleteCollection(
+              dbService.deleteCollection(
                 firestore,
                 `${moduleId}/${documentId}/${name}`,
                 batch || 100
@@ -82,7 +84,7 @@ export const documentDeleted = functions
 
             if (!filter) {
               toExec.push(
-                firestore.collection(name).doc(documentId).delete()
+                dbService.deleteDocument(name, documentId)
               );
               return;
             }
@@ -91,22 +93,24 @@ export const documentDeleted = functions
 
             if (typeof filters === 'string') {
               toExec.push(
-                firestore.collection(name).doc(filters).delete()
+                dbService.deleteDocument(name, filters)
               );
               return;
             }
 
             const method = async () => {
-              let col: any = firestore.collection(name);
-
+              let col;
               for (const f of filters) {
-                col = col.where(f.key, f.operator, f.value);
+                col = await dbService.getDocuments(name, {
+                  key: f.key,
+                  operator: f.operator,
+                  value: f.value
+                });
               }
 
-              const {docs} = await col.get();
-
+              const docs = col.docs;
               await Promise.all(
-                docs.map(doc => doc.ref.delete())
+                docs.map(doc => dbService.deleteDocument(name, doc.id))
               );
             }
 
