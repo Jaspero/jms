@@ -1,3 +1,10 @@
+# [7.2.0](https://github.com/jaspero/jms/compare/v7.1.0...v7.2.0) (2023-01-01)
+
+
+### Features
+
+* **storage:** connected folder and color selection ([bf32cd4](https://github.com/jaspero/jms/commit/bf32cd4c497e9240e4a0c99f4fb5eca378bc6b92))
+
 # [7.1.0](https://github.com/jaspero/jms/compare/v7.0.0...v7.1.0) (2022-11-24)
 
 
