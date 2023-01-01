@@ -7,6 +7,7 @@ import admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {constants} from 'http2';
 import {CORS} from '../consts/cors-whitelist.const';
+import {dbService} from '../consts/dbService.const';
 import {safeEval} from '../utils/safe-eval';
 import {authenticated} from './middlewares/authenticated';
 
@@ -37,7 +38,6 @@ app.post('/', authenticated(), (req, res) => {
     async function exec() {
       const validator = ajvInstance.compile(JSON.parse(parsedData.schema));
       const type = parsedData.type || 'csv';
-      const afs = admin.firestore();
 
       // @ts-ignore
       const {permissions} = req['user'];
@@ -73,17 +73,14 @@ app.post('/', authenticated(), (req, res) => {
             acc.errors.push({index, errors: validator.errors});
           } else {
             const {id, ...saveData} = cur;
-            const col = afs
-              .collection(parsedData.collection);
-
             if (rowFunction) {
               acc.created.push(async () => {
-                const sd = await rowFunction(saveData, afs, req.query);
-                return id ? col.doc(id).set(sd) : col.add(sd)
+                const sd = await rowFunction(saveData, req.query);
+                return id ? dbService.setDocument(parsedData.collection, id, sd) : dbService.addDocument(parsedData.collection, sd);
               });
             } else {
               acc.created.push(() =>
-                id ? col.doc(id).set(saveData) : col.add(saveData)
+                id ? dbService.setDocument(parsedData.collection, id, saveData) : dbService.addDocument(parsedData.collection, saveData)
               );
             }
           }

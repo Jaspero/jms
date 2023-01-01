@@ -1,8 +1,10 @@
+import {Collections, SHARED_CONFIG} from 'definitions';
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {verify} from 'jsonwebtoken';
+import {dbService} from '../consts/dbService.const';
 import {ENV_CONFIG} from '../consts/env-config.const';
-import {SHARED_CONFIG, Collections} from 'definitions';
+
 
 export const exchangeToken = functions
   .region(SHARED_CONFIG.cloudRegion)
@@ -15,13 +17,12 @@ export const exchangeToken = functions
     } catch (e) {
       throw new functions.https.HttpsError('unauthenticated', 'Token invalid');
     }
-    const firestore = admin.firestore();
     const auth = admin.auth();
 
     const [token, user] = await Promise.all([
       auth.createCustomToken(decoded.id),
       (data.pullUser !== false ?
-        firestore.collection(Collections.Users).doc(decoded.id).get() :
+        dbService.getDocument(Collections.Users, decoded.id) :
         Promise.resolve()) as any
     ]);
 

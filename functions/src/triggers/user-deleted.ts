@@ -1,6 +1,6 @@
-import {firestore} from 'firebase-admin';
+import {Collections, SHARED_CONFIG} from 'definitions';
 import * as functions from 'firebase-functions';
-import {SHARED_CONFIG, Collections} from 'definitions';
+import {dbService} from '../consts/dbService.const';
 
 export const userDeleted = functions
   .region(SHARED_CONFIG.cloudRegion)
@@ -8,9 +8,6 @@ export const userDeleted = functions
   .user()
   .onDelete(async user => {
     try {
-      await firestore()
-        .collection(Collections.Users)
-        .doc(user.uid)
-        .delete();
-    } catch (e) {}
+      await dbService.deleteDocument(Collections.Users, user.uid);
+    } catch (e) { }
   });

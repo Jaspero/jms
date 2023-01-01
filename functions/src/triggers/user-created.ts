@@ -1,9 +1,9 @@
-import {firestore} from 'firebase-admin';
+import {Collections, EmailTemplates, SHARED_CONFIG} from 'definitions';
 import * as functions from 'firebase-functions';
+import {dbService} from '../consts/dbService.const';
 import {STATIC_CONFIG} from '../consts/static-config.const';
 import {EmailService} from '../services/email/email.service';
 import {createJwt} from '../utils/create-jwt';
-import {SHARED_CONFIG, Collections, EmailTemplates} from 'definitions';
 
 export const userCreated = functions
   .region(SHARED_CONFIG.cloudRegion)
@@ -15,15 +15,7 @@ export const userCreated = functions
       return;
     }
 
-    const fs = firestore();
-
-    const inviteRef = await fs
-      .collection(Collections.UserInvites)
-      .doc(user.email as string)
-      .get();
-    const userRef = fs
-      .collection(Collections.Users)
-      .doc(user.uid);
+    const inviteRef = await dbService.getDocument(Collections.UserInvites, user.email as string);
 
     const role: {
       role: string;
@@ -35,19 +27,14 @@ export const userCreated = functions
 
     if (role) {
 
-      const roleRef = await fs.collection(Collections.Roles).doc(role.role).get();
+      const roleRef = await dbService.getDocument(Collections.Roles, role.role);
 
       await Promise.all([
-        userRef
-          .collection('authorization')
-          .doc('permissions')
-          .set(roleRef.data()?.permissions || {}),
-        inviteRef
-          .ref
-          .update({
-            accepted: true,
-            acceptedOn: Date.now()
-          })
+        dbService.setDocument('authorization', 'permissions', roleRef.data()?.permissions || {}),
+        dbService.updateDocument(Collections.UserInvites, user.email, {
+          accepted: true,
+          acceptedOn: Date.now()
+        })
       ]);
 
       if (role.sendInvite) {
@@ -62,18 +49,17 @@ export const userCreated = functions
       }
     }
 
-    await userRef
-      .set({
-        createdOn: Date.now(),
-        email: user.email,
-        active: true,
-        ...role ? {
-          role: role.role,
-          requireReset: role.requireReset || false,
-          ...role.createdBy && {invitedBy: role.createdBy}
-        } : {
-          role: '',
-          requireReset: false
-        }
-      });
+    await dbService.setDocument(Collections.Users, user.uid, {
+      createdOn: Date.now(),
+      email: user.email,
+      active: true,
+      ...role ? {
+        role: role.role,
+        requireReset: role.requireReset || false,
+        ...role.createdBy && {invitedBy: role.createdBy}
+      } : {
+        role: '',
+        requireReset: false
+      }
+    });
   });
