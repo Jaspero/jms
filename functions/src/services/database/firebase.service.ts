@@ -1,30 +1,37 @@
 import * as admin from 'firebase-admin';
 import {deleteCollection} from '../../utils/delete-collection';
 import {DbService} from './db.service';
+
 export class FirebaseDatabaseService extends DbService {
-
-	getDocument(moduleId, id): Promise<any> {
-		return admin.firestore().collection(moduleId).doc(id).get();
+	constructor() {
+		super();
+		this.firestore = admin.firestore();
 	}
 
-	updateDocument(moduleId, id, data): Promise<any> {
-		return admin.firestore().collection(moduleId).doc(id).update(data);
+	firestore: admin.firestore.Firestore;
+
+	getDocument(moduleId, id) {
+		return this.firestore.collection(moduleId).doc(id).get();
 	}
 
-	deleteDocument(moduleId, id): Promise<any> {
-		return admin.firestore().collection(moduleId).doc(id).delete();
+	updateDocument(moduleId, id, data) {
+		return this.firestore.collection(moduleId).doc(id).update(data);
 	}
 
-	setDocument(moduleId, id, data, merge = false): Promise<any> {
-		return admin.firestore().collection(moduleId).doc(id).set(data, {merge});
+	deleteDocument(moduleId, id) {
+		return this.firestore.collection(moduleId).doc(id).delete();
 	}
 
-	addDocument(moduleId, data): Promise<any> {
-		return admin.firestore().collection(moduleId).add(data);
+	setDocument(moduleId, id, data, merge = false) {
+		return this.firestore.collection(moduleId).doc(id).set(data, {merge});
+	}
+
+	addDocument(moduleId, data) {
+		return this.firestore.collection(moduleId).add(data);
 	}
 
 	getDocuments(moduleId, data, orderBy?, offset?, limit?) {
-		const coll = admin.firestore().collection(moduleId)
+		const coll = this.firestore.collection(moduleId)
 
 		data.forEach((item) => {
 			coll.where(item.key, item.operator, item.value);
