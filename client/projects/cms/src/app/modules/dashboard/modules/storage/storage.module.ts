@@ -18,15 +18,17 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSelectModule} from '@angular/material/select';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {DropZoneModule, SanitizeModule} from '@jaspero/ng-helpers';
+import {DropZoneModule, LoadClickModule, SanitizeModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
+import {ColorPickerComponent} from './components/color-picker/color-picker.component';
 import {FilePreviewComponent} from './components/file-preview/file-preview.component';
+import {FolderDialogComponent} from './components/folder-dialog/folder-dialog.component';
 import {FullFilePreviewComponent} from './components/full-file-preview/full-file-preview.component';
+import {IconPickerComponent} from './components/icon-picker/icon-picker.component';
 import {StorageComponent} from './components/storage/storage.component';
 import {FileIconPipe} from './pipes/file-icon/file-icon.pipe';
 import {FileSizePipe} from './pipes/file-size/file-size.pipe';
 import {FileUrlPipe} from './pipes/file-url/file-url.pipe';
-import {FolderIconPipe} from './pipes/folder-icon/folder-icon.pipe';
 
 @NgModule({
   declarations: [
@@ -34,9 +36,11 @@ import {FolderIconPipe} from './pipes/folder-icon/folder-icon.pipe';
     FilePreviewComponent,
     FullFilePreviewComponent,
     FileIconPipe,
-    FolderIconPipe,
     FileUrlPipe,
-    FileSizePipe
+    FileSizePipe,
+    FolderDialogComponent,
+    ColorPickerComponent,
+    IconPickerComponent
   ],
   imports: [
     CommonModule,
@@ -57,7 +61,6 @@ import {FolderIconPipe} from './pipes/folder-icon/folder-icon.pipe';
     DropZoneModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    SanitizeModule,
     DragDropModule,
     MatListModule,
     MatChipsModule,
@@ -65,6 +68,9 @@ import {FolderIconPipe} from './pipes/folder-icon/folder-icon.pipe';
     MatSelectModule,
     MatMenuModule,
     MatCheckboxModule,
+
+    SanitizeModule,
+    LoadClickModule,
 
     TranslocoModule
   ],

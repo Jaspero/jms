@@ -25,7 +25,7 @@ export const createUser = functions
           'password'
         ]
       }
-    )
+    );
 
     let user: admin.auth.UserRecord;
 

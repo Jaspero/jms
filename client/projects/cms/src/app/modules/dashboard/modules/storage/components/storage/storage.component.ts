@@ -14,23 +14,25 @@ import {
   ViewChild
 } from '@angular/core';
 import {ref, Storage, updateMetadata} from '@angular/fire/storage';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl} from '@angular/forms';
 import {MatCheckboxChange} from '@angular/material/checkbox';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import {FilterMethod, StorageItem} from '@definitions';
-import {random} from '@jaspero/utils';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {disableScroll, enableScroll} from '@shared/utils/scroll';
 import {BehaviorSubject, combineLatest, distinctUntilChanged, from, map, Observable, of, startWith} from 'rxjs';
 import {filter, shareReplay, switchMap, take, tap} from 'rxjs/operators';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
+import {ICONS_MAP} from '../../consts/icons.const';
+import {STORAGE_COLORS_MAP} from '../../consts/storage-colors.const';
 import {StorageStateEmulator} from '../../services/storage/storage-state-emulated';
 import {StorageStateRouter} from '../../services/storage/storage-state-router';
 import {StorageService} from '../../services/storage/storage.service';
 import {FileSelectConfiguration} from '../../types/file-select-configuration.interface';
 import {StorageState} from '../../types/storage-state';
+import {FolderDialogComponent} from '../folder-dialog/folder-dialog.component';
 import {FullFilePreviewComponent} from '../full-file-preview/full-file-preview.component';
 
 @UntilDestroy()
@@ -65,9 +67,6 @@ export class StorageComponent implements OnInit {
   @ViewChild('context')
   contextTemplate: TemplateRef<any>;
 
-  @ViewChild('newFolder')
-  newFolderTemplate: TemplateRef<any>;
-
   @ViewChild('details')
   detailsTemplate: TemplateRef<any>;
 
@@ -87,6 +86,8 @@ export class StorageComponent implements OnInit {
 
   @Input() configuration: FileSelectConfiguration;
   @Input() dialogRef: MatDialogRef<any>;
+
+  colorsMap = STORAGE_COLORS_MAP;
 
   @HostListener('document:mousedown', ['$event'])
   click(event: MouseEvent) {
@@ -384,47 +385,46 @@ export class StorageComponent implements OnInit {
     return item;
   }
 
-  openNewFolderDialog() {
-    const control = new FormControl('', [Validators.required]);
-
+  openFolderDialog(data?: {item: StorageItem, items: StorageItem[]}) {
     disableScroll();
 
-    this.dialog.open(this.newFolderTemplate, {
-      data: {
-        control
-      },
-      width: '400px',
-      scrollStrategy: new NoopScrollStrategy()
-    })
+    this.dialog.open(
+      FolderDialogComponent,
+      {
+        data: {
+          folder: data.item || {},
+          path: this.routeControl.value || '.',
+          userId: this.state.user.id
+        },
+        width: '400px',
+        scrollStrategy: new NoopScrollStrategy()
+      }
+    )
       .afterClosed()
-      .pipe(
-        take(1),
-        switchMap((data) => {
-          enableScroll();
+      .subscribe(value => {
+        enableScroll();
 
-          if (!data) {
-            return of(false);
-          }
+        if (!value) {
+          return;
+        }
 
-          return this.db.setDocument('storage', random.string(20), {
-            name: control.value,
-            path: this.routeControl.value || '.',
-            type: 'folder',
-            metadata: {
-              ['permissions_users_' + this.state.user.id + '_write']: 'true'
-            },
-            contentType: 'text/plain',
-            createdOn: Date.now(),
-            size: 0
-          }, {})
-            .pipe(
-              tap(() =>
-                this.navigateTo(control.value, true)
-              )
-            );
-        })
-      )
-      .subscribe();
+        if (!value.id) {
+          this.navigateTo(value.name, true);
+          return;
+        }
+
+        const index = data.items.findIndex(it => it.id === value.id);
+        data.items[index] = {
+          ...data.items[index],
+          ...value
+        };
+
+        this.items$.next({
+          ...this.items$.getValue(),
+          folders: [...data.items]
+        });
+        this.cdr.markForCheck();
+      });
   }
 
   openUploadDialog() {

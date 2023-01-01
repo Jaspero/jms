@@ -24,14 +24,15 @@
           <button mat-icon-button (click)="openUploadDialog()" *ngIf="writeAccess$ | async">
             <mat-icon>file_upload</mat-icon>
           </button>
-          <button mat-icon-button (click)="openNewFolderDialog()">
+          <button mat-icon-button (click)="openFolderDialog()">
             <mat-icon>create_new_folder</mat-icon>
           </button>
         </div>
       </mat-card-title>
     </mat-card>
 
-    <div class="dropzone" jpDropZone [hoverClass]="null" [class.active]="filesOver$ | async" (hovered)="filesHovered($event)" (dropped)="uploadFiles(routeControl.value, $event)">
+    <div class="dropzone" jpDropZone [hoverClass]="null" [class.active]="filesOver$ | async"
+      (hovered)="filesHovered($event)" (dropped)="uploadFiles(routeControl.value, $event)">
       <ng-container *ngIf="loading$ | async">
         <div class="flex jc-center ai-center w-full" style="height: 80%">
           <mat-spinner diameter="30"></mat-spinner>
@@ -50,12 +51,15 @@
         <!-- Folders -->
         <p class="storage-subheader m-t-s" *ngIf="items.folders.length">{{'FOLDERS' | transloco}}</p>
         <div class="c-grid jc-start p-a-0">
-          <div *ngFor="let folder of items.folders; trackBy: trackByPath; index as index"
-            class="c-column">
-            <mat-card class="storage-item" [tabIndex]="index + 1" (mousedown)="focusItem($event, folder)"
-              (dblclick)="navigateTo(folder, true)" (contextmenu)="openItemContextMenu($event, folder, items.folders)">
+          <div *ngFor="let folder of items.folders; trackBy: trackByPath; index as index" class="c-column">
+            <mat-card class="storage-item" [style.background-color]="folder.color || 'white'"
+              [style.color]="colorsMap[folder.color || 'var(--panel-theme)']?.fontColor || 'white'"
+              [tabIndex]="index + 1" (mousedown)="focusItem($event, folder)" (dblclick)="navigateTo(folder, true)"
+              (contextmenu)="openItemContextMenu($event, folder, items.folders)">
               <div class="flex jc-start ai-center">
-                <mat-icon class="storage-item-icon">{{folder | folderIcon}}</mat-icon>
+                <div class="flex">
+                  <mat-icon class="storage-item-icon">{{folder.icon || 'folder'}}</mat-icon>
+                </div>
                 <div class="storage-item-name" [matTooltip]="folder.name" matTooltipShowDelay="1000">
                   {{folder.name}}
                 </div>
@@ -73,7 +77,8 @@
               (dblclick)="previewItem(file)">
 
               <div class="storage-item-checkbox" *ngIf="configuration">
-                <mat-checkbox (click)="stopPropagation($event)" [checked]="fileSelection.isSelected(file)" (change)="toggleSelectedFile(file, $event)"></mat-checkbox>
+                <mat-checkbox (click)="stopPropagation($event)" [checked]="fileSelection.isSelected(file)"
+                  (change)="toggleSelectedFile(file, $event)"></mat-checkbox>
               </div>
 
               <div class="storage-item-file flex fd-col">
@@ -191,7 +196,7 @@
     <hr>
     <button class="contextmenu-dialog-item" mat-button color="warn" mat-dialog-close (click)="removeItem(data)">
       <mat-icon>delete</mat-icon>
-      <span class="p-l-s">{{(selection.selected.length < 1 ? 'REMOVE' : 'REMOVE_SELECTION') | transloco}}</span>
+      <span class="p-l-s">{{(selection.selected.length < 1 ? 'REMOVE' : 'REMOVE_SELECTION' ) | transloco}}</span>
     </button>
   </ng-container>
 
@@ -201,34 +206,19 @@
       <span class="p-l-s">{{'SHARE' | transloco}}</span>
     </button>
     <button class="contextmenu-dialog-item" mat-button mat-dialog-close (click)="openInfoDialog(data.item)">
-      <mat-icon style="color: rgba(0, 0, 0, 0.65)">info</mat-icon>
+      <mat-icon>info</mat-icon>
       <span class="p-l-s">{{'VIEW_DETAILS' | transloco}}</span>
     </button>
+    <button class="contextmenu-dialog-item" mat-button mat-dialog-close (click)="openFolderDialog(data)">
+      <mat-icon>edit</mat-icon>
+      <span class="p-l-s">{{'EDIT' | transloco}}</span>
+    </button>
+    <hr>
     <button class="contextmenu-dialog-item" mat-button color="warn" mat-dialog-close (click)="removeItem(data)">
       <mat-icon>delete</mat-icon>
-      <span class="p-l-s">{{(selection.selected.length < 1 ? 'REMOVE' : 'REMOVE_SELECTION') | transloco}}</span>
+      <span class="p-l-s">{{(selection.selected.length < 1 ? 'REMOVE' : 'REMOVE_SELECTION' ) | transloco}}</span>
     </button>
   </ng-container>
-</ng-template>
-
-<ng-template #newFolder let-data>
-  <h4 mat-dialog-title>{{'NEW_FOLDER' | transloco}}</h4>
-
-  <form>
-    <mat-dialog-content>
-      <mat-form-field class="w-full">
-        <mat-label>{{'NAME' | transloco}}</mat-label>
-        <input matInput [formControl]="data.control" autocomplete="off">
-      </mat-form-field>
-    </mat-dialog-content>
-
-    <mat-dialog-actions class="jc-between">
-      <button tabindex="-1" type="button" mat-flat-button mat-dialog-close>{{'CANCEL' | transloco}}</button>
-      <button type="submit" mat-flat-button color="primary" [disabled]="data.control.invalid" [mat-dialog-close]="true">
-        {{'CREATE' | transloco}}
-      </button>
-    </mat-dialog-actions>
-  </form>
 </ng-template>
 
 <ng-template #details let-data>
