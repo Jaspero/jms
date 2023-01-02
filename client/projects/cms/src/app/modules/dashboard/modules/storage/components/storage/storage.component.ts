@@ -392,7 +392,7 @@ export class StorageComponent implements OnInit {
       FolderDialogComponent,
       {
         data: {
-          folder: data.item || {},
+          folder: data?.item || {},
           path: this.routeControl.value || '.',
           userId: this.state.user.id
         },
