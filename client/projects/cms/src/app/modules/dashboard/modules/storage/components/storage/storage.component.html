@@ -225,7 +225,7 @@
   <div style="background-color: white; max-height: 80vh; overflow-y: auto;" class="w-full h-full br-rounded">
     <div style="height: 80px; background-color: white;" class="flex jc-center ai-center">
       <ng-container *ngIf="data.item.type === 'folder'">
-        <mat-icon style="transform: scale(2.5); color: rgba(0, 0, 0, 0.65)">{{data.item | folderIcon}}</mat-icon>
+        <mat-icon style="transform: scale(2.5); color: rgba(0, 0, 0, 0.65)">{{data.item.icon || 'folder'}}</mat-icon>
       </ng-container>
 
       <ng-container *ngIf="data.item.type === 'file'">
@@ -258,11 +258,16 @@
           </mat-chip>
         </mat-list>
         <div class="flex jc-end m-y-xs">
-          <button mat-flat-button>{{'MANAGE_ACCESS' | transloco}}</button>
+          <button mat-flat-button (click)="openShareDialog(data.item)">{{'MANAGE_ACCESS' | transloco}}</button>
         </div>
       </ng-container>
 
       <hr>
+
+      <ng-container *ngIf="data.item.description">
+        <h3 class="m-t-m">{{'DESCRIPTION' | transloco}}</h3>
+        <div class="folder-description">{{data.item.description}}</div>
+      </ng-container>
 
       <h3 class="m-t-m">{{'SYSTEM_PROPERTIES' | transloco}}</h3>
 
