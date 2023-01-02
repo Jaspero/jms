@@ -1,3 +1,10 @@
+## [7.2.2](https://github.com/jaspero/jms/compare/v7.2.1...v7.2.2) (2023-01-02)
+
+
+### Bug Fixes
+
+* **storage:** folder create not working ([7b8f6f8](https://github.com/jaspero/jms/commit/7b8f6f832b5496e9e9560f3c256b364e668acb94))
+
 ## [7.2.1](https://github.com/jaspero/jms/compare/v7.2.0...v7.2.1) (2023-01-02)
 
 
