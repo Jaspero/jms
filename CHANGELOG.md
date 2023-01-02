@@ -1,3 +1,10 @@
+## [7.2.1](https://github.com/jaspero/jms/compare/v7.2.0...v7.2.1) (2023-01-02)
+
+
+### Bug Fixes
+
+* **storage:** not showing file description; Manage access not connected; ([214e1f8](https://github.com/jaspero/jms/commit/214e1f840522d61d3bdb269c65bc1a2f173ca8bd))
+
 # [7.2.0](https://github.com/jaspero/jms/compare/v7.1.0...v7.2.0) (2023-01-01)
 
 
