@@ -1,3 +1,10 @@
+## [7.2.3](https://github.com/jaspero/jms/compare/v7.2.2...v7.2.3) (2023-01-03)
+
+
+### Bug Fixes
+
+* **cms:** fix grammar ([0e728dd](https://github.com/jaspero/jms/commit/0e728ddf0b824f805f885dce0f1b1aa63fe14631))
+
 ## [7.2.2](https://github.com/jaspero/jms/compare/v7.2.1...v7.2.2) (2023-01-02)
 
 
