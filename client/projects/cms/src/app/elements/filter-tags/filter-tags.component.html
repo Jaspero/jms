@@ -1,4 +1,4 @@
-<mat-chip-list>
+<mat-chip-listbox>
   <ng-container *ngIf="items$ | async as items">
     <ng-container *ngFor="let item of items; index as index">
       <mat-chip *ngIf="showTag(item.value)" [removable]="true" (removed)="removeItem(items, index)">
@@ -12,4 +12,4 @@
     {{'SEARCH' | transloco}}: {{searchValue}}
     <mat-icon matChipRemove>cancel</mat-icon>
   </mat-chip>
-</mat-chip-list>
+</mat-chip-listbox>

@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {debounceTime, map} from 'rxjs/operators';
-import {StateService} from './shared/services/state/state.service';
+import {loadingQueue$} from './modules/dashboard/modules/module-instance/utils/loading-queue';
 import {UtilService} from './shared/services/util/util.service';
 
 declare global {
@@ -21,7 +21,6 @@ declare global {
 })
 export class AppComponent implements OnInit {
   constructor(
-    private state: StateService,
     private util: UtilService
   ) {}
 
@@ -32,7 +31,7 @@ export class AppComponent implements OnInit {
     this.util.init();
     this.fontHandler();
 
-    this.loading$ = this.state.loadingQue$.pipe(
+    this.loading$ = loadingQueue$.pipe(
       debounceTime(200),
       map(items => !!items.length)
     );

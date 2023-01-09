@@ -242,13 +242,13 @@
       <ng-container *ngIf="data.permissions$ | async as permissions; else loading">
         <mat-list>
           <div mat-subheader>{{'WRITE' | transloco}}</div>
-          <mat-chip-list>
+          <mat-chip-listbox>
             <mat-chip color="primary" selected *ngFor="let permission of permissions.write" style="max-width: 90%">
               <div class="wrap-text" style="width: 100%">
                 {{permission}}
               </div>
             </mat-chip>
-          </mat-chip-list>
+          </mat-chip-listbox>
 
           <div mat-subheader>Read</div>
           <mat-chip color="primary" selected *ngFor="let permission of permissions.read" style="max-width: 90%">
