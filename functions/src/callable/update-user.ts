@@ -7,7 +7,7 @@ export const updateUser = functions
   .region(SHARED_CONFIG.cloudRegion)
   .https
   .onCall(async (data, context) => {
-    hasPermission(context, Collections.Users, 'update');
+    await hasPermission(context, Collections.Users, 'update');
 
     const ah = auth();
     const {id, ...update} = data;
