@@ -1,3 +1,10 @@
+## [7.2.4](https://github.com/jaspero/jms/compare/v7.2.3...v7.2.4) (2023-01-09)
+
+
+### Bug Fixes
+
+* **functions:** using firsestore for hasPermissions ([1bf7c40](https://github.com/jaspero/jms/commit/1bf7c407f68ac2fefd1a16fdfec00da78c8dd907))
+
 ## [7.2.3](https://github.com/jaspero/jms/compare/v7.2.2...v7.2.3) (2023-01-03)
 
 
