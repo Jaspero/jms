@@ -303,20 +303,22 @@ export class FbDatabaseService extends DbService {
     if (filters) {
       return filters.reduce((acc, item) => {
         if (
-          item.value !== undefined &&
-          item.value !== null &&
-          !Number.isNaN(item.value) &&
-          item.value !== '' &&
+          item.skipFalsyValueCheck ||
           (
+            item.value !== undefined &&
+            item.value !== null &&
+            !Number.isNaN(item.value) &&
+            item.value !== '' &&
             (
-              item.operator === FilterMethod.ArrayContains ||
-              item.operator === FilterMethod.ArrayContainsAny ||
-              item.operator === FilterMethod.In
-            ) && Array.isArray(item.value) ?
-              item.value.length :
-              true
-          ) ||
-          item.skipFalsyValueCheck
+              (
+                item.operator === FilterMethod.ArrayContains ||
+                item.operator === FilterMethod.ArrayContainsAny ||
+                item.operator === FilterMethod.In
+              ) && Array.isArray(item.value) ?
+                item.value.length :
+                true
+            )
+          )
         ) {
           acc.push(
             where(item.key, item.operator, item.value)
