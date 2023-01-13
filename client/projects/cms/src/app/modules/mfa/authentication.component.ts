@@ -1,8 +1,15 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {applyActionCode, Auth, checkActionCode, multiFactor, MultiFactorUser, PhoneAuthProvider, PhoneMultiFactorGenerator, RecaptchaVerifier, signOut} from '@angular/fire/auth';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 import {ActivatedRoute, Router} from '@angular/router';
+import {LoadClickModule} from '@jaspero/ng-helpers';
+import {TranslocoModule} from '@ngneat/transloco';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {notify} from '@shared/utils/notify.operator';
 import {STATIC_CONFIG} from 'projects/cms/src/environments/static-config';
@@ -15,9 +22,33 @@ import {COUNTRIES} from '../../shared/consts/countries.const';
   selector: 'jms-authentication',
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    ReactiveFormsModule,
+
+    /**
+     * Material
+     */
+    MatCardModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatInputModule,
+
+    /**
+     * Ng Helpers
+     */
+    LoadClickModule,
+
+    /**
+     * External
+     */
+    TranslocoModule,
+    MatDialogModule
+  ],
+  standalone: true
 })
-export class AuthenticationComponent implements OnInit {
+export default class AuthenticationComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
