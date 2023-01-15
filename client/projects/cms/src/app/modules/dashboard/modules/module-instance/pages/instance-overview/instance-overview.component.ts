@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@an
 import {ActivatedRoute} from '@angular/router';
 import {ModuleOverviewView} from '@definitions';
 import {UntilDestroy} from '@ngneat/until-destroy';
-import {createSelector} from '../../../../../../elements/element.decorator';
 import {OverviewService} from '../../interfaces/overview-service.interface';
 import {InstanceOverviewData} from '../../resolvers/overview/overview.resolver';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
