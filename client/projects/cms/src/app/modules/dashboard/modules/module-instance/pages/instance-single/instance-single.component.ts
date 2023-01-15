@@ -70,10 +70,12 @@ export class InstanceSingleComponent implements OnInit {
     [key: string]: Observable<any>
   } = {};
   singleService: SingleService;
+  tac: Function;
   
   private autoSaveListener: Subscription;
 
   ngOnInit() {
+    this.tac = this.toActionObservable.bind(this);
     this.data$ = this.ioc.module$.pipe(
       switchMap(module => {
 
