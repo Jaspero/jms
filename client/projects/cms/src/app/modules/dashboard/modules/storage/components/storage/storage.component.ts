@@ -25,7 +25,6 @@ import {BehaviorSubject, combineLatest, distinctUntilChanged, from, map, Observa
 import {filter, shareReplay, switchMap, take, tap} from 'rxjs/operators';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
-import {ICONS_MAP} from '../../consts/icons.const';
 import {STORAGE_COLORS_MAP} from '../../consts/storage-colors.const';
 import {StorageStateEmulator} from '../../services/storage/storage-state-emulated';
 import {StorageStateRouter} from '../../services/storage/storage-state-router';

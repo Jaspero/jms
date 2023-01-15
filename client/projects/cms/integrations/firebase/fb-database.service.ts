@@ -22,8 +22,8 @@ import {
 import {Functions, httpsCallableData} from '@angular/fire/functions';
 import {FilterMethod, SHARED_CONFIG} from '@definitions';
 import {Parser} from '@jaspero/form-builder';
-import {from, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {from, Observable, of} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
 import {WhereFilter} from '../../src/app/shared/interfaces/where-filter.interface';
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
@@ -75,7 +75,8 @@ export class FbDatabaseService extends DbService {
       .pipe(
         map((res: any) =>
           res.docs
-        )
+        ),
+        catchError(() => of([]))
       );
   }
 
@@ -182,7 +183,8 @@ export class FbDatabaseService extends DbService {
             id: it.id,
             ...it.data()
           }))
-        )
+        ),
+        catchError(() => of([]))
       );
   }
 
@@ -205,7 +207,8 @@ export class FbDatabaseService extends DbService {
             id: it.id,
             ...it.data()
           }))
-        )
+        ),
+        catchError(() => of([]))
       );
   }
 
