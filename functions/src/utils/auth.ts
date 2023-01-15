@@ -41,7 +41,7 @@ export async function hasPermission(
 
   isAuthenticated(context);
 
-  const {permissions} = (await firestore().doc(['users', context.auth.uid, 'authorization'].join('/')).get()).data();
+  const permissions = (await firestore().doc(['users', context.auth.uid, 'authorization', 'permissions'].join('/')).get()).data();
 
   if (!permissions?.[module]?.[permission]) {
     throw new functions.https.HttpsError('failed-precondition', message);
