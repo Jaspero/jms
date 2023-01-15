@@ -8,12 +8,12 @@ import {
 import {ModuleOverviewView} from '@definitions';
 import {Parser} from '@jaspero/form-builder';
 import {BehaviorSubject, combineLatest, first, map, Observable, shareReplay, startWith, Subject, switchMap} from 'rxjs';
-import {createSelector} from '../../../../../../elements/element.decorator';
 import {DEFAULT_PAGE_SIZE} from '../../../../../../shared/consts/page-sizes.const';
 import {StateService} from '../../../../../../shared/services/state/state.service';
 import {OverviewService} from '../../interfaces/overview-service.interface';
 import {DefaultOverviewService} from '../../services/default-overview.service';
 import {InstanceOverviewContextService} from '../../services/instance-overview-context.service';
+import {getCurrentView} from '../../utils/get-current-view';
 
 export interface InstanceOverviewData {
   currentView: string;
@@ -53,7 +53,7 @@ export class OverviewResolver implements Resolve<InstanceOverviewData> {
             views: [],
             toolbar: ['add'],
             activeView: 'table',
-            currentView: this.getCurrentView('table'),
+            currentView: getCurrentView('table'),
             hideAdd: false
           };
 
@@ -86,7 +86,7 @@ export class OverviewResolver implements Resolve<InstanceOverviewData> {
             if (module.layout.overview) {
               if (module.layout.overview.defaultView) {
                 overviewData.activeView = module.layout.overview.defaultView;
-                overviewData.currentView = this.getCurrentView(module.layout.overview.defaultView);
+                overviewData.currentView = getCurrentView(module.layout.overview.defaultView);
               }
 
               if (module.layout.overview.toolbar) {
@@ -185,11 +185,5 @@ export class OverviewResolver implements Resolve<InstanceOverviewData> {
           return overviewData;
         })
       )
-  }
-
-  getCurrentView(selector: string) {
-    const toUse = createSelector(selector);
-
-    return `<${toUse}></${toUse}>`;
   }
 }

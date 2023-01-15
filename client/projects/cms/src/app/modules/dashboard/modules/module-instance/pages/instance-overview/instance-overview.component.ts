@@ -49,10 +49,7 @@ export class InstanceOverviewComponent implements OnInit {
 
   getCurrentView(selector: string) {
     this.activeView = selector;
-
-    const toUse = createSelector(selector);
-
-    return `<${toUse}></${toUse}>`;
+    return this.getCurrentView(selector);
   }
 
   changeCurrentView(view: string) {
