@@ -9,7 +9,7 @@
  *============================================================================*/
 
 /**
- * This prevents material icon text from showing when font 
+ * This prevents material icon text from showing when font
  * fails to load.
  */
 .mat-icon {
@@ -60,8 +60,13 @@
 /* List
  *============================================================================*/
 
-.mat-list-item-content {
-  color: var(--panel-primary);
+.mdc-list-item__primary-text {
+  display: flex;
+  align-items: center;
+
+  .mat-icon {
+    margin-right: 1rem;
+  }
 }
 
 
@@ -69,51 +74,22 @@
 /* Form field
  *============================================================================*/
 
-.mat-form-field {
-  font-size: 13px;
-  color: var(--panel-primary);
+.mat-mdc-form-field {
+  margin: 1rem 0;
 }
 
-.mat-form-field.mat-form-field-invalid {
-  .mat-form-field-outline, .mat-form-field-outline-thick {
-    color: var(--warn-theme) !important;
-  }
+.mat-mdc-select {
+  font-size: 14px;
 }
 
-.mat-form-field-outline {
-  color: var(--panel-tertiary) !important;
+.mat-mdc-form-field-subscript-wrapper:not(:has(mat-hint)) {
+  display: none;
 }
 
-.mat-form-field-outline-thick {
-  color: var(--panel-primary) !important;
-}
-
-.mat-form-field.mat-focused:not(.mat-form-field-invalid) .mat-form-field-outline-thick {
-  color: var(--primary-theme) !important;
-}
-
-.mat-form-field-label {
-  color: var(--panel-secondary);
-}
-
-// 'mat-form-field-has-hint' custom class for extra white space after hint
-.mat-form-field-has-hint {
-  margin-bottom: 1.25em;
-}
-
-// 'mat-form-field-no-hint' custom class for no white space
-.mat-form-field-no-hint > .mat-form-field-wrapper {
-  padding-bottom: 0;
-}
-
-// 'mat-form-field-small' custom class for smaller form fields
-.mat-form-field.mat-form-field-small .mat-form-field-infix {
-  width: 90px;
-}
-
-// 'mat-form-field-large' custom class for larger form fields
-.mat-form-field.mat-form-field-large .mat-form-field-infix {
-  width: 240px;
+.mat-mdc-form-field-infix {
+  padding-top: 12px;
+  padding-button: 12px;
+  min-height: unset;
 }
 
 
@@ -304,11 +280,14 @@ tr.mat-row.mat-row {
 
 
 
-/* Snackbar
+/* Checkbox
  *============================================================================*/
 
-.mat-checkbox-frame {
-  border-color: var(--panel-secondary);
+.mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control:enabled~.mdc-checkbox__background .mdc-checkbox__checkmark {
+  color: var(--primary-primary) !important;
+}
+.mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control:enabled~.mdc-checkbox__background .mdc-checkbox__mixedmark {
+  border-color: var(--primary-primary) !important;
 }
 
 
