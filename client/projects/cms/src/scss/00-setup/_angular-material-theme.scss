@@ -2,40 +2,77 @@
 
 @include mat.core();
 
+$light-primary-text: white;
+$dark-primary-text: rgba(black, 0.87);
+
 $primary: (
-  100: var(--primary-theme),
-  500: var(--primary-theme),
-  700: var(--primary-theme),
+  50: #E8EBF8,
+  100: #D1D5F1,
+  200: #A1ABE2,
+  300: #7B88D3,
+  400: #5D6CC4,
+  500: #4051B6,
+  600: #2F3E91,
+  700: #1F2A6D,
+  800: #131B49,
+  900: #0A0E25,
+  A100: #8c9eff,
+  A200: #536dfe,
+  A400: #3d5afe,
+  A700: #304ffe,
   contrast: (
-    100: var(--primary-secondary),
-    500: var(--primary-primary),
-    700: var(--primary-primary)
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
   )
 );
+
 $accent: (
-  100: var(--accent-theme),
-  500: var(--accent-theme),
-  700: var(--accent-theme),
+  50: #FFE8F0,
+  100: #FFD0E0,
+  200: #FFA0C0,
+  300: #FF7AA7,
+  400: #FF5D95,
+  500: #FF4182,
+  600: #CC2F64,
+  700: #9A1D47,
+  800: #66102D,
+  900: #330817,
+  A100: #8c9eff,
+  A200: #536dfe,
+  A400: #3d5afe,
+  A700: #304ffe,
   contrast: (
-    100: var(--accent-secondary),
-    500: var(--accent-primary),
-    700: var(--accent-primary)
-  )
-);
-$warn: (
-  100: var(--warn-theme),
-  500: var(--warn-theme),
-  700: var(--warn-theme),
-  contrast: (
-    100: var(--warn-secondary),
-    500: var(--warn-primary),
-    700: var(--warn-primary)
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
   )
 );
 
 $jms-primary: mat.define-palette($primary);
 $jms-accent : mat.define-palette($accent);
-$jms-warn   : mat.define-palette($warn);
 
 $jms-typography: mat.define-typography-config(
   $font-family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif",
@@ -49,9 +86,9 @@ $jms-theme: mat.define-light-theme((
   color: (
     primary: $jms-primary,
     accent: $jms-accent,
-    warn: $jms-warn
   ),
-   typography: $jms-typography,
+  typography: $jms-typography,
+  density: 0
  ));
 
 @include mat.all-component-themes($jms-theme);

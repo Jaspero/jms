@@ -143,8 +143,8 @@
  *============================================================================*/
 
 .mat-toolbar {
-  background-color: var(--panel-theme);
-  color: var(--panel-primary);
+  background-color: var(--primary-theme);
+  color: var(--primary-primary);
 }
 
 .mat-toolbar-row.mat-toolbar-row,
@@ -342,6 +342,11 @@ tr.mat-row.mat-row {
 /* Card
  *============================================================================*/
 
+.mat-mdc-card-content .mat-toolbar {
+  background-color: var(--panel-theme);
+  color: var(--panel-primary);
+}
+
 .mat-card {
   --theme    : var(--panel-theme);
   --primary  : var(--panel-primary);
@@ -421,24 +426,10 @@ tr.mat-row.mat-row {
 /* Dialog
  *============================================================================*/
 
-.mat-dialog-container {
-  background-color: var(--panel-theme);
-  color: var(--panel-primary);
+.mat-mdc-dialog-actions {
+  padding: 12px 24px 12px 24px !important;
 }
 
-.mat-dialog-title.mat-dialog-title {
-  margin: -24px -24px 24px;
-  padding: 24px;
-  border-bottom: 1px solid var(--panel-tertiary);
-}
-
-.mat-dialog-content.mat-dialog-content {}
-
-.mat-dialog-actions.mat-dialog-actions {
-  margin: 24px -24px -24px;
-  padding: 16px 24px;
-  border-top: 1px solid var(--panel-tertiary);
-}
 
 
 // Temporary material fix
