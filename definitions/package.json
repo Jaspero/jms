@@ -11,10 +11,10 @@
   },
   "main": "dist/index.js",
   "dependencies": {
-    "@jaspero/fb-fields-mat": "1.15.6",
-    "@jaspero/fb-page-builder": "3.30.2",
-    "@jaspero/fb-tinymce": "2.12.5",
-    "@jaspero/form-builder": "5.9.1",
+    "@jaspero/fb-fields-mat": "1.17.2",
+    "@jaspero/fb-page-builder": "3.31.1",
+    "@jaspero/fb-tinymce": "2.13.1",
+    "@jaspero/form-builder": "5.10.1",
     "adv-firestore-functions": "2.0.9",
     "json-schema": "0.4.0"
   },
@@ -22,8 +22,8 @@
     "@google-cloud/storage": "5.8.3",
     "cross-env": "7.0.3",
     "csso": "5.0.3",
-    "firebase-admin": "11.1.0",
+    "firebase-admin": "11.5.0",
     "ts-node": "10.7.0",
-    "typescript": "4.7.3"
+    "typescript": "4.8.2"
   }
 }
