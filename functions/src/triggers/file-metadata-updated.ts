@@ -1,7 +1,7 @@
 import {SHARED_CONFIG} from 'definitions';
 import {firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import {ObjectMetadata} from 'firebase-functions/lib/providers/storage';
+import {ObjectMetadata} from 'firebase-functions/v1/storage';
 import {basename, dirname} from 'path';
 
 export const fileMetadataUpdated = functions

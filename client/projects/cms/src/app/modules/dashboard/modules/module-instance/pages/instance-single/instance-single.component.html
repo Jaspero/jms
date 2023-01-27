@@ -32,10 +32,10 @@
               <ng-container *ngIf="criteria.value === undefined || criteria.value">
                 <ng-container *ngIf="action.value | async as value">
                   <ng-container *ngIf="action.menuStyle === false; else menuAction">
-                    <div [innerHTML]="(toActionObservable | eval : value : formBuilderComponent?.form.value) | async | jpSanitize"></div>
+                    <div [innerHTML]="(tac | eval : value : formBuilderComponent?.form.value) | async | jpSanitize"></div>
                   </ng-container>
                   <ng-template #menuAction>
-                    <div mat-menu-item [innerHTML]="(toActionObservable | eval : value : formBuilderComponent?.form.value) | async | jpSanitize"></div>
+                    <div mat-menu-item [innerHTML]="(tac | eval : value : formBuilderComponent?.form.value) | async | jpSanitize"></div>
                   </ng-template>
                 </ng-container>
               </ng-container>

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilderComponent, FormBuilderData} from '@jaspero/form-builder';
 import {notify} from '@shared/utils/notify.operator';
 import {Collections, JSX} from '@definitions';
@@ -12,64 +12,67 @@ import {StateService} from '../../../../../../shared/services/state/state.servic
   styleUrls: ['./profile-information.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProfileInformationComponent {
+export class ProfileInformationComponent implements OnInit {
   constructor(
     private state: StateService,
     private db: DbService
-  ) {
-  }
+  ) {}
 
-  formData: FormBuilderData = {
-    value: this.state.user,
-    schema: {
-      properties: {
-        name: {
-          type: 'string'
-        },
-        profileImage: {
-          type: 'string'
-        }
-      }
-    },
-    definitions: {
-      name: {
-        label: 'NAME'
-      },
-      profileImage: {
-        label: 'PROFILE_IMAGE',
-        class: 'profile',
-        component: {
-          type: 'image',
-          configuration: {
-            maxSize: 10485760,
-            filePrefix: '/users',
-            uploadMethods: [{
-              id: 'storage',
-              label: 'Storage',
-              component: JSX(<jms-e-storage-select />),
-              configuration: {
-                route: '/users',
-                hidePath: false,
-                filters: [{
-                  value: (file) => file.contentType.startsWith('image/')
-                }],
-                allowUpload: false
-              }
-            }]
+  formData: FormBuilderData;
+
+  ngOnInit() {
+    this.formData = {
+      value: this.state.user,
+      schema: {
+        properties: {
+          name: {
+            type: 'string'
+          },
+          profileImage: {
+            type: 'string'
           }
         }
-      }
-    },
-    segments: [
-      {
-        type: 'empty',
-        fields: [
-          '/name',
-          '/profileImage'
-        ]
-      }
-    ]
-  };
+      },
+      definitions: {
+        name: {
+          label: 'NAME'
+        },
+        profileImage: {
+          label: 'PROFILE_IMAGE',
+          class: 'profile',
+          component: {
+            type: 'image',
+            configuration: {
+              maxSize: 10485760,
+              filePrefix: '/users',
+              uploadMethods: [{
+                id: 'storage',
+                label: 'Storage',
+                component: JSX(<jms-e-storage-select />),
+                configuration: {
+                  route: '/users',
+                  hidePath: false,
+                  filters: [{
+                    value: (file) => file.contentType.startsWith('image/')
+                  }],
+                  allowUpload: false
+                }
+              }]
+            }
+          }
+        }
+      },
+      segments: [
+        {
+          type: 'empty',
+          fields: [
+            '/name',
+            '/profileImage'
+          ]
+        }
+      ]
+    };  
+  }
 
   save(form: FormBuilderComponent) {
     return () =>

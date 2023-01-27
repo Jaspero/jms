@@ -24,9 +24,8 @@ const routes: Routes = [{
   children: [
     {
       path: 'dashboard',
-      loadChildren: () =>
-        import('./modules/overview/overview.module')
-          .then(m => m.OverviewModule)
+      loadComponent: () =>
+        import ('./modules/overview/overview.component')
     },
     {
       path: 'profile',

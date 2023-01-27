@@ -25,7 +25,6 @@ import {BehaviorSubject, combineLatest, distinctUntilChanged, from, map, Observa
 import {filter, shareReplay, switchMap, take, tap} from 'rxjs/operators';
 import {DbService} from '../../../../../../shared/services/db/db.service';
 import {StateService} from '../../../../../../shared/services/state/state.service';
-import {ICONS_MAP} from '../../consts/icons.const';
 import {STORAGE_COLORS_MAP} from '../../consts/storage-colors.const';
 import {StorageStateEmulator} from '../../services/storage/storage-state-emulated';
 import {StorageStateRouter} from '../../services/storage/storage-state-router';
@@ -107,7 +106,7 @@ export class StorageComponent implements OnInit {
   ngOnInit() {
     this.routeControl = new FormControl('');
 
-    this.storageState = this.configuration ? 
+    this.storageState = this.configuration ?
       new StorageStateEmulator(this.routeControl) :
       new StorageStateRouter(this.router, this.activatedRoute);
 
@@ -288,7 +287,7 @@ export class StorageComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
 
-    (event.target as HTMLDivElement).closest('.mat-card').classList.add('active');
+    (event.target as HTMLDivElement).closest('mat-card').classList.add('active');
 
     disableScroll();
 
@@ -311,7 +310,7 @@ export class StorageComponent implements OnInit {
       .pipe(
         take(1),
         tap(() => {
-          (event.target as HTMLDivElement).closest('.mat-card').classList.remove('active');
+          (event.target as HTMLDivElement).closest('mat-card').classList.remove('active');
           enableScroll();
         })
       )
@@ -455,7 +454,7 @@ export class StorageComponent implements OnInit {
     }
 
     (event.target as HTMLElement).closest('.storage-item').classList.toggle('active');
-    
+
     this.selection.toggle(item);
   }
 
@@ -776,7 +775,7 @@ export class StorageComponent implements OnInit {
     } else {
       await Promise.all(
         this.selection.selected.map(item =>
-          this._removeItem({item, items: data.items})  
+          this._removeItem({item, items: data.items})
         )
       );
       this.selection.clear();

@@ -1,7 +1,13 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Auth, signInWithCustomToken, updatePassword} from '@angular/fire/auth';
-import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControlOptions, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 import {ActivatedRoute, Router} from '@angular/router';
+import {LoadClickModule} from '@jaspero/ng-helpers';
+import {TranslocoModule} from '@ngneat/transloco';
 import {notify} from '@shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
 import {signOut} from 'firebase/auth';
@@ -14,9 +20,31 @@ import {DbService} from '../../shared/services/db/db.service';
   selector: 'jms-finish-sign-up',
   templateUrl: './finish-sign-up.component.html',
   styleUrls: ['./finish-sign-up.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    ReactiveFormsModule,
+
+    /**
+     * Material
+     */
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+
+    /**
+     * Ng helpers
+     */
+    LoadClickModule,
+
+    /**
+     * External
+     */
+    TranslocoModule
+  ],
+  standalone: true
 })
-export class FinishSignUpComponent implements OnInit {
+export default class FinishSignUpComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,

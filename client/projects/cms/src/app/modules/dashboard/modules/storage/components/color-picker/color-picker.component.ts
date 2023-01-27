@@ -1,9 +1,8 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {Subscription} from 'rxjs';
 import {STORAGE_COLORS, STORAGE_COLORS_MAP} from '../../consts/storage-colors.const';
 
-@UntilDestroy()
 @Component({
   selector: 'jms-color-picker',
   templateUrl: './color-picker.component.html',
@@ -17,7 +16,7 @@ import {STORAGE_COLORS, STORAGE_COLORS_MAP} from '../../consts/storage-colors.co
     }
   ]
 })
-export class ColorPickerComponent implements OnInit {
+export class ColorPickerComponent implements OnInit, OnDestroy, ControlValueAccessor {
   ctrl = new FormControl('');
 
   touched = false;
@@ -47,13 +46,16 @@ export class ColorPickerComponent implements OnInit {
     }
   }
 
+  private sub: Subscription;
+
   ngOnInit() {
-    this.ctrl.valueChanges
-      .pipe(
-        untilDestroyed(this)
-      )
+    this.sub = this.ctrl.valueChanges
       .subscribe(value =>
         this.onChange(value)
       );
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }

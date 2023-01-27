@@ -13,14 +13,13 @@ import {ExportComponent} from '../../../../../elements/export/export.component';
 import {PAGE_SIZES} from '../../../../../shared/consts/page-sizes.const';
 import {WhereFilter} from '../../../../../shared/interfaces/where-filter.interface';
 import {DbService} from '../../../../../shared/services/db/db.service';
-import {StateService} from '../../../../../shared/services/state/state.service';
 import {confirmation} from '../../../../../shared/utils/confirmation';
 import {ColumnPipe} from '../pipes/column/column.pipe';
+import {loadingQueue$} from '../utils/loading-queue';
 
 @Injectable()
 export class InstanceOverviewContextService {
   constructor(
-    private state: StateService,
     private domSanitizer: DomSanitizer,
     private bottomSheet: MatBottomSheet,
     private dbService: DbService,
@@ -37,7 +36,7 @@ export class InstanceOverviewContextService {
   module$ = new BehaviorSubject<Module>(null);
   items$: Observable<any[]>;
   columnPipe: ColumnPipe;
-  loading$ = this.state.loadingQue$
+  loading$ = loadingQueue$
     .pipe(
       map(items => !!items.length)
     );

@@ -21,9 +21,10 @@
             "outputPath": "../public/cms",
             "index": "projects/cms/src/index.html",
             "main": "projects/cms/src/main.ts",
-            "polyfills": "projects/cms/src/polyfills.ts",
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "projects/cms/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/cms/src/favicon.ico",
               "projects/cms/src/assets",
@@ -173,10 +174,11 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/cms/src/test.ts",
-            "polyfills": "projects/cms/src/polyfills.ts",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "projects/cms/tsconfig.spec.json",
-            "karmaConfig": "projects/cms/karma.conf.js",
             "assets": [
               "projects/cms/src/favicon.ico",
               "projects/cms/src/assets"
@@ -186,36 +188,10 @@
             ],
             "scripts": []
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/cms/tsconfig.app.json",
-              "projects/cms/tsconfig.spec.json",
-              "projects/cms/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/cms/e2e/protractor.conf.js",
-            "devServerTarget": "cms:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "cms:serve:production"
-            }
-          }
         }
       }
     }
   },
-  "defaultProject": "cms",
   "cli": {
     "analytics": false
   }

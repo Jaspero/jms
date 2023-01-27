@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {map, Observable, startWith} from 'rxjs';
@@ -12,7 +12,7 @@ import {ICONS, ICONS_MAP} from '../../consts/icons.const';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      multi:true,
+      multi: true,
       useExisting: IconPickerComponent
     }
   ]
@@ -25,8 +25,8 @@ export class IconPickerComponent implements ControlValueAccessor {
   icons = ICONS;
   itemMap = ICONS_MAP;
 
-  onChange = (value) => {};
-  onTouched = () => {};
+  onChange = (value) => { };
+  onTouched = () => { };
 
   writeValue(value: string) {
     this.ctrl.setValue(value);

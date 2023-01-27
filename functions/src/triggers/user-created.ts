@@ -1,4 +1,4 @@
-import {firestore} from 'firebase-admin';
+import {auth, firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {STATIC_CONFIG} from '../consts/static-config.const';
 import {EmailService} from '../services/email/email.service';
@@ -16,6 +16,7 @@ export const userCreated = functions
     }
 
     const fs = firestore();
+    const ah = auth();
 
     const inviteRef = await fs
       .collection(Collections.UserInvites)
@@ -38,6 +39,10 @@ export const userCreated = functions
       const roleRef = await fs.collection(Collections.Roles).doc(role.role).get();
 
       await Promise.all([
+        ah.setCustomUserClaims(
+          userRef.id,
+          {role: role.role}
+        ),
         userRef
           .collection('authorization')
           .doc('permissions')
