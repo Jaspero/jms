@@ -1,3 +1,26 @@
+# [7.5.0](https://github.com/jaspero/jms/compare/v7.4.0...v7.5.0) (2023-01-27)
+
+
+### Bug Fixes
+
+* **cms:** fix typo ([caac8e4](https://github.com/jaspero/jms/commit/caac8e43eb246777f7e5b383d22e93505eea0d07))
+* **cms:** getCurrentView extracted in to function and working properly ([645e90b](https://github.com/jaspero/jms/commit/645e90bc7abb0469c505df59070c3baa5f5a1866))
+* **functions:** not setting claim on user on login ([2e49d63](https://github.com/jaspero/jms/commit/2e49d63a03233e8e88b25a44e8a4c320b4602a8f))
+* **functions:** permissions ([11eabec](https://github.com/jaspero/jms/commit/11eabec2ea8a1ddff4df5d5cb39d40a6d418e8d4))
+* **functions:** roleUpdate running when functions don't ([27ee2e3](https://github.com/jaspero/jms/commit/27ee2e3ea62bdc92d50c40fcdc76d8aa5126737c))
+* storage context menu not opening; actions not opening on single page; ([b5bca57](https://github.com/jaspero/jms/commit/b5bca5794fd7d8dd0392cfebcc3181aeb0370c95))
+* **storage:** folders dialog not opening ([69f4f1b](https://github.com/jaspero/jms/commit/69f4f1bc1e7ed0a809f6c90b37123b899a7d4e79))
+
+
+### Features
+
+* **client:** resolved circular dependencies with v15 ([35375c9](https://github.com/jaspero/jms/commit/35375c995ad42b6805dba2aed428d720831d7b96))
+* **client:** updating to angular v15 ([54fcedf](https://github.com/jaspero/jms/commit/54fcedf7164658a7884fb6677ccd48b484c8a92a))
+* **cms:** adjusted theme palette, fix some minor style issues ([cc7d768](https://github.com/jaspero/jms/commit/cc7d768cdba242a7232c20885e89b00d2887bb40))
+* converted some components to standalone ([a38d10e](https://github.com/jaspero/jms/commit/a38d10ed6e9fafa9e6b4d337273c922ebc7311b6))
+* fields mat update ([7a0c049](https://github.com/jaspero/jms/commit/7a0c049b1c23057a6e39906fae19f7939c4b3139))
+* updated definition and function versions ([f5cc00a](https://github.com/jaspero/jms/commit/f5cc00a599b68d11a0414080baf5a2644e44af2c))
+
 # [7.4.0](https://github.com/jaspero/jms/compare/v7.3.0...v7.4.0) (2023-01-11)
 
 
