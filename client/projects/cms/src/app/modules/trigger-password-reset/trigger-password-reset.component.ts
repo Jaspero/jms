@@ -1,7 +1,14 @@
+import {CommonModule} from '@angular/common';
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Auth, sendPasswordResetEmail} from '@angular/fire/auth';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {Router, RouterModule} from '@angular/router';
+import {LoadClickModule} from '@jaspero/ng-helpers';
+import {TranslocoModule} from '@ngneat/transloco';
 import {notify} from '@shared/utils/notify.operator';
 import {from, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
@@ -11,9 +18,33 @@ import {STATIC_CONFIG} from '../../../environments/static-config';
   selector: 'jms-trigger-password-reset',
   templateUrl: './trigger-password-reset.component.html',
   styleUrls: ['./trigger-password-reset.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+
+    /**
+     * Material
+     */
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+
+    /**
+     * Ng Helpers
+     */
+    LoadClickModule,
+
+    /**
+     * External
+     */
+    TranslocoModule
+  ],
+  standalone: true
 })
-export class TriggerPasswordResetComponent implements OnInit {
+export default class TriggerPasswordResetComponent implements OnInit {
   constructor(
     public router: Router,
     private fb: FormBuilder,

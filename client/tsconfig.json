@@ -7,11 +7,11 @@
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
-    "module": "esnext",
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
+    "target": "ES2022",
+    "module": "ES2022",
     "lib": [
       "es2018",
       "dom"

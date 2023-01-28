@@ -9,7 +9,7 @@
  *============================================================================*/
 
 /**
- * This prevents material icon text from showing when font 
+ * This prevents material icon text from showing when font
  * fails to load.
  */
 .mat-icon {
@@ -60,8 +60,13 @@
 /* List
  *============================================================================*/
 
-.mat-list-item-content {
-  color: var(--panel-primary);
+.mdc-list-item__primary-text {
+  display: flex;
+  align-items: center;
+
+  .mat-icon {
+    margin-right: 1rem;
+  }
 }
 
 
@@ -69,51 +74,22 @@
 /* Form field
  *============================================================================*/
 
-.mat-form-field {
-  font-size: 13px;
-  color: var(--panel-primary);
+.mat-mdc-form-field {
+  margin: 1rem 0;
 }
 
-.mat-form-field.mat-form-field-invalid {
-  .mat-form-field-outline, .mat-form-field-outline-thick {
-    color: var(--warn-theme) !important;
-  }
+.mat-mdc-select {
+  font-size: 14px;
 }
 
-.mat-form-field-outline {
-  color: var(--panel-tertiary) !important;
+.mat-mdc-form-field-subscript-wrapper:not(:has(mat-hint)) {
+  display: none;
 }
 
-.mat-form-field-outline-thick {
-  color: var(--panel-primary) !important;
-}
-
-.mat-form-field.mat-focused:not(.mat-form-field-invalid) .mat-form-field-outline-thick {
-  color: var(--primary-theme) !important;
-}
-
-.mat-form-field-label {
-  color: var(--panel-secondary);
-}
-
-// 'mat-form-field-has-hint' custom class for extra white space after hint
-.mat-form-field-has-hint {
-  margin-bottom: 1.25em;
-}
-
-// 'mat-form-field-no-hint' custom class for no white space
-.mat-form-field-no-hint > .mat-form-field-wrapper {
-  padding-bottom: 0;
-}
-
-// 'mat-form-field-small' custom class for smaller form fields
-.mat-form-field.mat-form-field-small .mat-form-field-infix {
-  width: 90px;
-}
-
-// 'mat-form-field-large' custom class for larger form fields
-.mat-form-field.mat-form-field-large .mat-form-field-infix {
-  width: 240px;
+.mat-mdc-form-field-infix {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  min-height: unset;
 }
 
 
@@ -167,8 +143,8 @@
  *============================================================================*/
 
 .mat-toolbar {
-  background-color: var(--panel-theme);
-  color: var(--panel-primary);
+  background-color: var(--primary-theme);
+  color: var(--primary-primary);
 }
 
 .mat-toolbar-row.mat-toolbar-row,
@@ -304,11 +280,14 @@ tr.mat-row.mat-row {
 
 
 
-/* Snackbar
+/* Checkbox
  *============================================================================*/
 
-.mat-checkbox-frame {
-  border-color: var(--panel-secondary);
+.mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control:enabled~.mdc-checkbox__background .mdc-checkbox__checkmark {
+  color: var(--primary-primary) !important;
+}
+.mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control:enabled~.mdc-checkbox__background .mdc-checkbox__mixedmark {
+  border-color: var(--primary-primary) !important;
 }
 
 
@@ -345,6 +324,13 @@ tr.mat-row.mat-row {
   display: none;
 }
 
+.mat-progress-bar-background {
+  display: none;
+}
+.mat-progress-bar-buffer {
+  display: none;
+}
+
 .mat-progress-bar.mat-accent {
   & > .mat-progress-bar-buffer      { background: var(--accent-secondary); }
   & > .mat-progress-bar-fill::after { background: var(--accent-theme); }
@@ -355,6 +341,11 @@ tr.mat-row.mat-row {
 
 /* Card
  *============================================================================*/
+
+.mat-mdc-card-content .mat-toolbar {
+  background-color: var(--panel-theme);
+  color: var(--panel-primary);
+}
 
 .mat-card {
   --theme    : var(--panel-theme);
@@ -435,24 +426,10 @@ tr.mat-row.mat-row {
 /* Dialog
  *============================================================================*/
 
-.mat-dialog-container {
-  background-color: var(--panel-theme);
-  color: var(--panel-primary);
+.mat-mdc-dialog-actions {
+  padding: 12px 24px 12px 24px !important;
 }
 
-.mat-dialog-title.mat-dialog-title {
-  margin: -24px -24px 24px;
-  padding: 24px;
-  border-bottom: 1px solid var(--panel-tertiary);
-}
-
-.mat-dialog-content.mat-dialog-content {}
-
-.mat-dialog-actions.mat-dialog-actions {
-  margin: 24px -24px -24px;
-  padding: 16px 24px;
-  border-top: 1px solid var(--panel-tertiary);
-}
 
 
 // Temporary material fix

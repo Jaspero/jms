@@ -1,3 +1,5 @@
+@import "../../../../../../../scss/breakpoints";
+
 :host {
   font-family: Google Sans, Roboto, RobotoDraft, Helvetica, Arial, sans-serif !important;
 }
@@ -27,12 +29,13 @@
 
   display: flex;
   flex-direction: column;
+
+  > mat-card {
+    padding: 4px;
+  }
 }
 
 .storage {
-
-  width: 100%;
-  height: calc(100vh - 64px);
   padding: 20px;
 
   &-subheader {
@@ -43,10 +46,11 @@
   &-item {
     user-select: none;
     border-radius: 8px;
-
+    height: 100%;
+    padding: 10px;
     overflow: hidden;
-
     color: rgba(0, 0, 0, 0.65);
+    position: relative;
 
     &.active {
       color: #1967d2;
@@ -73,6 +77,12 @@
       aspect-ratio: 1 / 1;
       width: 100%;
     }
+
+    &-checkbox {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+    }
   }
 }
 
@@ -87,17 +97,13 @@
 
 .downloads, .uploads {
   width: 300px;
-
   max-height: 40vh;
-
-  overflow-y: scroll;
-
+  overflow-y: auto;
   padding-top: 0;
   margin-bottom: 10px;
 
   &-icon {
     cursor: pointer;
-
     width: 20px;
     height: 20px;
     font-size: 20px;
@@ -110,4 +116,30 @@
   white-space: nowrap;
   overflow: hidden !important;
   text-overflow: ellipsis;
+}
+
+.c-grid {
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.c-column {
+  width: 25%;
+  height: 100%;
+  padding: 10px;
+
+  @container (max-width: $screen-s) {
+    width: 50%;
+  }
+
+  @container (max-width: $screen-xs) {
+    width: 100%;
+  }
+}
+
+.folder-description {
+  padding: 0 16px;
+  margin-top: 20px;
+  color: var(--panel-primary);
 }

@@ -24,9 +24,8 @@ const routes: Routes = [{
   children: [
     {
       path: 'dashboard',
-      loadChildren: () =>
-        import('./modules/overview/overview.module')
-          .then(m => m.OverviewModule)
+      loadComponent: () =>
+        import ('./modules/overview/overview.component')
     },
     {
       path: 'profile',
@@ -39,11 +38,6 @@ const routes: Routes = [{
       loadChildren: () =>
         import('./modules/module-instance/module-instance.module')
           .then(m => m.ModuleInstanceModule)
-    },
-    {
-      path: 'file-manager',
-      loadChildren: () => import('./modules/file-manager/file-manager.module')
-        .then(m => m.FileManagerModule)
     },
     {
       path: 'storage',

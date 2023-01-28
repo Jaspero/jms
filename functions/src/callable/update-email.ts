@@ -7,7 +7,7 @@ import {schemaValidation} from '../utils/schema-validation';
 export const updateEmail = functions
   .region(SHARED_CONFIG.cloudRegion)
   .https.onCall(async (data, context) => {
-    hasPermission(context, Collections.Users, 'update');
+    await hasPermission(context, Collections.Users, 'update');
     schemaValidation(
       data,
       {

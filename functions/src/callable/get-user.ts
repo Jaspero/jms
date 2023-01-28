@@ -7,6 +7,6 @@ export const getUser = functions
   .region(SHARED_CONFIG.cloudRegion)
   .https
   .onCall(async (data, context) => {
-    hasPermission(context, Collections.Users, 'list');
+    await hasPermission(context, Collections.Users, 'list');
     return auth().getUser(data);
   });

@@ -1,3 +1,6 @@
+import {SelectionModel} from '@angular/cdk/collections';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {NoopScrollStrategy} from '@angular/cdk/overlay';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -10,22 +13,26 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import {BehaviorSubject, combineLatest, from, map, Observable, of, startWith} from 'rxjs';
-import {StorageItem, FilterMethod} from '@definitions';
-import {DbService} from '../../../../../../shared/services/db/db.service';
-import {FormControl, Validators} from '@angular/forms';
-import {filter, shareReplay, switchMap, take, tap} from 'rxjs/operators';
-import {MatDialog} from '@angular/material/dialog';
-import {NoopScrollStrategy} from '@angular/cdk/overlay';
-import {disableScroll, enableScroll} from '@shared/utils/scroll';
-import {FullFilePreviewComponent} from '../full-file-preview/full-file-preview.component';
-import {StorageService} from '../../services/storage/storage.service';
-import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
-import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {StateService} from '../../../../../../shared/services/state/state.service';
-import {random} from '@jaspero/utils';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {ref, Storage, updateMetadata} from '@angular/fire/storage';
+import {FormControl} from '@angular/forms';
+import {MatCheckboxChange} from '@angular/material/checkbox';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
+import {FilterMethod, StorageItem} from '@definitions';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {disableScroll, enableScroll} from '@shared/utils/scroll';
+import {BehaviorSubject, combineLatest, distinctUntilChanged, from, map, Observable, of, startWith} from 'rxjs';
+import {filter, shareReplay, switchMap, take, tap} from 'rxjs/operators';
+import {DbService} from '../../../../../../shared/services/db/db.service';
+import {StateService} from '../../../../../../shared/services/state/state.service';
+import {STORAGE_COLORS_MAP} from '../../consts/storage-colors.const';
+import {StorageStateEmulator} from '../../services/storage/storage-state-emulated';
+import {StorageStateRouter} from '../../services/storage/storage-state-router';
+import {StorageService} from '../../services/storage/storage.service';
+import {FileSelectConfiguration} from '../../types/file-select-configuration.interface';
+import {StorageState} from '../../types/storage-state';
+import {FolderDialogComponent} from '../folder-dialog/folder-dialog.component';
+import {FullFilePreviewComponent} from '../full-file-preview/full-file-preview.component';
 
 @UntilDestroy()
 @Component({
@@ -35,6 +42,18 @@ import {ref, Storage, updateMetadata} from '@angular/fire/storage';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StorageComponent implements OnInit {
+  constructor(
+    public storage: StorageService,
+    private activatedRoute: ActivatedRoute,
+    private db: DbService,
+    private dialog: MatDialog,
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private ngZone: NgZone,
+    private renderer: Renderer2,
+    private state: StateService,
+    private fbStorage: Storage
+  ) { }
 
   @Input()
   title = 'STORAGE';
@@ -44,13 +63,8 @@ export class StorageComponent implements OnInit {
   }>(null);
   routeControl: FormControl;
 
-  view: 'list' | 'grid' = 'grid';
-
   @ViewChild('context')
   contextTemplate: TemplateRef<any>;
-
-  @ViewChild('newFolder')
-  newFolderTemplate: TemplateRef<any>;
 
   @ViewChild('details')
   detailsTemplate: TemplateRef<any>;
@@ -59,26 +73,20 @@ export class StorageComponent implements OnInit {
   shareTemplate: TemplateRef<any>;
 
   loading$ = new BehaviorSubject(true);
-
   activeElement: HTMLElement;
-
   separatorKeysCodes: number[] = [ENTER, COMMA];
-
   writeAccess$ = new BehaviorSubject(true);
+  _deletes = new Set();
+  selection = new SelectionModel<StorageItem>(true);
+  filesOver$: Observable<boolean>;
+  filesOverNext$ = new BehaviorSubject(false);
+  storageState: StorageState;
+  fileSelection = new SelectionModel<StorageItem>(true);
 
-  constructor(
-    public storage: StorageService,
-    public activatedRoute: ActivatedRoute,
-    private db: DbService,
-    private dialog: MatDialog,
-    private cdr: ChangeDetectorRef,
-    private router: Router,
-    private ngZone: NgZone,
-    private renderer: Renderer2,
-    private state: StateService,
-    private fbStorage: Storage
-  ) {
-  }
+  @Input() configuration: FileSelectConfiguration;
+  @Input() dialogRef: MatDialogRef<any>;
+
+  colorsMap = STORAGE_COLORS_MAP;
 
   @HostListener('document:mousedown', ['$event'])
   click(event: MouseEvent) {
@@ -86,88 +94,128 @@ export class StorageComponent implements OnInit {
       return;
     }
     const isItem = (event.target as HTMLElement).closest('.storage-item');
+
     if (!isItem) {
-      document.querySelectorAll('.storage-item.active').forEach(element => {
-        element.classList.remove('active');
-      });
+      document.querySelectorAll('.storage-item.active').forEach(element =>
+        element.classList.remove('active')
+      );
+      this.selection.clear();
     }
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.routeControl = new FormControl('');
 
-    this.activatedRoute.data.pipe().subscribe((data) => {
-      const routes = (data as any)?.route || [];
-      this.routeControl.setValue(routes.join('/'));
-    });
+    this.storageState = this.configuration ?
+      new StorageStateEmulator(this.routeControl) :
+      new StorageStateRouter(this.router, this.activatedRoute);
 
-    this.routeControl.valueChanges.pipe(
-      startWith(this.routeControl.value),
-      switchMap((route) => {
-        this.ngZone.run(() => {
-          this.items$.next(null);
-          this.loading$.next(true);
-        });
+    this.activatedRoute.data
+      .pipe(
+        untilDestroyed(this)
+      )
+      .subscribe(data => {
+        const routes = (data as any)?.route || [];
+        this.routeControl.setValue(routes.join('/'));
+      });
 
-        const items$ = combineLatest([
-          this.getItems(route, 'public'),
-          this.getItems(route, 'roles'),
-          this.getItems(route, 'users'),
-        ]);
+    this.filesOver$ = this.filesOverNext$
+      .pipe(
+        distinctUntilChanged()
+      );
 
-        if (route && route !== '.') {
-          const parentPath = route.split('/').slice(0, -1).join('/') || '.';
-          const parentName = route.split('/').slice(-1)[0];
+    this.routeControl.valueChanges
+      .pipe(
+        startWith(this.routeControl.value),
+        switchMap(route => {
+          this.ngZone.run(() => {
+            this.items$.next(null);
+            this.loading$.next(true);
+          });
 
-          return this.db.getValueChanges('storage', undefined, undefined, undefined, [
-            {
-              key: 'path',
-              operator: FilterMethod.Equal,
-              value: parentPath
-            },
-            {
-              key: 'name',
-              operator: FilterMethod.Equal,
-              value: parentName
-            }
-          ]).pipe(
-            switchMap((docs) => {
+          const items$ = combineLatest([
+            this.getItems(route, 'public'),
+            this.getItems(route, 'roles'),
+            this.getItems(route, 'users'),
+          ]);
 
-              this.writeAccess$.next(docs[0] && this.storage.hasPermission(docs[0], 'write'));
+          if (route && route !== '.') {
+            const parentPath = route.split('/').slice(0, -1).join('/') || '.';
+            const parentName = route.split('/').slice(-1)[0];
 
-              return items$;
-            })
-          );
-        } else {
-          this.writeAccess$.next(true);
-        }
+            return this.db.getValueChanges('storage', undefined, undefined, undefined, [
+              {
+                key: 'path',
+                operator: FilterMethod.Equal,
+                value: parentPath
+              },
+              {
+                key: 'name',
+                operator: FilterMethod.Equal,
+                value: parentName
+              }
+            ])
+              .pipe(
+                switchMap(docs => {
+                  this.writeAccess$.next(docs[0] && this.storage.hasPermission(docs[0], 'write'));
 
-        return items$;
-      }),
-      map(([publicItems, roleItems, userItems]) => {
-        return [...publicItems, ...roleItems, ...userItems].reduce((acc, item) => {
-          if (item.type === 'folder') {
-            if (acc.folders.every(folder => folder.id !== item.id)) {
-              acc.folders.push(item);
-            }
+                  return items$;
+                })
+              );
           } else {
-            if (acc.files.every(file => file.id !== item.id)) {
-              acc.files.push(item);
-            }
+            this.writeAccess$.next(true);
           }
-          return acc;
-        }, {folders: [], files: []});
-      }),
-      shareReplay(1),
-      tap((items) => {
-        this.ngZone.run(() => {
-          this.loading$.next(false);
-          this.items$.next(items);
-          this.cdr.markForCheck();
-        });
-      }),
-      untilDestroyed(this)
-    ).subscribe();
+
+          return items$;
+        }),
+        map(([publicItems, roleItems, userItems]) =>
+          [...publicItems, ...roleItems, ...userItems].reduce((acc, item) => {
+            if (item.type === 'folder') {
+              if (acc.folders.every(folder => folder.id !== item.id)) {
+                acc.folders.push(item);
+              }
+            } else {
+              if (acc.files.every(file => file.id !== item.id)) {
+                acc.files.push(item);
+              }
+            }
+
+            return acc;
+          }, {folders: [], files: []})
+        ),
+        distinctUntilChanged((_, current) => {
+
+          const items = this.items$.getValue();
+
+          if (!items) {
+            return false;
+          }
+
+          const {files, folders} = items;
+
+          const noChanges =
+            current.files.length === files.length &&
+            current.folders.length === folders.length &&
+            !files.some(it => !current.files.some(f => f.id === it.id)) &&
+            !folders.some(it => !current.folders.some(f => f.id === it.id));
+
+          return noChanges || (
+            !current.files.some(it => !this._deletes.has(it.id) && !files.some(f => f.id === it.id)) &&
+            !current.folders.some(it => !this._deletes.has(it.id) && !folders.some(f => f.id === it.id))
+          );
+        }),
+        shareReplay(1),
+        tap(items => {
+          this.ngZone.run(() => {
+            this.loading$.next(false);
+            this.items$.next(items);
+            this._filterSelection();
+            this.cdr.markForCheck();
+          });
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe();
   }
 
   getItems(route: string, type: 'public' | 'roles' | 'users', permission?: 'read' | 'write'): Observable<StorageItem[]> {
@@ -235,20 +283,17 @@ export class StorageComponent implements OnInit {
     );
   }
 
-  toggleView() {
-    this.view = this.view === 'grid' ? 'list' : 'grid';
-  }
-
-  openItemContextMenu(event: MouseEvent, item: StorageItem) {
+  openItemContextMenu(event: MouseEvent, item: StorageItem, items: StorageItem[]) {
     event.preventDefault();
     event.stopPropagation();
 
-    (event.target as HTMLDivElement).closest('.mat-card').classList.add('active');
+    (event.target as HTMLDivElement).closest('mat-card').classList.add('active');
+
     disableScroll();
 
     this.dialog.open(this.contextTemplate, {
       autoFocus: false,
-      width: '140px',
+      width: '200px',
       position: {
         top: event.clientY + 'px',
         left: event.clientX + 'px'
@@ -256,16 +301,20 @@ export class StorageComponent implements OnInit {
       backdropClass: 'clear-backdrop',
       panelClass: 'contextmenu-dialog',
       data: {
-        item
+        item,
+        items
       },
       scrollStrategy: new NoopScrollStrategy()
-    }).afterClosed().pipe(
-      take(1),
-      tap(() => {
-        (event.target as HTMLDivElement).closest('.mat-card').classList.remove('active');
-        enableScroll();
-      })
-    ).subscribe();
+    })
+      .afterClosed()
+      .pipe(
+        take(1),
+        tap(() => {
+          (event.target as HTMLDivElement).closest('mat-card').classList.remove('active');
+          enableScroll();
+        })
+      )
+      .subscribe();
   }
 
   previewItem(item: StorageItem) {
@@ -281,12 +330,15 @@ export class StorageComponent implements OnInit {
         item
       },
       scrollStrategy: new NoopScrollStrategy()
-    }).afterClosed().pipe(
-      take(1),
-      tap(() => {
-        enableScroll();
-      })
-    ).subscribe();
+    })
+      .afterClosed()
+      .pipe(
+        take(1),
+        tap(() =>
+          enableScroll()
+        )
+      )
+      .subscribe();
   }
 
   navigateTo(item: StorageItem | string, append = false) {
@@ -309,7 +361,7 @@ export class StorageComponent implements OnInit {
       }
     }
 
-    this.router.navigate(path, extras);
+    this.storageState.navigateTo(path, extras);
   }
 
   mouseEnterDownload(download: StorageItem) {
@@ -332,42 +384,46 @@ export class StorageComponent implements OnInit {
     return item;
   }
 
-  openNewFolderDialog() {
-    const control = new FormControl('', [Validators.required]);
-
+  openFolderDialog(data?: {item: StorageItem, items: StorageItem[]}) {
     disableScroll();
-    this.dialog.open(this.newFolderTemplate, {
-      data: {
-        control
-      },
-      width: '400px',
-      scrollStrategy: new NoopScrollStrategy()
-    }).afterClosed().pipe(
-      take(1),
-      switchMap((data) => {
+
+    this.dialog.open(
+      FolderDialogComponent,
+      {
+        data: {
+          folder: data?.item || {},
+          path: this.routeControl.value || '.',
+          userId: this.state.user.id
+        },
+        width: '400px',
+        scrollStrategy: new NoopScrollStrategy()
+      }
+    )
+      .afterClosed()
+      .subscribe(value => {
         enableScroll();
 
-        if (!data) {
-          return of(false);
+        if (!value) {
+          return;
         }
 
-        return this.db.setDocument('storage', random.string(20), {
-          name: control.value,
-          path: this.routeControl.value || '.',
-          type: 'folder',
-          metadata: {
-            ['permissions_users_' + this.state.user.id + '_write']: 'true'
-          },
-          contentType: 'text/plain',
-          createdOn: Date.now(),
-          size: 0
-        }, {}).pipe(
-          tap(() => {
-            this.navigateTo(control.value, true);
-          })
-        );
-      })
-    ).subscribe();
+        if (!value.id) {
+          this.navigateTo(value.name, true);
+          return;
+        }
+
+        const index = data.items.findIndex(it => it.id === value.id);
+        data.items[index] = {
+          ...data.items[index],
+          ...value
+        };
+
+        this.items$.next({
+          ...this.items$.getValue(),
+          folders: [...data.items]
+        });
+        this.cdr.markForCheck();
+      });
   }
 
   openUploadDialog() {
@@ -384,7 +440,7 @@ export class StorageComponent implements OnInit {
     input.click();
   }
 
-  focusItem(event: MouseEvent) {
+  focusItem(event: MouseEvent, item: StorageItem) {
     if (event.button !== 0) {
       return;
     }
@@ -393,9 +449,13 @@ export class StorageComponent implements OnInit {
       document.querySelectorAll('.storage-item.active').forEach(element => {
         element.classList.remove('active');
       });
+
+      this.selection.clear();
     }
 
     (event.target as HTMLElement).closest('.storage-item').classList.toggle('active');
+
+    this.selection.toggle(item);
   }
 
   async openInfoDialog(item: StorageItem) {
@@ -455,14 +515,17 @@ export class StorageComponent implements OnInit {
       },
       width: '500px',
       panelClass: 'full-screen-dialog'
-    }).afterClosed().pipe(
-      take(1),
-      tap((data) => {
-        if (!data) {
-          return of(false);
-        }
-      })
-    ).subscribe();
+    })
+      .afterClosed()
+      .pipe(
+        take(1),
+        tap((data) => {
+          if (!data) {
+            return of(false);
+          }
+        })
+      )
+      .subscribe();
   }
 
   async openShareDialog(item: StorageItem) {
@@ -486,10 +549,12 @@ export class StorageComponent implements OnInit {
         }
 
         if (type === 'users') {
-          label = await this.db.getDocument('users', label).pipe(
-            take(1),
-            map(user => user.email)
-          ).toPromise();
+          label = await this.db.getDocument('users', label)
+            .pipe(
+              take(1),
+              map(user => user.email)
+            )
+            .toPromise();
         }
 
         return {
@@ -525,8 +590,8 @@ export class StorageComponent implements OnInit {
     }
 
     const autocomplete$ = this.db.getDocumentsSimple('roles').pipe(
-      map((roles) => {
-        return [
+      map(roles =>
+        [
           {
             label: 'Roles',
             type: 'group',
@@ -541,8 +606,8 @@ export class StorageComponent implements OnInit {
             type: 'single',
             items: ['public']
           }
-        ];
-      }),
+        ]
+      ),
       shareReplay(1)
     );
 
@@ -558,90 +623,101 @@ export class StorageComponent implements OnInit {
       autoFocus: false,
       width: '600px',
       maxHeight: '80vh'
-    }).afterClosed().pipe(
-      take(1),
-      filter(data => !!data),
-      switchMap(() => {
-        return from(
-          Promise.all(shares.map(async (it) => {
+    })
+      .afterClosed()
+      .pipe(
+        take(1),
+        filter(data => !!data),
+        switchMap(() => {
+          return from(
+            Promise.all(shares.map(async (it) => {
 
-            if (it.type === 'users') {
-              const userId = await this.db.getDocuments('users', undefined, undefined, undefined, [
-                {
-                  key: 'email',
-                  operator: FilterMethod.Equal,
-                  value: it.label
+              if (it.type === 'users') {
+                const userId = await this.db.getDocuments('users', undefined, undefined, undefined, [
+                  {
+                    key: 'email',
+                    operator: FilterMethod.Equal,
+                    value: it.label
+                  }
+                ]).pipe(
+                  take(1),
+                  map(users => users[0]?.id)
+                ).toPromise();
+
+                if (!userId) {
+                  return null;
                 }
-              ]).pipe(
-                take(1),
-                map(users => users[0]?.id)
-              ).toPromise();
 
-              if (!userId) {
-                return null;
+                it.label = userId;
               }
 
-              it.label = userId;
-            }
-
-            return {
-              permission: it.permission.value,
-              label: it.label,
-              type: it.type
-            };
-          })
-          ).then(items => {
-            return items.filter(it => !!it);
-          })
-        );
-      }),
-      switchMap(async (items) => {
-
-        const metadata = Object.keys(item.metadata || {}).filter(key => {
-          return !key.startsWith('permissions_');
-        }).reduce((acc, key) => {
-          acc[key] = item.metadata[key];
-          return acc;
-        }, {});
-
-        for (const it of items) {
-          metadata[`permissions_${it.type}_${it.label}_${it.permission}`] = 'true';
-        }
-
-        const path = item.path === '.' ? item.name : `${item.path}/${item.name}`;
-        try {
-          await updateMetadata(
-            ref(this.fbStorage, path),
-            {
-              customMetadata: metadata
-            }
+              return {
+                permission: it.permission.value,
+                label: it.label,
+                type: it.type
+              };
+            })
+            ).then(items => {
+              return items.filter(it => !!it);
+            })
           );
-        } catch (e) {
-          const itemDocument = await this.db.getDocuments('storage', undefined, undefined, undefined, [
-            {
-              key: 'path',
-              operator: FilterMethod.Equal,
-              value: item.path
-            },
-            {
-              key: 'name',
-              operator: FilterMethod.Equal,
-              value: item.name
-            }
-          ]).pipe(
-            take(1),
-            map(docs => docs[0])
-          ).toPromise();
+        }),
+        switchMap(async items => {
 
-          if (itemDocument?.id) {
-            await this.db.setDocument('storage', itemDocument.id, {
-              ...itemDocument.data(),
-              metadata
-            });
+          const metadata = Object.keys(item.metadata || {}).filter(key => {
+            return !key.startsWith('permissions_');
+          }).reduce((acc, key) => {
+            acc[key] = item.metadata[key];
+            return acc;
+          }, {});
+
+          for (const it of items) {
+            metadata[`permissions_${it.type}_${it.label}_${it.permission}`] = 'true';
           }
-        }
-      })
-    ).subscribe();
+
+          const path = item.path === '.' ? item.name : `${item.path}/${item.name}`;
+          try {
+            await updateMetadata(
+              ref(this.fbStorage, path),
+              {
+                customMetadata: metadata
+              }
+            );
+          } catch (e) {
+            const itemDocument = await this.db.getDocuments(
+              'storage',
+              undefined,
+              undefined,
+              undefined,
+              [
+                {
+                  key: 'path',
+                  operator: FilterMethod.Equal,
+                  value: item.path
+                },
+                {
+                  key: 'name',
+                  operator: FilterMethod.Equal,
+                  value: item.name
+                }
+              ]
+            )
+              .pipe(
+                take(1),
+                map(docs => docs[0])
+              )
+              .toPromise();
+
+            if (itemDocument?.id) {
+              await this.db.setDocument('storage', itemDocument.id, {
+                ...itemDocument.data(),
+                metadata
+              });
+            }
+          }
+        })
+      )
+      .subscribe();
   }
 
   uploadFiles(route, event) {
@@ -650,5 +726,96 @@ export class StorageComponent implements OnInit {
     }
 
     return this.storage.uploadFiles(route, event);
+  }
+
+  filesHovered(event: boolean | DragEvent) {
+    this.filesOverNext$.next(event ? (event as DragEvent).dataTransfer?.types.includes('Files') : false);
+  }
+
+  async select() {
+    if (this.fileSelection.isEmpty()) {
+      return;
+    }
+
+    const urls = await Promise.all(
+      this.fileSelection.selected.map(item =>
+        this.storage.download(item)
+      )
+    );
+
+    this.dialogRef.close({
+      type: 'url',
+      url: urls[0],
+      name: this.fileSelection.selected[0].name,
+      direct: true
+    });
+  }
+
+  stopPropagation(e: MouseEvent) {
+    e.stopPropagation();
+  }
+
+  toggleSelectedFile(file: StorageItem, e: MatCheckboxChange) {
+    if (this.configuration.multiple) {
+      this.fileSelection.toggle(file);
+      return;
+    }
+
+    this.fileSelection.clear();
+    this.fileSelection[e.checked ? 'select' : 'deselect'](file);
+  }
+
+  async removeItem(data: {item: StorageItem, items: StorageItem[]}) {
+    await this.storage.removeItem(data.item);
+
+    if (this.selection.isEmpty()) {
+      await this._removeItem(data);
+      this._filterSelection(data.item);
+      data.items = [...data.items];
+    } else {
+      await Promise.all(
+        this.selection.selected.map(item =>
+          this._removeItem({item, items: data.items})
+        )
+      );
+      this.selection.clear();
+      data.items = [...data.items];
+    }
+
+    this.cdr.markForCheck();
+  }
+
+  private async _removeItem(data: {item: StorageItem, items: StorageItem[]}) {
+    await this.storage.removeItem(data.item);
+
+    this._deletes.add(data.item.id);
+
+    data.items.splice(
+      data.items.findIndex(it => it.id === data.item.id),
+      1
+    );
+  }
+
+  private _filterSelection(selected?: StorageItem) {
+
+    if (this.selection.isEmpty()) {
+      return;
+    }
+
+    if (selected) {
+      this.selection.deselect(selected);
+      return;
+    }
+
+    const items = this.items$.getValue();
+
+    this.selection.selected.forEach(item => {
+
+      const key = item.type === 'folder' ? 'folders' : 'files';
+
+      if (!items[key].some(it => it.id === item.id)) {
+        this.selection.deselect(item);
+      }
+    })
   }
 }

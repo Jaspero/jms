@@ -10,9 +10,10 @@ import {STATIC_CONFIG} from '../../../environments/static-config';
   selector: 'jms-impersonate',
   templateUrl: './impersonate.component.html',
   styleUrls: ['./impersonate.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true
 })
-export class ImpersonateComponent implements OnInit {
+export default class ImpersonateComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private auth: Auth,

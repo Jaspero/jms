@@ -1,3 +1,4 @@
+import {firestore} from 'firebase-admin';
 import functions from 'firebase-functions';
 
 export function isAuthenticated(
@@ -31,7 +32,7 @@ export function hasRole(
   }
 }
 
-export function hasPermission(
+export async function hasPermission(
   context: functions.https.CallableContext,
   module: string, 
   permission: 'get' | 'list' | 'create' | 'update' | 'delete',
@@ -40,7 +41,7 @@ export function hasPermission(
 
   isAuthenticated(context);
 
-  const {permissions} = context.auth.token;
+  const permissions = (await firestore().doc(['users', context.auth.uid, 'authorization', 'permissions'].join('/')).get()).data();
 
   if (!permissions?.[module]?.[permission]) {
     throw new functions.https.HttpsError('failed-precondition', message);

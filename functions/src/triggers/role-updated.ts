@@ -13,11 +13,11 @@ export const roleUpdated = functions
     const keys = ['get', 'list', 'create', 'update', 'delete'];
     const permissionsKeys = new Set<string>();
 
-    for (const key of Object.keys(after.permissions)) {
+    for (const key of Object.keys(after.permissions || {})) {
       permissionsKeys.add(key);
     }
 
-    for (const key of Object.keys(before.permissions)) {
+    for (const key of Object.keys(before.permissions || {})) {
       permissionsKeys.add(key);
     }
 
@@ -27,7 +27,7 @@ export const roleUpdated = functions
 			}
 
 			for (const k of keys) {
-				if (after.permissions?.[key]?.[k] !== before.permissions?.[key]?.[k]) {
+				if (after.permissions?.[key]?.[k] !== before?.permissions?.[key]?.[k]) {
 					return true;
 				}
 			}

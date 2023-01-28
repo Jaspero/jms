@@ -12,4 +12,5 @@ export interface WhereFilter {
    * will be added to the query parameters
    */
   persist?: boolean;
+  skipFalsyValueCheck?: boolean;
 }

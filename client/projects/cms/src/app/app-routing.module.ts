@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 import {RouteReuseStrategy, RouterModule, Routes} from '@angular/router';
 import {STATIC_CONFIG} from '../environments/static-config';
+import {HasCodeGuard} from './modules/reset-password/guards/has-code/has-code.guard';
 import {HasClaimGuard} from './shared/guards/has-claim/has-claim.guard';
 import {RedirectGuard} from './shared/guards/redirect/redirect.guard';
 import {AppReuseStrategy} from './shared/utils/app-reuse.strategy';
@@ -26,9 +27,8 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () =>
-      import('./modules/login/login.module')
-        .then(m => m.LoginModule),
+    loadComponent: () =>
+      import('./modules/login/login.component'),
     canActivate: [AuthGuard],
     data: {
       authGuardPipe: redirectLoggedInToDashboard
@@ -36,9 +36,8 @@ const routes: Routes = [
   },
   {
     path: 'finish-sign-up',
-    loadChildren: () =>
-      import('./modules/finish-sign-up/finish-sign-up.module')
-        .then(m => m.FinishSignUpModule),
+    loadComponent: () =>
+      import('./modules/finish-sign-up/finish-sign-up.component'),
     canActivate: [AuthGuard],
     data: {
       authGuardPipe: redirectLoggedInToDashboard
@@ -46,9 +45,8 @@ const routes: Routes = [
   },
   {
     path: 'trigger-password-reset',
-    loadChildren: () =>
-      import('./modules/trigger-password-reset/trigger-password-reset.module')
-        .then(m => m.TriggerPasswordResetModule),
+    loadComponent: () =>
+      import('./modules/trigger-password-reset/trigger-password-reset.component'),
     canActivate: [AuthGuard],
     data: {
       authGuardPipe: redirectLoggedInToDashboard
@@ -56,21 +54,20 @@ const routes: Routes = [
   },
   {
     path: 'reset-password',
-    loadChildren: () =>
-      import('./modules/reset-password/reset-password.module')
-        .then(m => m.ResetPasswordModule)
+    providers: [HasCodeGuard],
+    canActivate: [HasCodeGuard],
+    loadComponent: () =>
+      import('./modules/reset-password/reset-password.component')
   },
   {
     path: 'mfa',
-    loadChildren: () =>
-      import('./modules/mfa/mfa.module')
-        .then(m => m.MfaModule)
+    loadComponent: () =>
+      import('./modules/mfa/authentication.component')
   },
   {
     path: 'impersonate',
-    loadChildren: () =>
-      import('./modules/impersonate/impersonate.module')
-        .then(m => m.ImpersonateModule)
+    loadComponent: () =>
+      import('./modules/impersonate/impersonate.component')
   },
   {
     path: '**',

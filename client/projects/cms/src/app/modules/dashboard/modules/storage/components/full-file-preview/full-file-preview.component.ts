@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {StorageItem} from '@definitions';
+import {StorageService} from '../../services/storage/storage.service';
 import {PreviewType} from '../../types/preview.type';
 import {detectPreviewType} from '../../utils/detect-preview-type';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {StorageService} from '../../services/storage/storage.service';
 
 @Component({
   selector: 'jms-full-file-preview',
@@ -12,9 +12,6 @@ import {StorageService} from '../../services/storage/storage.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FullFilePreviewComponent implements OnInit {
-
-  type: PreviewType = 'other';
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {item: StorageItem},
     public storage: StorageService,
@@ -22,7 +19,9 @@ export class FullFilePreviewComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
+  type: PreviewType = 'other';
+
+  ngOnInit() {
     this.type = detectPreviewType(this.data.item.contentType);
   }
 }

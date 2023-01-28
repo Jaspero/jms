@@ -1,3 +1,170 @@
+# [7.6.0](https://github.com/jaspero/jms/compare/v7.5.0...v7.6.0) (2023-01-28)
+
+
+### Features
+
+* **functions:** deployment working ([2e8b00c](https://github.com/jaspero/jms/commit/2e8b00cbdb8c3d023ba5853bd6e09831da94986d))
+
+# [7.5.0](https://github.com/jaspero/jms/compare/v7.4.0...v7.5.0) (2023-01-27)
+
+
+### Bug Fixes
+
+* **cms:** fix typo ([caac8e4](https://github.com/jaspero/jms/commit/caac8e43eb246777f7e5b383d22e93505eea0d07))
+* **cms:** getCurrentView extracted in to function and working properly ([645e90b](https://github.com/jaspero/jms/commit/645e90bc7abb0469c505df59070c3baa5f5a1866))
+* **functions:** not setting claim on user on login ([2e49d63](https://github.com/jaspero/jms/commit/2e49d63a03233e8e88b25a44e8a4c320b4602a8f))
+* **functions:** permissions ([11eabec](https://github.com/jaspero/jms/commit/11eabec2ea8a1ddff4df5d5cb39d40a6d418e8d4))
+* **functions:** roleUpdate running when functions don't ([27ee2e3](https://github.com/jaspero/jms/commit/27ee2e3ea62bdc92d50c40fcdc76d8aa5126737c))
+* storage context menu not opening; actions not opening on single page; ([b5bca57](https://github.com/jaspero/jms/commit/b5bca5794fd7d8dd0392cfebcc3181aeb0370c95))
+* **storage:** folders dialog not opening ([69f4f1b](https://github.com/jaspero/jms/commit/69f4f1bc1e7ed0a809f6c90b37123b899a7d4e79))
+
+
+### Features
+
+* **client:** resolved circular dependencies with v15 ([35375c9](https://github.com/jaspero/jms/commit/35375c995ad42b6805dba2aed428d720831d7b96))
+* **client:** updating to angular v15 ([54fcedf](https://github.com/jaspero/jms/commit/54fcedf7164658a7884fb6677ccd48b484c8a92a))
+* **cms:** adjusted theme palette, fix some minor style issues ([cc7d768](https://github.com/jaspero/jms/commit/cc7d768cdba242a7232c20885e89b00d2887bb40))
+* converted some components to standalone ([a38d10e](https://github.com/jaspero/jms/commit/a38d10ed6e9fafa9e6b4d337273c922ebc7311b6))
+* fields mat update ([7a0c049](https://github.com/jaspero/jms/commit/7a0c049b1c23057a6e39906fae19f7939c4b3139))
+* updated definition and function versions ([f5cc00a](https://github.com/jaspero/jms/commit/f5cc00a599b68d11a0414080baf5a2644e44af2c))
+
+# [7.4.0](https://github.com/jaspero/jms/compare/v7.3.0...v7.4.0) (2023-01-11)
+
+
+### Features
+
+* **cms:** added skipFalsyValueCheck flag on where filter ([49e1877](https://github.com/jaspero/jms/commit/49e1877287ed6e141856826ffbf71e5b3a49ba60))
+
+# [7.3.0](https://github.com/jaspero/jms/compare/v7.2.4...v7.3.0) (2023-01-11)
+
+
+### Features
+
+* **cms:** added skipFalsyValueCheck flag on where filter and fixed collectionGroup shadow var ([2b7807a](https://github.com/jaspero/jms/commit/2b7807a28415a31bdd8184b6df8f10a7ee034035))
+
+## [7.2.4](https://github.com/jaspero/jms/compare/v7.2.3...v7.2.4) (2023-01-09)
+
+
+### Bug Fixes
+
+* **functions:** using firsestore for hasPermissions ([1bf7c40](https://github.com/jaspero/jms/commit/1bf7c407f68ac2fefd1a16fdfec00da78c8dd907))
+
+## [7.2.3](https://github.com/jaspero/jms/compare/v7.2.2...v7.2.3) (2023-01-03)
+
+
+### Bug Fixes
+
+* **cms:** fix grammar ([0e728dd](https://github.com/jaspero/jms/commit/0e728ddf0b824f805f885dce0f1b1aa63fe14631))
+
+## [7.2.2](https://github.com/jaspero/jms/compare/v7.2.1...v7.2.2) (2023-01-02)
+
+
+### Bug Fixes
+
+* **storage:** folder create not working ([7b8f6f8](https://github.com/jaspero/jms/commit/7b8f6f832b5496e9e9560f3c256b364e668acb94))
+
+## [7.2.1](https://github.com/jaspero/jms/compare/v7.2.0...v7.2.1) (2023-01-02)
+
+
+### Bug Fixes
+
+* **storage:** not showing file description; Manage access not connected; ([214e1f8](https://github.com/jaspero/jms/commit/214e1f840522d61d3bdb269c65bc1a2f173ca8bd))
+
+# [7.2.0](https://github.com/jaspero/jms/compare/v7.1.0...v7.2.0) (2023-01-01)
+
+
+### Features
+
+* **storage:** connected folder and color selection ([bf32cd4](https://github.com/jaspero/jms/commit/bf32cd4c497e9240e4a0c99f4fb5eca378bc6b92))
+
+# [7.1.0](https://github.com/jaspero/jms/compare/v7.0.0...v7.1.0) (2022-11-24)
+
+
+### Features
+
+* **cms:** permission checkboxes closes [#426](https://github.com/jaspero/jms/issues/426) ([3e97953](https://github.com/jaspero/jms/commit/3e979530c362a9d295e86fb39d575182643d7446))
+
+# [7.0.0](https://github.com/jaspero/jms/compare/v6.14.0...v7.0.0) (2022-11-24)
+
+
+### Features
+
+* connected storage selection in schema-forms; completely removed file manager; ([7ba2d34](https://github.com/jaspero/jms/commit/7ba2d342dbe5dae691967189b17e587c70cf1710))
+
+
+### BREAKING CHANGES
+
+* The FileManager module has been completely removed. It should be replaced with StorageModule where needed. In schema forms "image" component we now use JSX(<jms-e-storage-select />) instead.
+
+# [6.14.0](https://github.com/jaspero/jms/compare/v6.13.1...v6.14.0) (2022-11-24)
+
+
+### Features
+
+* **permissions:** add toggle for collection row [#426](https://github.com/jaspero/jms/issues/426) ([ed5aaa2](https://github.com/jaspero/jms/commit/ed5aaa2f12c8f48c31e4dc798eb9be58aeba76ff))
+
+## [6.13.1](https://github.com/jaspero/jms/compare/v6.13.0...v6.13.1) (2022-11-24)
+
+
+### Bug Fixes
+
+* **cms:** fix storage item height ([78dbc87](https://github.com/jaspero/jms/commit/78dbc8721209957ece5add2257f008c9e357794a))
+
+# [6.13.0](https://github.com/jaspero/jms/compare/v6.12.2...v6.13.0) (2022-11-24)
+
+
+### Bug Fixes
+
+* **cms:** queue not emptying ([d522312](https://github.com/jaspero/jms/commit/d52231274b149f5c06d3ad8adae2630e8fe9f9b8))
+
+
+### Features
+
+* **cms:** storage adjustments for file selection ([684811b](https://github.com/jaspero/jms/commit/684811b9faff6fb3bcd54f8f65b8dc75d739f5c7))
+
+## [6.12.2](https://github.com/jaspero/jms/compare/v6.12.1...v6.12.2) (2022-11-23)
+
+
+### Bug Fixes
+
+* finding child module when main is requested ([a3b00b7](https://github.com/jaspero/jms/commit/a3b00b753d4fd100fa7c4dc3a8157b95b64f08b4))
+
+## [6.12.1](https://github.com/jaspero/jms/compare/v6.12.0...v6.12.1) (2022-11-22)
+
+
+### Bug Fixes
+
+* **cms:** getDocumentsSimple not setting sort properly ([eae85fb](https://github.com/jaspero/jms/commit/eae85fb52f86167b74c7d484d5277b68d93b6477))
+
+# [6.12.0](https://github.com/jaspero/jms/compare/v6.11.0...v6.12.0) (2022-11-13)
+
+
+### Features
+
+* deleting folders also deleted all files in folder ([3a28867](https://github.com/jaspero/jms/commit/3a28867c55698e36253087f0fa44ac1c177e078e))
+
+# [6.11.0](https://github.com/jaspero/jms/compare/v6.10.0...v6.11.0) (2022-11-12)
+
+
+### Features
+
+* **cms:** don't highlight drop if there is nothing to drop ([3a39a14](https://github.com/jaspero/jms/commit/3a39a1464c9a9b83736d5287d846f6a985bc4255))
+
+# [6.10.0](https://github.com/jaspero/jms/compare/v6.9.3...v6.10.0) (2022-11-11)
+
+
+### Features
+
+* **cms:** multiple selection on storage ([a53a4cc](https://github.com/jaspero/jms/commit/a53a4ccbabaaea53cc7199318c55fe477a81eab5))
+* **cms:** storage updates ([5a1acea](https://github.com/jaspero/jms/commit/5a1acea21b5b81b0f93b385e14eae49d5d921783))
+
+## [6.9.3](https://github.com/jaspero/jms/compare/v6.9.2...v6.9.3) (2022-10-27)
+
+
+### Bug Fixes
+
+* **cms:** fix loader style ([5d0ecaf](https://github.com/jaspero/jms/commit/5d0ecafa6227e8eb811a1af52c3d2359eeb80c09))
+
 ## [6.9.2](https://github.com/jaspero/jms/compare/v6.9.1...v6.9.2) (2022-10-24)
 
 

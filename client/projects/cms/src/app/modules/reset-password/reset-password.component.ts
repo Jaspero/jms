@@ -1,7 +1,14 @@
+import {CommonModule} from '@angular/common';
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Auth, confirmPasswordReset} from '@angular/fire/auth';
-import {AbstractControlOptions, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import {AbstractControlOptions, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
+import {LoadClickModule} from '@jaspero/ng-helpers';
+import {TranslocoModule} from '@ngneat/transloco';
 import {notify} from '@shared/utils/notify.operator';
 import {RepeatPasswordValidator} from '@shared/validators/repeat-password.validator';
 import {from, throwError} from 'rxjs';
@@ -12,9 +19,33 @@ import {STATIC_CONFIG} from '../../../environments/static-config';
   selector: 'jms-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+
+    /**
+     * Material
+     */
+    MatCardModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+
+    /**
+     * Ng Helpers
+     */
+    LoadClickModule,
+
+    /**
+     * External
+     */
+    TranslocoModule
+  ],
+  standalone: true
 })
-export class ResetPasswordComponent implements OnInit {
+export default class ResetPasswordComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -56,7 +87,7 @@ export class ResetPasswordComponent implements OnInit {
         )
       )
         .pipe(
-          catchError(error => 
+          catchError(error =>
             throwError(() => ({
               message: this.errorMap[error.code] || 'RESET_PASSWORD.ERROR_MESSAGE'
             }))

@@ -1,0 +1,21 @@
+<mat-form-field class="w-full">
+	<mat-label>{{'COLOR' | transloco}}</mat-label>
+	<mat-select [formControl]="ctrl">
+		<mat-select-trigger>
+			<ng-container *ngIf="ctrl.value && itemMap[ctrl.value]; else empty">
+				<div class="color-wrapper">
+					<span class="color" [style.background-color]="itemMap[ctrl.value].value"></span>
+					<span class="label">{{itemMap[ctrl.value]?.name}}</span>
+				</div>
+			</ng-container>
+
+			<ng-template #empty>{{'COLOR' | transloco}}</ng-template>
+		</mat-select-trigger>
+		<mat-option *ngFor="let item of items" [value]="item.value">
+			<div class="color-wrapper">
+				<span class="color" [style.background-color]="item.value"></span>
+				<span class="label">{{item.name}}</span>
+			</div>
+		</mat-option>
+	</mat-select>
+</mat-form-field>

@@ -1,0 +1,28 @@
+<h4 mat-dialog-title>
+	{{(data.folder.id ? 'EDIT_FOLDER' : 'NEW_FOLDER') | transloco}}
+</h4>
+
+<form [formGroup]="form">
+	<mat-dialog-content>
+		<mat-form-field class="w-full">
+			<mat-label>{{'NAME' | transloco}}</mat-label>
+			<input matInput formControlName="name" autocomplete="off">
+		</mat-form-field>
+
+    <jms-icon-picker formControlName="icon"></jms-icon-picker>
+
+    <jms-color-picker formControlName="color"></jms-color-picker>
+
+    <mat-form-field class="w-full">
+      <mat-label>{{'DESCRIPTION' | transloco}}</mat-label>
+      <textarea matInput rows="10" formControlName="description"></textarea>
+    </mat-form-field>
+	</mat-dialog-content>
+
+	<mat-dialog-actions class="jc-between">
+		<button tabindex="-1" type="button" mat-flat-button mat-dialog-close>{{'CANCEL' | transloco}}</button>
+		<button type="submit" mat-flat-button color="primary" [disabled]="form.invalid" [jpLoadClick]="save()">
+			{{'SAVE' | transloco}}
+		</button>
+	</mat-dialog-actions>
+</form>

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {
   collection,
   collectionData,
-  collectionGroup,
+  collectionGroup as collectionGroupFn,
   deleteDoc,
   doc,
   docData,
@@ -22,8 +22,8 @@ import {
 import {Functions, httpsCallableData} from '@angular/fire/functions';
 import {FilterMethod, SHARED_CONFIG} from '@definitions';
 import {Parser} from '@jaspero/form-builder';
-import {from, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {from, Observable, of} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
 import {WhereFilter} from '../../src/app/shared/interfaces/where-filter.interface';
 import {DbService} from '../../src/app/shared/services/db/db.service';
 import {environment} from '../../src/environments/environment';
@@ -75,7 +75,8 @@ export class FbDatabaseService extends DbService {
       .pipe(
         map((res: any) =>
           res.docs
-        )
+        ),
+        catchError(() => of([]))
       );
   }
 
@@ -169,7 +170,7 @@ export class FbDatabaseService extends DbService {
         query(
           collection(this.firestore, moduleId),
           ...[
-            sort && orderBy(sort.active, sort.direction),
+            sort && orderBy(sort, 'asc'),
             filter && where(filter.key, filter.operator, filter.value)
           ]
             .filter(it => it)
@@ -182,7 +183,8 @@ export class FbDatabaseService extends DbService {
             id: it.id,
             ...it.data()
           }))
-        )
+        ),
+        catchError(() => of([]))
       );
   }
 
@@ -190,7 +192,7 @@ export class FbDatabaseService extends DbService {
     return from(
       getDocs(
         query(
-          collectionGroup(this.firestore, moduleId),
+          collectionGroupFn(this.firestore, moduleId),
           ...[
             sort && orderBy(sort.active, sort.direction),
             filter && where(filter.key, filter.operator, filter.value)
@@ -205,7 +207,8 @@ export class FbDatabaseService extends DbService {
             id: it.id,
             ...it.data()
           }))
-        )
+        ),
+        catchError(() => of([]))
       );
   }
 
@@ -260,7 +263,7 @@ export class FbDatabaseService extends DbService {
       sort = [...sort].map(s => {
         s.active = Parser.standardizeKey(s.active);
         return s;
-      })
+      });
     } else if (sort?.active) {
       sort.active = Parser.standardizeKey(sort.active);
     }
@@ -288,7 +291,7 @@ export class FbDatabaseService extends DbService {
     if (cg) {
 
       return query(
-        collectionGroup(this.firestore, moduleId),
+        collectionGroupFn(this.firestore, moduleId),
         ...methods
       );
     }
@@ -303,18 +306,21 @@ export class FbDatabaseService extends DbService {
     if (filters) {
       return filters.reduce((acc, item) => {
         if (
-          item.value !== undefined &&
-          item.value !== null &&
-          !Number.isNaN(item.value) &&
-          item.value !== '' &&
+          item.skipFalsyValueCheck ||
           (
+            item.value !== undefined &&
+            item.value !== null &&
+            !Number.isNaN(item.value) &&
+            item.value !== '' &&
             (
-              item.operator === FilterMethod.ArrayContains ||
-              item.operator === FilterMethod.ArrayContainsAny ||
-              item.operator === FilterMethod.In
-            ) && Array.isArray(item.value) ?
-              item.value.length :
-              true
+              (
+                item.operator === FilterMethod.ArrayContains ||
+                item.operator === FilterMethod.ArrayContainsAny ||
+                item.operator === FilterMethod.In
+              ) && Array.isArray(item.value) ?
+                item.value.length :
+                true
+            )
           )
         ) {
           acc.push(

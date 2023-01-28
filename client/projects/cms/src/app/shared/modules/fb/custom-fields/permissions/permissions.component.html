@@ -1,20 +1,57 @@
 <div>
-	<table [formGroup]="group">
-		<tr *ngFor="let module of modules" [formGroupName]="module.id">
-			<th>{{module.name | transloco}}</th>
-			<td *ngFor="let perm of permissions">
-				<mat-checkbox [formControlName]="perm.value">{{perm.name | transloco}}</mat-checkbox>
-			</td>
-		</tr>
-		<tr *ngFor="let module of addedModules" [formGroupName]="module.id">
-			<th>{{module.name | transloco}}</th>
-			<td *ngFor="let perm of permissions">
-				<mat-checkbox
-					*ngIf="module.permissions.includes(perm.value)"
-					[formControlName]="perm.value">
-					{{perm.name | transloco}}
-				</mat-checkbox>
-			</td>
-		</tr>
-	</table>
+  <table [formGroup]='group'>
+    <tr>
+      <td>
+        <mat-checkbox
+          [checked]='(overallValues$ | async)?.checked'
+          [indeterminate]='(overallValues$ | async)?.indeterminate'
+          (change)='toggleAll($event)'
+        ></mat-checkbox>
+      </td>
+      <td></td>
+      <td *ngFor='let permission of permissions'>
+        <mat-checkbox
+          [checked]='(columnValues$ | async)[permission.value].checked'
+          [indeterminate]='(columnValues$ | async)[permission.value].indeterminate'
+          (change)='toggleColumn(permission.value, $event)'
+        >
+          {{permission.name}}</mat-checkbox>
+      </td>
+    </tr>
+    <tr *ngFor='let module of modules' [formGroupName]='module.id'>
+      <td>
+        <div *ngIf='rowValues$ | async as rows'>
+          <mat-checkbox
+            [checked]='rows[module.id].checked'
+            [indeterminate]='rows[module.id].indeterminate'
+            (change)='toggleRow($event, module.id)'
+          ></mat-checkbox>
+        </div>
+      </td>
+      <th>{{module.name | transloco}}</th>
+      <td *ngFor='let perm of permissions'>
+        <mat-checkbox [formControlName]='perm.value'>
+          {{perm.name | transloco}}</mat-checkbox>
+      </td>
+    </tr>
+    <tr *ngFor='let module of addedModules' [formGroupName]='module.id'>
+      <td>
+        <div *ngIf='rowValues$ | async as rows'>
+          <mat-checkbox
+            [checked]='rows[module.id].checked'
+            [indeterminate]='rows[module.id].indeterminate'
+            (change)='toggleRow($event, module.id)'
+          ></mat-checkbox>
+        </div>
+      </td>
+      <th>{{module.name | transloco}}</th>
+      <td *ngFor='let perm of permissions'>
+        <mat-checkbox
+          *ngIf='module.permissions.includes(perm.value)'
+          [formControlName]='perm.value'>
+          {{perm.name | transloco}}
+        </mat-checkbox>
+      </td>
+    </tr>
+  </table>
 </div>

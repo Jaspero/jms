@@ -8,7 +8,7 @@ export const removeUser = functions
   .region(SHARED_CONFIG.cloudRegion)
   .https
   .onCall(async (data, context) => {
-    hasPermission(context, Collections.Users, 'delete');
+    await hasPermission(context, Collections.Users, 'delete');
     schemaValidation(
       data,
       {

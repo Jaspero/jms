@@ -25,15 +25,17 @@ import {RouterModule} from '@angular/router';
 import {LoadClickModule, SanitizeModule, StopPropagationModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
 import {STATIC_CONFIG} from '../../environments/static-config';
-import {FileManagerModule} from '../modules/dashboard/modules/file-manager/file-manager.module';
+import {StorageModule} from '../modules/dashboard/modules/storage/storage.module';
+import {EvalModule} from '../shared/modules/eval/eval.module';
 import {FormBuilderSharedModule} from '../shared/modules/fb/form-builder-shared.module';
+import {SearchInputModule} from '../shared/modules/search-input/search-input.module';
 import {StateService} from '../shared/services/state/state.service';
 import {ChangeEmailComponent} from './change-email/change-email.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
+import {ChangeUrlComponent} from './change-url/change-url.component';
 import {ColumnOrganizationComponent} from './column-organization/column-organization.component';
 import {ELEMENTS} from './element.decorator';
 import {ExportComponent} from './export/export.component';
-import {FileManagerSelectComponent} from './file-manager-select/file-manager-select.component';
 import {FilterDialogComponent} from './filter-dialog/filter-dialog.component';
 import {FilterTagsComponent} from './filter-tags/filter-tags.component';
 import {ImpersonateComponent} from './impersonate/impersonate.component';
@@ -42,15 +44,13 @@ import {LinkComponent} from './link/link.component';
 import {NewPrepopulateComponent} from './new-prepopulate/new-prepopulate.component';
 import {ParseTemplatePipe} from './pipes/parse-template/parse-template.pipe';
 import {ReleaseStatusComponent} from './release-status/release-status.component';
+import {SampleEmailComponent} from './sample-email/sample-email.component';
 import {SortDialogComponent} from './sort-dialog/sort-dialog.component';
+import {StorageSelectComponent} from './storage-select/storage-select.component';
 import {TableComponent} from './table/table.component';
 import {TriggerPasswordResetComponent} from './trigger-password-reset/trigger-password-reset.component';
 import {UserActionsComponent} from './user-actions/user-actions.component';
 import {UserAddComponent} from './user-add/user-add.component';
-import {SearchInputModule} from '../shared/modules/search-input/search-input.module';
-import {EvalModule} from '../shared/modules/eval/eval.module';
-import {SampleEmailComponent} from './sample-email/sample-email.component';
-import { ChangeUrlComponent } from './change-url/change-url.component';
 
 @NgModule({
   imports: [
@@ -62,7 +62,7 @@ import { ChangeUrlComponent } from './change-url/change-url.component';
      * Anything the elements use
      * needs to be imported here
      */
-    FileManagerModule,
+    StorageModule,
 
     FormBuilderSharedModule,
 
@@ -105,6 +105,8 @@ import { ChangeUrlComponent } from './change-url/change-url.component';
     SortDialogComponent,
     FilterTagsComponent,
     FilterDialogComponent,
+    ReleaseStatusComponent,
+    ChangeUrlComponent,
 
     ParseTemplatePipe,
 
@@ -119,11 +121,9 @@ import { ChangeUrlComponent } from './change-url/change-url.component';
     UserActionsComponent,
     ChangeEmailComponent,
     NewPrepopulateComponent,
-    FileManagerSelectComponent,
     ImpersonateComponent,
-    ReleaseStatusComponent,
     SampleEmailComponent,
-    ChangeUrlComponent
+    StorageSelectComponent
   ],
   providers: [
     {

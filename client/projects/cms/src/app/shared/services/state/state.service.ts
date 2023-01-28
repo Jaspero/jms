@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRoute, Router, RouterStateSnapshot} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TranslocoService} from '@ngneat/transloco';
 import {Module, MODULES, User} from '@definitions';
-import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {distinctUntilChanged, filter, map, shareReplay} from 'rxjs/operators';
 
 @Injectable({
@@ -54,7 +54,6 @@ export class StateService {
     }
   };
   user: User;
-  loadingQue$ = new Subject<Array<string | boolean>>();
   modules$: Observable<Module[]>;
   entryPath: string;
 

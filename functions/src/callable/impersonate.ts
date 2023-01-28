@@ -7,7 +7,7 @@ export const impersonate = functions
   .region(SHARED_CONFIG.cloudRegion)
   .https
   .onCall(async (data, context) => {
-    hasPermission(context, Collections.Users, 'list');
+    await hasPermission(context, Collections.Users, 'list');
 
     const auth = admin.auth();
     const user = await auth.getUser(data);
