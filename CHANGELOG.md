@@ -1,3 +1,10 @@
+# [7.6.0](https://github.com/jaspero/jms/compare/v7.5.0...v7.6.0) (2023-01-28)
+
+
+### Features
+
+* **functions:** deployment working ([2e8b00c](https://github.com/jaspero/jms/commit/2e8b00cbdb8c3d023ba5853bd6e09831da94986d))
+
 # [7.5.0](https://github.com/jaspero/jms/compare/v7.4.0...v7.5.0) (2023-01-27)
 
 
