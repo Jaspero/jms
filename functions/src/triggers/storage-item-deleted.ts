@@ -23,7 +23,7 @@ export const storageItemDeleted = functions
 				.get();
 
 			if (docs.length) {
-				const results = await Promise.allSettled(
+				await Promise.allSettled(
 					docs.map(doc => {
 						const dt = doc.data();
 
@@ -35,8 +35,6 @@ export const storageItemDeleted = functions
 						return doc.ref.delete()
 					})
 				);
-
-				console.log(results);
 			}
 		}
 	});
