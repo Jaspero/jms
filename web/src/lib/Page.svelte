@@ -1,6 +1,6 @@
 <script lang="ts">
   import {BASE_TITLE, DELIMITER, URL} from '$lib/consts/title.const.ts';
-  import {browser} from '$app/env';
+  import {browser} from '$app/environment';
 
   export let page: any;
 

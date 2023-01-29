@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let links: Array<{label: string; link: string}>;
+	export let links: Array<{label: string; link: string}> = [];
 </script>
 
 <header>
