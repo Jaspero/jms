@@ -3,16 +3,16 @@
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 declare namespace App {
-	interface Locals {
-		headerLinks: {
-			link: string;
-			label: string;
-		};
-	}
+  interface Locals {
+    headerLinks: {
+      link: string;
+      label: string;
+    };
+  }
 
-	// interface Platform {}
+  // interface Platform {}
 
-	// interface Session {}
+  // interface Session {}
 
-	// interface Stuff {}
+  // interface Stuff {}
 }
