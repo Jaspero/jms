@@ -19,6 +19,7 @@ const KEYS = ['get', 'list', 'create', 'update', 'delete'];
 const COLLECTIONS: Permissions = {
 	_search: {
 		get: [false],
+		list: [false],
 		create: [false],
 		update: [false],
 		delete: [false]
@@ -44,8 +45,7 @@ const DEFAULT_COLLECTION = () => ({
 	delete: [false]
 });
 
-const RULES_BASE = `
-rules_version = '2';
+const RULES_BASE = `rules_version = '2';
 service cloud.firestore {
   function hasRoles(roles) {
     return request.auth.token.role in roles
@@ -86,8 +86,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
     [[R]]
   }
-}
-`;
+}`;
 
 export async function compileRules() {
 	const fs = firestore();
@@ -130,6 +129,10 @@ export async function compileRules() {
 			permissions[key] = permissions[key].filter(Boolean);
 		}
 
+		if (!permissions[key].length) {
+			permissions[key] = [false];
+		}
+
 		permissions[key] = permissions[key].join(' || ');
 	}
 
@@ -142,7 +145,7 @@ export async function compileRules() {
 
 		source.push(`
 			match /${id}/{item=**} {
-				${KEYS.map(key => `allow ${key}: if ${collection[key]};`).join('\n')}
+				${KEYS.map((key, index) => `${index ? '				' : ''}allow ${key}: if ${collection[key]};`).join('\n')}
 			}
 		`);
 	}
@@ -161,6 +164,8 @@ export async function compileRules() {
 	}
 
 	const final = RULES_BASE.replace('[[R]]', source.join('\n'));
+
+	console.log('final', final);
 
 	await securityRules().releaseFirestoreRulesetFromSource(final);
 }

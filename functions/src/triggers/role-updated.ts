@@ -36,7 +36,6 @@ export const roleUpdated = functions
 		});
 
     if (diff) {
-      
       const {docs} = await fs.collection(Collections.Users)
         .where('role', '==', change.after.id)
         .get();

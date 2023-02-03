@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "process": "ts-node process.ts",
-    "deploy:rules": "ts-node scripts/deploy-rules",
+    "deploy:rules": "cross-env GOOGLE_APPLICATION_CREDENTIALS=./serviceAccountKey.json ts-node scripts/deploy-rules",
     "build": "rm -rf dist && tsc",
     "start": "tsc --w",
     "setup": "cross-env FIRESTORE_EMULATOR_HOST=localhost:8080 ts-node setup.ts",
