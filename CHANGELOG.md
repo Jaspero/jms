@@ -1,3 +1,10 @@
+# [7.7.0](https://github.com/jaspero/jms/compare/v7.6.0...v7.7.0) (2023-02-03)
+
+
+### Features
+
+* **definitions:** role update using service account; roles not breaking when a permission is undefined; ([f4bdb8b](https://github.com/jaspero/jms/commit/f4bdb8b261610c0e41c8dddad598d21993e4f234))
+
 # [7.6.0](https://github.com/jaspero/jms/compare/v7.5.0...v7.6.0) (2023-01-28)
 
 
