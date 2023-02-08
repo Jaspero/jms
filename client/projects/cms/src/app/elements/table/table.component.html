@@ -33,7 +33,7 @@
       <jms-column-organization #jco [tableColumns]="data.originalColumns"></jms-column-organization>
     </mat-dialog-content>
 
-    <mat-dialog-actions class="jc-end">
+    <mat-dialog-actions>
       <button type="submit" mat-flat-button color="primary" (click)="updateColumns($event, jco)">
         {{ 'SAVE' | transloco }}
       </button>
