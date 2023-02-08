@@ -1,3 +1,10 @@
+# [7.8.0](https://github.com/jaspero/jms/compare/v7.7.0...v7.8.0) (2023-02-08)
+
+
+### Features
+
+* **cms:** remove jc-between on mat-dialog-actions, adding padding inside card on login and reset-password closes [#472](https://github.com/jaspero/jms/issues/472) ([49930bc](https://github.com/jaspero/jms/commit/49930bc8774c41052629d8f2e665631077f5ccaf))
+
 # [7.7.0](https://github.com/jaspero/jms/compare/v7.6.0...v7.7.0) (2023-02-03)
 
 
