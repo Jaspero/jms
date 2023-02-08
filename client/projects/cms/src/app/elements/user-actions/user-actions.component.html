@@ -4,7 +4,7 @@
   <div class="info">
     <div class="providers" *ngIf="providers.length">
       <div>{{'PROVIDERS' | transloco}}:</div>
-  
+
       <div class="providers-list">
         <div *ngFor="let provider of providers">
           <button mat-icon-button (jpStopPropagation)="openProvider(provider.data)">
@@ -16,7 +16,7 @@
 
     <div class="providers" *ngIf="multiFactors.length">
       <div>{{'MULTI_FACTORS' | transloco}}:</div>
-  
+
       <div class="providers-list">
         <div *ngFor="let provider of multiFactors">
           <button mat-icon-button (jpStopPropagation)="openProvider(provider.data, 'mfa')">
@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-  
+
     <div class="metadata" *ngIf="metadata">
       <div *ngIf="metadata.creationTime">
         <div>{{'CREATION_TIME' | transloco}}:</div>
@@ -57,7 +57,7 @@
       </tr>
     </table>
   </mat-dialog-content>
-  <mat-dialog-actions class="jc-between">
+  <mat-dialog-actions>
     <button mat-flat-button mat-dialog-close>{{'CANCEL' | transloco}}</button>
     <button mat-flat-button color="warn" (click)="removeProvider()">{{'REMOVE' | transloco}}</button>
   </mat-dialog-actions>

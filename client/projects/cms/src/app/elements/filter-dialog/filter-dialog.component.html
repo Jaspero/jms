@@ -3,7 +3,7 @@
   <mat-dialog-content>
     <fb-form-builder #cForm [data]="data.module"></fb-form-builder>
   </mat-dialog-content>
-  <mat-dialog-actions class="jc-between">
+  <mat-dialog-actions>
     <ng-container *ngIf="data.module.clearFilters">
       <button type="button" mat-flat-button [jpLoadClick]="apply(cForm.form, cForm.innerParser, data.module.clearFilters)">
         {{data.module.clearFiltersLabel || 'Clear'}}
