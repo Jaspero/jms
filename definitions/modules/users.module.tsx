@@ -254,6 +254,7 @@ export const USERS_MODULE: Module = {
           search: {
             key: '/name',
             label: 'NAME',
+            // @ts-ignore
             method: ({configuration, search, cursor}) =>
               window.jms.util.refSearch(
                 configuration.collection,

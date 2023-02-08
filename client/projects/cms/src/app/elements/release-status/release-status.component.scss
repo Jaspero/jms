@@ -1,0 +1,12 @@
+:host {
+  display: flex;
+  align-items: center;
+}
+
+.status {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  border-radius: 50%;
+  margin-right: .5rem;
+}

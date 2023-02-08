@@ -26,9 +26,14 @@ service firebase.storage {
     }
 
     match /users/{userId=**} {
-      allow read: if authenticated();
+      allow read: if true;
       allow write: if admin() || isCurrentUser(userId);
     }
+
+    match /posts/{postId=**} {
+      allow read: if true;
+      allow write: if admin();
+    }    
 
     match /public/{files=**} {
       allow read: if true;

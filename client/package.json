@@ -10,7 +10,9 @@
     "build": "ng build --project=cms --configuration=production && npm run transloco:optimize",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "rimraf": "rimraf",
+    "copy:elements": "cp -r ../web-components/dist/** projects/cms/src/assets/vendor"
   },
   "private": true,
   "dependencies": {

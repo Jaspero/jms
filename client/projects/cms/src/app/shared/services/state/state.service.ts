@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslocoService} from '@ngneat/transloco';
 import {Module, MODULES, User} from '@definitions';
-import {Observable, of} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {distinctUntilChanged, filter, map, shareReplay} from 'rxjs/operators';
 
 @Injectable({
@@ -57,6 +57,8 @@ export class StateService {
   modules$: Observable<Module[]>;
   entryPath: string;
 
+  page$ = new BehaviorSubject<{module?: {id: string, name: string}}>({});
+  lastPublished$ = new BehaviorSubject<number>(null);
   translationsReady$: Observable<boolean>;
 
   /**
@@ -110,6 +112,7 @@ export class StateService {
   ) {
     if (queryParams.filter) {
 
+      // tslint:disable-next-line:no-shadowed-variable
       let filter;
 
       try {

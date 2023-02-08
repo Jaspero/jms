@@ -7,7 +7,6 @@ import {MatIconModule} from '@angular/material/icon';
 import {FbFieldsMatModule} from '@jaspero/fb-fields-mat';
 import {FB_PAGE_BUILDER_OPTIONS, PageBuilderModule} from '@jaspero/fb-page-builder';
 import {FbSegmentsMatModule} from '@jaspero/fb-segments-mat';
-import {TinymceModule} from '@jaspero/fb-tinymce';
 import {
   CUSTOM_COMPONENTS, CUSTOM_FIELDS,
   DbService as FDbService,
@@ -15,12 +14,13 @@ import {
   ROLE, StorageService, STORAGE_URL
 } from '@jaspero/form-builder';
 import {TranslocoModule} from '@ngneat/transloco';
+import {TinymceModule} from '@jaspero/fb-tinymce';
 import {FbStorageService} from '../../../../../integrations/firebase/fb-storage.service';
 import {environment} from '../../../../environments/environment';
 import {DbService} from '../../services/db/db.service';
 import {StateService} from '../../services/state/state.service';
-import {BlocksModule} from '../blocks/blocks.module';
 import {DuplicateComponent} from './custom-components/duplicate/duplicate.component';
+import {BlocksModule} from '@shared/blocks/blocks.module';
 import {EmailTemplateDescriptionComponent} from './custom-components/email-template-description/email-template-description.component';
 import {PermissionsComponent} from './custom-fields/permissions/permissions.component';
 

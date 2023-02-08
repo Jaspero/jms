@@ -21,6 +21,8 @@ import {storageItemDeleted} from './triggers/storage-item-deleted';
 import {userCreated} from './triggers/user-created';
 import {userDeleted} from './triggers/user-deleted';
 import {userDocumentUpdated} from './triggers/user-document-updated';
+import {statusUpdated} from './triggers/status-updated';
+import {inquiryCreated} from './triggers/inquiry-created';
 
 admin.initializeApp();
 
@@ -37,6 +39,8 @@ export const cms = {
   documentDeleted,
   documentWrite,
   triggerPasswordReset,
+  statusUpdated,
+  inquiryCreated,
   roleUpdated,
   storageItemDeleted,
 
@@ -46,9 +50,9 @@ export const cms = {
   updateUser,
   getUser,
   updateEmail,
+  sampleEmail,
   exchangeToken,
   impersonate,
-  sampleEmail,
 
   // Rest
   exportData,

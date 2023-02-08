@@ -18,8 +18,21 @@ function automaticEmails() {
   )
 }
 
+function pages() {
+  const {css} = minify(
+    readFileSync(join(__dirname, 'modules/pages/style.css')).toString()
+  );
+
+  writeFileSync(
+    join(__dirname, 'modules/pages/processed.const.ts'),
+    `export const PROCESSED = ${JSON.stringify({css}, null, 2)};`
+  )
+}
+
+
 async function exec() {
   automaticEmails();
+  pages();
 }
 
 exec()

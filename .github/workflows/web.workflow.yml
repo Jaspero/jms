@@ -1,0 +1,69 @@
+name: Deploy Web
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'web/**/*'
+      - 'client/projects/shared/**/*'
+      - '.github/workflows/web.workflow.yml'
+jobs:
+  deploy:
+    env: 
+      project: 'jaspero-jms'
+      # Release Branch
+      # Only when the workflow is being run on this branch
+      # will it create the build branch
+      release: 'main'
+      # Build Branch
+      # This is the branch that is created on deployment
+      build: 'build'
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+        with:
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of the personal token
+          fetch-depth: 0 # otherwise, it fails to push refs to dest repo
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - name: Install Dependencies
+        run: |
+          cd web
+          npm ci
+          echo $SERVICE_ACCOUNT > key.json
+        env:
+          SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
+      - name: Build
+        run: npm run build:web
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting:web
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_ID: ${{ env.project }}
+      - name: Commit
+        if: contains(github.ref, env.release)
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -f --all public/
+          git add -f --all web/node_modules
+          git commit -m "BOT - Connected build branch"
+      - name: Push
+        if: contains(github.ref, env.release)
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ env.build }}
+          force: true
+      - name: Update Firestore
+        run: |
+          cd web
+          node update-release.js    
+

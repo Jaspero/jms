@@ -1,0 +1,37 @@
+name: Update Web
+on:
+  workflow_dispatch:
+    inputs:
+      description:
+        description: 'Release description'
+jobs:
+  deploy:
+    env: 
+      project: 'jaspero-jms'
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Install Dependencies
+        run: |
+          cd web
+          echo $SERVICE_ACCOUNT > key.json
+        env:
+          SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
+      - name: Build
+        if: contains(github.ref, 'build')
+        run: npm run build:web
+      - name: Deploy to Firebase
+        if: contains(github.ref, 'build')
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting:web
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_ID: ${{ env.project }}
+      - name: Update Firestore
+        if: contains(github.ref, 'build')
+        run: |
+          cd web
+          node update-release.js

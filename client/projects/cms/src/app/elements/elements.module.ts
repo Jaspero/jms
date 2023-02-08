@@ -32,6 +32,7 @@ import {SearchInputModule} from '../shared/modules/search-input/search-input.mod
 import {StateService} from '../shared/services/state/state.service';
 import {ChangeEmailComponent} from './change-email/change-email.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
+import {ChangeUrlComponent} from './change-url/change-url.component';
 import {ColumnOrganizationComponent} from './column-organization/column-organization.component';
 import {ELEMENTS} from './element.decorator';
 import {ExportComponent} from './export/export.component';
@@ -42,6 +43,7 @@ import {ImportComponent} from './import/import.component';
 import {LinkComponent} from './link/link.component';
 import {NewPrepopulateComponent} from './new-prepopulate/new-prepopulate.component';
 import {ParseTemplatePipe} from './pipes/parse-template/parse-template.pipe';
+import {ReleaseStatusComponent} from './release-status/release-status.component';
 import {SampleEmailComponent} from './sample-email/sample-email.component';
 import {SortDialogComponent} from './sort-dialog/sort-dialog.component';
 import {StorageSelectComponent} from './storage-select/storage-select.component';
@@ -103,6 +105,8 @@ import {UserAddComponent} from './user-add/user-add.component';
     SortDialogComponent,
     FilterTagsComponent,
     FilterDialogComponent,
+    ReleaseStatusComponent,
+    ChangeUrlComponent,
 
     ParseTemplatePipe,
 

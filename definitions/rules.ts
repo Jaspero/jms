@@ -24,6 +24,13 @@ const COLLECTIONS: Permissions = {
 		update: [false],
 		delete: [false]
 	},
+	posts: {
+		get: [true],
+		list: [true]
+	},
+	inquiries: {
+		create: [true]
+	},
 	storage: {
 		get: ['storageItemPublicRead()', 'storageItemPublicWrite()', 'storageItemRoleRead()', 'storageItemRoleWrite()', 'storageItemUserRead()', 'storageItemUserWrite()'],
 		list: ['storageItemPublicRead()', 'storageItemPublicWrite()', 'storageItemRoleRead()', 'storageItemRoleWrite()', 'storageItemUserRead()', 'storageItemUserWrite()'],

@@ -1,0 +1,13 @@
+{
+  "name": "web-components",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "dev": "http-server --watch",
+    "build": "node uglify.js"
+  },
+  "devDependencies": {
+    "http-server": "14.1.0",
+    "uglify-js": "3.15.5"
+  }
+}
