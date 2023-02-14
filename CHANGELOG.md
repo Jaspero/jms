@@ -1,3 +1,10 @@
+## [7.8.1](https://github.com/jaspero/jms/compare/v7.8.0...v7.8.1) (2023-02-14)
+
+
+### Bug Fixes
+
+* **client:** double scroll ([505b728](https://github.com/jaspero/jms/commit/505b72837ed081bcb79899854709caac23c49edf))
+
 # [7.8.0](https://github.com/jaspero/jms/compare/v7.7.0...v7.8.0) (2023-02-08)
 
 
