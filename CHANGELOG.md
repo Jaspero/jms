@@ -1,3 +1,10 @@
+# [7.9.0](https://github.com/jaspero/jms/compare/v7.8.1...v7.9.0) (2023-02-14)
+
+
+### Features
+
+* **client:** fix action-inset ([27757a6](https://github.com/jaspero/jms/commit/27757a656d812e4df9c3dbc56b7e51a66267b392))
+
 ## [7.8.1](https://github.com/jaspero/jms/compare/v7.8.0...v7.8.1) (2023-02-14)
 
 
