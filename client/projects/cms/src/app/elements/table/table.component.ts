@@ -299,8 +299,6 @@ export class TableComponent implements OnInit, AfterViewInit {
         maxHeight += el.offsetHeight;
       });
 
-      console.log(maxHeight);
-
       this.maxHeight$.next(`calc(100vh - ${maxHeight}px)`);
     }, 100);
   }
