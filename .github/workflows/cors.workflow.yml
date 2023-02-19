@@ -1,0 +1,35 @@
+name: Deploy CORS
+on:
+  workflow_dispatch:
+  ## Enable if you need cors
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - 'firebase-cors.json'  
+  #     - '.github/workflows/cors.workflow.yml'
+
+env: 
+  project: 'jaspero-jms'
+  bucket: 'gs://jaspero-jms.appspot.com'
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Setup - gcloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: '${{ secrets.SERVICE_ACCOUNT }}'
+
+      - name: Set up Cloud SDK
+        uses: 'google-github-actions/setup-gcloud@v1'
+                 
+      - name: Deploy Rules
+        run: gsutil cors set firebase-cors.json $BUCKET
+        env:
+          BUCKET: '${{ env.bucket }}'
