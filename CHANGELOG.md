@@ -1,3 +1,10 @@
+# [7.10.0](https://github.com/jaspero/jms/compare/v7.9.0...v7.10.0) (2023-02-19)
+
+
+### Features
+
+* created cors workflow closes [#389](https://github.com/jaspero/jms/issues/389) ([2b97088](https://github.com/jaspero/jms/commit/2b9708868d4527de01535de0dcd3442e140a9f95))
+
 # [7.9.0](https://github.com/jaspero/jms/compare/v7.8.1...v7.9.0) (2023-02-14)
 
 
