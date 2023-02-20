@@ -101,8 +101,8 @@
 <section class="grid" *ngIf="data">
   <div class="col-12">
     <mat-card>
-      <mat-card-content class="mat-card-content-inset">
-        <mat-toolbar class="b-b">
+      <mat-card-content >
+        <mat-toolbar>
           <ng-container *ngIf="!data.hideCheckbox">
             <ng-container *ngIf="ioc.allChecked$ | async as ac">
               <mat-checkbox
@@ -274,7 +274,7 @@
         </ng-container>
 
         <ng-template #hasContent>
-          <mat-toolbar class="jc-between">
+          <mat-toolbar class="jc-between pagination">
             <button mat-button color="primary" [disabled]="(ioc.hasMore$ | async) === false" [class.loading]="ioc.loading$ | async" (click)="ioc.loadMore$.next(true)">
               {{ 'LOAD_MORE' | transloco }}
             </button>
