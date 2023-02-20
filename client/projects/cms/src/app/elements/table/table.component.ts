@@ -293,7 +293,7 @@ export class TableComponent implements OnInit, AfterViewInit {
        * Height of table header and footer
        * plus padding
        */
-      let maxHeight = 148;
+      let maxHeight = 180;
 
       document.querySelectorAll('[data-include-max-height]').forEach((el: HTMLDivElement) => {
         maxHeight += el.offsetHeight;

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {
   collection,
   collectionData,
-  collectionGroup,
+  collectionGroup as collectionGroupFn,
   deleteDoc,
   doc,
   docData,
@@ -192,7 +192,7 @@ export class FbDatabaseService extends DbService {
     return from(
       getDocs(
         query(
-          collectionGroup(this.firestore, moduleId),
+          collectionGroupFn(this.firestore, moduleId),
           ...[
             sort && orderBy(sort.active, sort.direction),
             filter && where(filter.key, filter.operator, filter.value)
@@ -263,7 +263,7 @@ export class FbDatabaseService extends DbService {
       sort = [...sort].map(s => {
         s.active = Parser.standardizeKey(s.active);
         return s;
-      })
+      });
     } else if (sort?.active) {
       sort.active = Parser.standardizeKey(sort.active);
     }
@@ -291,7 +291,7 @@ export class FbDatabaseService extends DbService {
     if (cg) {
 
       return query(
-        collectionGroup(this.firestore, moduleId),
+        collectionGroupFn(this.firestore, moduleId),
         ...methods
       );
     }
@@ -306,18 +306,21 @@ export class FbDatabaseService extends DbService {
     if (filters) {
       return filters.reduce((acc, item) => {
         if (
-          item.value !== undefined &&
-          item.value !== null &&
-          !Number.isNaN(item.value) &&
-          item.value !== '' &&
+          item.skipFalsyValueCheck ||
           (
+            item.value !== undefined &&
+            item.value !== null &&
+            !Number.isNaN(item.value) &&
+            item.value !== '' &&
             (
-              item.operator === FilterMethod.ArrayContains ||
-              item.operator === FilterMethod.ArrayContainsAny ||
-              item.operator === FilterMethod.In
-            ) && Array.isArray(item.value) ?
-              item.value.length :
-              true
+              (
+                item.operator === FilterMethod.ArrayContains ||
+                item.operator === FilterMethod.ArrayContainsAny ||
+                item.operator === FilterMethod.In
+              ) && Array.isArray(item.value) ?
+                item.value.length :
+                true
+            )
           )
         ) {
           acc.push(

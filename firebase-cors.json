@@ -1,0 +1,7 @@
+[
+  {
+    "origin": ["https://jaspero-jms.web.app"],
+    "method": ["GET", "HEAD"],
+    "maxAgeSeconds": 3600
+  }
+]

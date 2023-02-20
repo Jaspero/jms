@@ -1,3 +1,89 @@
+# [7.10.0](https://github.com/jaspero/jms/compare/v7.9.0...v7.10.0) (2023-02-19)
+
+
+### Features
+
+* created cors workflow closes [#389](https://github.com/jaspero/jms/issues/389) ([2b97088](https://github.com/jaspero/jms/commit/2b9708868d4527de01535de0dcd3442e140a9f95))
+
+# [7.9.0](https://github.com/jaspero/jms/compare/v7.8.1...v7.9.0) (2023-02-14)
+
+
+### Features
+
+* **client:** fix action-inset ([27757a6](https://github.com/jaspero/jms/commit/27757a656d812e4df9c3dbc56b7e51a66267b392))
+
+## [7.8.1](https://github.com/jaspero/jms/compare/v7.8.0...v7.8.1) (2023-02-14)
+
+
+### Bug Fixes
+
+* **client:** double scroll ([505b728](https://github.com/jaspero/jms/commit/505b72837ed081bcb79899854709caac23c49edf))
+
+# [7.8.0](https://github.com/jaspero/jms/compare/v7.7.0...v7.8.0) (2023-02-08)
+
+
+### Features
+
+* **cms:** remove jc-between on mat-dialog-actions, adding padding inside card on login and reset-password closes [#472](https://github.com/jaspero/jms/issues/472) ([49930bc](https://github.com/jaspero/jms/commit/49930bc8774c41052629d8f2e665631077f5ccaf))
+
+# [7.7.0](https://github.com/jaspero/jms/compare/v7.6.0...v7.7.0) (2023-02-03)
+
+
+### Features
+
+* **definitions:** role update using service account; roles not breaking when a permission is undefined; ([f4bdb8b](https://github.com/jaspero/jms/commit/f4bdb8b261610c0e41c8dddad598d21993e4f234))
+
+# [7.6.0](https://github.com/jaspero/jms/compare/v7.5.0...v7.6.0) (2023-01-28)
+
+
+### Features
+
+* **functions:** deployment working ([2e8b00c](https://github.com/jaspero/jms/commit/2e8b00cbdb8c3d023ba5853bd6e09831da94986d))
+
+# [7.5.0](https://github.com/jaspero/jms/compare/v7.4.0...v7.5.0) (2023-01-27)
+
+
+### Bug Fixes
+
+* **cms:** fix typo ([caac8e4](https://github.com/jaspero/jms/commit/caac8e43eb246777f7e5b383d22e93505eea0d07))
+* **cms:** getCurrentView extracted in to function and working properly ([645e90b](https://github.com/jaspero/jms/commit/645e90bc7abb0469c505df59070c3baa5f5a1866))
+* **functions:** not setting claim on user on login ([2e49d63](https://github.com/jaspero/jms/commit/2e49d63a03233e8e88b25a44e8a4c320b4602a8f))
+* **functions:** permissions ([11eabec](https://github.com/jaspero/jms/commit/11eabec2ea8a1ddff4df5d5cb39d40a6d418e8d4))
+* **functions:** roleUpdate running when functions don't ([27ee2e3](https://github.com/jaspero/jms/commit/27ee2e3ea62bdc92d50c40fcdc76d8aa5126737c))
+* storage context menu not opening; actions not opening on single page; ([b5bca57](https://github.com/jaspero/jms/commit/b5bca5794fd7d8dd0392cfebcc3181aeb0370c95))
+* **storage:** folders dialog not opening ([69f4f1b](https://github.com/jaspero/jms/commit/69f4f1bc1e7ed0a809f6c90b37123b899a7d4e79))
+
+
+### Features
+
+* **client:** resolved circular dependencies with v15 ([35375c9](https://github.com/jaspero/jms/commit/35375c995ad42b6805dba2aed428d720831d7b96))
+* **client:** updating to angular v15 ([54fcedf](https://github.com/jaspero/jms/commit/54fcedf7164658a7884fb6677ccd48b484c8a92a))
+* **cms:** adjusted theme palette, fix some minor style issues ([cc7d768](https://github.com/jaspero/jms/commit/cc7d768cdba242a7232c20885e89b00d2887bb40))
+* converted some components to standalone ([a38d10e](https://github.com/jaspero/jms/commit/a38d10ed6e9fafa9e6b4d337273c922ebc7311b6))
+* fields mat update ([7a0c049](https://github.com/jaspero/jms/commit/7a0c049b1c23057a6e39906fae19f7939c4b3139))
+* updated definition and function versions ([f5cc00a](https://github.com/jaspero/jms/commit/f5cc00a599b68d11a0414080baf5a2644e44af2c))
+
+# [7.4.0](https://github.com/jaspero/jms/compare/v7.3.0...v7.4.0) (2023-01-11)
+
+
+### Features
+
+* **cms:** added skipFalsyValueCheck flag on where filter ([49e1877](https://github.com/jaspero/jms/commit/49e1877287ed6e141856826ffbf71e5b3a49ba60))
+
+# [7.3.0](https://github.com/jaspero/jms/compare/v7.2.4...v7.3.0) (2023-01-11)
+
+
+### Features
+
+* **cms:** added skipFalsyValueCheck flag on where filter and fixed collectionGroup shadow var ([2b7807a](https://github.com/jaspero/jms/commit/2b7807a28415a31bdd8184b6df8f10a7ee034035))
+
+## [7.2.4](https://github.com/jaspero/jms/compare/v7.2.3...v7.2.4) (2023-01-09)
+
+
+### Bug Fixes
+
+* **functions:** using firsestore for hasPermissions ([1bf7c40](https://github.com/jaspero/jms/commit/1bf7c407f68ac2fefd1a16fdfec00da78c8dd907))
+
 ## [7.2.3](https://github.com/jaspero/jms/compare/v7.2.2...v7.2.3) (2023-01-03)
 
 

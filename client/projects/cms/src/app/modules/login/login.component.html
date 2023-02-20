@@ -25,7 +25,8 @@
         </section>
 
         <!--Divider-->
-        <div class="flex ai-center jc-center m-y-m disabled" *ngIf="(staticConfig.login.google || staticConfig.login.facebook) && staticConfig.login.email">
+        <div class="flex ai-center jc-center m-y-m disabled"
+          *ngIf="(staticConfig.login.google || staticConfig.login.facebook) && staticConfig.login.email">
           <hr class="flex1">
           <p class="p-x-s">{{'OR' | transloco | uppercase}}</p>
           <hr class="flex1">
@@ -35,37 +36,26 @@
         <form [formGroup]="loginForm" *ngIf="staticConfig.login.email">
           <mat-form-field class="w-full">
             <mat-label>{{'EMAIL' | transloco}}</mat-label>
-            <input
-              matInput
-              type="email"
-              formControlName="emailLogin"
-            />
+            <input matInput type="email" formControlName="emailLogin" />
           </mat-form-field>
           <mat-form-field class="w-full">
             <mat-label>{{'PASSWORD' | transloco}}</mat-label>
-            <input
-              matInput
-              #password
-              [type]="type"
-              formControlName="passwordLogin"
-            />
+            <input matInput #password [type]="type" formControlName="passwordLogin" />
           </mat-form-field>
 
           <div class="m-b-m flex jc-between">
-            <button tabindex="-1" class="show-button" (click)="showPassword()" type="button">{{'SHOW_HIDE_PASSWORD' | transloco}}</button>
+            <button tabindex="-1" class="show-button" (click)="showPassword()" type="button">{{'SHOW_HIDE_PASSWORD' |
+              transloco}}</button>
             <mat-checkbox formControlName="remember">{{'STAY_LOGGED_IN' | transloco}}</mat-checkbox>
           </div>
 
-          <button
-            mat-flat-button
-            color="primary"
-            class="w-full"
-            [disabled]="loginForm.invalid"
+          <button mat-flat-button color="primary" class="w-full" [disabled]="loginForm.invalid"
             [jpLoadClick]="loginEmail()">
             {{'LOGIN' | transloco}}
           </button>
           <div class="flex jc-end">
-            <a routerLink="/trigger-password-reset" class="iblock ta-right fg-secondary fs-small">{{'FORGOT_PASSWORD' | transloco}}</a>
+            <a routerLink="/trigger-password-reset" class="iblock ta-right fg-secondary fs-small">{{'FORGOT_PASSWORD' |
+              transloco}}</a>
           </div>
         </form>
       </div>
@@ -99,7 +89,8 @@
         <input autocomplete="off" matInput formControlName="code" inputmode="numeric">
       </mat-form-field>
 
-      <button mat-stroked-button color="primary" type="submit" [disabled]="codeForm.invalid" [jpLoadClick]="verifyMfa()">
+      <button mat-stroked-button color="primary" type="submit" [disabled]="codeForm.invalid"
+        [jpLoadClick]="verifyMfa()">
         {{'AUTHENTICATE' | transloco}}
       </button>
     </form>
