@@ -1,3 +1,17 @@
+# [7.11.0](https://github.com/jaspero/jms/compare/v7.10.0...v7.11.0) (2023-02-21)
+
+
+### Features
+
+* **cms:** mobile responsiveness for tables [#473](https://github.com/jaspero/jms/issues/473) ([ecbe472](https://github.com/jaspero/jms/commit/ecbe472b7daf95ef49e93300d1d91c2160ff9515))
+* **cms:** mobile responsiveness storage ([7222b37](https://github.com/jaspero/jms/commit/7222b37891f1424bfe0d84fa5e3ff462d5be8b7f))
+* **cms:** padding on login and trigger password reset ([8c38bf8](https://github.com/jaspero/jms/commit/8c38bf897f79ab0da76c13718e676900b1cbb269))
+* **cms:** remove jc-between on mat-dialog-actions, adding padding inside card on login and reset-password closes [#472](https://github.com/jaspero/jms/issues/472) ([1f7829d](https://github.com/jaspero/jms/commit/1f7829d3107e9b172f2cfebcfe373edf5b656537))
+* **cms:** swapped to normal table view, ready for merge ([62cbf15](https://github.com/jaspero/jms/commit/62cbf156f296a2fb0be531d6a9637579277a1a0f))
+* **cms:** working on compact view variables [#473](https://github.com/jaspero/jms/issues/473) ([dbbed9b](https://github.com/jaspero/jms/commit/dbbed9b3d0d7096aebd9c2f7f2e308f8ef3a0c08))
+* **cms:** working on compact view variables [#473](https://github.com/jaspero/jms/issues/473) ([66510ce](https://github.com/jaspero/jms/commit/66510cea851e4ad532bba2f905c431d99716a4d7))
+* **cms:** working on compact view variables [#473](https://github.com/jaspero/jms/issues/473) ([d26a593](https://github.com/jaspero/jms/commit/d26a593a815a8e1512eda6c31c71ea013d3accbd))
+
 # [7.10.0](https://github.com/jaspero/jms/compare/v7.9.0...v7.10.0) (2023-02-19)
 
 
