@@ -129,11 +129,11 @@
   height: 100%;
   padding: 10px;
 
-  @container (max-width: $screen-s) {
+  @media (max-width: $screen-s) {
     width: 50%;
   }
 
-  @container (max-width: $screen-xs) {
+  @media (max-width: $screen-xs) {
     width: 100%;
   }
 }
