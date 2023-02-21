@@ -30,11 +30,10 @@
   }
 
   .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
-    transform: translateY(-2.5rem) scale(var(--table-field-label-active-scale));
+    transform: translateY(var(--table-field-label-active-translate)) scale(var(--table-field-label-active-scale));
   }
 
   .mat-mdc-table {
-
     .mat-mdc-header-row {
       height: var(--table-row-height);
 
@@ -52,6 +51,17 @@
         padding: var(--table-cell-padding);
         border: 1px solid rgba(0,0,0,.12);
         font-size: var(--table-font-size);
+
+        &.mat-mdc-table-sticky-border-elem {
+          &-left {
+            max-width: 40px;
+            padding: 0;
+          }
+          &-right {
+            max-width: 40px;
+            padding: 0;
+          }
+        }
 
         .mat-mdc-form-field {
           margin: var(--table-field-margin);

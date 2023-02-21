@@ -63,6 +63,7 @@ $colors-themes: (
     field-margin: 0,
     field-border: none,
     field-padding-y: .75rem,
+    field-label-active-translate: -2.3rem,
     field-label-active-scale: .85,
 
     /* Normal */
@@ -71,6 +72,7 @@ $colors-themes: (
     row-height: 3rem,
     field-margin: 1rem 0,
     field-padding-y: 1rem,
+    table-field-label-active-translate: -2.5rem,
     field-label-active-scale: .85,*/
   )
 );
