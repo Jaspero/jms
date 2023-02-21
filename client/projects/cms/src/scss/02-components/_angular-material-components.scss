@@ -219,32 +219,33 @@ tr.mat-row.mat-row {
 
 // Mobile layout
 @media (max-width: $screen-s) {
-  .mat-header-row {
+  .mat-mdc-header-row {
     opacity : 0;
     position: absolute;
     z-index : -1;
   }
 
-  .mat-row.mat-row {
+  .mat-mdc-row {
     display: block;
-    height: unset;
+    height: unset !important;
     padding: 8px 0;
-    border-bottom: 1px solid var(--panel-tertiary);
-  }
-
-  .mat-cell.mat-cell,
-  .mat-footer-cell.mat-footer-cell,
-  .mat-header-cell.mat-header-cell {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: baseline;
-    border: none;
-    padding: 8px;
-    text-align: right;
+    border-bottom: 1px solid rgba(0,0,0,.12);
 
     &:last-of-type {
       border-bottom: none;
     }
+  }
+
+  .mat-mdc-cell,
+  .mat-column-actions,
+  .mat-column-check {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: baseline;
+    border: none;
+    max-width: unset !important;
+    padding: 8px !important;
+    text-align: right;
 
     &:before {
       content: attr(data-label);
