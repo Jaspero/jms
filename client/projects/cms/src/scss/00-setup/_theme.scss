@@ -54,6 +54,26 @@ $colors-themes: (
     dd-b     : #d0d0d0, /* Dropdown border color */ /* rgba(255,255,255,.3) - dark sidebar */
     dd-b-a   : #737373, /* Dropdown border color - active */ /* white - dark sidebar */
     border   : rgba(0,0,0,.15)
+  ),
+  table: (
+    /* Compact */
+    /*font-size: 12px,
+    cell-padding: .25rem .5rem,
+    row-height: 2rem,
+    field-margin: 0,
+    field-border: none,
+    field-padding-y: .75rem,
+    field-label-active-translate: -2.3rem,
+    field-label-active-scale: .85,*/
+
+    /* Normal */
+    font-size: 14px,
+    cell-padding: 0 1rem,
+    row-height: 3rem,
+    field-margin: 1rem 0,
+    field-padding-y: 1rem,
+    table-field-label-active-translate: -2.5rem,
+    field-label-active-scale: .85,
   )
 );
 

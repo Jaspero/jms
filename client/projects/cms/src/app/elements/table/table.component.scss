@@ -1,11 +1,8 @@
 :host {
   .mat-toolbar-single-row {
     border-radius: 4px;
+    padding: var(--table-cell-padding);
   }
-}
-
-.table-wrapper {
-  overflow-x: auto;
 }
 
 ::ng-deep {
@@ -22,6 +19,11 @@
     .mat-form-field-wrapper { padding-bottom: 0; }
     .fb-field-12 > section { margin: 0 !important; }
   }
+}
+
+.pagination {
+  height: unset;
+  padding: 1rem 0 0 var(--table-cell-padding) !important;
 }
 
 @media (max-width: 900px) {
