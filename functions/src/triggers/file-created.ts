@@ -160,7 +160,7 @@ export const fileCreated = functions
     await Promise.all(
       toGenerate.map(async file => {
         const buffer = await sharp(fileTemp)
-          .resize(file.width || null, file.height || null, {fit: 'contain', background: 'white'})
+          .resize(file.width || null, file.height || null, {fit: 'inside'})
           .withMetadata()
           .toBuffer();
 
