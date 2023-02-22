@@ -1,3 +1,10 @@
+# [7.12.0](https://github.com/jaspero/jms/compare/v7.11.0...v7.12.0) (2023-02-22)
+
+
+### Features
+
+* **functions:** better option for image thumbs ([7818ccf](https://github.com/jaspero/jms/commit/7818ccf774dd606739c3ddb3b27c25e7524fc074))
+
 # [7.11.0](https://github.com/jaspero/jms/compare/v7.10.0...v7.11.0) (2023-02-21)
 
 
