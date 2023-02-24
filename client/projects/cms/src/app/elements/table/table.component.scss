@@ -15,22 +15,35 @@
   .mat-mdc-card-content {
     padding: 0 8px !important;
   }
+
+  ::ng-deep {
+    .mat-mdc-table thead {
+      background-color: var(--table-header-background-color) !important;
+    }
+
+    /* The .select-all class was added to fix the 'select all' checkbox in place */
+    .select-all>.mat-checkbox-layout>.mat-checkbox-inner-container {
+      overflow: unset;
+    }
+
+    table {
+
+      /**
+       * Reduce padding and margin in columns with controlls maximally
+       */
+      .mat-form-field-wrapper {
+        padding-bottom: 0;
+      }
+
+      .fb-field-12>section {
+        margin: 0 !important;
+      }
+    }
+  }
 }
 
-::ng-deep {
-
-  /* The .select-all class was added to fix the 'select all' checkbox in place */
-  .select-all > .mat-checkbox-layout > .mat-checkbox-inner-container {
-    overflow: unset;
-  }
-
-  table {
-    /**
-    * Reduce padding and margin in columns with controlls maximally
-    */
-    .mat-form-field-wrapper { padding-bottom: 0; }
-    .fb-field-12 > section { margin: 0 !important; }
-  }
+.table-wrapper {
+  border-radius: var(--mdc-elevated-card-container-shape, var(--mdc-shape-medium, 4px));
 }
 
 .pagination {
