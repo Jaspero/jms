@@ -1,3 +1,10 @@
+# [7.13.0](https://github.com/jaspero/jms/compare/v7.12.0...v7.13.0) (2023-02-24)
+
+
+### Features
+
+* **cms:** further improved compact closes [#473](https://github.com/jaspero/jms/issues/473) ([da27fdb](https://github.com/jaspero/jms/commit/da27fdb4b94f714ea755f3539a073a81b74a4567))
+
 # [7.12.0](https://github.com/jaspero/jms/compare/v7.11.0...v7.12.0) (2023-02-22)
 
 
