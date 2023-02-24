@@ -1,3 +1,10 @@
+# [7.14.0](https://github.com/jaspero/jms/compare/v7.13.0...v7.14.0) (2023-02-24)
+
+
+### Features
+
+* **cms:** header in different color ([e502a33](https://github.com/jaspero/jms/commit/e502a3383d6faf50811f6569dd87cb569ebcb3bd))
+
 # [7.13.0](https://github.com/jaspero/jms/compare/v7.12.0...v7.13.0) (2023-02-24)
 
 
