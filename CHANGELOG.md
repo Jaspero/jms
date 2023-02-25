@@ -1,3 +1,10 @@
+# [7.15.0](https://github.com/jaspero/jms/compare/v7.14.0...v7.15.0) (2023-02-25)
+
+
+### Features
+
+* **cms:** rewrite code for table compact view, set compact view as default ([82f1e9a](https://github.com/jaspero/jms/commit/82f1e9ac9d0133a9e1b9744d3847deb1615d3c14))
+
 # [7.14.0](https://github.com/jaspero/jms/compare/v7.13.0...v7.14.0) (2023-02-24)
 
 
