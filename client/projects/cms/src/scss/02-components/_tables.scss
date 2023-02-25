@@ -1,6 +1,134 @@
 .table-wrapper {
   overflow-x: auto;
 
+  .mat-mdc-table {
+
+    .mat-mdc-header-row {
+      z-index: 2;
+      position: sticky;
+      top: -1px;
+      height: unset;
+      background-color: #FFFFFF;
+
+      @media (max-width: 900px) {
+        display: none;
+      }
+
+      &::after {
+        content: '';
+        z-index: 102;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-bottom: var(--table-border);
+      }
+
+      .mat-mdc-header-cell {
+        font-size: var(--table-font-size);
+        padding: 0 var(--table-padding);
+
+        &:not(:first-child) {
+          border-left: var(--table-border);
+        }
+      }
+    }
+
+    .mat-mdc-row {
+      height: unset;
+
+      @media (max-width: 900px) {
+        padding: 1rem 0;
+      }
+
+      .mat-mdc-cell {
+        padding: 0 var(--table-padding);
+        font-size: var(--table-font-size);
+
+        &:not(:first-child) {
+          border-left: var(--table-border);
+        }
+
+        &.cta-column-last, &.mat-column-check {
+          padding: 0;
+          width: var(--table-button-size);
+
+          @media (max-width: 900px) {
+            display: flex;
+            align-items: center;
+            width: 100%;
+          }
+        }
+
+        .mat-mdc-icon-button.mat-mdc-button-base {
+          width: var(--table-button-size);
+          height: var(--table-button-size);
+          padding: var(--table-button-padding);
+        }
+
+        fb-select {
+          display: block;
+
+          .mat-mdc-form-field {
+            font-size: var(--table-font-size);
+            margin: var(--table-form-field-margin);
+
+            .mat-mdc-text-field-wrapper {
+              padding: var(--table-form-field-padding);
+
+              .mat-mdc-form-field-flex {
+
+                .mdc-notched-outline {
+                  &__leading {
+                    border-color: var(--table-form-field-border);
+                  }
+
+                  &__notch {
+                    border-color: var(--table-form-field-border);
+
+                    .mdc-floating-label {
+                      opacity: var(--table-floating-label);
+                    }
+                  }
+
+                  &__trailing {
+                    border-color: var(--table-form-field-border);
+                  }
+                }
+
+                .mat-mdc-form-field-infix {
+                  width: var(--table-form-field-min-width);
+                  padding: 0;
+
+                  .mat-mdc-select {
+                    font-size: var(--table-font-size);
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        fb-checkbox {
+          .mat-form-field-wrapper {
+
+            .mat-mdc-checkbox {
+
+              .mdc-form-field {
+                font-size: var(--table-font-size);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/*
+.table-wrapper {
+  overflow-x: auto;
+
   .mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
     font-size: var(--table-font-size);
   }
@@ -70,3 +198,4 @@
     }
   }
 }
+*/

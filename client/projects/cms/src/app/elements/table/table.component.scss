@@ -1,54 +1,28 @@
-:host {
-  .mat-toolbar-single-row {
-    border-radius: 4px;
-    padding: var(--table-cell-padding);
-  }
-
-  .mat-mdc-card-content:last-child {
-    padding-bottom: 0 !important;
-  }
-
-  .mat-mdc-card-content:first-child {
-    padding-top: 0 !important;
-  }
-
-  .mat-mdc-card-content {
-    padding: 0 8px !important;
-  }
-
-  ::ng-deep {
-    .mat-mdc-table thead {
-      background-color: var(--table-header-background-color) !important;
-    }
-
-    /* The .select-all class was added to fix the 'select all' checkbox in place */
-    .select-all>.mat-checkbox-layout>.mat-checkbox-inner-container {
-      overflow: unset;
-    }
-
-    table {
-
-      /**
-       * Reduce padding and margin in columns with controlls maximally
-       */
-      .mat-form-field-wrapper {
-        padding-bottom: 0;
-      }
-
-      .fb-field-12>section {
-        margin: 0 !important;
-      }
-    }
-  }
+.main-card {
+  padding: 0 !important;
 }
 
-.table-wrapper {
-  border-radius: var(--mdc-elevated-card-container-shape, var(--mdc-shape-medium, 4px));
+.header-actions {
+  padding: var(--table-padding);
+  padding-left: 0;
+  border-bottom: 1px solid var(--tertiary);
+  max-height: 64px;
+
+  .mat-mdc-checkbox .mdc-form-field .mdc-checkbox {
+    margin-top: -8px;
+    margin-left: -8px;
+    padding: var(--table-padding);
+  }
 }
 
 .pagination {
-  height: unset;
-  padding: 1rem 0 0 var(--table-cell-padding) !important;
+  height: 100%;
+  padding: var(--table-padding);
+  border-top: 1px solid var(--tertiary);
+
+  .mat-mdc-form-field {
+    margin: 0;
+  }
 }
 
 @media (max-width: 900px) {
