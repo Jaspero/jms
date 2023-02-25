@@ -101,20 +101,19 @@
 <section class="grid" *ngIf="data">
   <div class="col-12">
     <mat-card>
-      <mat-card-content >
-        <mat-toolbar>
+      <mat-card-content class="main-card">
+        <mat-toolbar class="header-actions">
           <ng-container *ngIf="!data.hideCheckbox">
             <ng-container *ngIf="ioc.allChecked$ | async as ac">
               <mat-checkbox
                 (change)="$event ? ioc.masterToggle() : null"
                 [checked]="ioc.selection.hasValue() && ac.checked"
                 [indeterminate]="ioc.selection.hasValue() && !ac.checked"
+                [disableRipple]="true"
                 color="primary"
                 [matTooltip]="'SELECT' | transloco"
-                class="select-all"
               >
-              </mat-checkbox
-              >&nbsp;&nbsp;&nbsp;
+              </mat-checkbox>&nbsp;&nbsp;&nbsp;
             </ng-container>
           </ng-container>
           <ng-container *ngIf="ioc.selection.hasValue()">
