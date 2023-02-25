@@ -1,7 +1,7 @@
 import {HttpClientModule} from '@angular/common/http';
 import {APP_INITIALIZER, Injector, NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
-import {MAT_DATE_LOCALE} from '@angular/material/core';
+import {MAT_DATE_LOCALE, MAT_RIPPLE_GLOBAL_OPTIONS} from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
@@ -13,6 +13,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ConfirmationComponent} from './shared/components/confirmation/confirmation.component';
 import {MathPipe} from './shared/pipes/math/math-pipe.';
+import {GlobalRippleOptionsService} from './shared/services/global-ripple-options.service';
 import {StateService} from './shared/services/state/state.service';
 import {appInit} from './shared/utils/app-init';
 import {TranslocoRootModule} from './transloco-root.module';
@@ -70,6 +71,10 @@ const PIPES = [
       useValue: {
         appearance: 'outline'
       }
+    },
+    {
+      provide: MAT_RIPPLE_GLOBAL_OPTIONS,
+      useExisting: GlobalRippleOptionsService
     },
     {
       provide: APP_INITIALIZER,
