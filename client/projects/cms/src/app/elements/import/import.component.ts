@@ -20,6 +20,12 @@ enum ImportType {
   CSV = 'csv'
 }
 
+enum DuplicateHandlingType {
+  OVERWRITE = 'overwrite',
+  SKIP = 'skip',
+  MERGE = 'merge'
+}
+
 @Component({
   selector: 'jms-import',
   templateUrl: './import.component.html',
@@ -55,6 +61,7 @@ export class ImportComponent {
   importModule: ImportModule;
 
   importType = ImportType;
+  duplicateHandlingType = DuplicateHandlingType;
   data: ImportResponse;
   form: FormGroup;
 
@@ -122,7 +129,8 @@ export class ImportComponent {
   openDialog() {
     this.form = this.fb.group({
       type: ImportType.CSV,
-      delimiter: ','
+      delimiter: ',',
+      duplicateHandling: DuplicateHandlingType.OVERWRITE,
     });
 
     this.dialog.open(this.dialogTemplate, {

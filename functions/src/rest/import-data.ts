@@ -36,7 +36,7 @@ app.post('/', authenticated(), (req, res) => {
   busboy.on('finish', () => {
     async function exec() {
       const validator = ajvInstance.compile(JSON.parse(parsedData.schema));
-      const type = parsedData.type || 'csv';
+      const {type = 'csv', delimiter = 'auto', duplicateHandling = 'overwrite'} = parsedData;
       const afs = admin.firestore();
 
       // @ts-ignore
@@ -50,9 +50,7 @@ app.post('/', authenticated(), (req, res) => {
 
       switch (type) {
         case 'csv':
-          jsonObj = await csv({
-            delimiter: parsedData.delimiter || 'auto'
-          }).fromString(fileData);
+          jsonObj = await csv({delimiter}).fromString(fileData);
           break;
         case 'json':
           jsonObj = JSON.parse(fileData);
@@ -76,15 +74,24 @@ app.post('/', authenticated(), (req, res) => {
             const col = afs
               .collection(parsedData.collection);
 
+            function save(sd: any) {
+              switch (duplicateHandling) {
+                case 'overwrite':
+                  return id ? col.doc(id).set(sd) : col.add(sd);
+                case 'merge':
+                  return id ? col.doc(id).set(sd, {merge: true}) : col.add(sd);
+              }
+
+              return;
+            }
+
             if (rowFunction) {
               acc.created.push(async () => {
                 const sd = await rowFunction(saveData, afs, req.query);
-                return id ? col.doc(id).set(sd) : col.add(sd)
+                return save(sd);
               });
             } else {
-              acc.created.push(() =>
-                id ? col.doc(id).set(saveData) : col.add(saveData)
-              );
+              acc.created.push(() => save(saveData));
             }
           }
 

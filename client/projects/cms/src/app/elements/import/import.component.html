@@ -36,23 +36,31 @@
 
 <ng-template #dialog>
   <form [formGroup]="form" (ngSubmit)="file.click()">
-    <mat-form-field class="w-full">
-      <mat-label>{{'TYPE' | transloco}}</mat-label>
-      <mat-select formControlName="type">
-        <mat-option *ngFor="let option of importType | keyvalue" [value]="option.value">{{option.key}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="w-full" *ngIf="form.get('type').value === importType.CSV">
-      <mat-label>{{'DELIMITER' | transloco}}</mat-label>
-      <input matInput formControlName="delimiter">
-    </mat-form-field>
+    <mat-dialog-content>
+      <mat-form-field class="w-full">
+        <mat-label>{{'TYPE' | transloco}}</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let option of importType | keyvalue" [value]="option.value">{{option.key}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field class="w-full" *ngIf="form.get('type').value === importType.CSV">
+        <mat-label>{{'DELIMITER' | transloco}}</mat-label>
+        <input matInput formControlName="delimiter">
+      </mat-form-field>
+  
+      <mat-form-field class="w-full">
+        <mat-label>{{'DUPLICATE_HANDLING' | transloco}}</mat-label>
+        <mat-select formControlName="duplicateHandling">
+          <mat-option *ngFor="let option of duplicateHandlingType | keyvalue" [value]="option.value">{{option.key | transloco}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-dialog-content>
 
     <mat-dialog-actions>
       <button mat-flat-button mat-dialog-close>{{'CANCEL' | transloco}}</button>
-      <button mat-button type="submit">
-        <mat-icon>vertical_align_bottom</mat-icon>
-        <span>{{'IMPORT' | transloco}}</span>
+      <button mat-flat-button color="primary" type="submit">
+        {{'IMPORT' | transloco}}
       </button>
     </mat-dialog-actions>
   </form>
