@@ -1,3 +1,10 @@
+## [7.16.1](https://github.com/jaspero/jms/compare/v7.16.0...v7.16.1) (2023-03-07)
+
+
+### Bug Fixes
+
+* **functions:** deployment ([711f407](https://github.com/jaspero/jms/commit/711f407b9d75bb7cfc65f73af161de4880252fe6))
+
 # [7.16.0](https://github.com/jaspero/jms/compare/v7.15.0...v7.16.0) (2023-03-07)
 
 
