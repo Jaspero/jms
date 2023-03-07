@@ -1,3 +1,10 @@
+# [7.16.0](https://github.com/jaspero/jms/compare/v7.15.0...v7.16.0) (2023-03-07)
+
+
+### Features
+
+* extended import ([0f76ad8](https://github.com/jaspero/jms/commit/0f76ad8b1ab0bd47c6e07dead16a2a2df6a99f2b))
+
 # [7.15.0](https://github.com/jaspero/jms/compare/v7.14.0...v7.15.0) (2023-02-25)
 
 
