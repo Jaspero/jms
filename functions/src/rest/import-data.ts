@@ -17,6 +17,7 @@ app.post('/', authenticated(), (req, res) => {
   const ajvInstance = new Ajv();
   const busboy = new Busboy({headers: req.headers});
   const parsedData: any = {};
+  
   let fileData = '';
 
   busboy.on('file', (fieldname, file) => {
