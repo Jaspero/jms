@@ -625,7 +625,7 @@ export class TableComponent implements OnInit, AfterViewInit {
             displayKey
           ].join('-')
         }`;
-        
+
         const populateMethod = itId => this.singleService
           .get(parsedCollection, itId)
           .pipe(
