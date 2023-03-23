@@ -50,6 +50,7 @@
         }
 
         &.cta-column-last, &.mat-column-check {
+          overflow-x: visible;
           padding: 0;
           width: var(--table-button-size);
 
@@ -57,6 +58,16 @@
             display: flex;
             align-items: center;
             width: 100%;
+          }
+
+          &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -1px;
+            width: 100%;
+            height: 100%;
+            border-left: var(--table-border);
           }
         }
 
@@ -124,78 +135,3 @@
     }
   }
 }
-
-/*
-.table-wrapper {
-  overflow-x: auto;
-
-  .mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
-    font-size: var(--table-font-size);
-  }
-
-  .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
-    padding-top: var(--table-field-padding-y);
-    padding-bottom: var(--table-field-padding-y);
-  }
-
-  .mdc-text-field .mdc-floating-label {
-    top: 50% !important;
-    transform: translateY(-50%);
-
-    mat-label {
-      font-size: var(--table-font-size);
-    }
-  }
-
-  .mat-mdc-select {
-    .mat-mdc-select-trigger {
-      .mat-mdc-select-value {
-        &-text {
-          font-size: var(--table-font-size);
-        }
-      }
-    }
-  }
-
-  .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
-    transform: translateY(var(--table-field-label-active-translate)) scale(var(--table-field-label-active-scale));
-  }
-
-  .mat-mdc-table {
-    .mat-mdc-header-row {
-      height: var(--table-row-height);
-
-      .mat-mdc-header-cell {
-        padding: var(--table-cell-padding);
-        border: 1px solid rgba(0,0,0,.12);
-        font-size: var(--table-font-size);
-      }
-    }
-
-    .mat-mdc-row {
-      height: var(--table-row-height);
-
-      .mat-mdc-cell {
-        padding: var(--table-cell-padding);
-        border: 1px solid rgba(0,0,0,.12);
-        font-size: var(--table-font-size);
-
-        &.mat-mdc-table-sticky-border-elem {
-          &-left {
-            max-width: 40px;
-            padding: 0;
-          }
-          &-right {
-            max-width: 40px;
-            padding: 0;
-          }
-        }
-
-        .mat-mdc-form-field {
-          margin: var(--table-field-margin);
-        }
-      }
-    }
-  }
-}
-*/
