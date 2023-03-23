@@ -121,7 +121,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     update: false,
     delete: false
   };
-  maxHeight$ = new Subject<string>();
+  maxHeight$ = new BehaviorSubject<string>('auto');
 
   singleService: SingleService;
   overviewService: OverviewService;
@@ -268,7 +268,8 @@ export class TableComponent implements OnInit, AfterViewInit {
       };
 
       this.items$ = combineLatest([this.ioc.items$, this.columnsSorted$]).pipe(
-        map(([items]: any) => items.map(item => this.mapRow(this.data, item)))
+        map(([items]: any) => items.map(item => this.mapRow(this.data, item))),
+        tap(() => this.adjustHeight())
       );
 
       this.cdr.markForCheck();
@@ -287,20 +288,25 @@ export class TableComponent implements OnInit, AfterViewInit {
         this.ioc.sortChange$.next(value);
       });
 
-    setTimeout(() => {
+    setTimeout(() => this.adjustHeight(), 100);
+  }
 
-      /**
-       * Height of table header and footer
-       * plus padding
-       */
-      let maxHeight = 169;
+  adjustHeight() {
+    /**
+      * Height of table header and footer
+      * plus padding
+      */
+    let maxHeight = 169;
 
-      document.querySelectorAll('[data-include-max-height]').forEach((el: HTMLDivElement) => {
-        maxHeight += el.offsetHeight;
-      });
+    document.querySelectorAll('[data-include-max-height]').forEach((el: HTMLDivElement) => {
+      maxHeight += el.offsetHeight;
+    });
 
-      this.maxHeight$.next(`calc(100vh - ${maxHeight}px)`);
-    }, 100);
+    const final = `calc(100vh - ${maxHeight}px)`;
+
+    if (final !== this.maxHeight$.value) {
+      this.maxHeight$.next(final);
+    }
   }
 
   openFilterDialog(
@@ -485,7 +491,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       try {
         const update = get(rowData, key);
         field.control.setValue(update, {emitEvent: false});
-      } catch(e) {}
+      } catch (e) { }
 
       const ccKey = `${rowData.id}/${key}`;
 
@@ -617,14 +623,13 @@ export class TableComponent implements OnInit, AfterViewInit {
           true
         );
         const displayKey = column.populate.displayKey || 'name';
-        const popKey = `${parsedCollection}-${
-          [
+        const popKey = `${parsedCollection}-${[
             column.populate.lookUp?.key || '',
             column.populate.lookUp?.operator || '',
             id,
             displayKey
           ].join('-')
-        }`;
+          }`;
 
         const populateMethod = itId => this.singleService
           .get(parsedCollection, itId)
