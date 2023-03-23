@@ -1,3 +1,10 @@
+## [7.16.2](https://github.com/jaspero/jms/compare/v7.16.1...v7.16.2) (2023-03-23)
+
+
+### Bug Fixes
+
+* **cms:** adjusting table height on change ([1dc86dd](https://github.com/jaspero/jms/commit/1dc86dd601662edf378fb75892ca499f401f852c))
+
 ## [7.16.1](https://github.com/jaspero/jms/compare/v7.16.0...v7.16.1) (2023-03-07)
 
 
