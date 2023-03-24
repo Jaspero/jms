@@ -1,3 +1,10 @@
+## [7.16.3](https://github.com/jaspero/jms/compare/v7.16.2...v7.16.3) (2023-03-24)
+
+
+### Bug Fixes
+
+* **definitions:** missing NotEqual enum ([02c2342](https://github.com/jaspero/jms/commit/02c2342441ee621e7400dd6f8b314e407a0aedad))
+
 ## [7.16.2](https://github.com/jaspero/jms/compare/v7.16.1...v7.16.2) (2023-03-23)
 
 
