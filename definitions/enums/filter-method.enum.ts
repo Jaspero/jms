@@ -1,5 +1,6 @@
 export enum FilterMethod {
   Equal = '==',
+  NotEqual = '!=',
   GreaterThen = '>',
   GreaterThenOrEqual = '>=',
   LessThen = '<',
