@@ -22,7 +22,7 @@ import {
 import {Functions, httpsCallableData} from '@angular/fire/functions';
 import {FilterMethod, SHARED_CONFIG} from '@definitions';
 import {Parser} from '@jaspero/form-builder';
-import {from, Observable, of} from 'rxjs';
+import {from, Observable, of, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {WhereFilter} from '../../src/app/shared/interfaces/where-filter.interface';
 import {DbService} from '../../src/app/shared/services/db/db.service';
@@ -159,7 +159,15 @@ export class FbDatabaseService extends DbService {
         map(snap => ({
           ...snap.data(),
           id: documentId
-        } as any))
+        } as any)),
+        catchError(error => {
+
+          if (error.code === 'permission-denied') {
+            return throwError(() => new Error(`Firebase permission denied thrown while pulling module: ${moduleId} and document: ${documentId}`));
+          }
+
+          return throwError(() => error);
+        })
       );
 
   }
