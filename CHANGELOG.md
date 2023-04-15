@@ -1,3 +1,10 @@
+# [7.17.0](https://github.com/jaspero/jms/compare/v7.16.3...v7.17.0) (2023-04-15)
+
+
+### Features
+
+* **cms:** added custom error for firebase permission denied ([1609925](https://github.com/jaspero/jms/commit/1609925522f6e7c2a48a3d9c8133c393bdc6a92e))
+
 ## [7.16.3](https://github.com/jaspero/jms/compare/v7.16.2...v7.16.3) (2023-03-24)
 
 
