@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 import {ModuleOverviewView} from '@definitions';
 import {Parser} from '@jaspero/form-builder';
-import {BehaviorSubject, combineLatest, first, map, Observable, shareReplay, startWith, Subject, switchMap} from 'rxjs';
+import {BehaviorSubject, combineLatest, first, map, Observable, shareReplay, startWith, Subject, switchMap, tap} from 'rxjs';
 import {DEFAULT_PAGE_SIZE} from '../../../../../../shared/consts/page-sizes.const';
 import {StateService} from '../../../../../../shared/services/state/state.service';
 import {OverviewService} from '../../interfaces/overview-service.interface';
@@ -125,7 +125,12 @@ export class OverviewResolver implements Resolve<InstanceOverviewData> {
               .pipe(
                 startWith(this.ioc.pageSize.value)
               ),
-            this.ioc.filterChange$,
+            this.ioc.filterChange$
+              .pipe(
+                tap(() =>
+                  this.ioc.selection.clear()
+                )
+              ),
             this.ioc.searchControl
               .valueChanges
               .pipe(
