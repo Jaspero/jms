@@ -12,11 +12,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Use Node.js 17.1.0
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: 17.1.0
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

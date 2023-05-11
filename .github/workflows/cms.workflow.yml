@@ -18,16 +18,22 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2
       - name: Use Node.js 17.1.0
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: 17.1.0
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-          
       - name: Prepare definitions package
         run: |
-          npm --prefix definitions ci
+          npm --prefix definitions ci --ignore-scripts
           npm --prefix definitions run build
       - name: Install Dependencies
         run: |
-          npm --prefix client ci
+          npm --prefix client ci --ignore-scripts
       - name: Build
         run: npm run build:cms
       - name: Deploy to Firebase
