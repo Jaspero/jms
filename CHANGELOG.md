@@ -1,3 +1,17 @@
+# [7.18.0](https://github.com/jaspero/jms/compare/v7.17.0...v7.18.0) (2023-05-11)
+
+
+### Bug Fixes
+
+* **cms:** clearing selection on filter change ([52aef0b](https://github.com/jaspero/jms/commit/52aef0b909230d6286f728710c98d8ec795ecc49))
+* rules path shouldn't be defined in firebase.json ([d1f4957](https://github.com/jaspero/jms/commit/d1f4957e183b0a8364c1a86186897da83acc1c77))
+
+
+### Features
+
+* added cache step to workflows ([5e7cf14](https://github.com/jaspero/jms/commit/5e7cf14e18041b71f6bb05351076f0a09c9a254f))
+* updated to node v18 in workflows ([785518a](https://github.com/jaspero/jms/commit/785518a961da55fd7d5da33001645034762103a2))
+
 # [7.17.0](https://github.com/jaspero/jms/compare/v7.16.3...v7.17.0) (2023-04-15)
 
 
