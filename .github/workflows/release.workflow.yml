@@ -18,10 +18,10 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules
           key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci --ignore-scripts
       - name: Release
         env:

@@ -26,11 +26,13 @@ jobs:
         with:
           node-version: 18.16.0
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-           
+          path: |
+            .github/utils/node_modules
+            definitions/node_modules
+            functions/node_modules
+          key: npm-${{ hashFiles('functions/package-lock.json') }}-${{ hashFiles('definitions/package-lock.json') }}-${{ hashFiles('.github/utils/package-lock.json') }}
       - name: Install GitHub Utils Dependencies
         if: github.event_name != 'workflow_dispatch' && steps.cache.outputs.cache-hit != 'true'      
         run: |
