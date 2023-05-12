@@ -1,3 +1,10 @@
+# [7.19.0](https://github.com/jaspero/jms/compare/v7.18.1...v7.19.0) (2023-05-12)
+
+
+### Features
+
+* added timeout to each workflow ([87fab31](https://github.com/jaspero/jms/commit/87fab31adcad2dc15ecad1da2c1a7d43173ff550))
+
 ## [7.18.1](https://github.com/jaspero/jms/compare/v7.18.0...v7.18.1) (2023-05-11)
 
 
