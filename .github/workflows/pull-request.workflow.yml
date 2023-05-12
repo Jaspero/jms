@@ -7,6 +7,7 @@ on:
       - dev
 jobs:
   auto-pull-request:
+    timeout-minutes: 5
     name: PullRequestAction
     runs-on: ubuntu-latest
     env:

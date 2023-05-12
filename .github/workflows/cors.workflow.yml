@@ -15,6 +15,7 @@ env:
 
 jobs:
   deploy:
+    timeout-minutes: 5
     name: Deploy
     runs-on: ubuntu-latest
     steps:

@@ -10,6 +10,7 @@ on:
 
 jobs:
   deploy:
+    timeout-minutes: 5
     env: 
       project: 'jaspero-jms'
     name: Deploy
