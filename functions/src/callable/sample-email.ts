@@ -1,14 +1,14 @@
-import {SHARED_CONFIG} from 'definitions';
+import {Collections, SHARED_CONFIG} from 'definitions';
 import * as functions from 'firebase-functions';
 import {EmailService} from '../services/email/email.service';
-import {isAuthenticated} from '../utils/auth';
+import {hasPermission, isAuthenticated} from '../utils/auth';
 import {schemaValidation} from '../utils/schema-validation';
 
 export const sampleEmail = functions
   .region(SHARED_CONFIG.cloudRegion)
   .https
   .onCall(async (data: any, context) => {
-    isAuthenticated(context);
+    hasPermission(context, Collections.AutomaticEmails, 'list');
     schemaValidation(
       data,
       {
