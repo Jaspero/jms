@@ -1,7 +1,7 @@
 import {Collections, SHARED_CONFIG} from 'definitions';
 import * as functions from 'firebase-functions';
 import {EmailService} from '../services/email/email.service';
-import {hasPermission, isAuthenticated} from '../utils/auth';
+import {hasPermission} from '../utils/auth';
 import {schemaValidation} from '../utils/schema-validation';
 
 export const sampleEmail = functions
