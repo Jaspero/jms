@@ -8,7 +8,7 @@ export const sampleEmail = functions
   .region(SHARED_CONFIG.cloudRegion)
   .https
   .onCall(async (data: any, context) => {
-    hasPermission(context, Collections.AutomaticEmails, 'list');
+    await hasPermission(context, Collections.AutomaticEmails, 'list');
     schemaValidation(
       data,
       {
