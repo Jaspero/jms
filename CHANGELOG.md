@@ -1,3 +1,12 @@
+## [7.19.1](https://github.com/jaspero/jms/compare/v7.19.0...v7.19.1) (2023-06-19)
+
+
+### Bug Fixes
+
+* **function:** sample email requires automated email list permission ([0beb97a](https://github.com/jaspero/jms/commit/0beb97a6e0b5caef312e6e70af31c12391814a77))
+* **functions:** only admins can impersonate other users ([1d5ae8e](https://github.com/jaspero/jms/commit/1d5ae8e3b7b9af6f5e1eb193b712f2d10f6ffa71))
+* **functions:** sample email should require list permission ([e9ad945](https://github.com/jaspero/jms/commit/e9ad9457b991e5ae8cce124480b1504a1bb32ccd))
+
 # [7.19.0](https://github.com/jaspero/jms/compare/v7.18.1...v7.19.0) (2023-05-12)
 
 
