@@ -1,3 +1,10 @@
+## [7.19.2](https://github.com/jaspero/jms/compare/v7.19.1...v7.19.2) (2023-12-19)
+
+
+### Bug Fixes
+
+* **style:** change .fd-col-rev to .rev-fd-col ([45f400b](https://github.com/jaspero/jms/commit/45f400bec58df17b7d5bb88aea03ec9d059df801))
+
 ## [7.19.1](https://github.com/jaspero/jms/compare/v7.19.0...v7.19.1) (2023-06-19)
 
 
