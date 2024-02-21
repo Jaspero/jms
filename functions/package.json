@@ -20,7 +20,7 @@
   "dependencies": {
     "@google-cloud/storage": "5.8.3",
     "@jaspero/utils": "1.7.1",
-    "@sendgrid/mail": "7.7.0",
+    "@sendgrid/mail": "8.1.1",
     "adv-firestore-functions": "2.0.9",
     "ajv": "8.11.0",
     "busboy": "0.3.1",
