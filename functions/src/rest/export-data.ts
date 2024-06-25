@@ -167,10 +167,13 @@ app.post('/**', authenticated(), (req, res) => {
         };
 
       case Type.xls:
+        const data = XLSX.utils.json_to_sheet(docs, {header: appliedColumns.map(({label}) => label)});
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, data, "Sheet1");
+        const sheetBuffer = XLSX.write(wb, {bookType: "xlsx", type: "buffer"});
         return {
-          data: XLSX.utils.json_to_sheet(docs),
-          type:
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+          data: sheetBuffer,
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         };
 
       case Type.csv:
