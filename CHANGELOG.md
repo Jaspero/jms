@@ -1,3 +1,10 @@
+## [7.19.3](https://github.com/jaspero/jms/compare/v7.19.2...v7.19.3) (2024-06-25)
+
+
+### Bug Fixes
+
+* xls export ([75ebbd3](https://github.com/jaspero/jms/commit/75ebbd3741347ebcc06355a207b1a9ddfd24d114))
+
 ## [7.19.2](https://github.com/jaspero/jms/compare/v7.19.1...v7.19.2) (2023-12-19)
 
 
